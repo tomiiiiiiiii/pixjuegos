@@ -1,0 +1,367 @@
+Process jefe(tipo);
+Private
+	patron;
+	varsjefe[10];
+	vidajefe;
+	id_col;
+Begin
+	if(tipo_nivel==1) ctype=c_scroll; end	
+	file=fpg_jefes;
+	hayjefe=1;
+	Switch(tipo)
+		case 1:
+			graph=4;
+			x=527;
+			y=-300;
+			z=-10;
+			varsjefe[0]=170;
+			varsjefe[1]=330;
+			vidajefe=5*(ops.dificultad+1);
+		end
+		case 2:
+			graph=12;
+			x=320;
+			y=700;
+			z=-10;
+			varsjefe[0]=300;
+			varsjefe[1]=450;
+			vidajefe=5*(ops.dificultad+1);
+			pon_graph(fpg_jefes,11,320,280,5);
+		end
+	End
+	Loop
+		Switch(tipo)
+			case 1: /*patrón: 
+						0 aterriza
+						2 dispara
+						3 4 5 6 7 8 (salta, quieto)X3
+						9 tranquilo
+						10 baja
+						11 dispara
+						12 13 14 15 16 17 (salta, quieto)X3
+						18 tranquilo
+						19 sube
+						GOTO 2
+						
+						varsjefe[0]=posicion y arriba
+						varsjefe[1]=posicion y abajo
+						*/
+				if(id_col=collision(type boladenieve))
+					if(id_col.accion!=atrapado)
+						id_col.accion=muere;
+						vidajefe--;
+						sonido(9);
+					end
+				end
+				if(id_col=collision(type burbujarayo))
+					id_col.accion=muere;
+					vidajefe--;
+					sonido(9);
+				end
+				if(id_col=collision(type boladeenemigos))
+					id_col.accion=muere;
+					vidajefe--;
+					sonido(9);
+				end
+
+				if(vidajefe==0) patron=-1; end
+				switch(patron)
+					case -1:
+						accion=muere;
+						sonido(14);
+						if(y<800) 
+							grav++;
+							angle+=1000*grav;
+							y+=grav*20;
+						else
+							hayjefe=0;
+							break;
+						end
+					end
+					case 0:
+						if(y<varsjefe[0])
+							grav++;
+							y+=grav*2;
+							frame;
+						else
+							grav=0;
+							y=varsjefe[0];
+							patron=2;
+						end
+					end
+					case 2,11:
+						if(graph!=6 and graph!=7)
+							graph=6;
+							anim=0;
+						end
+						switch(anim)
+							case 25,50,75: graph=7; sonido(4); enemigo_jefe(1); end
+							case 30,55,80: graph=6; end
+						end
+						switch(ops.dificultad)
+							case 0,1:
+								if(anim<49) anim++; else patron++; anim=0; end
+							end
+							case 2:
+								if(anim<85) anim++; else patron++; anim=0; end
+							end
+						end
+					end
+					case 3,5,7:
+						graph=3;
+						if(y>varsjefe[0]-40)
+							y-=10;
+						else
+							y=varsjefe[0]-40;
+							patron++;
+						end
+					end
+					case 4,6,8:
+						graph=2;
+						if(y<varsjefe[0])
+							y+=10;
+						else
+							y=varsjefe[0];
+							patron++;
+						end
+					end
+					case 9,18:
+						if(anim<20 or (anim>40 and anim<60) or (anim>80 and anim<100)) graph=4; else graph=5; end
+						if(anim<100) anim++; else anim=0; patron++; end
+					end
+					case 10:
+						graph=4;
+						if(y<varsjefe[1])
+							grav++;
+							y+=grav*2;
+							frame;
+						else
+							grav=0;
+							y=varsjefe[1];
+							patron++;
+						end
+					end
+					case 12,14,16:
+						graph=3;
+						if(y>varsjefe[1]-40)
+							y-=10;
+						else
+							y=varsjefe[1]-40;
+							patron++;
+						end
+					end
+					case 13,15,17:
+						graph=2;
+						if(y<varsjefe[1])
+							y+=10;
+						else
+							y=varsjefe[1];
+							patron++;
+						end
+					end
+					case 19:
+						graph=3;
+						if(y>varsjefe[0])
+							grav++;
+							y-=grav*2;
+							frame;
+						else
+							grav=0;
+							y=varsjefe[0];
+							patron=2;
+						end
+					end
+				end
+			end //case
+			case 2: /*patrón: 
+						0 aparece
+						2 dispara
+						3 tranquilo
+						4 sube
+						5 dispara
+						6 tranquilo
+						7 baja
+						GOTO 2
+						
+						varsjefe[0]=posicion y arriba
+						varsjefe[1]=posicion y abajo
+						*/
+				if(id_col=collision(type boladenieve))
+					if(id_col.accion!=atrapado)
+						id_col.accion=muere;
+						vidajefe--;
+						sonido(9);
+					end
+				end
+				if(id_col=collision(type burbujarayo))
+					id_col.accion=muere;
+					vidajefe--;
+					sonido(9);
+				end
+				if(id_col=collision(type boladeenemigos))
+					id_col.accion=muere;
+					vidajefe--;
+					sonido(9);
+				end
+
+				if(vidajefe==0) patron=-1; end
+				switch(patron)
+					case -1:
+						accion=muere;
+						sonido(14);
+						if(y<800) 
+							grav++;
+							y+=grav*20;
+						else
+							hayjefe=0;
+							break;
+						end
+					end
+					case 0:
+						if(y>varsjefe[1])
+							grav++;
+							y-=grav*2;
+							frame;
+						else
+							grav=0;
+							y=varsjefe[1];
+							patron=2;
+						end
+					end
+					case 2,5:
+						sonido(4); 
+						switch(ops.dificultad)
+							case 0:
+								enemigo_jefe(2);
+							end
+							case 1:
+								enemigo_jefe(2);
+								enemigo_jefe(3);
+							end
+							case 2:
+								enemigo_jefe(2);
+								enemigo_jefe(3);
+								enemigo_jefe(2);
+								enemigo_jefe(3);
+							end
+						end
+						patron++;
+					end
+					case 3,6:
+						if(anim<100) anim++; else anim=0; patron++; end					
+					end
+					case 4:
+						if(y>varsjefe[0])
+							y-=2;
+						else
+							grav=0;
+							y=varsjefe[0];
+							patron++;
+						end
+					end
+					case 7:
+						if(y<varsjefe[1])
+							y+=2;
+						else
+							grav=0;
+							y=varsjefe[1];
+							patron=2;
+						end
+					end
+				end
+			end //case
+		End	
+		frame;
+	End
+End
+
+Process enemigo_jefe(tipo);
+Begin
+	if(tipo_nivel==1) ctype=c_scroll; end	
+	if(tipo==3) tipo=2; flags=1; end
+	switch(tipo)
+		case 1:
+			file=fpg_enemigos;
+			graph=50;
+			x=father.x;
+			y=father.y;
+			z=father.z+1;
+			anim=-23;
+			grav=-10;
+			ancho=graphic_info(file,graph,g_width);
+			alto=graphic_info(file,graph,g_height);
+		end
+		case 2:
+			file=fpg_enemigos;
+			graph=101;
+			x=father.x;
+			y=father.y;
+			z=father.z+1;
+			anim=-5;
+			grav=-15;
+			ancho=graphic_info(file,graph,g_width);
+			alto=graphic_info(file,graph,g_height);
+		end
+	end
+	loop
+		switch(tipo)
+			case 1:
+				grav++;
+				anim++;
+				incy=grav;
+				incx=anim*2;
+				//movimiento
+				if(incx<0)			
+					while(incx<0 and map_get_pixel(0,masknivel,x-(ancho/3)-1,y+(alto/2)-1)!=color_colision)
+						incx++;
+						x--;
+					end
+					incx=0;
+				end
+				if(incy!=0)			
+					while(incy>0 and (map_get_pixel(0,masknivel,x,y+(alto/2))!=color_colision and map_get_pixel(0,masknivel,x,y+(alto/2))!=color_pendiente))
+						incy--;
+						y++;
+					end
+					while(incy<0)
+						incy++;
+						y--;
+					end
+					incy=0;
+				end
+				if(collision(type disparo1) or collision(type disparo2) or collision(type disparo3) or (map_get_pixel(0,masknivel,x,y+(alto/2))==color_colision or map_get_pixel(0,masknivel,x,y+(alto/2))==color_pendiente)) enemigo(4,x,y-5); return; end
+			end
+			case 2:
+				grav++;
+				anim++;
+				incy=grav;
+				if(flags==0) incx=anim; else incx=-anim; end
+				//movimiento
+				if(incx!=0)			
+						while(incx>0 and map_get_pixel(0,masknivel,x+(ancho/3)+1,y+(alto/2)-1)!=color_colision)
+							incx--;
+							x++;
+						end
+						while(incx<0 and map_get_pixel(0,masknivel,x-(ancho/3)-1,y+(alto/2)-1)!=color_colision)
+							incx++;
+							x--;
+						end
+					incx=0;
+				end
+				if(incy!=0)			
+					while(incy>0 and (map_get_pixel(0,masknivel,x,y+(alto/2))!=color_colision and map_get_pixel(0,masknivel,x,y+(alto/2))!=color_pendiente))
+						incy--;
+						y++;
+					end
+					while(incy<0)
+						incy++;
+						y--;
+					end
+					incy=0;
+				end
+				if(collision(type disparo1) or collision(type disparo2) or collision(type disparo3) or (map_get_pixel(0,masknivel,x,y+(alto/2))==color_colision or map_get_pixel(0,masknivel,x,y+(alto/2))==color_pendiente)) enemigo(6,x,y-5); return; end
+			end
+		end
+		frame;
+	end
+End

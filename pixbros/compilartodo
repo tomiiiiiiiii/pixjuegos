@@ -1,0 +1,29 @@
+#!/bin/sh
+
+# Creamos los FPGs
+cd fpg-sources
+for j in $(ls | grep -v pxlfpg);
+do
+ echo FPG: $j
+ cd $j
+ linea="fenix-fpg -n ../../fpg/$j.fpg "
+ for i in *.png; 
+ do
+  linea=$linea`echo $i | sed -e "s/.png//"`:`echo $i`" "; 
+ done
+ $linea > /dev/null
+ cd ..
+done
+
+cd ..
+# FPGs creados
+
+# Compilamos el programa
+echo Compiling...
+cd src
+fenix-fxc -g pixbros.prg
+mv pixbros.dcb ../
+cd ..
+
+# Y ejecutamos
+fenix-fxi pixbros
