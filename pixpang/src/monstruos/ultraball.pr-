@@ -1,0 +1,77 @@
+Process ultraball();
+Private
+	lao;
+	grav;
+	grav_org;
+	ancho_bola;
+	altura_bola;
+	id_disp;
+//	parpadea=60;
+	toques=50;
+	x_inc;
+	id_song;
+Begin
+	parpadea=15;
+	jefe=1;
+	ready=0;
+	fpg_jefe=load_fpg("fpg/monstruos/ultraball.fpg");
+	readyando();
+	file=fpg_jefe;
+	x=400; y=-10; alpha=0; z=-10;
+	graph=701;
+	size=180-(toques*3);
+	contaor=toques-20;
+	from y=-10 to 40; alpha+=10; frame; end
+	grav_org=120;
+	ancho_bola=graphic_info(0,graph,g_wide);
+	altura_bola=graphic_info(0,graph,g_height);
+	vidajefefuera=0;
+	vidajefe();
+	While(toques>20)
+		If(ops.op_sombras==1 AND grav_org>0) sombra(graph,x,y,flags,1); End
+		While(ready==0) 
+			Frame;
+		End
+		flags=0;
+		if(toques!=0) x_inc=3-toques/10; end
+		If(lao==0) x+=3+x_inc; End
+		If(lao==1) x-=3+x_inc; End
+		If(x=>800-18-(ancho_bola/2)) lao=1; End
+		If(x=<(((ancho_bola)/2))+18) lao=0; End
+		If(y>(500-(altura_bola/2))) grav=grav_org; toques+=2; End
+		grav-=5;
+		y-=3+(grav/20);
+		if(parpadea==15)
+			If(collision(Type muneco1)) p1_muere=1; End
+			If(collision(Type muneco2)) p2_muere=1; End
+		end
+		if(x<20) x=20; end
+		if(x>780) x=780; end
+		if(y<20) y=20; grav=-200; end
+		angle+=3000;
+		size=180-(toques*3);
+		grav_org=200-toques*2;
+		
+		ancho_bola=(graphic_info(file,graph,g_wide)*size)/100;
+		altura_bola=(graphic_info(file,graph,g_height)*size)/100;
+		contaor=toques-20;
+		if(parpadea<15) parpadea++; flags=4; else flags=0; end
+		if(contaor>30) contaor=30; toques=contaor+20; end
+		Frame(velocidad/5+toques*3);
+		if(parpadea==15)
+			if(collision(type dispcab) or collision(type cachodisp)) toques--; parpadea=0; grav+=200-toques*2;signal(p1_disparos[1],s_kill); end
+			if(collision(type dispcab2) or collision(type cachodisp2)) toques--; parpadea=0; grav+=200-toques*2;signal(p1_disparos[2],s_kill); end
+			if(collision(type dispcab3) or collision(type cachodisp3)) toques--; parpadea=0; grav+=200-toques*2;signal(p2_disparos[1],s_kill); end
+			if(collision(type dispcab4) or collision(type cachodisp4)) toques--; parpadea=0; grav+=200-toques*2;signal(p2_disparos[2],s_kill); end
+		end
+	eND
+	
+	file=0;
+	from toques=0 to 5; 
+		From graph=706 To 710; size+=30; angle+=15000; Frame(400); End 
+		frame;
+	end
+	suena(2);
+	contaor=0;
+	jefe=0;
+End

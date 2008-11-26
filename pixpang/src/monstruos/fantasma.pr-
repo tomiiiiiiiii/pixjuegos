@@ -1,0 +1,155 @@
+// Un fantasma creado por Carles
+
+Process fantasma();
+Private
+	lao;
+	temporizador=-40;
+	bolasmax=32;
+	id_sombra;
+	id_disp;
+	id_fondo;
+Begin
+	contaor=5;
+	vidajefefuera=0;
+	ready=0;
+	x=400;
+	y=20;
+	fpg_jefe=load_fpg("fpg/monstruos/fantasma.fpg");
+	id_fondo=pon_fondo(load_png("fondos/monstruos/fantasma.png"));
+	file=fpg_jefe;
+	vidajefe();
+	graph=1;
+	flags=1;
+	size=0;
+	from alpha=0 to 100 step 1; y++; size++; frame; end
+	id_sombra=fantasma_opaco();
+	readyando();
+	while(ready==0) frame; end
+	while(contaor>0)
+		velocidad=400;
+		while(ready==0 or reloj==1) frame; end
+		if(lao==0) x+=2; flags=1; else x-=2; flags=0; end
+		if(x>700) lao=1; end
+		if(x<100) lao=0; end
+		if(temporizador<41) temporizador++; end
+		if(bolasmax>0 and temporizador>30 and bolas<12) bolasmax--; temporizador=0; fantasma_bola(rand(1,16)); end
+		if(bolasmax==0)
+			if(collision(type dispcab) or collision(type cachodisp)) contaor--; signal(p1_disparos[1],s_kill); frame(400); end
+			if(collision(type dispcab2) or collision(type cachodisp2)) contaor--; signal(p1_disparos[2],s_kill); frame(400); end
+			if(collision(type dispcab3) or collision(type cachodisp3)) contaor--; signal(p2_disparos[1],s_kill); frame(400); end
+			if(collision(type dispcab4) or collision(type cachodisp4)) contaor--; signal(p2_disparos[2],s_kill); frame(400); end
+		end
+		frame;
+	end
+	matabolas=1;
+	signal(id_sombra,s_kill);
+	from size=100 to 0 step -5; angle+=5000; frame; end
+	matabolas=0;
+	jefe=0;
+	vidajefefuera=1;
+	signal(id_fondo,s_kill);
+	if(modo_juego==1) fondos_panic(); end
+	if(modo_juego==2) fondos_tour(); end
+End
+
+Process fantasma_bola(tamano);
+Private
+	id_clipbola;
+	radio;
+	temporizador;
+	id_disp;
+	rompida;
+	lao;
+	id_sombra;
+Begin
+	z=-1;
+	lao=rand(0,1);
+	angle=rand(0,360)*1000;
+	if(tamano<6) tamano=1; end
+	if(tamano>6 and tamano<10) tamano=6; end
+	if(tamano>10 and tamano<13) tamano=10; end
+	if(tamano>13 and tamano<17) tamano=13; end
+	bolas++;
+	If(tamano==1) graph=701; End
+	If(tamano==6) graph=711; End
+	If(tamano==10) graph=801; size=33; End
+	If(tamano==13) graph=717; End
+	alpha=130;
+	id_sombra=fantasma_bola_sombra();
+	while(temporizador<400)
+		while(ready==0) frame; end
+		if(collision(type dispcab) or collision(type cachodisp)) rompida=1; signal(p1_disparos[1],s_kill); end
+		if(collision(type dispcab2) or collision(type cachodisp2)) rompida=1; signal(p1_disparos[2],s_kill); end
+		if(collision(type dispcab3) or collision(type cachodisp3)) rompida=1; signal(p2_disparos[1],s_kill); end
+		if(collision(type dispcab4) or collision(type cachodisp4)) rompida=1; signal(p2_disparos[2],s_kill); end
+		if(matabolas or rompida) break; end
+		if(reloj==0) 
+			if(radio<240) radio++; end
+			if(lao==0) angle+=1000; else angle-=1000; end
+			temporizador++; 
+		end
+		if(!exists(father)) bolas--; return; end
+		x=father.x+get_distx(angle,radio/2);
+		y=father.y+get_disty(angle,radio/2);
+		frame;
+	end
+	
+	bolas--;
+	if(rompida==0) bola(x,y,tamano,lao); else suena(2); end
+	signal(id_sombra,s_kill);
+End
+
+Process fantasma_bola_sombra();
+Private
+	fuego_anim;
+Begin
+	z=father.z+1;
+	file=fpg_jefe;
+	graph=2;
+	alpha=128;
+	size=130;
+	loop
+		if(fuego_anim<40) fuego_anim++; else fuego_anim=0; end
+		if(fuego_anim<10) graph=2; end
+		if(fuego_anim>10 and fuego_anim=<20) graph=3; end
+		if(fuego_anim>20 and fuego_anim=<30) graph=4; end
+		if(fuego_anim>30 and fuego_anim=<40) graph=3; end
+		if(exists(father))
+			x=father.x;
+			y=father.y;
+		else
+			return;
+		end
+		frame;
+	end
+End
+
+Process fantasma_opaco();
+Begin
+	z=father.z+1;
+	file=fpg_jefe;
+	graph=5;
+	loop
+		from alpha=0 to 200;
+			if(exists(father))
+				x=father.x;
+				y=father.y;
+				flags=father.flags;
+			else
+				return;
+			end
+			frame;
+		end
+		from alpha=200 to 0;
+			if(exists(father))
+				x=father.x;
+				y=father.y;
+				flags=father.flags;
+			else
+				return;
+			end
+			frame;
+		end
+		frame(12000);
+	end
+End
