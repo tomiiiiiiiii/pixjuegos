@@ -24,4 +24,3 @@ mod_effects
 mod_blendop
 mod_rand
 mod_grproc
-mod_debug
