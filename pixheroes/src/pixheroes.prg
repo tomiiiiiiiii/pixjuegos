@@ -178,6 +178,7 @@ Begin
 	ancho_queco=graphic_info(file,graph,g_wide);
 	alto_queco=graphic_info(file,graph,g_height);
 	Loop
+		if(key(_esc)) exit(); end
 		while(ready==0) frame; end
 		if(key(_space) and collision(id_pasivo) and saltando==0 and cambiar==1) 
 			while(key(_space)) frame; end 
@@ -389,6 +390,7 @@ Begin
 	ancho_queco=graphic_info(file,graph,g_wide);
 	alto_queco=graphic_info(file,graph,g_height);
 	Loop
+		if(key(_esc)) exit(); end
 		while(ready==0) frame; end
 		if(key(_space) and collision(id_pasivo) and saltando==0 and rodando==0 and cambiar==1) 
 			while(key(_space)) frame; end 
