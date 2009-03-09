@@ -1,0 +1,41 @@
+// parte del enemigo koopa
+if(tipo==5 or tipo==8 or tipo==11)
+	if(collision(type enemigo)) 
+		if(direccion==1) direccion=0; x--; else direccion=1; x++; end
+	end
+	toca_down_left=map_get_pixel(0,mapa_durezas,x-ancho_queco/2,y+alto_queco);
+	toca_down_right=map_get_pixel(0,mapa_durezas,x+ancho_queco/2,y+alto_queco);
+	if(toca_down_right!=suelo and direccion==1) direccion=0; end
+	if(toca_down_left!=suelo and direccion==0) direccion=1; end
+	if(direccion==1) x++; else x--; end
+	if(direccion==0) flags=0; else flags=1; end
+	if(saltando==0 and rodando==0 and (collision(id_jugador))) id_jugador.item=-1; end
+	if((saltando!=0 or rodando==1) and collision(id_jugador)) item=-1; end
+	if(item==-1 or item==-2) break; end
+end
+// parte del enemigo koopa, cuando solo queda la concha
+if(tipo==6 or tipo==9 or tipo==12)
+	if(id_col=collision(type enemigo)) 
+		id_col.item=-2;
+	end
+	toca_down_left=map_get_pixel(0,mapa_durezas,x-ancho_queco/2,y+alto_queco);
+	toca_down_right=map_get_pixel(0,mapa_durezas,x+ancho_queco/2,y+alto_queco);
+	if(toca_down_right!=suelo and direccion==1) direccion=0; end
+	if(toca_down_left!=suelo and direccion==0) direccion=1; end
+	if(direccion==1) x+=3; else x-=3; end
+//	if(direccion==1) x+=inercia/20; else x-=inercia/20; end
+	if(direccion==0) flags=0; else flags=1; end
+	if((collision(id_jugador) and saltando==0 and rodando==0)) id_jugador.item=-1; end
+	if(collision(id_jugador) and (saltando!=0 or rodando==1) and invencibilidad==180)
+		if(key(_control)) id_jugador.grav=-120; else id_jugador.grav=-80; end
+		combo++;
+		enem_puntos=enem_puntos*(combo*2);
+		enem_da_puntos(enem_puntos);
+		puntos+=enem_puntos;
+		otro_sonido(16);
+		frame(1000);
+		enemigo(x,y,tipo); 
+		return;
+	end
+	if(item==-1 or item==-2) break; end
+end

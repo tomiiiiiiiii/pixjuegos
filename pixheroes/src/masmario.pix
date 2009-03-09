@@ -1,0 +1,78 @@
+// parte del código dentro del proceso jugador1 y jugador2
+
+		if(item!=0)
+			//has sido atacado
+			if(item==-1)
+				if(estado==0)
+					estado=-1;
+				end
+				if(estado==1)
+					sonido(10);
+					item=0;
+					ready=0;
+					invencibilidad=0;
+					graph=20; frame(1000); graph=7; frame(1000);
+					graph=20; frame(1000); graph=7; frame(1000);
+					graph=20; frame(1000); graph=7; frame(1000);
+					graph=20; frame(1000); graph=7; frame(1000);
+					graph=20; frame(1000); graph=7; frame(1000);
+					ready=1;
+					estado=0;
+				end
+				if(estado==2)
+					sonido(10);
+					item=0;
+					ready=0;
+					invencibilidad=0;
+					graph=36; frame(1000); graph=7; frame(1000);
+					graph=36; frame(1000); graph=7; frame(1000);
+					graph=36; frame(1000); graph=7; frame(1000);
+					graph=36; frame(1000); graph=7; frame(1000);
+					graph=36; frame(1000); graph=7; frame(1000);
+					ready=1;
+					estado=0;
+				end
+			end
+
+			//seta
+			if(item==1)
+				if(estado==0)
+					sonido(11);
+					item=0;
+					graph=7; frame(1000); graph=20;	frame(1000);
+					graph=7; frame(1000); graph=20;	frame(1000);
+					graph=7; frame(1000); graph=20;	frame(1000);
+					graph=7; frame(1000); graph=20;	frame(1000);
+					graph=7; frame(1000); graph=20;	frame(1000);
+					estado=1;
+				else
+					item=0;
+				end
+			end
+			//flor
+			if(item==2)
+				if(estado==1)
+					sonido(11);
+					item=0;
+					graph=20; frame(1000); graph=36; frame(1000);
+					graph=20; frame(1000); graph=36; frame(1000);
+					graph=20; frame(1000); graph=36; frame(1000);
+					graph=20; frame(1000); graph=36; frame(1000);
+					graph=20; frame(1000); graph=36; frame(1000);
+					estado=2;
+				end
+				if(estado==0)
+					sonido(11);
+					item=0;
+					graph=7; frame(1000); graph=20;	frame(1000);
+					graph=7; frame(1000); graph=20;	frame(1000);
+					graph=7; frame(1000); graph=20;	frame(1000);
+					graph=7; frame(1000); graph=20;	frame(1000);
+					graph=7; frame(1000); graph=20;	frame(1000);
+					estado=1;
+				end
+				if(estado==2)
+					item=0;
+				end
+			end
+		end

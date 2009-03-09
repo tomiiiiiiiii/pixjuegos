@@ -1,0 +1,29 @@
+// parte del código dentro del proceso jugador1 y jugador2
+
+		if(item!=0)
+			//has sido atacado
+			if(item==-1)
+				if(estado==0)
+					if(anillos==0)
+						estado=-1;
+					else
+						pierde_anillos();
+					end
+				end
+				if(estado==1)
+					if(anillos==0)
+						estado=-1;
+					else
+						pierde_anillos();
+					end
+				end
+				if(estado==2)
+					if(anillos==0)
+						estado=-1;
+					else
+						pierde_anillos();
+					end
+				end
+			end
+
+		end

@@ -1,0 +1,38 @@
+// guion de pruebas
+
+Process jugar();
+Begin
+	estado=1;
+	stop_scroll(0);
+	let_me_alone();
+	delete_text(all_text);
+	frame;
+	transicion();
+	ready=0;
+	while(ready==0) frame; end
+	if(bonus==1) 
+		if(mundo==1)
+			bonus1(); 
+		end
+		if(mundo==2)
+			bonus2(); 
+		end
+		if(mundo==3)
+			bonus=0; mundo=4; jugar(); return; //no bonus xD
+		end
+	else
+		if(mundo==1) 
+			pantalla1();
+		end
+		if(mundo==2) 
+			pantalla2();
+		end
+		if(mundo==3) 
+			pantalla3();
+		end
+		if(mundo==4) 
+			pantalla4();
+		end
+	end
+	marcadores();
+End

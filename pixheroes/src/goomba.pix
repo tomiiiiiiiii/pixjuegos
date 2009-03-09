@@ -1,0 +1,15 @@
+// parte del enemigo goomba
+if(tipo==1 or tipo==2 or tipo==3)
+	if(collision(type enemigo)) 
+		if(direccion==1) direccion=0; else direccion=1; end
+	end
+	toca_down_left=map_get_pixel(0,mapa_durezas,x-ancho_queco/2,y+alto_queco);
+	toca_down_right=map_get_pixel(0,mapa_durezas,x+ancho_queco/2,y+alto_queco);
+	if(toca_down_right!=suelo and direccion==1) direccion=0; end
+	if(toca_down_left!=suelo and direccion==0) direccion=1; end
+	if(direccion==1) x++; else x--; end
+	if(anim<29) flags=0; else flags=1; end
+	if(collision(id_jugador) and saltando==0 and rodando==0) id_jugador.item=-1; end
+	if(collision(id_jugador) and (saltando!=0 or rodando==1)) break; end
+	if(item==-1 or item==-2) break; end
+end

@@ -1,0 +1,105 @@
+Process team_blast();
+Begin
+	ready=0;
+	oscuridad_blast();
+	pause_song();
+	sonido(22);
+	while(grav<30) grav++; frame; end
+	grav=0;
+	while(grav<200)
+		tblast_queco();
+		tblast_queco();
+		tblast_queco();
+		tblast_queco();
+		tblast_queco();
+		tblast_queco();
+		tblast_queco();
+		tblast_queco();
+		tiempo_bala();
+		tiempo_bala();
+		if(inercia>8) sonido(rand(17,21)); inercia=0; else inercia++; end
+		if(anim>12) parpadeo(); anim=0; else anim++; end
+		grav++;
+		frame;
+		tblast_queco();
+		tblast_queco();
+		tblast_queco();
+		tblast_queco();
+		tblast_queco();
+		tblast_queco();
+		tblast_queco();
+		tblast_queco();
+		tiempo_bala();
+		tiempo_bala();
+		if(anim>12) parpadeo(); anim=0; else anim++; end
+		grav++;
+		frame;
+	end
+	sonido(23);
+	resume_song();
+	ready=1;
+	frame;
+End
+
+Process tblast_queco();
+Begin
+	z=-5;
+	x=rand(30,310);
+	y=rand(30,190);
+	file=fpgs[rand(0,1)];
+	if(file==fpgs[0])
+		graph=rand(14,16);
+	end
+	if(file==fpgs[1])
+		graph=rand(1,16);
+	end
+	angle=rand(0,360)*1000;
+	flags=rand(0,1);
+	alpha=200;
+	frame;
+	ctype=c_scroll;
+	x=id_jugador.x+rand(-130,130);
+	y=id_jugador.y+rand(-130,130);
+	if(inercia=collision(type enemigo)) inercia.item=-1; end
+	frame;
+End
+
+Process parpadeo();
+Begin
+	graph=blanco;
+	alpha=200;
+	x=160; y=120;
+	z=-256;
+	sonido(2);
+	frame;
+End
+
+Process oscuridad();
+Begin
+	graph=negro;
+	x=160; y=120;
+	z=-1;
+	from alpha=0 to 255 step 10; frame; end
+	loop
+		if(exists(father))
+			if(father.grav>199) break; end
+		end
+		frame;
+	end
+	from alpha=255 to 0 step -10; frame; end	
+End
+
+Process oscuridad_blast();
+Begin
+	graph=negro;
+	x=160; y=120;
+	z=-1;
+	from alpha=0 to 205 step 10; frame; end
+	loop
+		if(exists(father))
+			if(father.grav>199) break; end
+		end
+		frame;
+	end
+	from alpha=205 to 0 step -10; frame; end	
+End

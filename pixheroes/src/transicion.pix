@@ -1,0 +1,25 @@
+Process transicion();
+Begin
+	graph=foto;
+	x=160;
+	y=120;
+	z=-512;
+	grav=rand(0,2);
+	frame;
+	if(grav==0)
+		from size_y=100 to 10 step -5; tiempo_bala(); alpha-=2; frame; end
+		from size_x=100 to 0 step -5; tiempo_bala(); alpha-=2; frame; end
+	end
+	if(grav==1)
+		from size_x=100 to 10 step -5; tiempo_bala(); alpha-=2; frame; end
+		from size_y=100 to 0 step -5; tiempo_bala(); alpha-=2; frame; end
+	end
+	if(grav==2)
+		x=320;
+		y=240;
+		set_center(0,foto,320,240);
+		from angle=0 to 90000 step 500; inercia+=200; angle+=inercia; alpha-=2; frame; end
+	end
+	ready=1;
+	unload_map(0,graph);
+End

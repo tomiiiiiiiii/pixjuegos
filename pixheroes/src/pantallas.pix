@@ -1,0 +1,522 @@
+Process carga_pantalla(fixe,mapa);
+PRIVATE
+	ancho_mapa;
+	alto_mapa;
+	pos_x;
+	pos_y;
+	tile;
+	pers_x;
+	pers_y;
+BEGIN
+	set_mode(320,240,16); 
+	x=0; y=0; ready=0;
+//	oscuridad();
+	ancho_mapa=GRAPHIC_INFO(fixe,mapa,G_WIDE);
+	alto_mapa=GRAPHIC_INFO(fixe,mapa,G_HEIGHT);
+	suelo=map_get_pixel(fixe,mapa,0,alto_mapa-3);
+	tiles[0]=map_get_pixel(fixe,mapa,1,alto_mapa-3);
+	tiles[1]=map_get_pixel(fixe,mapa,2,alto_mapa-3);
+	tiles[2]=map_get_pixel(fixe,mapa,3,alto_mapa-3);
+	tiles[3]=map_get_pixel(fixe,mapa,4,alto_mapa-3);
+	//seta
+	tiles[4]=map_get_pixel(fixe,mapa,5,alto_mapa-3);
+	tiles[5]=map_get_pixel(fixe,mapa,6,alto_mapa-3);
+	tiles[6]=map_get_pixel(fixe,mapa,7,alto_mapa-3);
+	tiles[7]=map_get_pixel(fixe,mapa,8,alto_mapa-3);
+	tiles[8]=map_get_pixel(fixe,mapa,9,alto_mapa-3);
+	//setafin
+	tiles[9]=map_get_pixel(fixe,mapa,10,alto_mapa-3);
+	tiles[10]=map_get_pixel(fixe,mapa,11,alto_mapa-3);
+	tiles[11]=map_get_pixel(fixe,mapa,12,alto_mapa-3);
+	tiles[12]=map_get_pixel(fixe,mapa,13,alto_mapa-3);
+	enemigos[0]=map_get_pixel(fixe,mapa,0,alto_mapa-2);
+        enemigos[1]=map_get_pixel(fixe,mapa,1,alto_mapa-2);
+	adornos[0]=map_get_pixel(fixe,mapa,0,alto_mapa-1);
+	adornos[1]=map_get_pixel(fixe,mapa,1,alto_mapa-1);
+	adornos[2]=map_get_pixel(fixe,mapa,2,alto_mapa-1);
+	adornos[3]=map_get_pixel(fixe,mapa,3,alto_mapa-1);
+	alto_pantalla=(alto_mapa-3)*16;
+	ancho_pantalla=ancho_mapa*16;
+	mapa_scroll=new_map(ancho_mapa*16,(alto_mapa-3)*16,8);
+	set_fps(0,99);
+	repeat
+		pos_x=x*16;
+		pos_y=y*16;
+		tile=map_get_pixel(fixe,mapa,x,y);
+		if(tile==suelo) MAP_PUT(fpgs[4],mapa_scroll,1,pos_x+8,pos_y+8); end
+		if(tile==tiles[0]) bloque_para_sonic(pos_x+8,pos_y+8); end
+		if(tile==tiles[1]) bloque_para_mario(pos_x+8,pos_y+8); end
+		if(tile==tiles[2]) anillo(pos_x+8,pos_y+8); end
+		if(tile==tiles[3]) rompible(pos_x+8,pos_y+8,1); end
+		if(tile==tiles[4]) MAP_PUT(fpgs[4],mapa_scroll,21,pos_x+8,pos_y+8); end
+		if(tile==tiles[5]) MAP_PUT(fpgs[4],mapa_scroll,22,pos_x+8,pos_y+8); end
+		if(tile==tiles[6]) MAP_PUT(fpgs[4],mapa_scroll,23,pos_x+8,pos_y+8); end
+		if(tile==tiles[7]) MAP_PUT(fpgs[4],mapa_scroll,24,pos_x+8,pos_y+8); end
+		if(tile==tiles[8]) MAP_PUT(fpgs[4],mapa_scroll,25,pos_x+8,pos_y+8); end
+		if(tile==tiles[9]) muelle(pos_x+8,pos_y+4); end
+		if(tile==tiles[10]) pers_x=pos_x; pers_y=pos_y; end
+		if(tile==tiles[11]) MAP_PUT(fpgs[4],mapa_scroll,502,pos_x+8,pos_y+8); end
+		if(tile==tiles[12]) rompible(pos_x+8,pos_y+8,2); end
+		if(tile==enemigos[0]) enemigo(pos_x+8,pos_y+8,1); end
+                if(tile==enemigos[1]) enemigo(pos_x+8,pos_y+8,5); end
+		if(tile==adornos[0]) MAP_PUT(fpgs[4],mapa_scroll,4,pos_x+8,pos_y+8); end
+		if(tile==adornos[1]) MAP_PUT(fpgs[4],mapa_scroll,5,pos_x+8,pos_y+8); end
+		if(tile==adornos[2]) nube(pos_x+8,pos_y+8); end
+		if(tile==adornos[3]) MAP_PUT(fpgs[4],mapa_scroll,3,pos_x+8,pos_y+8); end
+		if(x<ancho_mapa)
+			x++;
+		else
+			y++; x=0;
+		end
+		//frame(5);
+	until(y=>alto_mapa-3)
+	x=0; y=0;
+	mapa_durezas=new_map(ancho_mapa*16,(alto_mapa-3)*16,8);
+	repeat
+		pos_x=x*16;
+		pos_y=y*16;
+		tile=map_get_pixel(fixe,mapa,x,y);
+		if(tile==suelo or tile==tiles[3] or tile==tiles[4] or tile==tiles[5] or tile==tiles[6] or tile==tiles[7] or tile==tiles[8] or tile==tiles[9] or tile==tiles[11] or tile==tiles[12]) tile=1; else tile=0; end
+		tile=tile+500;
+		if(tile==500) tile=0; end
+		if(tile!=0) MAP_PUT(fpgs[4],mapa_durezas,tile,pos_x+8,pos_y+8); end
+		if(x<ancho_mapa)
+			x++;
+		else
+			y++; x=0;
+		end
+		//frame(5);
+	until(y=>alto_mapa-3)
+	set_fps(60,3);
+
+	if(mundo==1) start_scroll(0,0,mapa_scroll,load_png("fondo.png"),0,4); end
+	if(mundo==2) start_scroll(0,0,mapa_scroll,load_png("fondo2.png"),0,4); end
+	if(mundo==3) start_scroll(0,0,mapa_scroll,load_png("fondo3.png"),0,4); end
+	if(mundo==4) start_scroll(0,0,mapa_scroll,load_png("fondo.png"),0,4); end
+
+	scroll.camera=id;
+	if(personaje==0) id_jugador=mario(pers_x,pers_y); end
+	if(personaje==1) id_jugador=sonic(pers_x,pers_y); end
+	jugador_pasivo();
+	if(filtro) set_mode(320,240,16,mode_2xscale); else set_mode(320,240,16); end
+	if(hires) set_mode(640,480,16); end
+//	full_screen=false;
+//	frame(2000);
+	ready=1;
+	grav=000;
+	frame;
+//	grav=0;
+	loop
+		if(ready==1) grav++; end
+		tiempo=grav/60;
+		if(exists(id_jugador) and estado!=-1) x=id_jugador.x; y=id_jugador.y; end
+		if(saltando==0 and rodando==0) combo=0; end
+		if(key(_h)) ayuda=0; end
+		frame;
+	end
+END
+
+Process toad(x,y);
+Begin
+	file=fpgs[5];
+	graph=32;
+	ctype=c_scroll;
+	loop
+		if(exists(id_jugador))
+			if(collision(id_jugador)) break; end
+		end
+		frame;
+	end
+	ready=0;
+	alpha=128;
+	stop_song();
+	graph=9; frame(2000);
+	graph=32; frame(2000);
+	graph=9; frame(2000);
+	graph=32; frame(2000);
+	graph=9; frame(2000);
+	graph=32; frame(15000);
+	graph=9; frame(2000);
+	alpha=255;
+	from grav=0 to 60; frame; end
+	ventana_info(0,"   Toad dice:","¡Oh oh! Lo siento pero la princesa no está aquí.","JÓDETE");
+	frame;
+	while(ready==0) frame; end
+	foto=get_screen();
+	oscuridad();
+	from inercia=0 to 60; frame; end
+	ctype=c_screen;
+	graph=0;
+	id_jugador=id;
+	frame;
+	let_me_alone();
+	stop_scroll(0);
+	delete_text(all_text);
+	frame;
+	ventana_info(0,"   Toad dice:","  JODETE JODETE JODETE JODETE JODETE","  JODETE JODETE JODETE JODETE JODETE");
+	frame;
+	ready=0;
+	while(ready==0) frame; end
+	from inercia=0 to 60; frame; end
+	bonus=1;
+	jugar();
+End
+
+Process muelle(x,y);
+Begin
+	ctype=c_scroll;
+	z=1;
+	file=fpgs[5];
+	graph=4;
+	loop
+		if(exists(id_jugador)) 
+			if(collision(id_jugador) and id_jugador.y<y and saltando!=0) graph=5; frame(500); if(key(_control)) id_jugador.grav=-250; saltando=1; id_jugador.y-=4; else id_jugador.grav=-100; saltando=1; id_jugador.y-=4; end graph=6; sonido(8); frame(1000); graph=4; end
+			while(id_jugador.x<x-320 or id_jugador.x>x+320) frame(2000); end 
+		end
+		frame;
+	end
+End
+
+Process bloque_para_sonic(x,y);
+Begin
+	ctype=c_scroll;
+	z=1;
+	graph=load_png("bsonic.png");
+	loop
+		from alpha=150 to 255 step 3; frame; end
+		from alpha=255 to 150 step -3; frame; end
+		if(exists(id_jugador)) while(id_jugador.x<x-320 or id_jugador.x>x+320) frame(2000); end end
+		frame;
+	end
+End
+
+Process bloque_para_mario(x,y);
+Begin
+	ctype=c_scroll;
+	z=1;
+	graph=load_png("bmario.png");
+	loop
+		from alpha=150 to 255 step 3; frame; end
+		from alpha=255 to 150 step -3; frame; end
+		if(exists(id_jugador)) while(id_jugador.x<x-320 or id_jugador.x>x+320) frame(2000); end end
+		frame;
+	end
+End
+
+Process ventana_info(la_x,string txt1, string txt2, string txt3);
+Private
+	id_txt1;
+	id_txt2;
+	id_txt3;
+Begin
+	graph=load_png("ventana.png");
+	x=160; y=40;
+	size=0;
+	while(!exists(id_jugador)) frame; end
+	while(id_jugador.x<la_x)
+		if(ayuda==0) return; end
+		frame;
+	end
+	otro_sonido(9);
+	id_jugador.inercia=0;
+	ready=0;
+	delete_text(all_text);
+	size_y=10;
+	from size_x=0 to 100 step 5; frame; end
+	from size_y=10 to 100 step 5; frame; end
+	id_txt1=write(0,15,10,0,txt1);
+	id_txt2=write(0,15,35,0,txt2);
+	id_txt3=write(0,15,60,0,txt3);
+	while(scan_code!=0) frame; end
+	while(scan_code==0) frame; end
+	delete_text(id_txt1);
+	delete_text(id_txt2);
+	delete_text(id_txt3);
+	grav=300;
+	from alpha=250 to 0 step -25; grav++; size=grav/3; frame; end
+	ready=1;
+	marcadores();
+	otro_sonido(9);
+End
+
+Process nube(x,y);
+Begin
+	file=fpgs[4];
+	graph=2;
+	flags=rand(0,1);
+	inercia=rand(1,5);
+	z=512;
+	alpha=200;
+	ctype=c_scroll;
+	loop
+	  from size_x=100 to size_x=130 step 2;
+		if(x<0) x=ancho_pantalla; end
+		if(x>ancho_pantalla) x=0; end
+		if(flags==1) x++; else x--; end
+		if(size_y==100) grav=0; end
+		if(size_y==80) grav=1; end
+		if(size_y>80 and grav==0) size_y--; end
+		if(size_y<100 and grav==1) size_y++; end
+		frame(5000/inercia);
+          end
+	end
+End
+
+Process rompible(x,y,sort);
+Private
+	hijos[2];
+Begin
+	inercia=sort;
+	file=fpgs[4];
+	if(sort==1) graph=8; else graph=101; end
+	ctype=c_scroll;
+	hijos[0]=sub_romp(0);
+	hijos[1]=sub_romp(1);
+	hijos[2]=sub_romp(2);
+	loop
+		if(!exists(hijos[0]) or !exists(hijos[1]) or !exists(hijos[2])) break; end
+		if(exists(id_jugador)) while(id_jugador.x<x-320 or id_jugador.x>x+320) frame(2000); end end
+		frame;
+	end
+	from grav=0 to 4; bloque_rompido(x,y); end
+	frame;
+	sonido(13);
+	MAP_PUT(fpgs[4],mapa_durezas,503,x,y);
+End
+
+Process sub_romp(tipe);
+Begin
+	file=father.file;
+	graph=father.graph;
+	x=father.x; y=father.y; alpha=0;
+	ctype=c_scroll;
+	if(tipe==0) y=father.y+16; size_x=50; end //mario por abajo
+	if(tipe==1) x=father.x-8; end //sonic: spin dash por izquierda
+	if(tipe==2) x=father.x+8; end //sonic: spin dash por derecha
+	loop
+		while(!exists(id_jugador)) frame; end
+		while(id_jugador.x<x-320 or id_jugador.x>x+320) frame(2000); end
+		if(tipe==0) if(collision(type mario) and id_jugador.y>y and saltando!=0 and estado==1) return; end end
+//		if(tipe==1) if(collision(type sonic) and id_jugador.x<x and saltando==0 and rodando==1) return; end end
+//		if(tipe==2) if(collision(type sonic) and id_jugador.x>x and saltando==0 and rodando==1) return; end end
+		if(tipe==1) if(collision(type sonic) and id_jugador.x<x and rodando==1) return; end end
+		if(tipe==2) if(collision(type sonic) and id_jugador.x>x and rodando==1) return; end end
+		frame;
+	end
+End
+
+Process bloque_rompido(x,y);
+Begin
+	inercia=rand(-100,100);
+	grav=rand(-100,-200);
+	file=fpgs[4];
+	if(father.inercia==1) graph=9; else graph=10; end
+	ctype=c_scroll;
+	loop
+		toca_down=map_get_pixel(0,mapa_durezas,x,y+3);
+		toca_left=map_get_pixel(0,mapa_durezas,x-4,y);
+		toca_right=map_get_pixel(0,mapa_durezas,x+4,y);
+		if(inercia!=0) x+=inercia/10; angle+=4000; 
+			if(inercia>0 and toca_down==suelo) inercia--; end
+			if(inercia<0 and toca_down==suelo) inercia++; end 
+		end
+		if(grav!=0) y+=grav/16; end
+		if(toca_down!=suelo) grav++; else grav=0; end
+		if((inercia<0 and toca_left==suelo) or (inercia>0 and toca_right==suelo)) inercia=(inercia*-1)/2; end
+		if(exists(id_jugador))
+			if(collision(id_jugador) and id_jugador.x<x) inercia+=10; grav-=20; end
+			if(collision(id_jugador) and id_jugador.x>x) inercia-=10; grav-=20; end
+			while(id_jugador.x<x-320 or id_jugador.x>x+320) frame(2000); end
+		end
+		frame;
+	end
+End
+
+Process gabbaman(x,y);
+Begin
+	ctype=c_scroll;
+	file=load_fpg("fpg/mario.fpg.gabba");
+	graph=20;
+	while(!collision(type mario) and !collision(type sonic)) 
+		frame;
+		if(exists(id_jugador)) 
+			while(id_jugador.x<x-320 or id_jugador.x>x+320) 
+				frame(2000); 
+			end 
+		end 
+	end
+	ready=0;
+	pause_song();
+	frame(2000);
+	from alpha=255 to 0 step -5; frame; end
+	ayuda=1;
+	ventana_info(0,"  Mario skin: ¡Gabba Bros!","(Aunque creo que es otra persona, pero weno.)","¡Un saludo pa Jorgito y su hermano Gabbaman!");
+	frame;
+	while(ready==0) frame; end
+	ventana_info(0,"  Nota:","Necesitarás cambiar de personaje para","utilizar el nuevo skin.");
+	frame;
+	while(ready==0) frame; end
+	play_song(load_song("mod\tblast.it"),999);
+	fpgs[0]=file;
+End
+
+Process sonic3(x,y);
+Begin
+	ctype=c_scroll;
+	file=load_fpg("fpg/sonic.fpg.3");
+	graph=12;
+	while(!collision(type mario) and !collision(type sonic)) 
+		frame;
+		if(exists(id_jugador)) 
+			while(id_jugador.x<x-320 or id_jugador.x>x+320) 
+				frame(2000); 
+			end 
+		end 
+	end
+	ready=0;
+	pause_song();
+	frame(2000);
+	from alpha=255 to 0 step -5; frame; end
+	ayuda=1;
+	ventana_info(0,"  Sonic skin: ¡Sonic 3!","Hay gente que lo prefiere, pero no queda","bien con este juego. (en mi opinión)");
+	frame;
+	while(ready==0) frame; end
+	ventana_info(0,"  Nota:","Necesitarás cambiar de personaje para","utilizar el nuevo skin.");
+	frame;
+	while(ready==0) frame; end
+	play_song(load_song("mod\sonic3.mod"),999);
+	fpgs[1]=file;
+End
+
+Process mariold(x,y);
+Begin
+	ctype=c_scroll;
+	file=load_fpg("fpg/mario.fpg.old");
+	graph=20;
+	while(!collision(type mario) and !collision(type sonic)) 
+		frame;
+		if(exists(id_jugador)) 
+			while(id_jugador.x<x-320 or id_jugador.x>x+320) 
+				frame(2000); 
+			end 
+		end 
+	end
+	ready=0;
+	pause_song();
+	frame(2000);
+	from alpha=255 to 0 step -5; frame; end
+	ayuda=1;
+	ventana_info(0,"  Mario skin: ¡Mario Bros!","Así era Mario en sus principios...","¡Un verdadero clásico!");
+	frame;
+	while(ready==0) frame; end
+	ventana_info(0,"  Nota:","Necesitarás cambiar de personaje para","utilizar el nuevo skin.");
+	frame;
+	while(ready==0) frame; end
+	play_song(load_song("mod\mariold.xm"),999);
+	fpgs[0]=file;
+End
+
+Process pantalla1();
+Begin
+	cambiar=1;
+	personaje=0;
+		pon_mod(1);
+	carga_pantalla(0,load_png("./nivel1.png"));
+	toad(3130,437);
+	if(ayuda==1)
+		ventana_info(48,"   ¡Bienvenido a Fenix Heroes!","Para saltar pulsa Control y para","cambiar de jugador pulsa espacio.");
+		ventana_info(15*16,"   Enemigo: Goomba","Son enemigos clásicos del Mario Bros.","Se eliminan saltando sobre ellos.");
+		ventana_info(710,"   Chut de Mario:","Manejando a Sonic, salta y cuando Sonic y Mario","estén en el aire, pulsa la tecla Alt.");
+		ventana_info(1380,"   Doble salto de Mario:","Manejando a Mario, salta y vuelve a saltar.","Mario hará un doble salto, tal como en Mario 64.");
+		ventana_info(1532,"   ¡Muy bien! Ahora ya conoces dos movimientos.","Ahora corre con Alt y haz el Doble Salto","de Mario para subir ahí arriba.");
+		ventana_info(1940,"   Spin Dash de Sonic:","Clásico movimiento desde el Sonic 2.","Agáchate y pulsa Control.");
+		ventana_info(2520,"   Escalar entre paredes:","Con Mario salta de cara a la pared y salta.","En el aire salta otra vez moviéndote al lado contrario.");
+		ventana_info(2600,"   Fin del tutorial:","A partir de ahora ya no te ayudaré mas.","¡Buena suerte! Un saludo de PiXeL");
+	end
+End
+
+Process bonus1();
+Begin
+	cambiar=0;
+	personaje=0;
+	id_jugador=id;
+	delete_text(all_text);
+	frame;
+	ventana_info(0,"   Bonus 1: Killer Combo","¡Elimina todos los enemigos que puedas","pero sin tocar el suelo!");
+	ready=0;
+	while(ready==0) frame; end
+	carga_pantalla(0,load_png("./bonus1.png"));
+	while(combo==0) frame; end
+	pon_mod(99);
+	while(combo!=0) frame; if(combo!=0) grav=combo; end end
+	stop_song();
+	ventana_info(0,"   Bonus 1: Killer Combo","Enemigos eliminados: "+grav,"Puntos conseguidos: "+(grav*2)*100);
+	ready=0;
+	cambiar=1;
+	mundo=2;
+	while(ready==0) frame; end
+	foto=get_screen();
+	bonus=0;
+	jugar();
+End
+
+Process pantalla2();
+Begin
+	cambiar=1;
+	personaje=1;
+	pon_mod(2);
+	personaje=0;
+	carga_pantalla(0,load_png("./nivel2.png"));
+	toad(3135,324);
+	if(ayuda==1)
+		ventana_info(57*16,"   Caminar sobre anillos:","Con Sonic acércate a un anillo y pulsa","la tecla ALT.");
+		ventana_info(117*16,"   Caminar sobre anillos, 2ª parte:","Aquí será mejor que mantengas pulsada","la tecla ALT.");
+		frame;
+	end
+End
+
+Process bonus2();
+Begin
+	cambiar=0;
+	personaje=1;
+	id_jugador=id;
+	delete_text(all_text);
+	frame;
+	ventana_info(0,"   Bonus 2: Killer Combo 2","¡Elimina todos los enemigos que puedas","sin tocar el suelo!");
+	ready=0;
+	while(ready==0) frame; end
+	carga_pantalla(0,load_png("./bonus1.png"));
+	while(combo==0) frame; end
+	pon_mod(99);
+	while(combo!=0) frame; 
+		if(id_jugador.x=>ancho_pantalla) id_jugador.x=0; end
+		if(combo!=0) grav=combo; end 
+	end
+	stop_song();
+	ventana_info(0,"   Bonus 2: Killer Combo 2","Enemigos eliminados: "+grav,"Puntos conseguidos: "+(grav*2)*100);
+	ready=0;
+	cambiar=1;
+	mundo=3;
+	personaje=0;
+	while(ready==0) frame; end
+	foto=get_screen();
+	bonus=0;
+	jugar();
+End
+
+Process pantalla3();
+Begin
+	cambiar=1;
+	personaje=1;
+	pon_mod(1);
+	carga_pantalla(0,load_png("./nivel3.png"));
+	toad(1560,324);
+End
+
+Process pantalla4();
+Begin
+	cambiar=0;
+	personaje=1;
+	pon_mod(1);
+	carga_pantalla(0,load_png("./nivel1.png"));
+End

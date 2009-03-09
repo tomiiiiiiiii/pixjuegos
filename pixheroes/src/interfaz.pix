@@ -1,0 +1,23 @@
+Process logos();
+Begin
+	titulo();
+End
+
+Process titulo();
+Begin
+	x=160;
+	y=160;
+	grav=50;
+	graph=load_png("titulo.png");
+	put_screen(0,load_png("menu.png"));
+	from alpha=0 to 255 step 5; grav++; size=grav/2; frame; end
+	timer[9]=0;
+	while(timer[9]<100) grav++; size=grav/2; frame(200); end
+	from alpha=255 to 0 step -5; grav++; size=grav/2; frame; end
+	menu();
+End
+
+Process menu();
+Begin
+	jugar();
+End
