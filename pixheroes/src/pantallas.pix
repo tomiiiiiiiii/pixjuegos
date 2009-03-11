@@ -515,8 +515,8 @@ End
 
 Process pantalla4();
 Begin
-	cambiar=0;
+	cambiar=1;
 	personaje=1;
 	pon_mod(1);
-	carga_pantalla(0,load_png("./nivel1.png"));
+	carga_pantalla(0,load_png("./nivel4.png"));
 End
