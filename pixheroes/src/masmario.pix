@@ -75,4 +75,6 @@
 					item=0;
 				end
 			end
+			ancho_queco=graphic_info(file,graph,g_wide);
+			alto_queco=graphic_info(file,graph,g_height);
 		end
