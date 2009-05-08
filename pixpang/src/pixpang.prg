@@ -100,6 +100,7 @@ Global
 	int vidajefefuera;
 	int secs;
 	int screenshot;
+	int mapadurezas;
 // sonidos
 	s[16];
 // cosas raras
@@ -120,6 +121,7 @@ Global
 	int fpg_jefe;
 	int fpg_menu;
 	int fpg_menu2;
+	int fpg_bloquesmask;
 	int img_pixpang;
 	int txt_fondos[1];
 	int filerecs;
@@ -165,6 +167,7 @@ Begin
 	set_mode(800,600,32);
 	load_fpg("./fpg/pixpang.fpg");
 	fpg_menu=load_fpg("fpg/menu.fpg");
+	fpg_bloquesmask=load_fpg("fpg/bloquesmask.fpg");
 	if((atoi(ftime("%d",time()))>23 and atoi(ftime("%m",time()))==12) or (atoi(ftime("%d",time()))<8 and atoi(ftime("%m",time()))==1)) 
 		file_muneco1=load_fpg("./fpg/charsxmas.fpg"); 
 		file_muneco2=file_muneco1; 
@@ -2529,6 +2532,7 @@ Begin
 	ancho=graphic_info(0,graph,g_wide);
 	alto=graphic_info(0,graph,g_height);
 	if(cheto_borracho==1) angle=rand(0,360)*1000; end
+	map_xput(fpg_bloquesmask,mapadurezas,graph,x,y,angle,size,0);
 	Loop
 		If(x==0 OR y==0) Break; End
 		if(rompible==1 and p1_arma==4 and ((iddisp[0]=collision(Type cachodisp)) OR (iddisp[2]=collision(Type cachodisp2))))
@@ -2694,6 +2698,9 @@ Begin
 		load(".\tour\mostro.pang",pantalla); 
 	end
 	if(jefe==0) fondos_tour(); end
+
+	if(mapadurezas) unload_map(0,mapadurezas); else mapadurezas=new_map(800,600,16); end
+	
 	While(cont_bloque<200)
 		x=pantalla.bx[cont_bloque];
 		y=pantalla.by[cont_bloque];
@@ -2701,9 +2708,10 @@ Begin
 		tipo=pantalla.btipo[cont_bloque];
 		If(x<400) lado_bola=0; Else lado_bola=1; End
 		If(tipo<100) bloques(x,y,regalo,tipo); Else bola(x,y,tipo-100,lado_bola); End
-//		Frame;
 		cont_bloque++;
 	End
+	frame;
+	save_png(0,mapadurezas,"c:\nivel.png");
 	time_puesto=pantalla.btime;
 	p1_muere=0; 
 	p2_muere=0;

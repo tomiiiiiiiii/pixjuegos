@@ -15,6 +15,7 @@ bgdi pxlfpg chars7
 bgdi pxlfpg charsxmas
 bgdi pxlfpg eng
 bgdi pxlfpg pixpang
+bgdi pxlfpg bloquesmask
 cd monstruos
 bgdc -Ca pxlfpg.prg
 bgdi pxlfpg fantasma
