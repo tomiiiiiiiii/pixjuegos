@@ -142,8 +142,8 @@ Begin
 /*	p[2].control=1; personaje(2);
 	p[3].control=5; personaje(3);*/
 	//personaje(5);
-	durezas_nivel=load_png("nivel.png");
-	put_screen(0,durezas_nivel);
+	durezas_nivel=load_png("nivelmask.png");
+	put_screen(0,load_png("nivel.png"));
 	dureza_suelo=map_get_pixel(0,durezas_nivel,0,0);
 	dureza_plataforma=map_get_pixel(0,durezas_nivel,1,0);
 	set_fps(50,0);
