@@ -109,6 +109,7 @@ Global
 	dureza_plataforma;
 	durezas_nivel;
 	fpg_raruto;
+	fpg_pix;
 	tiempoescudo[8];
 	Struct botones;
 		int p[8][6];
@@ -136,6 +137,7 @@ Begin
 	//full_screen=true;
 	set_mode(1024,600,16);
 	fpg_raruto=load_fpg("fpg/raruto.fpg");
+	fpg_pix=load_fpg("fpg/pix.fpg");
 //	from i=1 to 7; 	p[i].control=5; personaje(i); end
 	p[1].control=0; personaje(1);
 	from i=2 to 8; 	personaje(i); end
@@ -183,7 +185,8 @@ Begin
 	p[jugador].identificador=id;
 	x=512-256+(64*jugador);
 	y=100;
-	file=fpg_raruto;
+	//file=fpg_raruto;
+	file=fpg_pix;
 	graph=1;
 	ancho=graphic_info(file,graph,g_width)/2;
 	alto=graphic_info(file,graph,g_height)/2;
