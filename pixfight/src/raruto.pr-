@@ -1,18 +1,23 @@
+	delete_text(all_text);
+	write(0,0,0,0,accion);
+	write(0,0,10,0,ataque);
+	if(jugador==2) ataque="kunai"; end
 	switch(accion)
 		case "quieto":
 			graph=1;
 			x+=x_inc;
-			if(botones.p[jugador][0] and !botones.p[jugador][1]) flags=1; x_inc-=2; accion="andar"; end
-			if(botones.p[jugador][1] and !botones.p[jugador][0]) flags=0; x_inc+=2; accion="andar"; end
+			if(botones.p[jugador][0] and !botones.p[jugador][1]) flags=1; x_inc-=1; accion="andar"; end
+			if(botones.p[jugador][1] and !botones.p[jugador][0]) flags=0; x_inc+=1; accion="andar"; end
 		end
 		case "andar":
-			if(ataque=="")
-				if(botones.p[jugador][0] and !botones.p[jugador][1])
+			if(ataque=="")	
+			   if(izquierda_suelto==0 or izquierda_suelto==margen)
+				if(botones.p[jugador][0] and !botones.p[jugador][1]) //ANDAR IZQUIERDA
 					x_inc-=2; 
 					flags=1;
 					if(x_inc>0) 
 						graph=4; 
-				else
+					else
 						if(graph<11 or graph>13) 
 							graph=11; 
 							anim=-1; 
@@ -25,12 +30,12 @@
 							end
 						end
 					end
-				else
-					if(pacorrer==0 and x_inc<0) 
-						pacorrer=-10; 
-					end
 				end
-				if(botones.p[jugador][1] and !botones.p[jugador][0])
+			    else	//EN CASO DE PULSAR DOS VECES SEGUIDAS LA TECLA IZQUIERDA
+				accion="correr";
+			    end
+			    if(derecha_suelto==0 or derecha_suelto==margen)
+				if(botones.p[jugador][1] and !botones.p[jugador][0]) //ANDAR DERECHA
 					x_inc+=2; 
 					flags=0;
 					if(x_inc<0) 
@@ -48,17 +53,11 @@
 							end
 						end
 					end
-				else
-					if(pacorrer==0 and x_inc>0) 
-						pacorrer=10; 
-					end
 				end
-				if(pacorrer==0)
-					if((!botones.p[jugador][0] and !botones.p[jugador][1]) or (botones.p[jugador][0] and botones.p[jugador][1])) accion="quieto"; end
-				else
-					if(pacorrer<0) pacorrer++; if(botones.p[jugador][0]) accion="correr"; end end
-					if(pacorrer>0) pacorrer--; if(botones.p[jugador][1]) accion="correr"; end end
-				end
+			    else	//EN CASO DE PULSAR DOS VECES SEGUIDAS LA TECLA DERECHA
+				accion="correr";
+			    end
+			    if((!botones.p[jugador][0] and !botones.p[jugador][1]) or (botones.p[jugador][0] and botones.p[jugador][1])) accion="quieto"; end
 			else
 				if(ataque=="escudo")
 					if(botones.p[jugador][0] and !botones.p[jugador][1] and x_inc==0 and botones.p[jugador][6])
@@ -236,62 +235,22 @@
 	end
 	//--------------------FIN ATAQUES
 	//--------------------PRINCIPIO CONTROLES
-		if(ataque=="")
+		if(ataque=="") //HAY QUE COMPROBAR SIEMPRE EL ATAQUE PORQUE SINO SE PUEDEN PRODUCIR VARIAS. P. EJ: 3ERSALTO Y KUNAI
 			//BOTON ATAQUE 1
-			if(botones.p[jugador][5] and ataque2_suelto>0) ataque="kunai"; end
+	/*MANOCHAN*/	if(ataque=="" and botones.p[jugador][5] and botones.p[jugador][0] and ataque2_suelto>0 and ataque2_suelto<margen and izquierda_suelto>0 and izquierda_suelto<margen) flags=1; ataque="laser"; end
+			if(ataque=="" and botones.p[jugador][5] and botones.p[jugador][1] and ataque2_suelto>0 and ataque2_suelto<margen and derecha_suelto>0 and derecha_suelto<margen) flags=0; ataque="laser"; end
 	
-			if(botones.p[jugador][5] and botones.p[jugador][0] and ataque2_suelto>0 and izquierda_suelto>0 and izquierda_suelto<5) flags=1; ataque="laser"; end
-			if(botones.p[jugador][5] and botones.p[jugador][1] and ataque2_suelto>0 and derecha_suelto>0 and derecha_suelto<5) flags=0; ataque="laser"; end
-	
-			if(botones.p[jugador][6] and accion!="aire") ataque="escudo"; flags_antes=flags; escudo(); end	
+	/*ESCUDO*/	if(ataque=="" and botones.p[jugador][6] and accion!="aire" and ataque=="") ataque="escudo"; flags_antes=flags; escudo(); end	
 
-			if(botones.p[jugador][5] and botones.p[jugador][3] and ataque2_suelto>0 and abajo_suelto>0 and abajo_suelto<5 and accion!="aire") ataque="contraataque"; end
+	/*FOTOCOPIA*/	if(ataque=="" and botones.p[jugador][5] and botones.p[jugador][3] and ataque2_suelto>0 and ataque2_suelto<margen and abajo_suelto>0 and abajo_suelto<margen and accion!="aire") ataque="contraataque"; end
 
-			if(botones.p[jugador][5] and botones.p[jugador][2] and ataque2_suelto>0 and arriba_suelto>0 and arriba_suelto<5) 
-				ataque="tercersalto"; 
-			end
+	/*3ERSALTO*/	if(ataque=="" and botones.p[jugador][5] and botones.p[jugador][2] and ataque2_suelto>0 and ataque2_suelto<margen and arriba_suelto>0 and arriba_suelto<margen) ataque="tercersalto"; end
+
+	/*KUNAI*/	if(ataque=="" and botones.p[jugador][5] and ataque2_suelto>0) ataque="kunai"; end
 
 			//BOTON ATAQUE 2
 		end
-	//-----------------
-		if(!botones.p[jugador][4]) 
-			if(ataque1_suelto<5) ataque1_suelto++; end
-		else
-			if(ataque1_suelto>0) ataque1_suelto--; end
-		end
-		if(!botones.p[jugador][5]) 
-			if(ataque2_suelto<5) ataque2_suelto++; end
-		else
-			if(ataque2_suelto>0) ataque2_suelto--; end
-		end
-		if(!botones.p[jugador][6]) 
-			if(escudo_suelto<5) escudo_suelto++; end
-		else
-			if(escudo_suelto>0) escudo_suelto--; end
-		end
-		if(!botones.p[jugador][2]) 
-			if(arriba_suelto<5) arriba_suelto++; end
-		else
-			if(arriba_suelto>0) arriba_suelto--; end
-		end
-		if(!botones.p[jugador][3]) 
-			if(abajo_suelto<5) abajo_suelto++; end
-		else
-			if(abajo_suelto>0) abajo_suelto--; end
-		end
-		if(!botones.p[jugador][0]) 
-			if(izquierda_suelto<5) izquierda_suelto++; end
-		else
-			if(izquierda_suelto>0) izquierda_suelto--; end
-		end
-		if(!botones.p[jugador][1]) 
-			if(derecha_suelto<5) derecha_suelto++; end
-		else
-			if(derecha_suelto>0) derecha_suelto--; end
-		end
 
-		if(tiempoescudo[jugador]<299 and ataque!="escudo") tiempoescudo[jugador]+=2; end
-		//--FIN CONTROLES
 		//---------MOVIMIENTO Y MISC.
 		
 		if((accion=="andar" or accion=="quieto") and (id_col=collision(type personaje)))
@@ -328,11 +287,14 @@
 			end
 		end
 		
-		if(ataque=="")
+		if(ataque=="" or ataque=="cayendo")
 			angle=0;
+			if(gravedad>10) gravedad=10; end
+		else
+			if(gravedad>2) gravedad--; end
 		end
 		
-		if(gravedad>10) gravedad=10; end
+
 		y_destino=y+gravedad;
 		x_destino=x+x_inc;		
 		

@@ -1,9 +1,6 @@
 Program pixfight;
-#if __VERSION__
-
-#else
 import "net";
-#endif
+
 Const
 	//RED
    PUERTO_SERVIDOR = 52000; // Puerto donde escucha el servidor
@@ -135,20 +132,17 @@ Local
 	direccion_golpe;
 	i;
 Begin
-#if __VERSION__
-#else
 	if(net) net_init(); end
 	net_servidor();
-#endif
 	//full_screen=true;
 	set_mode(1024,600,16);
 	fpg_raruto=load_fpg("fpg/raruto.fpg");
 	fpg_pix=load_fpg("fpg/pix.fpg");
 //	from i=1 to 7; 	p[i].control=5; personaje(i); end
 	p[1].control=0; 
-	p[1].personaje=0;
+	p[1].personaje=1;
 	personaje(1);
-	p[2].personaje=1;
+	p[2].personaje=0;
 	personaje(2);
 //	from i=2 to 8; 	personaje(i); end
 /*	p[2].control=1; personaje(2);
@@ -159,11 +153,10 @@ Begin
 	dureza_suelo=map_get_pixel(0,durezas_nivel,0,0);
 	dureza_plataforma=map_get_pixel(0,durezas_nivel,1,0);
 	set_fps(50,0);
+
+	play_song(load_song("1.ogg"),-1);
 	loop
-		#if __VERSION__
-		#else
 		if(key(_2)) let_me_alone(); delete_text(all_text); net_cliente("localhost"); return; end
-		#endif
 		if(key(_esc)) exit(); end
 		frame;
 	end
@@ -174,12 +167,12 @@ Private
 	x_inc;
 	bufferteclas[2];
 	tiempoteclas;
-	velocidad=4;
+	velocidad=6;
 	anim; //para movs
 	anim2; //para ataques
-	doblesalto;
+	doblesalto; //-1:no se puede hacer , 0:preparado , 1:recién realizado
 	teclasuelta[10];
-	pacorrer;
+	//pacorrer;
 	ataque2_suelto;
 	ataque1_suelto;
 	escudo_suelto;
@@ -193,6 +186,7 @@ Private
 	tiempo_paralizado;
 	flags_antes;
 	id_col;
+	margen=10; //para los combos
 Begin
 	if(jugador==1) controlador(jugador); end
 	p[jugador].identificador=id;
@@ -207,19 +201,58 @@ Begin
 	alto=graphic_info(file,graph,g_height)/2;
 	tiempoescudo[jugador]=300;
 	write_int(0,80+jugador*80,50,0,&p[jugador].porcentual);
-	loop
+	loop //INICIO LOOP PRINCIPAL PERSONAJES
 
-//	if(jugador==5) ataque="kunai"; end
-switch(p[jugador].personaje) //SWITCH PERSONAJES
-case 0: //RARUTO
-	include "raruto.pr-";
-end
-case 1: //PIX
-	include "raruto.pr-";
-end //FIN PIX
-end //FIN SWITCH PERSONAJES
-		frame;
+	//-----------------
+	if(!botones.p[jugador][0]) 
+		if(izquierda_suelto<margen) izquierda_suelto++; end
+	else
+		if(izquierda_suelto>0) izquierda_suelto--; end
 	end
+	if(!botones.p[jugador][1]) 
+		if(derecha_suelto<margen) derecha_suelto++; end
+	else
+		if(derecha_suelto>0) derecha_suelto--; end
+	end
+	if(!botones.p[jugador][2]) 
+		if(arriba_suelto<margen) arriba_suelto++; end
+	else
+		if(arriba_suelto>0) arriba_suelto--; end
+	end
+	if(!botones.p[jugador][3]) 
+		if(abajo_suelto<margen) abajo_suelto++; end
+	else
+		if(abajo_suelto>0) abajo_suelto--; end
+	end
+	if(!botones.p[jugador][4]) 
+		if(ataque1_suelto<margen) ataque1_suelto++; end
+	else
+		if(ataque1_suelto>0) ataque1_suelto--; end
+	end
+	if(!botones.p[jugador][5]) 
+		if(ataque2_suelto<margen) ataque2_suelto++; end
+	else
+		if(ataque2_suelto>0) ataque2_suelto--; end
+	end
+	if(!botones.p[jugador][6]) 
+		if(escudo_suelto<margen) escudo_suelto++; end
+	else
+		if(escudo_suelto>0) escudo_suelto--; end
+	end
+	//--FIN CONTROLES
+
+
+	switch(p[jugador].personaje) //SWITCH PERSONAJES
+		case 0: include "raruto.pr-"; end //RARUTO
+		case 1: include "raruto.pr-"; end //PIX
+	end //FIN SWITCH PERSONAJES
+
+	//PRINCIPIO COSAS GENERALES PREVIAS A FRAME
+	if(tiempoescudo[jugador]<299 and ataque!="escudo") tiempoescudo[jugador]+=2; end
+	//FINAL COSAS GENERALES PREVIAS A FRAME
+	frame;
+
+	end //FIN LOOP PRINCIPAL PERSONAJES
 End
 
 include "raruto_proc.pr-";
@@ -297,7 +330,4 @@ Begin
 	End
 End
 
-#if __VERSION__
-#else
 include "net.pr-";
-#endif
