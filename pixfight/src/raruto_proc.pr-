@@ -1,0 +1,108 @@
+Process raruto_kunai();
+Private
+	id_col;
+	fuerza;
+	grav=-3;
+Begin
+	file=father.file;
+	graph=901;
+	jugador=father.jugador;
+	flags=father.flags;
+	y=father.y;
+	x=father.x;
+	if(father.accion=="correr") fuerza=20; else fuerza=10; end
+	loop
+		if(flags==0) x+=fuerza; end
+		if(flags==1) x-=fuerza; end
+		//if(fuerza>0) fuerza--; end
+		grav++;
+		if(id_col=collision(type personaje))
+			if(id_col.jugador!=jugador)
+				//massivedamage
+				id_col.daño+=fuerza/4;
+				id_col.atacante=jugador;
+				id_col.direccion_golpe=flags;
+				break;
+			end
+		end
+		frame;
+	end
+End
+
+Process raruto_laser(size_y);
+Private
+	id_col;
+	fuerza;
+	grav=-3;
+Begin
+	file=father.file;
+	z=-1;
+	graph=902;
+	jugador=father.jugador;
+	flags=father.flags;
+	y=father.y;
+	x=father.x;
+	if(size_y<30) return; end
+	size_x=size_y*1.5;
+	//raruto_laser(size_y-20);
+	fuerza=size_y/5;
+	loop
+		if(flags==0) x+=fuerza; end
+		if(flags==1) x-=fuerza; end
+		if(fuerza>0) fuerza--; else break; end
+		grav++;
+		if(id_col=collision(type personaje))
+			if(id_col.jugador!=jugador)
+				//massivedamage
+				//id_col.daño+=fuerza/12;
+				id_col.daño+=fuerza;
+				id_col.atacante=jugador;
+				id_col.direccion_golpe=flags;
+				break;
+			end
+		end
+		frame;
+	end
+End
+
+Process raruto_copia();
+Private
+	angle_inc;
+	ydestino;
+Begin
+	file=father.file;
+	graph=rand(1,5);
+	y=-1;
+	x=father.x;
+	y=father.y;
+	angle_inc=rand(-5,5)*1000;
+	ydestino=y+10;
+	from y=y to ydestino; angle+=angle_inc; frame; end
+	raruto_nube();
+End
+
+Process raruto_tronco();
+Begin
+	file=father.file;
+	graph=903;
+	y=-1;
+	x=father.x;
+	y=father.y;
+	frame(2000);
+	raruto_nube();
+End
+
+Process raruto_nube();
+Begin
+	file=father.file;
+	graph=904;
+	y=-1;
+	x=father.x;
+	y=father.y;
+	from alpha=255 to 0 step -5;
+		y--;
+		size_y--;
+		size_x+=2;
+		frame;
+	end
+End

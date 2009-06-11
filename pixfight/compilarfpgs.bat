@@ -1,6 +1,6 @@
 @echo off
 ECHO CREANDO FPGS...
 cd fpg-sources
-bgdc -Ca pxlfpg.prg
-bgdi pxlfpg raruto
-bgdi pxlfpg pix
+..\bennu\bgdc -Ca pxlfpg.prg
+..\bennu\bgdi pxlfpg raruto
+..\bennu\bgdi pxlfpg pix

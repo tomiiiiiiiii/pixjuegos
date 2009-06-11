@@ -1,5 +1,8 @@
 @echo off
-bgdc -g pixfight.prg
+cd src
+..\bennu\bgdc -g pixfight.prg
+move pixfight.dcb ..
 pause
-bgdi pixfight
+cd ..
+.\bennu\bgdi pixfight
 pause

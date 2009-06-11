@@ -1,6 +1,9 @@
 @echo off
-fxc -g pixfight.prg
-type stdout.txt
+cd src
+..\fenix\fxc -g pixfight.prg
+type ..\fenix\stdout.txt
+move pixfight.dcb ..
 pause
-pixfight
+cd ..
+.\fenix\fxi pixfight
 pause
