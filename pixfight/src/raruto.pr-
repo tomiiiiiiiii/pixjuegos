@@ -64,9 +64,11 @@
 			else
 				if(ataque=="escudo")
 					if(botones.p[jugador][0] and !botones.p[jugador][1] and x_inc==0 and botones.p[jugador][6])
+						flags=1;
 						x_inc=-20;
 					end
 					if(botones.p[jugador][1] and !botones.p[jugador][0] and x_inc==0 and botones.p[jugador][6])
+						flags=0;
 						x_inc=20;
 					end
 					if(x_inc>0) if(flags==0) angle-=20000; else angle+=20000; end end
@@ -151,7 +153,7 @@
 			//accion="escudo";
 			daño=0;
 			atacante=0;
-			flags=flags_antes;
+			//flags=flags_antes;
 			if((botones.p[jugador][6] and tiempoescudo[jugador]>0) or (x_inc!=0 and gravedad==0))
 				graph=5;
 				tiempoescudo[jugador]--;
@@ -259,18 +261,15 @@
 
 		//---------MOVIMIENTO Y MISC.
 		
-		if((accion=="andar" or accion=="quieto") and (id_col=collision(type personaje)))
+		//COLISION CON OTROS PERSONAJES
+		if((accion=="andar" or accion=="quieto") and (id_col=collision(type personaje)) and ataque!="escudo")
 			if((id_col.accion=="andar" or id_col.accion=="quieto") and fget_dist(x,y,id_col.x,id_col.y)<ancho)
 				if(id_col.x>x) x_inc-=2; end
 				if(id_col.x<x) x_inc+=2; end
 			end
 		end
 		
-		//en el aire!
-		if(map_get_pixel(0,durezas_nivel,x,y+alto)!=dureza_suelo and map_get_pixel(0,durezas_nivel,x,y+alto)!=dureza_plataforma)
-			accion="aire";
-			gravedad++; 
-		end
+		//FRICCIONES:
 		//a la altura del suelo
 		if((map_get_pixel(0,durezas_nivel,x,y+alto)==dureza_suelo or map_get_pixel(0,durezas_nivel,x,y+alto)==dureza_plataforma) and gravedad==0)
 			if(x_inc<0) x_inc++; end
@@ -292,6 +291,10 @@
 				if(x_inc<-velocidad*1.5) x_inc=-velocidad*1.5; end
 			end
 		end
+		//en el aire!
+		if(map_get_pixel(0,durezas_nivel,x,y+alto)!=dureza_suelo and map_get_pixel(0,durezas_nivel,x,y+alto)!=dureza_plataforma)
+			gravedad++; 
+		end
 		
 		if(ataque=="" or ataque=="cayendo" or ataque=="dañorecibido")
 			angle=0;
@@ -299,54 +302,84 @@
 		else
 			if(gravedad>2) gravedad--; end
 		end
-		
+		//--------------------------------------------		
 
-		y_destino=y+gravedad;
-		x_destino=x+x_inc;		
-		
+		x_destino=x+x_inc;	
 
-		
 		if(x_destino==x)
 			from i=y to y+alto-1;
-				//PARA LAS PENDIENTES: comprobamos el suelo y si ese suelo tiene aún más suelo encima xD
-				if(map_get_pixel(0,durezas_nivel,x+ancho,i)==dureza_suelo and map_get_pixel(0,durezas_nivel,x+ancho,i-1)!=dureza_suelo) y=i-alto; break; end
+				//PARA LAS PENDIENTES: comprobamos el suelo y si ese suelo tiene aún más suelo encima y debajo xD
+				if(map_get_pixel(0,durezas_nivel,x,i)==dureza_suelo and map_get_pixel(0,durezas_nivel,x,i-1)!=dureza_suelo) if(accion=="aire") accion="quieto"; end y=i-alto; gravedad=0; break; end
 			end
 		end
 		if(x_destino>x)
 			from x=x to x_destino-1;
-				from i=y-alto to y;
-					//PARA LAS PAREDES
-					if(map_get_pixel(0,durezas_nivel,x+ancho,i)==dureza_suelo) if(accion=="andar" or accion=="correr") accion="quieto"; end x_inc=0; graph=1; x--; break; end
+				from i=y-alto to y-1;
+					//PARA LAS PAREDES: COMPROBAMOS QUE SÓLO PUEDAN SER PAREDES
+					if(map_get_pixel(0,durezas_nivel,x+ancho,i)==dureza_suelo 
+					and map_get_pixel(0,durezas_nivel,x+ancho+1,i)!=dureza_suelo 
+					and map_get_pixel(0,durezas_nivel,x+ancho-1,i)!=dureza_suelo) 
+						if(accion=="andar" or accion=="correr") accion="quieto"; end 
+						x_inc=3000; break; 
+					end
 				end
+				//DOBLE COMPROBACIÓN DE PAREDES, PARA HACER EL SEGUNDO BREAK BIEN. POR ABREVIAR UTILIZO ESA VARIABLE XD
+				if(x_inc==3000) x_inc=0; break; end
+
 				from i=y to y+alto-1;
 					//PARA LAS PENDIENTES: comprobamos el suelo y si ese suelo tiene aún más suelo encima xD
-					if(map_get_pixel(0,durezas_nivel,x+ancho,i)==dureza_suelo and map_get_pixel(0,durezas_nivel,x+ancho,i-1)!=dureza_suelo) y=i-alto; x_inc--; gravedad=0; break; end
+					if(map_get_pixel(0,durezas_nivel,x,i)==dureza_suelo and map_get_pixel(0,durezas_nivel,x,i-1)!=dureza_suelo) if(accion=="aire") accion="quieto"; end y=i-alto; gravedad=0; break; end
 				end
-				//PARA QUE CUANDO LLEGUE AL BORDE, NO SE TIRE:
-				if(map_get_pixel(0,durezas_nivel,x+ancho,y+alto)==dureza_suelo and map_get_pixel(0,durezas_nivel,x+ancho+1,y+alto)!=dureza_suelo) accion="quieto"; x_inc=0; graph=1; break; end
+				//PARA QUE CUANDO LLEGUE AL BORDE, NO SE TIRE. COMPROBAMOS QUE NO SEA UNA PARED, NI UNA PENDIENTE
+				if(map_get_pixel(0,durezas_nivel,x+ancho,y+alto)==dureza_suelo 
+				and map_get_pixel(0,durezas_nivel,x+ancho+1,y+alto)!=dureza_suelo 
+				and map_get_pixel(0,durezas_nivel,x+ancho-1,y+alto)==dureza_suelo 
+				and map_get_pixel(0,durezas_nivel,x+ancho+1,y+alto+1)!=dureza_suelo 
+				and map_get_pixel(0,durezas_nivel,x+ancho+1,y+alto-1)!=dureza_suelo 
+				and (accion=="andar" or accion=="quieto" or ataque=="escudo")) 
+					x_inc=0; angle=0; break; 
+				end
 			end
 		end
 		if(x_destino<x)
 			from x=x to x_destino+1 step -1;
-				from i=y-alto to y;
-					if(map_get_pixel(0,durezas_nivel,x-ancho,i)==dureza_suelo) 
-						if(accion=="andar" or accion=="correr") accion="quieto"; end x_inc=0; graph=1; x++; break; 
+				from i=y-alto to y-1;
+					//PARA LAS PAREDES: COMPROBAMOS QUE SÓLO PUEDAN SER PAREDES
+					if(map_get_pixel(0,durezas_nivel,x-ancho,i)==dureza_suelo 
+					and map_get_pixel(0,durezas_nivel,x-ancho+1,i)!=dureza_suelo 
+					and map_get_pixel(0,durezas_nivel,x-ancho-1,i)!=dureza_suelo) 
+						if(accion=="andar" or accion=="correr") accion="quieto"; end 
+						x_inc=3000; break; 
 					end
 				end
-				from i=y to y+alto-1;
-					//PARA LAS PENDIENTES
-					if(map_get_pixel(0,durezas_nivel,x-ancho,i)==dureza_suelo and map_get_pixel(0,durezas_nivel,x-ancho,i-1)!=dureza_suelo) y=i-alto; x_inc++; gravedad=0; break; end
-				end
+				//DOBLE COMPROBACIÓN DE PAREDES, PARA HACER EL SEGUNDO BREAK BIEN. POR ABREVIAR UTILIZO ESA VARIABLE XD
+				if(x_inc==3000) x_inc=0; break; end
 
-				if(map_get_pixel(0,durezas_nivel,x-ancho,y+alto)==dureza_suelo and map_get_pixel(0,durezas_nivel,x-ancho-1,y+alto)!=dureza_suelo) accion="quieto"; graph=1; break; end
+				from i=y to y+alto-1;
+					//PARA LAS PENDIENTES: comprobamos el suelo y si ese suelo tiene aún más suelo encima xD
+					if(map_get_pixel(0,durezas_nivel,x,i)==dureza_suelo and map_get_pixel(0,durezas_nivel,x,i-1)!=dureza_suelo) if(accion=="aire") accion="quieto"; end y=i-alto; gravedad=0; break; end
+				end
+				//PARA QUE CUANDO LLEGUE AL BORDE, NO SE TIRE. COMPROBAMOS QUE NO SEA UNA PARED, NI UNA PENDIENTE
+				if(map_get_pixel(0,durezas_nivel,x-ancho,y+alto)==dureza_suelo 
+				and map_get_pixel(0,durezas_nivel,x-ancho-1,y+alto)!=dureza_suelo 
+				and map_get_pixel(0,durezas_nivel,x-ancho+1,y+alto)==dureza_suelo 
+				and map_get_pixel(0,durezas_nivel,x-ancho-1,y+alto+1)!=dureza_suelo 
+				and map_get_pixel(0,durezas_nivel,x-ancho-1,y+alto-1)!=dureza_suelo 
+				and (accion=="andar" or accion=="quieto" or ataque=="escudo")) 
+					x_inc=0; angle=0; break; 
+				end
 			end
 		end
+
+		y_destino=y+gravedad;
+
+//		if(gravedad==0 and map_get_pixel(0,durezas_nivel,x,y+alto)==dureza_suelo and accion=="aire") if(x_inc==0) accion="quieto"; else accion="andar"; end end
 		if(gravedad==0 and botones.p[jugador][3] and ataque=="") gravedad++; end
 		if(gravedad>0) 
 			if(x_inc<0) x_inc++; end
 			if(x_inc>0) x_inc--; end
 
-			from y=y-alto to y_destino-1;
+			from y=y-1 to y_destino-1;
 				if(map_get_pixel(0,durezas_nivel,x,y+alto)==dureza_suelo or (map_get_pixel(0,durezas_nivel,x,y+alto)==dureza_plataforma and !botones.p[jugador][3]))
 					accion="quieto";
 					gravedad=0; 
@@ -365,8 +398,7 @@
 				end
 			end
 		end
-
-
+		if(gravedad!=0) accion="aire"; end
 //------------------------
 		if(x<limites[3] or x>limites[1] or y>limites[2] or y<limites[0]) x=512; y=100; x_inc=0; gravedad=0; ataque=""; accion="quieto"; daño=0; p[jugador].porcentual=0; p[jugador].vidas--; end
 		
