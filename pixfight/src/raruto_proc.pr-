@@ -15,6 +15,7 @@ Begin
 		if(flags==0) x+=fuerza; end
 		if(flags==1) x-=fuerza; end
 		//if(fuerza>0) fuerza--; end
+		if(x<limites[3] or x>limites[1]) break; end
 		grav++;
 		if(id_col=collision(type personaje))
 			if(id_col.jugador!=jugador)
@@ -56,6 +57,7 @@ Begin
 	//raruto_laser(size_y-20);
 	fuerza=size_y/5;
 	loop
+		if(x<limites[3] or x>limites[1]) break; end
 		if(flags==0) x+=fuerza; end
 		if(flags==1) x-=fuerza; end
 		if(fuerza>0) fuerza--; else break; end

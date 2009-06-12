@@ -110,6 +110,7 @@ Global
 	durezas_nivel;
 	fpg_raruto;
 	fpg_pix;
+	fpg_tux;
 	tiempoescudo[8];
 	Struct botones;
 		int p[8][6];
@@ -118,7 +119,7 @@ Global
 		porcentual; vidas=5; puntos; control; juega; identificador; personaje;
 	end
 	ready=1;
-	limites[4]; //arriba,derecha,abajo,izquierda
+	limites[3]; //arriba,derecha,abajo,izquierda
 	
 Local
 	ancho;
@@ -138,9 +139,10 @@ Begin
 	set_mode(1024,600,16);
 	fpg_raruto=load_fpg("fpg/raruto.fpg");
 	fpg_pix=load_fpg("fpg/pix.fpg");
+	fpg_tux=load_fpg("fpg/tux.fpg");
 //	from i=1 to 7; 	p[i].control=5; personaje(i); end
 	p[1].control=0; 
-	p[1].personaje=1;
+	p[1].personaje=2;
 	personaje(1);
 	p[2].personaje=0;
 	personaje(2);
@@ -157,7 +159,7 @@ Begin
 	dureza_plataforma=map_get_pixel(0,durezas_nivel,1,0);
 	set_fps(50,0);
 
-//	play_song(load_song("1.ogg"),-1);
+	play_song(load_song("1.ogg"),-1);
 
 	limites[0]=-300;
 	limites[1]=1224;
@@ -204,6 +206,7 @@ Begin
 	switch(p[jugador].personaje)
 		case 0: file=fpg_raruto; end
 		case 1: file=fpg_pix; end
+		case 2: file=fpg_tux; end
 	end
 	graph=1;
 	ancho=graphic_info(file,graph,g_width)/2;
