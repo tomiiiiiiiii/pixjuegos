@@ -118,7 +118,7 @@ Global
 		porcentual; vidas=5; puntos; control; juega; identificador; personaje;
 	end
 	ready=1;
-	//RED
+	limites[4]; //arriba,derecha,abajo,izquierda
 	
 Local
 	ancho;
@@ -143,18 +143,27 @@ Begin
 	p[1].personaje=1;
 	personaje(1);
 	p[2].personaje=0;
-	personaje(2);
+//	personaje(2);
+//	personaje(3);
+//	personaje(4);
+
 //	from i=2 to 8; 	personaje(i); end
 /*	p[2].control=1; personaje(2);
 	p[3].control=5; personaje(3);*/
 	//personaje(5);
 	durezas_nivel=load_png("nivelmask.png");
-	put_screen(0,load_png("nivel.png"));
+	put_screen(0,load_png("nivelmask.png"));
 	dureza_suelo=map_get_pixel(0,durezas_nivel,0,0);
 	dureza_plataforma=map_get_pixel(0,durezas_nivel,1,0);
 	set_fps(50,0);
 
-	play_song(load_song("1.ogg"),-1);
+//	play_song(load_song("1.ogg"),-1);
+
+	limites[0]=-300;
+	limites[1]=1224;
+	limites[2]=800;
+	limites[3]=-300;
+
 	loop
 		if(key(_2)) let_me_alone(); delete_text(all_text); net_cliente("localhost"); return; end
 		if(key(_esc)) exit(); end
