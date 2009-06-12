@@ -1,10 +1,10 @@
-	if(jugador==1) delete_text(all_text);
-	write(0,0,0,0,accion);
-	write(0,0,10,0,ataque);
-	end
-	if(jugador==2) ataque="kunai"; end
-	if(jugador==3 and accion!="aire") ataque="laser"; end
-	if(jugador==4 and accion!="aire") ataque="contraataque"; end
+//	if(jugador==1) delete_text(all_text);
+//	write(0,0,0,0,accion);
+//	write(0,0,10,0,ataque);
+//	end
+//	if(jugador==2) ataque="kunai"; end
+//	if(jugador==3 and accion!="aire") ataque="laser"; end
+//	if(jugador==4 and accion!="aire") ataque="contraataque"; end
 	switch(accion)
 		case "quieto":
 			graph=1;
@@ -222,7 +222,7 @@
 			graph=3;
 			from i=0 to 3; raruto_copia(); y-=alto*1.5; end
 			y+=4*alto*1.5;
-			gravedad=-25;
+			gravedad=-20;
 			ataque="cayendo";
 		end
 		case "cayendo":
@@ -271,7 +271,8 @@
 		
 		//FRICCIONES:
 		//a la altura del suelo
-		if((map_get_pixel(0,durezas_nivel,x,y+alto)==dureza_suelo or map_get_pixel(0,durezas_nivel,x,y+alto)==dureza_plataforma) and gravedad==0)
+		//if((map_get_pixel(0,durezas_nivel,x,y+alto)==dureza_suelo or map_get_pixel(0,durezas_nivel,x,y+alto)==dureza_plataforma) and gravedad==0)
+		if(accion!="aire" and gravedad==0)
 			if(x_inc<0) x_inc++; end
 			if(x_inc>0) x_inc--; end
 			if(accion=="quieto" or accion=="andar")
@@ -328,7 +329,7 @@
 
 				from i=y to y+alto-1;
 					//PARA LAS PENDIENTES: comprobamos el suelo y si ese suelo tiene aún más suelo encima xD
-					if(map_get_pixel(0,durezas_nivel,x,i)==dureza_suelo and map_get_pixel(0,durezas_nivel,x,i-1)!=dureza_suelo) if(accion=="aire") accion="quieto"; end y=i-alto; x_inc--; gravedad=0; break; end
+					if(map_get_pixel(0,durezas_nivel,x,i)==dureza_suelo and map_get_pixel(0,durezas_nivel,x,i-1)!=dureza_suelo) if(accion=="aire") accion="quieto"; end y=i-alto; gravedad=0; break; end
 				end
 				//PARA QUE CUANDO LLEGUE AL BORDE, NO SE TIRE. COMPROBAMOS QUE NO SEA UNA PARED, NI UNA PENDIENTE
 				if(map_get_pixel(0,durezas_nivel,x+ancho,y+alto)==dureza_suelo 
@@ -357,7 +358,7 @@
 
 				from i=y to y+alto-1;
 					//PARA LAS PENDIENTES: comprobamos el suelo y si ese suelo tiene aún más suelo encima xD
-					if(map_get_pixel(0,durezas_nivel,x,i)==dureza_suelo and map_get_pixel(0,durezas_nivel,x,i-1)!=dureza_suelo) if(accion=="aire") accion="quieto"; end y=i-alto; x_inc++; gravedad=0; break; end
+					if(map_get_pixel(0,durezas_nivel,x,i)==dureza_suelo and map_get_pixel(0,durezas_nivel,x,i-1)!=dureza_suelo) if(accion=="aire") accion="quieto"; end y=i-alto; gravedad=0; break; end
 				end
 				//PARA QUE CUANDO LLEGUE AL BORDE, NO SE TIRE. COMPROBAMOS QUE NO SEA UNA PARED, NI UNA PENDIENTE
 				if(map_get_pixel(0,durezas_nivel,x-ancho,y+alto)==dureza_suelo 

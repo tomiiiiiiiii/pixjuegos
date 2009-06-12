@@ -101,7 +101,7 @@ Global
 	//	x,y,z,angle,flags,alpha,size_x,size_y,file,graph;
 		x,y,file,graph;
 	end
-	velocidadnet=200;
+	velocidadnet=100;
 //  --------
 
 	//suelo=400;
@@ -143,7 +143,7 @@ Begin
 	p[1].personaje=1;
 	personaje(1);
 	p[2].personaje=0;
-//	personaje(2);
+	personaje(2);
 //	personaje(3);
 //	personaje(4);
 
