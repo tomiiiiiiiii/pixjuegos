@@ -1,5 +1,5 @@
 Program pixfight;
-//import "net";
+import "net";
 
 Const
 	//RED
@@ -132,8 +132,8 @@ Local
 	direccion_golpe;
 	i;
 Begin
-//	if(net) net_init(); end
-//	net_servidor();
+	if(net) net_init(); end
+	net_servidor();
 	//full_screen=true;
 	set_mode(1024,600,16);
 	fpg_raruto=load_fpg("fpg/raruto.fpg");
@@ -165,7 +165,7 @@ Begin
 	limites[3]=-300;
 
 	loop
-	//	if(key(_2)) let_me_alone(); delete_text(all_text); net_cliente("localhost"); return; end
+		if(key(_2)) let_me_alone(); delete_text(all_text); net_cliente("192.168.0.150"); return; end
 		if(key(_esc)) exit(); end
 		frame;
 	end
@@ -339,4 +339,4 @@ Begin
 	End
 End
 
-//include "net.pr-";
+include "net.pr-";

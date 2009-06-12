@@ -328,7 +328,7 @@
 
 				from i=y to y+alto-1;
 					//PARA LAS PENDIENTES: comprobamos el suelo y si ese suelo tiene aún más suelo encima xD
-					if(map_get_pixel(0,durezas_nivel,x,i)==dureza_suelo and map_get_pixel(0,durezas_nivel,x,i-1)!=dureza_suelo) if(accion=="aire") accion="quieto"; end y=i-alto; gravedad=0; break; end
+					if(map_get_pixel(0,durezas_nivel,x,i)==dureza_suelo and map_get_pixel(0,durezas_nivel,x,i-1)!=dureza_suelo) if(accion=="aire") accion="quieto"; end y=i-alto; x_inc--; gravedad=0; break; end
 				end
 				//PARA QUE CUANDO LLEGUE AL BORDE, NO SE TIRE. COMPROBAMOS QUE NO SEA UNA PARED, NI UNA PENDIENTE
 				if(map_get_pixel(0,durezas_nivel,x+ancho,y+alto)==dureza_suelo 
@@ -357,7 +357,7 @@
 
 				from i=y to y+alto-1;
 					//PARA LAS PENDIENTES: comprobamos el suelo y si ese suelo tiene aún más suelo encima xD
-					if(map_get_pixel(0,durezas_nivel,x,i)==dureza_suelo and map_get_pixel(0,durezas_nivel,x,i-1)!=dureza_suelo) if(accion=="aire") accion="quieto"; end y=i-alto; gravedad=0; break; end
+					if(map_get_pixel(0,durezas_nivel,x,i)==dureza_suelo and map_get_pixel(0,durezas_nivel,x,i-1)!=dureza_suelo) if(accion=="aire") accion="quieto"; end y=i-alto; x_inc++; gravedad=0; break; end
 				end
 				//PARA QUE CUANDO LLEGUE AL BORDE, NO SE TIRE. COMPROBAMOS QUE NO SEA UNA PARED, NI UNA PENDIENTE
 				if(map_get_pixel(0,durezas_nivel,x-ancho,y+alto)==dureza_suelo 
@@ -374,7 +374,7 @@
 		y_destino=y+gravedad;
 
 //		if(gravedad==0 and map_get_pixel(0,durezas_nivel,x,y+alto)==dureza_suelo and accion=="aire") if(x_inc==0) accion="quieto"; else accion="andar"; end end
-		if(gravedad==0 and botones.p[jugador][3] and ataque=="") gravedad++; end
+		if(gravedad==0 and botones.p[jugador][3] and ataque=="" and map_get_pixel(0,durezas_nivel,x,y+alto)==dureza_plataforma) gravedad++; end
 		if(gravedad>0) 
 			if(x_inc<0) x_inc++; end
 			if(x_inc>0) x_inc--; end
