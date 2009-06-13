@@ -135,6 +135,7 @@
 		end
 		case "paralizado":
 			graph=2;
+			tiempoescudo[jugador]=300;
 			if(tiempo_paralizado<180) tiempo_paralizado++; else tiempo_paralizado=0; accion="quieto"; ataque=""; end
 			if(flags==1) if(angle<90000) angle+=5000; end end
 			if(flags==0) if(angle>-90000) angle-=5000; end end
@@ -189,12 +190,11 @@
 		end
 		case "contraataque":
 			graph=1;
-			if(accion=="aire") ataque=""; end
+//			if(accion=="aire") ataque=""; end
 			from i=0 to 60;
 				frame;
 				if(daño>0) break; end
 			end
-			
 			if(daño!=0 and atacante!=0 and exists(p[atacante].identificador)) 
 				raruto_tronco();
 				y=p[atacante].identificador.y;
@@ -250,7 +250,7 @@
 	
 	/*ESCUDO*/	if(ataque=="" and botones.p[jugador][6] and accion!="aire" and ataque=="") ataque="escudo"; flags_antes=flags; escudo(); end	
 
-	/*FOTOCOPIA*/	if(ataque=="" and botones.p[jugador][5] and botones.p[jugador][3] and ataque2_suelto>0 and ataque2_suelto<margen and abajo_suelto>0 and abajo_suelto<margen and accion!="aire") ataque="contraataque"; end
+	/*CONTRAATAQUE*/ if(ataque=="" and botones.p[jugador][5] and botones.p[jugador][3] and ataque2_suelto>0 and ataque2_suelto<margen and abajo_suelto>0 and abajo_suelto<margen and accion!="aire") ataque="contraataque"; end
 
 	/*3ERSALTO*/	if(ataque=="" and botones.p[jugador][5] and botones.p[jugador][2] and ataque2_suelto>0 and ataque2_suelto<margen and arriba_suelto>0 and arriba_suelto<margen) ataque="tercersalto"; end
 
@@ -411,7 +411,7 @@
 			end
 			gravedad=-(daño+(p[jugador].porcentual/60));
 			if(gravedad<-15) gravedad=-15; end
-			if(x_inc>15) ataque="dañorecibido"; end
+			if(x_inc>15) ataque="dañorecibido"; else ataque=""; end
 			p[jugador].porcentual+=daño; 
 			daño=0; 
 			atacante=0; 

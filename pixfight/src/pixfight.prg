@@ -1,5 +1,5 @@
 Program pixfight;
-import "net";
+//import "net";
 
 Const
 	//RED
@@ -132,27 +132,20 @@ Local
 	atacante;
 	direccion_golpe;
 	i;
+	j;
+	foo;
+	var;
 Begin
-	if(net) net_init(); end
-	net_servidor();
 	//full_screen=true;
 	set_mode(1024,600,16);
 	fpg_raruto=load_fpg("fpg/raruto.fpg");
 	fpg_pix=load_fpg("fpg/pix.fpg");
 	fpg_tux=load_fpg("fpg/tux.fpg");
-//	from i=1 to 7; 	p[i].control=5; personaje(i); end
-	p[1].control=0; 
-	p[1].personaje=2;
-	personaje(1);
-	p[2].personaje=0;
-	personaje(2);
+	p[1].personaje=0; p[1].control=0; personaje(1);
+
 //	personaje(3);
 //	personaje(4);
 
-//	from i=2 to 8; 	personaje(i); end
-/*	p[2].control=1; personaje(2);
-	p[3].control=5; personaje(3);*/
-	//personaje(5);
 	durezas_nivel=load_png("nivelmask.png");
 	put_screen(0,load_png("nivelmask.png"));
 	dureza_suelo=map_get_pixel(0,durezas_nivel,0,0);
@@ -167,7 +160,18 @@ Begin
 	limites[3]=-300;
 
 	loop
-		if(key(_2)) let_me_alone(); delete_text(all_text); net_cliente("192.168.0.150"); return; end
+//		if(key(_1) and servidor_iniciado==0) net_init(); net_servidor(); end
+//		if(key(_2)) let_me_alone(); delete_text(all_text); net_init(); net_cliente("localhost"); return; end
+		if(key(_3)) while(key(_3)) frame; end p[2].personaje=1; p[2].control=1; personaje(2); end
+		if(keY(_4))
+				while(key(_4)) frame; end
+				p[3].personaje=2; p[3].control=5; personaje(3);	
+				p[4].personaje=0; p[4].control=-1; personaje(4);
+				p[5].personaje=0; p[5].control=5; personaje(5);
+				p[6].personaje=1; p[6].control=5; personaje(6);
+				p[7].personaje=2; p[7].control=5; personaje(7);
+				p[8].personaje=0; p[8].control=5; personaje(8);
+		end
 		if(key(_esc)) exit(); end
 		frame;
 	end
@@ -199,7 +203,7 @@ Private
 	id_col;
 	margen=10; //para los combos
 Begin
-	if(jugador==1) controlador(jugador); end
+	controlador(jugador);
 	p[jugador].identificador=id;
 	x=512-256+(64*jugador);
 	y=100;
@@ -257,6 +261,7 @@ Begin
 	switch(p[jugador].personaje) //SWITCH PERSONAJES
 		case 0: include "raruto.pr-"; end //RARUTO
 		case 1: include "raruto.pr-"; end //PIX
+		case 2: include "raruto.pr-"; end //PIX
 	end //FIN SWITCH PERSONAJES
 
 	//PRINCIPIO COSAS GENERALES PREVIAS A FRAME
@@ -295,8 +300,6 @@ Begin
 	end
 	Loop
 		if(!exists(father)) return; end
-		x=father.x;
-		y=father.y;
 		while(p[jugador].control==-1) frame; end
 		While(ready==0) Frame; End
 		If(p[jugador].control==0)  // teclado
@@ -342,4 +345,4 @@ Begin
 	End
 End
 
-include "net.pr-";
+//include "net.pr-";
