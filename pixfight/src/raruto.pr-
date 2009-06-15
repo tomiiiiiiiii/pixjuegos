@@ -1,7 +1,8 @@
-//	if(jugador==1) delete_text(all_text);
-//	write(0,0,0,0,accion);
-//	write(0,0,10,0,ataque);
-//	end
+	if(jugador==1) delete_text(all_text);
+	write(0,0,0,0,accion);
+	write(0,0,10,0,ataque);
+	write_int(0,0,20,0,&x_inc);
+	end
 //	if(jugador==2) ataque="kunai"; end
 //	if(jugador==3 and accion!="aire") ataque="laser"; end
 //	if(jugador==4 and accion!="aire") ataque="contraataque"; end
@@ -9,8 +10,8 @@
 		case "quieto":
 			graph=1;
 			x+=x_inc;
-			if(botones.p[jugador][0] and !botones.p[jugador][1]) flags=1; x_inc-=1; accion="andar"; end
-			if(botones.p[jugador][1] and !botones.p[jugador][0]) flags=0; x_inc+=1; accion="andar"; end
+			if(botones.p[jugador][0] and !botones.p[jugador][1]) flags=1; if(x_inc!=0) accion="correr"; else accion="andar"; end x_inc-=1; end
+			if(botones.p[jugador][1] and !botones.p[jugador][0]) flags=0; if(x_inc!=0) accion="correr"; else accion="andar"; end x_inc+=1; end
 		end
 		case "andar":
 			if(ataque=="")	
@@ -34,8 +35,6 @@
 						end
 					end
 				end
-			    else	//EN CASO DE PULSAR DOS VECES SEGUIDAS LA TECLA IZQUIERDA
-				accion="correr";
 			    end
 			    if(derecha_suelto==0 or derecha_suelto==margen)
 				if(botones.p[jugador][1] and !botones.p[jugador][0]) //ANDAR DERECHA
@@ -57,8 +56,6 @@
 						end
 					end
 				end
-			    else	//EN CASO DE PULSAR DOS VECES SEGUIDAS LA TECLA DERECHA
-				accion="correr";
 			    end
 			    if((!botones.p[jugador][0] and !botones.p[jugador][1]) or (botones.p[jugador][0] and botones.p[jugador][1])) accion="quieto"; end
 			else
@@ -198,15 +195,14 @@
 			if(daño!=0 and atacante!=0 and exists(p[atacante].identificador)) 
 				raruto_tronco();
 				y=p[atacante].identificador.y;
-				if(p[atacante].identificador.x<x) x=p[atacante].identificador.x-30; flags=0; 
-				elseif(p[atacante].identificador.x=>x) x=p[atacante].identificador.x+30; flags=1; end
+				if(p[atacante].identificador.x<x) x=p[atacante].identificador.x; x_inc=-10; flags=0; 
+				elseif(p[atacante].identificador.x=>x) x=p[atacante].identificador.x; x_inc=10; flags=1; end
 				ataque="kunai";
 				atacante=0;
 				daño=0;
 			else
-				ataque="";
+				if(accion!="aire") accion="quieto"; ataque=""; else ataque="cayendo"; gravedad=-5; end
 			end
-			accion="quieto";
 		end
 		case "dañorecibido":
 			graph=2;
@@ -244,19 +240,37 @@
 	//--------------------FIN ATAQUES
 	//--------------------PRINCIPIO CONTROLES
 		if(ataque=="") //HAY QUE COMPROBAR SIEMPRE EL ATAQUE PORQUE SINO SE PUEDEN PRODUCIR VARIAS. P. EJ: 3ERSALTO Y KUNAI
-			//BOTON ATAQUE 1
-	/*MANOCHAN*/	if(ataque=="" and botones.p[jugador][5] and botones.p[jugador][0] and ataque2_suelto>0 and ataque2_suelto<margen and izquierda_suelto>0 and izquierda_suelto<margen) flags=1; ataque="laser"; end
-			if(ataque=="" and botones.p[jugador][5] and botones.p[jugador][1] and ataque2_suelto>0 and ataque2_suelto<margen and derecha_suelto>0 and derecha_suelto<margen) flags=0; ataque="laser"; end
+			if(accion!="aire")
+				//BOTON ATAQUE 1: ESTÁ TODOO MAL, ESTOS SE PUEDEN PRODUCIR SIN TENER QUE DARLE AL LADO EN EL MISMISIMO MOMENTO.
+		/*MANOCHAN*/	if(ataque=="" and botones.p[jugador][5] and botones.p[jugador][0] and ataque2_suelto>0 and ataque2_suelto<margen and izquierda_suelto>0 and izquierda_suelto<margen) flags=1; ataque="laser"; end
+				if(ataque=="" and botones.p[jugador][5] and botones.p[jugador][1] and ataque2_suelto>0 and ataque2_suelto<margen and derecha_suelto>0 and derecha_suelto<margen) flags=0; ataque="laser"; end
+		
+		/*ESCUDO*/	if(ataque=="" and botones.p[jugador][6] and ataque=="") ataque="escudo"; flags_antes=flags; escudo(); end	
 	
-	/*ESCUDO*/	if(ataque=="" and botones.p[jugador][6] and accion!="aire" and ataque=="") ataque="escudo"; flags_antes=flags; escudo(); end	
-
-	/*CONTRAATAQUE*/ if(ataque=="" and botones.p[jugador][5] and botones.p[jugador][3] and ataque2_suelto>0 and ataque2_suelto<margen and abajo_suelto>0 and abajo_suelto<margen and accion!="aire") ataque="contraataque"; end
-
-	/*3ERSALTO*/	if(ataque=="" and botones.p[jugador][5] and botones.p[jugador][2] and ataque2_suelto>0 and ataque2_suelto<margen and arriba_suelto>0 and arriba_suelto<margen) ataque="tercersalto"; end
-
-	/*KUNAI*/	if(ataque=="" and botones.p[jugador][5] and ataque2_suelto>0) ataque="kunai"; end
+		/*CONTRAATAQUE*/ if(ataque=="" and botones.p[jugador][5] and botones.p[jugador][3] and ataque2_suelto>0 and ataque2_suelto<margen) ataque="contraataque"; end
+	
+		/*3ERSALTO*/	if(ataque=="" and botones.p[jugador][5] and botones.p[jugador][2] and ataque2_suelto>0 and ataque2_suelto<margen) ataque="tercersalto"; end
+	
+		/*KUNAI*/	if(ataque=="" and botones.p[jugador][5] and ataque2_suelto>0) ataque="kunai"; end
 
 			//BOTON ATAQUE 2
+
+			else
+				//BOTON ATAQUE 1: ESTÁ TODOO MAL, ESTOS SE PUEDEN PRODUCIR SIN TENER QUE DARLE AL LADO EN EL MISMISIMO MOMENTO.
+		/*MANOCHAN*/	if(ataque=="" and botones.p[jugador][5] and botones.p[jugador][0] and ataque2_suelto>0 and ataque2_suelto<margen and izquierda_suelto>0 and izquierda_suelto<margen) flags=1; ataque="laser"; end
+				if(ataque=="" and botones.p[jugador][5] and botones.p[jugador][1] and ataque2_suelto>0 and ataque2_suelto<margen and derecha_suelto>0 and derecha_suelto<margen) flags=0; ataque="laser"; end
+		
+		/*ESCUDO*/	//if(ataque=="" and botones.p[jugador][6] and escudo_suelto>4) ataque="escudoaire"; end
+	
+		/*CONTRAATAQUE*/ if(ataque=="" and botones.p[jugador][5] and botones.p[jugador][3] and ataque2_suelto>0 and ataque2_suelto<margen) ataque="contraataque"; end
+	
+		/*3ERSALTO*/	if(ataque=="" and botones.p[jugador][5] and botones.p[jugador][2] and ataque2_suelto>0 and ataque2_suelto<margen) ataque="tercersalto"; end
+	
+		/*KUNAI*/	if(ataque=="" and botones.p[jugador][5] and ataque2_suelto>0) ataque="kunai"; end
+
+			//BOTON ATAQUE 2
+
+			end
 		end
 
 		//---------MOVIMIENTO Y MISC.

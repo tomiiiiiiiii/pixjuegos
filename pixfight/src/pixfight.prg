@@ -1,5 +1,5 @@
 Program pixfight;
-//import "net";
+import "net";
 
 Const
 	//RED
@@ -107,10 +107,13 @@ Global
 	//suelo=400;
 	dureza_suelo;
 	dureza_plataforma;
+	dureza_imposible;
 	durezas_nivel;
 	fpg_raruto;
 	fpg_pix;
 	fpg_tux;
+	fpg_zap;
+	fpg_aladdin;
 	tiempoescudo[8];
 	Struct botones;
 		int p[8][6];
@@ -141,7 +144,9 @@ Begin
 	fpg_raruto=load_fpg("fpg/raruto.fpg");
 	fpg_pix=load_fpg("fpg/pix.fpg");
 	fpg_tux=load_fpg("fpg/tux.fpg");
-	p[1].personaje=0; p[1].control=0; personaje(1);
+	fpg_zap=load_fpg("fpg/zap.fpg");
+	fpg_aladdin=load_fpg("fpg/aladdin.fpg");
+	p[1].personaje=4; p[1].control=0; personaje(1);
 
 //	personaje(3);
 //	personaje(4);
@@ -150,6 +155,7 @@ Begin
 	put_screen(0,load_png("nivelmask.png"));
 	dureza_suelo=map_get_pixel(0,durezas_nivel,0,0);
 	dureza_plataforma=map_get_pixel(0,durezas_nivel,1,0);
+	dureza_imposible=map_get_pixel(0,durezas_nivel,2,0);
 	set_fps(50,0);
 
 	play_song(load_song("1.ogg"),-1);
@@ -160,17 +166,12 @@ Begin
 	limites[3]=-300;
 
 	loop
-//		if(key(_1) and servidor_iniciado==0) net_init(); net_servidor(); end
-//		if(key(_2)) let_me_alone(); delete_text(all_text); net_init(); net_cliente("localhost"); return; end
+		if(key(_1) and servidor_iniciado==0) net_init(); net_servidor(); end
+		if(key(_2)) let_me_alone(); delete_text(all_text); net_init(); net_cliente("192.168.1.2"); return; end
 		if(key(_3)) while(key(_3)) frame; end p[2].personaje=1; p[2].control=1; personaje(2); end
 		if(keY(_4))
 				while(key(_4)) frame; end
-				p[3].personaje=2; p[3].control=5; personaje(3);	
-				p[4].personaje=0; p[4].control=-1; personaje(4);
-				p[5].personaje=0; p[5].control=5; personaje(5);
-				p[6].personaje=1; p[6].control=5; personaje(6);
-				p[7].personaje=2; p[7].control=5; personaje(7);
-				p[8].personaje=0; p[8].control=5; personaje(8);
+				from i=3 to 8; p[i].personaje=rand(0,4); p[i].control=5; personaje(i); end
 		end
 		if(key(_esc)) exit(); end
 		frame;
@@ -211,10 +212,13 @@ Begin
 		case 0: file=fpg_raruto; end
 		case 1: file=fpg_pix; end
 		case 2: file=fpg_tux; end
+		case 3: file=fpg_zap; end
+		case 4: file=fpg_aladdin; end
 	end
 	graph=1;
 	ancho=graphic_info(file,graph,g_width)/2;
 	alto=graphic_info(file,graph,g_height)/2;
+	if(alto<22) alto=22; end
 	tiempoescudo[jugador]=300;
 	write_int(0,80+jugador*80,50,0,&p[jugador].porcentual);
 	loop //INICIO LOOP PRINCIPAL PERSONAJES
@@ -262,13 +266,15 @@ Begin
 		case 0: include "raruto.pr-"; end //RARUTO
 		case 1: include "raruto.pr-"; end //PIX
 		case 2: include "raruto.pr-"; end //PIX
+		case 3: include "raruto.pr-"; end //ZAP
+		case 4: include "raruto.pr-"; end //ALADDIN
 	end //FIN SWITCH PERSONAJES
 
 	//PRINCIPIO COSAS GENERALES PREVIAS A FRAME
 	if(tiempoescudo[jugador]<299 and ataque!="escudo") tiempoescudo[jugador]+=2; end
+	while(map_get_pixel(0,durezas_nivel,x,y+alto)==dureza_imposible) y--; end
 	//FINAL COSAS GENERALES PREVIAS A FRAME
 	frame;
-
 	end //FIN LOOP PRINCIPAL PERSONAJES
 End
 
@@ -345,4 +351,4 @@ Begin
 	End
 End
 
-//include "net.pr-";
+include "net.pr-";

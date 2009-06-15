@@ -5,3 +5,5 @@ cd fpg-sources
 ..\bennu\bgdi pxlfpg raruto
 ..\bennu\bgdi pxlfpg pix
 ..\bennu\bgdi pxlfpg tux
+..\bennu\bgdi pxlfpg zap
+..\bennu\bgdi pxlfpg aladdin
