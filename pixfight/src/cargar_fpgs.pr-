@@ -1,0 +1,18 @@
+Global
+	fpg_aladdin;
+	fpg_bubsy;
+	fpg_pix;
+	fpg_raruto;
+	fpg_tux;
+	fpg_zap;
+End
+ 
+Process cargar_fpgs();
+Begin
+	fpg_aladdin=load_fpg("aladdin.fpg");
+	fpg_bubsy=load_fpg("bubsy.fpg");
+	fpg_pix=load_fpg("pix.fpg");
+	fpg_raruto=load_fpg("raruto.fpg");
+	fpg_tux=load_fpg("tux.fpg");
+	fpg_zap=load_fpg("zap.fpg");
+End

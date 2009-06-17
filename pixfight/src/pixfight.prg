@@ -109,11 +109,6 @@ Global
 	dureza_plataforma;
 	dureza_imposible;
 	durezas_nivel;
-	fpg_raruto;
-	fpg_pix;
-	fpg_tux;
-	fpg_zap;
-	fpg_aladdin;
 	tiempoescudo[8];
 	Struct botones;
 		int p[8][6];
@@ -141,11 +136,7 @@ Local
 Begin
 	//full_screen=true;
 	set_mode(1024,600,32);
-	fpg_raruto=load_fpg("fpg/raruto.fpg");
-	fpg_pix=load_fpg("fpg/pix.fpg");
-	fpg_tux=load_fpg("fpg/tux.fpg");
-	fpg_zap=load_fpg("fpg/zap.fpg");
-	fpg_aladdin=load_fpg("fpg/aladdin.fpg");
+	cargar_fpgs();
 	p[1].personaje=4; p[1].control=0; personaje(1);
 
 //	personaje(3);
@@ -177,6 +168,8 @@ Begin
 		frame;
 	end
 End
+
+include "cargar_fpgs.pr-";
 
 Process conectarse();
 Private
