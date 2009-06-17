@@ -8,7 +8,7 @@ begin
       if( (idp == id_servidor) || (idp == father) )
          matalo = 0;
       end;
-      from i = 0 to MAX_JUGADORES-1
+      from i = 0 to MAX_JUGADORES-1;
          if(idp == clientes[i].id)
             matalo = 0;
          end;
@@ -25,7 +25,7 @@ begin
    loop
       frame(velocidadnet);
 
-      from i = 0 to NUM_CONTROLES-1
+      from i = 0 to NUM_CONTROLES-1;
          botones.p[index+2][i] = data.c.controles[i];
       end;
    end;
@@ -88,7 +88,7 @@ begin
             // Y enviamos
             memcopy(pSendPacket.data, pScreen, sizeof(ScreenMessage_t) );
             pSendPacket.len = sizeof(ScreenMessage_t);
-            from n = 0 to MAX_JUGADORES - 1
+            from n = 0 to MAX_JUGADORES - 1;
                if(clientes[n].id != 0)
                   pSendPacket.address.host = clientes[n].address.host;
                   pSendPacket.address.port = clientes[n].address.port;
@@ -99,7 +99,7 @@ begin
             // Enviamos el mensaje con los sonidos
             memcopy(pSendPacket.data, pSounds, sizeof(SoundMessage_t) );
             pSendPacket.len = sizeof(SoundMessage_t);
-            from n = 0 to MAX_JUGADORES - 1
+            from n = 0 to MAX_JUGADORES - 1;
                if(clientes[n].id != 0)
                   pSendPacket.address.host = clientes[n].address.host;
                   pSendPacket.address.port = clientes[n].address.port;
@@ -131,7 +131,7 @@ begin
                   else
                      // Mensaje de conexión, buscar hueco libre
                      pConnect.index = -1;
-                     from i = 0 to MAX_JUGADORES-1
+                     from i = 0 to MAX_JUGADORES-1;
                         if(clientes[i].id == 0)
                            pConnect.index = i;
                            clientes[i].address = pReceivePacket.address;
@@ -170,7 +170,7 @@ begin
          pConnect.index = -1;
          memcopy(pSendPacket.data, pConnect, sizeof(ConnectMessage_t) );
          pSendPacket.len = sizeof(ConnectMessage_t);
-         from n = 0 to MAX_JUGADORES - 1
+         from n = 0 to MAX_JUGADORES - 1;
             if(clientes[n].id != 0)
                pSendPacket.address.host = clientes[n].address.host;
                pSendPacket.address.port = clientes[n].address.port;
@@ -257,7 +257,7 @@ begin
       // Nos dejaron entrar, crear procesos del servidor
       controlador(1);
 
-      from i = 0 to MAX_PROCESOS
+      from i = 0 to MAX_PROCESOS;
          procesillo_cliente(i);
       end;
 
@@ -270,7 +270,7 @@ begin
          frame(velocidadnet);
 
          // PASO 2. Mandar controles al servidor
-         from i = 0 to NUM_CONTROLES-1
+         from i = 0 to NUM_CONTROLES-1;
             pControl.controles[i] = botones.p[1][i];
          end;
          memcopy(pSendPacket.data, pControl, sizeof(ControlsMessage_t) );
@@ -322,7 +322,7 @@ begin
                   end;
 
                   if(pSounds.nSonidos > 0)
-                     from i = 0 to pSounds.nSonidos - 1
+                     from i = 0 to pSounds.nSonidos - 1;
                         play_wav(wavs[pSounds.sonidos[i]],0);
                      end;
                   end;

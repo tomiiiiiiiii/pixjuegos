@@ -1,5 +1,5 @@
 Program pixfight;
-import "net";
+import "libnet";
 
 Const
 	//RED
@@ -140,7 +140,7 @@ Local
 	var;
 Begin
 	//full_screen=true;
-	set_mode(1024,600,16);
+	set_mode(1024,600,32);
 	fpg_raruto=load_fpg("fpg/raruto.fpg");
 	fpg_pix=load_fpg("fpg/pix.fpg");
 	fpg_tux=load_fpg("fpg/tux.fpg");
@@ -166,7 +166,7 @@ Begin
 	limites[3]=-300;
 
 	loop
-		if(key(_1) and servidor_iniciado==0) net_init(); net_servidor(); end
+		if(key(_1) and servidor_iniciado==0) net_servidor(); end
 		if(key(_2)) conectarse(); end
 		if(key(_3)) while(key(_3)) frame; end p[2].personaje=1; p[2].control=1; personaje(2); end
 		if(keY(_4))
@@ -186,7 +186,6 @@ Private
 Begin	
 	let_me_alone(); 
 	delete_text(all_text); 
-	net_init(); 
 	Loop
 	    If(scan_code==_backspace) scan_code=0; ip=substr(ip, 0, -1); End
 	    If(scan_code==_enter) net_cliente(ip); return; End  
