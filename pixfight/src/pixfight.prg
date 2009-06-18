@@ -137,7 +137,7 @@ Begin
 	//full_screen=true;
 	set_mode(1024,600,32);
 	cargar_fpgs();
-	p[1].personaje=4; p[1].control=0; personaje(1);
+	p[1].personaje=5; p[1].control=0; personaje(1);
 
 //	personaje(3);
 //	personaje(4);
@@ -162,7 +162,7 @@ Begin
 		if(key(_3)) while(key(_3)) frame; end p[2].personaje=1; p[2].control=1; personaje(2); end
 		if(keY(_4))
 				while(key(_4)) frame; end
-				from i=3 to 8; p[i].personaje=rand(0,4); p[i].control=5; personaje(i); end
+				from i=3 to 8; p[i].personaje=rand(0,5); p[i].control=5; personaje(i); end
 		end
 		if(key(_esc)) exit(); end
 		frame;
@@ -232,6 +232,7 @@ Begin
 		case 2: file=fpg_tux; end
 		case 3: file=fpg_zap; end
 		case 4: file=fpg_aladdin; end
+		case 5: file=fpg_bubsy; end
 	end
 	graph=1;
 	ancho=graphic_info(file,graph,g_width)/2;
@@ -286,6 +287,7 @@ Begin
 		case 2: include "raruto.pr-"; end //PIX
 		case 3: include "raruto.pr-"; end //ZAP
 		case 4: include "raruto.pr-"; end //ALADDIN
+		case 5: include "raruto.pr-"; end //BUBSY
 	end //FIN SWITCH PERSONAJES
 
 	//PRINCIPIO COSAS GENERALES PREVIAS A FRAME
@@ -324,7 +326,7 @@ Begin
 	end
 	Loop
 		if(!exists(father)) return; end
-		while(p[jugador].control==-1) frame; end
+		if(p[jugador].control==-1) return; end
 		While(ready==0) Frame; End
 		If(p[jugador].control==0)  // teclado
 			If(key(_left)) botones.p[jugador][0]=1; Else botones.p[jugador][0]=0; End
