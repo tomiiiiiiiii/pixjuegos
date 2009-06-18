@@ -1,4 +1,13 @@
 @echo off
+echo LIMPIEZA...
+cd fpg
+del /f *.fpg
+cd ..
+del /f *.dcb
+cd src
+del /f *.dcb
+cd ..
+
 cd src
 echo Creamos FPGS...
 REM ESTO DE DEBAJO NO TIENE QUE FALLAR...
@@ -11,5 +20,3 @@ echo Compilamos...
 move pixfight.dcb ..
 pause
 cd ..
-Ejecutamos...
-.\bennu\bgdi pixfight
