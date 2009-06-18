@@ -157,8 +157,20 @@ Begin
 	limites[3]=-300;
 
 	loop
+		if(servidor_iniciado)
+			if(nConectados>0)
+				from i=1 to nConectados;
+					if(!exists(p[i+1].identificador)) p[i+1].personaje=rand(0,5); p[i+1].control=-1; personaje(i+1); end
+				end
+				if(nConectados<8)
+					from i=nConectados+1 to 8;
+						if(exists(p[i+1].identificador)) signal(p[i+1].identificador,s_kill); end
+					end
+				end
+			end
+		end
 		if(key(_1) and servidor_iniciado==0) net_servidor(); end
-		if(key(_2)) conectarse(); end
+		if(key(_2)) while(key(_2)) frame; end conectarse(); end
 		if(key(_3)) while(key(_3)) frame; end p[2].personaje=1; p[2].control=1; personaje(2); end
 		if(keY(_4))
 				while(key(_4)) frame; end
@@ -173,7 +185,7 @@ include "cargar_fpgs.pr-";
 
 Process conectarse();
 Private
-	string ip="localhost";
+	string ip="pruebas.panreyes.es";
 	char prompt="_";
 	inputtext;
 Begin	
