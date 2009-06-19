@@ -1,6 +1,5 @@
 @echo off
-cd fpg
-del /f *.fpg
+rd /s /q fpg
 cd ..
 del /f *.dcb
 cd src

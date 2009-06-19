@@ -101,7 +101,8 @@ Global
 	//	x,y,z,angle,flags,alpha,size_x,size_y,file,graph;
 		x,y,file,graph;
 	end
-	velocidadnet=100;
+	velocidadnet=300;
+	cliente=0;
 //  --------
 
 	//suelo=400;
@@ -149,13 +150,15 @@ Begin
 	dureza_imposible=map_get_pixel(0,durezas_nivel,2,0);
 	set_fps(50,0);
 
-	play_song(load_song("1.ogg"),-1);
+	//play_song(load_song("1.ogg"),-1);
 
 	limites[0]=-300;
 	limites[1]=1224;
 	limites[2]=800;
 	limites[3]=-300;
 
+	if(cliente) net_cliente("pruebas.panreyes.es"); return; end
+	
 	loop
 		if(servidor_iniciado)
 			if(nConectados>0)
