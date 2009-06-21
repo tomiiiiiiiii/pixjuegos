@@ -138,7 +138,7 @@ Begin
 	//full_screen=true;
 	set_mode(1024,600,32);
 	cargar_fpgs();
-	p[1].personaje=5; p[1].control=0; personaje(1);
+	p[1].personaje=6; p[1].control=0; personaje(1);
 
 //	personaje(3);
 //	personaje(4);
@@ -150,7 +150,7 @@ Begin
 	dureza_imposible=map_get_pixel(0,durezas_nivel,2,0);
 	set_fps(50,0);
 
-	//play_song(load_song("1.ogg"),-1);
+	play_song(load_song("1.ogg"),-1);
 
 	limites[0]=-300;
 	limites[1]=1224;
@@ -174,7 +174,7 @@ Begin
 		end
 		if(key(_1) and servidor_iniciado==0) net_servidor(); end
 		if(key(_2)) while(key(_2)) frame; end conectarse(); end
-		if(key(_3)) while(key(_3)) frame; end p[2].personaje=1; p[2].control=1; personaje(2); end
+		if(key(_3)) while(key(_3)) frame; end p[2].personaje=1; p[2].control=-1; personaje(2); end
 		if(keY(_4))
 				while(key(_4)) frame; end
 				from i=3 to 8; p[i].personaje=rand(0,5); p[i].control=5; personaje(i); end
@@ -216,7 +216,7 @@ Private
 	x_inc;
 	bufferteclas[2];
 	tiempoteclas;
-	velocidad=6;
+	velocidad=4;
 	anim; //para movs
 	anim2; //para ataques
 	doblesalto; //-1:no se puede hacer , 0:preparado , 1:recién realizado
@@ -248,6 +248,7 @@ Begin
 		case 3: file=fpg_zap; end
 		case 4: file=fpg_aladdin; end
 		case 5: file=fpg_bubsy; end
+		case 6: file=fpg_pikachu; velocidad=8; end
 	end
 	graph=1;
 	ancho=graphic_info(file,graph,g_width)/2;
@@ -299,10 +300,11 @@ Begin
 	switch(p[jugador].personaje) //SWITCH PERSONAJES
 		case 0: include "raruto.pr-"; end //RARUTO
 		case 1: include "raruto.pr-"; end //PIX
-		case 2: include "raruto.pr-"; end //PIX
+		case 2: include "raruto.pr-"; end //TUX
 		case 3: include "raruto.pr-"; end //ZAP
 		case 4: include "raruto.pr-"; end //ALADDIN
 		case 5: include "raruto.pr-"; end //BUBSY
+		case 6: include "pikachu.pr-"; end //PIKACHU
 	end //FIN SWITCH PERSONAJES
 
 	//PRINCIPIO COSAS GENERALES PREVIAS A FRAME
@@ -314,6 +316,7 @@ Begin
 End
 
 include "raruto_proc.pr-";
+include "pikachu_proc.pr-";
 
 Process escudo();
 Begin

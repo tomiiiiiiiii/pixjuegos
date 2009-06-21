@@ -26,10 +26,6 @@ Begin
 				break;
 			end
 		end
-//		if(id_col=collision(type raruto_kunai) or accion=="break")
-//			id_col.accion="break";
-//			break;
-//		end
 		if(collision(type raruto_kunai))
 			break;
 		end

@@ -1,0 +1,73 @@
+//PIKAAAA!!
+Process pikachu_rayovertical();
+Private
+	id_col;
+	impacto;
+Begin
+	jugador=father.jugador;
+	from i=0 to 5; if(!exists(father)) return; end if(father.daño>0) return; end frame; end
+	x=father.x;
+	y=father.y-400;
+	file=fpg_pikachu;
+	graph=33;
+	z=-1;
+	loop
+		if(i<5) i++; else i=0; if(graph==33) graph=34; else graph=33; end end
+		if(y>limites[2]+800) return; end
+		if(id_col=collision(type personaje))
+			if(id_col.jugador==jugador)
+				y=id_col.y-120;
+				impacto=1;
+			else
+				//massivedamage
+				if(id_col.ataque!="dañorecibido")
+					id_col.daño+=16;
+					id_col.atacante=jugador;
+					id_col.direccion_golpe=flags;
+				end
+			end
+		end
+		foo=y+20;
+		from y=y to foo;
+			if(map_get_pixel(0,durezas_nivel,x,y+120)==dureza_suelo or map_get_pixel(0,durezas_nivel,x,y+120)==dureza_plataforma)
+				impacto=1;
+			end
+		end
+		if(impacto) break; end
+		frame;
+	end
+	y-=12;
+	i=0;
+	graph=35;
+	loop
+		if(i<5) i++; else i=0; graph++; end
+		if(graph==38) break; end
+		frame;
+	end
+
+End
+
+Process pikachu_reciberayo();
+Private
+	id_col;
+Begin
+	jugador=father.jugador;
+	x=father.x;
+	y=father.y;
+	file=fpg_pikachu;
+	z=-1;
+	graph=41;
+	loop
+		if(i<4) i++; else i=0; if(graph<45) graph++; else return; end end
+		if(id_col=collision(type personaje))
+			if(id_col.jugador!=jugador)
+				if(id_col.ataque!="dañorecibido")
+					id_col.daño+=28;
+					id_col.atacante=jugador;
+					id_col.direccion_golpe=flags;
+				end
+			end
+		end
+		frame;
+	end
+End
