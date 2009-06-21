@@ -1,6 +1,14 @@
 @echo off
-rd /s /q pixfight-export
-del /f pixfight_exe_pak.exe
+echo Hacemos limpieza...
+start /b /wait limpieza.bat > null
+del /f null
+echo Creando FPGs...
+start /b /wait crearfpgs.bat > null
+del /f null
+echo Compilando...
+start /b /wait compilar.bat
+del /f null
+echo Exportando...
 mkdir pixfight-export
 mkdir pixfight-export\fpg
 mkdir pixfight-export\ogg
@@ -17,3 +25,5 @@ echo (este paso no se puede automatizar por ahora...)
 move pixfight_exe_pak.exe ..\
 cd ..
 rd /s /q pixfight-export
+echo LISTO!!
+exit
