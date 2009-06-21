@@ -176,11 +176,45 @@
 			end
 		end
 		case "tercersalto":
-			graph=3;
-			from i=0 to 3; raruto_copia(); y-=alto*1.5; end
-			y+=4*alto*1.5;
-			gravedad=-20;
-			ataque="cayendo";
+			if(foo==0) graph=31; var=-1; end
+			if(foo<10) gravedad=0; x_inc=0; end
+			if(foo==10)
+				gravedad=0; x_inc=0;
+				//var: 0 izq, 1 der, 2 up, 3 down, 4 up-izq, 5 up-der, 6 down-izq, 7 down-der		
+				if(botones.p[jugador][2]) //arribases
+					if(botones.p[jugador][0]) var=4; x_inc=-30; gravedad=-30;
+					elseif(botones.p[jugador][1]) var=5; x_inc=30; gravedad=-30;
+					else var=2; gravedad=-30; end
+				elseif(botones.p[jugador][3]) //abajoses
+					if(botones.p[jugador][0]) var=6; x_inc=-30; gravedad=30;
+					elseif(botones.p[jugador][1]) var=7; x_inc=30; gravedad=30;
+					else var=3; gravedad=30; end
+				else //solo ladoses
+					if(botones.p[jugador][0]) var=0; x_inc=-30; end
+					if(botones.p[jugador][1]) var=1; x_inc=30; end
+				end
+				if(var==-1) var=2; gravedad=-30; end
+			end
+			if(foo>15 and foo<20) gravedad=0; x_inc=0; end
+			if(foo==20)
+				gravedad=0; x_inc=0;
+				if(botones.p[jugador][2]) //arribases
+					if(botones.p[jugador][0]) if(var!=4) x_inc=-30; gravedad=-30; end
+					elseif(botones.p[jugador][1]) if(var!=5) x_inc=30; gravedad=-30; end
+					elseif(var!=2) var=2; gravedad=-30; end
+				elseif(botones.p[jugador][3]) //abajoses
+					if(botones.p[jugador][0]) if(var!=6) x_inc=-30; gravedad=30; end
+					elseif(botones.p[jugador][1]) if(var!=7) x_inc=30; gravedad=30; end
+					elseif(var!=3) gravedad=30; end
+				else //solo ladoses
+					if(botones.p[jugador][0] and var!=0) x_inc=-30; end
+					if(botones.p[jugador][1] and var!=1) x_inc=30; end
+				end
+			end
+			if(foo>25)
+				ataque="cayendo"; gravedad=0; x_inc=0;
+			end
+			foo++;
 		end
 		case "cayendo":
 			if(botones.p[jugador][0]) x_inc=-6; end
@@ -268,7 +302,7 @@
 		if(ataque=="" and botones.p[jugador][5] and botones.p[jugador][1] and ataque2_suelto>0 and ataque2_suelto<margen and derecha_suelto>0 and derecha_suelto<margen) flags=0; ataque="disparado"; foo=0; end
 
 		
-		/*3ERSALTO*/	if(ataque=="" and botones.p[jugador][5] and botones.p[jugador][2] and ataque2_suelto>0 and ataque2_suelto<margen) ataque="tercersalto"; end
+		/*3ERSALTO*/	if(ataque=="" and botones.p[jugador][5] and botones.p[jugador][2] and ataque2_suelto>0 and ataque2_suelto<margen) ataque="tercersalto"; foo=0; end
 
 			//BOTON ATAQUE 2
 
@@ -441,7 +475,7 @@
 				x_inc=-((daño/3)*1+(p[jugador].porcentual/10));
 			end
 			gravedad=-(daño+(p[jugador].porcentual/60));
-			//if(gravedad<-15) gravedad=-15; end
+			if(gravedad<-15) gravedad=-15; end
 			if(x_inc>15) ataque="dañorecibido"; else ataque=""; end
 			p[jugador].porcentual+=daño; 
 			daño=0; 
