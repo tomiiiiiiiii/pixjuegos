@@ -19,9 +19,8 @@ copy bennu\bgdi.exe pixfight-export\pixfight.exe
 copy pixfight.dcb pixfight-export
 copy nivelmask.png pixfight-export
 cd pixfight-export
-echo DEBES ELEGIR EL EJECUTABLE PIXFIGHT.EXE
-echo (este paso no se puede automatizar por ahora...)
-..\bennu\pakator
+echo DEBES ELEGIR EL PIXFIGHT.EXE
+..\bennu\pakator 
 move pixfight_exe_pak.exe ..\
 cd ..
 rd /s /q pixfight-export

@@ -138,7 +138,7 @@ Begin
 	//full_screen=true;
 	set_mode(1024,600,32);
 	cargar_fpgs();
-	p[1].personaje=6; p[1].control=0; personaje(1);
+	p[1].personaje=7; p[1].control=0; personaje(1);
 
 //	personaje(3);
 //	personaje(4);
@@ -249,6 +249,7 @@ Begin
 		case 4: file=fpg_aladdin; end
 		case 5: file=fpg_bubsy; end
 		case 6: file=fpg_pikachu; velocidad=8; end
+		case 7: file=fpg_mjackson; velocidad=4; end
 	end
 	graph=1;
 	ancho=graphic_info(file,graph,g_width)/2;
@@ -305,6 +306,7 @@ Begin
 		case 4: include "raruto.pr-"; end //ALADDIN
 		case 5: include "raruto.pr-"; end //BUBSY
 		case 6: include "pikachu.pr-"; end //PIKACHU
+		case 7: include "mjackson.pr-"; end //MICHAEL JACKSON
 	end //FIN SWITCH PERSONAJES
 
 	//PRINCIPIO COSAS GENERALES PREVIAS A FRAME
@@ -317,6 +319,7 @@ End
 
 include "raruto_proc.pr-";
 include "pikachu_proc.pr-";
+include "mjackson_proc.pr-";
 
 Process escudo();
 Begin
