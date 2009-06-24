@@ -1,0 +1,93 @@
+Process personaje(jugador);
+Private
+	x_inc;
+	bufferteclas[2];
+	tiempoteclas;
+	velocidad=4;
+	anim; //para movs
+	anim2; //para ataques
+	doblesalto; //-1:no se puede hacer , 0:preparado , 1:recién realizado
+	teclasuelta[10];
+	//pacorrer;
+	ataque2_suelto;
+	ataque1_suelto;
+	escudo_suelto;
+	arriba_suelto;
+	izquierda_suelto;
+	derecha_suelto;
+	abajo_suelto;
+	x_destino;
+	y_destino;
+	fuerza_ataque;
+	tiempo_paralizado;
+	flags_antes;
+	id_col;
+	margen=10; //para los combos
+Begin
+	controlador(jugador);
+	p[jugador].identificador=id;
+	x=512-256+(64*jugador);
+	y=100;
+	switch(p[jugador].personaje)
+		include "personaje1.pr-";	
+	end
+	graph=1;
+	ancho=graphic_info(file,graph,g_width)/2;
+	alto=graphic_info(file,graph,g_height)/2;
+	if(alto<22) alto=22; end
+	tiempoescudo[jugador]=300;
+	write_int(0,80+jugador*80,50,0,&p[jugador].porcentual);
+	loop //INICIO LOOP PRINCIPAL PERSONAJES
+
+	//-----------------
+	if(!botones.p[jugador][0]) 
+		if(izquierda_suelto<margen) izquierda_suelto++; end
+	else
+		if(izquierda_suelto>0) izquierda_suelto--; end
+	end
+	if(!botones.p[jugador][1]) 
+		if(derecha_suelto<margen) derecha_suelto++; end
+	else
+		if(derecha_suelto>0) derecha_suelto--; end
+	end
+	if(!botones.p[jugador][2]) 
+		if(arriba_suelto<margen) arriba_suelto++; end
+	else
+		if(arriba_suelto>0) arriba_suelto--; end
+	end
+	if(!botones.p[jugador][3]) 
+		if(abajo_suelto<margen) abajo_suelto++; end
+	else
+		if(abajo_suelto>0) abajo_suelto--; end
+	end
+	if(!botones.p[jugador][4]) 
+		if(ataque1_suelto<margen) ataque1_suelto++; end
+	else
+		if(ataque1_suelto>0) ataque1_suelto--; end
+	end
+	if(!botones.p[jugador][5]) 
+		if(ataque2_suelto<margen) ataque2_suelto++; end
+	else
+		if(ataque2_suelto>0) ataque2_suelto--; end
+	end
+	if(!botones.p[jugador][6]) 
+		if(escudo_suelto<margen) escudo_suelto++; end
+	else
+		if(escudo_suelto>0) escudo_suelto--; end
+	end
+	//--FIN CONTROLES
+
+
+	switch(p[jugador].personaje) //SWITCH PERSONAJES
+		include "personaje2.pr-";
+	end //FIN SWITCH PERSONAJES
+
+	//PRINCIPIO COSAS GENERALES PREVIAS A FRAME
+	if(tiempoescudo[jugador]<299 and ataque!="escudo") tiempoescudo[jugador]+=2; end
+	while(map_get_pixel(0,durezas_nivel,x,y+alto)==dureza_imposible) y--; end
+	//FINAL COSAS GENERALES PREVIAS A FRAME
+	frame;
+	end //FIN LOOP PRINCIPAL PERSONAJES
+End
+
+include "personaje3.pr-";

@@ -2,9 +2,6 @@
 echo Hacemos limpieza...
 start /b /wait limpieza.bat > null
 del /f null
-echo Creando FPGs...
-start /b /wait crearfpgs.bat > null
-del /f null
 echo Compilando...
 start /b /wait compilar.bat
 del /f null
