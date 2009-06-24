@@ -1,0 +1,350 @@
+
+// Esta funcion mata todos los procesos menos al que la llama y a los procesos del servidor
+function let_me_alone_menos_servidor()
+private idp, matalo;
+begin
+   while( (idp = get_id(0) ) != 0)
+      matalo = 1;
+      if( (idp == id_servidor) || (idp == father) )
+         matalo = 0;
+      end;
+      from i = 0 to MAX_JUGADORES-1;
+         if(idp == clientes[i].id)
+            matalo = 0;
+         end;
+      end;
+
+      if(matalo != 0)
+         signal(idp, S_KILL);
+      end
+   end
+end
+
+process controlador_net( int index, ClientData_t pointer data)
+begin
+   loop
+      frame(velocidadnet);
+
+      from i = 0 to NUM_CONTROLES-1;
+         botones.p[index+2][i] = data.c.controles[i];
+      end;
+   end;
+end;
+
+Process net_servidor()
+begin
+   if(servidor_iniciado == 0)
+      servidor_iniciado = 1;
+      id_servidor = id;
+      pScreen.mundo = 0;
+      pSounds.nSonidos = 0;
+
+      // Preparamos el socket 0 para recibir por puerto servidor
+      if(net_udp_open(0, PUERTO_SERVIDOR) == 0)
+
+         // El mensaje más grande que vamos a recibir es ControlsMessage_t
+         net_udp_allocpacket(0, sizeof(ControlsMessage_t) );
+         pReceivePacket = net_udp_getpacket(0);
+
+         // El mensaje más grande que vamos a enviar es ScreenMessage_t
+         net_udp_allocpacket(1, sizeof(ScreenMessage_t) );
+         pSendPacket = net_udp_getpacket(1);
+
+         nConectados = 0;
+
+         while(nConectados != -1)
+            // PASO 1. Dejar que los procesos se muevan
+            frame(velocidadnet);
+
+            // PASO 2. Enviar datos de pantalla
+
+            // n es el contador de proceso dentro del mensaje
+            n = 0;
+
+            // Copiar los datos de todos los procesos en pantalla
+            while( (n <= MAX_PROCESOS) && ( (procc = get_id(0) ) != 0) )
+               if(procc.graph!=0)
+                  pScreen.processInfo[n].x = procc.x;
+                  pScreen.processInfo[n].y = procc.y;
+                  pScreen.processInfo[n].z = procc.z;
+                  pScreen.processInfo[n].angle = procc.angle;
+                  pScreen.processInfo[n].flags = procc.flags;
+                  pScreen.processInfo[n].alpha = procc.alpha;
+                  pScreen.processInfo[n].size_x = procc.size_x;
+                  pScreen.processInfo[n].size_y = procc.size_y;
+                  pScreen.processInfo[n].file = procc.file;
+                  pScreen.processInfo[n].graph = procc.graph;
+
+                  n++;
+               end
+            end;
+
+            // Finalmente rellenamos con graph=0
+            while(n <= MAX_PROCESOS)
+               pScreen.processInfo[n].graph = 0;
+               n++;
+            end;
+
+            // Y enviamos
+            memcopy(pSendPacket.data, pScreen, sizeof(ScreenMessage_t) );
+            pSendPacket.len = sizeof(ScreenMessage_t);
+            from n = 0 to MAX_JUGADORES - 1;
+               if(clientes[n].id != 0)
+                  pSendPacket.address.host = clientes[n].address.host;
+                  pSendPacket.address.port = clientes[n].address.port;
+                  net_udp_send(0, -1, 1);
+               end;
+            end;
+
+            // Enviamos el mensaje con los sonidos
+            memcopy(pSendPacket.data, pSounds, sizeof(SoundMessage_t) );
+            pSendPacket.len = sizeof(SoundMessage_t);
+            from n = 0 to MAX_JUGADORES - 1;
+               if(clientes[n].id != 0)
+                  pSendPacket.address.host = clientes[n].address.host;
+                  pSendPacket.address.port = clientes[n].address.port;
+                  net_udp_send(0, -1, 1);
+               end;
+            end;
+            pSounds.nSonidos = 0;
+
+            // PASO 3. Recibir mensajes de clientes
+            while(net_udp_recv(0, 0) > 0)
+               if(pReceivePacket.len == sizeof(ConnectMessage_t) )
+                  // Es un mensaje de conexión/desconexión, lo copiamos a pConnect
+                  memcopy(pConnect, pReceivePacket.data, sizeof(ConnectMessage_t) );
+                  n = pConnect.index;
+
+                  if( (n >= 0) && (n < MAX_JUGADORES) )
+                     // Nos mandan mensaje de desconexión. Verificar dirección
+                     if( (clientes[n].id != 0) &&
+                         (clientes[n].address.host == pReceivePacket.address.host) &&
+                         (clientes[n].address.port == pReceivePacket.address.port) )
+                        // Verificación ok. Matar el proceso correspondiente
+                        p[n+2].juega=0;
+                        //p[n+2].muneco=0;
+                        //if(exists(p[n+2].identificador)) p[n+2].identificador.accion=muere; end
+                        signal(clientes[n].id, S_KILL);
+                        clientes[n].id = 0;
+                        nConectados--;
+                     end;
+                  else
+                     // Mensaje de conexión, buscar hueco libre
+                     pConnect.index = -1;
+                     from i = 0 to MAX_JUGADORES-1;
+                        if(clientes[i].id == 0)
+                           pConnect.index = i;
+                           clientes[i].address = pReceivePacket.address;
+                           clientes[i].id = controlador_net(i, &clientes[i]);
+                           nConectados++;
+                           break;
+                        end;
+                     end;
+
+                     // Preparamos buffer de envío con el índice del nuevo cliente
+                     memcopy(pSendPacket.data, pConnect, sizeof(ConnectMessage_t) );
+                     pSendPacket.len = sizeof(ConnectMessage_t);
+                     pSendPacket.address.host = pReceivePacket.address.host;
+                     pSendPacket.address.port = pReceivePacket.address.port;
+
+                     // Le decimos al cliente cual es su index por un canal temporal
+                     net_udp_send(0, -1, 1);
+                  end;
+               else
+                  // Es un mensaje de control, lo copiamos en pControl
+                  memcopy(pControl, pReceivePacket.data, sizeof(ControlsMessage_t) );
+                  n = pControl.index;
+
+                  // Verificamos dirección
+                  if( (clientes[n].id != 0) &&
+                      (clientes[n].address.host == pReceivePacket.address.host) &&
+                      (clientes[n].address.port == pReceivePacket.address.port) )
+                     // copiamos los controles
+                     memcopy(clientes[n].c, pControl, sizeof(ControlsMessage_t) );
+                  end;
+               end;
+            end;
+         end;  // fin del bucle del servidor
+
+         // Le decimos a todos los clientes que se acabó
+         pConnect.index = -1;
+         memcopy(pSendPacket.data, pConnect, sizeof(ConnectMessage_t) );
+         pSendPacket.len = sizeof(ConnectMessage_t);
+         from n = 0 to MAX_JUGADORES - 1;
+            if(clientes[n].id != 0)
+               pSendPacket.address.host = clientes[n].address.host;
+               pSendPacket.address.port = clientes[n].address.port;
+               net_udp_send(0, -1, 1);
+            end;
+         end;
+
+         net_udp_close(0);
+         net_udp_freepacket(0);
+         net_udp_freepacket(1);
+      end
+
+      id_servidor = 0;
+   end
+end
+
+// -------------------------------- [CLIENTE] -------------------------------------
+
+process procesillo_cliente(i);
+begin
+   loop
+      x=pScreen.processInfo[i].x;
+      y=pScreen.processInfo[i].y;
+      z=pScreen.processInfo[i].z;
+      angle=pScreen.processInfo[i].angle;
+      flags=pScreen.processInfo[i].flags;
+      alpha=pScreen.processInfo[i].alpha;
+      size_x=pScreen.processInfo[i].size_x;
+      size_y=pScreen.processInfo[i].size_y;
+      file=pScreen.processInfo[i].file;
+      graph=pScreen.processInfo[i].graph;
+      frame(velocidadnet);
+   end;
+end
+
+process net_cliente( string host)
+private
+   last_mundo = 0;
+   canal_aspiradora = -1;
+   num;
+
+begin
+   let_me_alone();
+
+   // El mensaje más grande que vamos a recibir es ScreenMessage_t
+   net_udp_allocpacket(2, sizeof(ScreenMessage_t) );
+   pReceivePacket = net_udp_getpacket(2);
+
+   // El mensaje más grande que vamos a enviar es ControlsMessage_t
+   net_udp_allocpacket(3, sizeof(ControlsMessage_t) );
+   pSendPacket = net_udp_getpacket(3);
+
+   // Abrimos el socket y lo preparamos para enviar datos al servidor
+   net_udp_open(1, 0);
+   net_udp_bind(1, 1, host, PUERTO_SERVIDOR);
+
+   // Le mandamos al servidor el mensaje de conexion
+   pConnect.index = -1;
+   memcopy(pSendPacket.data, pConnect, sizeof(ConnectMessage_t) );
+   pSendPacket.len = sizeof(ConnectMessage_t);
+   net_udp_send(1, 1, 3);
+
+   // Esperamos respuesta del servidor
+   n = -1;
+   timer[1] = 0;
+   while( (n == -1) && (timer[1] < TIEMPO_ESPERA) )
+      frame(velocidadnet);
+
+      if(net_udp_recv(1, 2) > 0)
+         // Recibido mensaje
+         if(pReceivePacket.len == sizeof(ConnectMessage_t) )
+            // Es de conexion, lo copiamos a pConnect
+            memcopy(pConnect, pReceivePacket.data, sizeof(ConnectMessage_t) );
+            n = pConnect.index;
+            if(n == -1)
+               // No nos dejan entrar, finalizar espera
+               break;
+            end;
+         end;
+      end;
+   end;
+
+   if(n != -1)
+      // Nos dejaron entrar, crear procesos del servidor
+      controlador(1);
+
+      from i = 0 to MAX_PROCESOS;
+         procesillo_cliente(i);
+      end;
+
+      // Preparar mensaje de control con el índice devuelto por el servidor
+      pControl.index = n;
+
+      // Condicion de finalización
+      while(!key(_esc) )
+         // PASO 1. Mostrar pantalla actual
+         frame(velocidadnet);
+
+         // PASO 2. Mandar controles al servidor
+         from i = 0 to NUM_CONTROLES-1;
+            pControl.controles[i] = botones.p[1][i];
+         end;
+         memcopy(pSendPacket.data, pControl, sizeof(ControlsMessage_t) );
+         pSendPacket.len = sizeof(ControlsMessage_t);
+         net_udp_send(1, 1, 3);
+
+         // PASO 3. Procesar mensajes del servidor
+         while(net_udp_recv(1, 2) > 0)
+            if(pReceivePacket.len == sizeof(ScreenMessage_t) )
+               // Mensaje de pantalla, actualizar procesos
+               memcopy(pScreen, pReceivePacket.data, sizeof(ScreenMessage_t) );
+               if(pScreen.mundo != last_mundo)
+                  last_mundo = pScreen.mundo;
+                  if(last_mundo == 0)
+//                     clear_screen();
+                  else
+//                     unload_map(0,grafnivel);
+//                     grafnivel = load_png("niveles/nivel" + last_mundo + ".png");
+//                     put_screen(0, grafNivel);
+                  end;
+               end;
+            else
+               if(pReceivePacket.len == sizeof(SoundMessage_t) )
+                  // Mensaje de sonidos
+                  memcopy(pSounds, pReceivePacket.data, sizeof(SoundMessage_t) );
+/*                  if(cancionsonando != pSounds.musica)
+                     cancionsonando = pSounds.musica;
+                     num = cancionsonando;
+                     if(num == 0)
+                        if(is_playing_song()) stop_song(); end
+                     else
+                        if(num<100)
+                           play_song(load_song("ogg/"+num+".ogg"),999);
+                        else
+                           play_song(load_song("ogg/"+num+".ogg"),1);
+                        end
+                     end;
+                  end;
+
+                  if(pSounds.aspiradora == 0)
+                     if(canal_aspiradora != -1)
+                        stop_wav(canal_aspiradora);
+                        canal_aspiradora = -1;
+                     end;
+                  else
+                     if(canal_aspiradora == -1)
+                        canal_aspiradora = play_wav(wavs[8], 0);
+                     end
+                  end;
+
+                  if(pSounds.nSonidos > 0)
+                     from i = 0 to pSounds.nSonidos - 1;
+                        play_wav(wavs[pSounds.sonidos[i]],0);
+                     end;
+                  end;
+*/
+			  else
+                  if(pReceivePacket.len == sizeof(ConnectMessage_t) )
+                     // El servidor se ha cerrado
+                     exit(0);
+                  end;
+               end;
+            end;
+         end;
+      end;
+
+      // El cliente finaliza, enviar desconexión
+      memcopy(pSendPacket.data, pConnect, sizeof(ConnectMessage_t) );
+      pSendPacket.len = sizeof(ConnectMessage_t);
+      net_udp_send(1, 1, 3);
+      frame(velocidadnet);
+   end;
+
+   net_udp_close(1);
+   net_udp_freepacket(2);
+   net_udp_freepacket(3);
+end;
