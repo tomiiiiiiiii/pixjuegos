@@ -13,7 +13,7 @@ Global
 	struct p[8];
 		control;
 	end
-	jugadores=4;
+	jugadores=2;
 End 
 
 Local
@@ -34,7 +34,7 @@ Begin
 	set_fps(50,0);
 	full_screen=true;
 	set_mode(ancho_pantalla,alto_pantalla,16);	    
-	durezas=load_png("3.png");
+	durezas=load_png("3copia.png");
 	ancho_nivel=graphic_info(file,durezas,g_width);
 	alto_nivel=graphic_info(file,durezas,g_height);
 	suelo=map_get_pixel(0,durezas,0,0);
@@ -43,9 +43,9 @@ Begin
 	if(jugadores==2)
 		define_region(1,0,0,ancho_pantalla,alto_pantalla/2);
 		define_region(2,0,alto_pantalla/2,ancho_pantalla,alto_pantalla);
-		start_scroll(0,0,load_png("2.png"),0,1,0);
+		start_scroll(0,0,load_png("2copia.png"),0,1,0);
 		scroll[0].camera=prota(1);
-		start_scroll(1,0,load_png("2.png"),0,2,0);
+		start_scroll(1,0,load_png("2copia.png"),0,2,0);
 		scroll[1].camera=prota(2);
 		graph=new_map(1280,1024,16);
 		drawing_color(200);
@@ -56,13 +56,13 @@ Begin
 		define_region(2,ancho_pantalla/2,0,ancho_pantalla,alto_pantalla/2);
 		define_region(3,0,alto_pantalla/2,ancho_pantalla/2,alto_pantalla);
 		define_region(4,ancho_pantalla/2,alto_pantalla/2,ancho_pantalla,alto_pantalla);
-		start_scroll(0,0,load_png("2.png"),0,1,0);
+		start_scroll(0,0,load_png("2copia.png"),0,1,0);
 		scroll[0].camera=prota(1);
-		start_scroll(1,0,load_png("2.png"),0,2,0);
+		start_scroll(1,0,load_png("2copia.png"),0,2,0);
 		scroll[1].camera=prota(2);
-		start_scroll(2,0,load_png("2.png"),0,3,0);
+		start_scroll(2,0,load_png("2copia.png"),0,3,0);
 		scroll[2].camera=prota(3);
-		start_scroll(3,0,load_png("2.png"),0,4,0);
+		start_scroll(3,0,load_png("2copia.png"),0,4,0);
 		scroll[3].camera=prota(4);
 		graph=new_map(1280,1024,16);
 		drawing_color(200);
@@ -71,7 +71,7 @@ Begin
 		draw_box(ancho_pantalla/2-5,0,ancho_pantalla/2+5,alto_pantalla);
 	end
 	enemigo(rand(4000,ancho_nivel),rand(0,275),8);
-	from i=1 to 5; powerups(100*i,20,i); end
+	//from i=1 to 5; powerups(100*i,20,i); end
 	loop
 		if(rand(0,200)==0) enemigo(rand(1500,ancho_nivel),rand(0,alto_nivel),7); end //BILLBALAS
 		if(rand(0,30)==0) enemigo(rand(1500,ancho_nivel),0,rand(1,4)); end //NORMALACOS
@@ -91,10 +91,11 @@ Private
 	anim;
 	id_colision;
 	doble_salto;
+	saltogradual;
 Begin
 	controlador(jugador);
 	x=20;
-	y=460;
+	y=0;
 	size=125;
 	graph=1;
 	ctype=c_scroll;
@@ -110,9 +111,10 @@ Begin
 	loop
 		if(botones.p[jugador][1]) flags=0; inercia+=2; end
 		if(botones.p[jugador][0]) flags=1; inercia-=2; end
-		if(botones.p[jugador][4] and pulsando==0 and map_get_pixel(0,durezas,x,y+alto)==suelo) gravedad=-25; pulsando=1; y--; end
-		if(botones.p[jugador][4] and pulsando==0 and powerup==3 and tiempo_powerup>0 and doble_salto==0) doble_salto=1; gravedad=-25; pulsando=1; y--; end
-		if(!botones.p[jugador][4] and pulsando==1) pulsando=0; end
+		if(botones.p[jugador][4] and pulsando==0 and map_get_pixel(0,durezas,x,y+alto)==suelo) saltogradual=1; gravedad=-15; pulsando=1; y--; end
+		if(botones.p[jugador][4] and pulsando==0 and powerup==3 and tiempo_powerup>0 and doble_salto==0) saltogradual=1; doble_salto=1; gravedad=-15; pulsando=1; y--; end
+		if(botones.p[jugador][4] and saltogradual<5 and saltogradual!=0) gravedad-=4; saltogradual++; end
+		if(!botones.p[jugador][4] and pulsando==1) pulsando=0; saltogradual=0; end
 		if(map_get_pixel(0,durezas,x,y+alto)==suelo) gravedad=0; doble_salto=0; else gravedad++; end
 		if(x>8516) x=0; y=0; ANGLE=180000; end 
 		if(inercia>0) inercia--; end
@@ -128,6 +130,20 @@ Begin
 			from x=x to x_destino step 1; if(map_get_pixel(0,durezas,x+ancho,y+alto/2)==suelo) inercia=0; break; end end
 		elseif(x_destino<x)
 			from x=x to x_destino step -1; if(map_get_pixel(0,durezas,x-ancho,y+alto/2)==suelo) inercia=0; break; end end
+		end
+		
+		if(powerup==4)
+			if(size<=220)
+				size=size+5;
+				ancho=(graphic_info(file,graph,g_width)/2)*size/100;
+				alto=(graphic_info(file,graph,g_height)/2)*size/100;
+			end
+		else
+			if(size>125)
+				size=size-5;
+				ancho=(graphic_info(file,graph,g_width)/2)*size/100;
+				alto=(graphic_info(file,graph,g_height)/2)*size/100;
+			end
 		end
 		
 		if(powerup==5)
@@ -316,19 +332,20 @@ Process powerups(x,y,tipo);
 Private
 	id_colision;
 Begin
-	if(tipo==4) return; end // no hay fuego
 	ctype=c_scroll;
    switch(tipo)
  	  	case 1: graph=load_png("saltodanya.png"); end 
 	   	case 2: graph=load_png("escudo.png"); end
 		case 3: graph=load_png("doblesalto.png"); end
-		case 4: graph=load_png("antifuego.png"); end
+		case 4: graph=load_png("grande.png"); end
 		case 5: graph=load_png("velocidad.png"); end
    end
    ancho=graphic_info(file,graph,g_width)/2;
    alto=graphic_info(file,graph,g_height)/2;
    loop
 		if(map_get_pixel(0,durezas,x,y+alto)!=suelo) y+=6; end
+		if(y>alto_nivel) break; end
+		if(x>8516) break; end
 		if(id_colision=collision(type prota)) 
 			id_colision.powerup=tipo; 
 			id_colision.tiempo_powerup=10*50; 
