@@ -1,7 +1,5 @@
 Program plataformas;
-Global
-	int vidas=2;      
-	durezas;              
+Global                 
 	suelo;
 	ancho_pantalla=1280;
 	alto_pantalla=1024;
@@ -13,7 +11,17 @@ Global
 	struct p[8];
 		control;
 	end
-	jugadores=2;
+	jugadores=4;
+	num_lakitu=0;
+	tiles[100];
+	adornos[100];
+	enemigos[100];
+	mapa_scroll;
+	durezas;
+	fpg_tiles;
+	tilesize=40;
+	fondo;
+	flash;
 End 
 
 Local
@@ -27,56 +35,76 @@ Local
 End
 	
 Begin
-	//play_song(load_song("kirby.ogg"),-1);
+	play_song(load_song("kirby.ogg"),-1);
 	p[2].control=1;
 	p[3].control=2;
 	p[4].control=3;
 	set_fps(50,0);
 	full_screen=true;
 	set_mode(ancho_pantalla,alto_pantalla,16);	    
-	durezas=load_png("3copia.png");
-	ancho_nivel=graphic_info(file,durezas,g_width);
-	alto_nivel=graphic_info(file,durezas,g_height);
-	suelo=map_get_pixel(0,durezas,0,0);
+	fpg_tiles=load_fpg("tiles.fpg");
+//	durezas=load_png("3copia.png");
+//	ancho_nivel=graphic_info(file,durezas,g_width);
+//	alto_nivel=graphic_info(file,durezas,g_height);
+//	suelo=map_get_pixel(0,durezas,0,0);
 	x=ancho_pantalla/2;
 	y=alto_pantalla/2;
+	fondo=load_png("fondo.png");
+	carga_nivel(load_png("nivel1.png"));
 	if(jugadores==2)
 		define_region(1,0,0,ancho_pantalla,alto_pantalla/2);
 		define_region(2,0,alto_pantalla/2,ancho_pantalla,alto_pantalla);
-		start_scroll(0,0,load_png("2copia.png"),0,1,0);
+
+		start_scroll(0,0,mapa_scroll,fondo,1,0);
 		scroll[0].camera=prota(1);
-		start_scroll(1,0,load_png("2copia.png"),0,2,0);
+		start_scroll(1,0,mapa_scroll,fondo,2,0);
 		scroll[1].camera=prota(2);
-		graph=new_map(1280,1024,16);
+
+		graph=new_map(ancho_pantalla,alto_pantalla,16);
 		drawing_color(200);
 		drawing_map(0,graph);
 		draw_box(0,alto_pantalla/2-5,ancho_pantalla,alto_pantalla/2+5);
+
+		flash=new_map(ancho_pantalla,alto_pantalla/2,8);
+		drawing_color(suelo);
+		drawing_map(0,flash);
+		draw_box(0,0,ancho_pantalla,alto_pantalla/2);
 	else
 		define_region(1,0,0,ancho_pantalla/2,alto_pantalla/2);
 		define_region(2,ancho_pantalla/2,0,ancho_pantalla,alto_pantalla/2);
 		define_region(3,0,alto_pantalla/2,ancho_pantalla/2,alto_pantalla);
 		define_region(4,ancho_pantalla/2,alto_pantalla/2,ancho_pantalla,alto_pantalla);
-		start_scroll(0,0,load_png("2copia.png"),0,1,0);
+
+		start_scroll(0,0,mapa_scroll,fondo,1,0);
 		scroll[0].camera=prota(1);
-		start_scroll(1,0,load_png("2copia.png"),0,2,0);
+		start_scroll(1,0,mapa_scroll,fondo,2,0);
 		scroll[1].camera=prota(2);
-		start_scroll(2,0,load_png("2copia.png"),0,3,0);
+		start_scroll(2,0,mapa_scroll,fondo,3,0);
 		scroll[2].camera=prota(3);
-		start_scroll(3,0,load_png("2copia.png"),0,4,0);
+		start_scroll(3,0,mapa_scroll,fondo,4,0);
 		scroll[3].camera=prota(4);
-		graph=new_map(1280,1024,16);
+
+		graph=new_map(ancho_pantalla,alto_pantalla,16);
 		drawing_color(200);
 		drawing_map(0,graph);
 		draw_box(0,alto_pantalla/2-5,ancho_pantalla,alto_pantalla/2+5);
 		draw_box(ancho_pantalla/2-5,0,ancho_pantalla/2+5,alto_pantalla);
+		
+		flash=new_map(ancho_pantalla/2,alto_pantalla/2,8);
+		drawing_color(suelo);
+		drawing_map(0,flash);
+		draw_box(0,0,ancho_pantalla,alto_pantalla/2);
+		mouse.graph=flash;
 	end
-	enemigo(rand(4000,ancho_nivel),rand(0,275),8);
+	//enemigo(rand(4000,ancho_nivel),rand(0,275),8); //lakitu
 	//from i=1 to 5; powerups(100*i,20,i); end
 	loop
-		if(rand(0,200)==0) enemigo(rand(1500,ancho_nivel),rand(0,alto_nivel),7); end //BILLBALAS
+/*		if(rand(0,200)==0) enemigo(rand(1500,ancho_nivel),rand(0,alto_nivel),7); end //BILLBALAS
 		if(rand(0,30)==0) enemigo(rand(1500,ancho_nivel),0,rand(1,4)); end //NORMALACOS
 		if(rand(0,200)==0) enemigo(rand(0,ancho_nivel),rand(0,alto_nivel),rand(5,6)); end //ESPINIS
 		if(rand(0,150)==0) powerups(rand(0,ancho_nivel),0,rand(1,5)); end
+		if(num_lakitu==0 and rand(0,0)==0) enemigo(rand(4000,ancho_nivel),rand(0,275),8); num_lakitu=num_lakitu+1; end
+*/
 		frame;
 	end
 End
@@ -165,7 +193,24 @@ Begin
 		else
 			animacion="salto";
 		end
-		if(accion=="muerte") if(powerup!=2) x=0; y=0; tiempo_powerup=0; powerup=0; accion=""; else accion=""; end end
+		if(accion=="muerte") 
+			if(powerup!=2)
+				graph=2;
+				gravedad=-20;
+				flash_muerte(jugador);
+				while(y<alto_nivel+150)
+					gravedad++;
+					y+=gravedad/2;
+					frame;
+				end			
+				x=0; y=0; 
+				tiempo_powerup=0; 
+				powerup=0; 
+				accion="";
+			else 
+				accion=""; 
+			end 
+		end
 		if(id_colision=collision(type prota)) if(id_colision.y>y) id_colision.gravedad=20; gravedad=-20; end end
 		switch(animacion)
 			case "": animacion="quieto"; graph=1; end
@@ -186,6 +231,26 @@ Begin
 	end      
 End
 
+Process flash_muerte(jugador);
+Begin
+	if(jugadores==2)
+		x=ancho_pantalla/2;
+		if(jugador==1) y=alto_pantalla/4; end
+		if(jugador==2) y=(alto_pantalla/4)*3; end
+	else
+		if(jugador==1) x=ancho_pantalla/4; y=alto_pantalla/4; end
+		if(jugador==2) x=(ancho_pantalla/4)*3; y=alto_pantalla/4; end
+		if(jugador==3) x=ancho_pantalla/4; y=(alto_pantalla/4)*3; end
+		if(jugador==4) x=(ancho_pantalla/4)*3; y=(alto_pantalla/4)*3; end
+	end
+	from i=0 to 2;
+		graph=flash;
+		frame;
+		graph=0;
+		frame;
+	end
+End
+
 // tipos: 1: goomba, 2:paragoomba, 3:koopatroopa, 4:paratroopa, 5:spiky, 6:spiky-goomba, 7:billbala, 8:lakitu, 9:huevo de spyki
 Process enemigo(x,y,tipo);
 Private
@@ -200,7 +265,7 @@ Begin
 		case 5: graph=load_png("spiky.png"); end
 		case 6: graph=load_png("spikygoomba.png"); end
 		case 7: graph=load_png("billbala.png"); end	
-		case 8: graph=load_png("lakitu.png"); end
+		case 8: graph=load_png("lakitu.png"); num_lakitu=num_lakitu+1; end
 		case 9: graph=load_png("spikyegg.png"); end
    end
    ancho=graphic_info(file,graph,g_width)/2;
@@ -224,17 +289,18 @@ Begin
 				x+=6; 
 			end 
 		end	//si miramos pa un lao, andamos pa ese, sino viceversa, menos lakitu
-		if(tipo==8 and rand(0,300)==0) if(flags==0) flags=1; else flags=0; end end //cuando mira lakitu pa la derecha al azar 
+		if(tipo==8 and rand(0,300)==0) if(flags==0) flags=1; else flags=0; end end //cuando mira lakitu pa la derecha al azar
+		if(tipo==8 and x>1441) flags=1; end
 		if(map_get_pixel(0,durezas,x,y+alto)==suelo) //el malo tocó el suelo?
 			if(tipo==9) enemigo(x,y, tipo-4); break; end 
 			if(tipo==2 or tipo==4) gravedad=-40; y--; else gravedad=0; end //saltos para los para-algo, sino quietos nel suelo
 		else 
 			gravedad++; //pos no lo tocó
 		end //gravedad
-		if(y>600) break; end //si caemos por un bujero, morimos
+		if(y>alto_nivel) break; end //si caemos por un bujero, morimos
 		while(map_get_pixel(0,durezas,x,y+alto-1)==suelo) y--; end //corregimos atravesamiento de suelos...
 		if(id_colision=collision(type prota)) //chocamos con el prota
-			if(id_colision.y<y and tipo!=5 and tipo!=6 and tipo!=9) //si el prota está más arriba, el malo muere. a menos que sean spikis o sus huevos!
+			if(id_colision.y<y and tipo!=5 and tipo!=6 and tipo!=9 and id_colision.accion!="muerte") //si el prota está más arriba, el malo muere. a menos que sean spikis o sus huevos! y que no esté muriendo el prota xD
 				id_colision.gravedad=-20; //rebota el prota
 				while(size>0 and tipo!=2 and tipo!=4)  //animacion de la muerte, salvo que sean para-algo
 					size=size-5; 
@@ -243,6 +309,7 @@ Begin
 				end
 				if(tipo==2 or tipo==4) enemigo(x,y,tipo-1); end
 				frame;
+				if(tipo=8) num_lakitu=num_lakitu-1; end
 				break; //suicidamos al malo
 			else //el prota chocó por debajo de la altura del enemigo
 				if(id_colision.powerup==1) 
@@ -254,6 +321,7 @@ Begin
 					end
 					if(tipo==2 or tipo==4) enemigo(x,y,tipo-1); end
 					frame;
+					if(tipo=8) num_lakitu=num_lakitu-1; end
 					break; //suicidamos al malo
 				else
 					id_colision.accion="muerte"; //el prota muere
@@ -262,7 +330,7 @@ Begin
 		end
 		if(tipo!=7 and tipo!=8) y=y+(gravedad/4); end //gravedad barata. a billbala y a lakitu no les afecta
 		frame;
-    end
+    end	
 End
 
 Process controlador(jugador);
@@ -368,3 +436,58 @@ Begin
 		frame;
    end	
 End
+
+Function carga_nivel(mapa);
+PRIVATE
+	pos_x;
+	pos_y;
+	tile;
+	pers_x;
+	pers_y;
+BEGIN
+	//ancho del gráfico pequeñito
+	ancho=GRAPHIC_INFO(0,mapa,G_WIDE);
+	alto=GRAPHIC_INFO(0,mapa,G_HEIGHT);
+
+	from i=0 to 9; tiles[i]=map_get_pixel(0,mapa,i,alto-3); end
+	from i=1 to 9; enemigos[i]=map_get_pixel(0,mapa,i,alto-2); end
+
+	
+//	adornos[0]=map_get_pixel(0,mapa,0,alto_mapa-1);
+	alto_nivel=(alto-3)*tilesize;
+	ancho_nivel=ancho*tilesize;
+
+	mapa_scroll=new_map(ancho*tilesize,(alto-3)*tilesize,8);
+	//LO VISIBLE:
+	repeat
+		pos_x=x*tilesize;
+		pos_y=y*tilesize;
+		tile=map_get_pixel(0,mapa,x,y);
+		if(tile==tiles[0]) MAP_PUT(fpg_tiles,mapa_scroll,1,pos_x+(tilesize/2),pos_y+(tilesize/2)); end
+		from i=1 to 9; if(tile==enemigos[i]) enemigo(pos_x+(tilesize/2),pos_y+(tilesize/2),i); end end
+		if(x<ancho)
+			x++;
+		else
+			y++; x=0;
+		end
+	until(y=>alto-3)
+
+	x=0; y=0;
+	durezas=new_map(ancho*tilesize,(alto-3)*tilesize,8);
+	suelo=map_get_pixel(fpg_tiles,501,0,0);
+	//LO INVISIBLE (PERO TOCABLE)
+	repeat
+		pos_x=x*tilesize;
+		pos_y=y*tilesize;
+		tile=map_get_pixel(0,mapa,x,y);
+		if(tile==tiles[0]) tile=1; else tile=0; end
+		tile=tile+500;
+		if(tile==500) tile=0; end
+		if(tile!=0) MAP_PUT(fpg_tiles,durezas,tile,pos_x+(tilesize/2),pos_y+(tilesize/2)); end
+		if(x<ancho)
+			x++;
+		else
+			y++; x=0;
+		end
+	until(y=>alto-3)
+END
