@@ -10,8 +10,11 @@ Global
 	End
 	struct p[8];
 		control;
+		puntos;
+		vidas;
+		personaje;
 	end
-	jugadores=4;
+	jugadores=2;
 	num_lakitu=0;
 	tiles[100];
 	adornos[100];
@@ -22,9 +25,11 @@ Global
 	tilesize=40;
 	fondo;
 	flash;
+	fuente;
 End 
 
 Local
+	jugador;
 	powerup;
 	gravedad;
 	ancho;
@@ -32,6 +37,7 @@ Local
 	string accion;
 	i;
 	tiempo_powerup;
+	saltando;
 End
 	
 Begin
@@ -43,6 +49,7 @@ Begin
 	full_screen=true;
 	set_mode(ancho_pantalla,alto_pantalla,16);	    
 	fpg_tiles=load_fpg("tiles.fpg");
+	fuente=load_fnt("fuente.fnt");
 //	durezas=load_png("3copia.png");
 //	ancho_nivel=graphic_info(file,durezas,g_width);
 //	alto_nivel=graphic_info(file,durezas,g_height);
@@ -51,6 +58,7 @@ Begin
 	y=alto_pantalla/2;
 	fondo=load_png("fondo.png");
 	carga_nivel(load_png("nivel1.png"));
+	marcadores();
 	if(jugadores==2)
 		define_region(1,0,0,ancho_pantalla,alto_pantalla/2);
 		define_region(2,0,alto_pantalla/2,ancho_pantalla,alto_pantalla);
@@ -99,12 +107,11 @@ Begin
 	//enemigo(rand(4000,ancho_nivel),rand(0,275),8); //lakitu
 	//from i=1 to 5; powerups(100*i,20,i); end
 	loop
-/*		if(rand(0,200)==0) enemigo(rand(1500,ancho_nivel),rand(0,alto_nivel),7); end //BILLBALAS
-		if(rand(0,30)==0) enemigo(rand(1500,ancho_nivel),0,rand(1,4)); end //NORMALACOS
+		if(rand(0,200)==0) enemigo(rand(1500,ancho_nivel),rand(0,alto_nivel),7); end //BILLBALAS
+		if(rand(0,30)==0) enemigo(rand(1500,ancho_nivel),rand(0,alto_nivel),rand(1,4)); end //NORMALACOS
 		if(rand(0,200)==0) enemigo(rand(0,ancho_nivel),rand(0,alto_nivel),rand(5,6)); end //ESPINIS
-		if(rand(0,150)==0) powerups(rand(0,ancho_nivel),0,rand(1,5)); end
+		if(rand(0,50)==0) powerups(rand(0,ancho_nivel),rand(0,alto_nivel),rand(1,5)); end
 		if(num_lakitu==0 and rand(0,0)==0) enemigo(rand(4000,ancho_nivel),rand(0,275),8); num_lakitu=num_lakitu+1; end
-*/
 		frame;
 	end
 End
@@ -139,12 +146,12 @@ Begin
 	loop
 		if(botones.p[jugador][1]) flags=0; inercia+=2; end
 		if(botones.p[jugador][0]) flags=1; inercia-=2; end
-		if(botones.p[jugador][4] and pulsando==0 and map_get_pixel(0,durezas,x,y+alto)==suelo) saltogradual=1; gravedad=-15; pulsando=1; y--; end
+		if(botones.p[jugador][4] and pulsando==0 and saltando==0) saltando=1; sonido("pikachu-brinca"); saltogradual=1; gravedad=-15; pulsando=1; y--; end
 		if(botones.p[jugador][4] and pulsando==0 and powerup==3 and tiempo_powerup>0 and doble_salto==0) saltogradual=1; doble_salto=1; gravedad=-15; pulsando=1; y--; end
 		if(botones.p[jugador][4] and saltogradual<5 and saltogradual!=0) gravedad-=4; saltogradual++; end
 		if(!botones.p[jugador][4] and pulsando==1) pulsando=0; saltogradual=0; end
-		if(map_get_pixel(0,durezas,x,y+alto)==suelo) gravedad=0; doble_salto=0; else gravedad++; end
-		if(x>8516) x=0; y=0; ANGLE=180000; end 
+		if(map_get_pixel(0,durezas,x,y+alto)==suelo) gravedad=0; saltando=0; doble_salto=0; else saltando=1; gravedad++; end
+		if(x>ancho_nivel) p[jugador].puntos+=50; sonido("mjackson-gana"); x=0; y=0; ANGLE=180000; end 
 		if(inercia>0) inercia--; end
 		if(inercia<0) inercia++; end
 		if(inercia>20) inercia=20; end
@@ -198,12 +205,14 @@ Begin
 				graph=2;
 				gravedad=-20;
 				flash_muerte(jugador);
+				sonido("pikachu-muere");
 				while(y<alto_nivel+150)
 					gravedad++;
 					y+=gravedad/2;
 					frame;
 				end			
 				x=0; y=0; 
+				p[jugador].puntos=p[jugador].puntos*0.90;
 				tiempo_powerup=0; 
 				powerup=0; 
 				accion="";
@@ -300,7 +309,8 @@ Begin
 		if(y>alto_nivel) break; end //si caemos por un bujero, morimos
 		while(map_get_pixel(0,durezas,x,y+alto-1)==suelo) y--; end //corregimos atravesamiento de suelos...
 		if(id_colision=collision(type prota)) //chocamos con el prota
-			if(id_colision.y<y and tipo!=5 and tipo!=6 and tipo!=9 and id_colision.accion!="muerte") //si el prota está más arriba, el malo muere. a menos que sean spikis o sus huevos! y que no esté muriendo el prota xD
+			if(id_colision.y<y and id_colision.saltando==1 and tipo!=5 and tipo!=6 and tipo!=9 and id_colision.accion!="muerte") //si el prota está más arriba, el malo muere. a menos que sean spikis o sus huevos! y que no esté muriendo el prota xD
+				p[id_colision.jugador].puntos++;
 				id_colision.gravedad=-20; //rebota el prota
 				while(size>0 and tipo!=2 and tipo!=4)  //animacion de la muerte, salvo que sean para-algo
 					size=size-5; 
@@ -313,6 +323,7 @@ Begin
 				break; //suicidamos al malo
 			else //el prota chocó por debajo de la altura del enemigo
 				if(id_colision.powerup==1) 
+					p[id_colision.jugador].puntos++;
 					id_colision.gravedad=-20; //rebota el prota
 					while(size>0 and tipo!=2 and tipo!=4)  //animacion de la muerte, salvo que sean para-algo
 						size=size-5; 
@@ -367,7 +378,16 @@ Begin
 			If(get_joy_position(0,0)>10000) botones.p[jugador][1]=1; Else botones.p[jugador][1]=0; End
 			If(get_joy_position(0,1)<-7500) botones.p[jugador][2]=1; Else botones.p[jugador][2]=0; End
 			If(get_joy_position(0,1)>7500) botones.p[jugador][3]=1; Else botones.p[jugador][3]=0; End
-			If(get_joy_button(0,0)) botones.p[jugador][4]=1; Else botones.p[jugador][4]=0; End
+			If(get_joy_position(0,1)<-7500) botones.p[jugador][4]=1; Else botones.p[jugador][4]=0; End
+			If(get_joy_button(0,1)) botones.p[jugador][5]=1; Else botones.p[jugador][5]=0; End
+			If(get_joy_button(0,2)) botones.p[jugador][6]=1; Else botones.p[jugador][6]=0; End
+		End
+		If(p[jugador].control==3)  // joystick
+			If(get_joy_position(0,2)<-10000) botones.p[jugador][0]=1; Else botones.p[jugador][0]=0; End
+			If(get_joy_position(0,2)>10000) botones.p[jugador][1]=1; Else botones.p[jugador][1]=0; End
+			If(get_joy_position(0,3)<-7500) botones.p[jugador][2]=1; Else botones.p[jugador][2]=0; End
+			If(get_joy_position(0,3)>7500) botones.p[jugador][3]=1; Else botones.p[jugador][3]=0; End
+			If(get_joy_position(0,3)<-7500) botones.p[jugador][4]=1; Else botones.p[jugador][4]=0; End
 			If(get_joy_button(0,1)) botones.p[jugador][5]=1; Else botones.p[jugador][5]=0; End
 			If(get_joy_button(0,2)) botones.p[jugador][6]=1; Else botones.p[jugador][6]=0; End
 		End
@@ -387,11 +407,11 @@ Begin
 			If(get_joy_button(2,0) OR get_joy_button(2,1)) botones.p[jugador][4]=1; Else botones.p[jugador][4]=0; End
 			If(get_joy_button(2,2) OR get_joy_button(2,3)) botones.p[jugador][5]=1; Else botones.p[jugador][5]=0; End
 		End*/
-		If(p[jugador].control=>3)
+/*		If(p[jugador].control=>3)
 			from i=0 to 7; 
 				botones.p[jugador][i]=rand(0,1);
 			end
-		end
+		end*/
 		frame;
 	End
 End
@@ -412,26 +432,29 @@ Begin
    alto=graphic_info(file,graph,g_height)/2;
    loop
 		if(map_get_pixel(0,durezas,x,y+alto)!=suelo) y+=6; end
+		while(map_get_pixel(0,durezas,x,y+alto-1)==suelo) y--; end
 		if(y>alto_nivel) break; end
-		if(x>8516) break; end
 		if(id_colision=collision(type prota)) 
-			id_colision.powerup=tipo; 
-			id_colision.tiempo_powerup=10*50; 
-//			while(size>0) 
-//				size=size-5;
-//				frame;				
-//			end 
-//			break; 
-			tiempo_powerup=10*50;
-			while(alpha>0 and id_colision.powerup==tipo)
-				x=id_colision.x;
-				y=id_colision.y;
-				alpha=tiempo_powerup/2;
-				tiempo_powerup--;
-				z=1;
-				frame;
+			if(id_colision.accion!="muerte")
+				p[id_colision.jugador].puntos++;
+				id_colision.powerup=tipo; 
+				id_colision.tiempo_powerup=10*50; 
+	//			while(size>0) 
+	//				size=size-5;
+	//				frame;				
+	//			end 
+	//			break; 
+				tiempo_powerup=10*50;
+				while(alpha>0 and id_colision.powerup==tipo)
+					x=id_colision.x;
+					y=id_colision.y;
+					alpha=tiempo_powerup/2;
+					tiempo_powerup--;
+					z=1;
+					frame;
+				end
+				break;
 			end
-			break;
 		end
 		frame;
    end	
@@ -491,3 +514,22 @@ BEGIN
 		end
 	until(y=>alto-3)
 END
+
+Process sonido(string sonidaco);
+Begin
+	play_wav(load_wav("wav\"+sonidaco+".wav"),0);
+End
+
+Process marcadores();
+Begin
+	if(jugadores==2)
+		write_int(fuente,ancho_pantalla/2,20,1,&p[1].puntos);
+		write_int(fuente,ancho_pantalla/2,(alto_pantalla/2)+20,1,&p[2].puntos);
+	end
+	if(jugadores=>3)
+		write_int(fuente,ancho_pantalla/4,20,1,&p[1].puntos);
+		write_int(fuente,(ancho_pantalla/4)*3,20,1,&p[2].puntos);
+		write_int(fuente,ancho_pantalla/4,(alto_pantalla/2)+20,1,&p[3].puntos);
+		if(jugadores==4) write_int(fuente,(ancho_pantalla/4)*3,(alto_pantalla/2)+20,1,&p[4].puntos); end
+	end
+End
