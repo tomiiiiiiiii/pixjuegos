@@ -41,25 +41,25 @@ Local
 End
 	
 Begin
-	play_song(load_song("kirby.ogg"),-1);
+//	play_song(load_song("kirby.ogg"),-1);
 	p[2].control=1;
 	p[3].control=2;
-	p[4].control=3;
-	set_fps(50,0);
-	full_screen=true;
-	set_mode(ancho_pantalla,alto_pantalla,16);	    
-	fpg_tiles=load_fpg("tiles.fpg");
+	p[4].control=3; //el control de los jugadores
+	set_fps(50,0); //imágenes por segundo
+	full_screen=true; //pantalla completa
+	set_mode(ancho_pantalla,alto_pantalla,16); //resolución y colores	    
+	fpg_tiles=load_fpg("tiles.fpg"); //cargar el mapa de tiles
 	fuente=load_fnt("fuente.fnt");
 //	durezas=load_png("3copia.png");
 //	ancho_nivel=graphic_info(file,durezas,g_width);
 //	alto_nivel=graphic_info(file,durezas,g_height);
 //	suelo=map_get_pixel(0,durezas,0,0);
-	x=ancho_pantalla/2;
+	x=ancho_pantalla/2; 
 	y=alto_pantalla/2;
-	fondo=load_png("fondo.png");
-	carga_nivel(load_png("nivel1.png"));
-	marcadores();
-	if(jugadores==2)
+	fondo=load_png("fondo3.png"); //cargar el fondo
+	carga_nivel(load_png("nivel3.png")); //cargar el nivel
+	marcadores(); //llamar a los marcadores de puntos
+	if(jugadores==2) //definir la pantalla partida y la división al ser 2 jugadores
 		define_region(1,0,0,ancho_pantalla,alto_pantalla/2);
 		define_region(2,0,alto_pantalla/2,ancho_pantalla,alto_pantalla);
 
@@ -77,7 +77,7 @@ Begin
 		drawing_color(suelo);
 		drawing_map(0,flash);
 		draw_box(0,0,ancho_pantalla,alto_pantalla/2);
-	else
+	else //definirlo al ser 4
 		define_region(1,0,0,ancho_pantalla/2,alto_pantalla/2);
 		define_region(2,ancho_pantalla/2,0,ancho_pantalla,alto_pantalla/2);
 		define_region(3,0,alto_pantalla/2,ancho_pantalla/2,alto_pantalla);
@@ -113,7 +113,7 @@ Begin
 		if(rand(0,50)==0) powerups(rand(0,ancho_nivel),rand(0,alto_nivel),rand(1,5)); end
 		if(num_lakitu==0 and rand(0,0)==0) enemigo(rand(4000,ancho_nivel),rand(0,275),8); num_lakitu=num_lakitu+1; end
 		frame;
-	end
+	end //llamamos a los enemigos y los power-ups aleatoriamente
 End
 
 Process prota(jugador);
@@ -130,11 +130,11 @@ Private
 Begin
 	controlador(jugador);
 	x=20;
-	y=0;
-	size=125;
+	y=0; //coordenadas del jugador
+	size=125; //tamaño
 	graph=1;
-	ctype=c_scroll;
-	switch(jugador)
+	ctype=c_scroll; //las corrdenadas son del scroll, no de la pantalla
+	switch(jugador) // los gráficos de cada jugador
 		case 1: file=load_fpg("pikachu.fpg"); end
 		case 2: file=load_fpg("mjackson.fpg"); end
 		case 3: file=load_fpg("aladdin.fpg"); end
@@ -142,65 +142,67 @@ Begin
 	end
 	//ctype=c_screen;
 	ancho=graphic_info(file,graph,g_width)/2;
-	alto=graphic_info(file,graph,g_height)/2;
+	alto=graphic_info(file,graph,g_height)/2; //el ancho y el alto de cada imagen
 	loop
-		if(botones.p[jugador][1]) flags=0; inercia+=2; end
-		if(botones.p[jugador][0]) flags=1; inercia-=2; end
-		if(botones.p[jugador][4] and pulsando==0 and saltando==0) saltando=1; sonido("pikachu-brinca"); saltogradual=1; gravedad=-15; pulsando=1; y--; end
+		if(botones.p[jugador][1]) flags=0; inercia+=2; end //la inercia sube al ir hacia la derecha
+		if(botones.p[jugador][0]) flags=1; inercia-=2; end //la inercia baja al ir hacia la izquierda
+		if(botones.p[jugador][4] and pulsando==0 and saltando==0) saltando=1; sonido("pikachu-brinca"); saltogradual=1; gravedad=-15; pulsando=1; y--; end 
+		//al saltar suena el sonido correspondiente y se aplica la gravedad, y el salto gradual si saltamos poco 
 		if(botones.p[jugador][4] and pulsando==0 and powerup==3 and tiempo_powerup>0 and doble_salto==0) saltogradual=1; doble_salto=1; gravedad=-15; pulsando=1; y--; end
+		//e l doblesalto si disponemos del power-up 3
 		if(botones.p[jugador][4] and saltogradual<5 and saltogradual!=0) gravedad-=4; saltogradual++; end
 		if(!botones.p[jugador][4] and pulsando==1) pulsando=0; saltogradual=0; end
-		if(map_get_pixel(0,durezas,x,y+alto)==suelo) gravedad=0; saltando=0; doble_salto=0; else saltando=1; gravedad++; end
-		if(x>ancho_nivel) p[jugador].puntos+=50; sonido("mjackson-gana"); x=0; y=0; ANGLE=180000; end 
+		if(map_get_pixel(0,durezas,x,y+alto)==suelo) gravedad=0; saltando=0; doble_salto=0; else saltando=1; gravedad++; end //al tocar el suelo, gravedad es 0
+		if(x>ancho_nivel) p[jugador].puntos+=50; sonido("mjackson-gana"); x=0; y=0; ANGLE=180000; end //al ganar mike canta y nos damos la vuelta xD
 		if(inercia>0) inercia--; end
 		if(inercia<0) inercia++; end
 		if(inercia>20) inercia=20; end
-		if(inercia<-20) inercia=-20; end
-		if(powerup==5)
+		if(inercia<-20) inercia=-20; end //límites de la inercia
+		if(powerup==5) 
 			inercia*=2;
-		end
+		end //si tenemos el chute de velocidad la inercia se dobla
 		//x=x+inercia;
 		x_destino=x+(inercia/2);
 		if(x_destino>x) 
 			from x=x to x_destino step 1; if(map_get_pixel(0,durezas,x+ancho,y+alto/2)==suelo) inercia=0; break; end end
 		elseif(x_destino<x)
 			from x=x to x_destino step -1; if(map_get_pixel(0,durezas,x-ancho,y+alto/2)==suelo) inercia=0; break; end end
-		end
+		end //calculamos donde se para si tiene inercia y dejas de correr
 		
-		if(powerup==4)
+		if(powerup==4) 
 			if(size<=220)
 				size=size+5;
 				ancho=(graphic_info(file,graph,g_width)/2)*size/100;
 				alto=(graphic_info(file,graph,g_height)/2)*size/100;
-			end
+			end //al coger el power-up grande crecemos con animación y todo
 		else
 			if(size>125)
 				size=size-5;
 				ancho=(graphic_info(file,graph,g_width)/2)*size/100;
 				alto=(graphic_info(file,graph,g_height)/2)*size/100;
 			end
-		end
+		end //al acabarse el tiempo decrecemos 
 		
 		if(powerup==5)
 			inercia/=2;
 		end
 
-		if(y>alto_nivel) powerup=0; accion="muerte"; end
-		if(x<10) x=10; end
+		if(y>alto_nivel) powerup=0; accion="muerte"; end //si caes por un bujero pierdes los power-ups y mueres
+		if(x<10) x=10; end //pa no salirse de la pantalla por la izquierda
 		//y=y+gravedad;
 		y_destino=y+(gravedad/2);
-		if(y_destino>y) 
+		if(y_destino>y)  
 			from y=y to y_destino step 1; if(map_get_pixel(0,durezas,x,y+alto)==suelo) gravedad=0; break; end end
 		elseif(y_destino<y)
 			from y=y to y_destino step -1; if(map_get_pixel(0,durezas,x,y-alto)==suelo) gravedad=10; break; end end
 		end
 		while(map_get_pixel(0,durezas,x,y+alto-1)==suelo) y--; end
-		if(gravedad==0)
+		if(gravedad==0) //animaciones al andar o estar quieto
 			if(inercia!=0) animacion="andar"; else animacion="quieto"; end
 		else
-			animacion="salto";
+			animacion="salto"; //animación al saltar
 		end
-		if(accion=="muerte") 
+		if(accion=="muerte") //animación de muerte
 			if(powerup!=2)
 				graph=2;
 				gravedad=-20;
@@ -257,8 +259,8 @@ Begin
 		frame;
 		graph=0;
 		frame;
-	end
-End
+	end 
+End //el flashazo de cuando muere el prota
 
 // tipos: 1: goomba, 2:paragoomba, 3:koopatroopa, 4:paratroopa, 5:spiky, 6:spiky-goomba, 7:billbala, 8:lakitu, 9:huevo de spyki
 Process enemigo(x,y,tipo);
@@ -276,7 +278,7 @@ Begin
 		case 7: graph=load_png("billbala.png"); end	
 		case 8: graph=load_png("lakitu.png"); num_lakitu=num_lakitu+1; end
 		case 9: graph=load_png("spikyegg.png"); end
-   end
+   end //tipos de enemigos
    ancho=graphic_info(file,graph,g_width)/2;
    alto=graphic_info(file,graph,g_height)/2;
    loop
@@ -290,7 +292,7 @@ Begin
 				x-=2; 
 			else 
 				x-=6; 
-			end 
+			end //los malos andan pa un lao o pa otro menos lakitu, que va a su bola
 		else  
 			if(tipo!=8) 
 				x+=2; 
@@ -299,9 +301,9 @@ Begin
 			end 
 		end	//si miramos pa un lao, andamos pa ese, sino viceversa, menos lakitu
 		if(tipo==8 and rand(0,300)==0) if(flags==0) flags=1; else flags=0; end end //cuando mira lakitu pa la derecha al azar
-		if(tipo==8 and x>1441) flags=1; end
+		if(tipo==8 and x<1441) flags=1; end //lakitu no pasa de ahí porque yo lo digo
 		if(map_get_pixel(0,durezas,x,y+alto)==suelo) //el malo tocó el suelo?
-			if(tipo==9) enemigo(x,y, tipo-4); break; end 
+			if(tipo==9) enemigo(x,y, tipo-4); break; end //los huevos de spiky tocan el suelo, mueren y llaman a los spikys
 			if(tipo==2 or tipo==4) gravedad=-40; y--; else gravedad=0; end //saltos para los para-algo, sino quietos nel suelo
 		else 
 			gravedad++; //pos no lo tocó
@@ -317,9 +319,9 @@ Begin
 					angle+=7000;
 					frame; 
 				end
-				if(tipo==2 or tipo==4) enemigo(x,y,tipo-1); end
+				if(tipo==2 or tipo==4) enemigo(x,y,tipo-1); end //los para-algo llamando a los correspondientes malos cuando los pisas
 				frame;
-				if(tipo=8) num_lakitu=num_lakitu-1; end
+				if(tipo=8) num_lakitu=num_lakitu-1; end //si matas a un lakitu el contador baja
 				break; //suicidamos al malo
 			else //el prota chocó por debajo de la altura del enemigo
 				if(id_colision.powerup==1) 
@@ -427,25 +429,25 @@ Begin
 		case 3: graph=load_png("doblesalto.png"); end
 		case 4: graph=load_png("grande.png"); end
 		case 5: graph=load_png("velocidad.png"); end
-   end
+   end //tipos de power-ups
    ancho=graphic_info(file,graph,g_width)/2;
    alto=graphic_info(file,graph,g_height)/2;
    loop
-		if(map_get_pixel(0,durezas,x,y+alto)!=suelo) y+=6; end
-		while(map_get_pixel(0,durezas,x,y+alto-1)==suelo) y--; end
-		if(y>alto_nivel) break; end
-		if(id_colision=collision(type prota)) 
+		if(map_get_pixel(0,durezas,x,y+alto)!=suelo) y+=6; end 
+		while(map_get_pixel(0,durezas,x,y+alto-1)==suelo) y--; end //colisiones con el suelo
+		if(y>alto_nivel) break; end //al caer poir un bujero los power-ups desaparecen
+		if(id_colision=collision(type prota)) //al tocarlos el prota
 			if(id_colision.accion!="muerte")
-				p[id_colision.jugador].puntos++;
-				id_colision.powerup=tipo; 
-				id_colision.tiempo_powerup=10*50; 
+				p[id_colision.jugador].puntos++; //gana puntos
+				id_colision.powerup=tipo; //se activa el power-up
+				id_colision.tiempo_powerup=10*50; //se ajusta el tiempo del power-up
 	//			while(size>0) 
 	//				size=size-5;
 	//				frame;				
 	//			end 
 	//			break; 
 				tiempo_powerup=10*50;
-				while(alpha>0 and id_colision.powerup==tipo)
+				while(alpha>0 and id_colision.powerup==tipo) //la animación en la que aparece detrás del prota
 					x=id_colision.x;
 					y=id_colision.y;
 					alpha=tiempo_powerup/2;
