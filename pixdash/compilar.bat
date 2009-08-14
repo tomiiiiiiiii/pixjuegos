@@ -1,6 +1,11 @@
-del /f pixdash.dcb
-bennu\bgdc pixdash.prg -g
+@echo off
+cd src
+echo Compilando...
+..\bennu\bgdc -g pixdash.prg
+move pixdash.dcb ..
 pause
-move bennu\pixdash.dcb .\
-bennu\bgdi pixdash.dcb
+cd ..
+bgdi pixdash.dcb
+
 pause
+exit
