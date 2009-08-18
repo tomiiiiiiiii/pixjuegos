@@ -7,6 +7,12 @@ Global
 	alto_pantalla=1024;
 	ancho_nivel;
 	alto_nivel;
+	Struct ops; 
+		pantalla_completa=0;
+		sonido=1;
+		musica=1;
+	End
+
 	Struct botones;
 		int p[8][6];
 	End
@@ -17,7 +23,7 @@ Global
 		vidas;
 		personaje;
 	end
-	jugadores=2;
+	jugadores=4;
 	num_lakitu=0;
 	tiles[100];
 	powerups[100];
@@ -27,6 +33,7 @@ Global
 	fpg_tiles;
 	fpg_enemigos;
 	fpg_powerups;
+	fpg_menu;
 	tilesize=40;
 	fondo;
 	flash;
@@ -36,12 +43,19 @@ Global
 	num_nivel=1;
 	todo_preparado;
 	slowmotion;
+
+	njoys;
+	// COMPATIBILIDAD CON XP/VISTA/LINUX (usuarios)
+	string savegamedir;
+	string developerpath="/PiXJuegos/PiXFrogger/";
+
 End 
 
 Local
 	jugador;
 	powerup;
 	gravedad;
+	inercia;
 	ancho;
 	alto;
 	string accion;
@@ -51,23 +65,41 @@ Local
 End
 	
 Begin
+	// Código aportado por Devilish Games / Josebita
+	if(os_id==0) //windows
+		savegamedir=getenv("APPDATA")+developerpath;
+		if(savegamedir==developerpath) //windows 9x/me
+			savegamedir=cd();
+		else
+			crear_jerarquia(savegamedir);
+		end
+	end
+	if(os_id==1) //linux
+		savegamedir=getenv("HOME")+developerpath;
+		crear_jerarquia(savegamedir);
+	end
+	if(file_exists(savegamedir+"opciones"))
+		load(savegamedir+"opciones",ops);
+		full_screen=ops.pantalla_completa;
+	end
+
 	p[2].control=1;
 	p[3].control=2;
 	p[4].control=3; //el control de los jugadores
 	set_fps(50,0); //imágenes por segundo
-	full_screen=true; //pantalla completa
-	set_mode(ancho_pantalla,alto_pantalla,16); //resolución y colores	    
+	set_mode(800,600,16); //resolución y colores	    
 	fpg_tiles=load_fpg("tiles.fpg"); //cargar el mapa de tiles
 	fpg_enemigos=load_fpg("enemigos.fpg"); //cargar el mapa de tiles
 	fpg_powerups=load_fpg("powerups.fpg"); //cargar el mapa de tiles
+	fpg_menu=load_fpg("menu.fpg"); //cargar el mapa de tiles
 	fuente=load_fnt("fuente.fnt");
-	carga_nivel(); //cargar el nivel
+	menu();
+	//carga_nivel(); //cargar el nivel
 End
 
 Process prota(jugador);
 Private 
 	pulsando;
-	INERCIA;
 	x_destino;
 	y_destino;
 	string animacion;
@@ -84,10 +116,10 @@ Begin
 	graph=1;
 	ctype=c_scroll; //las corrdenadas son del scroll, no de la pantalla
 	switch(jugador) // los gráficos de cada jugador
-		case 1: file=load_fpg("raruto.fpg"); end
-		case 2: file=load_fpg("pix.fpg"); end
-		case 3: file=load_fpg("aladdin.fpg"); end
-		case 4: file=load_fpg("pix.fpg"); end
+		case 1: file=load_fpg("pix.fpg"); end
+		case 2: file=load_fpg("pux.fpg"); end
+		case 3: file=load_fpg("pax.fpg"); end
+		case 4: file=load_fpg("pex.fpg"); end
 	end
 	//ctype=c_screen;
 	ancho=graphic_info(file,1,g_width)/2;
@@ -95,7 +127,7 @@ Begin
 	loop
 		if(botones.p[jugador][1]) flags=0; inercia+=2; end //la inercia sube al ir hacia la derecha
 		if(botones.p[jugador][0]) flags=1; inercia-=2; end //la inercia baja al ir hacia la izquierda
-		if(botones.p[jugador][4] and pulsando==0 and saltando==0) saltando=1; sonido("pikachu-brinca"); saltogradual=1; gravedad=-15; pulsando=1; y--; end 
+		if(botones.p[jugador][4] and pulsando==0 and saltando==0) saltando=1; sonido("salta"); saltogradual=1; gravedad=-15; pulsando=1; y--; end 
 		//al saltar suena el sonido correspondiente y se aplica la gravedad, y el salto gradual si saltamos poco 
 		if(botones.p[jugador][4] and pulsando==0 and powerup==3 and tiempo_powerup>0 and doble_salto==0) saltogradual=1; doble_salto=1; gravedad=-15; pulsando=1; y--; end
 		//e l doblesalto si disponemos del power-up 3
@@ -105,9 +137,8 @@ Begin
 		if(x>ancho_nivel) 
 			num_nivel++;
 			p[jugador].puntos++;
-			sonido("mjackson-gana");
+			sonido("ganar");
 			carga_nivel();
-			/*p[jugador].puntos+=50; sonido("mjackson-gana"); x=0; y=0; ANGLE=180000; */
 		end //al ganar mike canta y nos damos la vuelta xD
 		if(inercia>0) inercia--; end
 		if(inercia<0) inercia++; end
@@ -169,7 +200,7 @@ Begin
 				graph=2;
 				gravedad=-20;
 				flash_muerte(jugador);
-				sonido("pikachu-muere");
+				sonido("muerte");
 				if(y<alto_nivel)
 					while(y<alto_nivel+150)
 						gravedad++;
@@ -196,7 +227,21 @@ Begin
 				accion=""; 
 			end 
 		end
-		if(id_colision=collision(type prota)) if(id_colision.y>y) id_colision.gravedad=20; gravedad=-20; end end
+		if(id_colision=collision(type prota)) 
+//			if(id>id_colision)
+				if(id_colision.y>y) 
+					id_colision.gravedad=20; gravedad=-20;
+				else
+					id_colision.gravedad=20; gravedad=-20;
+				end
+				if(id_colision.x<x) 
+					if(id_colision.inercia>0) inercia=id_colision.inercia*2; id_colision.inercia=0; end
+				end
+				if(id_colision.x>x) 
+					if(id_colision.inercia<0) inercia=id_colision.inercia*2; id_colision.inercia=0; end
+				end
+//			end
+		end
 		switch(animacion)
 			case "": animacion="quieto"; graph=1; end
 			case "quieto": graph=1; end
@@ -348,18 +393,15 @@ Begin
 			If(key(_right)) botones.p[jugador][1]=1; Else botones.p[jugador][1]=0; End
 			If(key(_up)) botones.p[jugador][2]=1; Else botones.p[jugador][2]=0; End
 			If(key(_down)) botones.p[jugador][3]=1; Else botones.p[jugador][3]=0; End
-			If(key(_up)) botones.p[jugador][4]=1; Else botones.p[jugador][4]=0; End
-			If(key(_s)) botones.p[jugador][5]=1; Else botones.p[jugador][5]=0; End
-			If(key(_d)) botones.p[jugador][6]=1; Else botones.p[jugador][6]=0; End
+			If(key(_0)) botones.p[jugador][4]=1; Else botones.p[jugador][4]=0; End
+			If(key(_esc)) botones.p[jugador][5]=1; Else botones.p[jugador][5]=0; End
 		End
 		If(p[jugador].control==1)  // teclado
 			If(key(_a)) botones.p[jugador][0]=1; Else botones.p[jugador][0]=0; End
 			If(key(_d)) botones.p[jugador][1]=1; Else botones.p[jugador][1]=0; End
 			If(key(_w)) botones.p[jugador][2]=1; Else botones.p[jugador][2]=0; End
-			If(key(_down)) botones.p[jugador][3]=1; Else botones.p[jugador][3]=0; End
-			If(key(_w)) botones.p[jugador][4]=1; Else botones.p[jugador][4]=0; End
-			If(key(_s)) botones.p[jugador][5]=1; Else botones.p[jugador][5]=0; End
-			If(key(_d)) botones.p[jugador][6]=1; Else botones.p[jugador][6]=0; End
+			If(key(_s)) botones.p[jugador][3]=1; Else botones.p[jugador][3]=0; End
+			If(key(_space)) botones.p[jugador][4]=1; Else botones.p[jugador][4]=0; End
 		End
 		If(p[jugador].control==2)  // joystick
 			If(get_joy_position(0,0)<-10000) botones.p[jugador][0]=1; Else botones.p[jugador][0]=0; End
@@ -462,6 +504,7 @@ BEGIN
 	stop_scroll(4);
 	unload_map(0,mapa_scroll);
 	unload_map(0,durezas);
+	set_mode(ancho_pantalla,alto_pantalla,16); //resolución y colores	    
 	play_song(load_song("niveles\nivel"+num_nivel+".ogg"),-1);
 	mapa=load_png("niveles\nivel"+num_nivel+".png"); 
 	if(mapa<1000) num_nivel=1; carga_nivel(); end
@@ -577,15 +620,17 @@ BEGIN
 	todo_preparado=1;
 	timer=0;
 	loop
-		if(key(_space)) while(key(_space)) frame; end num_nivel++; carga_nivel(); end
+		//if(key(_space)) while(key(_space)) frame; end num_nivel++; carga_nivel(); end
+		if(key(_esc)) menu(); end
 		if(timer>6000) timer=0; from i=1 to 7; powerups(rand(0,ancho_nivel),rand(0,ancho_nivel),i); end end
 		frame;
 	end 
 END
 
+//ganar, muerte, salto
 Process sonido(string sonidaco);
 Begin
-	play_wav(load_wav("wav\"+sonidaco+".wav"),0);
+	play_wav(load_wav("wav\"+father.jugador+sonidaco+".wav"),0);
 End
 
 Process marcadores();
@@ -601,3 +646,5 @@ Begin
 		if(jugadores==4) write_int(fuente,(ancho_pantalla/4)*3,(alto_pantalla/2)+20,1,&p[4].puntos); end
 	end
 End
+include "menu.pr-";
+include "guardar.pr-";

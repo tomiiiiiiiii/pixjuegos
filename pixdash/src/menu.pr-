@@ -1,0 +1,439 @@
+global
+	elecc;
+	elecy;
+	pr1;
+	pr2;
+	pr3;
+end
+
+process menu();
+private
+	tec;
+	keytime;
+	tec2;
+	continuable;
+	//i;
+begin
+	todo_preparado=0;
+	slowmotion=0;
+	let_me_alone();
+	stop_scroll(0);
+	stop_scroll(1);
+	stop_scroll(2);
+	stop_scroll(3);
+	stop_scroll(4);
+	unload_map(0,mapa_scroll);
+	unload_map(0,durezas);
+	num_enemigos=0;
+	delete_text(all_text);
+	set_mode(800,600,16); //resolución y colores	    
+	i=0;
+	from i=1 to 4;
+		p[i].puntos=0;
+	end
+	file=fpg_menu;
+	let_me_alone();
+	controlador(1);
+//	if(!is_playing_song()) musica(5); end
+	elecc=0;
+	lista(3);
+	frame;
+	logo(2);
+	machango();
+	from i=0 to 20;
+		elep();
+	end
+	frame;
+	graph=1;
+	x=400;
+	y=300;
+	keytime=10;
+	loop
+		if(elecc==6)
+			elecc=0;
+		end
+		if(elecc==-1)
+			elecc=5;
+		end
+		if(keytime>0)
+			keytime--;
+		end
+		//elige algo
+		if(botones.p[1][4] and keytime==0)
+			if(ops.sonido==1)
+				sonido(3);
+			end
+			if(elecc==0)
+				let_me_alone();
+				carga_nivel(); //cargar el nivel
+				break;
+			end
+			if(elecc==1)
+				let_me_alone();
+				opcion();
+				break;
+			end
+			if(elecc==2)
+				let_me_alone();
+				back(201);
+				break;
+			end
+			if(elecc==3)
+				let_me_alone();
+				back(200);
+				break;
+			end
+			if(elecc==4)
+ 				if(os_id==0)
+// 					shell("http://pixjuegos.com");
+ 				else
+//					shell("x-www-browser http://pixjuegos.com &");
+ 				end
+				save(savegamedir+"opciones.dat",ops);
+				exit(0);
+			end
+			if(elecc==5)
+				save(savegamedir+"opciones.dat",ops);
+				exit(0);
+			end
+		end
+		if(botones.p[1][3])
+			if(tec==0)
+				elecc++;
+				if(ops.sonido==1)
+					sonido(2);
+				end
+				tec=1;
+			end
+		else
+			tec=0;
+		end
+		if(botones.p[1][2])
+			if(tec2==0)
+				elecc--;
+				if(ops.sonido==1)
+					sonido(2);
+				end
+				tec2=1;
+			end
+		else
+			tec2=0;
+		end
+		frame;
+	end
+end
+
+process menu_jugadores();
+private
+	tec;
+	tec2;
+	tecenter;
+	idlogo;
+	//i;
+begin
+	file=fpg_menu;
+	elecc=0;
+	controlador(1);
+	back(1);
+	idlogo=logo(302);
+	lista(33);
+	machango();
+	from i=0 to 20; elep(); end
+	tecenter=1;
+	loop
+		if(botones.p[1][4])
+			if(tecenter==0)
+				if(elecc==0)
+					jugadores=1;
+				end
+				if(elecc==1)
+					jugadores=3;
+				end
+				let_me_alone();
+//				menu_modojuego();
+				return;
+			end
+			tecenter=1;
+		else
+			tecenter=0;
+		end //enter
+	
+		if(botones.p[1][3])
+			if(tec==0)
+				if(ops.sonido==1)
+					sonido(2);
+				end
+				elecc++;
+				tec=1;
+			end
+		else
+			tec=0;
+		end
+		if(botones.p[1][2])
+			if(tec2==0)
+				if(ops.sonido==1)
+					sonido(2);
+				end
+				elecc--;
+				tec2=1;
+			end
+		else
+			tec2=0;
+		end
+		if(elecc==2)
+			elecc=0;
+		end
+		if(elecc==-1)
+			elecc=1;
+		end
+		if(elecc==0)
+			idlogo.graph=302;
+		end
+		if(elecc==1)
+			idlogo.graph=305;
+		end
+		frame;
+	end
+end
+
+process lista(graph);
+begin
+//	if(graph==35)
+		file=fpg_menu;
+//	end
+	x=-200;
+	y=300;
+	z=-10;
+	loop
+		x+=(x-200)/-10;
+		frame;
+	end
+end
+
+process logo(graph);
+begin
+	file=fpg_menu;
+	x=1200;
+	y=300;
+	z=-10;
+	loop
+		x+=(x-500)/-10;
+		frame;
+	end
+end
+
+process elep();
+private
+	ox;
+	oy;
+begin
+	file=fpg_menu;
+	graph=rand(10,12);
+	z=-5;
+	loop
+		if(rand(0,10)==1)
+			ox=rand(10,150);
+			oy=rand(elecy-50,elecy+50);
+		end
+		x+=(x-ox)/-10;
+		y+=(y-oy)/-10;
+		frame;
+	end
+end
+
+process machango();
+begin
+	file=fpg_menu;
+	z=-20;
+	graph=50;
+	x=70;
+	loop
+		elecy=y;
+		if(elecc==0)
+			y=65;
+		end
+		if(elecc==1)
+			y=120;
+		end
+		if(elecc==2)
+			y=180;
+		end
+		if(elecc==3)
+			y=235;
+		end
+		if(elecc==4)
+			y=295;
+		end
+		if(elecc==5)
+			y=355;
+		end	
+		if(elecc==6)
+			y=415;
+		end	
+		y+=60;
+		frame;
+	end
+end
+
+process back(graph);
+private
+	keytime;
+begin
+	file=fpg_menu;
+//	if(graph==200) file=fpg_menu; end
+	x=400;
+	y=300;
+	z=50;
+	keytime=10;
+	controlador(1);	
+	while(botones.p[1][4]) frame; end
+	loop
+		if(botones.p[1][5] or (graph==200 and botones.p[1][4]))
+			sonido(1);
+			let_me_alone();
+			menu();
+			break;
+		end
+		//ayuda y tal
+		if(graph>=20 and graph<=22)
+			if(key(_f))
+				sonido(1);
+ 				if(os_id==0)
+// 					shell("http://foro.pixjuegos.com");
+ 				else
+//					shell("x-www-browser http://foro.pixjuegos.com &");
+ 				end
+				save(savegamedir+"opciones.dat",ops);
+				exit(0);
+			end
+			if(botones.p[1][4] and keytime==0)
+				graph++;
+				if(graph==22)
+					sonido(1);
+					let_me_alone();
+					menu();
+					break;
+				end
+				keytime=10;
+			end
+			if(keytime>0)
+				keytime--;
+			end
+		end
+		//ayuda y tal
+		frame;
+	end
+end
+
+process ponimgn(x,y,size,graph,file);
+begin
+	z=-50;
+	frame;
+end
+
+process opcion();
+private
+	tec;
+	tec2;
+	tecenter;
+	//i;
+begin
+	file=fpg_menu;
+	elecc=0;
+	controlador(1);
+	back(1);
+	lista(30);
+	logo(105);
+	machango();
+	from i=0 to 20; elep(); end
+	tecenter=1;
+	loop
+/*		switch(ops.dificultad)
+			case 0:
+				ponimgn(180,360,100,250,fpg_menu);
+			end
+			case 1:
+				ponimgn(200,360,100,251,fpg_menu);
+			end
+			case 2:
+				ponimgn(220,360,100,252,fpg_menu);
+			end
+			case 3:
+				ponimgn(240,360,100,253,fpg_menu);
+			end
+		end
+*/
+		if(botones.p[1][4])
+			if(tecenter==0)
+				if(elecc==0)
+					if(full_screen==0)
+						full_screen=1;
+						ops.pantalla_completa=1;
+						set_mode(800,600,16);
+					else
+						full_screen=0;
+						ops.pantalla_completa=0;
+						set_mode(800,600,16);
+					end
+				end
+				if(elecc==1)
+					if(ops.sonido==1)
+						ops.sonido=0;
+					else
+						ops.sonido=1;
+						sonido(2);
+					end
+				end
+				if(elecc==2)
+					if(ops.musica==1)
+						ops.musica=0;
+//						musica("2");
+					else
+						ops.musica=1;
+	//					musica("2");
+					end
+				end
+				if(elecc==3)
+/*					ops.dificultad++;
+					if(ops.dificultad==4)
+						ops.dificultad=0;
+					end
+*/
+				end
+			end
+			tecenter=1;
+		else
+			tecenter=0;
+		end //enter
+	
+		if(botones.p[1][3])
+			if(tec==0)
+				if(ops.sonido==1)
+					sonido(2);
+				end
+				elecc++;
+				tec=1;
+			end
+		else
+			tec=0;
+		end
+		if(botones.p[1][2])
+			if(tec2==0)
+				if(ops.sonido==1)
+					sonido(2);
+				end
+				elecc--;
+				tec2=1;
+			end
+		else
+			tec2=0;
+		end
+		if(elecc==4)
+			elecc=0;
+		end
+		if(elecc==-1)
+			elecc=3;
+		end
+		frame;
+	end
+end
