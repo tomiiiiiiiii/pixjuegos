@@ -16,6 +16,7 @@ private
 begin
 	todo_preparado=0;
 	slowmotion=0;
+	num_nivel=1;
 	let_me_alone();
 	stop_scroll(0);
 	stop_scroll(1);
@@ -34,7 +35,7 @@ begin
 	file=fpg_menu;
 	let_me_alone();
 	controlador(1);
-//	if(!is_playing_song()) musica(5); end
+	if(!is_playing_song()) play_song(load_song("menu.ogg"),-1); end
 	elecc=0;
 	lista(3);
 	frame;
@@ -65,7 +66,7 @@ begin
 			end
 			if(elecc==0)
 				let_me_alone();
-				carga_nivel(); //cargar el nivel
+				elegir_num_jugadores();
 				break;
 			end
 			if(elecc==1)
@@ -118,79 +119,6 @@ begin
 			end
 		else
 			tec2=0;
-		end
-		frame;
-	end
-end
-
-process menu_jugadores();
-private
-	tec;
-	tec2;
-	tecenter;
-	idlogo;
-	//i;
-begin
-	file=fpg_menu;
-	elecc=0;
-	controlador(1);
-	back(1);
-	idlogo=logo(302);
-	lista(33);
-	machango();
-	from i=0 to 20; elep(); end
-	tecenter=1;
-	loop
-		if(botones.p[1][4])
-			if(tecenter==0)
-				if(elecc==0)
-					jugadores=1;
-				end
-				if(elecc==1)
-					jugadores=3;
-				end
-				let_me_alone();
-//				menu_modojuego();
-				return;
-			end
-			tecenter=1;
-		else
-			tecenter=0;
-		end //enter
-	
-		if(botones.p[1][3])
-			if(tec==0)
-				if(ops.sonido==1)
-					sonido(2);
-				end
-				elecc++;
-				tec=1;
-			end
-		else
-			tec=0;
-		end
-		if(botones.p[1][2])
-			if(tec2==0)
-				if(ops.sonido==1)
-					sonido(2);
-				end
-				elecc--;
-				tec2=1;
-			end
-		else
-			tec2=0;
-		end
-		if(elecc==2)
-			elecc=0;
-		end
-		if(elecc==-1)
-			elecc=1;
-		end
-		if(elecc==0)
-			idlogo.graph=302;
-		end
-		if(elecc==1)
-			idlogo.graph=305;
 		end
 		frame;
 	end
@@ -348,21 +276,6 @@ begin
 	from i=0 to 20; elep(); end
 	tecenter=1;
 	loop
-/*		switch(ops.dificultad)
-			case 0:
-				ponimgn(180,360,100,250,fpg_menu);
-			end
-			case 1:
-				ponimgn(200,360,100,251,fpg_menu);
-			end
-			case 2:
-				ponimgn(220,360,100,252,fpg_menu);
-			end
-			case 3:
-				ponimgn(240,360,100,253,fpg_menu);
-			end
-		end
-*/
 		if(botones.p[1][4])
 			if(tecenter==0)
 				if(elecc==0)
@@ -400,6 +313,78 @@ begin
 					end
 */
 				end
+			end
+			tecenter=1;
+		else
+			tecenter=0;
+		end //enter
+	
+		if(botones.p[1][3])
+			if(tec==0)
+				if(ops.sonido==1)
+					sonido(2);
+				end
+				elecc++;
+				tec=1;
+			end
+		else
+			tec=0;
+		end
+		if(botones.p[1][2])
+			if(tec2==0)
+				if(ops.sonido==1)
+					sonido(2);
+				end
+				elecc--;
+				tec2=1;
+			end
+		else
+			tec2=0;
+		end
+		if(elecc==3)
+			elecc=0;
+		end
+		if(elecc==-1)
+			elecc=2;
+		end
+		frame;
+	end
+end
+
+process elegir_num_jugadores();
+private
+	tec;
+	tec2;
+	tecenter;
+	//i;
+begin
+	file=fpg_menu;
+	elecc=0;
+	controlador(1);
+	back(1);
+	lista(31);
+	logo(253);
+	machango();
+	from i=0 to 20; elep(); end
+	tecenter=1;
+	loop
+		if(botones.p[1][4])
+			if(tecenter==0)
+				if(elecc==0)
+					jugadores=1;
+				end
+				if(elecc==1)
+					jugadores=2;
+				end
+				if(elecc==2)
+					jugadores=3;
+				end
+				if(elecc==3)
+					jugadores=4;
+				end
+				set_mode(ancho_pantalla,alto_pantalla,16);
+				frame;
+				carga_nivel();
 			end
 			tecenter=1;
 		else

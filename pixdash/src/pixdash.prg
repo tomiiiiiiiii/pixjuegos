@@ -20,11 +20,18 @@ Global
 		identificador;
 		control;
 		puntos;
-		vidas;
 		personaje;
+		tiempos[10];
+		combo;
+		mejorcombo;
+		monedas;
+		powerupscogidos;
+		enemigosmatados;
+		pixismatados;
+		muertes;
 	end
-	jugadores=4;
-	num_lakitu=0;
+	posiciones[4];
+	jugadores=2;
 	tiles[100];
 	powerups[100];
 	enemigos[100];
@@ -34,6 +41,7 @@ Global
 	fpg_enemigos;
 	fpg_powerups;
 	fpg_menu;
+	fpg_moneda;
 	tilesize=40;
 	fondo;
 	flash;
@@ -43,11 +51,11 @@ Global
 	num_nivel=1;
 	todo_preparado;
 	slowmotion;
-
+	foto;
 	njoys;
 	// COMPATIBILIDAD CON XP/VISTA/LINUX (usuarios)
 	string savegamedir;
-	string developerpath="/PiXJuegos/PiXFrogger/";
+	string developerpath="/PiXJuegos/PiXDash/";
 
 End 
 
@@ -78,8 +86,8 @@ Begin
 		savegamedir=getenv("HOME")+developerpath;
 		crear_jerarquia(savegamedir);
 	end
-	if(file_exists(savegamedir+"opciones"))
-		load(savegamedir+"opciones",ops);
+	if(file_exists(savegamedir+"opciones.dat"))
+		load(savegamedir+"opciones.dat",ops);
 		full_screen=ops.pantalla_completa;
 	end
 
@@ -92,6 +100,7 @@ Begin
 	fpg_enemigos=load_fpg("enemigos.fpg"); //cargar el mapa de tiles
 	fpg_powerups=load_fpg("powerups.fpg"); //cargar el mapa de tiles
 	fpg_menu=load_fpg("menu.fpg"); //cargar el mapa de tiles
+	fpg_moneda=load_fpg("moneda.fpg");
 	fuente=load_fnt("fuente.fnt");
 	menu();
 	//carga_nivel(); //cargar el nivel
@@ -107,6 +116,7 @@ Private
 	id_colision;
 	doble_salto;
 	saltogradual;
+	posicion;
 Begin
 	p[jugador].identificador=id;
 	controlador(jugador);
@@ -122,23 +132,57 @@ Begin
 		case 4: file=load_fpg("pex.fpg"); end
 	end
 	//ctype=c_screen;
-	ancho=graphic_info(file,1,g_width)/2;
-	alto=graphic_info(file,1,g_height)/2; //el ancho y el alto de cada imagen
+//	ancho=graphic_info(file,1,g_width)/2;
+//	alto=graphic_info(file,1,g_height)/2; //el ancho y el alto de cada imagen
+	ancho=18;
+	alto=29;
 	loop
+		while(todo_preparado==0) frame; end
 		if(botones.p[jugador][1]) flags=0; inercia+=2; end //la inercia sube al ir hacia la derecha
 		if(botones.p[jugador][0]) flags=1; inercia-=2; end //la inercia baja al ir hacia la izquierda
-		if(botones.p[jugador][4] and pulsando==0 and saltando==0) saltando=1; sonido("salta"); saltogradual=1; gravedad=-15; pulsando=1; y--; end 
+		if(botones.p[jugador][2] and pulsando==0 and saltando==0) saltando=1; sonido("salta"); saltogradual=1; gravedad=-15; pulsando=1; y--; end 
 		//al saltar suena el sonido correspondiente y se aplica la gravedad, y el salto gradual si saltamos poco 
-		if(botones.p[jugador][4] and pulsando==0 and powerup==3 and tiempo_powerup>0 and doble_salto==0) saltogradual=1; doble_salto=1; gravedad=-15; pulsando=1; y--; end
+		if(botones.p[jugador][2] and pulsando==0 and powerup==3 and tiempo_powerup>0 and doble_salto==0) saltogradual=1; doble_salto=1; gravedad=-15; pulsando=1; y--; end
 		//e l doblesalto si disponemos del power-up 3
-		if(botones.p[jugador][4] and saltogradual<5 and saltogradual!=0) gravedad-=4; saltogradual++; end
-		if(!botones.p[jugador][4] and pulsando==1) pulsando=0; saltogradual=0; end
+		if(botones.p[jugador][2] and saltogradual<5 and saltogradual!=0) gravedad-=4; saltogradual++; end
+		if(!botones.p[jugador][2] and pulsando==1) pulsando=0; saltogradual=0; end
 		if(map_get_pixel(0,durezas,x,y+alto)==suelo or map_get_pixel(0,durezas,x-(ancho/3),y+alto)==suelo or map_get_pixel(0,durezas,x+(ancho/3),y+alto)==suelo and gravedad>0) gravedad=0; saltando=0; doble_salto=0; else saltando=1; gravedad++; end //al tocar el suelo, gravedad es 0
 		if(x>ancho_nivel) 
-			num_nivel++;
-			p[jugador].puntos++;
-			sonido("ganar");
-			carga_nivel();
+			p[i].tiempos[num_nivel]=timer[1];
+			if(jugadores==1) num_nivel++; carga_nivel(); end
+			if(jugadores==2) 
+				if(posiciones[1]==0) posicion=1; posiciones[1]=jugador; bomba();
+				elseif(posiciones[2]==0) posicion=2; posiciones[2]=jugador; end
+			end
+			if(jugadores==3) 
+				if(posiciones[1]==0) posicion=1; posiciones[1]=jugador; bomba();
+				elseif(posiciones[2]==0) posicion=2; posiciones[2]=jugador;
+				elseif(posiciones[3]==0) posicion=3; posiciones[3]=jugador; end
+			end
+			if(jugadores==4) 
+				if(posiciones[1]==0) posicion=1; posiciones[1]=jugador; bomba();
+				elseif(posiciones[2]==0) posicion=2; posiciones[2]=jugador;
+				elseif(posiciones[3]==0) posicion=3; posiciones[3]=jugador;
+				elseif(posiciones[4]==0) posicion=4; posiciones[4]=jugador; end
+			end
+			if(jugadores<=2)
+				if(jugador==1) write(fuente,ancho_pantalla/2,alto_pantalla/4,4,posicion); pon_tiempo(p[i].tiempos[num_nivel],1,ancho_pantalla/2,(alto_pantalla/4)+50); end
+				if(jugador==2) write(fuente,ancho_pantalla/2,(alto_pantalla/4)*3,4,posicion); pon_tiempo(p[i].tiempos[num_nivel],1,ancho_pantalla/2,((alto_pantalla/4)*3)+50); end
+				end
+			if(jugadores>2)
+				if(jugador==1) write(fuente,ancho_pantalla/4,alto_pantalla/4,4,posicion); pon_tiempo(p[i].tiempos[num_nivel],1,ancho_pantalla/4,(alto_pantalla/4)+50); end
+				if(jugador==2) write(fuente,(ancho_pantalla/4)*3,alto_pantalla/4,4,posicion); pon_tiempo(p[i].tiempos[num_nivel],1,(ancho_pantalla/4)*3,(alto_pantalla/4)+50); end
+				if(jugador==3) write(fuente,ancho_pantalla/4,(alto_pantalla/4)*3,4,posicion); pon_tiempo(p[i].tiempos[num_nivel],1,ancho_pantalla/4,((alto_pantalla/4)*3)+50); end
+				if(jugador==4) write(fuente,(ancho_pantalla/4)*3,(alto_pantalla/4)*3,4,posicion); pon_tiempo(p[i].tiempos[num_nivel],1,(ancho_pantalla/4)*3,((alto_pantalla/4)*3)+50); end
+			end
+			graph=0;
+			loop
+				if(botones.p[jugador][1] and x<ancho_nivel) x+=15; end
+				if(botones.p[jugador][0] and x>0) x-=15; end
+				if(botones.p[jugador][3] and y<alto_nivel) y+=15; end
+				if(botones.p[jugador][2] and y>0) y-=15; end
+				frame; 
+			end //aquí se queda!
 		end //al ganar mike canta y nos damos la vuelta xD
 		if(inercia>0) inercia--; end
 		if(inercia<0) inercia++; end
@@ -190,7 +234,7 @@ Begin
 		while(map_get_pixel(0,durezas,x,y+alto-1)==suelo) y--; end
 		while(map_get_pixel(0,durezas,x-ancho/3,y+alto-1)==suelo) y--; end
 		while(map_get_pixel(0,durezas,x+ancho/3,y+alto-1)==suelo) y--; end
-		if(gravedad==0) //animaciones al andar o estar quieto
+		if(saltando==0 and gravedad==0) //animaciones al andar o estar quieto
 			if(inercia!=0) animacion="andar"; else animacion="quieto"; end
 		else
 			animacion="salto"; //animación al saltar
@@ -246,7 +290,7 @@ Begin
 			case "": animacion="quieto"; graph=1; end
 			case "quieto": graph=1; end
 			case "andar": 
-				if(graph=>11 and graph<14) 
+				if(graph=>11 and graph<13) 
 					if(anim<5) anim++; else anim=0; graph++; end
 				else
 					graph=11; 
@@ -263,11 +307,12 @@ End
 
 Process flash_muerte(jugador);
 Begin
-	if(jugadores==2)
+	if(jugadores<=2)
 		x=ancho_pantalla/2;
 		if(jugador==1) y=alto_pantalla/4; end
 		if(jugador==2) y=(alto_pantalla/4)*3; end
-	else
+	end
+	if(jugadores>2)
 		if(jugador==1) x=ancho_pantalla/4; y=alto_pantalla/4; end
 		if(jugador==2) x=(ancho_pantalla/4)*3; y=alto_pantalla/4; end
 		if(jugador==3) x=ancho_pantalla/4; y=(alto_pantalla/4)*3; end
@@ -299,8 +344,8 @@ Begin
    loop
 		while(todo_preparado==0) frame; end
 		if(alpha<255) alpha+=5; end
-		if(map_get_pixel(0,durezas,x+ancho,y)==suelo and tipo!=8) flags=0; end //giramos cuando chocamos por la derecha, menos lakitu que no choca
-		if(map_get_pixel(0,durezas,x-ancho,y)==suelo and tipo!=8 or x=<10) if(tipo==7) break; end flags=1; end //giramos cuando chocamos, o nos salimos, por la izquierda. aunque billbala muere
+		if(map_get_pixel(0,durezas,x+ancho,y)==suelo) flags=0; end //giramos cuando chocamos por la derecha
+		if(map_get_pixel(0,durezas,x-ancho,y)==suelo or x=<10) if(tipo==7) break; end flags=1; end //giramos cuando chocamos, o nos salimos, por la izquierda. aunque billbala muere
 		if(map_get_pixel(0,durezas,x,y-alto)==suelo) gravedad=10; y++; end //si chocamos arriba, nos vamos pabajo. pd: sólo chocan los para-algo
 		if(tipo==7) flags=0; x-=6; end //billbala siempre va hacia la izquierda
 		if(tipo==8 and rand(0,200)==0) enemigo(x,y,9); end //lakitu tirando pinchones
@@ -309,14 +354,14 @@ Begin
 				x-=2; 
 			else 
 				x-=6; 
-			end //los malos andan pa un lao o pa otro menos lakitu, que va a su bola
+			end //los malos andan pa un lao
 		else  
 			if(tipo!=8) 
 				x+=2; 
 			else 
 				x+=6; 
 			end 
-		end	//si miramos pa un lao, andamos pa ese, sino viceversa, menos lakitu
+		end	//si miramos pa un lao, andamos pa ese, sino viceversa
 		if(tipo==8 and rand(0,300)==0) if(flags==0) flags=1; else flags=0; end end //cuando mira lakitu pa la derecha al azar
 		if(map_get_pixel(0,durezas,x,y+alto)==suelo and tipo!=8 and gravedad>0) //el malo tocó el suelo? lakitu no choca wei!
 			if(tipo==9) enemigo(x,y, tipo-4); break; end //los huevos de spiky tocan el suelo, mueren y llaman a los spikys
@@ -324,7 +369,7 @@ Begin
 		else 
 			gravedad++; //pos no lo tocó
 		end //gravedad
-		if(y>alto_nivel) break; end //si caemos por un bujero, morimos
+		if(y>alto_nivel or y<0) break; end //si caemos por un bujero, morimos
 		while(map_get_pixel(0,durezas,x,y+alto-1)==suelo and tipo!=8) y--; end //corregimos atravesamiento de suelos...
 
 		if(alpha==255 and (id_colision=collision(type prota))) //chocamos con el prota
@@ -338,7 +383,6 @@ Begin
 				end
 				if(tipo==2 or tipo==4) enemigo(x,y,tipo-1); end //los para-algo llamando a los correspondientes malos cuando los pisas
 				frame;
-				if(tipo==8) num_lakitu=0; end //si matas a un lakitu el contador baja
 				break; //suicidamos al malo
 			else //el prota chocó por debajo de la altura del enemigo
 				if(id_colision.powerup==1) 
@@ -351,7 +395,6 @@ Begin
 					end
 					if(tipo==2 or tipo==4) enemigo(x,y,tipo-1); end
 					frame;
-					if(tipo==8) num_lakitu=0; end
 					break; //suicidamos al malo
 				else
 					id_colision.accion="muerte"; //el prota muere
@@ -393,7 +436,7 @@ Begin
 			If(key(_right)) botones.p[jugador][1]=1; Else botones.p[jugador][1]=0; End
 			If(key(_up)) botones.p[jugador][2]=1; Else botones.p[jugador][2]=0; End
 			If(key(_down)) botones.p[jugador][3]=1; Else botones.p[jugador][3]=0; End
-			If(key(_0)) botones.p[jugador][4]=1; Else botones.p[jugador][4]=0; End
+			If(key(_enter)) botones.p[jugador][4]=1; Else botones.p[jugador][4]=0; End
 			If(key(_esc)) botones.p[jugador][5]=1; Else botones.p[jugador][5]=0; End
 		End
 		If(p[jugador].control==1)  // teclado
@@ -444,10 +487,14 @@ End
 Process powerups(x,y,tipo);
 Private
 	id_colision;
+	x_orig;
+	y_orig;
 Begin
 	ctype=c_scroll;
 	file=fpg_powerups;
 	graph=tipo;
+	x_orig=x;
+	y_orig=y;
    ancho=graphic_info(file,graph,g_width)/2;
    alto=graphic_info(file,graph,g_height)/2;
    loop
@@ -481,7 +528,29 @@ Begin
 		angle+=7000;
 		frame; 
 	end
-	powerups(rand(0,ancho_nivel),rand(0,alto_nivel),tipo);
+	powerups(x_orig,y_orig,tipo);
+End
+
+Process moneda(x,y)
+Private
+	anim;
+	id_colision;
+Begin
+	ctype=c_scroll; 
+	file=fpg_moneda;
+	graph=1;
+	loop
+		if(anim<5) anim++; else graph++; anim=0; end
+		if(graph==5) graph=1; end
+		if(id_colision=collision(type prota)) 
+			if(id_colision.accion!="muerte")
+				sonido("moneda");
+				p[id_colision.jugador].monedas++;
+				break;
+			end
+		end
+		frame;
+	end
 End
 
 Process carga_nivel();
@@ -492,7 +561,24 @@ PRIVATE
 	pers_x;
 	pers_y;
 	mapa;
+	texto;
+	txt_tiempo;
+	minutos;
+	segundos;
+	decimas;
+	string string_tiempo;
 BEGIN
+	if(num_nivel!=1)
+		p[posiciones[1]].puntos+=6;
+		p[posiciones[2]].puntos+=4;
+		p[posiciones[3]].puntos+=2;
+		p[posiciones[4]].puntos++;
+		from i=1 to 4; posiciones[i]=0; end
+	end
+	if(!file_exists("niveles\nivel"+num_nivel+".png")) menu(); return; end // FIN DE LA COMPETICION
+	frame;
+	foto=get_screen();
+	delete_text(all_text);
 	rand_seed(num_nivel);
 	todo_preparado=0;
 	slowmotion=0;
@@ -504,10 +590,9 @@ BEGIN
 	stop_scroll(4);
 	unload_map(0,mapa_scroll);
 	unload_map(0,durezas);
-	set_mode(ancho_pantalla,alto_pantalla,16); //resolución y colores	    
-	play_song(load_song("niveles\nivel"+num_nivel+".ogg"),-1);
+	//set_mode(ancho_pantalla,alto_pantalla,16); //resolución y colores	    
+
 	mapa=load_png("niveles\nivel"+num_nivel+".png"); 
-	if(mapa<1000) num_nivel=1; carga_nivel(); end
 	fondo=load_png("niveles\fondo"+num_nivel+".png"); //cargar el fondo
 	num_enemigos=0;
 	//ancho del gráfico pequeñito
@@ -516,7 +601,7 @@ BEGIN
 
 	from i=0 to 9; tiles[i]=map_get_pixel(0,mapa,i,alto-3); end
 	from i=1 to 10; enemigos[i]=map_get_pixel(0,mapa,i,alto-2); end
-	from i=1 to 10; powerups[i]=map_get_pixel(0,mapa,i,alto-2); end
+	from i=1 to 5; powerups[i]=map_get_pixel(0,mapa,i,alto-1); end
 	
 	alto_nivel=(alto-3)*tilesize;
 	ancho_nivel=ancho*tilesize;
@@ -533,8 +618,10 @@ BEGIN
 		if(tile==tiles[1]) MAP_PUT(fpg_tiles,mapa_scroll,2,pos_x+(tilesize/2),pos_y+(tilesize/2)); end
 		if(tile==tiles[2]) MAP_PUT(fpg_tiles,mapa_scroll,3,pos_x+(tilesize/2),pos_y+(tilesize/2)); end
 		if(tile==tiles[3]) MAP_PUT(fpg_tiles,mapa_scroll,4,pos_x+(tilesize/2),pos_y+(tilesize/2)); end
+		if(tile==tiles[4]) moneda(pos_x+(tilesize/2),pos_y+(tilesize/2)); end
 		
 		from i=1 to 10; if(tile==enemigos[i]) enemigo(pos_x+(tilesize/2),pos_y+(tilesize/2),i); end end
+		from i=1 to 5; if(tile==powerups[i]) powerups(pos_x+(tilesize/2),pos_y+(tilesize/2),i); end end
 		if(x<ancho)
 			x++;
 		else
@@ -567,14 +654,14 @@ BEGIN
 	until(y=>alto-3)
 
 	marcadores(); //llamar a los marcadores de puntos
-	if(jugadores==2) //definir la pantalla partida y la división al ser 2 jugadores
+	if(jugadores<=2) //definir la pantalla partida y la división al ser 2 jugadores
 		define_region(1,0,0,ancho_pantalla,alto_pantalla/2);
 		define_region(2,0,alto_pantalla/2,ancho_pantalla,alto_pantalla);
 
 		start_scroll(0,0,mapa_scroll,fondo,1,0);
 		scroll[0].camera=prota(1);
 		start_scroll(1,0,mapa_scroll,fondo,2,0);
-		scroll[1].camera=prota(2);
+		if(jugadores==2) scroll[1].camera=prota(2); end
 
 		graph=new_map(ancho_pantalla,alto_pantalla,16);
 		drawing_color(200);
@@ -585,8 +672,8 @@ BEGIN
 		drawing_color(suelo);
 		drawing_map(0,flash);
 		draw_box(0,0,ancho_pantalla,alto_pantalla/2);
-
-	else //definirlo al ser 4
+	end
+	if(jugadores==3 or jugadores==4) //definirlo al ser 4
 		define_region(1,0,0,ancho_pantalla/2,alto_pantalla/2);
 		define_region(2,ancho_pantalla/2,0,ancho_pantalla,alto_pantalla/2);
 		define_region(3,0,alto_pantalla/2,ancho_pantalla/2,alto_pantalla);
@@ -599,7 +686,9 @@ BEGIN
 		start_scroll(2,0,mapa_scroll,fondo,3,0);
 		scroll[2].camera=prota(3);
 		start_scroll(3,0,mapa_scroll,fondo,4,0);
-		scroll[3].camera=prota(4);
+		if(jugadores==4) 
+			scroll[3].camera=prota(4);
+		end
 
 		graph=new_map(ancho_pantalla,alto_pantalla,16);
 		drawing_color(200);
@@ -614,15 +703,29 @@ BEGIN
 	end
 	x=ancho_pantalla/2; 
 	y=alto_pantalla/2;
-
-	//enemigo(rand(4000,ancho_nivel),rand(0,275),8); //lakitu
-	from i=1 to 7; powerups(rand(0,ancho_nivel),rand(0,ancho_nivel),i); end
+	timer=0;
+	stop_song();
+	transicion();
+	from i=3 to 1 step -1;
+		timer=0;
+		texto=write(fuente,ancho_pantalla/2,alto_pantalla/2,4,i);
+		sonido("1");
+		while(timer<100) frame;	end
+		delete_text(texto);
+	end
+	sonido("3");
+	texto=write(fuente,ancho_pantalla/2,alto_pantalla/2,4,"¡YA!");
 	todo_preparado=1;
 	timer=0;
+	timer[1]=0; //para contrarreloj
+	if(ops.musica) play_song(load_song("niveles\nivel"+num_nivel+".ogg"),-1); end
 	loop
-		//if(key(_space)) while(key(_space)) frame; end num_nivel++; carga_nivel(); end
+		pon_tiempo(timer[1],0,(ancho_pantalla/4)*3,alto_pantalla/2);
+		if(key(_n)) while(key(_n)) frame; end num_nivel++; carga_nivel(); end
 		if(key(_esc)) menu(); end
-		if(timer>6000) timer=0; from i=1 to 7; powerups(rand(0,ancho_nivel),rand(0,ancho_nivel),i); end end
+		if(timer>300 and texto!=0) delete_text(texto); texto=0; end
+		if(jugadores==3 and ((!exists(scroll[3].camera)) or scroll[3].camera==0 or rand(0,500)==333)) scroll[3].camera=get_id(type enemigo); end
+		if(jugadores==1 and ((!exists(scroll[1].camera)) or scroll[1].camera==0 or rand(0,500)==333)) scroll[1].camera=get_id(type enemigo); end
 		frame;
 	end 
 END
@@ -630,7 +733,28 @@ END
 //ganar, muerte, salto
 Process sonido(string sonidaco);
 Begin
-	play_wav(load_wav("wav\"+father.jugador+sonidaco+".wav"),0);
+	if(ops.sonido) play_wav(load_wav("wav\"+father.jugador+sonidaco+".wav"),0); end
+End
+
+Process pon_tiempo(tiempo,permanecer,x,y);
+Private
+	decimas;
+	segundos;
+	minutos;
+	txt_tiempo;
+	string string_tiempo;
+Begin
+	decimas=tiempo; while(decimas=>100) decimas-=100; end
+	segundos=tiempo/100; while(segundos=>60) segundos-=60; end
+	minutos=tiempo/6000;
+
+	if(decimas<10 and segundos<10) string_tiempo=itoa(minutos)+"' 0"+itoa(segundos)+"'' 0"+itoa(decimas); end
+	if(decimas>9 and segundos<10) string_tiempo=itoa(minutos)+"' 0"+itoa(segundos)+"'' "+itoa(decimas); end
+	if(decimas<10 and segundos>9) string_tiempo=itoa(minutos)+"' "+itoa(segundos)+"'' 0"+itoa(decimas); end
+	if(decimas>9 and segundos>9) string_tiempo=itoa(minutos)+"' "+itoa(segundos)+"'' "+itoa(decimas); end
+	txt_tiempo=write(fuente,x,y,4,string_tiempo);
+	frame;
+	if(!permanecer) delete_text(txt_tiempo); end
 End
 
 Process marcadores();
@@ -645,6 +769,54 @@ Begin
 		write_int(fuente,ancho_pantalla/4,(alto_pantalla/2)+20,1,&p[3].puntos);
 		if(jugadores==4) write_int(fuente,(ancho_pantalla/4)*3,(alto_pantalla/2)+20,1,&p[4].puntos); end
 	end
+	from i=1 to jugadores; cabeza(i); end
 End
+
+Process cabeza(jugador);
+Begin
+	y=alto_pantalla/2;
+	while(!exists(p[jugador].identificador)) frame; end
+	file=p[jugador].identificador.file;
+	size=70;
+	z=-512;
+	loop
+		graph=p[jugador].identificador.graph;
+		flags=p[jugador].identificador.flags;
+		//x=ancho_nivel-p[jugador].identificador.x;
+		x=p[jugador].identificador.x/(ancho_nivel/ancho_pantalla);
+		frame;
+	end
+End
+
+Process transicion();
+Begin
+	graph=foto;
+	x=ancho_pantalla;
+	z=-512;
+	set_center(0,graph,ancho_pantalla,0);
+	while(angle<90000) gravedad+=200; angle+=gravedad; alpha-=2; frame; end
+	unload_map(0,graph);
+End
+
+Process bomba();
+Private
+	contador;
+	segundos;
+Begin
+	play_song(load_song("hurry.ogg"),1);
+	contador=60*50; //60 segs, 50 fps
+	segundos=contador/50;
+	write_int(fuente,ancho_pantalla/2,alto_pantalla/2,4,&segundos);
+	while(contador>0 and posiciones[jugadores]==0)
+		contador--;
+		segundos=contador/50;
+		frame;
+	end
+	timer[2]=0;
+	while(timer[2]<300) frame; end
+	num_nivel++;
+	carga_nivel();
+End
+
 include "menu.pr-";
 include "guardar.pr-";

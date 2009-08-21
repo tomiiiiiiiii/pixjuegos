@@ -5,7 +5,7 @@ echo Compilando...
 move pixdash.dcb ..
 pause
 cd ..
-bgdi pixdash.dcb
+bennu\bgdi pixdash.dcb
 
 pause
 exit
