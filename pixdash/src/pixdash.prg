@@ -95,6 +95,7 @@ Begin
 	p[3].control=2;
 	p[4].control=3; //el control de los jugadores
 	set_fps(50,0); //imágenes por segundo
+	//scale_resolution=06400480;
 	set_mode(800,600,16); //resolución y colores	    
 	fpg_tiles=load_fpg("tiles.fpg"); //cargar el mapa de tiles
 	fpg_enemigos=load_fpg("enemigos.fpg"); //cargar el mapa de tiles
@@ -272,19 +273,20 @@ Begin
 			end 
 		end
 		if(id_colision=collision(type prota)) 
-//			if(id>id_colision)
-				if(id_colision.y>y) 
-					id_colision.gravedad=20; gravedad=-20;
-				else
-					id_colision.gravedad=20; gravedad=-20;
+			if(id_colision.accion!="muerte")
+				if(id_colision>id)
+					if(id_colision.y>y)
+						id_colision.gravedad=20; gravedad=-20;
+					else
+						id_colision.gravedad=20; gravedad=-20;
+					end
 				end
 				if(id_colision.x<x) 
-					if(id_colision.inercia>0) inercia=id_colision.inercia*2; id_colision.inercia=0; end
+					inercia+=5;
+				else
+					inercia-=5;
 				end
-				if(id_colision.x>x) 
-					if(id_colision.inercia<0) inercia=id_colision.inercia*2; id_colision.inercia=0; end
-				end
-//			end
+			end
 		end
 		switch(animacion)
 			case "": animacion="quieto"; graph=1; end
@@ -782,8 +784,11 @@ Begin
 	loop
 		graph=p[jugador].identificador.graph;
 		flags=p[jugador].identificador.flags;
-		//x=ancho_nivel-p[jugador].identificador.x;
-		x=p[jugador].identificador.x/(ancho_nivel/ancho_pantalla);
+		if(ancho_nivel>alto_nivel)
+			x=p[jugador].identificador.x/(ancho_nivel/ancho_pantalla);
+		else
+			x=p[jugador].identificador.y/(alto_nivel/ancho_pantalla);
+		end
 		frame;
 	end
 End
