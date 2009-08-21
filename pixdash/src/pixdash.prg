@@ -48,7 +48,7 @@ Global
 	fuente;
 	num_enemigos;
 	max_num_enemigos;
-	num_nivel=1;
+	num_nivel=0;
 	todo_preparado;
 	slowmotion;
 	foto;

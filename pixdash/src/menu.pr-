@@ -16,7 +16,7 @@ private
 begin
 	todo_preparado=0;
 	slowmotion=0;
-	num_nivel=1;
+	num_nivel=0;
 	let_me_alone();
 	stop_scroll(0);
 	stop_scroll(1);
