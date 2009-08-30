@@ -46,17 +46,22 @@ Global
 	fondo;
 	flash;
 	fuente;
+	fuente_peq;
 	num_enemigos;
 	max_num_enemigos;
-	num_nivel=0;
+	num_nivel=1;
 	todo_preparado;
 	slowmotion;
 	foto;
 	njoys;
 	// COMPATIBILIDAD CON XP/VISTA/LINUX (usuarios)
 	string savegamedir;
-	string developerpath="/PiXJuegos/PiXDash/";
-
+	string developerpath="\PiXJuegos\PiXDash\";
+	
+	string paqueteniveles="";
+	string nivel_titulo[50];
+	string nivel_descripcion[50];
+	string dir_juego;
 End 
 
 Local
@@ -73,6 +78,7 @@ Local
 End
 	
 Begin
+	dir_juego=cd();
 	// Código aportado por Devilish Games / Josebita
 	if(os_id==0) //windows
 		savegamedir=getenv("APPDATA")+developerpath;
@@ -97,12 +103,13 @@ Begin
 	set_fps(50,0); //imágenes por segundo
 	//scale_resolution=06400480;
 	set_mode(800,600,16); //resolución y colores	    
-	fpg_tiles=load_fpg("tiles.fpg"); //cargar el mapa de tiles
-	fpg_enemigos=load_fpg("enemigos.fpg"); //cargar el mapa de tiles
-	fpg_powerups=load_fpg("powerups.fpg"); //cargar el mapa de tiles
-	fpg_menu=load_fpg("menu.fpg"); //cargar el mapa de tiles
-	fpg_moneda=load_fpg("moneda.fpg");
-	fuente=load_fnt("fuente.fnt");
+	fpg_tiles=load_fpg("fpg/tiles.fpg"); //cargar el mapa de tiles
+	fpg_enemigos=load_fpg("fpg/enemigos.fpg"); //cargar el mapa de tiles
+	fpg_powerups=load_fpg("fpg/powerups.fpg"); //cargar el mapa de tiles
+	fpg_menu=load_fpg("fpg/menu.fpg"); //cargar el mapa de tiles
+	fpg_moneda=load_fpg("fpg/moneda.fpg");
+	fuente=load_fnt("fnt/fuente_peq.fnt");
+	fuente_peq=load_fnt("fnt/fuente_peq.fnt");
 	menu();
 	//carga_nivel(); //cargar el nivel
 End
@@ -127,10 +134,10 @@ Begin
 	graph=1;
 	ctype=c_scroll; //las corrdenadas son del scroll, no de la pantalla
 	switch(jugador) // los gráficos de cada jugador
-		case 1: file=load_fpg("pix.fpg"); end
-		case 2: file=load_fpg("pux.fpg"); end
-		case 3: file=load_fpg("pax.fpg"); end
-		case 4: file=load_fpg("pex.fpg"); end
+		case 1: file=load_fpg("fpg/pix.fpg"); end
+		case 2: file=load_fpg("fpg/pux.fpg"); end
+		case 3: file=load_fpg("fpg/pax.fpg"); end
+		case 4: file=load_fpg("fpg/pex.fpg"); end
 	end
 	//ctype=c_screen;
 //	ancho=graphic_info(file,1,g_width)/2;
@@ -569,6 +576,7 @@ PRIVATE
 	segundos;
 	decimas;
 	string string_tiempo;
+	fichero;
 BEGIN
 	if(num_nivel!=1)
 		p[posiciones[1]].puntos+=6;
@@ -576,8 +584,17 @@ BEGIN
 		p[posiciones[3]].puntos+=2;
 		p[posiciones[4]].puntos++;
 		from i=1 to 4; posiciones[i]=0; end
+	else
+		i=1;
+		fichero=fopen(savegamedir+"niveles\"+paqueteniveles+"\descripciones.txt",O_READ);
+		while(!feof(fichero))
+			nivel_titulo[i]=fgets(fichero);
+			nivel_descripcion[i++]=fgets(fichero);
+		end
+		fclose(fichero);
+		i=0;
 	end
-	if(!file_exists("niveles\nivel"+num_nivel+".png")) menu(); return; end // FIN DE LA COMPETICION
+	if(!file_exists(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".png")) menu(); return; end // FIN DE LA COMPETICION
 	frame;
 	foto=get_screen();
 	delete_text(all_text);
@@ -594,8 +611,8 @@ BEGIN
 	unload_map(0,durezas);
 	//set_mode(ancho_pantalla,alto_pantalla,16); //resolución y colores	    
 
-	mapa=load_png("niveles\nivel"+num_nivel+".png"); 
-	fondo=load_png("niveles\fondo"+num_nivel+".png"); //cargar el fondo
+	mapa=load_png(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".png"); 
+	fondo=load_png(savegamedir+"niveles\"+paqueteniveles+"\fondo"+num_nivel+".png"); //cargar el fondo
 	num_enemigos=0;
 	//ancho del gráfico pequeñito
 	ancho=GRAPHIC_INFO(0,mapa,G_WIDE);
@@ -655,7 +672,6 @@ BEGIN
 		end
 	until(y=>alto-3)
 
-	marcadores(); //llamar a los marcadores de puntos
 	if(jugadores<=2) //definir la pantalla partida y la división al ser 2 jugadores
 		define_region(1,0,0,ancho_pantalla,alto_pantalla/2);
 		define_region(2,0,alto_pantalla/2,ancho_pantalla,alto_pantalla);
@@ -708,6 +724,10 @@ BEGIN
 	timer=0;
 	stop_song();
 	transicion();
+	//TEXTO PRESENTACION NIVEL:
+	write(fuente,ancho_pantalla/2,(alto_pantalla/4),4,nivel_titulo[num_nivel]);
+	write(fuente_peq,ancho_pantalla/2,(alto_pantalla/4)+50,4,nivel_descripcion[num_nivel]);
+	//3 2 1 YA!:
 	from i=3 to 1 step -1;
 		timer=0;
 		texto=write(fuente,ancho_pantalla/2,alto_pantalla/2,4,i);
@@ -716,11 +736,13 @@ BEGIN
 		delete_text(texto);
 	end
 	sonido("3");
+	delete_text(all_text);
+	marcadores(); //llamar a los marcadores de puntos
 	texto=write(fuente,ancho_pantalla/2,alto_pantalla/2,4,"¡YA!");
 	todo_preparado=1;
 	timer=0;
 	timer[1]=0; //para contrarreloj
-	if(ops.musica) play_song(load_song("niveles\nivel"+num_nivel+".ogg"),-1); end
+	if(ops.musica) play_song(load_song(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".ogg"),-1); end
 	loop
 		pon_tiempo(timer[1],0,(ancho_pantalla/4)*3,alto_pantalla/2);
 		if(key(_n)) while(key(_n)) frame; end num_nivel++; carga_nivel(); end
