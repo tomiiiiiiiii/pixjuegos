@@ -742,7 +742,14 @@ BEGIN
 	todo_preparado=1;
 	timer=0;
 	timer[1]=0; //para contrarreloj
-	if(ops.musica) play_song(load_song(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".ogg"),-1); end
+	//if(ops.musica) play_song(load_song(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".ogg"),-1); end
+	if(ops.musica)
+        if(fexists(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".ogg"))
+            play_song(load_song(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".ogg"),-1);
+        else
+            play_song(load_song("ogg\"+rand(1,5)+".ogg"),-1);
+        end
+    end
 	loop
 		pon_tiempo(timer[1],0,(ancho_pantalla/4)*3,alto_pantalla/2);
 		if(key(_n)) while(key(_n)) frame; end num_nivel++; carga_nivel(); end

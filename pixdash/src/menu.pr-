@@ -505,11 +505,19 @@ end
 Function descarga_niveles(string nombre_paquete);
 Private
 	string argumentos;
+	fichero;
 Begin
 	mkdir(savegamedir+"niveles");
 	chdir("bin");
 	argumentos='-q http://pixdash.pixjuegos.com/'+nombre_paquete+'.zip --output-document="'+savegamedir+nombre_paquete+'.zip"';
-	exec(_P_WAIT,"wget",1,&argumentos);
+	exec(_P_NOWAIT,"wget",1,&argumentos);
+	while(!fexists(savegamedir+nombre_paquete+".zip")) frame; end
+	write(0,0,0,0,"Descargando paquete "+nombre_paquete+"...");
+	fichero=fopen(savegamedir+nombre_paquete+".zip", O_READ);
+	while(!key(_esc))
+		say(flength(fichero));
+		frame;
+	end
 	argumentos='-o -x -qq "'+savegamedir+nombre_paquete+'.zip" -d "'+savegamedir+'niveles"';
 	exec(_P_WAIT,"unzip",1,&argumentos);
 	chdir("..");
