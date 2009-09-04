@@ -509,6 +509,7 @@ Private
 	bytes_antes;
 	timeout;
 Begin
+	animacion_nomuerto();
 	mkdir(savegamedir+"niveles");
 	chdir("bin");
 	argumentos='-q http://pixdash.pixjuegos.com/'+nombre_paquete+'.zip --output-document="'+savegamedir+nombre_paquete+'.zip"';
@@ -598,8 +599,8 @@ if(nuevosniveles!=0)
 					write(fuente,400,300,4,"Se ha podido descargar");
 					write(fuente,400,320,4,"el paquete de niveles "+nombresniveles[elecc+1]);
 					write(fuente,400,400,4,"Pulsa Intro para continuar");
-					fichero=fopen(savegamedir+"niveles/"+nombresniveles[i]+"/version.txt",O_WRITE);
-					fputs(fichero,versionniveles[i]);
+					fichero=fopen(savegamedir+"niveles/"+nombresniveles[elecc+1]+"/version.txt",O_WRITE);
+					fputs(fichero,versionniveles[elecc+1]);
 					fclose(fichero);
 					while(!key(_enter)) frame; end
 				end
@@ -650,4 +651,19 @@ end
 	chdir("..");
 	full_screen=ops.pantalla_completa;
 	menu();
+End
+
+Process animacion_nomuerto();
+Begin
+	z=10;
+	x=400; y=300;
+	file=fpg_menu;
+	alpha=128;
+	graph=2;
+	size=30;
+	while(exists(type descarga_niveles))
+		angle+=1000;
+		if(size<60) size++; else size=30; end
+		frame;
+	end
 End
