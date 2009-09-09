@@ -51,7 +51,7 @@ begin
 	y=300;
 	keytime=10;
 	loop
-		if(key(_space)) paqueteniveles="fran"; num_nivel=6; exportar_paquete_niveles(); break; end
+		if(key(_space)) editor_de_niveles(); break; end
 		if(elecc==6)
 			elecc=0;
 		end

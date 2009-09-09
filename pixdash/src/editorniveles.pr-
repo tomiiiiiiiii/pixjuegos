@@ -20,8 +20,95 @@ números del 1 al 9 cambian entre tipo de objetos
 número 0 es un bloque vacío*/
 
 Function string navegador(string texto,string formatos);
+Private
+	tec;
+	tec2;
+	tecenter;
+	string formato[5];
+	string ficheracos[20];
+	id_txt_titulo;
+	id_txt_ficheracos[20];
+	num_ficheros;
+	string temp;
+	j;
 Begin
-	return;
+ 	while(i=<len(formatos))
+		if(formatos[i++]==",")
+			j++; 
+		else
+			formato[j]+=formatos[i-1];
+		end
+		say(formato[j]);
+	end
+	i=0; j=0;
+	while(formato[j]!="")
+		while((temp=glob(savegamedir+'..\..\..\Escritorio\*.'+formato[j]))!="");
+			if(!fileinfo.directory) ficheracos[i++]=temp; num_ficheros++; end
+			say(temp);
+		end
+
+		j++;
+	end
+	id_txt_titulo=write(fuente_peq,400,10,1,texto);
+  if(num_ficheros!=0)
+	x=100;
+	y=125;
+	from i=0 to num_ficheros; id_txt_ficheracos[i]=write(fuente_peq,x,y,3,ficheracos[i]); y+=60; end
+	file=fpg_menu;
+	elecc=0;
+	controlador(1);
+	machango();
+	from i=0 to 20; elep(); end
+	tecenter=1;
+	loop
+		if(botones.p[1][4])
+			if(tecenter==0)
+				sonido(3);
+				while(exists(type elep)) signal(type elep, s_kill); end
+				signal(type machango, s_kill);
+				signal(type controlador, s_kill);
+				from i=0 to num_ficheros; delete_text(id_txt_ficheracos[i]); end
+				delete_text(id_txt_titulo);
+				return savegamedir+'..\..\..\Escritorio\'+ficheracos[elecc];
+			end
+			tecenter=1;
+		else
+			tecenter=0;
+		end //enter
+	
+		if(botones.p[1][3])
+			if(tec==0)
+				if(ops.sonido==1)
+					sonido(2);
+				end
+				elecc++;
+				tec=1;
+			end
+		else
+			tec=0;
+		end
+		if(botones.p[1][2])
+			if(tec2==0)
+				if(ops.sonido==1)
+					sonido(2);
+				end
+				elecc--;
+				tec2=1;
+			end
+		else
+			tec2=0;
+		end
+		if(elecc==num_ficheros)
+			elecc=0;
+		end
+		if(elecc==-1)
+			elecc=num_ficheros-1;
+		end
+		frame;
+	end
+end
+	
+	
 End
 
 Function importar_fondo(string rutafondo);
@@ -39,6 +126,7 @@ Function preparar_cancion(string rutacancion);
 Private
 	string argumentos;
 	string formatocancion;
+	id_txt;
 Begin
 	formatocancion+=rutacancion[len(rutacancion)-3];
 	formatocancion+=rutacancion[len(rutacancion)-2];
@@ -46,11 +134,11 @@ Begin
 	formatocancion=ucase(formatocancion);
 
 	chdir(dir_juego+"\bin");
-	say(rutacancion);
-	write(fuente,400,300,4,"Preparando cancion");
+	id_txt=write(fuente,400,300,4,"Preparando cancion");
+	frame;
 	if(formatocancion=="OGG")
 		//SI NOS MANDA UN OGG:
-		argumentos=rutacancion+' -m -w "'+getenv("TEMP")+'\temp.wav"';
+		argumentos='"'+rutacancion+'" -m -w "'+getenv("TEMP")+'\temp.wav"';
 		exec(_P_WAIT,"oggdec",1,&argumentos);
 	elseif(formatocancion=="MP3")
 		//SI NOS MANDA UN MP3:
@@ -62,9 +150,10 @@ Begin
 	//Y EL WAV LO CONVERTIMOS A UN OGG WENO:
 	argumentos='"'+getenv("TEMP")+'\temp.wav" -M64 --resample 44100 -o "'+savegamedir+'niveles\'+paqueteniveles+'\nivel'+num_nivel+'.ogg"';
 	exec(_P_WAIT,"oggenc",1,&argumentos);
-	delete_text(all_text);
+	delete_text(id_txt);
 	play_song(load_song(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".ogg"),0);
-	rm('"'+getenv("TEMP")+'\temp.wav"');
+	frame(300);
+	rm(getenv("TEMP")+'\temp.wav');
 	chdir(dir_juego);
 End
 
