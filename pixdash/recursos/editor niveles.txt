@@ -1,0 +1,22 @@
+editor de niveles:
+------------------
+F1:
+ nombre del nivel
+ descripcion del nivel
+F2: importar paquete de tiles
+F3: importar musica
+F4: importar fondo
+F5: nuevo nivel
+F6: guardar nivel
+F7: anterior nivel
+F8: siguiente nivel
+F9: nuevo paquete niveles
+F10: guardar paquete niveles
+F11: exportar paquete niveles al escritorio
+F12: salir
+
+flechas: moverse en el tileado
+
+espacio cambia entre: escenario, enemigos, powerups
+números del 1 al 9 cambian entre tipo de objetos
+número 0 es un bloque vacío

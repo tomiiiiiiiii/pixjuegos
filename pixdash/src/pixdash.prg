@@ -78,6 +78,7 @@ Local
 End
 	
 Begin
+	set_title("PiX Dash");
 	dir_juego=cd();
 	// Código aportado por Devilish Games / Josebita
 	if(os_id==0) //windows
@@ -110,6 +111,7 @@ Begin
 	fpg_moneda=load_fpg("fpg/moneda.fpg");
 	fuente=load_fnt("fnt/fuente_peq.fnt");
 	fuente_peq=load_fnt("fnt/fuente_peq.fnt");
+	//editor_de_niveles();
 	menu();
 	//carga_nivel(); //cargar el nivel
 End
@@ -854,3 +856,4 @@ End
 
 include "menu.pr-";
 include "guardar.pr-";
+include "editorniveles.pr-";
