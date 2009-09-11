@@ -19,6 +19,10 @@ espacio cambia entre: escenario, enemigos, powerups
 números del 1 al 9 cambian entre tipo de objetos
 número 0 es un bloque vacío*/
 
+Global
+	id_editor;
+End
+
 Function string navegador(string texto,string formatos);
 Private
 	tec;
@@ -180,8 +184,9 @@ Begin
 	id_txt_input2=write(0,400,300,4,texto);
 	Loop
 	    If(scan_code==_backspace) scan_code=0; texto_input=substr(texto_input, 0, -1); End
-	    If(scan_code==_enter) while(key(_enter)) frame; end break; End  
-	    If(ascii>=32)
+	    If(scan_code==_enter and texto_input!="") while(key(_enter)) frame; end break; End
+		if(ascii>=65 and ascii<=90) ascii+=32; end
+	    If(ascii>=97 and ascii<=122)
 	        texto_input+=chr(ascii) ;
 			scan_code=0;
 	    End
@@ -197,8 +202,31 @@ Begin
 	return texto_input;
 End 
 
-Function inputnum(texto);
-Begin
+Function inputnum(string texto);
+Private
+	string texto_input;
+	char prompt="_";
+	id_txt_input;
+	id_txt_input2;
+Begin	
+	id_txt_input2=write(0,400,300,4,texto);
+	Loop
+	    If(scan_code==_backspace) scan_code=0; texto_input=substr(texto_input, 0, -1); End
+	    If(scan_code==_enter and texto_input!="") while(key(_enter)) frame; end break; End  
+	    If(ascii>=48 and ascii<=57)
+	        texto_input+=chr(ascii) ;
+			scan_code=0;
+	    End
+	    if(i<20)
+		    id_txt_input=write(0, x, y, 0, texto_input + prompt); 
+	    else
+		    id_txt_input=write(0, x, y, 0, texto_input); 
+	    end
+	    Frame;
+	    delete_text(id_txt_input);
+	End
+	delete_text(id_txt_input2);
+	return atoi(texto_input);
 End
 
 Process editor_de_niveles();
@@ -209,12 +237,19 @@ Private
 		string nombre;
 		string descripcion;
 		int mapa;
-		int mapa_fondo;
+		int fondo;
 	end
 	num_niveles;
+	tipo_bloque;
+	ancho_mapa;
+	alto_mapa;
+	mapa_scroll;
+	ancho_scroll;
+	alto_scroll;
+	j;
 Begin
 	let_me_alone();
-
+	id_editor=id;
 	write(0,0,y+=10,0,"F1. Cambiar nombre y descripcion");
 	write(0,0,y+=10,0,"F2: importar paquete de tiles");
 	write(0,0,y+=10,0,"F3: importar musica");
@@ -230,7 +265,62 @@ Begin
 
 	num_nivel=1;
 	paqueteniveles=input("Escribe el nombre del paquete de niveles");
+	i=0;
+	if(chdir(savegamedir+"niveles\"+paqueteniveles)==0)
+		chdir(dir_juego);
+		while(file_exists(savegamedir+"niveles\"+paqueteniveles+"\nivel"+itoa(++i)+".png"))
+			num_niveles++;
+			niveles[i].mapa=load_png(savegamedir+"niveles\"+paqueteniveles+"\nivel"+i+".png");
+			if(file_exists(savegamedir+"niveles\"+paqueteniveles+"\fondo"+i+".jpg"))
+				niveles[i].fondo=load_image(savegamedir+"niveles\"+paqueteniveles+"\fondo"+i+".jpg");
+			end
+		end
+		pon_nivel_editor(niveles[1].mapa);
+	else
+		chdir(dir_juego);
+		mkdir(savegamedir+"niveles\"+paqueteniveles);
+		num_nivel=num_niveles=1;
+		niveles[num_nivel].mapa=new_map(inputnum("Ancho del nivel"),inputnum("Longitud del nivel"),32);
+		ancho_mapa=graphic_info(0,niveles[num_nivel].mapa,g_width);
+		alto_mapa=graphic_info(0,niveles[num_nivel].mapa,g_height);
+		j=10; x=0; from i=0 to 9; map_put_pixel(0,niveles[num_nivel].mapa,x++,alto_mapa-3,tiles[i]=j+=5); end
+		x=1; from i=1 to 10; map_put_pixel(0,niveles[num_nivel].mapa,x,alto_mapa-2,enemigos[i]=j+=5); end
+		x=2; from i=1 to 5; map_put_pixel(0,niveles[num_nivel].mapa,x,alto_mapa-1,powerups[i]=j+=5); end
+	end
+	x=y=tilesize/4;
+	graph=1;
+	tipo_bloque=1;
+	size=50;
+	set_fps(20,0);
+	if(fexists(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".ogg")) play_song(load_song(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".ogg"),-1); end
+	ancho_mapa=graphic_info(0,niveles[num_nivel].mapa,g_width);
+	alto_mapa=graphic_info(0,niveles[num_nivel].mapa,g_height);
+	mapa_scroll=new_map(ancho_mapa*tilesize/2,alto_mapa*tilesize/2,8);
+	start_scroll(0,0,mapa_scroll,niveles[num_nivel].fondo,0,0);
+	scroll.camera=id;
+	ctype=c_scroll;
 	loop
+		//BLOQUES. tipos= 1:nivel, 2:enemigos; 3:powerups
+		if(scan_code=>_Q and scan_code<=_P) graph=scan_code-15; end
+		if(scan_code=>_A and scan_code<=_L) graph=scan_code-19; end
+		if(key(_space)) while(key(_space)) frame; end if(tipo_bloque<3) tipo_bloque++; else tipo_bloque=1; end end
+		if(tipo_bloque==1) file=fpg_tiles; if(graph>4) graph=1; end end
+		if(tipo_bloque==2) file=fpg_enemigos; if(graph>11) graph=1; end end
+		if(tipo_bloque==3) file=fpg_powerups; if(graph>5) graph=1; end end
+		if(key(_enter)) 
+			switch(tipo_bloque)
+				case 1: map_put_pixel(0,niveles[num_nivel].mapa,x/(tilesize/2),y/(tilesize/2),tiles[graph-1]); end
+				case 2: map_put_pixel(0,niveles[num_nivel].mapa,x/(tilesize/2),y/(tilesize/2),enemigos[graph]); end
+				case 3: map_put_pixel(0,niveles[num_nivel].mapa,x/(tilesize/2),y/(tilesize/2),powerups[graph]); end
+			end
+			objeto_nivel(file,graph,x,y,size); 
+		end
+		if(key(_left) and x!=tilesize/4) x-=tilesize/2; end 
+		if(key(_right) and x<=(ancho_mapa*tilesize/2)-(tilesize/4)) x+=tilesize/2; end
+		if(key(_up) and y!=tilesize/4) y-=tilesize/2; end 
+		if(key(_down) and y<=((alto_mapa-3)*tilesize/2)-(tilesize/4)) y+=tilesize/2; end
+		
+		//FUNCIONES
 		if(key(_F1)) 
 			while(key(_F1)) frame; end
 			niveles[num_nivel].nombre=input("Escribe un nombre para este nivel"); 
@@ -253,6 +343,11 @@ Begin
 			num_niveles++;
 			num_nivel=num_niveles;
 			niveles[num_nivel].mapa=new_map(inputnum("ancho"),inputnum("largo"),8);
+			ancho_mapa=graphic_info(0,niveles[num_nivel].mapa,g_width);
+			alto_mapa=graphic_info(0,niveles[num_nivel].mapa,g_height);
+			mapa_scroll=new_map(ancho_mapa*tilesize/2,alto_mapa*tilesize/2,8);
+			stop_scroll(0);
+			start_scroll(0,0,niveles[num_nivel].mapa,niveles[num_nivel].fondo,0,0);
 		end
 		if(key(_F6)) 
 			while(key(_F6)) frame; end
@@ -260,17 +355,33 @@ Begin
 		end
 		if(key(_F7)) 
 			while(key(_F7)) frame; end
-			num_nivel--;
+			if(num_nivel>1) num_nivel--; end
+			if(fexists(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".ogg")) play_song(load_song(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".ogg"),-1); end
+			ancho_mapa=graphic_info(0,niveles[num_nivel].mapa,g_width);
+			alto_mapa=graphic_info(0,niveles[num_nivel].mapa,g_height);
+			mapa_scroll=new_map(ancho_mapa*tilesize/2,alto_mapa*tilesize/2,8);
+			stop_scroll(0);
+			start_scroll(0,0,niveles[num_nivel].mapa,niveles[num_nivel].fondo,0,0);
+			let_me_alone();
+			pon_nivel_editor(niveles[i].mapa);			
 		end
 		if(key(_F8)) 
 			while(key(_F8)) frame; end
-			num_nivel++;
+			if(num_nivel<num_niveles) num_nivel++; end
+			if(fexists(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".ogg")) play_song(load_song(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".ogg"),-1); end
+			ancho_mapa=graphic_info(0,niveles[num_nivel].mapa,g_width);
+			alto_mapa=graphic_info(0,niveles[num_nivel].mapa,g_height);
+			mapa_scroll=new_map(ancho_mapa*tilesize/2,alto_mapa*tilesize/2,8);
+			stop_scroll(0);
+			start_scroll(0,0,niveles[num_nivel].mapa,niveles[num_nivel].fondo,0,0);
+			let_me_alone();
+			pon_nivel_editor(niveles[i].mapa);
 		end
 		if(key(_F9)) 
 			while(key(_F9)) frame; end
-			from i=1 to 50;
-				if(niveles[i].mapa!=0) unload_map(0,niveles[i].mapa); end
-				if(niveles[i].mapa_fondo!=0) unload_map(0,niveles[i].mapa_fondo); end
+			from i=1 to num_niveles;
+				unload_map(0,niveles[i].mapa);
+				if(niveles[i].fondo!=0) unload_map(0,niveles[i].fondo); end
 			end
 			let_me_alone();
 			editor_de_niveles();
@@ -288,12 +399,57 @@ Begin
 			while(key(_F12)) frame; end
 			from i=1 to 50;
 				if(niveles[i].mapa!=0) unload_map(0,niveles[i].mapa); end
-				if(niveles[i].mapa_fondo!=0) unload_map(0,niveles[i].mapa_fondo); end
+				if(niveles[i].fondo!=0) unload_map(0,niveles[i].fondo); end
 			end
 			let_me_alone();
 			menu();
 			return;		
 		end
+		frame;
+	end
+End
+
+Function pon_nivel_editor(mapa);
+Private
+	tile;
+	id_objeto;
+Begin
+	ancho=GRAPHIC_INFO(0,mapa,G_WIDE);
+	alto=GRAPHIC_INFO(0,mapa,G_HEIGHT);
+	
+	from i=0 to 9; tiles[i]=map_get_pixel(0,mapa,i,alto-3); end
+	from i=1 to 10; enemigos[i]=map_get_pixel(0,mapa,i,alto-2); end
+	from i=1 to 5; powerups[i]=map_get_pixel(0,mapa,i,alto-1); end
+	
+	size=50;
+	
+	repeat
+		tile=map_get_pixel(0,mapa,x,y);	
+		from i=0 to 3; if(tile==tiles[i]) objeto_nivel(fpg_tiles,i+1,(x*tilesize/2)-(tilesize/4),(y*tilesize/2)-(tilesize/4),size); end end
+		if(tile==tiles[4]) objeto_nivel(fpg_moneda,i+1,(x*tilesize/2)-(tilesize/4),(y*tilesize/2)-(tilesize/4),size); end
+		from i=1 to 10; if(tile==enemigos[i]) objeto_nivel(fpg_enemigos,i,(x*tilesize/2)-(tilesize/4),(y*tilesize/2)-(tilesize/4),size); end end
+		from i=1 to 5; if(tile==powerups[i]) objeto_nivel(fpg_powerups,i,(x*tilesize/2)-(tilesize/4),(y*tilesize/2)-(tilesize/4),size); end end
+		if(x<ancho)
+			x++;
+		else
+			y++; x=0;
+		end
+	until(y=>alto-3)
+End
+
+Process objeto_nivel(file,graph,x,y,size);
+Private
+	id_objetoanterior;
+	minivel;
+Begin
+	ctype=c_scroll;
+	frame;
+	if(id_objetoanterior=collision(type objeto_nivel)) 
+		if(id_objetoanterior.x==x and id_objetoanterior.y==y) signal(id_objetoanterior,s_kill); end
+	end
+	minivel=num_nivel;
+	while(num_nivel==minivel)
+		if(id_editor.x==x and id_editor.y==y and key(_del)) break; end
 		frame;
 	end
 End

@@ -1,4 +1,5 @@
 Program plataformas;
+import "mod_image";
 Global                 
 	suelo;
 	dur_pinchos;
@@ -587,14 +588,16 @@ BEGIN
 		p[posiciones[4]].puntos++;
 		from i=1 to 4; posiciones[i]=0; end
 	else
-		i=1;
-		fichero=fopen(savegamedir+"niveles\"+paqueteniveles+"\descripciones.txt",O_READ);
-		while(!feof(fichero))
-			nivel_titulo[i]=fgets(fichero);
-			nivel_descripcion[i++]=fgets(fichero);
+		if(fexists(savegamedir+"niveles\"+paqueteniveles+"\descripciones.txt"))
+			i=1;
+			fichero=fopen(savegamedir+"niveles\"+paqueteniveles+"\descripciones.txt",O_READ);	
+			while(!feof(fichero))
+				nivel_titulo[i]=fgets(fichero);
+				nivel_descripcion[i++]=fgets(fichero);
+			end
+			fclose(fichero);
+			i=0;
 		end
-		fclose(fichero);
-		i=0;
 	end
 	if(!file_exists(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".png")) menu(); return; end // FIN DE LA COMPETICION
 	frame;
@@ -614,7 +617,11 @@ BEGIN
 	//set_mode(ancho_pantalla,alto_pantalla,16); //resolución y colores	    
 
 	mapa=load_png(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".png"); 
-	fondo=load_png(savegamedir+"niveles\"+paqueteniveles+"\fondo"+num_nivel+".png"); //cargar el fondo
+	if(fexists(savegamedir+"niveles\"+paqueteniveles+"\fondo"+num_nivel+".jpg"))
+		fondo=load_image(savegamedir+"niveles\"+paqueteniveles+"\fondo"+num_nivel+".jpg"); //cargar el fondo
+	else
+		fondo=load_image("fondos\fondo"+rand(1,5)+".jpg"); //cargar el fondo
+	end
 	num_enemigos=0;
 	//ancho del gráfico pequeñito
 	ancho=GRAPHIC_INFO(0,mapa,G_WIDE);
@@ -678,9 +685,9 @@ BEGIN
 		define_region(1,0,0,ancho_pantalla,alto_pantalla/2);
 		define_region(2,0,alto_pantalla/2,ancho_pantalla,alto_pantalla);
 
-		start_scroll(0,0,mapa_scroll,fondo,1,0);
+		start_scroll(0,0,mapa_scroll,fondo,1,4);
 		scroll[0].camera=prota(1);
-		start_scroll(1,0,mapa_scroll,fondo,2,0);
+		start_scroll(1,0,mapa_scroll,fondo,2,4);
 		if(jugadores==2) scroll[1].camera=prota(2); end
 
 		graph=new_map(ancho_pantalla,alto_pantalla,16);
@@ -699,13 +706,13 @@ BEGIN
 		define_region(3,0,alto_pantalla/2,ancho_pantalla/2,alto_pantalla);
 		define_region(4,ancho_pantalla/2,alto_pantalla/2,ancho_pantalla,alto_pantalla);
 
-		start_scroll(0,0,mapa_scroll,fondo,1,0);
+		start_scroll(0,0,mapa_scroll,fondo,1,4);
 		scroll[0].camera=prota(1);
-		start_scroll(1,0,mapa_scroll,fondo,2,0);
+		start_scroll(1,0,mapa_scroll,fondo,2,4);
 		scroll[1].camera=prota(2);
-		start_scroll(2,0,mapa_scroll,fondo,3,0);
+		start_scroll(2,0,mapa_scroll,fondo,3,4);
 		scroll[2].camera=prota(3);
-		start_scroll(3,0,mapa_scroll,fondo,4,0);
+		start_scroll(3,0,mapa_scroll,fondo,4,4);
 		if(jugadores==4) 
 			scroll[3].camera=prota(4);
 		end
