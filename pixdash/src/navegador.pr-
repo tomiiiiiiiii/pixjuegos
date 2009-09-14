@@ -1,0 +1,104 @@
+Function string navegador(string texto,string formatos);
+Private
+	tec;
+	tec2;
+	tecenter;
+	string formato[5];
+	string ficheracos[20];
+	id_txt_titulo;
+	id_txt_ficheracos[20];
+	num_ficheros;
+	string temp;
+	j;
+	dir_handle;
+Begin
+	//ANTIBUG BIZARRO:
+	
+ 	while(i=<len(formatos))
+		if(formatos[i++]==",")
+			j++; 
+		else
+			formato[j]+=formatos[i-1];
+		end
+	end
+	i=0; j=0;
+	loop
+		if(formato[j]!="")
+			dir_handle=DIROPEN(savegamedir+'..\..\..\Escritorio\*.'+formato[j]);
+			loop
+				if((temp=DIRREAD(dir_handle))!="")
+					//if(!fileinfo.directory) ficheracos[i++]=temp; num_ficheros++; end
+					ficheracos[i++]=temp; 
+					num_ficheros++;
+				else
+					break;
+				end
+			end	
+			j++;
+			DIRCLOSE(dir_handle);
+		else
+			break;
+		end
+	end
+	while(key(_enter)) frame; end
+  if(num_ficheros!=0)
+	id_txt_titulo=write(fuente_peq,400,10,1,texto);
+	x=100;
+	y=125;
+	from i=0 to num_ficheros; id_txt_ficheracos[i]=write(fuente_peq,x,y,3,ficheracos[i]); y+=60; end
+	file=fpg_menu;
+	elecc=0;
+	controlador(1);
+	machango();
+	from i=0 to 20; elep(); end
+	tecenter=1;
+	loop
+		if(botones.p[1][4])
+			if(tecenter==0)
+				sonido(3);
+				while(exists(type elep)) signal(type elep, s_kill); end
+				signal(type machango, s_kill);
+				signal(type controlador, s_kill);
+				from i=0 to num_ficheros; delete_text(id_txt_ficheracos[i]); end
+				delete_text(id_txt_titulo);
+				return savegamedir+'..\..\..\Escritorio\'+ficheracos[elecc];
+			end
+			tecenter=1;
+		else
+			tecenter=0;
+		end //enter
+	
+		if(botones.p[1][3])
+			if(tec==0)
+				if(ops.sonido==1)
+					sonido(2);
+				end
+				elecc++;
+				tec=1;
+			end
+		else
+			tec=0;
+		end
+		if(botones.p[1][2])
+			if(tec2==0)
+				if(ops.sonido==1)
+					sonido(2);
+				end
+				elecc--;
+				tec2=1;
+			end
+		else
+			tec2=0;
+		end
+		if(elecc==num_ficheros)
+			elecc=0;
+		end
+		if(elecc==-1)
+			elecc=num_ficheros-1;
+		end
+		frame;
+  else
+		mensaje("No hay ningun fichero con ese formato en el escritorio");
+		return "";
+  end	
+End

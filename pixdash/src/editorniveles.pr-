@@ -21,9 +21,75 @@ número 0 es un bloque vacío*/
 
 Global
 	id_editor;
+	vacio;
 End
 
-Function string navegador(string texto,string formatos);
+Function importar_fondo(string rutafondo);
+Private
+	string argumentos;
+Begin
+	if(rutafondo!="")
+		chdir(dir_juego+"\bin");
+		argumentos='-colors 256 "'+rutafondo+'" "'+savegamedir+'niveles\'+paqueteniveles+'\fondo'+num_nivel+'.jpg"';	
+		exec(_P_WAIT,"convert",1,&argumentos);
+		mensaje("Fondo importado correctamente");
+		chdir(dir_juego);
+	end
+End
+
+Function importar_tiles(string rutatiles);
+Begin
+	say(rutatiles);
+	say("GUAY!");
+
+	if(rutatiles!="")
+		if(fpg_tiles=load_fpg(rutatiles))
+			save_fpg(fpg_tiles,savegamedir+"niveles\"+paqueteniveles+"\tiles.fpg");
+			mensaje("Tileset importado correctamente");
+		end
+	end
+End
+
+Function preparar_cancion(string rutacancion);
+Private
+	string argumentos;
+	string formatocancion;
+	id_txt;
+Begin
+	if(rutacancion!="")
+		formatocancion+=rutacancion[len(rutacancion)-3];
+		formatocancion+=rutacancion[len(rutacancion)-2];
+		formatocancion+=rutacancion[len(rutacancion)-1];
+		formatocancion=ucase(formatocancion);
+
+		chdir(dir_juego+"\bin");
+		id_txt=write(fuente,400,300,4,"Preparando cancion");
+		frame;
+		if(formatocancion=="OGG")
+			//SI NOS MANDA UN OGG:
+			argumentos='"'+rutacancion+'" -m -w "'+getenv("TEMP")+'\temp.wav"';
+			exec(_P_WAIT,"oggdec",1,&argumentos);
+		elseif(formatocancion=="MP3")
+			//SI NOS MANDA UN MP3:
+			argumentos='-m --output=wave:"'+getenv("TEMP")+'\temp.wav" "'+rutacancion+'"';
+			exec(_P_WAIT,"mp3dec",1,&argumentos);
+		else 
+			RETURN -1;
+		end
+		//Y EL WAV LO CONVERTIMOS A UN OGG WENO:
+		argumentos='"'+getenv("TEMP")+'\temp.wav" -M64 --resample 44100 -o "'+savegamedir+'niveles\'+paqueteniveles+'\nivel'+num_nivel+'.ogg"';
+		exec(_P_WAIT,"oggenc",1,&argumentos);
+		delete_text(id_txt);
+		play_song(load_song(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".ogg"),0);
+		
+		frame(300);
+		rm(getenv("TEMP")+'\temp.wav');
+		chdir(dir_juego);
+		mensaje("Cancion importada correctamente");
+	end
+End
+
+/*Function string navegador(string texto,string formatos);
 Private
 	tec;
 	tec2;
@@ -35,6 +101,7 @@ Private
 	num_ficheros;
 	string temp;
 	j;
+	dir_handle;
 Begin
  	while(i=<len(formatos))
 		if(formatos[i++]==",")
@@ -42,19 +109,30 @@ Begin
 		else
 			formato[j]+=formatos[i-1];
 		end
-		say(formato[j]);
 	end
 	i=0; j=0;
-	while(formato[j]!="")
-		while((temp=glob(savegamedir+'..\..\..\Escritorio\*.'+formato[j]))!="");
-			if(!fileinfo.directory) ficheracos[i++]=temp; num_ficheros++; end
-			say(temp);
+	loop
+		if(formato[j]!="")
+			dir_handle=DIROPEN(savegamedir+'..\..\..\Escritorio\*.'+formato[j]);
+			loop
+				if((temp=DIRREAD(dir_handle))!="")
+					//if(!fileinfo.directory) ficheracos[i++]=temp; num_ficheros++; end
+					ficheracos[i++]=temp; 
+					num_ficheros++;
+				else
+					break;
+				end
+			end	
+			j++;
+			DIRCLOSE(dir_handle);
+		else
+			break;
 		end
 
-		j++;
 	end
-	id_txt_titulo=write(fuente_peq,400,10,1,texto);
+	
   if(num_ficheros!=0)
+	id_txt_titulo=write(fuente_peq,400,10,1,texto);
 	x=100;
 	y=125;
 	from i=0 to num_ficheros; id_txt_ficheracos[i]=write(fuente_peq,x,y,3,ficheracos[i]); y+=60; end
@@ -109,57 +187,11 @@ Begin
 			elecc=num_ficheros-1;
 		end
 		frame;
-	end
-end
-	
-	
-End
-
-Function importar_fondo(string rutafondo);
-Begin
-End
-
-Function importar_tiles(string rutatiles);
-Begin
-	if(fpg_tiles=load_fpg(rutatiles))
-		save_fpg(fpg_tiles,savegamedir+"niveles\"+paqueteniveles+"\tiles.fpg");
-	end
-End
-
-Function preparar_cancion(string rutacancion);
-Private
-	string argumentos;
-	string formatocancion;
-	id_txt;
-Begin
-	formatocancion+=rutacancion[len(rutacancion)-3];
-	formatocancion+=rutacancion[len(rutacancion)-2];
-	formatocancion+=rutacancion[len(rutacancion)-1];
-	formatocancion=ucase(formatocancion);
-
-	chdir(dir_juego+"\bin");
-	id_txt=write(fuente,400,300,4,"Preparando cancion");
-	frame;
-	if(formatocancion=="OGG")
-		//SI NOS MANDA UN OGG:
-		argumentos='"'+rutacancion+'" -m -w "'+getenv("TEMP")+'\temp.wav"';
-		exec(_P_WAIT,"oggdec",1,&argumentos);
-	elseif(formatocancion=="MP3")
-		//SI NOS MANDA UN MP3:
-		argumentos='-m --output=wave:"'+getenv("TEMP")+'\temp.wav" "'+rutacancion+'"';
-		exec(_P_WAIT,"mp3dec",1,&argumentos);
-	else 
-		RETURN -1;
-	end
-	//Y EL WAV LO CONVERTIMOS A UN OGG WENO:
-	argumentos='"'+getenv("TEMP")+'\temp.wav" -M64 --resample 44100 -o "'+savegamedir+'niveles\'+paqueteniveles+'\nivel'+num_nivel+'.ogg"';
-	exec(_P_WAIT,"oggenc",1,&argumentos);
-	delete_text(id_txt);
-	play_song(load_song(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".ogg"),0);
-	frame(300);
-	rm(getenv("TEMP")+'\temp.wav');
-	chdir(dir_juego);
-End
+  else
+		mensaje("No hay ningun fichero con ese formato en el escritorio");
+		return "";
+  end	
+End*/
 
 Function exportar_paquete_niveles();
 Private
@@ -168,9 +200,9 @@ Begin
 	chdir(dir_juego+"\bin");
 	//argumentos='-r "'+savegamedir+paqueteniveles+'.pdn" "'+savegamedir+'niveles\'+paqueteniveles+'"';
 	//PAL ESCRITORIO windows nt:
-	argumentos='-r "'+savegamedir+'..\..\..\Escritorio\'+paqueteniveles+'.pdn" "'+savegamedir+'niveles\'+paqueteniveles+'"';
-	say(argumentos);
-	exec(_P_WAIT,"zip",1,&argumentos);
+	rm(savegamedir+'..\..\..\Escritorio\'+paqueteniveles+'.pdn');
+	argumentos='a -tzip "'+savegamedir+'..\..\..\Escritorio\'+paqueteniveles+'.pdn" "'+savegamedir+'niveles\'+paqueteniveles+'" -y';	
+	exec(_P_WAIT,"7za",1,&argumentos);
 	chdir(dir_juego);
 End
 
@@ -183,10 +215,12 @@ Private
 Begin	
 	id_txt_input2=write(0,400,300,4,texto);
 	Loop
+		if(key(_esc)) return ""; end
 	    If(scan_code==_backspace) scan_code=0; texto_input=substr(texto_input, 0, -1); End
 	    If(scan_code==_enter and texto_input!="") while(key(_enter)) frame; end break; End
-		if(ascii>=65 and ascii<=90) ascii+=32; end
-	    If(ascii>=97 and ascii<=122)
+//		if(ascii>=65 and ascii<=90) ascii+=32; end
+//	    If(ascii>=97 and ascii<=122)
+	    If(ascii=>32)
 	        texto_input+=chr(ascii) ;
 			scan_code=0;
 	    End
@@ -212,7 +246,7 @@ Begin
 	id_txt_input2=write(0,400,300,4,texto);
 	Loop
 	    If(scan_code==_backspace) scan_code=0; texto_input=substr(texto_input, 0, -1); End
-	    If(scan_code==_enter and texto_input!="") while(key(_enter)) frame; end break; End  
+	    If(scan_code==_enter and texto_input!="" and atoi(texto_input)=>32 and atoi(texto_input)=<1000) while(key(_enter)) frame; end break; End  
 	    If(ascii>=48 and ascii<=57)
 	        texto_input+=chr(ascii) ;
 			scan_code=0;
@@ -247,13 +281,20 @@ Private
 	ancho_scroll;
 	alto_scroll;
 	j;
+	base;
+	file_descripciones;
+	graph_cursor;
+	string argumentos;
 Begin
+	delete_text(all_text);
 	let_me_alone();
+	full_screen=false;
+	set_mode(800,600,16);
 	id_editor=id;
 	write(0,0,y+=10,0,"F1. Cambiar nombre y descripcion");
-	write(0,0,y+=10,0,"F2: importar paquete de tiles");
-	write(0,0,y+=10,0,"F3: importar musica");
-	write(0,0,y+=10,0,"F4: importar fondo");
+	write(0,0,y+=10,0,"F2: importar paquete de tiles desde el escritorio");
+	write(0,0,y+=10,0,"F3: importar musica desde el escritorio");
+	write(0,0,y+=10,0,"F4: importar fondo desde el escritorio");
 	write(0,0,y+=10,0,"F5: nuevo nivel");
 	write(0,0,y+=10,0,"F6: guardar nivel");
 	write(0,0,y+=10,0,"F7: anterior nivel");
@@ -261,12 +302,18 @@ Begin
 	write(0,0,y+=10,0,"F9: nuevo paquete niveles");
 	write(0,0,y+=10,0,"F10: guardar paquete niveles");
 	write(0,0,y+=10,0,"F11: exportar paquete niveles al escritorio");
-	write(0,0,y+=10,0,"F12: salir");
+	write(0,0,y+=10,0,"F12: abrir carpeta niveles");
+	write(0,0,y+=10,0,"ESC: salir (NO GUARDA AL SALIR!)");
+	y+=10;
+	write(0,0,y+=10,0,"Flechas: mover cursor");
+	write(0,0,y+=10,0,"Teclas Q-P y A-L: cambiar objeto");
+	write(0,0,y+=10,0,"Espacio: alternar entre escenario, enemigo y powerup");
 
 	num_nivel=1;
 	paqueteniveles=input("Escribe el nombre del paquete de niveles");
+	if(paqueteniveles="") menu(); return; end
 	i=0;
-	if(chdir(savegamedir+"niveles\"+paqueteniveles)==0)
+	if(fexists(savegamedir+"niveles\"+paqueteniveles+"\nivel1.png"))
 		chdir(dir_juego);
 		while(file_exists(savegamedir+"niveles\"+paqueteniveles+"\nivel"+itoa(++i)+".png"))
 			num_niveles++;
@@ -275,30 +322,80 @@ Begin
 				niveles[i].fondo=load_image(savegamedir+"niveles\"+paqueteniveles+"\fondo"+i+".jpg");
 			end
 		end
+		if(fexists(savegamedir+"niveles\"+paqueteniveles+"\descripciones.txt"))
+			file_descripciones=fopen(savegamedir+"niveles\"+paqueteniveles+"\descripciones.txt",O_READ);
+			i=1;
+			while(!feof(file_descripciones))
+				niveles[i].nombre=fgets(file_descripciones);
+				niveles[i++].descripcion=fgets(file_descripciones);
+			end
+			fclose(file_descripciones);
+		end
+		if(fexists(savegamedir+"niveles\"+paqueteniveles+"\tiles.fpg"))
+			fpg_tiles=load_fpg(savegamedir+"niveles\"+paqueteniveles+"\tiles.fpg");
+		else
+			fpg_tiles=load_fpg("fpg/tiles.fpg");
+		end
 		pon_nivel_editor(niveles[1].mapa);
 	else
 		chdir(dir_juego);
 		mkdir(savegamedir+"niveles\"+paqueteniveles);
 		num_nivel=num_niveles=1;
-		niveles[num_nivel].mapa=new_map(inputnum("Ancho del nivel"),inputnum("Longitud del nivel"),32);
+		niveles[num_nivel].mapa=new_map(inputnum("Tamaño horizontal (minimo 32)"),inputnum("Tamaño vertical (minimo 32)"),16);
+		niveles[num_nivel].nombre=input("Escribe un nombre para este nivel"); 
+		niveles[num_nivel].descripcion=input("Describe brevemente este nivel"); 
+		file_descripciones=fopen(savegamedir+"niveles\"+paqueteniveles+"\descripciones.txt",O_WRITE);
+		from i=1 to num_niveles;
+			fputs(file_descripciones,niveles[i].nombre);
+			fputs(file_descripciones,niveles[i].descripcion);
+		end
+		fclose(file_descripciones);
+
+		base=load_png("fondos\base.png");
+		ancho_mapa=graphic_info(0,base,g_width);
+		alto_mapa=graphic_info(0,base,g_height);
+
+		vacio=map_get_pixel(0,base,0,alto_mapa-1);
+		
+		from i=0 to 9; tiles[i]=map_get_pixel(0,base,i,alto_mapa-3); end
+		from i=1 to 10; enemigos[i]=map_get_pixel(0,base,i,alto_mapa-2); end
+		from i=1 to 5; powerups[i]=map_get_pixel(0,base,i,alto_mapa-1); end
+
 		ancho_mapa=graphic_info(0,niveles[num_nivel].mapa,g_width);
 		alto_mapa=graphic_info(0,niveles[num_nivel].mapa,g_height);
-		j=10; x=0; from i=0 to 9; map_put_pixel(0,niveles[num_nivel].mapa,x++,alto_mapa-3,tiles[i]=j+=5); end
-		x=1; from i=1 to 10; map_put_pixel(0,niveles[num_nivel].mapa,x,alto_mapa-2,enemigos[i]=j+=5); end
-		x=2; from i=1 to 5; map_put_pixel(0,niveles[num_nivel].mapa,x,alto_mapa-1,powerups[i]=j+=5); end
+		
+		from i=0 to 9; map_put_pixel(0,niveles[num_nivel].mapa,i,alto_mapa-3,tiles[i]); end
+		from i=1 to 10; map_put_pixel(0,niveles[num_nivel].mapa,i,alto_mapa-2,enemigos[i]); end
+		from i=1 to 5; map_put_pixel(0,niveles[num_nivel].mapa,i,alto_mapa-1,powerups[i]); end
+		
+		fpg_tiles=load_fpg("fpg/tiles.fpg");
 	end
+	
+	graph_cursor=new_map(tilesize,tilesize,16);
+	drawing_map(0,graph_cursor);
+	drawing_color(rgb(0,0,255));
+	draw_box(0,0,tilesize,2);
+	draw_box(tilesize-2,0,tilesize,tilesize);
+	draw_box(0,0,2,tilesize);
+	draw_box(0,tilesize-2,tilesize,tilesize);
+	
 	x=y=tilesize/4;
 	graph=1;
 	tipo_bloque=1;
 	size=50;
-	set_fps(20,0);
+	//set_fps(15,0);
 	if(fexists(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".ogg")) play_song(load_song(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".ogg"),-1); end
 	ancho_mapa=graphic_info(0,niveles[num_nivel].mapa,g_width);
 	alto_mapa=graphic_info(0,niveles[num_nivel].mapa,g_height);
-	mapa_scroll=new_map(ancho_mapa*tilesize/2,alto_mapa*tilesize/2,8);
+	mapa_scroll=new_map(ancho_mapa*tilesize/2,(alto_mapa-3)*tilesize/2,8);
+	drawing_map(0,mapa_scroll);
+	drawing_color(rgb(255,255,255));
+	draw_box(0,(alto_mapa*tilesize/2)-4,ancho_mapa*tilesize/2,alto_mapa*tilesize/2);
+	draw_box((ancho_mapa*tilesize/2)-4,0,ancho_mapa*tilesize/2,alto_mapa*tilesize/2);
 	start_scroll(0,0,mapa_scroll,niveles[num_nivel].fondo,0,0);
 	scroll.camera=id;
 	ctype=c_scroll;
+	mouse.graph=niveles[num_nivel].mapa;
 	loop
 		//BLOQUES. tipos= 1:nivel, 2:enemigos; 3:powerups
 		if(scan_code=>_Q and scan_code<=_P) graph=scan_code-15; end
@@ -307,6 +404,9 @@ Begin
 		if(tipo_bloque==1) file=fpg_tiles; if(graph>4) graph=1; end end
 		if(tipo_bloque==2) file=fpg_enemigos; if(graph>11) graph=1; end end
 		if(tipo_bloque==3) file=fpg_powerups; if(graph>5) graph=1; end end
+		if(key(_del)) 
+			map_put_pixel(0,niveles[num_nivel].mapa,x/(tilesize/2),y/(tilesize/2),vacio);
+		end
 		if(key(_enter)) 
 			switch(tipo_bloque)
 				case 1: map_put_pixel(0,niveles[num_nivel].mapa,x/(tilesize/2),y/(tilesize/2),tiles[graph-1]); end
@@ -316,15 +416,22 @@ Begin
 			objeto_nivel(file,graph,x,y,size); 
 		end
 		if(key(_left) and x!=tilesize/4) x-=tilesize/2; end 
-		if(key(_right) and x<=(ancho_mapa*tilesize/2)-(tilesize/4)) x+=tilesize/2; end
+		if(key(_right) and x<=((ancho_mapa-1)*tilesize/2)-(tilesize/4)) x+=tilesize/2; end
 		if(key(_up) and y!=tilesize/4) y-=tilesize/2; end 
-		if(key(_down) and y<=((alto_mapa-3)*tilesize/2)-(tilesize/4)) y+=tilesize/2; end
+		if(key(_down) and y<=((alto_mapa-4)*tilesize/2)-(tilesize/4)) y+=tilesize/2; end
 		
 		//FUNCIONES
 		if(key(_F1)) 
 			while(key(_F1)) frame; end
 			niveles[num_nivel].nombre=input("Escribe un nombre para este nivel"); 
 			niveles[num_nivel].descripcion=input("Describe brevemente este nivel"); 
+			file_descripciones=fopen(savegamedir+"niveles\"+paqueteniveles+"\descripciones.txt",O_WRITE);
+			from i=1 to num_niveles;
+				fputs(file_descripciones,niveles[i].nombre);
+				fputs(file_descripciones,niveles[i].descripcion);
+			end
+			fclose(file_descripciones);
+			mensaje("Nombres y descripciones actualizadas");
 		end
 		if(key(_F2)) 
 			while(key(_F2)) frame; end
@@ -337,21 +444,42 @@ Begin
 		if(key(_F4)) 
 			while(key(_F4)) frame; end
 			importar_fondo(navegador("Elige un fondo","jpg,png,bmp"));
+			stop_scroll(0);
+			start_scroll(0,0,mapa_scroll,niveles[num_nivel].fondo,0,0);
+			scroll.camera=id;
 		end
 		if(key(_F5)) 
 			while(key(_F5)) frame; end
 			num_niveles++;
 			num_nivel=num_niveles;
-			niveles[num_nivel].mapa=new_map(inputnum("ancho"),inputnum("largo"),8);
+			niveles[num_nivel].mapa=new_map(inputnum("Tamaño horizontal (minimo 32)"),inputnum("Tamaño vertical (minimo 32)"),8);
 			ancho_mapa=graphic_info(0,niveles[num_nivel].mapa,g_width);
 			alto_mapa=graphic_info(0,niveles[num_nivel].mapa,g_height);
 			mapa_scroll=new_map(ancho_mapa*tilesize/2,alto_mapa*tilesize/2,8);
 			stop_scroll(0);
-			start_scroll(0,0,niveles[num_nivel].mapa,niveles[num_nivel].fondo,0,0);
+			start_scroll(0,0,mapa_scroll,niveles[num_nivel].fondo,0,0);
+			scroll.camera=id;
+
+			from i=0 to 9; map_put_pixel(0,niveles[num_nivel].mapa,i,alto_mapa-3,tiles[i]); end
+			from i=1 to 10; map_put_pixel(0,niveles[num_nivel].mapa,i,alto_mapa-2,enemigos[i]); end
+			from i=1 to 5; map_put_pixel(0,niveles[num_nivel].mapa,i,alto_mapa-1,powerups[i]); end
+
+			niveles[num_nivel].nombre=input("Escribe un nombre para este nivel"); 
+			niveles[num_nivel].descripcion=input("Describe brevemente este nivel"); 
+			file_descripciones=fopen(savegamedir+"niveles\"+paqueteniveles+"\descripciones.txt",O_WRITE);
+			from i=1 to num_niveles;
+				fputs(file_descripciones,niveles[i].nombre);
+				fputs(file_descripciones,niveles[i].descripcion);
+			end
+			fclose(file_descripciones);
+
+			mensaje("Nuevo nivel");
 		end
 		if(key(_F6)) 
 			while(key(_F6)) frame; end
-			save_png(0,niveles[num_nivel].mapa,savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".png");
+//			save_png(0,niveles[num_nivel].mapa,savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".png");
+//			mensaje("Nivel guardado correctamente");
+			mensaje("No disponible. Utiliza F10 mejor.");
 		end
 		if(key(_F7)) 
 			while(key(_F7)) frame; end
@@ -361,9 +489,11 @@ Begin
 			alto_mapa=graphic_info(0,niveles[num_nivel].mapa,g_height);
 			mapa_scroll=new_map(ancho_mapa*tilesize/2,alto_mapa*tilesize/2,8);
 			stop_scroll(0);
-			start_scroll(0,0,niveles[num_nivel].mapa,niveles[num_nivel].fondo,0,0);
+			start_scroll(0,0,mapa_scroll,niveles[num_nivel].fondo,0,0);
+			scroll.camera=id;
 			let_me_alone();
-			pon_nivel_editor(niveles[i].mapa);			
+			pon_nivel_editor(niveles[num_nivel].mapa);
+			mensaje("Nivel "+num_nivel);
 		end
 		if(key(_F8)) 
 			while(key(_F8)) frame; end
@@ -371,11 +501,13 @@ Begin
 			if(fexists(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".ogg")) play_song(load_song(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".ogg"),-1); end
 			ancho_mapa=graphic_info(0,niveles[num_nivel].mapa,g_width);
 			alto_mapa=graphic_info(0,niveles[num_nivel].mapa,g_height);
-			mapa_scroll=new_map(ancho_mapa*tilesize/2,alto_mapa*tilesize/2,8);
 			stop_scroll(0);
-			start_scroll(0,0,niveles[num_nivel].mapa,niveles[num_nivel].fondo,0,0);
+			mapa_scroll=new_map(ancho_mapa*tilesize/2,alto_mapa*tilesize/2,8);
+			start_scroll(0,0,mapa_scroll,niveles[num_nivel].fondo,0,0);
+			scroll.camera=id;
 			let_me_alone();
-			pon_nivel_editor(niveles[i].mapa);
+			pon_nivel_editor(niveles[num_nivel].mapa);
+			mensaje("Nivel "+num_nivel);
 		end
 		if(key(_F9)) 
 			while(key(_F9)) frame; end
@@ -385,17 +517,31 @@ Begin
 			end
 			let_me_alone();
 			editor_de_niveles();
-			return;			
+			return;
 		end
 		if(key(_F10)) 
 			while(key(_F10)) frame; end
-			//ordenar niveles??
+			from i=1 to num_niveles;
+				save_png(0,niveles[i].mapa,savegamedir+"niveles\"+paqueteniveles+"\nivel"+i+".png");
+			end
+			mensaje("Se han guardado todos los niveles");
 		end
 		if(key(_F11)) 
 			while(key(_F11)) frame; end
+			from i=1 to num_niveles;
+				save_png(0,niveles[i].mapa,savegamedir+"niveles\"+paqueteniveles+"\nivel"+i+".png");
+			end
 			exportar_paquete_niveles();
+			mensaje("Paquete de niveles exportado al escritorio");
 		end
-		if(key(_F12)) 
+		if(key(_F12))
+			while(key(_f12)) frame; end
+			argumentos='"'+savegamedir+'niveles"';
+			exec(_P_NOWAIT,"explorer",1,&argumentos);
+			//ordenar paquete de niveles (en un futuro)
+		end
+		if(key(_M)) while(key(_M)) frame; end mensaje(navegador("haz caca","asdfasd")); end
+		if(key(_ESC)) 
 			while(key(_F12)) frame; end
 			from i=1 to 50;
 				if(niveles[i].mapa!=0) unload_map(0,niveles[i].mapa); end
@@ -405,8 +551,19 @@ Begin
 			menu();
 			return;		
 		end
+		cursor(graph_cursor);
 		frame;
 	end
+End
+
+Process cursor(graph);
+Begin
+	ctype=c_scroll;
+	z=-1;
+	x=father.x;
+	y=father.y;
+	size=father.size;
+	frame;
 End
 
 Function pon_nivel_editor(mapa);
@@ -420,15 +577,15 @@ Begin
 	from i=0 to 9; tiles[i]=map_get_pixel(0,mapa,i,alto-3); end
 	from i=1 to 10; enemigos[i]=map_get_pixel(0,mapa,i,alto-2); end
 	from i=1 to 5; powerups[i]=map_get_pixel(0,mapa,i,alto-1); end
-	
+	vacio=map_get_pixel(0,mapa,0,alto-1);	
 	size=50;
 	
 	repeat
 		tile=map_get_pixel(0,mapa,x,y);	
-		from i=0 to 3; if(tile==tiles[i]) objeto_nivel(fpg_tiles,i+1,(x*tilesize/2)-(tilesize/4),(y*tilesize/2)-(tilesize/4),size); end end
-		if(tile==tiles[4]) objeto_nivel(fpg_moneda,i+1,(x*tilesize/2)-(tilesize/4),(y*tilesize/2)-(tilesize/4),size); end
-		from i=1 to 10; if(tile==enemigos[i]) objeto_nivel(fpg_enemigos,i,(x*tilesize/2)-(tilesize/4),(y*tilesize/2)-(tilesize/4),size); end end
-		from i=1 to 5; if(tile==powerups[i]) objeto_nivel(fpg_powerups,i,(x*tilesize/2)-(tilesize/4),(y*tilesize/2)-(tilesize/4),size); end end
+		from i=0 to 3; if(tile==tiles[i]) objeto_nivel(fpg_tiles,i+1,(x*tilesize/2)+(tilesize/4),(y*tilesize/2)+(tilesize/4),size); end end
+		if(tile==tiles[4]) objeto_nivel(fpg_moneda,1,(x*tilesize/2)+(tilesize/4),(y*tilesize/2)+(tilesize/4),size); end
+		from i=1 to 10; if(tile==enemigos[i]) objeto_nivel(fpg_enemigos,i,(x*tilesize/2)+(tilesize/4),(y*tilesize/2)+(tilesize/4),size); end end
+		from i=1 to 5; if(tile==powerups[i]) objeto_nivel(fpg_powerups,i,(x*tilesize/2)+(tilesize/4),(y*tilesize/2)+(tilesize/4),size); end end
 		if(x<ancho)
 			x++;
 		else
@@ -452,4 +609,13 @@ Begin
 		if(id_editor.x==x and id_editor.y==y and key(_del)) break; end
 		frame;
 	end
+End
+
+Process mensaje(string texto);
+Private
+	id_txt;
+Begin
+	id_txt=write(fuente_peq,400,300,4,texto);
+	frame(4000);
+	delete_text(id_txt);
 End

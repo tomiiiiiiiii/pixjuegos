@@ -10,3 +10,4 @@ cd fpg-sources
 ..\bennu\bgdi pxlfpg pax
 ..\bennu\bgdi pxlfpg pex
 ..\bennu\bgdi pxlfpg moneda
+..\bennu\bgdi pxlfpg tiles

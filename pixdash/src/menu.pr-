@@ -14,6 +14,7 @@ private
 	continuable;
 	//i;
 begin
+	set_fps(50,9);
 	chdir(dir_juego);
 	todo_preparado=0;
 	slowmotion=0;
@@ -36,9 +37,9 @@ begin
 	file=fpg_menu;
 	let_me_alone();
 	controlador(1);
-	if(!is_playing_song()) play_song(load_song("menu.ogg"),-1); end
+	if(ops.musica and !is_playing_song()) play_song(load_song("menu.ogg"),-1); end
 	elecc=0;
-	lista(3);
+	//lista(3);
 	frame;
 	logo(2);
 	machango();
@@ -47,22 +48,33 @@ begin
 	end
 	frame;
 	graph=1;
+	x=120;
+	y=65;
+	keytime=10;
+
+	write(fuente_peq,x,y+=60,3,"Jugar");
+	write(fuente_peq,x,y+=60,3,"Opciones");
+	write(fuente_peq,x,y+=60,3,"Ayuda");
+	write(fuente_peq,x,y+=60,3,"Creditos");
+	write(fuente_peq,x,y+=60,3,"PiXJuegos.com");
+	write(fuente_peq,x,y+=60,3,"Editor de niveles");
+	write(fuente_peq,x,y+=60,3,"Salir");
+
 	x=400;
 	y=300;
-	keytime=10;
 	loop
-		if(key(_space)) editor_de_niveles(); break; end
-		if(elecc==6)
+		if(elecc==7)
 			elecc=0;
 		end
 		if(elecc==-1)
-			elecc=5;
+			elecc=6;
 		end
 		if(keytime>0)
 			keytime--;
 		end
 		//elige algo
 		if(botones.p[1][4] and keytime==0)
+			delete_text(all_text);
 			if(ops.sonido==1)
 				sonido(3);
 			end
@@ -88,14 +100,17 @@ begin
 			end
 			if(elecc==4)
  				if(os_id==0)
-// 					shell("http://pixjuegos.com");
+ 					//shell("http://pixjuegos.com");
  				else
-//					shell("x-www-browser http://pixjuegos.com &");
+					//shell("x-www-browser http://pixjuegos.com &");
  				end
 				save(savegamedir+"opciones.dat",ops);
 				exit(0);
 			end
 			if(elecc==5)
+				editor_de_niveles(); return;
+			end
+			if(elecc==6)
 				save(savegamedir+"opciones.dat",ops);
 				exit(0);
 			end
@@ -179,28 +194,21 @@ begin
 	x=70;
 	loop
 		elecy=y;
-		if(elecc==0)
-			y=65;
-		end
-		if(elecc==1)
-			y=120;
-		end
-		if(elecc==2)
-			y=180;
-		end
-		if(elecc==3)
-			y=235;
-		end
-		if(elecc==4)
-			y=295;
-		end
-		if(elecc==5)
-			y=355;
-		end	
-		if(elecc==6)
-			y=415;
-		end	
-		y+=60;
+		y=125+(elecc*60);
+		frame;
+	end
+end
+
+process machango2();
+begin
+	file=fpg_menu;
+	z=-20;
+	graph=50;
+	x=90;
+	size=50;
+	loop
+		elecy=y;
+		y=125+(elecc*30);
 		frame;
 	end
 end
@@ -272,11 +280,20 @@ begin
 	elecc=0;
 	controlador(1);
 	back(1);
-	lista(30);
+	//lista(30);
 	logo(105);
 	machango();
 	from i=0 to 20; elep(); end
 	tecenter=1;
+	
+	x=120;
+	y=65;
+
+	write(fuente_peq,x,y+=60,3,"Pantalla completa");
+	write(fuente_peq,x,y+=60,3,"Sonido");
+	write(fuente_peq,x,y+=60,3,"Musica");
+	write(fuente_peq,x,y+=60,3,"Resolucion");
+	
 	loop
 		if(botones.p[1][4])
 			if(tecenter==0)
@@ -302,18 +319,19 @@ begin
 				if(elecc==2)
 					if(ops.musica==1)
 						ops.musica=0;
-//						musica("2");
+						stop_song();
 					else
 						ops.musica=1;
-	//					musica("2");
+						play_song(load_song("menu.ogg"),-1);
 					end
 				end
 				if(elecc==3)
-/*					ops.dificultad++;
-					if(ops.dificultad==4)
-						ops.dificultad=0;
-					end
-*/
+					while(key(_enter)) frame; end
+					if(scale_resolution==10240768) scale_resolution=-1; end
+					if(scale_resolution==06400480) scale_resolution=10240768; end
+					if(scale_resolution==0) scale_resolution=06400480; end
+					if(scale_resolution==-1) scale_resolution=0; end
+					set_mode(800,600,16);
 				end
 			end
 			tecenter=1;
@@ -343,7 +361,7 @@ begin
 		else
 			tec2=0;
 		end
-		if(elecc==3)
+		if(elecc==4)
 			elecc=0;
 		end
 		if(elecc==-1)
@@ -433,11 +451,11 @@ private
 	string carpeta;
 begin
 	let_me_alone();
-	mkdir(savegamedir+"niveles");
+	delete_text(all_text);
 	chdir(savegamedir+"niveles");
 	i=1;
 	while((carpeta=glob("*")) != "")
-		if(carpeta!="." and carpeta!="..")
+		if(carpeta!="." and carpeta!=".." and fexists(carpeta+"\nivel1.png") and fileinfo.directory)
 			nombres_paquetes[i++]=carpeta;
 		end
     End
@@ -446,17 +464,23 @@ begin
 	num_paquetes=i-1;
 	x=100;
 	y=125;
-	from i=1 to num_paquetes; write(fuente_peq,x,y,3,nombres_paquetes[i]); y+=60; end
+	from i=1 to num_paquetes; write(fuente_peq,x,y,3,nombres_paquetes[i]); y+=30; end
 	write(fuente_peq,x,y,3,"Descargar nuevos niveles");
 	file=fpg_menu;
 	elecc=0;
 	controlador(1);
 	back(1);
 	logo(253);
-	machango();
+	machango2();
 	from i=0 to 20; elep(); end
 	tecenter=1;
 	loop
+		if(key(_del))
+			while(key(_del)) frame; end
+			borrar_paquete_niveles(nombres_paquetes[elecc+1]);
+			elegir_paquete_niveles();
+			return;
+		end
 		if(botones.p[1][4])
 			if(tecenter==0)
 				paqueteniveles=nombres_paquetes[elecc+1];
@@ -511,7 +535,6 @@ Private
 	string temp;
 Begin
 	animacion_nomuerto();
-	mkdir(savegamedir+"niveles");
 	chdir("bin");
 	argumentos='http://pixdash.pixjuegos.com/'+nombre_paquete+'.pdn --output-document="'+savegamedir+nombre_paquete+'.pdn"';
 	exec(_P_NOWAIT,"wget",1,&argumentos);
@@ -526,11 +549,14 @@ Begin
 	while((temp=glob(savegamedir+'niveles\'+nombre_paquete+'\*.*'))!="")
 		if(temp!="." and temp!="..") rm(savegamedir+'niveles\'+nombre_paquete+'\'+temp); end
 	end
-	rmdir(savegamedir+'niveles\'+nombre_paquete);
-	argumentos='-o -x "'+savegamedir+nombre_paquete+'.pdn" -d "'+savegamedir+'niveles"';
-	exec(_P_WAIT,"unzip",1,&argumentos);
+	mkdir(savegamedir+'niveles\'+nombre_paquete);
+	argumentos='e -tzip "'+savegamedir+nombre_paquete+'.pdn" -o"'+savegamedir+'niveles\'+nombre_paquete+'" -y';	
+	exec(_P_WAIT,"7za",1,&argumentos);
+	say(argumentos);
+//	argumentos='-o -x "'+savegamedir+nombre_paquete+'.pdn" -d "'+savegamedir+'niveles"';
+//	exec(_P_WAIT,"unzip",1,&argumentos);
 	chdir("..");
-	if(!fexists(savegamedir+"niveles\"+nombre_paquete+"\nivel1.png")) father.z=1; end
+	if(!fexists(savegamedir+"niveles\"+nombre_paquete+"\nivel1.png")) father.z=1; rmdir(savegamedir+'niveles\'+nombre_paquete); end
 End
 
 Process pedir_nuevos_niveles();
@@ -553,7 +579,6 @@ Begin
 //	full_screen=0;
 	//scale_resolution=01000100;
 //	set_mode(300,100,16);
-	mkdir(savegamedir+"niveles");
 	chdir("bin");
 	argumentos='http://pixdash.pixjuegos.com/niveles.txt --output-document="'+savegamedir+'niveles.txt"';
 	exec(_P_WAIT,"wget",1,&argumentos);
@@ -566,10 +591,12 @@ Begin
 		dir_antes=cd();
 		if(chdir(savegamedir+"niveles\"+nombresniveles[i])==0)
 			chdir(dir_antes);
-			fichero2=fopen(savegamedir+"niveles/"+nombresniveles[i]+"/version.txt",O_READ);
-			versionactual=fgets(fichero2);
-			fclose(fichero2);
-			if(versionactual=>versionniveles[i]) i--; end
+			if(fexists(savegamedir+"niveles/"+nombresniveles[i]+"/version.txt")) 
+				fichero2=fopen(savegamedir+"niveles/"+nombresniveles[i]+"/version.txt",O_READ);
+				versionactual=fgets(fichero2);
+				fclose(fichero2);
+				if(versionactual=>versionniveles[i]) i--; end
+			end
 		end
 		i++;
 	end
@@ -580,13 +607,13 @@ if(nuevosniveles!=0)
 	chdir(dir_juego);
 	x=100;
 	y=125;
-	from i=1 to nuevosniveles; write(fuente_peq,x,y,3,nombresniveles[i]); y+=60; end
+	from i=1 to nuevosniveles; write(fuente_peq,x,y,3,nombresniveles[i]); y+=30; end
 	file=fpg_menu;
 	elecc=0;
 	controlador(1);
 	back(1);
 	logo(253);
-	machango();
+	machango2();
 	from i=0 to 20; elep(); end
 	tecenter=1;
 	loop
@@ -671,8 +698,18 @@ Begin
 	graph=2;
 	size=30;
 	while(exists(type descarga_niveles))
-		angle+=1000;
-		if(size<60) size++; else size=30; end
+		angle+=5000;
 		frame;
 	end
+End
+
+Function borrar_paquete_niveles(string nombre_paquete);
+Private
+	string temp;
+Begin
+	while((temp=glob(savegamedir+'niveles\'+nombre_paquete+'\*.*'))!="")
+		if(temp!="." and temp!="..") rm(savegamedir+'niveles\'+nombre_paquete+'\'+temp); end
+	end
+	chdir("..");
+	rmdir(savegamedir+'niveles\'+nombre_paquete);
 End

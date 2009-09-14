@@ -43,6 +43,7 @@ Global
 	fpg_powerups;
 	fpg_menu;
 	fpg_moneda;
+	fpg_durezas;
 	tilesize=40;
 	fondo;
 	flash;
@@ -76,45 +77,6 @@ Local
 	i;
 	tiempo_powerup;
 	saltando;
-End
-	
-Begin
-	set_title("PiX Dash");
-	dir_juego=cd();
-	// Código aportado por Devilish Games / Josebita
-	if(os_id==0) //windows
-		savegamedir=getenv("APPDATA")+developerpath;
-		if(savegamedir==developerpath) //windows 9x/me
-			savegamedir=cd();
-		else
-			crear_jerarquia(savegamedir);
-		end
-	end
-	if(os_id==1) //linux
-		savegamedir=getenv("HOME")+developerpath;
-		crear_jerarquia(savegamedir);
-	end
-	if(file_exists(savegamedir+"opciones.dat"))
-		load(savegamedir+"opciones.dat",ops);
-		full_screen=ops.pantalla_completa;
-	end
-
-	p[2].control=1;
-	p[3].control=2;
-	p[4].control=3; //el control de los jugadores
-	set_fps(50,0); //imágenes por segundo
-	//scale_resolution=06400480;
-	set_mode(800,600,16); //resolución y colores	    
-	fpg_tiles=load_fpg("fpg/tiles.fpg"); //cargar el mapa de tiles
-	fpg_enemigos=load_fpg("fpg/enemigos.fpg"); //cargar el mapa de tiles
-	fpg_powerups=load_fpg("fpg/powerups.fpg"); //cargar el mapa de tiles
-	fpg_menu=load_fpg("fpg/menu.fpg"); //cargar el mapa de tiles
-	fpg_moneda=load_fpg("fpg/moneda.fpg");
-	fuente=load_fnt("fnt/fuente_peq.fnt");
-	fuente_peq=load_fnt("fnt/fuente_peq.fnt");
-	//editor_de_niveles();
-	menu();
-	//carga_nivel(); //cargar el nivel
 End
 
 Process prota(jugador);
@@ -581,6 +543,7 @@ PRIVATE
 	string string_tiempo;
 	fichero;
 BEGIN
+	frame;
 	if(num_nivel!=1)
 		p[posiciones[1]].puntos+=6;
 		p[posiciones[2]].puntos+=4;
@@ -600,6 +563,11 @@ BEGIN
 		end
 	end
 	if(!file_exists(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".png")) menu(); return; end // FIN DE LA COMPETICION
+	if(fexists(savegamedir+"niveles\"+paqueteniveles+"\tiles.fpg"))
+		fpg_tiles=load_fpg(savegamedir+"niveles\"+paqueteniveles+"\tiles.fpg");
+	else
+		fpg_tiles=load_fpg("fpg/tiles.fpg");
+	end
 	frame;
 	foto=get_screen();
 	delete_text(all_text);
@@ -659,9 +627,9 @@ BEGIN
 
 	x=0; y=0;
 	durezas=new_map(ancho*tilesize,(alto-3)*tilesize,8);
-	suelo=map_get_pixel(fpg_tiles,501,0,0);
-	dur_pinchos=map_get_pixel(fpg_tiles,502,0,0);
-	dur_muelle=map_get_pixel(fpg_tiles,504,0,0);
+	suelo=map_get_pixel(fpg_durezas,501,0,0);
+	dur_pinchos=map_get_pixel(fpg_durezas,502,0,0);
+	dur_muelle=map_get_pixel(fpg_durezas,504,0,0);
 	//LO INVISIBLE (PERO TOCABLE)
 	repeat
 		pos_x=x*tilesize;
@@ -673,7 +641,7 @@ BEGIN
 		if(tile==tiles[3]) tile=4; end
 		tile=tile+500;
 		if(tile==500) tile=0; end
-		if(tile!=0) MAP_PUT(fpg_tiles,durezas,tile,pos_x+(tilesize/2),pos_y+(tilesize/2)); end
+		if(tile!=0) MAP_PUT(fpg_durezas,durezas,tile,pos_x+(tilesize/2),pos_y+(tilesize/2)); end
 		if(x<ancho)
 			x++;
 		else
@@ -863,4 +831,46 @@ End
 
 include "menu.pr-";
 include "guardar.pr-";
+include "navegador.pr-";
 include "editorniveles.pr-";
+
+
+Begin
+	set_title("PiX Dash");
+	dir_juego=cd();
+	// Código aportado por Devilish Games / Josebita
+	if(os_id==0) //windows
+		savegamedir=getenv("APPDATA")+developerpath;
+		if(savegamedir==developerpath) //windows 9x/me
+			savegamedir=cd();
+		else
+			crear_jerarquia(savegamedir);
+		end
+	end
+	if(os_id==1) //linux
+		savegamedir=getenv("HOME")+developerpath;
+		crear_jerarquia(savegamedir);
+	end
+	mkdir(savegamedir+"niveles");
+	if(file_exists(savegamedir+"opciones.dat"))
+		load(savegamedir+"opciones.dat",ops);
+		full_screen=ops.pantalla_completa;
+	end
+
+	p[2].control=1;
+	p[3].control=2;
+	p[4].control=3; //el control de los jugadores
+	set_fps(50,0); //imágenes por segundo
+	//scale_resolution=06400480;
+	set_mode(800,600,16); //resolución y colores	    
+	fpg_enemigos=load_fpg("fpg/enemigos.fpg"); //cargar el mapa de tiles
+	fpg_powerups=load_fpg("fpg/powerups.fpg"); //cargar el mapa de tiles
+	fpg_menu=load_fpg("fpg/menu.fpg"); //cargar el mapa de tiles
+	fpg_moneda=load_fpg("fpg/moneda.fpg");
+	fpg_durezas=load_fpg("fpg/durezas.fpg");
+	fuente=load_fnt("fnt/fuente_peq.fnt");
+	fuente_peq=load_fnt("fnt/fuente_peq.fnt");
+	//editor_de_niveles();
+	menu();
+	//carga_nivel(); //cargar el nivel
+End

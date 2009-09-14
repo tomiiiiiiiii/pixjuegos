@@ -9,9 +9,9 @@ mkdir export
 mkdir export\fpg
 mkdir export\ogg
 mkdir export\fnt
-mkdir export\niveles
 mkdir export\wav
 mkdir export\bin
+mkdir export\fondos
 copy fpg\*.fpg export\fpg
 copy ogg\*.ogg export\ogg
 copy wav\*.wav export\wav
@@ -21,6 +21,8 @@ copy bin\*.exe export\bin
 copy bennu\*.dll export
 copy bennu\bgdi.exe export\pixdash.exe
 copy pixdash.dcb export
+copy fondos\*.png export\fondos
+copy fondos\*.jpg export\fondos
 cd export
 echo DEBES ELEGIR EL PIXDASH.EXE
 ..\bennu\pakator 
