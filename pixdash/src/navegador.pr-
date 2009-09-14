@@ -1,4 +1,4 @@
-Function string navegador(string texto,string formatos);
+Function navegador(string texto,string formatos);
 Private
 	tec;
 	tec2;
@@ -61,7 +61,9 @@ Begin
 				signal(type controlador, s_kill);
 				from i=0 to num_ficheros; delete_text(id_txt_ficheracos[i]); end
 				delete_text(id_txt_titulo);
-				return savegamedir+'..\..\..\Escritorio\'+ficheracos[elecc];
+				//return savegamedir+'..\..\..\Escritorio\'+ficheracos[elecc];
+				ruta_navegador=savegamedir+'..\..\..\Escritorio\'+ficheracos[elecc];
+				return;
 			end
 			tecenter=1;
 		else
@@ -99,6 +101,7 @@ Begin
 		frame;
   else
 		mensaje("No hay ningun fichero con ese formato en el escritorio");
-		return "";
+		ruta_navegador=savegamedir+'..\..\..\Escritorio\'+ficheracos[elecc];
+		return;
   end	
 End

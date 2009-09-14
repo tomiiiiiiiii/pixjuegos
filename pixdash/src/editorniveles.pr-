@@ -34,19 +34,20 @@ Begin
 		exec(_P_WAIT,"convert",1,&argumentos);
 		mensaje("Fondo importado correctamente");
 		chdir(dir_juego);
+	else
+		mensaje("No se ha importado ningun fondo");
 	end
 End
 
 Function importar_tiles(string rutatiles);
 Begin
-	say(rutatiles);
-	say("GUAY!");
-
 	if(rutatiles!="")
 		if(fpg_tiles=load_fpg(rutatiles))
 			save_fpg(fpg_tiles,savegamedir+"niveles\"+paqueteniveles+"\tiles.fpg");
 			mensaje("Tileset importado correctamente");
 		end
+	else
+		mensaje("No se ha importado ningun paquete de tiles");
 	end
 End
 
@@ -57,6 +58,7 @@ Private
 	id_txt;
 Begin
 	if(rutacancion!="")
+		stop_song();
 		formatocancion+=rutacancion[len(rutacancion)-3];
 		formatocancion+=rutacancion[len(rutacancion)-2];
 		formatocancion+=rutacancion[len(rutacancion)-1];
@@ -86,6 +88,8 @@ Begin
 		rm(getenv("TEMP")+'\temp.wav');
 		chdir(dir_juego);
 		mensaje("Cancion importada correctamente");
+	else
+		mensaje("No se ha importado ninguna cancion");
 	end
 End
 
@@ -311,7 +315,7 @@ Begin
 
 	num_nivel=1;
 	paqueteniveles=input("Escribe el nombre del paquete de niveles");
-	if(paqueteniveles="") menu(); return; end
+	if(paqueteniveles=="") menu(); return; end
 	i=0;
 	if(fexists(savegamedir+"niveles\"+paqueteniveles+"\nivel1.png"))
 		chdir(dir_juego);
@@ -383,7 +387,7 @@ Begin
 	graph=1;
 	tipo_bloque=1;
 	size=50;
-	//set_fps(15,0);
+	set_fps(15,0);
 	if(fexists(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".ogg")) play_song(load_song(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".ogg"),-1); end
 	ancho_mapa=graphic_info(0,niveles[num_nivel].mapa,g_width);
 	alto_mapa=graphic_info(0,niveles[num_nivel].mapa,g_height);
@@ -435,15 +439,19 @@ Begin
 		end
 		if(key(_F2)) 
 			while(key(_F2)) frame; end
-			importar_tiles(navegador("Elige un Tileset","fpg"));
+			//importar_tiles(navegador("Elige un Tileset","fpg"));
+			navegador("Elige un Tileset","fpg");
+			importar_tiles(ruta_navegador);
 		end
 		if(key(_F3)) 
 			while(key(_F3)) frame; end
-			preparar_cancion(navegador("Elige una cancion","ogg,mp3"));
+			navegador("Elige una cancion","ogg,mp3");
+			preparar_cancion(ruta_navegador);
 		end
 		if(key(_F4)) 
 			while(key(_F4)) frame; end
-			importar_fondo(navegador("Elige un fondo","jpg,png,bmp"));
+			navegador("Elige un fondo","jpg,png,bmp");
+			importar_fondo(ruta_navegador);
 			stop_scroll(0);
 			start_scroll(0,0,mapa_scroll,niveles[num_nivel].fondo,0,0);
 			scroll.camera=id;
@@ -540,7 +548,7 @@ Begin
 			exec(_P_NOWAIT,"explorer",1,&argumentos);
 			//ordenar paquete de niveles (en un futuro)
 		end
-		if(key(_M)) while(key(_M)) frame; end mensaje(navegador("haz caca","asdfasd")); end
+		//if(key(_M)) while(key(_M)) frame; end mensaje(navegador("haz caca","asdfasd")); end
 		if(key(_ESC)) 
 			while(key(_F12)) frame; end
 			from i=1 to 50;

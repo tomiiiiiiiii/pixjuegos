@@ -12,6 +12,7 @@ Global
 		pantalla_completa=0;
 		sonido=1;
 		musica=1;
+		resolucion;
 	End
 
 	Struct botones;
@@ -64,6 +65,7 @@ Global
 	string nivel_titulo[50];
 	string nivel_descripcion[50];
 	string dir_juego;
+	string ruta_navegador; //porque no funciona correctamente la funcion navegador devolviendo un string
 End 
 
 Local
@@ -563,11 +565,6 @@ BEGIN
 		end
 	end
 	if(!file_exists(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".png")) menu(); return; end // FIN DE LA COMPETICION
-	if(fexists(savegamedir+"niveles\"+paqueteniveles+"\tiles.fpg"))
-		fpg_tiles=load_fpg(savegamedir+"niveles\"+paqueteniveles+"\tiles.fpg");
-	else
-		fpg_tiles=load_fpg("fpg/tiles.fpg");
-	end
 	frame;
 	foto=get_screen();
 	delete_text(all_text);
@@ -590,6 +587,11 @@ BEGIN
 	else
 		fondo=load_image("fondos\fondo"+rand(1,5)+".jpg"); //cargar el fondo
 	end
+	if(fexists(savegamedir+"niveles\"+paqueteniveles+"\tiles.fpg"))
+		fpg_tiles=load_fpg(savegamedir+"niveles\"+paqueteniveles+"\tiles.fpg");
+	else
+		fpg_tiles=load_fpg("fpg\tiles.fpg");
+	end
 	num_enemigos=0;
 	//ancho del gráfico pequeñito
 	ancho=GRAPHIC_INFO(0,mapa,G_WIDE);
@@ -604,7 +606,7 @@ BEGIN
 	
 	max_num_enemigos=(alto_nivel*ancho_nivel)/100000;
 	
-	mapa_scroll=new_map(ancho*tilesize,(alto-3)*tilesize,8);
+	mapa_scroll=new_map(ancho*tilesize,(alto-3)*tilesize,16);
 	//LO VISIBLE:
 	repeat
 		pos_x=x*tilesize;
@@ -855,13 +857,13 @@ Begin
 	if(file_exists(savegamedir+"opciones.dat"))
 		load(savegamedir+"opciones.dat",ops);
 		full_screen=ops.pantalla_completa;
+		scale_resolution=ops.resolucion;
 	end
 
 	p[2].control=1;
 	p[3].control=2;
 	p[4].control=3; //el control de los jugadores
 	set_fps(50,0); //imágenes por segundo
-	//scale_resolution=06400480;
 	set_mode(800,600,16); //resolución y colores	    
 	fpg_enemigos=load_fpg("fpg/enemigos.fpg"); //cargar el mapa de tiles
 	fpg_powerups=load_fpg("fpg/powerups.fpg"); //cargar el mapa de tiles

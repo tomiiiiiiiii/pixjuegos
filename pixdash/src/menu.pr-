@@ -327,10 +327,11 @@ begin
 				end
 				if(elecc==3)
 					while(key(_enter)) frame; end
-					if(scale_resolution==10240768) scale_resolution=-1; end
-					if(scale_resolution==06400480) scale_resolution=10240768; end
-					if(scale_resolution==0) scale_resolution=06400480; end
-					if(scale_resolution==-1) scale_resolution=0; end
+					if(ops.resolucion==10240768) ops.resolucion=-1; end
+					if(ops.resolucion==06400480) ops.resolucion=10240768; end
+					if(ops.resolucion==0) ops.resolucion=06400480; end
+					if(ops.resolucion==-1) ops.resolucion=0; end
+					scale_resolution=ops.resolucion;
 					set_mode(800,600,16);
 				end
 			end
@@ -365,7 +366,7 @@ begin
 			elecc=0;
 		end
 		if(elecc==-1)
-			elecc=2;
+			elecc=3;
 		end
 		frame;
 	end
@@ -449,16 +450,20 @@ private
 	string nombres_paquetes[50];
 	num_paquetes;
 	string carpeta;
+	dir_handle;
 begin
 	let_me_alone();
 	delete_text(all_text);
-	chdir(savegamedir+"niveles");
+	//chdir(savegamedir+"niveles");
 	i=1;
-	while((carpeta=glob("*")) != "")
-		if(carpeta!="." and carpeta!=".." and fexists(carpeta+"\nivel1.png") and fileinfo.directory)
+	dir_handle=diropen(savegamedir+"niveles\*.");
+	//while((carpeta=glob("*")) != "")
+	while((carpeta=dirread(dir_handle)) != "")
+		if((carpeta!=".") and (carpeta!="..") and fexists(savegamedir+"niveles\"+carpeta+"\nivel1.png") and fileinfo.directory)
 			nombres_paquetes[i++]=carpeta;
 		end
     End
+	dirclose(dir_handle);
 	chdir(dir_juego);
 	carpeta=glob("*.*"); //ANTIBUG?
 	num_paquetes=i-1;
@@ -708,8 +713,9 @@ Private
 	string temp;
 Begin
 	while((temp=glob(savegamedir+'niveles\'+nombre_paquete+'\*.*'))!="")
+		SAY(TEMP);
 		if(temp!="." and temp!="..") rm(savegamedir+'niveles\'+nombre_paquete+'\'+temp); end
 	end
-	chdir("..");
-	rmdir(savegamedir+'niveles\'+nombre_paquete);
+	//chdir("..");
+	//rmdir(savegamedir+'niveles\'+nombre_paquete); //ESTO NO VA
 End
