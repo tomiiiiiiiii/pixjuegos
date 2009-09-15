@@ -545,7 +545,6 @@ PRIVATE
 	string string_tiempo;
 	fichero;
 BEGIN
-	frame;
 	if(num_nivel!=1)
 		p[posiciones[1]].puntos+=6;
 		p[posiciones[2]].puntos+=4;
@@ -565,13 +564,16 @@ BEGIN
 		end
 	end
 	if(!file_exists(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".png")) menu(); return; end // FIN DE LA COMPETICION
+	say("caca");
 	frame;
-	foto=get_screen();
+	if(num_nivel!=1) foto=get_screen(); end
+	set_mode(ancho_pantalla,alto_pantalla,16);
 	delete_text(all_text);
 	rand_seed(num_nivel);
 	todo_preparado=0;
 	slowmotion=0;
 	let_me_alone();
+	if(num_nivel==1) frame(3000); end
 	stop_scroll(0);
 	stop_scroll(1);
 	stop_scroll(2);
