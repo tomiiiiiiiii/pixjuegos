@@ -361,10 +361,18 @@ Begin
 			while(key(_F5)) frame; end
 			num_niveles++;
 			num_nivel=num_niveles;
-			niveles[num_nivel].mapa=new_map(inputnum("Tamaño horizontal (minimo 32)"),inputnum("Tamaño vertical (minimo 32)"),8);
+			niveles[num_nivel].mapa=new_map(inputnum("Tamaño horizontal (minimo 32)"),inputnum("Tamaño vertical (minimo 32)"),16);
 			ancho_mapa=graphic_info(0,niveles[num_nivel].mapa,g_width);
 			alto_mapa=graphic_info(0,niveles[num_nivel].mapa,g_height);
-			mapa_scroll=new_map(ancho_mapa*tilesize/2,alto_mapa*tilesize/2,8);
+			mapa_scroll=new_map(ancho_mapa*tilesize/2,(alto_mapa-3)*tilesize/2,8);
+			drawing_map(0,mapa_scroll);
+			drawing_color(rgb(255,255,255));
+			draw_box(0,((alto_mapa-3)*tilesize/2)-4,ancho_mapa*tilesize/2,(alto_mapa-3)*tilesize/2); //de izq a der
+			draw_box(((ancho_mapa)*tilesize/2)-4,0,ancho_mapa*tilesize/2,(alto_mapa-3)*tilesize/2); //de arr a aba
+			drawing_color(rgb(127,127,127));
+			from i=0 to ancho_mapa; draw_line(i*tilesize/2,0,i*tilesize/2,alto_mapa*tilesize/2); end
+			from i=0 to alto_mapa; draw_line(0,i*tilesize/2,ancho_mapa*tilesize/2,i*tilesize/2); end
+
 			stop_scroll(0);
 			start_scroll(0,0,mapa_scroll,niveles[num_nivel].fondo,0,0);
 			scroll.camera=id;
