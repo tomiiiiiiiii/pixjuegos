@@ -216,6 +216,8 @@ Begin
 		end
 		if(accion=="muerte") //animación de muerte
 			if(powerup!=2)
+				tiempo_powerup=0; 
+				powerup=0; 
 				graph=2;
 				gravedad=-20;
 				flash_muerte(jugador);
@@ -237,8 +239,6 @@ Begin
 				alpha=255;
 				x=100; y=100; 
 				//p[jugador].puntos=p[jugador].puntos*0.90;
-				tiempo_powerup=0; 
-				powerup=0; 
 				accion="";
 				gravedad=0;
 				inercia=0;
@@ -317,6 +317,7 @@ Begin
    graph=tipo;
    ancho=graphic_info(file,graph,g_width)/2;
    alto=graphic_info(file,graph,g_height)/2;
+   //if(tipo==7) from alpha=0 to 255 step 5; frame; end end
    loop
 		while(todo_preparado==0) frame; end
 		if(alpha<255) alpha+=5; end
@@ -393,6 +394,7 @@ Begin
 		if(slowmotion==0) frame; else frame(300); end
 		//frame;
     end	
+	if(tipo==7) enemigo(x_original,y_original,tipo); end
 	num_enemigos--;
 End
 
@@ -471,9 +473,10 @@ Begin
 	graph=tipo;
 	x_orig=x;
 	y_orig=y;
-   ancho=graphic_info(file,graph,g_width)/2;
-   alto=graphic_info(file,graph,g_height)/2;
-   loop
+    ancho=graphic_info(file,graph,g_width)/2;
+    alto=graphic_info(file,graph,g_height)/2;
+    priority=-1;
+    loop
 		if(map_get_pixel(0,durezas,x,y+alto)!=suelo) y+=6; end 
 		if(map_get_pixel(0,durezas,x,y+alto)==dur_pinchos) break; end 
 		while(map_get_pixel(0,durezas,x,y+alto-1)==suelo) y--; end //colisiones con el suelo
@@ -544,6 +547,7 @@ PRIVATE
 	decimas;
 	string string_tiempo;
 	fichero;
+	j;
 BEGIN
 	if(num_nivel!=1)
 		p[posiciones[1]].puntos+=6;
@@ -653,6 +657,52 @@ BEGIN
 		end
 	until(y=>alto-3)
 
+	//EMPEZAMOS A PINTAR COSAS WACHIS!!!
+	from y=0 to alto;
+		from x=0 to ancho;
+			//arriba
+			if(map_get_pixel(0,mapa,x,y)==tiles[0])
+				if(map_get_pixel(0,mapa,x,y-1)!=tiles[0])
+					from j=0 to tilesize;
+						from i=0 to tilesize/12;
+							map_put_pixel(0,mapa_scroll,(x*tilesize)+j,(y*tilesize)+i,rgb(134,86,10));
+						end
+					end
+				end
+			end
+			//izquierda
+			if(map_get_pixel(0,mapa,x,y)==tiles[0])
+				if(map_get_pixel(0,mapa,x-1,y)!=tiles[0])
+					from j=0 to tilesize;
+						from i=0 to tilesize/12;
+							map_put_pixel(0,mapa_scroll,(x*tilesize)+i,(y*tilesize)+j,rgb(134,86,10));
+						end
+					end
+				end
+			end
+			//derecha
+			if(map_get_pixel(0,mapa,x,y)==tiles[0])
+				if(map_get_pixel(0,mapa,x+1,y)!=tiles[0])
+					from j=0 to tilesize;
+						from i=0 to tilesize/12;
+							map_put_pixel(0,mapa_scroll,((x+1)*tilesize)-i,(y*tilesize)+j,rgb(67,43,5));
+						end
+					end
+				end
+			end
+			//abajo
+			if(map_get_pixel(0,mapa,x,y)==tiles[0])
+				if(map_get_pixel(0,mapa,x,y+1)!=tiles[0])
+					from j=0 to tilesize;
+						from i=0 to tilesize/12;
+							map_put_pixel(0,mapa_scroll,(x*tilesize)+j,((y+1)*tilesize)-i,rgb(67,43,5));
+						end
+					end
+				end
+			end
+		end
+	end
+	//FIN DE PINTAR COSAS WACHIS!!!
 	if(jugadores<=2) //definir la pantalla partida y la división al ser 2 jugadores
 		define_region(1,0,0,ancho_pantalla,alto_pantalla/2);
 		define_region(2,0,alto_pantalla/2,ancho_pantalla,alto_pantalla);
@@ -875,6 +925,7 @@ Begin
 	fuente=load_fnt("fnt/fuente_peq.fnt");
 	fuente_peq=load_fnt("fnt/fuente_peq.fnt");
 	//editor_de_niveles();
+	if(argc>1) importar_paquete_offline(); end
 	menu();
 	//carga_nivel(); //cargar el nivel
 End

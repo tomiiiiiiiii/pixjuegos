@@ -718,3 +718,44 @@ Begin
 	//chdir("..");
 	//rmdir(savegamedir+'niveles\'+nombre_paquete); //ESTO NO VA
 End
+
+Function importar_paquete_offline();
+Private
+	string argumentos;
+	fichero;
+	bytes_antes;
+	timeout;
+	string temp;
+	string extension;
+	string nombre_paquete;
+	string ruta;
+Begin
+	ruta='"';
+	from i=1 to argc;
+		ruta+=argv[i];
+		if(i<argc-1) ruta+=" "; end
+	end
+	ruta+='"';
+	extension+=ruta[len(ruta)-4];
+	extension+=ruta[len(ruta)-3];
+	extension+=ruta[len(ruta)-2];
+	extension=lcase(extension);
+	if(extension=="pdn")
+		chdir("bin");
+		temp=ruta;
+		from i=0 to len(ruta)-6; temp+=ruta[i]; if(ruta[i]=="\") temp=""; end end
+		nombre_paquete=temp;
+		while((temp=glob(savegamedir+'niveles\'+nombre_paquete+'\*.*'))!="")
+			if(temp!="." and temp!="..") rm(savegamedir+'niveles\'+nombre_paquete+'\'+temp); end
+		end
+		mkdir(savegamedir+'niveles\'+nombre_paquete);
+		argumentos='e -tzip '+ruta+' -o"'+savegamedir+'niveles\'+nombre_paquete+'" -y';	
+		exec(_P_WAIT,"7za",1,&argumentos);
+		chdir("..");
+		mensaje("Paquete de niveles importado correctamente");
+	else
+		mensaje("No es un paquete de niveles valido");
+	end
+	timer[0]=0;
+	while(timer<300) frame; end
+End
