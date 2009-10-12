@@ -318,7 +318,7 @@ Begin
 				case 2: map_put_pixel(0,niveles[num_nivel].mapa,x/(tilesize/2),y/(tilesize/2),enemigos[graph]); end
 				case 3: map_put_pixel(0,niveles[num_nivel].mapa,x/(tilesize/2),y/(tilesize/2),powerups[graph]); end
 			end
-			objeto_nivel(file,graph,x,y,size); 
+			if(tipo_bloque!=2) objeto_nivel(file,graph,x,y,size);  else objeto_nivel(file,(graph*10)+1,x,y,size);  end
 		end
 		if(key(_left) and x!=tilesize/4) x-=tilesize/2; end 
 		if(key(_right) and x<=((ancho_mapa-1)*tilesize/2)-(tilesize/4)) x+=tilesize/2; end
@@ -469,8 +469,10 @@ Begin
 			menu();
 			return;		
 		end
+		if(tipo_bloque==2) graph=(graph*10)+1; end
 		cursor(graph_cursor);
 		frame;
+		if(tipo_bloque==2) graph=(graph-1)/10; end
 	end
 End
 
@@ -502,7 +504,7 @@ Begin
 		tile=map_get_pixel(0,mapa,x,y);	
 		from i=0 to 3; if(tile==tiles[i]) objeto_nivel(fpg_tiles,i+1,(x*tilesize/2)+(tilesize/4),(y*tilesize/2)+(tilesize/4),size); end end
 		if(tile==tiles[4]) objeto_nivel(fpg_moneda,1,(x*tilesize/2)+(tilesize/4),(y*tilesize/2)+(tilesize/4),size); end
-		from i=1 to 10; if(tile==enemigos[i]) objeto_nivel(fpg_enemigos,i,(x*tilesize/2)+(tilesize/4),(y*tilesize/2)+(tilesize/4),size); end end
+		from i=1 to 10; if(tile==enemigos[i]) objeto_nivel(fpg_enemigos,(i*10)+1,(x*tilesize/2)+(tilesize/4),(y*tilesize/2)+(tilesize/4),size); end end
 		from i=1 to 5; if(tile==powerups[i]) objeto_nivel(fpg_powerups,i,(x*tilesize/2)+(tilesize/4),(y*tilesize/2)+(tilesize/4),size); end end
 		if(x<ancho)
 			x++;

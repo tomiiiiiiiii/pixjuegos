@@ -1,0 +1,2200 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.46"
+   sodipodi:docname="dibujo.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape">
+  <defs
+     id="defs4">
+    <linearGradient
+       id="linearGradient3449">
+      <stop
+         id="stop3451"
+         offset="0"
+         style="stop-color:#282828;stop-opacity:1;" />
+      <stop
+         id="stop3453"
+         offset="1"
+         style="stop-color:#727272;stop-opacity:1;" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient3423">
+      <stop
+         style="stop-color:#222222;stop-opacity:1;"
+         offset="0"
+         id="stop3425" />
+      <stop
+         style="stop-color:#727272;stop-opacity:1;"
+         offset="1"
+         id="stop3427" />
+    </linearGradient>
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective10" />
+    <inkscape:perspective
+       id="perspective2625"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3423"
+       id="linearGradient3429"
+       x1="-395.66235"
+       y1="66.420357"
+       x2="-395.47153"
+       y2="-78.110886"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.4666216,0,0,0.4666216,-346.04416,288.30044)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3449"
+       id="linearGradient3447"
+       x1="-547.48438"
+       y1="321.207"
+       x2="-579.06293"
+       y2="269.27261"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3423"
+       id="linearGradient3604"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.4666216,0,0,0.4666216,-352.25319,100.0535)"
+       x1="-395.66235"
+       y1="66.420357"
+       x2="-395.47153"
+       y2="-78.110886" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3449"
+       id="linearGradient3606"
+       gradientUnits="userSpaceOnUse"
+       x1="-547.48438"
+       y1="321.207"
+       x2="-579.06293"
+       y2="269.27261"
+       gradientTransform="translate(-6.2090299,-188.24694)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3423"
+       id="linearGradient3624"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.4666216,0,0,0.4666216,-337.89008,-107.65911)"
+       x1="-395.66235"
+       y1="66.420357"
+       x2="-395.47153"
+       y2="-78.110886" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3449"
+       id="linearGradient3626"
+       gradientUnits="userSpaceOnUse"
+       x1="-547.48438"
+       y1="321.207"
+       x2="-579.06293"
+       y2="269.27261"
+       gradientTransform="translate(8.1540763,-395.95955)" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.28"
+     inkscape:cx="1086.3692"
+     inkscape:cy="353.53323"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1270"
+     inkscape:window-height="913"
+     inkscape:window-x="1"
+     inkscape:window-y="1"
+     showguides="true"
+     inkscape:guide-bbox="true">
+    <sodipodi:guide
+       orientation="1,0"
+       position="234.37499,424.21874"
+       id="guide2633" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="-272.26562,1045.7031"
+       id="guide2649" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="-472.87765,782.51307"
+       id="guide2651" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="-565.27109,749.36744"
+       id="guide3459" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="-575.07667,535.30192"
+       id="guide3531" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:#00ffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 1114.1546,661.02462 L 1118.8916,689.42289 C 1099.7869,678.91175 1092.2924,693.32594 1076.471,707.98556 C 1084.6292,718.74326 1074.3358,730.84892 1063.0179,727.20431 C 1053.0026,723.97918 1054.1804,698.06573 1069.5647,702.86056 C 1075.6137,688.51447 1100.8088,661.39528 1114.1546,661.02462 z"
+       id="path3632"
+       sodipodi:nodetypes="cccscc" />
+    <path
+       style="fill:#00ffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 1136.0333,739.80588 C 1122.706,741.46425 1127.1218,767.54756 1121.86,796.481 L 1075.86,800.731 C 1075.2446,777.26783 1079.7588,767.59154 1109.8913,783.07578 C 1111.0226,748.19848 1111.1244,740.14925 1125.7833,728.46213 L 1136.0333,739.80588 z"
+       id="path3634"
+       sodipodi:nodetypes="cccccc" />
+    <path
+       style="fill:#ffff00;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 1168.8533,660.75361 L 1168.2178,689.34719 C 1187.3225,678.83605 1194.817,693.25024 1210.6384,707.90986 C 1202.4802,718.66756 1212.7736,730.77322 1224.0915,727.12861 C 1234.1068,723.90348 1232.929,697.99003 1217.5447,702.78486 C 1211.4957,688.43877 1182.3736,663.62956 1168.8533,660.75361 z"
+       id="path3628"
+       sodipodi:nodetypes="cccscc" />
+    <path
+       style="fill:#ffff00;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 1148.1464,740.1208 C 1161.4737,741.77917 1157.0579,767.86248 1162.3197,796.79592 L 1208.3197,801.04592 C 1208.9351,777.58275 1204.4209,767.90646 1174.2884,783.3907 C 1173.1571,748.5134 1173.0553,740.46417 1158.3964,728.77705 L 1148.1464,740.1208 z"
+       id="path3630"
+       sodipodi:nodetypes="cccccc" />
+    <g
+       id="g3608"
+       transform="matrix(-1,0,0,1,1484.5067,236.40737)"
+       style="stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none">
+      <path
+         sodipodi:nodetypes="csc"
+         id="path3611"
+         d="M 393.36796,361.17508 C 405.55485,353.35465 431.84633,321.77353 426.48335,315.85093 C 424.12049,313.24149 400.28718,337.04022 398.23789,336.89973"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="csssss"
+         id="path3617"
+         d="M 381.41061,347.02223 C 379.94793,333.74412 399.99834,327.4008 402.08178,345.8193 C 404.16522,364.23778 370.75646,372.28491 364.83157,356.41473 C 358.90666,340.54454 365.5652,331.06117 376.33615,323.13031 C 387.10708,315.19946 420.49009,299.63995 428.57554,299.43112 C 436.1223,299.23622 409.13244,330.50066 398.68595,336.81364"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <g
+       id="g3619"
+       transform="translate(802.54166,238.35014)"
+       style="stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none">
+      <path
+         sodipodi:nodetypes="csc"
+         id="path3623"
+         d="M 393.36796,361.17508 C 405.55485,353.35465 431.84633,321.77353 426.48335,315.85093 C 424.12049,313.24149 400.28718,337.04022 398.23789,336.89973"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="csssss"
+         id="path3626"
+         d="M 381.41061,347.02223 C 379.94793,333.74412 399.99834,327.4008 402.08178,345.8193 C 404.16522,364.23778 370.75646,372.28491 364.83157,356.41473 C 358.90666,340.54454 365.5652,331.06117 376.33615,323.13031 C 387.10708,315.19946 420.49009,299.63995 428.57554,299.43112 C 436.1223,299.23622 409.13244,330.50066 398.68595,336.81364"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <path
+       style="fill:#784421;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="M -947.8269,456.36233 C -947.20543,428.25759 -922.20513,376.24479 -894.932,376.19134 C -867.65802,376.13789 -841.8797,430.07882 -842.86574,459.19352 L -842.24426,468.72288 C -842.29074,475.69595 -855.13886,512.69599 -893.82715,512.08842 C -932.49623,511.48116 -948.504,475.72769 -948.17216,466.23696 L -947.8269,456.36233 z"
+       id="path3573"
+       sodipodi:nodetypes="czccssc" />
+    <path
+       style="fill:#a05a2c;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="M -682.82028,501.5439 L -657.74432,480.65707 L -662.55173,474.2499 L -689.4512,492.70641 L -682.82028,501.5439 z"
+       id="path3509" />
+    <path
+       style="fill:#a05a2c;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="M -650.20517,504.66911 L -627.71905,481.01668 L -633.23667,475.20987 L -657.81569,496.65972 L -650.20517,504.66911 z"
+       id="path3515" />
+    <path
+       style="fill:#a05a2c;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="M -581.73861,495.04676 L -606.9208,474.28813 L -612.32321,480.20228 L -589.19022,503.2042 L -581.73861,495.04676 z"
+       id="path3517" />
+    <path
+       style="fill:#c87137;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="M -686.94317,470.10396 C -669.74499,477.21179 -634.67226,487.17577 -583.08687,472.72798 L -582.53444,480.87628 C -623.31904,492.10994 -644.85411,490.26808 -686.87412,477.69983 L -686.94317,470.10396 z"
+       id="path3537"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       style="fill:#c87137;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="M -553.83485,478.28276 L -592.61855,491.16888 L -589.93313,502.76814 L -551.11826,491.8349 L -553.83485,478.28276 z"
+       id="path3521" />
+    <rect
+       style="fill:#0000ff;fill-opacity:0;fill-rule:evenodd;stroke:none;stroke-width:0.96868056000000002px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect3875"
+       width="144.98112"
+       height="142.21899"
+       x="-485.9823"
+       y="563.61774"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\16.png"
+       inkscape:export-xdpi="31.641344"
+       inkscape:export-ydpi="31.641344" />
+    <rect
+       style="fill:#0000ff;fill-opacity:0;fill-rule:evenodd;stroke:none;stroke-width:0.96868056000000002px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect3871"
+       width="142.21899"
+       height="142.21899"
+       x="-231.86572"
+       y="243.85037"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\20.png"
+       inkscape:export-xdpi="31.641344"
+       inkscape:export-ydpi="31.641344" />
+    <rect
+       style="fill:#0000ff;fill-opacity:0;fill-rule:evenodd;stroke:none;stroke-width:0.96868056000000002px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect3865"
+       width="142.21881"
+       height="93.781319"
+       x="-221.92203"
+       y="933.10358"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\g3426.png"
+       inkscape:export-xdpi="31.66942"
+       inkscape:export-ydpi="31.66942" />
+    <rect
+       style="fill:#0000ff;fill-opacity:0;fill-rule:evenodd;stroke:none;stroke-width:0.96868056000000002px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect3867"
+       width="142.21881"
+       height="93.781319"
+       x="-228.55115"
+       y="551.79578"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\g3398.png"
+       inkscape:export-xdpi="31.641384"
+       inkscape:export-ydpi="31.641384" />
+    <rect
+       style="fill:#0000ff;fill-opacity:0;fill-rule:evenodd;stroke:none;stroke-width:0.96868056000000002px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect3869"
+       width="142.21881"
+       height="93.781319"
+       x="-223.02687"
+       y="409.40262"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\11.png"
+       inkscape:export-xdpi="31.641384"
+       inkscape:export-ydpi="31.641384" />
+    <rect
+       style="fill:#0000ff;fill-rule:evenodd;stroke:none;stroke-width:0.96868056000000002px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:0"
+       id="rect3093"
+       width="142.21881"
+       height="93.781319"
+       x="-221.89066"
+       y="713.284"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\g3454.png"
+       inkscape:export-xdpi="31.669422"
+       inkscape:export-ydpi="31.669422" />
+    <g
+       id="g3635"
+       transform="matrix(-0.6176974,0.7864158,0.7864158,0.6176974,497.28369,342.43757)"
+       style="stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\path3319.png"
+       inkscape:export-xdpi="31.639999"
+       inkscape:export-ydpi="31.639999">
+      <path
+         sodipodi:nodetypes="csc"
+         id="path3637"
+         d="M 393.36796,361.17508 C 405.55485,353.35465 431.84633,321.77353 426.48335,315.85093 C 424.12049,313.24149 378.69702,337.05271 376.64773,336.91222"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="csssss"
+         id="path3639"
+         d="M 381.41061,347.02223 C 379.94793,333.74412 399.99834,327.4008 402.08178,345.8193 C 404.16522,364.23778 370.75646,372.28491 364.83157,356.41473 C 358.90666,340.54454 365.5652,331.06117 376.33615,323.13031 C 387.10708,315.19946 420.49009,299.63995 428.57554,299.43112 C 436.1223,299.23622 409.13244,330.50066 398.68595,336.81364"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <g
+       id="g3629"
+       transform="matrix(0.6176974,0.7864158,-0.7864158,0.6176974,624.87556,340.58159)"
+       style="stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\path3319.png"
+       inkscape:export-xdpi="31.639999"
+       inkscape:export-ydpi="31.639999">
+      <path
+         sodipodi:nodetypes="csc"
+         id="path3631"
+         d="M 393.36796,361.17508 C 405.55485,353.35465 431.84633,321.77353 426.48335,315.85093 C 424.12049,313.24149 378.69702,337.05271 376.64773,336.91222"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="csssss"
+         id="path3633"
+         d="M 381.41061,347.02223 C 379.94793,333.74412 399.99834,327.4008 402.08178,345.8193 C 404.16522,364.23778 370.75646,372.28491 364.83157,356.41473 C 358.90666,340.54454 365.5652,331.06117 376.33615,323.13031 C 387.10708,315.19946 420.49009,299.63995 428.57554,299.43112 C 436.1223,299.23622 409.13244,330.50066 398.68595,336.81364"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <g
+       id="g3623"
+       transform="matrix(-0.8765383,0.481332,0.481332,0.8765383,702.52371,210.67309)"
+       style="stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\path3309.png"
+       inkscape:export-xdpi="31.639999"
+       inkscape:export-ydpi="31.639999">
+      <path
+         sodipodi:nodetypes="csc"
+         id="path3625"
+         d="M 393.36796,361.17508 C 405.55485,353.35465 431.84633,321.77353 426.48335,315.85093 C 424.12049,313.24149 378.69702,337.05271 376.64773,336.91222"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="csssss"
+         id="path3627"
+         d="M 381.41061,347.02223 C 379.94793,333.74412 399.99834,327.4008 402.08178,345.8193 C 404.16522,364.23778 370.75646,372.28491 364.83157,356.41473 C 358.90666,340.54454 365.5652,331.06117 376.33615,323.13031 C 387.10708,315.19946 420.49009,299.63995 428.57554,299.43112 C 436.1223,299.23622 409.13244,330.50066 398.68595,336.81364"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <g
+       id="g3617"
+       transform="matrix(0.8765383,0.481332,-0.481332,0.8765383,418.77583,212.51505)"
+       style="stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\path3309.png"
+       inkscape:export-xdpi="31.639999"
+       inkscape:export-ydpi="31.639999">
+      <path
+         sodipodi:nodetypes="csc"
+         id="path3619"
+         d="M 393.36796,361.17508 C 405.55485,353.35465 431.84633,321.77353 426.48335,315.85093 C 424.12049,313.24149 378.69702,337.05271 376.64773,336.91222"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="csssss"
+         id="path3621"
+         d="M 381.41061,347.02223 C 379.94793,333.74412 399.99834,327.4008 402.08178,345.8193 C 404.16522,364.23778 370.75646,372.28491 364.83157,356.41473 C 358.90666,340.54454 365.5652,331.06117 376.33615,323.13031 C 387.10708,315.19946 420.49009,299.63995 428.57554,299.43112 C 436.1223,299.23622 409.13244,330.50066 398.68595,336.81364"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <g
+       id="g3611"
+       transform="matrix(-0.9989595,-4.5604962e-2,-4.5604962e-2,0.9989595,924.89143,193.73757)"
+       style="stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\4.png"
+       inkscape:export-xdpi="31.639999"
+       inkscape:export-ydpi="31.639999">
+      <path
+         sodipodi:nodetypes="csc"
+         id="path3613"
+         d="M 393.36796,361.17508 C 405.55485,353.35465 431.84633,321.77353 426.48335,315.85093 C 424.12049,313.24149 378.69702,337.05271 376.64773,336.91222"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="csssss"
+         id="path3615"
+         d="M 381.41061,347.02223 C 379.94793,333.74412 399.99834,327.4008 402.08178,345.8193 C 404.16522,364.23778 370.75646,372.28491 364.83157,356.41473 C 358.90666,340.54454 365.5652,331.06117 376.33615,323.13031 C 387.10708,315.19946 420.49009,299.63995 428.57554,299.43112 C 436.1223,299.23622 409.13244,330.50066 398.68595,336.81364"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <g
+       id="g3605"
+       transform="matrix(0.9989595,-4.5604962e-2,4.5604962e-2,0.9989595,197.632,193.68663)"
+       style="stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\4.png"
+       inkscape:export-xdpi="31.639999"
+       inkscape:export-ydpi="31.639999">
+      <path
+         sodipodi:nodetypes="csc"
+         id="path3607"
+         d="M 393.36796,361.17508 C 405.55485,353.35465 431.84633,321.77353 426.48335,315.85093 C 424.12049,313.24149 378.69702,337.05271 376.64773,336.91222"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="csssss"
+         id="path3609"
+         d="M 381.41061,347.02223 C 379.94793,333.74412 399.99834,327.4008 402.08178,345.8193 C 404.16522,364.23778 370.75646,372.28491 364.83157,356.41473 C 358.90666,340.54454 365.5652,331.06117 376.33615,323.13031 C 387.10708,315.19946 420.49009,299.63995 428.57554,299.43112 C 436.1223,299.23622 409.13244,330.50066 398.68595,336.81364"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <g
+       id="g3558"
+       transform="matrix(0.8890033,0.4579008,-0.4579008,0.8890033,-613.63134,155.21364)"
+       style="stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\g3582.png"
+       inkscape:export-xdpi="39.122952"
+       inkscape:export-ydpi="39.122952">
+      <path
+         sodipodi:nodetypes="csc"
+         id="path3560"
+         d="M 393.36796,361.17508 C 405.55485,353.35465 431.84633,321.77353 426.48335,315.85093 C 424.12049,313.24149 400.28718,337.04022 398.23789,336.89973"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="csssss"
+         id="path3562"
+         d="M 381.41061,347.02223 C 379.94793,333.74412 399.99834,327.4008 402.08178,345.8193 C 404.16522,364.23778 370.75646,372.28491 364.83157,356.41473 C 358.90666,340.54454 365.5652,331.06117 376.33615,323.13031 C 387.10708,315.19946 420.49009,299.63995 428.57554,299.43112 C 436.1223,299.23622 409.13244,330.50066 398.68595,336.81364"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <g
+       id="g3546"
+       transform="translate(-804.87215,92.63014)"
+       style="stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\15.png"
+       inkscape:export-xdpi="31.641344"
+       inkscape:export-ydpi="31.641344">
+      <path
+         sodipodi:nodetypes="csc"
+         id="path3548"
+         d="M 393.36796,361.17508 C 405.55485,353.35465 431.84633,321.77353 426.48335,315.85093 C 424.12049,313.24149 400.28718,337.04022 398.23789,336.89973"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="csssss"
+         id="path3550"
+         d="M 381.41061,347.02223 C 379.94793,333.74412 399.99834,327.4008 402.08178,345.8193 C 404.16522,364.23778 370.75646,372.28491 364.83157,356.41473 C 358.90666,340.54454 365.5652,331.06117 376.33615,323.13031 C 387.10708,315.19946 420.49009,299.63995 428.57554,299.43112 C 436.1223,299.23622 409.13244,330.50066 398.68595,336.81364"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <g
+       id="g3570"
+       transform="matrix(0.5707324,0.8211361,-0.8211361,0.5707324,-355.50643,303.69143)"
+       style="stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\g3590.png"
+       inkscape:export-xdpi="39.122952"
+       inkscape:export-ydpi="39.122952">
+      <path
+         sodipodi:nodetypes="csc"
+         id="path3572"
+         d="M 393.36796,361.17508 C 405.55485,353.35465 431.84633,321.77353 426.48335,315.85093 C 424.12049,313.24149 400.28718,337.04022 398.23789,336.89973"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="csssss"
+         id="path3574"
+         d="M 381.41061,347.02223 C 379.94793,333.74412 399.99834,327.4008 402.08178,345.8193 C 404.16522,364.23778 370.75646,372.28491 364.83157,356.41473 C 358.90666,340.54454 365.5652,331.06117 376.33615,323.13031 C 387.10708,315.19946 420.49009,299.63995 428.57554,299.43112 C 436.1223,299.23622 409.13244,330.50066 398.68595,336.81364"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <path
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -218.54153,480.64276 C -224.42716,485.0604 -213.73061,497.02493 -207.7975,498.80538 C -196.76599,502.11579 -170.88683,497.79543 -153.59589,497.85125 C -136.24473,497.90726 -115.32212,502.59563 -100.40443,500.93772 C -86.420735,499.38362 -79.959335,487.57733 -85.481475,482.48974 C -94.305995,474.35965 -212.45588,476.07499 -218.54153,480.64276 z"
+       id="path3374"
+       sodipodi:nodetypes="cssssz"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\11.png"
+       inkscape:export-xdpi="31.641384"
+       inkscape:export-ydpi="31.641384" />
+    <path
+       style="fill:#ffff00;fill-rule:evenodd;stroke:none;stroke-width:1.72154284px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -191.82524,485.60725 C -196.39874,481.29491 -202.85546,489.48833 -199.08903,492.50696 C -195.32262,495.52557 -189.40397,489.91956 -191.82524,485.60725 z"
+       id="path3376"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\11.png"
+       inkscape:export-xdpi="31.641384"
+       inkscape:export-ydpi="31.641384" />
+    <path
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -180.63075,318.13093 C -173.0546,304.99895 -146.79064,309.03956 -140.72972,318.63601 C -134.66881,328.23245 -150.32617,350.45581 -160.93278,351.46597 C -171.53938,352.47612 -184.67136,324.69692 -180.63075,318.13093 z"
+       id="path3368"
+       sodipodi:nodetypes="cssc"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\20.png"
+       inkscape:export-xdpi="31.67"
+       inkscape:export-ydpi="31.67" />
+    <path
+       style="fill:#ffff00;fill-rule:evenodd;stroke:none;stroke-width:1.72154284px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -170.76518,321.62754 C -166.19168,317.3152 -159.73496,325.50863 -163.50139,328.52725 C -167.2678,331.54586 -173.18645,325.93986 -170.76518,321.62754 z"
+       id="path3370"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\20.png"
+       inkscape:export-xdpi="31.67"
+       inkscape:export-ydpi="31.67" />
+    <path
+       style="fill:#000080;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 222.122,716.68738 C 217.90201,718.65598 206.11912,723.85015 203.15223,733.81816 C 200.18533,743.78618 233.99394,735.26911 235.91397,732.25776 C 237.83396,729.24632 231.98487,714.50455 222.122,716.68738 z"
+       id="path3443"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\12.png"
+       inkscape:export-xdpi="39.172932"
+       inkscape:export-ydpi="39.172932" />
+    <path
+       style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 234.13029,661.78219 C 237.09079,670.38174 226.42788,672.89387 222.89234,667.4643 C 218.99467,661.47859 231.47864,654.07977 234.13029,661.78219 z"
+       id="path3429"
+       sodipodi:nodetypes="css"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\12.png"
+       inkscape:export-xdpi="39.172932"
+       inkscape:export-ydpi="39.172932" />
+    <g
+       id="g3423"
+       transform="translate(-6.322566,340.40074)"
+       style="stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\12.png"
+       inkscape:export-xdpi="39.172932"
+       inkscape:export-ydpi="39.172932">
+      <path
+         sodipodi:nodetypes="cssss"
+         id="path3425"
+         d="M 237.50044,354.70344 C 236.63296,364.07056 249.84437,367.27075 251.75461,359.40232 C 254.10668,349.71395 246.97433,342.22972 236.36773,344.25003 C 225.76113,346.27033 220.25695,355.33542 224.52164,363.69239 C 230.26118,374.93945 244.05591,371.25366 244.95403,363.948"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="ccsc"
+         id="path3427"
+         d="M 223.24371,358.76619 C 227.03178,364.4483 235.48178,369.85089 244.33065,365.58472 C 242.92467,368.85069 238.96425,372.05953 233.59777,370.63548 C 226.57281,368.77133 222.35997,360.74435 223.24371,358.76619 z"
+         style="fill:#000000;fill-opacity:0.36224491;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <g
+       id="g3419"
+       transform="translate(-33.515255,172.20386)"
+       style="stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\11.png"
+       inkscape:export-xdpi="39.172932"
+       inkscape:export-ydpi="39.172932">
+      <path
+         sodipodi:nodetypes="cssss"
+         id="path3169"
+         d="M 237.50044,354.70344 C 236.63296,364.07056 249.84437,367.27075 251.75461,359.40232 C 254.10668,349.71395 246.97433,342.22972 236.36773,344.25003 C 225.76113,346.27033 220.25695,355.33542 224.52164,363.69239 C 230.26118,374.93945 244.05591,371.25366 244.95403,363.948"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="ccsc"
+         id="path3185"
+         d="M 223.24371,358.76619 C 227.03178,364.4483 235.48178,369.85089 244.33065,365.58472 C 242.92467,368.85069 238.96425,372.05953 233.59777,370.63548 C 226.57281,368.77133 222.35997,360.74435 223.24371,358.76619 z"
+         style="fill:#000000;fill-opacity:0.36224491;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <path
+       style="fill:#800080;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 210.12559,687.80938 C 248.85923,652.1321 247.87973,736.53983 210.45211,696.625 C 201.32661,740.68136 269.26521,725.90846 268.53587,701.67577 C 267.88934,680.19455 212.90867,640.31015 210.12559,687.80938 z"
+       id="path3413"
+       sodipodi:nodetypes="ccsc"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\12.png"
+       inkscape:export-xdpi="39.172932"
+       inkscape:export-ydpi="39.172932" />
+    <g
+       id="g3247"
+       transform="translate(-106.36346,200.77223)"
+       style="stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\path3317.png"
+       inkscape:export-xdpi="39.122952"
+       inkscape:export-ydpi="39.122952">
+      <path
+         sodipodi:nodetypes="cssss"
+         id="path3229"
+         d="M 330.0058,657.97666 C 329.13832,667.34378 342.34973,670.54397 344.25997,662.67554 C 346.61204,652.98717 339.47969,645.50294 328.87309,647.52325 C 318.26649,649.54355 312.76231,658.60864 317.027,666.96561 C 322.76654,678.21267 336.56127,674.52688 337.45939,667.22122"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="ccsc"
+         id="path3239"
+         d="M 315.74907,662.03941 C 319.53714,667.72152 327.98714,673.12411 336.83601,668.85794 C 335.43003,672.12391 331.46961,675.33275 326.10313,673.9087 C 319.07817,672.04455 314.86533,664.01757 315.74907,662.03941 z"
+         style="fill:#000000;fill-opacity:0.36224491;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <path
+       style="fill:#000080;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 209.88178,888.68897 C 205.22543,888.73411 192.34932,888.58502 185.52237,896.43078 C 178.69541,904.27654 212.99705,910.51831 215.99139,908.57178 C 218.98574,906.62525 219.76353,890.78461 209.88178,888.68897 z"
+       id="path3227"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\path3317.png"
+       inkscape:export-xdpi="39.122952"
+       inkscape:export-ydpi="39.122952" />
+    <path
+       style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 234.20369,488.94887 C 237.16419,497.54842 226.50128,500.06055 222.96574,494.63098 C 219.06807,488.64527 231.55204,481.24645 234.20369,488.94887 z"
+       id="path3161"
+       sodipodi:nodetypes="css"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\11.png"
+       inkscape:export-xdpi="39.172932"
+       inkscape:export-ydpi="39.172932" />
+    <path
+       style="fill:#000080;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 217.64927,545.65561 C 213.10359,546.66576 200.47668,549.19115 195.42592,558.28252 C 190.37515,567.37389 225.22542,566.36374 227.7508,563.83836 C 230.27618,561.31298 227.7508,545.65561 217.64927,545.65561 z"
+       id="path3173"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\11.png"
+       inkscape:export-xdpi="39.172932"
+       inkscape:export-ydpi="39.172932" />
+    <path
+       style="fill:#ff00ff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 201.25077,534.66632 C 209.98027,559.70168 233.26368,556.51844 261.60791,550.3806 C 273.34511,547.83895 286.60792,528.23774 284.8222,519.30917 C 283.03648,510.3806 269.86347,493.22821 245.89363,490.3806 C 224.4209,487.82965 192.45282,509.43464 201.25077,534.66632 z"
+       id="path3165"
+       sodipodi:nodetypes="cszss"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\11.png"
+       inkscape:export-xdpi="39.172932"
+       inkscape:export-ydpi="39.172932" />
+    <path
+       style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 260.40757,489.58536 C 255.85477,496.25585 267.2261,502.59108 271.26671,496.7827 C 275.88161,490.14879 264.4647,483.64111 260.40757,489.58536 z"
+       id="path3159"
+       sodipodi:nodetypes="css"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\11.png"
+       inkscape:export-xdpi="39.172932"
+       inkscape:export-ydpi="39.172932" />
+    <path
+       style="fill:#ff00ff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 201.0722,533.95203 C 197.66338,526.79111 199.33019,515.33919 200.71506,512.70203 C 203.56971,519.80242 208.29723,531.80568 221.60791,532.52346 C 234.74053,533.23163 245.34332,521.24584 247.85791,513.59489 C 251.38087,525.7448 251.14006,529.80637 249.77361,532.09234 C 249.77361,532.09234 268.21506,530.3806 267.32221,521.80917"
+       id="path3167"
+       sodipodi:nodetypes="cczccs"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\11.png"
+       inkscape:export-xdpi="39.172932"
+       inkscape:export-ydpi="39.172932" />
+    <path
+       style="fill:#000000;fill-opacity:0.36224491;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 200.93586,533.12199 C 210.68347,551.4228 245.35702,551.71597 276.20218,539.18816 C 271.37704,550.19491 244.72678,556.87422 224.01863,554.30917 C 216.29696,553.35272 203.90659,545.61302 200.93586,533.12199 z"
+       id="path3175"
+       sodipodi:nodetypes="ccsc"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\11.png"
+       inkscape:export-xdpi="39.172932"
+       inkscape:export-ydpi="39.172932" />
+    <path
+       style="fill:#000080;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 264.95325,547.03778 C 260.40757,548.04793 247.78066,550.57332 242.7299,559.66469 C 237.67913,568.75606 272.5294,567.74591 275.05478,565.22053 C 277.58016,562.69515 275.05478,547.03778 264.95325,547.03778 z"
+       id="path3171"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\11.png"
+       inkscape:export-xdpi="39.172932"
+       inkscape:export-ydpi="39.172932" />
+    <g
+       id="g3415"
+       transform="translate(-41.249235,175.51842)"
+       style="stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none"
+       inkscape:export-xdpi="39.172932"
+       inkscape:export-ydpi="39.172932"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\11.png">
+      <path
+         sodipodi:nodetypes="cssss"
+         id="path3163"
+         d="M 327.02202,354.6411 C 327.8895,364.00822 314.67809,367.20841 312.76785,359.33998 C 310.41578,349.65161 317.54813,342.16738 328.15473,344.18769 C 338.76133,346.20799 344.26551,355.27308 340.00082,363.63005 C 334.26128,374.87711 320.46655,371.19132 319.56843,363.88566"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="ccsc"
+         id="path3187"
+         d="M 341.3102,358.59262 C 337.52213,364.27473 329.07213,369.67732 320.22326,365.41115 C 321.62924,368.67712 325.58966,371.88596 330.95614,370.46191 C 337.9811,368.59776 342.19394,360.57078 341.3102,358.59262 z"
+         style="fill:#000000;fill-opacity:0.36224491;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <path
+       style="fill:#000080;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 262.0528,887.28099 C 257.76624,889.10004 245.80812,893.87706 242.4928,903.73464 C 239.17747,913.59222 273.26448,906.26844 275.28912,903.32634 C 277.31376,900.38425 271.98628,885.44609 262.0528,887.28099 z"
+       id="path3237"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\path3317.png"
+       inkscape:export-xdpi="39.122952"
+       inkscape:export-ydpi="39.122952" />
+    <g
+       id="g3243"
+       transform="translate(-134.68834,207.8433)"
+       style="stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\path3317.png"
+       inkscape:export-xdpi="39.122952"
+       inkscape:export-ydpi="39.122952">
+      <path
+         sodipodi:nodetypes="cssss"
+         id="path3231"
+         d="M 419.52738,657.91432 C 420.39486,667.28144 407.18345,670.48163 405.27321,662.6132 C 402.92114,652.92483 410.05349,645.4406 420.66009,647.46091 C 431.26669,649.48121 436.77087,658.5463 432.50618,666.90327 C 426.76664,678.15033 412.97191,674.46454 412.07379,667.15888"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="ccsc"
+         id="path3241"
+         d="M 433.81556,661.86584 C 430.02749,667.54795 421.57749,672.95054 412.72862,668.68437 C 414.1346,671.95034 418.09502,675.15918 423.4615,673.73513 C 430.48646,671.87098 434.6993,663.844 433.81556,661.86584 z"
+         style="fill:#000000;fill-opacity:0.36224491;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <path
+       style="fill:#ff00ff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 195.87239,682.00249 C 209.89738,671.76158 213.8746,670.48957 218.35201,672.46883 C 223.0416,674.54189 217.81831,679.54364 222.68477,689.64516 C 236.25545,672.31194 249.85112,675.1056 256.89488,683.02025 C 263.81233,690.79299 258.26858,701.83916 250.21159,706.98971 C 241.97454,712.25537 234.57099,710.44384 227.62466,694.23808 C 224.73098,705.01056 224.08388,709.32054 216.52196,709.03168 C 208.78172,708.736 198.65274,710.05539 201.24712,690.87215 C 188.33141,698.19575 192.0083,715.31232 197.59212,720.85764 C 208.75369,731.94224 223.70253,727.91076 243.90558,725.89046 C 263.23982,723.95704 279.97418,719.54228 278.00565,691.54527 C 276.86923,675.38282 241.90599,664.08628 228.17562,661.51406 C 209.31982,657.98167 194.30848,671.27358 195.87239,682.00249 z"
+       id="path3409"
+       sodipodi:nodetypes="czczzczcssssc"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\12.png"
+       inkscape:export-xdpi="39.172932"
+       inkscape:export-ydpi="39.172932" />
+    <path
+       style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 259.22129,667.79128 C 254.66849,674.46177 266.03982,680.797 270.08043,674.98862 C 274.69533,668.35471 263.27842,661.84703 259.22129,667.79128 z"
+       id="path3433"
+       sodipodi:nodetypes="css"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\12.png"
+       inkscape:export-xdpi="39.172932"
+       inkscape:export-ydpi="39.172932" />
+    <g
+       id="g3437"
+       transform="translate(-42.540124,344.94643)"
+       style="stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\12.png"
+       inkscape:export-xdpi="39.172932"
+       inkscape:export-ydpi="39.172932">
+      <path
+         sodipodi:nodetypes="cssss"
+         id="path3439"
+         d="M 327.02202,354.6411 C 327.8895,364.00822 314.67809,367.20841 312.76785,359.33998 C 310.41578,349.65161 317.54813,342.16738 328.15473,344.18769 C 338.76133,346.20799 344.26551,355.27308 340.00082,363.63005 C 334.26128,374.87711 320.46655,371.19132 319.56843,363.88566"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="ccsc"
+         id="path3441"
+         d="M 341.3102,358.59262 C 337.52213,364.27473 329.07213,369.67732 320.22326,365.41115 C 321.62924,368.67712 325.58966,371.88596 330.95614,370.46191 C 337.9811,368.59776 342.19394,360.57078 341.3102,358.59262 z"
+         style="fill:#000000;fill-opacity:0.36224491;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <path
+       style="fill:#000000;fill-opacity:0.36224491;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 193.47556,711.06891 C 204.65174,728.834 244.38477,722.52003 275.22993,709.99222 C 264.42309,730.4221 242.90218,725.43979 221.83689,727.69617 C 214.10046,728.52484 196.44257,728.20125 193.47556,711.06891 z"
+       id="path3251"
+       sodipodi:nodetypes="ccsc"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\12.png"
+       inkscape:export-xdpi="39.172932"
+       inkscape:export-ydpi="39.172932" />
+    <path
+       style="fill:#000080;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 255.18954,720.24025 C 250.53705,720.04596 237.68561,719.23528 230.46444,726.71983 C 223.24325,734.20436 257.17876,742.20081 260.2692,740.41073 C 263.35964,738.62066 264.95054,722.841 255.18954,720.24025 z"
+       id="path3445"
+       inkscape:export-xdpi="39.172932"
+       inkscape:export-ydpi="39.172932"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\12.png" />
+    <g
+       id="g3457"
+       transform="translate(266.11946,188.55447)"
+       style="stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\4.png"
+       inkscape:export-xdpi="31.639999"
+       inkscape:export-ydpi="31.639999">
+      <path
+         sodipodi:nodetypes="cssss"
+         id="path3459"
+         d="M 237.50044,354.70344 C 236.63296,364.07056 249.84437,367.27075 251.75461,359.40232 C 254.10668,349.71395 246.97433,342.22972 236.36773,344.25003 C 225.76113,346.27033 220.25695,355.33542 224.52164,363.69239 C 230.26118,374.93945 244.05591,371.25366 244.95403,363.948"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="ccsc"
+         id="path3461"
+         d="M 223.24371,358.76619 C 227.03178,364.4483 235.48178,369.85089 244.33065,365.58472 C 242.92467,368.85069 238.96425,372.05953 233.59777,370.63548 C 226.57281,368.77133 222.35997,360.74435 223.24371,358.76619 z"
+         style="fill:#000000;fill-opacity:0.36224491;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <path
+       style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 535.83019,506.03068 C 538.79069,514.63023 528.12778,517.14236 524.59224,511.71279 C 520.69457,505.72708 533.17854,498.32826 535.83019,506.03068 z"
+       id="path3477"
+       sodipodi:nodetypes="css"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\4.png"
+       inkscape:export-xdpi="31.639999"
+       inkscape:export-ydpi="31.639999" />
+    <path
+       style="fill:#000080;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 525.01796,558.69166 C 520.47228,559.70181 507.84537,562.2272 502.79461,571.31857 C 497.74384,580.40994 532.59411,579.39979 535.11949,576.87441 C 537.64487,574.34903 535.11949,558.69166 525.01796,558.69166 z"
+       id="path3479"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\4.png"
+       inkscape:export-xdpi="31.639999"
+       inkscape:export-ydpi="31.639999" />
+    <path
+       style="fill:#ff00ff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 508.61946,547.70237 C 517.62261,572.64063 540.63237,569.55449 568.9766,563.41665 C 580.7138,560.875 593.97661,541.27379 592.19089,532.34522 C 590.40517,523.41665 577.35885,501.99565 553.26232,503.41665 C 532.26488,504.66801 499.98629,523.78896 508.61946,547.70237 z"
+       id="path3481"
+       sodipodi:nodetypes="cszss"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\4.png"
+       inkscape:export-xdpi="31.639999"
+       inkscape:export-ydpi="31.639999" />
+    <path
+       style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 567.77626,502.62141 C 563.22346,509.2919 574.59479,515.62713 578.6354,509.81875 C 583.2503,503.18484 571.83339,496.67716 567.77626,502.62141 z"
+       id="path3483"
+       sodipodi:nodetypes="css"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\4.png"
+       inkscape:export-xdpi="31.639999"
+       inkscape:export-ydpi="31.639999" />
+    <path
+       style="fill:#ff00ff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 508.44089,546.98808 C 505.03207,539.82716 506.69888,528.37524 508.08375,525.73808 C 510.9384,532.83847 515.66592,544.84173 528.9766,545.55951 C 542.10922,546.26768 552.71201,534.28189 555.2266,526.63094 C 558.74956,538.78085 558.50875,542.84242 557.1423,545.12839 C 557.1423,545.12839 575.58375,543.41665 574.6909,534.84522"
+       id="path3485"
+       sodipodi:nodetypes="cczccs"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\4.png"
+       inkscape:export-xdpi="31.639999"
+       inkscape:export-ydpi="31.639999" />
+    <path
+       style="fill:#000000;fill-opacity:0.36224491;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 508.30455,546.15804 C 518.05216,564.45885 552.72571,564.75202 583.57087,552.22421 C 578.74573,563.23096 552.09547,569.91027 531.38732,567.34522 C 523.66565,566.38877 511.27528,558.64907 508.30455,546.15804 z"
+       id="path3487"
+       sodipodi:nodetypes="ccsc"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\4.png"
+       inkscape:export-xdpi="31.639999"
+       inkscape:export-ydpi="31.639999" />
+    <path
+       style="fill:#000080;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 572.32194,560.07383 C 567.77626,561.08398 555.14935,563.60937 550.09859,572.70074 C 545.04782,581.79211 579.89809,580.78196 582.42347,578.25658 C 584.94885,575.7312 582.42347,560.07383 572.32194,560.07383 z"
+       id="path3489"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\4.png"
+       inkscape:export-xdpi="31.639999"
+       inkscape:export-ydpi="31.639999" />
+    <g
+       id="g3491"
+       transform="translate(266.11946,188.55447)"
+       style="stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none"
+       inkscape:export-xdpi="31.639999"
+       inkscape:export-ydpi="31.639999"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\4.png">
+      <path
+         sodipodi:nodetypes="cssss"
+         id="path3493"
+         d="M 327.02202,354.6411 C 327.8895,364.00822 314.67809,367.20841 312.76785,359.33998 C 310.41578,349.65161 317.54813,342.16738 328.15473,344.18769 C 338.76133,346.20799 344.26551,355.27308 340.00082,363.63005 C 334.26128,374.87711 320.46655,371.19132 319.56843,363.88566"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="ccsc"
+         id="path3495"
+         d="M 341.3102,358.59262 C 337.52213,364.27473 329.07213,369.67732 320.22326,365.41115 C 321.62924,368.67712 325.58966,371.88596 330.95614,370.46191 C 337.9811,368.59776 342.19394,360.57078 341.3102,358.59262 z"
+         style="fill:#000000;fill-opacity:0.36224491;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <g
+       id="g3523"
+       transform="matrix(-1,0,0,1,590.73392,24.998641)"
+       style="stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none">
+      <path
+         sodipodi:nodetypes="csc"
+         id="path3525"
+         d="M 393.36796,361.17508 C 405.55485,353.35465 431.84633,321.77353 426.48335,315.85093 C 424.12049,313.24149 400.28718,337.04022 398.23789,336.89973"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="csssss"
+         id="path3527"
+         d="M 381.41061,347.02223 C 379.94793,333.74412 399.99834,327.4008 402.08178,345.8193 C 404.16522,364.23778 370.75646,372.28491 364.83157,356.41473 C 358.90666,340.54454 365.5652,331.06117 376.33615,323.13031 C 387.10708,315.19946 420.49009,299.63995 428.57554,299.43112 C 436.1223,299.23622 409.13244,330.50066 398.68595,336.81364"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <g
+       id="g3529"
+       transform="translate(-91.231217,26.941411)"
+       style="stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none">
+      <path
+         sodipodi:nodetypes="csc"
+         id="path3531"
+         d="M 393.36796,361.17508 C 405.55485,353.35465 431.84633,321.77353 426.48335,315.85093 C 424.12049,313.24149 400.28718,337.04022 398.23789,336.89973"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="csssss"
+         id="path3533"
+         d="M 381.41061,347.02223 C 379.94793,333.74412 399.99834,327.4008 402.08178,345.8193 C 404.16522,364.23778 370.75646,372.28491 364.83157,356.41473 C 358.90666,340.54454 365.5652,331.06117 376.33615,323.13031 C 387.10708,315.19946 420.49009,299.63995 428.57554,299.43112 C 436.1223,299.23622 409.13244,330.50066 398.68595,336.81364"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <path
+       style="fill:#800080;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 209.05891,853.55806 C 243.34063,815.60794 238.94422,910.09182 209.3025,866.13638 C 200.177,910.19274 262.7434,897.21652 262.7434,872.97286 C 262.7434,848.7292 214.61475,794.21159 209.05891,853.55806 z"
+       id="path2479"
+       sodipodi:nodetypes="ccsc"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\path3317.png"
+       inkscape:export-xdpi="39.122952"
+       inkscape:export-ydpi="39.122952" />
+    <path
+       style="fill:#ff00ff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 184.43706,845.47815 C 197.94428,832.59828 204.84363,835.91683 207.97912,837.0249 C 205.02384,839.26067 201.38297,845.51559 202.32086,849.5494 C 207.65012,844.15639 215.66209,839.36842 223.96004,841.15209 C 220.57589,843.85515 215.4451,851.61251 216.06304,855.0403 C 230.94668,846.64022 240.88144,846.03705 248.95956,850.92448 C 257.03768,855.81191 254.20739,876.4791 246.02627,880.25108 C 237.84515,884.02307 230.33167,878.32781 223.59999,863.06752 C 219.7106,867.35109 220.0858,873.99318 222.13392,879.17278 C 210.50033,879.95007 204.76178,869.61948 200.58219,860.10659 C 197.75351,863.77738 198.14501,871.69314 198.8698,876.28544 C 195.96472,877.78663 188.64109,871.74433 181.52608,862.63352 C 179.76102,869.46102 185.10004,881.58751 191.79965,888.15473 C 201.32207,897.48897 217.91006,899.20785 238.11311,897.18755 C 257.44735,895.25413 273.61474,890.87347 272.21318,862.84236 C 270.82423,835.06316 231.56905,826.84059 218.78533,825.41341 C 206.178,824.00592 189.30172,827.96353 184.43706,845.47815 z"
+       id="path2481"
+       sodipodi:nodetypes="ccccczzcccccsszzc"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\path3317.png"
+       inkscape:export-xdpi="39.122952"
+       inkscape:export-ydpi="39.122952" />
+    <path
+       style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 258.35907,837.07069 C 253.80627,843.74118 265.1776,850.07641 269.21821,844.26803 C 273.83311,837.63412 262.4162,831.12644 258.35907,837.07069 z"
+       id="path3233"
+       sodipodi:nodetypes="css"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\path3317.png"
+       inkscape:export-xdpi="39.122952"
+       inkscape:export-ydpi="39.122952" />
+    <g
+       id="g3263"
+       transform="translate(201.18079,203.42838)"
+       style="stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\path3319.png"
+       inkscape:export-xdpi="31.639999"
+       inkscape:export-ydpi="31.639999">
+      <path
+         sodipodi:nodetypes="cssss"
+         id="path3265"
+         d="M 330.0058,657.97666 C 329.13832,667.34378 342.34973,670.54397 344.25997,662.67554 C 346.61204,652.98717 339.47969,645.50294 328.87309,647.52325 C 318.26649,649.54355 312.76231,658.60864 317.027,666.96561 C 322.76654,678.21267 336.56127,674.52688 337.45939,667.22122"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="ccsc"
+         id="path3267"
+         d="M 315.74907,662.03941 C 319.53714,667.72152 327.98714,673.12411 336.83601,668.85794 C 335.43003,672.12391 331.46961,675.33275 326.10313,673.9087 C 319.07817,672.04455 314.86533,664.01757 315.74907,662.03941 z"
+         style="fill:#000000;fill-opacity:0.36224491;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <path
+       style="fill:#000080;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 517.42603,891.34512 C 512.76968,891.39026 499.89357,891.24117 493.06662,899.08693 C 486.23966,906.93269 520.5413,913.17446 523.53564,911.22793 C 526.52999,909.2814 527.30778,893.44076 517.42603,891.34512 z"
+       id="path3269"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\path3319.png"
+       inkscape:export-xdpi="31.639999"
+       inkscape:export-ydpi="31.639999" />
+    <path
+       style="fill:#000080;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 569.59705,889.93714 C 565.31049,891.75619 553.35237,896.53321 550.03705,906.39079 C 546.72172,916.24837 580.80873,908.92459 582.83337,905.98249 C 584.85801,903.0404 579.53053,888.10224 569.59705,889.93714 z"
+       id="path3271"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\path3319.png"
+       inkscape:export-xdpi="31.639999"
+       inkscape:export-ydpi="31.639999" />
+    <g
+       id="g3273"
+       transform="translate(172.85591,210.49945)"
+       style="stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\path3319.png"
+       inkscape:export-xdpi="31.639999"
+       inkscape:export-ydpi="31.639999">
+      <path
+         sodipodi:nodetypes="cssss"
+         id="path3275"
+         d="M 419.52738,657.91432 C 420.39486,667.28144 407.18345,670.48163 405.27321,662.6132 C 402.92114,652.92483 410.05349,645.4406 420.66009,647.46091 C 431.26669,649.48121 436.77087,658.5463 432.50618,666.90327 C 426.76664,678.15033 412.97191,674.46454 412.07379,667.15888"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="ccsc"
+         id="path3277"
+         d="M 433.81556,661.86584 C 430.02749,667.54795 421.57749,672.95054 412.72862,668.68437 C 414.1346,671.95034 418.09502,675.15918 423.4615,673.73513 C 430.48646,671.87098 434.6993,663.844 433.81556,661.86584 z"
+         style="fill:#000000;fill-opacity:0.36224491;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <path
+       style="fill:#800080;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 516.60316,856.21421 C 550.88488,818.26409 546.48847,912.74797 516.84675,868.79253 C 507.72125,912.84889 570.28765,899.87267 570.28765,875.62901 C 570.28765,851.38535 522.159,796.86774 516.60316,856.21421 z"
+       id="path3279"
+       sodipodi:nodetypes="ccsc"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\path3319.png"
+       inkscape:export-xdpi="31.639999"
+       inkscape:export-ydpi="31.639999" />
+    <path
+       style="fill:#ff00ff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 491.98131,848.1343 C 505.48853,835.25443 512.38788,838.57298 515.52337,839.68105 C 512.56809,841.91682 508.92722,848.17174 509.86511,852.20555 C 515.19437,846.81254 523.20634,842.02457 531.50429,843.80824 C 528.12014,846.5113 522.98935,854.26866 523.60729,857.69645 C 538.49093,849.29637 548.42569,848.6932 556.50381,853.58063 C 564.58193,858.46806 561.75164,879.13525 553.57052,882.90723 C 545.3894,886.67922 537.87592,880.98396 531.14424,865.72367 C 527.25485,870.00724 527.63005,876.64933 529.67817,881.82893 C 518.04458,882.60622 512.30603,872.27563 508.12644,862.76274 C 505.29776,866.43353 505.68926,874.34929 506.41405,878.94159 C 503.50897,880.44278 496.18534,874.40048 489.07033,865.28967 C 487.30527,872.11717 492.64429,884.24366 499.3439,890.81088 C 508.86632,900.14512 525.45431,901.864 545.65736,899.8437 C 564.9916,897.91028 581.15899,893.52962 579.75743,865.49851 C 578.36848,837.71931 539.1133,829.49674 526.32958,828.06956 C 513.72225,826.66207 496.84597,830.61968 491.98131,848.1343 z"
+       id="path3281"
+       sodipodi:nodetypes="ccccczzcccccsszzc"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\path3319.png"
+       inkscape:export-xdpi="31.639999"
+       inkscape:export-ydpi="31.639999" />
+    <path
+       style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 565.90332,839.72684 C 561.35052,846.39733 572.72185,852.73256 576.76246,846.92418 C 581.37736,840.29027 569.96045,833.78259 565.90332,839.72684 z"
+       id="path3283"
+       sodipodi:nodetypes="css"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\path3319.png"
+       inkscape:export-xdpi="31.639999"
+       inkscape:export-ydpi="31.639999" />
+    <path
+       style="fill:#000080;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 517.73275,727.07406 C 513.07634,727.1131 500.20046,726.94693 493.36315,734.7837 C 486.52584,742.62047 520.81922,748.90746 523.81612,746.96496 C 526.81303,745.02236 527.61174,729.18273 517.73275,727.07406 z"
+       id="path3285"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\path3309.png"
+       inkscape:export-xdpi="31.639999"
+       inkscape:export-ydpi="31.639999" />
+    <path
+       style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 547.67244,669.35345 C 550.63294,677.953 539.97003,680.46513 536.43449,675.03556 C 532.53682,669.04985 545.02079,661.65103 547.67244,669.35345 z"
+       id="path3287"
+       sodipodi:nodetypes="css"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\path3309.png"
+       inkscape:export-xdpi="31.639999"
+       inkscape:export-ydpi="31.639999" />
+    <g
+       id="g3289"
+       transform="translate(297.84459,347.58138)"
+       style="stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\path3309.png"
+       inkscape:export-xdpi="31.639999"
+       inkscape:export-ydpi="31.639999">
+      <path
+         sodipodi:nodetypes="cssss"
+         id="path3291"
+         d="M 237.50044,354.70344 C 236.63296,364.07056 249.84437,367.27075 251.75461,359.40232 C 254.10668,349.71395 246.97433,342.22972 236.36773,344.25003 C 225.76113,346.27033 220.25695,355.33542 224.52164,363.69239 C 230.26118,374.93945 244.05591,371.25366 244.95403,363.948"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="ccsc"
+         id="path3293"
+         d="M 223.24371,358.76619 C 227.03178,364.4483 235.48178,369.85089 244.33065,365.58472 C 242.92467,368.85069 238.96425,372.05953 233.59777,370.63548 C 226.57281,368.77133 222.35997,360.74435 223.24371,358.76619 z"
+         style="fill:#000000;fill-opacity:0.36224491;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <path
+       style="fill:#800080;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 514.29274,694.99002 C 553.02638,659.31274 552.04688,743.72047 514.61926,703.80564 C 505.49376,747.862 573.43236,733.0891 572.70302,708.85641 C 572.05649,687.37519 517.07582,647.49079 514.29274,694.99002 z"
+       id="path3295"
+       sodipodi:nodetypes="ccsc"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\path3309.png"
+       inkscape:export-xdpi="31.639999"
+       inkscape:export-ydpi="31.639999" />
+    <path
+       style="fill:#ff00ff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 500.03954,689.18313 C 514.06453,678.94222 518.04175,677.67021 522.51916,679.64947 C 527.20875,681.72253 521.98546,686.72428 526.85192,696.8258 C 540.4226,679.49258 554.01827,682.28624 561.06203,690.20089 C 567.97948,697.97363 562.43573,709.0198 554.37874,714.17035 C 546.14169,719.43601 538.73814,717.62448 531.79181,701.41872 C 528.89813,712.1912 528.25103,716.50118 520.68911,716.21232 C 512.94887,715.91664 502.81989,717.23603 505.41427,698.05279 C 492.49856,705.37639 496.17545,722.49296 501.75927,728.03828 C 512.92084,739.12288 527.86968,735.0914 548.07273,733.0711 C 567.40697,731.13768 584.14133,726.72292 582.1728,698.72591 C 581.03638,682.56346 546.07314,671.26692 532.34277,668.6947 C 513.48697,665.16231 498.47563,678.45422 500.03954,689.18313 z"
+       id="path3297"
+       sodipodi:nodetypes="czczzczcssssc"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\path3309.png"
+       inkscape:export-xdpi="31.639999"
+       inkscape:export-ydpi="31.639999" />
+    <path
+       style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 563.38844,674.97192 C 558.83564,681.64241 570.20697,687.97764 574.24758,682.16926 C 578.86248,675.53535 567.44557,669.02767 563.38844,674.97192 z"
+       id="path3299"
+       sodipodi:nodetypes="css"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\path3309.png"
+       inkscape:export-xdpi="31.639999"
+       inkscape:export-ydpi="31.639999" />
+    <g
+       id="g3301"
+       transform="translate(261.62703,352.12707)"
+       style="stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\path3309.png"
+       inkscape:export-xdpi="31.639999"
+       inkscape:export-ydpi="31.639999">
+      <path
+         sodipodi:nodetypes="cssss"
+         id="path3303"
+         d="M 327.02202,354.6411 C 327.8895,364.00822 314.67809,367.20841 312.76785,359.33998 C 310.41578,349.65161 317.54813,342.16738 328.15473,344.18769 C 338.76133,346.20799 344.26551,355.27308 340.00082,363.63005 C 334.26128,374.87711 320.46655,371.19132 319.56843,363.88566"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="ccsc"
+         id="path3305"
+         d="M 341.3102,358.59262 C 337.52213,364.27473 329.07213,369.67732 320.22326,365.41115 C 321.62924,368.67712 325.58966,371.88596 330.95614,370.46191 C 337.9811,368.59776 342.19394,360.57078 341.3102,358.59262 z"
+         style="fill:#000000;fill-opacity:0.36224491;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <path
+       style="fill:#000000;fill-opacity:0.36224491;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 497.64271,718.24955 C 508.81889,736.01464 548.55192,729.70067 579.39708,717.17286 C 568.59024,737.60274 547.06933,732.62043 526.00404,734.87681 C 518.26761,735.70548 500.60972,735.38189 497.64271,718.24955 z"
+       id="path3307"
+       sodipodi:nodetypes="ccsc"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\path3309.png"
+       inkscape:export-xdpi="31.639999"
+       inkscape:export-ydpi="31.639999" />
+    <path
+       style="fill:#000080;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 565.46327,725.07124 C 561.37294,727.2967 549.93348,733.20901 547.58811,743.34128 C 545.24272,753.47355 578.46054,742.884 580.19082,739.75969 C 581.92111,736.63539 575.17244,722.28324 565.46327,725.07124 z"
+       id="path3309"
+       inkscape:export-xdpi="31.639999"
+       inkscape:export-ydpi="31.639999" />
+    <path
+       style="fill:#000000;fill-opacity:0.36224491;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 186.57417,880.82368 C 197.75035,898.58877 239.38639,892.2748 270.23155,879.74699 C 259.42471,900.17687 244.58708,895.19456 223.52179,897.45094 C 215.78536,898.27961 192.06656,897.95602 186.57417,880.82368 z"
+       id="path3317"
+       sodipodi:nodetypes="ccsc"
+       inkscape:export-xdpi="39.122952"
+       inkscape:export-ydpi="39.122952" />
+    <path
+       style="fill:#000000;fill-opacity:0.36224491;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 494.67069,883.60159 C 505.84687,901.36668 546.59005,895.05271 577.43521,882.5249 C 566.62837,902.95478 552.6836,897.97247 531.61831,900.22885 C 523.88188,901.05752 500.16308,900.73393 494.67069,883.60159 z"
+       id="path3319"
+       sodipodi:nodetypes="ccsc"
+       inkscape:export-xdpi="31.639999"
+       inkscape:export-ydpi="31.639999" />
+    <g
+       id="g3323"
+       transform="translate(-402.88385,-437.59847)"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\11.png"
+       inkscape:export-xdpi="31.641384"
+       inkscape:export-ydpi="31.641384">
+      <path
+         sodipodi:nodetypes="cszsc"
+         id="path3315"
+         d="M 205.35714,902.36218 C 205.35714,902.36218 183.39285,906.82647 183.39285,914.32647 C 183.39285,921.82647 192.58223,924.50505 205.53571,924.50504 C 218.66776,924.50504 227.14285,920.93361 226.96428,914.1479 C 226.78571,907.36219 205.17857,902.18361 205.35714,902.36218 z"
+         style="fill:#008000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cssc"
+         id="path3311"
+         d="M 205.71429,867.36219 C 191.96429,909.68362 197.99543,901.31998 190,907.36219 C 174.75678,918.88161 233.58703,919.96981 221.07143,907.71932 C 215.10078,901.87515 217.73858,911.34281 205.71429,867.36219 z"
+         style="fill:#ff0000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="czzzzc"
+         id="path3321"
+         d="M 205.35715,875.3979 C 205.35715,875.3979 200.9798,903.8221 200,905.57647 C 199.00113,907.36497 195.3205,910.1716 193.4375,911.78183 C 191.5545,913.39206 189.31356,910.72735 190.89286,909.50504 C 192.47216,908.28273 195.94317,906.26055 196.96429,904.32647 C 197.96694,902.42739 205.35715,875.3979 205.35715,875.3979 z"
+         style="opacity:0.7;fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <g
+       id="g3328"
+       transform="translate(-358.0638,-437.59847)"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\11.png"
+       inkscape:export-xdpi="31.641384"
+       inkscape:export-ydpi="31.641384">
+      <path
+         sodipodi:nodetypes="cszsc"
+         id="path3330"
+         d="M 205.35714,902.36218 C 205.35714,902.36218 183.39285,906.82647 183.39285,914.32647 C 183.39285,921.82647 192.58223,924.50505 205.53571,924.50504 C 218.66776,924.50504 227.14285,920.93361 226.96428,914.1479 C 226.78571,907.36219 205.17857,902.18361 205.35714,902.36218 z"
+         style="fill:#008000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cssc"
+         id="path3332"
+         d="M 205.71429,867.36219 C 191.96429,909.68362 197.99543,901.31998 190,907.36219 C 174.75678,918.88161 233.58703,919.96981 221.07143,907.71932 C 215.10078,901.87515 217.73858,911.34281 205.71429,867.36219 z"
+         style="fill:#ff0000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="czzzzc"
+         id="path3334"
+         d="M 205.35715,875.3979 C 205.35715,875.3979 200.9798,903.8221 200,905.57647 C 199.00113,907.36497 195.3205,910.1716 193.4375,911.78183 C 191.5545,913.39206 189.31356,910.72735 190.89286,909.50504 C 192.47216,908.28273 195.94317,906.26055 196.96429,904.32647 C 197.96694,902.42739 205.35715,875.3979 205.35715,875.3979 z"
+         style="opacity:0.7;fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <g
+       id="g3336"
+       transform="translate(-311.63522,-436.88419)"
+       inkscape:export-xdpi="31.641384"
+       inkscape:export-ydpi="31.641384"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\11.png">
+      <path
+         sodipodi:nodetypes="cszsc"
+         id="path3338"
+         d="M 205.35714,902.36218 C 205.35714,902.36218 183.39285,906.82647 183.39285,914.32647 C 183.39285,921.82647 192.58223,924.50505 205.53571,924.50504 C 218.66776,924.50504 227.14285,920.93361 226.96428,914.1479 C 226.78571,907.36219 205.17857,902.18361 205.35714,902.36218 z"
+         style="fill:#008000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cssc"
+         id="path3340"
+         d="M 205.71429,867.36219 C 191.96429,909.68362 197.99543,901.31998 190,907.36219 C 174.75678,918.88161 233.58703,919.96981 221.07143,907.71932 C 215.10078,901.87515 217.73858,911.34281 205.71429,867.36219 z"
+         style="fill:#ff0000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="czzzzc"
+         id="path3342"
+         d="M 205.35715,875.3979 C 205.35715,875.3979 200.9798,903.8221 200,905.57647 C 199.00113,907.36497 195.3205,910.1716 193.4375,911.78183 C 191.5545,913.39206 189.31356,910.72735 190.89286,909.50504 C 192.47216,908.28273 195.94317,906.26055 196.96429,904.32647 C 197.96694,902.42739 205.35715,875.3979 205.35715,875.3979 z"
+         style="opacity:0.7;fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <path
+       style="fill:#ffff00;fill-rule:evenodd;stroke:none;stroke-width:1.72154284px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -150.70765,321.38254 C -155.28115,317.0702 -161.73787,325.26362 -157.97144,328.28225 C -154.20503,331.30086 -148.28638,325.69485 -150.70765,321.38254 z"
+       id="path3372"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\20.png"
+       inkscape:export-xdpi="31.67"
+       inkscape:export-ydpi="31.67" />
+    <g
+       id="g3344"
+       transform="translate(-365.60765,-603.05649)"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\20.png"
+       inkscape:export-xdpi="31.67"
+       inkscape:export-ydpi="31.67">
+      <path
+         sodipodi:nodetypes="cszsc"
+         id="path3346"
+         d="M 205.35714,902.36218 C 205.35714,902.36218 183.39285,906.82647 183.39285,914.32647 C 183.39285,921.82647 192.58223,924.50505 205.53571,924.50504 C 218.66776,924.50504 227.14285,920.93361 226.96428,914.1479 C 226.78571,907.36219 205.17857,902.18361 205.35714,902.36218 z"
+         style="fill:#008000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cssc"
+         id="path3348"
+         d="M 205.71429,867.36219 C 191.96429,909.68362 197.99543,901.31998 190,907.36219 C 174.75678,918.88161 233.58703,919.96981 221.07143,907.71932 C 215.10078,901.87515 217.73858,911.34281 205.71429,867.36219 z"
+         style="fill:#ff0000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="czzzzc"
+         id="path3350"
+         d="M 205.35715,875.3979 C 205.35715,875.3979 200.9798,903.8221 200,905.57647 C 199.00113,907.36497 195.3205,910.1716 193.4375,911.78183 C 191.5545,913.39206 189.31356,910.72735 190.89286,909.50504 C 192.47216,908.28273 195.94317,906.26055 196.96429,904.32647 C 197.96694,902.42739 205.35715,875.3979 205.35715,875.3979 z"
+         style="opacity:0.7;fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <g
+       id="g3352"
+       transform="matrix(-0.5,0.8660254,-0.8660254,-0.5,749.15051,619.05238)"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\20.png"
+       inkscape:export-xdpi="31.67"
+       inkscape:export-ydpi="31.67">
+      <path
+         sodipodi:nodetypes="cszsc"
+         id="path3354"
+         d="M 205.35714,902.36218 C 205.35714,902.36218 183.39285,906.82647 183.39285,914.32647 C 183.39285,921.82647 192.58223,924.50505 205.53571,924.50504 C 218.66776,924.50504 227.14285,920.93361 226.96428,914.1479 C 226.78571,907.36219 205.17857,902.18361 205.35714,902.36218 z"
+         style="fill:#008000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cssc"
+         id="path3356"
+         d="M 205.71429,867.36219 C 191.96429,909.68362 197.99543,901.31998 190,907.36219 C 174.75678,918.88161 233.58703,919.96981 221.07143,907.71932 C 215.10078,901.87515 217.73858,911.34281 205.71429,867.36219 z"
+         style="fill:#ff0000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="czzzzc"
+         id="path3358"
+         d="M 205.35715,875.3979 C 205.35715,875.3979 200.9798,903.8221 200,905.57647 C 199.00113,907.36497 195.3205,910.1716 193.4375,911.78183 C 191.5545,913.39206 189.31356,910.72735 190.89286,909.50504 C 192.47216,908.28273 195.94317,906.26055 196.96429,904.32647 C 197.96694,902.42739 205.35715,875.3979 205.35715,875.3979 z"
+         style="opacity:0.7;fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <g
+       id="g3360"
+       transform="matrix(-0.5,-0.8660254,0.8660254,-0.5,-866.72604,972.742)"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\20.png"
+       inkscape:export-xdpi="31.67"
+       inkscape:export-ydpi="31.67">
+      <path
+         sodipodi:nodetypes="cszsc"
+         id="path3362"
+         d="M 205.35714,902.36218 C 205.35714,902.36218 183.39285,906.82647 183.39285,914.32647 C 183.39285,921.82647 192.58223,924.50505 205.53571,924.50504 C 218.66776,924.50504 227.14285,920.93361 226.96428,914.1479 C 226.78571,907.36219 205.17857,902.18361 205.35714,902.36218 z"
+         style="fill:#008000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cssc"
+         id="path3364"
+         d="M 205.71429,867.36219 C 191.96429,909.68362 197.99543,901.31998 190,907.36219 C 174.75678,918.88161 233.58703,919.96981 221.07143,907.71932 C 215.10078,901.87515 217.73858,911.34281 205.71429,867.36219 z"
+         style="fill:#ff0000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="czzzzc"
+         id="path3366"
+         d="M 205.35715,875.3979 C 205.35715,875.3979 200.9798,903.8221 200,905.57647 C 199.00113,907.36497 195.3205,910.1716 193.4375,911.78183 C 191.5545,913.39206 189.31356,910.72735 190.89286,909.50504 C 192.47216,908.28273 195.94317,906.26055 196.96429,904.32647 C 197.96694,902.42739 205.35715,875.3979 205.35715,875.3979 z"
+         style="opacity:0.7;fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <path
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -218.70831,624.37843 C -223.09457,631.01283 -213.89739,640.76053 -207.96428,642.54103 C -196.93277,645.85143 -171.05361,641.53103 -153.76267,641.58693 C -136.41151,641.64293 -124.41747,642.93833 -109.49979,641.28043 C -95.516085,639.72633 -94.943525,632.98503 -96.719685,625.68963 C -133.82629,598.35634 -135.17918,604.61571 -174.63463,622.74463 C -197.36392,626.26893 -214.32205,617.74403 -218.70831,624.37843 z"
+       id="path3378"
+       sodipodi:nodetypes="csssccz"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\g3398.png"
+       inkscape:export-xdpi="31.641384"
+       inkscape:export-ydpi="31.641384" />
+    <path
+       style="fill:#ffff00;fill-rule:evenodd;stroke:none;stroke-width:1.72154284px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -191.99202,629.34293 C -196.56552,625.03053 -203.02224,633.22393 -199.25581,636.24263 C -195.4894,639.26123 -189.57075,633.65523 -191.99202,629.34293 z"
+       id="path3380"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\g3398.png"
+       inkscape:export-xdpi="31.641384"
+       inkscape:export-ydpi="31.641384" />
+    <g
+       id="g3382"
+       transform="translate(-403.05062,-293.86285)"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\g3398.png"
+       inkscape:export-xdpi="31.641384"
+       inkscape:export-ydpi="31.641384">
+      <path
+         sodipodi:nodetypes="cszsc"
+         id="path3384"
+         d="M 205.35714,902.36218 C 205.35714,902.36218 183.39285,906.82647 183.39285,914.32647 C 183.39285,921.82647 192.58223,924.50505 205.53571,924.50504 C 218.66776,924.50504 227.14285,920.93361 226.96428,914.1479 C 226.78571,907.36219 205.17857,902.18361 205.35714,902.36218 z"
+         style="fill:#008000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cssc"
+         id="path3386"
+         d="M 205.71429,867.36219 C 191.96429,909.68362 197.99543,901.31998 190,907.36219 C 174.75678,918.88161 233.58703,919.96981 221.07143,907.71932 C 215.10078,901.87515 217.73858,911.34281 205.71429,867.36219 z"
+         style="fill:#ff0000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="czzzzc"
+         id="path3388"
+         d="M 205.35715,875.3979 C 205.35715,875.3979 200.9798,903.8221 200,905.57647 C 199.00113,907.36497 195.3205,910.1716 193.4375,911.78183 C 191.5545,913.39206 189.31356,910.72735 190.89286,909.50504 C 192.47216,908.28273 195.94317,906.26055 196.96429,904.32647 C 197.96694,902.42739 205.35715,875.3979 205.35715,875.3979 z"
+         style="opacity:0.7;fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <g
+       id="g3390"
+       transform="matrix(0.8660254,-0.5,0.5,0.8660254,-790.13705,-76.24053)"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\g3398.png"
+       inkscape:export-xdpi="31.641384"
+       inkscape:export-ydpi="31.641384">
+      <path
+         sodipodi:nodetypes="cszsc"
+         id="path3392"
+         d="M 205.35714,902.36218 C 205.35714,902.36218 183.39285,906.82647 183.39285,914.32647 C 183.39285,921.82647 192.58223,924.50505 205.53571,924.50504 C 218.66776,924.50504 227.14285,920.93361 226.96428,914.1479 C 226.78571,907.36219 205.17857,902.18361 205.35714,902.36218 z"
+         style="fill:#008000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cssc"
+         id="path3394"
+         d="M 205.71429,867.36219 C 191.96429,909.68362 197.99543,901.31998 190,907.36219 C 174.75678,918.88161 233.58703,919.96981 221.07143,907.71932 C 215.10078,901.87515 217.73858,911.34281 205.71429,867.36219 z"
+         style="fill:#ff0000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="czzzzc"
+         id="path3396"
+         d="M 205.35715,875.3979 C 205.35715,875.3979 200.9798,903.8221 200,905.57647 C 199.00113,907.36497 195.3205,910.1716 193.4375,911.78183 C 191.5545,913.39206 189.31356,910.72735 190.89286,909.50504 C 192.47216,908.28273 195.94317,906.26055 196.96429,904.32647 C 197.96694,902.42739 205.35715,875.3979 205.35715,875.3979 z"
+         style="opacity:0.7;fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <g
+       id="g3398"
+       transform="matrix(0.8660254,0.5,-0.5,0.8660254,165.42186,-281.09243)"
+       inkscape:export-xdpi="31.641384"
+       inkscape:export-ydpi="31.641384">
+      <path
+         sodipodi:nodetypes="cszsc"
+         id="path3400"
+         d="M 205.35714,902.36218 C 205.35714,902.36218 183.39285,906.82647 183.39285,914.32647 C 183.39285,921.82647 192.58223,924.50505 205.53571,924.50504 C 218.66776,924.50504 227.14285,920.93361 226.96428,914.1479 C 226.78571,907.36219 205.17857,902.18361 205.35714,902.36218 z"
+         style="fill:#008000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cssc"
+         id="path3402"
+         d="M 205.71429,867.36219 C 191.96429,909.68362 197.99543,901.31998 190,907.36219 C 174.75678,918.88161 233.58703,919.96981 221.07143,907.71932 C 215.10078,901.87515 217.73858,911.34281 205.71429,867.36219 z"
+         style="fill:#ff0000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="czzzzc"
+         id="path3404"
+         d="M 205.35715,875.3979 C 205.35715,875.3979 200.9798,903.8221 200,905.57647 C 199.00113,907.36497 195.3205,910.1716 193.4375,911.78183 C 191.5545,913.39206 189.31356,910.72735 190.89286,909.50504 C 192.47216,908.28273 195.94317,906.26055 196.96429,904.32647 C 197.96694,902.42739 205.35715,875.3979 205.35715,875.3979 z"
+         style="opacity:0.7;fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <path
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -88.710515,1007.0075 C -84.324255,1013.6419 -93.521435,1023.3896 -99.454545,1025.1701 C -110.48605,1028.4805 -136.36522,1024.1601 -153.65616,1024.216 C -171.00732,1024.272 -183.00135,1025.5674 -197.91904,1023.9095 C -211.90274,1022.3554 -212.4753,1015.6141 -210.69914,1008.3187 C -173.59254,980.98553 -172.23965,987.24483 -132.7842,1005.3737 C -110.0549,1008.898 -93.096775,1000.3731 -88.710515,1007.0075 z"
+       id="path3406"
+       sodipodi:nodetypes="csssccz"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\g3426.png"
+       inkscape:export-xdpi="31.66942"
+       inkscape:export-ydpi="31.66942" />
+    <path
+       style="fill:#ffff00;fill-rule:evenodd;stroke:none;stroke-width:1.72154284px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -186.3872,1005.1535 C -190.9607,1000.8411 -197.41742,1009.0345 -193.65099,1012.0532 C -189.88458,1015.0718 -183.96593,1009.4658 -186.3872,1005.1535 z"
+       id="path3408"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\g3426.png"
+       inkscape:export-xdpi="31.66942"
+       inkscape:export-ydpi="31.66942" />
+    <g
+       id="g3410"
+       transform="matrix(-1,0,0,1,95.631796,88.76634)"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\g3426.png"
+       inkscape:export-xdpi="31.66942"
+       inkscape:export-ydpi="31.66942">
+      <path
+         sodipodi:nodetypes="cszsc"
+         id="path3412"
+         d="M 205.35714,902.36218 C 205.35714,902.36218 183.39285,906.82647 183.39285,914.32647 C 183.39285,921.82647 192.58223,924.50505 205.53571,924.50504 C 218.66776,924.50504 227.14285,920.93361 226.96428,914.1479 C 226.78571,907.36219 205.17857,902.18361 205.35714,902.36218 z"
+         style="fill:#008000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cssc"
+         id="path3414"
+         d="M 205.71429,867.36219 C 191.96429,909.68362 197.99543,901.31998 190,907.36219 C 174.75678,918.88161 233.58703,919.96981 221.07143,907.71932 C 215.10078,901.87515 217.73858,911.34281 205.71429,867.36219 z"
+         style="fill:#ff0000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="czzzzc"
+         id="path3416"
+         d="M 205.35715,875.3979 C 205.35715,875.3979 200.9798,903.8221 200,905.57647 C 199.00113,907.36497 195.3205,910.1716 193.4375,911.78183 C 191.5545,913.39206 189.31356,910.72735 190.89286,909.50504 C 192.47216,908.28273 195.94317,906.26055 196.96429,904.32647 C 197.96694,902.42739 205.35715,875.3979 205.35715,875.3979 z"
+         style="opacity:0.7;fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <g
+       id="g3418"
+       transform="matrix(-0.8660254,-0.5,-0.5,0.8660254,482.71822,306.38866)"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\g3426.png"
+       inkscape:export-xdpi="31.66942"
+       inkscape:export-ydpi="31.66942">
+      <path
+         sodipodi:nodetypes="cszsc"
+         id="path3420"
+         d="M 205.35714,902.36218 C 205.35714,902.36218 183.39285,906.82647 183.39285,914.32647 C 183.39285,921.82647 192.58223,924.50505 205.53571,924.50504 C 218.66776,924.50504 227.14285,920.93361 226.96428,914.1479 C 226.78571,907.36219 205.17857,902.18361 205.35714,902.36218 z"
+         style="fill:#008000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cssc"
+         id="path3422"
+         d="M 205.71429,867.36219 C 191.96429,909.68362 197.99543,901.31998 190,907.36219 C 174.75678,918.88161 233.58703,919.96981 221.07143,907.71932 C 215.10078,901.87515 217.73858,911.34281 205.71429,867.36219 z"
+         style="fill:#ff0000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="czzzzc"
+         id="path3424"
+         d="M 205.35715,875.3979 C 205.35715,875.3979 200.9798,903.8221 200,905.57647 C 199.00113,907.36497 195.3205,910.1716 193.4375,911.78183 C 191.5545,913.39206 189.31356,910.72735 190.89286,909.50504 C 192.47216,908.28273 195.94317,906.26055 196.96429,904.32647 C 197.96694,902.42739 205.35715,875.3979 205.35715,875.3979 z"
+         style="opacity:0.7;fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <g
+       id="g3426"
+       transform="matrix(-0.8660254,0.5,0.5,0.8660254,-472.84068,101.53676)"
+       inkscape:export-xdpi="31.66942"
+       inkscape:export-ydpi="31.66942">
+      <path
+         sodipodi:nodetypes="cszsc"
+         id="path3428"
+         d="M 205.35714,902.36218 C 205.35714,902.36218 183.39285,906.82647 183.39285,914.32647 C 183.39285,921.82647 192.58223,924.50505 205.53571,924.50504 C 218.66776,924.50504 227.14285,920.93361 226.96428,914.1479 C 226.78571,907.36219 205.17857,902.18361 205.35714,902.36218 z"
+         style="fill:#008000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cssc"
+         id="path3430"
+         d="M 205.71429,867.36219 C 191.96429,909.68362 197.99543,901.31998 190,907.36219 C 174.75678,918.88161 233.58703,919.96981 221.07143,907.71932 C 215.10078,901.87515 217.73858,911.34281 205.71429,867.36219 z"
+         style="fill:#ff0000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="czzzzc"
+         id="path3432"
+         d="M 205.35715,875.3979 C 205.35715,875.3979 200.9798,903.8221 200,905.57647 C 199.00113,907.36497 195.3205,910.1716 193.4375,911.78183 C 191.5545,913.39206 189.31356,910.72735 190.89286,909.50504 C 192.47216,908.28273 195.94317,906.26055 196.96429,904.32647 C 197.96694,902.42739 205.35715,875.3979 205.35715,875.3979 z"
+         style="opacity:0.7;fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <path
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -213.16226,786.22443 C -217.54852,792.85883 -208.35134,802.60653 -202.41823,804.38703 C -191.38672,807.69743 -165.50756,803.37703 -148.21662,803.43293 C -130.86546,803.48893 -118.87143,804.78433 -103.95373,803.12643 C -89.970035,801.57233 -89.397475,794.83103 -91.173635,787.53563 C -128.28024,760.20233 -115.70455,765.39023 -149.80287,764.59063 C -173.60358,765.97203 -208.776,779.59003 -213.16226,786.22443 z"
+       id="path3434"
+       sodipodi:nodetypes="csssccz"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\g3454.png"
+       inkscape:export-xdpi="31.669422"
+       inkscape:export-ydpi="31.669422" />
+    <path
+       style="fill:#ffff00;fill-rule:evenodd;stroke:none;stroke-width:1.72154284px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -186.95105,784.62294 C -191.52455,780.31054 -197.98127,788.50394 -194.21484,791.52264 C -190.44843,794.54124 -184.52978,788.93524 -186.95105,784.62294 z"
+       id="path3436"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\g3454.png"
+       inkscape:export-xdpi="31.669422"
+       inkscape:export-ydpi="31.669422" />
+    <g
+       id="g3438"
+       transform="translate(-356.43315,-148.44541)"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\g3454.png"
+       inkscape:export-xdpi="31.669422"
+       inkscape:export-ydpi="31.669422">
+      <path
+         sodipodi:nodetypes="cszsc"
+         id="path3440"
+         d="M 205.35714,902.36218 C 205.35714,902.36218 183.39285,906.82647 183.39285,914.32647 C 183.39285,921.82647 192.58223,924.50505 205.53571,924.50504 C 218.66776,924.50504 227.14285,920.93361 226.96428,914.1479 C 226.78571,907.36219 205.17857,902.18361 205.35714,902.36218 z"
+         style="fill:#008000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cssc"
+         id="path3442"
+         d="M 205.71429,867.36219 C 191.96429,909.68362 197.99543,901.31998 190,907.36219 C 174.75678,918.88161 233.58703,919.96981 221.07143,907.71932 C 215.10078,901.87515 217.73858,911.34281 205.71429,867.36219 z"
+         style="fill:#ff0000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="czzzzc"
+         id="path3444"
+         d="M 205.35715,875.3979 C 205.35715,875.3979 200.9798,903.8221 200,905.57647 C 199.00113,907.36497 195.3205,910.1716 193.4375,911.78183 C 191.5545,913.39206 189.31356,910.72735 190.89286,909.50504 C 192.47216,908.28273 195.94317,906.26055 196.96429,904.32647 C 197.96694,902.42739 205.35715,875.3979 205.35715,875.3979 z"
+         style="opacity:0.7;fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <g
+       id="g3446"
+       transform="matrix(0.8660254,-0.5,0.5,0.8660254,-828.51957,85.962623)"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\g3454.png"
+       inkscape:export-xdpi="31.669422"
+       inkscape:export-ydpi="31.669422">
+      <path
+         sodipodi:nodetypes="cszsc"
+         id="path3448"
+         d="M 205.35714,902.36218 C 205.35714,902.36218 183.39285,906.82647 183.39285,914.32647 C 183.39285,921.82647 192.58223,924.50505 205.53571,924.50504 C 218.66776,924.50504 227.14285,920.93361 226.96428,914.1479 C 226.78571,907.36219 205.17857,902.18361 205.35714,902.36218 z"
+         style="fill:#008000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cssc"
+         id="path3450"
+         d="M 205.71429,867.36219 C 191.96429,909.68362 197.99543,901.31998 190,907.36219 C 174.75678,918.88161 233.58703,919.96981 221.07143,907.71932 C 215.10078,901.87515 217.73858,911.34281 205.71429,867.36219 z"
+         style="fill:#ff0000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="czzzzc"
+         id="path3452"
+         d="M 205.35715,875.3979 C 205.35715,875.3979 200.9798,903.8221 200,905.57647 C 199.00113,907.36497 195.3205,910.1716 193.4375,911.78183 C 191.5545,913.39206 189.31356,910.72735 190.89286,909.50504 C 192.47216,908.28273 195.94317,906.26055 196.96429,904.32647 C 197.96694,902.42739 205.35715,875.3979 205.35715,875.3979 z"
+         style="opacity:0.7;fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <g
+       id="g3454"
+       transform="matrix(0.8660254,0.5,-0.5,0.8660254,170.96791,-119.24642)"
+       inkscape:export-xdpi="31.669422"
+       inkscape:export-ydpi="31.669422">
+      <path
+         sodipodi:nodetypes="cszsc"
+         id="path3456"
+         d="M 205.35714,902.36218 C 205.35714,902.36218 183.39285,906.82647 183.39285,914.32647 C 183.39285,921.82647 192.58223,924.50505 205.53571,924.50504 C 218.66776,924.50504 227.14285,920.93361 226.96428,914.1479 C 226.78571,907.36219 205.17857,902.18361 205.35714,902.36218 z"
+         style="fill:#008000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cssc"
+         id="path3458"
+         d="M 205.71429,867.36219 C 191.96429,909.68362 197.99543,901.31998 190,907.36219 C 174.75678,918.88161 233.58703,919.96981 221.07143,907.71932 C 215.10078,901.87515 217.73858,911.34281 205.71429,867.36219 z"
+         style="fill:#ff0000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="czzzzc"
+         id="path3460"
+         d="M 205.35715,875.3979 C 205.35715,875.3979 200.9798,903.8221 200,905.57647 C 199.00113,907.36497 195.3205,910.1716 193.4375,911.78183 C 191.5545,913.39206 189.31356,910.72735 190.89286,909.50504 C 192.47216,908.28273 195.94317,906.26055 196.96429,904.32647 C 197.96694,902.42739 205.35715,875.3979 205.35715,875.3979 z"
+         style="opacity:0.7;fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <path
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -474.76987,458.43127 C -479.15613,465.06567 -469.95895,474.81337 -464.02584,476.59387 C -452.99433,479.90427 -427.47231,488.08387 -410.18137,488.13977 C -392.83021,488.19577 -378.33617,480.5626 -365.56134,475.33327 C -352.54025,470.00314 -351.00508,467.03787 -352.78124,459.74247 C -389.88785,432.40917 -377.31216,437.59707 -411.41048,436.79747 C -435.21119,438.17887 -470.38361,451.79687 -474.76987,458.43127 z"
+       id="path3462"
+       sodipodi:nodetypes="csssccz"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\15.png"
+       inkscape:export-xdpi="31.641344"
+       inkscape:export-ydpi="31.641344" />
+    <path
+       style="fill:#ffff00;fill-rule:evenodd;stroke:none;stroke-width:1.72154284px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -448.55866,456.82978 C -453.13216,452.51738 -459.58888,460.71078 -455.82245,463.72948 C -452.05604,466.74808 -446.13739,461.14208 -448.55866,456.82978 z"
+       id="path3464"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\15.png"
+       inkscape:export-xdpi="31.641344"
+       inkscape:export-ydpi="31.641344" />
+    <g
+       id="g3466"
+       transform="translate(-618.04076,-476.23857)"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\15.png"
+       inkscape:export-xdpi="31.641344"
+       inkscape:export-ydpi="31.641344">
+      <path
+         sodipodi:nodetypes="cszsc"
+         id="path3468"
+         d="M 205.35714,902.36218 C 205.35714,902.36218 183.39285,906.82647 183.39285,914.32647 C 183.39285,921.82647 192.58223,924.50505 205.53571,924.50504 C 218.66776,924.50504 227.14285,920.93361 226.96428,914.1479 C 226.78571,907.36219 205.17857,902.18361 205.35714,902.36218 z"
+         style="fill:#008000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cssc"
+         id="path3470"
+         d="M 205.71429,867.36219 C 191.96429,909.68362 197.99543,901.31998 190,907.36219 C 174.75678,918.88161 233.58703,919.96981 221.07143,907.71932 C 215.10078,901.87515 217.73858,911.34281 205.71429,867.36219 z"
+         style="fill:#ff0000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="czzzzc"
+         id="path3472"
+         d="M 205.35715,875.3979 C 205.35715,875.3979 200.9798,903.8221 200,905.57647 C 199.00113,907.36497 195.3205,910.1716 193.4375,911.78183 C 191.5545,913.39206 189.31356,910.72735 190.89286,909.50504 C 192.47216,908.28273 195.94317,906.26055 196.96429,904.32647 C 197.96694,902.42739 205.35715,875.3979 205.35715,875.3979 z"
+         style="opacity:0.7;fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <g
+       id="g3474"
+       transform="matrix(0.8660254,-0.5,0.5,0.8660254,-1090.1272,-241.83053)"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\15.png"
+       inkscape:export-xdpi="31.641344"
+       inkscape:export-ydpi="31.641344">
+      <path
+         sodipodi:nodetypes="cszsc"
+         id="path3476"
+         d="M 205.35714,902.36218 C 205.35714,902.36218 183.39285,906.82647 183.39285,914.32647 C 183.39285,921.82647 192.58223,924.50505 205.53571,924.50504 C 218.66776,924.50504 227.14285,920.93361 226.96428,914.1479 C 226.78571,907.36219 205.17857,902.18361 205.35714,902.36218 z"
+         style="fill:#008000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cssc"
+         id="path3478"
+         d="M 205.71429,867.36219 C 191.96429,909.68362 197.99543,901.31998 190,907.36219 C 174.75678,918.88161 233.58703,919.96981 221.07143,907.71932 C 215.10078,901.87515 217.73858,911.34281 205.71429,867.36219 z"
+         style="fill:#ff0000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="czzzzc"
+         id="path3480"
+         d="M 205.35715,875.3979 C 205.35715,875.3979 200.9798,903.8221 200,905.57647 C 199.00113,907.36497 195.3205,910.1716 193.4375,911.78183 C 191.5545,913.39206 189.31356,910.72735 190.89286,909.50504 C 192.47216,908.28273 195.94317,906.26055 196.96429,904.32647 C 197.96694,902.42739 205.35715,875.3979 205.35715,875.3979 z"
+         style="opacity:0.7;fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <g
+       id="g3482"
+       transform="matrix(0.8660254,0.5,-0.5,0.8660254,-90.639708,-447.03958)"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\15.png"
+       inkscape:export-xdpi="31.641344"
+       inkscape:export-ydpi="31.641344">
+      <path
+         sodipodi:nodetypes="cszsc"
+         id="path3484"
+         d="M 205.35714,902.36218 C 205.35714,902.36218 183.39285,906.82647 183.39285,914.32647 C 183.39285,921.82647 192.58223,924.50505 205.53571,924.50504 C 218.66776,924.50504 227.14285,920.93361 226.96428,914.1479 C 226.78571,907.36219 205.17857,902.18361 205.35714,902.36218 z"
+         style="fill:#008000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cssc"
+         id="path3486"
+         d="M 205.71429,867.36219 C 191.96429,909.68362 197.99543,901.31998 190,907.36219 C 174.75678,918.88161 233.58703,919.96981 221.07143,907.71932 C 215.10078,901.87515 217.73858,911.34281 205.71429,867.36219 z"
+         style="fill:#ff0000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="czzzzc"
+         id="path3488"
+         d="M 205.35715,875.3979 C 205.35715,875.3979 200.9798,903.8221 200,905.57647 C 199.00113,907.36497 195.3205,910.1716 193.4375,911.78183 C 191.5545,913.39206 189.31356,910.72735 190.89286,909.50504 C 192.47216,908.28273 195.94317,906.26055 196.96429,904.32647 C 197.96694,902.42739 205.35715,875.3979 205.35715,875.3979 z"
+         style="opacity:0.7;fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <path
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -479.5662,653.21032 C -483.95246,659.84472 -474.75528,669.59242 -468.82217,671.37292 C -457.79066,674.68332 -432.26864,682.86292 -414.9777,682.91882 C -397.62654,682.97482 -383.1325,675.34165 -370.35767,670.11232 C -357.33658,664.78219 -355.80141,661.81692 -357.57757,654.52152 C -394.68418,627.18822 -382.10849,632.37612 -416.20681,631.57652 C -440.00752,632.95792 -475.17994,646.57592 -479.5662,653.21032 z"
+       id="path3490"
+       sodipodi:nodetypes="csssccz"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\g3582.png"
+       inkscape:export-xdpi="39.122952"
+       inkscape:export-ydpi="39.122952" />
+    <path
+       style="fill:#ffff00;fill-rule:evenodd;stroke:none;stroke-width:1.72154284px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -453.35499,651.60883 C -457.92849,647.29643 -464.38521,655.48983 -460.61878,658.50853 C -456.85237,661.52713 -450.93372,655.92113 -453.35499,651.60883 z"
+       id="path3492"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\g3582.png"
+       inkscape:export-xdpi="39.122952"
+       inkscape:export-ydpi="39.122952" />
+    <g
+       id="g3494"
+       transform="translate(-622.83709,-281.45952)"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\g3582.png"
+       inkscape:export-xdpi="39.122952"
+       inkscape:export-ydpi="39.122952">
+      <path
+         sodipodi:nodetypes="cszsc"
+         id="path3496"
+         d="M 205.35714,902.36218 C 205.35714,902.36218 183.39285,906.82647 183.39285,914.32647 C 183.39285,921.82647 192.58223,924.50505 205.53571,924.50504 C 218.66776,924.50504 227.14285,920.93361 226.96428,914.1479 C 226.78571,907.36219 205.17857,902.18361 205.35714,902.36218 z"
+         style="fill:#008000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cssc"
+         id="path3498"
+         d="M 205.71429,867.36219 C 191.96429,909.68362 197.99543,901.31998 190,907.36219 C 174.75678,918.88161 233.58703,919.96981 221.07143,907.71932 C 215.10078,901.87515 217.73858,911.34281 205.71429,867.36219 z"
+         style="fill:#ff0000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="czzzzc"
+         id="path3500"
+         d="M 205.35715,875.3979 C 205.35715,875.3979 200.9798,903.8221 200,905.57647 C 199.00113,907.36497 195.3205,910.1716 193.4375,911.78183 C 191.5545,913.39206 189.31356,910.72735 190.89286,909.50504 C 192.47216,908.28273 195.94317,906.26055 196.96429,904.32647 C 197.96694,902.42739 205.35715,875.3979 205.35715,875.3979 z"
+         style="opacity:0.7;fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <g
+       id="g3502"
+       transform="matrix(0.8660254,-0.5,0.5,0.8660254,-1094.9235,-47.05148)"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\g3582.png"
+       inkscape:export-xdpi="39.122952"
+       inkscape:export-ydpi="39.122952">
+      <path
+         sodipodi:nodetypes="cszsc"
+         id="path3504"
+         d="M 205.35714,902.36218 C 205.35714,902.36218 183.39285,906.82647 183.39285,914.32647 C 183.39285,921.82647 192.58223,924.50505 205.53571,924.50504 C 218.66776,924.50504 227.14285,920.93361 226.96428,914.1479 C 226.78571,907.36219 205.17857,902.18361 205.35714,902.36218 z"
+         style="fill:#008000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cssc"
+         id="path3506"
+         d="M 205.71429,867.36219 C 191.96429,909.68362 197.99543,901.31998 190,907.36219 C 174.75678,918.88161 233.58703,919.96981 221.07143,907.71932 C 215.10078,901.87515 217.73858,911.34281 205.71429,867.36219 z"
+         style="fill:#ff0000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="czzzzc"
+         id="path3508"
+         d="M 205.35715,875.3979 C 205.35715,875.3979 200.9798,903.8221 200,905.57647 C 199.00113,907.36497 195.3205,910.1716 193.4375,911.78183 C 191.5545,913.39206 189.31356,910.72735 190.89286,909.50504 C 192.47216,908.28273 195.94317,906.26055 196.96429,904.32647 C 197.96694,902.42739 205.35715,875.3979 205.35715,875.3979 z"
+         style="opacity:0.7;fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <g
+       id="g3510"
+       transform="matrix(0.8660254,0.5,-0.5,0.8660254,-95.436038,-252.26053)"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\g3582.png"
+       inkscape:export-xdpi="39.122952"
+       inkscape:export-ydpi="39.122952">
+      <path
+         sodipodi:nodetypes="cszsc"
+         id="path3512"
+         d="M 205.35714,902.36218 C 205.35714,902.36218 183.39285,906.82647 183.39285,914.32647 C 183.39285,921.82647 192.58223,924.50505 205.53571,924.50504 C 218.66776,924.50504 227.14285,920.93361 226.96428,914.1479 C 226.78571,907.36219 205.17857,902.18361 205.35714,902.36218 z"
+         style="fill:#008000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cssc"
+         id="path3514"
+         d="M 205.71429,867.36219 C 191.96429,909.68362 197.99543,901.31998 190,907.36219 C 174.75678,918.88161 233.58703,919.96981 221.07143,907.71932 C 215.10078,901.87515 217.73858,911.34281 205.71429,867.36219 z"
+         style="fill:#ff0000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="czzzzc"
+         id="path3516"
+         d="M 205.35715,875.3979 C 205.35715,875.3979 200.9798,903.8221 200,905.57647 C 199.00113,907.36497 195.3205,910.1716 193.4375,911.78183 C 191.5545,913.39206 189.31356,910.72735 190.89286,909.50504 C 192.47216,908.28273 195.94317,906.26055 196.96429,904.32647 C 197.96694,902.42739 205.35715,875.3979 205.35715,875.3979 z"
+         style="opacity:0.7;fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <path
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -473.50528,835.03778 C -477.89154,841.67218 -468.69436,851.41988 -462.76125,853.20038 C -451.72974,856.51078 -426.20772,864.69038 -408.91678,864.74628 C -391.56562,864.80228 -377.07158,857.16911 -364.29675,851.93978 C -351.27566,846.60965 -349.74049,843.64438 -351.51665,836.34898 C -388.62326,809.01568 -376.04757,814.20358 -410.14589,813.40398 C -433.9466,814.78538 -469.11902,828.40338 -473.50528,835.03778 z"
+       id="path3518"
+       sodipodi:nodetypes="csssccz"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\g3590.png"
+       inkscape:export-xdpi="39.122952"
+       inkscape:export-ydpi="39.122952" />
+    <path
+       style="fill:#ffff00;fill-rule:evenodd;stroke:none;stroke-width:1.72154284px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -447.29407,833.43629 C -451.86757,829.12389 -458.32429,837.31729 -454.55786,840.33599 C -450.79145,843.35459 -444.8728,837.74859 -447.29407,833.43629 z"
+       id="path3520"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\g3590.png"
+       inkscape:export-xdpi="39.122952"
+       inkscape:export-ydpi="39.122952" />
+    <g
+       id="g3522"
+       transform="translate(-616.77617,-99.63206)"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\g3590.png"
+       inkscape:export-xdpi="39.122952"
+       inkscape:export-ydpi="39.122952">
+      <path
+         sodipodi:nodetypes="cszsc"
+         id="path3524"
+         d="M 205.35714,902.36218 C 205.35714,902.36218 183.39285,906.82647 183.39285,914.32647 C 183.39285,921.82647 192.58223,924.50505 205.53571,924.50504 C 218.66776,924.50504 227.14285,920.93361 226.96428,914.1479 C 226.78571,907.36219 205.17857,902.18361 205.35714,902.36218 z"
+         style="fill:#008000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cssc"
+         id="path3526"
+         d="M 205.71429,867.36219 C 191.96429,909.68362 197.99543,901.31998 190,907.36219 C 174.75678,918.88161 233.58703,919.96981 221.07143,907.71932 C 215.10078,901.87515 217.73858,911.34281 205.71429,867.36219 z"
+         style="fill:#ff0000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="czzzzc"
+         id="path3528"
+         d="M 205.35715,875.3979 C 205.35715,875.3979 200.9798,903.8221 200,905.57647 C 199.00113,907.36497 195.3205,910.1716 193.4375,911.78183 C 191.5545,913.39206 189.31356,910.72735 190.89286,909.50504 C 192.47216,908.28273 195.94317,906.26055 196.96429,904.32647 C 197.96694,902.42739 205.35715,875.3979 205.35715,875.3979 z"
+         style="opacity:0.7;fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <g
+       id="g3530"
+       transform="matrix(0.8660254,-0.5,0.5,0.8660254,-1088.8627,134.77598)"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\g3590.png"
+       inkscape:export-xdpi="39.122952"
+       inkscape:export-ydpi="39.122952">
+      <path
+         sodipodi:nodetypes="cszsc"
+         id="path3532"
+         d="M 205.35714,902.36218 C 205.35714,902.36218 183.39285,906.82647 183.39285,914.32647 C 183.39285,921.82647 192.58223,924.50505 205.53571,924.50504 C 218.66776,924.50504 227.14285,920.93361 226.96428,914.1479 C 226.78571,907.36219 205.17857,902.18361 205.35714,902.36218 z"
+         style="fill:#008000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cssc"
+         id="path3534"
+         d="M 205.71429,867.36219 C 191.96429,909.68362 197.99543,901.31998 190,907.36219 C 174.75678,918.88161 233.58703,919.96981 221.07143,907.71932 C 215.10078,901.87515 217.73858,911.34281 205.71429,867.36219 z"
+         style="fill:#ff0000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="czzzzc"
+         id="path3536"
+         d="M 205.35715,875.3979 C 205.35715,875.3979 200.9798,903.8221 200,905.57647 C 199.00113,907.36497 195.3205,910.1716 193.4375,911.78183 C 191.5545,913.39206 189.31356,910.72735 190.89286,909.50504 C 192.47216,908.28273 195.94317,906.26055 196.96429,904.32647 C 197.96694,902.42739 205.35715,875.3979 205.35715,875.3979 z"
+         style="opacity:0.7;fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <g
+       id="g3538"
+       transform="matrix(0.8660254,0.5,-0.5,0.8660254,-89.375123,-70.43307)"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\g3590.png"
+       inkscape:export-xdpi="39.122952"
+       inkscape:export-ydpi="39.122952">
+      <path
+         sodipodi:nodetypes="cszsc"
+         id="path3540"
+         d="M 205.35714,902.36218 C 205.35714,902.36218 183.39285,906.82647 183.39285,914.32647 C 183.39285,921.82647 192.58223,924.50505 205.53571,924.50504 C 218.66776,924.50504 227.14285,920.93361 226.96428,914.1479 C 226.78571,907.36219 205.17857,902.18361 205.35714,902.36218 z"
+         style="fill:#008000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cssc"
+         id="path3542"
+         d="M 205.71429,867.36219 C 191.96429,909.68362 197.99543,901.31998 190,907.36219 C 174.75678,918.88161 233.58703,919.96981 221.07143,907.71932 C 215.10078,901.87515 217.73858,911.34281 205.71429,867.36219 z"
+         style="fill:#ff0000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="czzzzc"
+         id="path3544"
+         d="M 205.35715,875.3979 C 205.35715,875.3979 200.9798,903.8221 200,905.57647 C 199.00113,907.36497 195.3205,910.1716 193.4375,911.78183 C 191.5545,913.39206 189.31356,910.72735 190.89286,909.50504 C 192.47216,908.28273 195.94317,906.26055 196.96429,904.32647 C 197.96694,902.42739 205.35715,875.3979 205.35715,875.3979 z"
+         style="opacity:0.7;fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <g
+       id="g3576"
+       transform="translate(-775.477,458.8544)"
+       style="stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none" />
+    <g
+       id="g3590"
+       transform="matrix(0.408864,0.9125953,-0.9125953,0.408864,-240.61605,328.5256)"
+       style="stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none"
+       inkscape:export-xdpi="39.122952"
+       inkscape:export-ydpi="39.122952">
+      <path
+         sodipodi:nodetypes="csc"
+         id="path3592"
+         d="M 393.36796,361.17508 C 405.55485,353.35465 431.84633,321.77353 426.48335,315.85093 C 424.12049,313.24149 378.69702,337.05271 376.64773,336.91222"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="csssss"
+         id="path3594"
+         d="M 381.41061,347.02223 C 379.94793,333.74412 399.99834,327.4008 402.08178,345.8193 C 404.16522,364.23778 370.75646,372.28491 364.83157,356.41473 C 358.90666,340.54454 365.5652,331.06117 376.33615,323.13031 C 387.10708,315.19946 420.49009,299.63995 428.57554,299.43112 C 436.1223,299.23622 409.13244,330.50066 398.68595,336.81364"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <g
+       id="g3582"
+       transform="matrix(0.90371,0.428145,-0.428145,0.90371,-603.1197,166.60423)"
+       style="stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none"
+       inkscape:export-xdpi="39.122952"
+       inkscape:export-ydpi="39.122952">
+      <path
+         sodipodi:nodetypes="csc"
+         id="path3584"
+         d="M 393.36796,361.17508 C 405.55485,353.35465 431.84633,321.77353 426.48335,315.85093 C 424.12049,313.24149 378.69702,337.05271 376.64773,336.91222"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="csssss"
+         id="path3586"
+         d="M 381.41061,347.02223 C 379.94793,333.74412 399.99834,327.4008 402.08178,345.8193 C 404.16522,364.23778 370.75646,372.28491 364.83157,356.41473 C 358.90666,340.54454 365.5652,331.06117 376.33615,323.13031 C 387.10708,315.19946 420.49009,299.63995 428.57554,299.43112 C 436.1223,299.23622 409.13244,330.50066 398.68595,336.81364"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <g
+       id="g3599"
+       transform="matrix(0.9989595,-4.5604962e-2,4.5604962e-2,0.9989595,-796.23832,119.03231)"
+       style="stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none"
+       inkscape:export-xdpi="31.641344"
+       inkscape:export-ydpi="31.641344"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\15.png">
+      <path
+         sodipodi:nodetypes="csc"
+         id="path3601"
+         d="M 393.36796,361.17508 C 405.55485,353.35465 431.84633,321.77353 426.48335,315.85093 C 424.12049,313.24149 378.69702,337.05271 376.64773,336.91222"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="csssss"
+         id="path3603"
+         d="M 381.41061,347.02223 C 379.94793,333.74412 399.99834,327.4008 402.08178,345.8193 C 404.16522,364.23778 370.75646,372.28491 364.83157,356.41473 C 358.90666,340.54454 365.5652,331.06117 376.33615,323.13031 C 387.10708,315.19946 420.49009,299.63995 428.57554,299.43112 C 436.1223,299.23622 409.13244,330.50066 398.68595,336.81364"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <rect
+       style="fill:#0000ff;fill-opacity:0;fill-rule:evenodd;stroke:none;stroke-width:0.96868056000000002px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect3873"
+       width="142.21899"
+       height="142.21899"
+       x="-482.66772"
+       y="363.6391"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\15.png"
+       inkscape:export-xdpi="31.641344"
+       inkscape:export-ydpi="31.641344" />
+    <rect
+       style="fill:#0000ff;fill-opacity:0;fill-rule:evenodd;stroke:none;stroke-width:0.96868056000000002px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect3877"
+       width="142.21899"
+       height="142.21899"
+       x="-479.90561"
+       y="756.41479"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\17.png"
+       inkscape:export-xdpi="31.641344"
+       inkscape:export-ydpi="31.641344" />
+    <rect
+       style="fill:#0000ff;fill-opacity:0;fill-rule:evenodd;stroke:none;stroke-width:0.96868056px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect3883"
+       width="114.87524"
+       height="114.87524"
+       x="186.04395"
+       y="627.42169"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\12.png"
+       inkscape:export-xdpi="39.172932"
+       inkscape:export-ydpi="39.172932" />
+    <rect
+       style="fill:#0000ff;fill-opacity:0;fill-rule:evenodd;stroke:none;stroke-width:0.96868056000000002px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect3887"
+       width="142.21899"
+       height="142.21899"
+       x="159.25264"
+       y="768.01581"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\new\3.png"
+       inkscape:export-xdpi="31.641344"
+       inkscape:export-ydpi="31.641344" />
+    <path
+       style="fill:url(#linearGradient3429);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="M -548.0223,250.91776 L -527.44166,250.91776 C -523.26062,240.49709 -508.89105,227.18581 -497.15317,220.88704 C -497.0044,229.58761 -494.48264,244.15745 -489.8066,250.91776 L -472.86917,250.91776 C -464.11438,268.57668 -465.61907,302.12182 -472.69226,320.00131 L -546.98847,320.00131 L -548.0223,250.91776 z"
+       id="path2635"
+       sodipodi:nodetypes="cccccccc"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\71.png"
+       inkscape:export-xdpi="62.18"
+       inkscape:export-ydpi="62.18" />
+    <path
+       style="fill:#800000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="M -537.46028,319.8632 C -535.5156,319.8632 -518.11677,301.45998 -519.26857,279.7885 C -500.45104,297.8327 -516.43305,320.00131 -516.43305,320.00131 L -537.46028,319.8632 z"
+       id="path2637"
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\71.png"
+       inkscape:export-xdpi="62.18"
+       inkscape:export-ydpi="62.18" />
+    <path
+       style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="M -537.78096,270.42016 L -511.74574,260.10919 C -519.29106,271.48058 -531.92411,287.20432 -537.78096,270.42016 z"
+       id="path2641"
+       sodipodi:nodetypes="ccc"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\71.png"
+       inkscape:export-xdpi="62.18"
+       inkscape:export-ydpi="62.18" />
+    <path
+       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="M -534.6978,269.53483 C -532.32823,269.53483 -534.33324,275.00305 -535.42689,274.45623 C -536.52053,273.90941 -537.45118,270.46548 -537.45118,270.46548 L -534.6978,269.53483 z"
+       id="path2643"
+       sodipodi:nodetypes="cscc"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\71.png"
+       inkscape:export-xdpi="62.18"
+       inkscape:export-ydpi="62.18" />
+    <path
+       style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="M -534.73503,319.74353 L -512.43755,311.28289 L -528.66378,310.9792 L -510.25567,303.31954 L -522.46778,303.11708 L -512.7669,296.74629 L -519.99598,296.58992 L -513.89236,292.22621 L -519.22265,292.27681 L -514.72083,287.54939 L -519.34053,287.39933 C -519.16453,286.61344 -518.94823,281.1668 -519.13955,279.79503 C -507.26136,291.70199 -508.46599,305.86698 -516.10583,319.9336 L -534.73503,319.74353 z"
+       id="path2645"
+       sodipodi:nodetypes="cccccccccccccc"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\71.png"
+       inkscape:export-xdpi="62.18"
+       inkscape:export-ydpi="62.18" />
+    <path
+       style="fill:url(#linearGradient3447);fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none;fill-opacity:1"
+       d="M -548.18607,250.95592 C -543.8115,256.05958 -537.80074,293.27029 -546.18105,320.20701 C -564.91876,320.20701 -596.77508,295.30905 -596.87499,287.02323 C -596.97487,278.74022 -565.25483,250.95592 -548.18607,250.95592 z"
+       id="path2647"
+       sodipodi:nodetypes="cczc"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\71.png"
+       inkscape:export-xdpi="62.18"
+       inkscape:export-ydpi="62.18" />
+    <path
+       style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1;opacity:0.28205128"
+       d="M -593.35936,286.54189 C -574.30733,263.65103 -551.25691,255.49586 -549.59752,254.88941 C -548.60375,256.60467 -547.95108,259.58452 -547.99947,260.49627 C -549.74546,261.12316 -573.91367,267.55487 -593.35936,286.54189 z"
+       id="path3455"
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\71.png"
+       inkscape:export-xdpi="62.18"
+       inkscape:export-ydpi="62.18" />
+    <path
+       style="opacity:0.28205124;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -524.20464,251.92867 C -523.08613,247.23263 -511.6501,232.13446 -498.99748,224.66725 C -506.40215,231.65595 -517.66354,243.33068 -518.10256,251.85961 L -524.20464,251.92867 z"
+       id="path3457"
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\71.png"
+       inkscape:export-xdpi="62.18"
+       inkscape:export-ydpi="62.18" />
+    <path
+       style="fill:#ff7f2a;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="M -590.03751,473.75505 L -633.07789,404.31088 L -675.95225,470.45619 C -639.23689,484.71494 -622.36159,482.5126 -590.03751,473.75505 z"
+       id="path3467"
+       sodipodi:nodetypes="cccc" />
+    <path
+       style="fill:#803300;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="M -625.1953,416.81532 C -624.66915,420.18612 -644.42355,426.98496 -646.04491,424.82314 C -646.47925,424.50618 -644.91266,423.00541 -645.34519,422.84856 C -647.89492,421.92391 -652.3477,424.8537 -653.90624,426.77626 C -647.46093,433.08996 -620.31249,425.32483 -616.40624,417.20594 C -618.36106,415.70223 -624.23081,414.68367 -626.07505,415.10198 C -626.62624,415.227 -625.15036,416.72544 -625.1953,416.81532 z"
+       id="path3469"
+       sodipodi:nodetypes="ccsccsc" />
+    <path
+       style="fill:#803300;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="M -616.67696,429.31391 C -616.15081,432.68471 -655.49818,442.85532 -657.11954,440.6935 C -657.48157,440.42931 -655.05311,438.6349 -655.44319,438.47824 C -658.27986,437.33895 -664.50137,440.47446 -666.10392,442.45131 C -659.65861,448.76501 -611.79415,437.82342 -607.8879,429.70453 C -609.378,428.5583 -615.98521,427.51181 -618.00204,427.72863 C -619.42179,427.88125 -616.59627,429.15253 -616.67696,429.31391 z"
+       id="path3475"
+       sodipodi:nodetypes="ccsccsc" />
+    <path
+       style="fill:#803300;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="M -609.30008,442.14802 C -606.97854,449.2477 -664.27979,462.73287 -667.28222,457.39459 C -668.39246,456.5844 -665.07392,455.13558 -666.32716,455.22244 C -668.45443,455.36987 -675.11948,457.73736 -676.2666,459.1524 C -669.26886,468.78067 -604.55538,458.94393 -600.51102,442.53864 C -601.99166,441.39969 -608.08578,440.34685 -610.09836,440.55864 C -611.53704,440.71003 -609.21866,441.98519 -609.30008,442.14802 z"
+       id="path3482"
+       sodipodi:nodetypes="ccsccsc" />
+    <path
+       style="fill:#803300;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="M -600.01282,457.35418 C -597.69128,464.45386 -654.99253,477.93903 -657.99496,472.60075 C -660.98975,470.41532 -665.15642,472.10987 -666.97934,474.35856 C -659.9816,483.98683 -595.26812,474.15009 -591.22376,457.7448 C -592.74549,456.57424 -598.85032,455.35429 -600.87943,455.58777 C -602.23597,455.74386 -599.93456,457.19767 -600.01282,457.35418 z"
+       id="path3491"
+       sodipodi:nodetypes="ccccsc" />
+    <path
+       style="fill:#784421;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="M -686.66696,470.10396 C -660.15046,480.60007 -633.46353,480.60007 -633.46353,480.60007 C -633.46353,480.60007 -696.61065,448.5593 -708.21161,425.90979 C -708.21161,453.53114 -686.66696,468.44667 -686.66696,470.10396 z"
+       id="path3463"
+       sodipodi:nodetypes="cccc" />
+    <path
+       style="fill:#784421;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="M -633.63396,480.53592 C -600.48833,479.43107 -584.74631,473.37952 -582.81065,472.31366 C -572.64233,466.71452 -554.9399,442.39946 -554.08444,432.5389 C -588.15178,459.5501 -603.85214,469.2383 -633.63396,480.53592 z"
+       id="path3465"
+       sodipodi:nodetypes="cscc" />
+    <path
+       style="fill:#502d16;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="M -728.65142,469.55153 C -728.96506,479.98327 -698.37966,479.85445 -695.50579,479.49522 C -709.84151,490.72295 -724.3732,505.93802 -724.232,514.29813 C -738.37448,491.72876 -729.48006,469.27531 -728.65142,469.55153 z"
+       id="path3494"
+       sodipodi:nodetypes="cccc" />
+    <path
+       style="fill:#784421;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="M -545.62414,470.93387 C -545.3105,481.36561 -575.8959,481.23679 -578.76977,480.87756 C -564.43405,492.10529 -549.90236,507.32036 -550.04356,515.68047 C -535.90108,493.1111 -544.7955,470.65765 -545.62414,470.93387 z"
+       id="path3497"
+       sodipodi:nodetypes="cccc" />
+    <path
+       style="fill:#c87137;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="M -718.31842,480.65663 L -678.77641,490.98406 L -680.69908,502.73386 L -720.14474,494.35716 L -718.31842,480.65663 z"
+       id="path3507" />
+    <path
+       style="fill:#ff7f2a;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="M -675.22197,488.94852 C -680.91381,480.82668 -697.44299,489.78014 -690.87455,499.77762 C -684.47122,509.52382 -669.53013,497.07035 -675.22197,488.94852 z"
+       id="path3511"
+       sodipodi:nodetypes="czz" />
+    <path
+       style="fill:#c87137;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="M -684.92601,480.94882 L -647.09876,496.41902 L -650.55968,507.81097 L -688.5496,494.2871 L -684.92601,480.94882 z"
+       id="path3519" />
+    <path
+       style="fill:#ff7f2a;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="M -708.82304,482.16403 C -714.51488,474.04219 -731.04406,482.99565 -724.47562,492.99313 C -718.07229,502.73933 -703.1312,490.28586 -708.82304,482.16403 z"
+       id="path3523"
+       sodipodi:nodetypes="czz" />
+    <path
+       style="fill:#ff7f2a;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="M -582.31722,489.89801 C -588.00906,481.77617 -604.53824,490.72963 -597.9698,500.72711 C -591.56647,510.47331 -576.62538,498.01984 -582.31722,489.89801 z"
+       id="path3529"
+       sodipodi:nodetypes="czz" />
+    <path
+       style="fill:#ff7f2a;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="M -660.36768,494.04121 C -654.67584,485.91937 -638.14666,494.87283 -644.7151,504.87031 C -651.11843,514.61651 -666.05952,502.16304 -660.36768,494.04121 z"
+       id="path3535"
+       sodipodi:nodetypes="czz" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -630.31939,481.56682 L -630.31939,488.88648"
+       id="path3539" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -589.5779,475.14485 L -589.5779,482.46451"
+       id="path3541" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -683.76671,471.41597 L -683.76671,478.73563"
+       id="path3543" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -648.96381,480.2548 L -648.96381,487.57446"
+       id="path3545" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -613.19415,479.84049 L -613.19415,487.16015"
+       id="path3547" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -599.38347,477.35456 L -599.38347,484.67422"
+       id="path3549" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -663.0507,478.04509 L -663.0507,485.36475"
+       id="path3551" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -675.48031,474.03999 L -675.48031,481.35965"
+       id="path3553" />
+    <path
+       style="fill:#784421;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="M -694.02241,472.03871 C -694.33605,482.47045 -663.75065,482.34163 -660.87678,481.9824 C -675.2125,493.21013 -689.74419,508.4252 -689.60299,516.78531 C -703.74547,494.21594 -694.85105,471.76249 -694.02241,472.03871 z"
+       id="path3513"
+       sodipodi:nodetypes="cccc" />
+    <path
+       style="fill:#c87137;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -947.13637,457.39813 C -921.78989,466.16324 -894.67015,474.07932 -843.08476,459.63153 L -842.92295,467.3892 C -884.6743,477.79422 -905.04731,478.39089 -947.06732,465.82264 L -947.13637,457.39813 z"
+       id="path3555"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -890.37448,468.1014 L -890.37448,475.42106"
+       id="path3557" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -849.7711,462.43902 L -849.7711,469.75868"
+       id="path3559" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -943.95991,458.71014 L -943.95991,466.0298"
+       id="path3561" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -909.0189,466.99654 L -909.15701,474.86863"
+       id="path3563"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -873.3183,466.85845 L -873.3183,474.17811"
+       id="path3565" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -859.57667,464.64873 L -859.57667,471.96839"
+       id="path3567" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -923.2439,465.06305 L -923.2439,472.38271"
+       id="path3569" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -935.67351,461.33416 L -935.67351,468.65382"
+       id="path3571" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="M -934.31034,461.59503 C -875.20917,450.77193 -889.25779,389.86219 -893.55467,376.58095"
+       id="path3575"
+       sodipodi:nodetypes="cs" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -872.28248,465.40832 C -850.46524,466.79833 -843.3607,436.78611 -849.35675,426.18599"
+       id="path3581"
+       sodipodi:nodetypes="cs" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -868.74998,474.23719 C -883.98436,482.63563 -909.5703,504.12001 -890.03905,511.93251"
+       id="path3583"
+       sodipodi:nodetypes="cs" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -919.53123,473.65126 C -943.04218,489.11909 -910.44495,509.55636 -909.76561,509.00282"
+       id="path3585"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:url(#linearGradient3604);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -554.23133,62.670824 L -533.65069,62.670824 C -529.46965,52.250154 -515.10008,38.938874 -503.3622,32.640104 C -503.21343,41.340674 -500.69167,55.910514 -496.01563,62.670824 L -479.0782,62.670824 C -470.32341,80.329744 -471.8281,113.87488 -478.90129,131.75437 L -553.1975,131.75437 L -554.23133,62.670824 z"
+       id="path3587"
+       sodipodi:nodetypes="cccccccc"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\72.png"
+       inkscape:export-xdpi="62.18"
+       inkscape:export-ydpi="62.18" />
+    <path
+       style="fill:#800000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -543.66931,131.61626 C -541.72463,131.61626 -524.3258,113.21304 -525.4776,91.541564 C -506.66007,109.58576 -522.64208,131.75437 -522.64208,131.75437 L -543.66931,131.61626 z"
+       id="path3589"
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\72.png"
+       inkscape:export-xdpi="62.18"
+       inkscape:export-ydpi="62.18" />
+    <path
+       style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -543.98999,82.173224 L -517.95477,71.862254 C -525.50009,83.233644 -538.13314,98.957384 -543.98999,82.173224 z"
+       id="path3591"
+       sodipodi:nodetypes="ccc"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\72.png"
+       inkscape:export-xdpi="62.18"
+       inkscape:export-ydpi="62.18" />
+    <path
+       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -540.90683,81.287894 C -538.53726,81.287894 -540.54227,86.756114 -541.63592,86.209294 C -542.72956,85.662474 -543.66021,82.218544 -543.66021,82.218544 L -540.90683,81.287894 z"
+       id="path3593"
+       sodipodi:nodetypes="cscc"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\72.png"
+       inkscape:export-xdpi="62.18"
+       inkscape:export-ydpi="62.18" />
+    <path
+       style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -536.87246,131.6347 L -520.30386,123.03595 L -530.6631,121.90362 L -518.67441,115.0726 L -526.5387,114.45582 L -518.97593,108.49935 L -524.20501,108.34298 L -520.10139,103.97927 L -523.70789,104.16798 L -520.92986,99.302454 L -525.54956,99.152394 C -525.37356,98.366504 -525.15726,92.919864 -525.34858,91.548094 C -513.47039,103.45505 -514.67502,117.62004 -522.31486,131.68666 L -536.87246,131.6347 z"
+       id="path3595"
+       sodipodi:nodetypes="cccccccccccccc"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\72.png"
+       inkscape:export-xdpi="62.18"
+       inkscape:export-ydpi="62.18" />
+    <path
+       style="fill:url(#linearGradient3606);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -554.3951,62.708984 C -550.02053,67.812644 -544.00977,105.02335 -552.39008,131.96007 C -571.12779,131.96007 -602.98411,107.06211 -603.08402,98.776294 C -603.1839,90.493284 -571.46386,62.708984 -554.3951,62.708984 z"
+       id="path3597"
+       sodipodi:nodetypes="cczc"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\72.png"
+       inkscape:export-xdpi="62.18"
+       inkscape:export-ydpi="62.18" />
+    <path
+       style="opacity:0.28205124;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -599.56839,98.294954 C -580.51636,75.404094 -557.46594,67.248924 -555.80655,66.642474 C -554.81278,68.357734 -554.16011,71.337584 -554.2085,72.249334 C -555.95449,72.876224 -580.1227,79.307934 -599.56839,98.294954 z"
+       id="path3599"
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\72.png"
+       inkscape:export-xdpi="62.18"
+       inkscape:export-ydpi="62.18" />
+    <path
+       style="opacity:0.28205124;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -530.41367,63.681734 C -529.29516,58.985694 -517.85913,43.887524 -505.20651,36.420314 C -512.61118,43.409014 -523.87257,55.083744 -524.31159,63.612674 L -530.41367,63.681734 z"
+       id="path3602"
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\72.png"
+       inkscape:export-xdpi="62.18"
+       inkscape:export-ydpi="62.18" />
+    <path
+       style="fill:url(#linearGradient3624);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -539.86822,-145.04179 L -519.28758,-145.04179 C -515.10654,-155.46246 -500.73697,-168.77374 -488.99909,-175.07251 C -488.85032,-166.37194 -486.32856,-151.8021 -481.65252,-145.04179 L -464.71509,-145.04179 C -455.9603,-127.38287 -457.46499,-93.837728 -464.53818,-75.958238 L -538.83439,-75.958238 L -539.86822,-145.04179 z"
+       id="path3608"
+       sodipodi:nodetypes="cccccccc"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\73.png"
+       inkscape:export-xdpi="62.18"
+       inkscape:export-ydpi="62.18" />
+    <path
+       style="fill:#800000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -529.3062,-76.096348 C -527.36152,-76.096348 -509.96269,-94.499568 -511.11449,-116.17105 C -492.29696,-98.126848 -508.27897,-75.958238 -508.27897,-75.958238 L -529.3062,-76.096348 z"
+       id="path3610"
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\73.png"
+       inkscape:export-xdpi="62.18"
+       inkscape:export-ydpi="62.18" />
+    <path
+       style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -529.62688,-125.53939 L -503.59166,-135.85036 C -511.13698,-124.47897 -523.77003,-108.75523 -529.62688,-125.53939 z"
+       id="path3612"
+       sodipodi:nodetypes="ccc"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\73.png"
+       inkscape:export-xdpi="62.18"
+       inkscape:export-ydpi="62.18" />
+    <path
+       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -526.54372,-126.42472 C -524.17415,-126.42472 -526.17916,-120.9565 -527.27281,-121.50332 C -528.36645,-122.05014 -529.2971,-125.49407 -529.2971,-125.49407 L -526.54372,-126.42472 z"
+       id="path3614"
+       sodipodi:nodetypes="cscc"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\73.png"
+       inkscape:export-xdpi="62.18"
+       inkscape:export-ydpi="62.18" />
+    <path
+       style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -517.53496,-76.423178 L -505.52643,-84.745711 L -511.53276,-85.118455 L -503.48266,-92.640008 L -509.20375,-92.980575 L -503.64607,-99.282311 L -508.11302,-99.369628 L -504.49532,-103.73334 L -508.09927,-103.75179 L -506.56675,-108.41016 L -511.18645,-108.56022 C -511.01045,-109.34611 -510.79415,-114.79275 -510.98547,-116.16452 C -499.10728,-104.25756 -500.31191,-90.092568 -507.95175,-76.025948 L -517.53496,-76.423178 z"
+       id="path3616"
+       sodipodi:nodetypes="cccccccccccccc"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\73.png"
+       inkscape:export-xdpi="62.18"
+       inkscape:export-ydpi="62.18" />
+    <path
+       style="fill:url(#linearGradient3626);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -540.03199,-145.00363 C -535.65742,-139.89997 -529.64666,-102.68926 -538.02697,-75.752538 C -556.76468,-75.752538 -588.621,-100.6505 -588.72091,-108.93632 C -588.82079,-117.21933 -557.10075,-145.00363 -540.03199,-145.00363 z"
+       id="path3618"
+       sodipodi:nodetypes="cczc"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\73.png"
+       inkscape:export-xdpi="62.18"
+       inkscape:export-ydpi="62.18" />
+    <path
+       style="opacity:0.28205124;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -585.20528,-109.41766 C -566.15325,-132.30852 -543.10283,-140.46369 -541.44344,-141.07014 C -540.44967,-139.35488 -539.797,-136.37503 -539.84539,-135.46328 C -541.59138,-134.83639 -565.75959,-128.40468 -585.20528,-109.41766 z"
+       id="path3620"
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\73.png"
+       inkscape:export-xdpi="62.18"
+       inkscape:export-ydpi="62.18" />
+    <path
+       style="opacity:0.28205124;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -516.05056,-144.03088 C -514.93205,-148.72692 -503.49602,-163.82509 -490.8434,-171.2923 C -498.24807,-164.3036 -509.50946,-152.62887 -509.94848,-144.09994 L -516.05056,-144.03088 z"
+       id="path3622"
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\73.png"
+       inkscape:export-xdpi="62.18"
+       inkscape:export-ydpi="62.18" />
+    <rect
+       style="fill:#7f007f;fill-opacity:0;fill-rule:evenodd;stroke:none;stroke-width:0.96868056000000002px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2717"
+       width="114.87524"
+       height="114.87524"
+       x="187.09363"
+       y="453.90894"
+       inkscape:export-filename="C:\Documents and Settings\Propietario\Escritorio\SVN\pixjuegos\pixdash\fpg-sources\enemigos\11.png"
+       inkscape:export-xdpi="39.172932"
+       inkscape:export-ydpi="39.172932" />
+    <path
+       style="fill:#ffff00;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="M 942.96875,653.3125 C 931.1385,653.53042 919.99042,658.31638 908.8125,662.9375 L 912,666.25 L 907.4375,661.75 L 898.875,667.375 L 909.62891,731.0586 L 910.59375,743.03125 C 923.92112,744.68962 925.58202,790.66031 930.84375,819.59375 L 976.84375,823.84375 C 977.4592,800.38058 972.94501,790.70429 942.8125,806.18853 C 941.68121,771.31123 935.50265,743.37462 920.84375,731.6875 L 925.78248,694.01545 C 939.63909,667.76014 970.74109,675.65288 986.5625,690.3125 C 983.0999,713.49981 998.98485,712.36577 1006.6562,703.28125 C 1014.3277,694.19674 1008.8531,680.39267 993.46875,685.1875 C 974.52907,660.29453 958.17907,653.03232 942.96875,653.3125 z"
+       id="path3503"
+       sodipodi:nodetypes="cccccccccccccscc" />
+    <path
+       style="fill:#00ffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="M 865.1875,581.875 C 857.32086,582.28184 849.93287,590.73052 851.25,606.8125 C 839.11179,637.46633 829.10582,660.46608 877.21875,681 L 890.15625,722.89063 C 872.22296,742.94725 882.76728,775.2907 884.6875,798.65625 C 871.12319,795.025 854.2847,800.21556 845.9375,821.375 L 896.15625,819.15625 C 898.75698,793.77557 896.54231,741.28281 910.59375,743.03125 L 909.8125,730.4375 L 899.05859,665.25 L 887.6875,670.65625 L 892.09375,665.8125 C 838.54746,655.13111 853.68385,632.59946 857.84375,611.96875 C 876.1628,611.81787 885.01794,596.48962 875.4375,586.34375 C 872.44361,583.17317 868.76325,581.69007 865.1875,581.875 z"
+       id="path3510"
+       sodipodi:nodetypes="cccccccccccccsc" />
+    <path
+       style="fill:#00ffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 897.92945,622.9948 C 853.88241,621.46327 869.38585,688.83001 894.88804,691.00703 C 920.66443,693.20746 941.70061,624.51674 897.92945,622.9948 z"
+       id="path3499"
+       sodipodi:nodetypes="czz" />
+    <path
+       style="fill:#ffff00;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="M 900.7325,623.5406 C 884.98832,634.86536 889.53889,653.62417 889.53889,653.62417 L 901.27868,663.9585 L 889.94628,665.2893 C 889.94628,665.2893 893.01164,689.3046 898.24657,689.96996 C 919.35094,692.65234 940.86268,625.94028 900.7325,623.5406 z"
+       id="path3538"
+       sodipodi:nodetypes="ccccsc" />
+    <path
+       style="fill:#000000;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="M 907.11852,649.79828 C 899.16834,651.09468 898.62689,644.17748 907.57049,641.14761 C 916.59693,638.08968 915.13595,648.49091 907.11852,649.79828 z"
+       id="path3546"
+       sodipodi:nodetypes="czz" />
+    <path
+       style="fill:#000000;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="M 880.54542,647.6373 C 875.31691,646.30155 875.19436,638.35128 880.89544,639.94413 C 886.66054,641.55487 885.77393,648.97305 880.54542,647.6373 z"
+       id="path3552"
+       sodipodi:nodetypes="czz" />
+    <path
+       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="M 881.12133,671.46365 C 885.81696,674.77822 898.84586,676.29711 905.70434,674.22579 C 896.78722,692.0345 886.14179,685.72371 881.12133,671.46365 z"
+       id="path3554"
+       sodipodi:nodetypes="ccc" />
+    <path
+       style="fill:#00ffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 1143.7341,649.06997 C 1083.4737,645.68383 1106.0018,735.46643 1140.3976,742.20724 C 1154.2307,744.91822 1173.181,650.72464 1143.7341,649.06997 z"
+       id="path3590"
+       sodipodi:nodetypes="css" />
+    <path
+       style="fill:#ffff00;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 1144.5342,649.26497 C 1122.9739,664.77332 1132.2438,691.01443 1132.2438,691.01443 L 1148.3205,705.16646 L 1132.8018,706.98888 C 1132.8018,706.98888 1135.0659,740.98076 1142.2348,741.89191 C 1171.1355,745.56521 1199.4893,652.55114 1144.5342,649.26497 z"
+       id="path3596"
+       sodipodi:nodetypes="ccccsc" />
+    <path
+       style="fill:#000000;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 1158.1131,684.80843 C 1147.2259,686.58375 1143.7224,677.38742 1155.97,673.23825 C 1168.3309,669.05066 1169.0924,683.01809 1158.1131,684.80843 z"
+       id="path3598"
+       sodipodi:nodetypes="czz" />
+    <path
+       style="fill:#000000;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 1119.928,682.81589 C 1112.768,680.98669 1112.6002,670.09944 1120.4072,672.28071 C 1128.302,674.4865 1127.088,684.64509 1119.928,682.81589 z"
+       id="path3600"
+       sodipodi:nodetypes="czz" />
+    <path
+       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 1120.7166,715.44416 C 1127.147,719.98319 1144.9891,722.06319 1154.3811,719.22668 C 1142.1698,743.61428 1127.5918,734.97216 1120.7166,715.44416 z"
+       id="path3604"
+       sodipodi:nodetypes="ccc" />
+  </g>
+</svg>

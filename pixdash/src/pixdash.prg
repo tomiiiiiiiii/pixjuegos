@@ -309,16 +309,27 @@ Private
 	renacer;
 	x_original;
 	y_original;
+	anim_base;
+	frames_anim;
+	anim;
 Begin
    ctype=c_scroll;
-	file=fpg_enemigos;
+   file=fpg_enemigos;
    x_original=x;
    y_original=y;
-   graph=tipo;
+   if(tipo==6) tipo=5; end
+   anim_base=tipo*10;
+   loop
+		if(map_exists(fpg_enemigos,(anim_base)+i+1) and i<9) i++; else break; end
+   end
+   frames_anim=i;
+   say(tipo+": "+frames_anim);
+   graph=anim_base+1;
    ancho=graphic_info(file,graph,g_width)/2;
    alto=graphic_info(file,graph,g_height)/2;
    //if(tipo==7) from alpha=0 to 255 step 5; frame; end end
    loop
+		if(anim<10) anim++; else anim=0; if(graph<anim_base+frames_anim) graph++; else graph=anim_base+1; end end
 		while(todo_preparado==0) frame; end
 		if(alpha<255) alpha+=5; end
 		if(map_get_pixel(0,durezas,x+ancho,y)==suelo) flags=0; end //giramos cuando chocamos por la derecha
