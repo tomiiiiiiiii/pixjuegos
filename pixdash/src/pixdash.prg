@@ -323,7 +323,6 @@ Begin
 		if(map_exists(fpg_enemigos,(anim_base)+i+1) and i<9) i++; else break; end
    end
    frames_anim=i;
-   say(tipo+": "+frames_anim);
    graph=anim_base+1;
    ancho=graphic_info(file,graph,g_width)/2;
    alto=graphic_info(file,graph,g_height)/2;
@@ -364,10 +363,8 @@ Begin
 			if(id_colision.y<y and id_colision.saltando==1 and tipo!=5 and tipo!=6 and tipo!=9 and tipo!=10 and id_colision.accion!="muerte") //si el prota está más arriba, el malo muere. a menos que sean spikis o sus huevos! y que no esté muriendo el prota xD
 				//p[id_colision.jugador].puntos++;
 				id_colision.gravedad=-20; //rebota el prota
-				while(size>0 and tipo!=2 and tipo!=4)  //animacion de la muerte, salvo que sean para-algo
-					size=size-5; 
-					angle+=7000;
-					frame; 
+				if(tipo!=2 and tipo!=4)  //animacion de la muerte, salvo que sean para-algo
+					explotalo(x,y,z,255,0,file,graph,60);
 				end
 				if(tipo==2 or tipo==4) enemigo(x,y,tipo-1); end //los para-algo llamando a los correspondientes malos cuando los pisas
 				frame;
@@ -579,7 +576,6 @@ BEGIN
 		end
 	end
 	if(!file_exists(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".png")) menu(); return; end // FIN DE LA COMPETICION
-	say("caca");
 	frame;
 	if(num_nivel!=1) foto=get_screen(); end
 	set_mode(ancho_pantalla,alto_pantalla,16);
@@ -898,6 +894,7 @@ include "menu.pr-";
 include "guardar.pr-";
 include "navegador.pr-";
 include "editorniveles.pr-";
+include "explosion.pr-";
 
 
 Begin
