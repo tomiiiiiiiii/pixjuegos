@@ -1,8 +1,11 @@
 @echo off
 cd src
-bgdc -Ca -g pixbros.prg
-move pixbros.dcb ..\
+echo Compilando...
+..\..\bennu-win\bgdc -g pixbros.prg
+move pixbros.dcb ..
+pause
 cd ..
+..\..\bennu-win\bgdi pixbros.dcb
+
 pause
-bgdi pixbros.dcb
-pause
+exit

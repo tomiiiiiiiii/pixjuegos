@@ -158,7 +158,7 @@ Begin
 	limites[3]=-300;
 
 	if(cliente) net_cliente("pruebas.panreyes.es"); return; end
-	
+		zoom();
 	loop
 		if(servidor_iniciado)
 			if(nConectados>0)
@@ -285,3 +285,53 @@ Begin
 End
 
 include "net.pr-";
+
+Process zoom();
+Private
+	camara_x;
+	camara_y;
+	min_x; max_x;
+	min_y; max_y;
+Begin
+	x=512;
+	y=300;
+	z=-512;
+	size=200;
+	frame; //esto evita que se cuelge por el get_screen antes del primer frame
+	loop
+		if(key(_t)) size++; end
+		if(key(_g)) size--; end
+		graph=get_screen();
+
+		from i=1 to 8;
+			if(exists(p[i].identificador))
+				min_x=p[i].identificador.x;
+				max_x=p[i].identificador.x;
+				min_y=p[i].identificador.y;
+				max_y=p[i].identificador.y;
+				break;
+			end
+		end
+		from i=1 to 8;
+			if(exists(p[i].identificador))
+				if(p[i].identificador.x<min_x) min_x=p[i].identificador.x; end
+				if(p[i].identificador.x>max_x) max_x=p[i].identificador.x; end
+				if(p[i].identificador.y<min_y) min_y=p[i].identificador.y; end
+				if(p[i].identificador.y>max_y) max_y=p[i].identificador.y; end
+			end
+			if(max_x>824) max_x=824; end
+			if(max_y>500) max_y=500; end
+			if(min_x<200) min_x=200; end
+			if(min_y<0) min_y=0; end
+			camara_x=(min_x+max_x)/2;
+			camara_y=(min_y+max_y)/2;
+		end
+
+		if(min_x!=max_x) size=300+((min_x-max_x))/3; size-=(max_y-min_y)/20; end
+		set_center(0,graph,camara_x,camara_y);
+		if(size<100) size=100; end
+		if(size>250) size=250; end
+		frame;
+		unload_map(0,graph);
+	end
+End

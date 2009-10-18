@@ -657,6 +657,7 @@ begin
 		end
 		if(collision(type obstcc) or (llegada!=jugador and llegada!=0))
 			golp(x,y,graph);
+			explotalo(x,y,z,alpha,angle,file,graph,60);
 			sonido(4);
 			break;
 		end
@@ -900,4 +901,58 @@ include "guardar.inc";
 process shell(string url);
 begin
 	//exec(_P_WAIT, "notepad.exe", 0, NULL);
+end
+
+Process explotalo(x,y,z,alpha,angle,file,grafico,frames);
+Private
+	a;
+	b;
+	c;
+	tiempo;
+	struct particula[10000];
+		pixel;
+		pos_x;
+		pos_y;
+		vel_y;
+		vel_x;
+	end
+	ancho;
+	alto;
+Begin
+	ancho=graphic_info(file,grafico,g_width);
+	alto=graphic_info(file,grafico,g_height);
+	say(alto);
+	from b=0 to alto-1 step 3;
+		from a=0 to ancho-1 step 3;
+			if(map_get_pixel(file,grafico,a,b)!=0)
+				particula[c].pixel=map_get_pixel(file,grafico,a,b);
+				
+				particula[c].pos_x=a-(ancho/2);
+				particula[c].pos_y=b-(alto/2);
+				particula[c].vel_x=((a-(ancho/2))/12)+rand(-1,1);
+				particula[c].vel_y=((b-(alto/2))/12)+rand(-1,1);
+				
+			//	particula[c].vel_x=(a-(ancho/2))/12;
+			//	particula[c].vel_y=(b-(alto/2))/12;
+				
+				c++;
+			end
+		end
+	end
+	a=c;
+	while(tiempo<frames)
+		graph=new_map(ancho*8,alto*8,32);
+		from c=0 to a;
+			map_put_pixel(0,graph,particula[c].pos_x+(ancho*8/2),particula[c].pos_y+(alto*8/2),particula[c].pixel);
+			map_put_pixel(0,graph,particula[c].pos_x+(ancho*8/2)+1,particula[c].pos_y+(alto*8/2),particula[c].pixel);
+			map_put_pixel(0,graph,particula[c].pos_x+(ancho*8/2),particula[c].pos_y+(alto*8/2)+1,particula[c].pixel);
+			map_put_pixel(0,graph,particula[c].pos_x+(ancho*8/2)+1,particula[c].pos_y+(alto*8/2)+1,particula[c].pixel);
+			particula[c].pos_x+=particula[c].vel_x;
+			particula[c].pos_y+=particula[c].vel_y+tiempo-10;
+			
+		end
+		tiempo++;
+		frame;
+		unload_map(0,graph);
+	end
 end

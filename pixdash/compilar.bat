@@ -1,11 +1,10 @@
 @echo off
 cd src
 echo Compilando...
-..\bennu\bgdc -g pixdash.prg
+..\..\bennu-win\bgdc -g pixdash.prg
 move pixdash.dcb ..
 pause
 cd ..
-bennu\bgdi pixdash.dcb
-
+..\..\bennu-win\bgdi pixdash.dcb
 pause
 exit

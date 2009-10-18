@@ -1,11 +1,11 @@
 @echo off
-cd fpg-sources
-bgdc -g -Ca pxlfpg.prg
-bgdi pxlfpg pixfrogger
-cd ..
 cd src
-bgdc -g -Ca pixfrogger.prg
-move pixfrogger.dcb ..\
-cd ..
+echo Compilando...
+..\..\bennu-win\bgdc -g pixfrogger.prg
+move pixfrogger.dcb ..
 pause
-bgdi pixfrogger
+cd ..
+..\bennu-win\bgdi pixfrogger.dcb
+
+pause
+exit

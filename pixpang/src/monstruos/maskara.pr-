@@ -368,8 +368,7 @@ begin
 	end
 end
 
-process ondular(x,y,z,grafico,file,radio,omega,delta);
-
+process ondular(x,y,z,graffico,file,radio,omega,delta);
 private
 	angulo;
 	altura;
@@ -377,11 +376,11 @@ private
 begin
 
 	loop
-		graph=new_map(radio*2+graphic_info(file,grafico,g_wide),graphic_info(file,grafico,g_height),16);
+		graph=new_map(radio*2+graphic_info(file,graffico,g_wide),graphic_info(file,graffico,g_height),16);
 
 		angulo=desfase;
-		from altura=0 to graphic_info(0,grafico,g_height);
-			map_block_copy(file,graph,radio+get_distx(angulo,radio),altura,grafico,0,altura,graphic_info(0,grafico,g_wide),1,128);
+		from altura=0 to graphic_info(0,graffico,g_height);
+			map_block_copy(file,graph,radio+get_distx(angulo,radio),altura,graffico,0,altura,graphic_info(0,graffico,g_wide),1,128);
 			angulo+=omega;
 		end
 		desfase+=delta;

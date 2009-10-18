@@ -1,25 +1,28 @@
 @echo off
 ECHO CREANDO FPGS...
+rd /s /f fpg
+mkdir fpg
+mkdir fpg\monstruos
 cd fpg-sources
-bgdc -Ca pxlfpg.prg
-bgdi pxlfpg menu
-bgdi pxlfpg menu-en
-bgdi pxlfpg menu-es
-bgdi pxlfpg chars1
-bgdi pxlfpg chars2
-bgdi pxlfpg chars3
-bgdi pxlfpg chars4
-bgdi pxlfpg chars5
-bgdi pxlfpg chars6
-bgdi pxlfpg chars7
-bgdi pxlfpg charsxmas
-bgdi pxlfpg eng
-bgdi pxlfpg pixpang
-bgdi pxlfpg bloquesmask
+..\..\bennu-win\bgdc pxlfpg.prg
+..\..\bennu-win\bgdi pxlfpg menu
+..\..\bennu-win\bgdi pxlfpg menu-en
+..\..\bennu-win\bgdi pxlfpg menu-es
+..\..\bennu-win\bgdi pxlfpg chars1
+..\..\bennu-win\bgdi pxlfpg chars2
+..\..\bennu-win\bgdi pxlfpg chars3
+..\..\bennu-win\bgdi pxlfpg chars4
+..\..\bennu-win\bgdi pxlfpg chars5
+..\..\bennu-win\bgdi pxlfpg chars6
+..\..\bennu-win\bgdi pxlfpg chars7
+..\..\bennu-win\bgdi pxlfpg charsxmas
+..\..\bennu-win\bgdi pxlfpg eng
+..\..\bennu-win\bgdi pxlfpg pixpang
+..\..\bennu-win\bgdi pxlfpg bloquesmask
 cd monstruos
-bgdc -Ca pxlfpg.prg
-bgdi pxlfpg fantasma
-bgdi pxlfpg fmars
-bgdi pxlfpg gusano
-bgdi pxlfpg maskara
-bgdi pxlfpg ultraball
+..\..\..\bennu-win\bgdc pxlfpg.prg
+..\..\..\bennu-win\bgdi pxlfpg fantasma
+..\..\..\bennu-win\bgdi pxlfpg fmars
+..\..\..\bennu-win\bgdi pxlfpg gusano
+..\..\..\bennu-win\bgdi pxlfpg maskara
+..\..\..\bennu-win\bgdi pxlfpg ultraball

@@ -88,7 +88,6 @@ Global
 	gravedad=3; //STANDARD 3, 5 NIVEL MARIO
 	//modos especiales
 	modo_fraticidio;
-
 Local
 	caca084a;
 	caca084b;
@@ -271,35 +270,36 @@ begin
 	repeat
 		i=0;
 		string_mander=fgets(descriptor_nivel);
+		say(string_mander);
 		if(string_mander[0]!="/")
 			if(string_mander[0]=="m" and string_mander[1]=="u" and string_mander[2]=="n" and string_mander[3]=="e" and string_mander[4]=="c" and string_mander[5]=="o")
 				datosvarios[0]=atoi(string_mander[7]);
 				if(datosvarios[0]==1)
-					muneco1x=atoi(string_mander[9]+string_mander[10]+string_mander[11]);
-					muneco1y=atoi(string_mander[13]+string_mander[14]+string_mander[15]);
+					muneco1x=atoi(""+string_mander[9]+string_mander[10]+string_mander[11]);
+					muneco1y=atoi(""+string_mander[13]+string_mander[14]+string_mander[15]);
 					from ii=1 to 3;
 						if(p[ii].muneco==1 and p[ii].juega) id_muneco1=muneco1(ii); end
 					end
 				end
 				if(datosvarios[0]==2)
-					muneco2x=atoi(string_mander[9]+string_mander[10]+string_mander[11]);
-					muneco2y=atoi(string_mander[13]+string_mander[14]+string_mander[15]);
+					muneco2x=atoi(""+string_mander[9]+string_mander[10]+string_mander[11]);
+					muneco2y=atoi(""+string_mander[13]+string_mander[14]+string_mander[15]);
 					from ii=1 to 3;
 						if(p[ii].muneco==2 and p[ii].juega) id_muneco2=muneco2(ii); end
 					end
 				end
 				if(datosvarios[0]==3)
-					muneco3x=atoi(string_mander[9]+string_mander[10]+string_mander[11]);
-					muneco3y=atoi(string_mander[13]+string_mander[14]+string_mander[15]);
+					muneco3x=atoi(""+string_mander[9]+string_mander[10]+string_mander[11]);
+					muneco3y=atoi(""+string_mander[13]+string_mander[14]+string_mander[15]);
 					from ii=1 to 3;
 						if(p[ii].muneco==3 and p[ii].juega) id_muneco3=muneco3(ii); end
 					end
 				end
 			end
 			if(string_mander[0]=="e" and string_mander[1]=="n" and string_mander[2]=="e" and string_mander[3]=="m" and string_mander[4]=="i" and string_mander[5]=="g" and string_mander[6]=="o")
-				datosvarios[0]=atoi(string_mander[8]+string_mander[9]);
-				datosvarios[1]=atoi(string_mander[11]+string_mander[12]+string_mander[13]);
-				datosvarios[2]=atoi(string_mander[15]+string_mander[16]+string_mander[17]);
+				datosvarios[0]=atoi(""+string_mander[8]+string_mander[9]);
+				datosvarios[1]=atoi(""+string_mander[11]+string_mander[12]+string_mander[13]);
+				datosvarios[2]=atoi(""+string_mander[15]+string_mander[16]+string_mander[17]);
 				enemigo(datosvarios[0],datosvarios[1],datosvarios[2]);
 			end
 		end
@@ -310,8 +310,8 @@ begin
 	frame;
 	//transiciones
 //	if(!net) set_center(0,graph,640,0); x=640; y=0; loop grav++; angle+=grav*1000; if(angle>90000) break; end frame;	end end
-	set_center(0,graph,640,0); x=640; y=0; loop grav++; angle+=grav*1000; if(angle>90000) break; end frame;	end 
-/*	switch(rand(0,5))
+//	set_center(0,graph,640,0); x=640; y=0; loop grav++; angle+=grav*1000; if(angle>90000) break; end frame;	end 
+	switch(rand(0,5))
 		case 0:
 			set_center(0,graph,640,0); x=640; y=0; loop grav++; angle+=grav*1000; if(angle>90000) break; end frame;	end
 		end
@@ -329,7 +329,7 @@ begin
 			while(size_y!=1) size_y-=10; frame; end
 			while(size_x!=0) size_x-=10; frame; end
 		end
-	end*/
+	end
 	frame;
 	if(mundo==10 or mundo==20 or mundo==30 or mundo==40 or mundo==50)
 		musica(100);
@@ -579,7 +579,7 @@ Begin
 			id_enemigo.grav=0;
 			id_enemigo.alpha=0;
 			id_enemigo.size=size;
-			boladenievegraph(graph);
+			boladenievegraph(graf);
 			frame;
 		end
 		if(accion!=chutado)
@@ -881,7 +881,7 @@ Begin
 		id_muneco3.grav=-20; muneco3_enganchado=0;
 		p[id_muneco3.jugador].invencibilidad=-60; id_muneco3.accion=0;
 	end
-
+	explotalo(x,y,z,255,0,0,graf,60);
 	frame;
 End
 
@@ -1087,6 +1087,7 @@ Begin
 		if(y<-alto/2) y=alto_nivel-1+alto/2; end
 		frame;
 	end
+	explotalo(x,y,z,alpha,angle,file,graph,60);
 	frame;
 End
 
@@ -1129,6 +1130,7 @@ Begin
 		sombra();
 		frame;
 	end
+	explotalo(x,y,z,alpha,angle,file,graph,60);
 End
 
 Process burbujaroja(alpha);

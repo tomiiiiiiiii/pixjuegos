@@ -175,7 +175,7 @@ Begin
 		file_muneco1=load_fpg("./fpg/chars1.fpg"); 
 		file_muneco2=file_muneco1; 
 	end
-	img_pixpang=load_png("./cosas/pixpang.png");
+	img_pixpang=950;
 	fnt1=load_fnt("./fnt/textos.fnt");
 	fnt2=load_fnt("./fnt/conta.fnt");
 	fnt3=load_fnt("./fnt/textos2.fnt");
@@ -1387,10 +1387,10 @@ Begin
 	If(peq_izq==1 and matabolas==0 and jefe==0) if(reloj==0) itemreloj(1); else secs+=60; end End
 	If(tamano!=1 AND tamano!=6 AND tamano!=10 and tamano!=13 and tamano!=17 and tamano!=18 and tamano!=19 and tamano!=20 and tamano!=21 and tamano!=22) if(cheto_borracho==0 or matabolas==1 or dinamita==1) bola(x-(ancho_bola/4),y,tamano-1,1); bola(x+(ancho_bola/4),y,tamano-1,0); else if(rand(0,3)==0 and tamano<17) bola(x-(ancho_bola/4),y,tamano,1); bola(x+(ancho_bola/4),y,tamano,0); else bola(x-(ancho_bola/4),y,tamano-1,1); bola(x+(ancho_bola/4),y,tamano-1,0); End End End
 	If(tamano==1 OR tamano==6 OR tamano==10 or tamano==13) size=0; End
-	From graph=706 To 710; Frame(200); End
+	explotalo(x,y,z,alpha,0,file,graph,60);
 	suena(2);
 	bolas--;
-	if(tamano==17) bola_estrella=0; matabolas=1; frame(6000); matabolas=0; end
+	if(tamano==17) bola_estrella=0; matabolas=1; graph=0; frame(6000); matabolas=0; end
 	if(tamano==18) bola_estrella=0; itemreloj(10); end
 	If(tamano!=1 AND tamano!=6 and tamano!=10 and tamano!=13 AND modo_juego==2) If(rand(0,10)<3) items(x,y,rand(0,9)); End End
 End
@@ -1419,16 +1419,16 @@ Begin
 	escenario();
 End
 
-Process grafico(x,y,graph,z,parpadeo,file);
+Process grafico(x,y,graph,z,intparpadeo,file);
 Private
 	exgraph;
 Begin
 	exgraph=graph;
 	Loop
 		if(ops.op_sombras==0)
-			If(parpadeo==1) If(graph==exgraph) graph=borrar; Else graph=exgraph; End End
+			If(intparpadeo==1) If(graph==exgraph) graph=borrar; Else graph=exgraph; End End
 		else
-			if(parpadeo==1) 
+			if(intparpadeo==1) 
 				graph=exgraph;
 				from alpha=255 to 0 step -3; frame; end
 				from alpha=0 to 255 step 3; frame; end
@@ -1490,32 +1490,32 @@ Begin
 	if(numerete==1 and modo_juego==1) numerete=rand(1,13); end
 	while(numerete>13) numerete-=13; end
 	numerito=itoa(numerete);
-	If(cancion==0) cargada=load_song("./cd-ogg/23.ogg"); End
+	If(cancion==0) cargada=load_song("./ogg/23.ogg"); End
 	numerete=mundo;
 	while(numerete>2) numerete-=3; end
 	If(cancion=>1 AND cancion=<4) 
 		switch(numerete) 
 			case 0:
-				cargada=load_song("./cd-ogg/23.ogg"); 
+				cargada=load_song("./ogg/23.ogg"); 
 			end
 			case 1: 
-				cargada=load_song("./cd-ogg/pang2.ogg"); 
+				cargada=load_song("./ogg/pang2.ogg"); 
 			end 
 			case 2: 
-				cargada=load_song("./cd-ogg/pang3.ogg"); 
+				cargada=load_song("./ogg/pang3.ogg"); 
 			end 
 		End
 	end
 	// no hay mucha música oficial por ahora...
 	
-	If(cancion==5) cargada=load_song("./cd-ogg/menu.ogg"); End
-	If(cancion==6) cargada=load_song("./cd-ogg/20.ogg"); End
+	If(cancion==5) cargada=load_song("./ogg/menu.ogg"); End
+	If(cancion==6) cargada=load_song("./ogg/20.ogg"); End
     If(cancion==7) //prisa!
-			cargada=load_song("./cd-ogg/24.ogg");
+			cargada=load_song("./ogg/24.ogg");
     End
-    If(cancion==8) cargada=load_song("./cd-ogg/18.ogg"); End
-	If(cancion==9) cargada=load_song("./cd-ogg/19.ogg"); End
-	If(cancion==10) cargada=load_song("./cd-ogg/intro.ogg"); End
+    If(cancion==8) cargada=load_song("./ogg/18.ogg"); End
+	If(cancion==9) cargada=load_song("./ogg/19.ogg"); End
+	If(cancion==10) cargada=load_song("./ogg/intro.ogg"); End
 	If(cancion==-1)
 		fade_music_off(250);
 		Return;
@@ -2561,7 +2561,8 @@ Begin
 		Frame;
 	End
 	if(y>10) items(x,y,regalo); end
-	from alpha=255 to 0 step -10; frame; end
+	explotalo(x,y,z,alpha,0,file,graph,60);
+	//from alpha=255 to 0 step -10; frame; end
 End
 
 Process opciones();
@@ -2699,7 +2700,7 @@ Begin
 	end
 	if(jefe==0) fondos_tour(); end
 
-	if(mapadurezas) unload_map(0,mapadurezas); else mapadurezas=new_map(800,600,16); end
+	//if(mapadurezas) unload_map(0,mapadurezas); else mapadurezas=new_map(800,600,16); end
 	
 	While(cont_bloque<200)
 		x=pantalla.bx[cont_bloque];
@@ -2711,7 +2712,7 @@ Begin
 		cont_bloque++;
 	End
 	frame;
-	save_png(0,mapadurezas,"c:\nivel.png");
+	//save_png(0,mapadurezas,"c:\nivel.png");
 	time_puesto=pantalla.btime;
 	p1_muere=0; 
 	p2_muere=0;
@@ -3026,7 +3027,7 @@ begin
 		end
 	end
 	delete_text(0);
-	graph=load_png("cosas/pixjuegos.png");
+	graph=951;
 	x=400;
 	y=300;
 	z=-10;
@@ -3072,4 +3073,55 @@ include "monstruos/maskara.pr-";
 
 process shell(string crap);
 begin
+end
+
+Process explotalo(x,y,z,alpha,angle,file,graffico,frames);
+Private
+	a;
+	b;
+	c;
+	tiempo;
+	struct particula[10000];
+		pixel;
+		pos_x;
+		pos_y;
+		vel_y;
+		vel_x;
+	end
+Begin
+	ancho=graphic_info(file,graffico,g_width);
+	alto=graphic_info(file,graffico,g_height);
+	from b=0 to alto-1 step 5;
+		from a=0 to ancho-1 step 5;
+			if(map_get_pixel(file,graffico,a,b)!=0)
+				particula[c].pixel=map_get_pixel(file,graffico,a,b);
+				
+				particula[c].pos_x=a-(ancho/2);
+				particula[c].pos_y=b-(alto/2);
+				particula[c].vel_x=((a-(ancho/2))/12)+rand(-1,1);
+				particula[c].vel_y=((b-(alto/2))/12)+rand(-1,1);
+				
+			//	particula[c].vel_x=(a-(ancho/2))/12;
+			//	particula[c].vel_y=(b-(alto/2))/12;
+				
+				c++;
+			end
+		end
+	end
+	a=c;
+	while(tiempo<frames)
+		graph=new_map(ancho*8,alto*8,32);
+		from c=0 to a;
+			map_put_pixel(0,graph,particula[c].pos_x+(ancho*8/2),particula[c].pos_y+(alto*8/2),particula[c].pixel);
+			map_put_pixel(0,graph,particula[c].pos_x+(ancho*8/2)+1,particula[c].pos_y+(alto*8/2),particula[c].pixel);
+			map_put_pixel(0,graph,particula[c].pos_x+(ancho*8/2),particula[c].pos_y+(alto*8/2)+1,particula[c].pixel);
+			map_put_pixel(0,graph,particula[c].pos_x+(ancho*8/2)+1,particula[c].pos_y+(alto*8/2)+1,particula[c].pixel);
+			particula[c].pos_x+=particula[c].vel_x;
+			particula[c].pos_y+=particula[c].vel_y+tiempo-10;
+			
+		end
+		tiempo++;
+		frame;
+		unload_map(0,graph);
+	end
 end

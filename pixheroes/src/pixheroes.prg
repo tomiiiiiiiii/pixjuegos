@@ -469,13 +469,13 @@ Begin
 		x_out=x+inercia/20;
 		While((toca_right!=suelo and toca_right_down!=suelo and toca_right_up!=suelo) AND x<x_out)
 			toca_right=map_get_pixel(0,mapa_durezas,x+ancho_queco/2,y);
-			toca_right_down=map_get_pixel(0,mapa_durezas,x+ancho_queco/2,y+4);
+			//toca_right_down=map_get_pixel(0,mapa_durezas,x+ancho_queco/2,y+4);
 			toca_right_up=map_get_pixel(0,mapa_durezas,x+ancho_queco/2,y-4);
 			x++;
 		End
 		While(x>x_out AND (toca_left!=suelo and toca_left_down!=suelo and toca_left_up!=suelo))
 			toca_left=map_get_pixel(0,mapa_durezas,x-ancho_queco/2,y);
-			toca_left_down=map_get_pixel(0,mapa_durezas,x-ancho_queco/2,y+4);
+			//toca_left_down=map_get_pixel(0,mapa_durezas,x-ancho_queco/2,y+4);
 			toca_left_up=map_get_pixel(0,mapa_durezas,x-ancho_queco/2,y-4);
 			x--;
 		End		

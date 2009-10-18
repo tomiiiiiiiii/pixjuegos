@@ -1,4 +1,4 @@
 @echo off
-.\bennu\bgdi pixfight
+..\bennu-win\bgdi pixfight
 pause
 exit

@@ -11,13 +11,13 @@ mkdir pixfight-export\fpg
 mkdir pixfight-export\ogg
 copy fpg\*.fpg pixfight-export\fpg
 copy ogg\*.ogg pixfight-export\ogg
-copy bennu\*.dll pixfight-export
-copy bennu\bgdi.exe pixfight-export\pixfight.exe
+copy ..\bennu-win\*.dll pixfight-export
+copy ..\bennu-win\bgdi.exe pixfight-export\pixfight.exe
 copy pixfight.dcb pixfight-export
 copy nivelmask.png pixfight-export
 cd pixfight-export
 echo DEBES ELEGIR EL PIXFIGHT.EXE
-..\bennu\pakator 
+..\..\bennu-win\pakator 
 move pixfight_exe_pak.exe ..\
 cd ..
 rd /s /q pixfight-export

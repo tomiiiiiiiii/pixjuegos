@@ -1,8 +1,11 @@
 @echo off
 cd src
-bgdc -Ca -g pixpang.prg
-move pixpang.dcb ..\
+echo Compilando...
+..\..\bennu-win\bgdc -g pixpang.prg
+move pixpang.dcb ..
+pause
 cd ..
+..\bennu-win\bgdi pixpang.dcb
+
 pause
-bgdi pixpang.dcb
-pause
+exit

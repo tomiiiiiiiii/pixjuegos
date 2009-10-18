@@ -1,13 +1,13 @@
 @echo off
 ECHO CREANDO FPGS...
 cd fpg-sources
-..\bennu\bgdc -Ca pxlfpg.prg
-..\bennu\bgdi pxlfpg enemigos
-..\bennu\bgdi pxlfpg menu
-..\bennu\bgdi pxlfpg powerups
-..\bennu\bgdi pxlfpg pix
-..\bennu\bgdi pxlfpg pux
-..\bennu\bgdi pxlfpg pax
-..\bennu\bgdi pxlfpg pex
-..\bennu\bgdi pxlfpg moneda
-..\bennu\bgdi pxlfpg tiles
+..\..\bennu-win\bgdc -Ca pxlfpg.prg
+..\..\bennu-win\bgdi pxlfpg enemigos
+..\..\bennu-win\bgdi pxlfpg menu
+..\..\bennu-win\bgdi pxlfpg powerups
+..\..\bennu-win\bgdi pxlfpg pix
+..\..\bennu-win\bgdi pxlfpg pux
+..\..\bennu-win\bgdi pxlfpg pax
+..\..\bennu-win\bgdi pxlfpg pex
+..\..\bennu-win\bgdi pxlfpg moneda
+..\..\bennu-win\bgdi pxlfpg tiles

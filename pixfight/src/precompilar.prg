@@ -11,7 +11,9 @@ Begin
 	fp[3]=fopen("personaje3.pr-", O_WRITE);
 	fputs(fp[0],"Global");
 	cd("..\personajes");
-	While((carpeta=glob("*")) != "")
+	loop
+		carpeta=glob("*");
+		if(carpeta=="") break; end
 		if(carpeta!="." and carpeta!=".." and carpeta!=".svn")
 			numpersonajes++;
 			cd(carpeta);
@@ -36,13 +38,17 @@ Begin
 	fputs(fp[0],"	numpersonajes="+numpersonajes+";");
 	frame;
 	x=0;
-	While((carpeta=glob("*")) != "")
+	glob(".."); //BUG!
+	loop
+		carpeta=glob("*");
+		if(carpeta=="") break; end
 		if(carpeta!="." and carpeta!=".." and carpeta!=".svn")
 			x++;
 			fputs(fp[0],'	fpg_'+carpeta+'=load_fpg("'+carpeta+'.fpg");');
 			fputs(fp[1],'	case '+x+': file=fpg_'+carpeta+'; end');
 			fputs(fp[2],'	case '+x+': include "../personajes/'+carpeta+'/'+carpeta+'.pr-"; end');
 			fputs(fp[3],'include "../personajes/'+carpeta+'/'+carpeta+'_proc.pr-";');
+			say("Hola");
 		end
 	end
 	fputs(fp[0],"End");

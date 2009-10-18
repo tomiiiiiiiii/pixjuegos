@@ -3,12 +3,12 @@ echo Precompilando...
 rd /s /q fpg
 mkdir fpg
 cd src
-..\bennu\bgdc -Ca precompilar.prg > null
-..\bennu\bgdi precompilar
+..\..\bennu-win\bgdc precompilar.prg
+..\..\bennu-win\bgdi precompilar
 del precompilar.dcb /f
 del null /f
 echo Compilando...
-..\bennu\bgdc -g pixfight.prg
+..\..\bennu-win\bgdc -g pixfight.prg
 move pixfight.dcb ..
 pause
 cd ..
