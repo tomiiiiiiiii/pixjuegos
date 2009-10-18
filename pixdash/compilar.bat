@@ -5,6 +5,6 @@ echo Compilando...
 move pixdash.dcb ..
 pause
 cd ..
-..\..\bennu-win\bgdi pixdash.dcb
+..\bennu-win\bgdi pixdash.dcb
 pause
 exit
