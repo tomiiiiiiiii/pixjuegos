@@ -1,0 +1,56 @@
+Const
+	resolucion=32;
+End
+
+Process explotalo(x,y,z,size,file,imagen,frames);
+Private
+	byte a;
+	byte b;
+	byte c;
+	short tiempo;
+	struct particula[10000];
+		short pixel;
+		short pos_x;
+		short pos_y;
+		short vel_y;
+		short vel_x;
+	end
+Begin
+	ancho=graphic_info(file,imagen,g_width);
+	alto=graphic_info(file,imagen,g_height);
+	from b=0 to alto-1 step resolucion;
+		from a=0 to ancho-1 step resolucion;
+			if(map_get_pixel(file,imagen,a,b)!=0)
+				particula[c].pixel=map_get_pixel(file,imagen,a,b);
+				particula[c].pos_x=a-(ancho/2);
+				particula[c].pos_y=b-(alto/2);
+				particula[c].vel_x=((a-(ancho/2))/12)+rand(-1,1);
+				particula[c].vel_y=((b-(alto/2))/12)+rand(-1,1);
+				
+				c++;
+			end
+		end
+	end
+	a=c;
+	graph=new_map(ancho*8,alto*8,bits);
+	while(tiempo<frames)
+		from c=0 to a;
+			map_put_pixel(0,graph,particula[c].pos_x+(ancho*8/2),particula[c].pos_y+(alto*8/2),particula[c].pixel);
+			map_put_pixel(0,graph,particula[c].pos_x+(ancho*8/2)+1,particula[c].pos_y+(alto*8/2),particula[c].pixel);
+			map_put_pixel(0,graph,particula[c].pos_x+(ancho*8/2),particula[c].pos_y+(alto*8/2)+1,particula[c].pixel);
+			map_put_pixel(0,graph,particula[c].pos_x+(ancho*8/2)+1,particula[c].pos_y+(alto*8/2)+1,particula[c].pixel);
+		end
+		tiempo++;
+		frame(300);
+
+		from c=0 to a;
+			map_put_pixel(0,graph,particula[c].pos_x+(ancho*8/2),particula[c].pos_y+(alto*8/2),0);
+			map_put_pixel(0,graph,particula[c].pos_x+(ancho*8/2)+1,particula[c].pos_y+(alto*8/2),0);
+			map_put_pixel(0,graph,particula[c].pos_x+(ancho*8/2),particula[c].pos_y+(alto*8/2)+1,0);
+			map_put_pixel(0,graph,particula[c].pos_x+(ancho*8/2)+1,particula[c].pos_y+(alto*8/2)+1,0);
+			particula[c].pos_x+=particula[c].vel_x;
+			particula[c].pos_y+=particula[c].vel_y+tiempo-10;
+		end
+	end
+	unload_map(0,graph);
+end

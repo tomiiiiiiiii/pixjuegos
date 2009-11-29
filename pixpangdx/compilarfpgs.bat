@@ -6,3 +6,4 @@ cd fpg-sources
 ..\..\bennu-win\bgdc pxlfpg.prg
 ..\..\bennu-win\bgdi pxlfpg pixpang
 ..\..\bennu-win\bgdi pxlfpg pix
+..\..\bennu-win\bgdi pxlfpg pixmorao
