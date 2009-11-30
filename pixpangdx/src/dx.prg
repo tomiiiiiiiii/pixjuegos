@@ -27,7 +27,7 @@ Global
 	mini_mapa_durezas; //fichero de bloques
 	fondo; //grafico de fondo
 	
-	velocidad_bolas=150; //velocidad de las bolas (cuando menos, mayor velocidad)
+	velocidad_bolas=200; //velocidad de las bolas (cuando menos, mayor velocidad)
 	
 	bolas; //número de bolas en pantalla
 
@@ -62,7 +62,7 @@ Global
 	end
 	
 	fpg_general;
-	
+	fnt;
 Local
 	gravedad;
 	inercia;
@@ -83,8 +83,8 @@ Begin
 	borde_izquierda=(resolucion_x/2)-(area_juego_x/2);
 	borde_derecha=(resolucion_x/2)+(area_juego_x/2);
 
-	full_screen=1;
-	scale_resolution=12800720;
+	full_screen=0;
+	scale_resolution=10240576;
 	set_mode(resolucion_x,resolucion_y,bits,WAITVSYNC);
 	set_fps(60,9);
 	frame;
@@ -100,8 +100,11 @@ Begin
 	color.gris=rgb(128,128,128);
 	
 	fpg_general=load_fpg("pixpang.fpg");
+	fnt=load_fnt("fnt.fnt");
+	
 	p[1].fpg=load_fpg("pix.fpg");
 	p[2].fpg=load_fpg("pixmorao.fpg");
+	
 	
 	mapa_durezas=new_map(1920,1080,bits);
 	drawing_map(0,mapa_durezas);
@@ -145,6 +148,19 @@ Begin
 		if(key(_F1)) personaje(1);personaje(2); while(key(_F1)) frame; end end
 		if(key(_F2)) if(ready) ready=0; else ready=1; end while(key(_F2)) frame; end end
 		if(key(_F3)) item_reloj(5); while(key(_F3)) frame; end end
+		if(key(_F4)) 
+			if(scale_resolution==10240576) 
+				scale_resolution=12800720;
+			elseif(scale_resolution==12800720)
+				scale_resolution=0;
+			elseif(scale_resolution==0)
+				scale_resolution=10240576;
+			end
+			set_mode(resolucion_x,resolucion_y,bits,WAITVSYNC);
+			while(key(_F4)) frame; end
+		end
+		if(key(_F5)) if(full_screen==1) full_screen=0; else full_screen=1; end set_mode(resolucion_x,resolucion_y,bits,WAITVSYNC); while(key(_F5)) frame; end end
+
 		if(bolas==0) bola(1000,borde_arriba+150,x++,120,0,0); end
 		frame; 
 	end
@@ -193,7 +209,7 @@ Begin
 			(((p[jugador].arma==0 OR p[jugador].arma==2) and p[jugador].disparos<1) OR
 			(p[jugador].arma==1 and p[jugador].disparos<2) OR
 			p[jugador].arma==3)) //Comprobamos que se pueda disparar teniendo en cuenta la arma, y si ha soltado el gatillo antes de volver a darle
-			disparo(); 
+			disparo(p[jugador].arma); 
 			disparando=1; 
 		end
 		y_destino=gravedad;
@@ -463,8 +479,6 @@ Begin
 		end
 		//------------------------
 		
-		//x_destino=(float)x_destino*100/velocidad_bolas;
-		//y_destino=(gravedad*100/velocidad_bolas);
 		x_destino=x_destino;
 		y_destino=gravedad;
 		
@@ -624,7 +638,7 @@ Begin
 				draw_box(x1,y1,x,y);
 				
 				drawing_map(0,mini_mapa_durezas);
-				draw_box((x1-borde_izquierda)/tamanyo_bloque_min,(y1-borde_arriba)/tamanyo_bloque_min,(x-borde_izquierda)/tamanyo_bloque_min,(y-borde_arriba)/tamanyo_bloque_min);
+				draw_box((x1-borde_izquierda)/tamanyo_bloque_min,(y1-borde_arriba)/tamanyo_bloque_min,((x-borde_izquierda)/tamanyo_bloque_min)-1,((y-borde_arriba)/tamanyo_bloque_min)-1);
 				
 				drawing_map(0,mapa_durezas);
 				drawing_color(color.blanco);
@@ -654,26 +668,42 @@ Begin
 	end
 End
 
-Process disparo();
-Private
-	arma_temp;
+/*
+armas: 
+	0-disparo único
+	1-doble disparo
+	2-gancho
+	3-metralleta
+	 31..34-disparitos metralleta
+*/
+Process disparo(arma_temp);
 Begin
 	if(!exists(father)) return; end
-	from i=1 to 30;
-		if(region_ocupada[i]==0) region_ocupada[i]=1; region=i; break; end
-	end
 	jugador=father.jugador;
-	arma_temp=p[jugador].arma;
 	file=father.file;
 	graph=101+arma_temp;
 	prepara_proceso_grafico();
 	set_center(file,graph,ancho,0);
-	p[jugador].disparos++;
 	x=father.x;
 	y=father.y;
-	define_region(region,0,0,resolucion_x,y+father.alto);	
-	loop 
-		y_destino=-10;
+	if(arma_temp==3) graph=0; disparo(31); disparo(32); disparo(33); disparo(34); frame; end
+	if(arma_temp<10) //no subdisparos
+		p[jugador].disparos++;
+		from i=1 to 30;
+			if(region_ocupada[i]==0) region_ocupada[i]=1; region=i; break; end
+		end
+		define_region(region,0,0,resolucion_x,y+father.alto);
+	end
+	switch(arma_temp)
+		case 31: x_destino=-8; end
+		case 32: x_destino=-2; end
+		case 33: x_destino=+2; end
+		case 34: x_destino=+8; end
+	end
+	loop
+		if(arma_temp==3) break; end
+		while(!ready) frame; end
+		if(arma_temp<10) y_destino=-10; else y_destino=-20; end //la metralleta va más rápido
 		while(y_destino!=0)
 			if(map_get_pixel(0,mapa_durezas,x-ancho,y)!=color.negro or
 			map_get_pixel(0,mapa_durezas,x,y)!=color.negro or
@@ -684,11 +714,14 @@ Begin
 				y_destino++;
 			end
 		end
+		x+=x_destino;
 		if(y_destino!=0 or accion==-1) break; end //tocó techo o tocamos una bola
 		frame; 
 	end
-	p[jugador].disparos--;
-	region_ocupada[region]=0;
+	if(arma_temp<10) //no subdisparos
+		p[jugador].disparos--;
+		region_ocupada[region]=0;
+	end
 End
 
 Process raton();
@@ -791,7 +824,7 @@ Begin
 		case 2: item_reloj(rand(3,5)); end
 		case 3: p[jugador].proteccion++; proteccion(jugador); end
 		case 4: item_ancla(); end
-		case 5: dinamita=1; frame(5000); dinamita=0; end
+		case 5: dinamita=1; from alpha=200 to 60 step -15; frame; end frame(5000); dinamita=0; return; end
 		case 11..19: p[jugador].puntos+=(tipo-10)*1000; mostrar_puntos(x,y,(tipo-10)*1000); end
 		case 21..23: p[jugador].arma=tipo-20; end
 	end
@@ -802,7 +835,7 @@ Process mostrar_puntos(x,y,puntos);
 Private
 	id_txt;
 Begin
-	id_txt=write(0,x,y,4,puntos);
+	id_txt=write(fnt,x,y,4,puntos);
 	from i=0 to 3*60; frame; end
 	delete_text(id_txt);
 End
@@ -810,7 +843,7 @@ End
 Process proteccion(jugador);
 Begin
 	file=p[jugador].fpg;
-	graph=111;
+	graph=201;
 	while(p[jugador].proteccion>0 and exists(p[jugador].id))
 		x=p[jugador].id.x;
 		y=p[jugador].id.y;
@@ -821,13 +854,13 @@ End
 Process item_ancla();
 Begin
 	if(ancla) ancla+=3*60; return; end
-	velocidad_bolas=200; //lentas
+	velocidad_bolas=300; //lentas
 	ancla=5*60;
 	while(ancla>0)
 		ancla--;
 		frame;
 	end
-	velocidad_bolas=100; //rapidas
+	velocidad_bolas=200; //rapidas
 End
 
 Process item_reloj(tiempo_en_segundos);
@@ -840,7 +873,7 @@ Begin
 		reloj=tiempo_en_segundos*60;
 	end
 	
-	txt_reloj=write_int(0,resolucion_x/2,resolucion_y/4,4,&tiempo_en_segundos);
+	txt_reloj=write_int(fnt,resolucion_x/2,resolucion_y/4,4,&tiempo_en_segundos);
 	
 	while(reloj>0)
 		while(!ready) frame; end
