@@ -105,7 +105,6 @@ Begin
 	p[1].fpg=load_fpg("pix.fpg");
 	p[2].fpg=load_fpg("pixmorao.fpg");
 	
-	
 	mapa_durezas=new_map(1920,1080,bits);
 	drawing_map(0,mapa_durezas);
 	drawing_color(color.negro);
@@ -137,12 +136,22 @@ Begin
 
 	//PRINCIPAL
 	
-	from x=1 to 4; personaje(x); end
+	personaje(1);
 	pinta();
 	//raton();
 	ready=1;
 	x=1;
 	//bola(1000,borde_arriba+150,9,120,0,0);
+	
+	/**/
+	write(fnt,0,y+=40,0,"F1-Recrea personajes");
+	write(fnt,0,y+=40,0,"F2-Pause");
+	write(fnt,0,y+=40,0,"F3-Item reloj");
+	write(fnt,0,y+=40,0,"F4-Cambiar resolución");
+	write(fnt,0,y+=40,0,"F5-Pantalla completa");
+	write(fnt,0,y+=40,0,"F10-Guardar durezas");
+	/**/
+	
 	loop 
 		if(key(_F10)) save_png(0,mini_mapa_durezas,"durezastemp.png"); while(key(_F10)) frame; end end
 		if(key(_F1)) personaje(1);personaje(2); while(key(_F1)) frame; end end
@@ -677,6 +686,8 @@ armas:
 	 31..34-disparitos metralleta
 */
 Process disparo(arma_temp);
+Private
+	enganchado;
 Begin
 	if(!exists(father)) return; end
 	jugador=father.jugador;
@@ -686,6 +697,7 @@ Begin
 	set_center(file,graph,ancho,0);
 	x=father.x;
 	y=father.y;
+	if(arma_temp==2) enganchado=-180; end
 	if(arma_temp==3) graph=0; disparo(31); disparo(32); disparo(33); disparo(34); frame; end
 	if(arma_temp<10) //no subdisparos
 		p[jugador].disparos++;
@@ -700,6 +712,7 @@ Begin
 		case 33: x_destino=+2; end
 		case 34: x_destino=+8; end
 	end
+	
 	loop
 		if(arma_temp==3) break; end
 		while(!ready) frame; end
@@ -715,6 +728,7 @@ Begin
 			end
 		end
 		x+=x_destino;
+		if(arma_temp==2 and enganchado<0 and y_destino!=0) enganchado++; y_destino=0; end
 		if(y_destino!=0 or accion==-1) break; end //tocó techo o tocamos una bola
 		frame; 
 	end
@@ -793,6 +807,8 @@ Begin
 	file=fpg_general;
 	graph=100+tipo;
 	prepara_proceso_grafico();
+	//temporal:
+	if(ancho=<1) return; end
 	loop
 		while(!ready) frame; end
 		y_destino=6;
@@ -890,6 +906,11 @@ Begin
 	p[2].control=1;
 	p[3].control=2;
 	p[4].control=3;
+	
+	joysticks[0]=0;
+	joysticks[1]=1;
+	joysticks[2]=2;
+	joysticks[3]=3;
 End
 
 include "explosion.pr-";
