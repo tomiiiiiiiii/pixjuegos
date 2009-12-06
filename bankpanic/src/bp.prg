@@ -13,11 +13,13 @@ Global
 		toques;
 		pagado;
 	end
-	ready=1;
+	ready;
 	nivel=1;
-	tiempo_margen=60;
+	tiempo_margen;
 	x_central; //para cuando movemos las puertas
 	fnt_nums;
+	moviendo;
+	todo_pagado;
 End
 
 Begin
@@ -32,13 +34,18 @@ End
 Process pon_nivel();
 Private
 	id_puerta;
-	cambio_puertas;
 	nopagado;
 Begin
 	let_me_alone();
+	ready=1;
+	todo_pagado=0;
+	tiempo_margen=60-nivel*2;
+	//algunos aparecerán pagados
 	from x=1 to 12;
 		if(rand(0,nivel)==0) puertas[x].pagado=1; end
 	end
+	
+	//ponemos enemigos y distancias
 	from x=1 to 12;
 		if(rand(0,4)==0 and puertas[x].pagado==0)
 			puertas[x].distancia=rand(2,15)*90;
@@ -47,32 +54,40 @@ Begin
 		end
 		marcador(x);
 	end
+	
+	//puertas
 	from x=puerta_actual-3 to puerta_actual+3;
 		puerta(x);
 	end
 
+	//fondos puertas
+	grafico(14,120,260,5);
+	grafico(14,320,260,5);
+	grafico(14,520,260,5);
+	
 	reloj();
 	
 	//panel marcadores
 	grafico(2,320,55,-10);
 	set_fps(28+(nivel*2),0);
 	
+	//mirillas
 	grafico(26,320,240,-10);
 	grafico(26,120,240,-10);
 	grafico(26,520,240,-10);
 
 	loop
-		while(!ready) frame; end
+	  if(ready==1)
 		if(key(_left)) 
+			moviendo=1;
 			from x_central=0 to 200 step 10; frame; end
 			puerta_actual--;
-			cambio_puertas=1;
 		elseif(key(_right)) 
+			moviendo=1;
 			from x_central=0 to -200 step -10; frame; end
 			puerta_actual++;
-			cambio_puertas=1;
 		end
-		if(cambio_puertas)
+		if(moviendo)
 			while(id_puerta=get_id(type puerta))
 				signal(id_puerta,s_kill);
 			end
@@ -83,7 +98,7 @@ Begin
 			from x=puerta_actual-3 to puerta_actual+3;
 				puerta(x);
 			end
-			cambio_puertas=0;
+			moviendo=0;
 		end
 		nopagado=0;
 		from x=1 to 12;
@@ -96,8 +111,10 @@ Begin
 
 		from x=1 to 12; if(!puertas[x].pagado) nopagado=1; end end
 		if(nopagado==0) break; end
-		frame;
+	  end
+	  frame;
 	end
+	todo_pagado=1;
 End
 
 Process reloj();
@@ -135,7 +152,7 @@ Begin
 	loop
 		x=320+(hueco)*200+x_central;
 		move_text(id_txt,x,187);
-		if(puertas[num_puerta].distancia==0 and hueco>=-1 and hueco<=1 and x_central==0 and puertas[num_puerta].tipo!=0 and rand(0,100)==0)
+		if(puertas[num_puerta].distancia==0 and hueco>=-1 and hueco<=1 and x_central==0 and puertas[num_puerta].tipo!=0 and rand(0,60)==0 and moviendo==0)
 			break;
 		end
 		frame;
@@ -145,6 +162,9 @@ Begin
 	graph=12;
 	frame(1000);
 	graph=13;
+	frame(1000);
+	//resolución!
+	graph=12;
 	frame(1000);
 	puertas[num_puerta].pagado=1;
 	puertas[num_puerta].tipo=0;
@@ -172,11 +192,8 @@ End
 
 Process banquero(num_puerta);
 Begin
-	if(num_puerta==0) num_puerta=12; end
-	if(num_puerta==13) num_puerta=1; end
-	//if(puertas[num_puerta].pagado) graph=4; else graph=5; end
 	z=-1;
-	graph=4;
+	//if(puertas[num_puerta].pagado) graph=4; else graph=5; end
 	y=480-(175/2);
 	while(exists(father))
 		x=father.x;
@@ -187,6 +204,7 @@ End
 Process marcador(num_puerta);
 Private
 	id_caja;
+	pagado;
 Begin
 	if(num_puerta<=6)
 		x=-10+num_puerta*45;
@@ -197,16 +215,22 @@ Begin
 	z=-11;
 	graph=25;
 	loop
-		y=85-puertas[num_puerta].distancia/6;
-		if(puertas[num_puerta].pagado) id_caja.graph=22; end
-		while(puertas[num_puerta].tipo==0) graph=0; frame; graph=25; end
-		if(puertas[num_puerta].distancia==0)
-			id_caja.graph=24; 
-			graph=0;
+		y=85-puertas[num_puerta].distancia/3;
+		if(puertas[num_puerta].pagado and pagado==0) pagado=1; grafico(22,x,85,-15); end
+		if(puertas[num_puerta].tipo!=0)
+			if(puertas[num_puerta].distancia==0 or todo_pagado)
+				id_caja.graph=24;
+				graph=0;
+			else
+				id_caja.graph=21;
+				graph=25;
+				puertas[num_puerta].distancia--;
+			end
 		else
-			puertas[num_puerta].distancia--;
+			id_caja.graph=21;
+			graph=0;
 		end
-
+		//while(puertas[num_puerta].tipo==0) frame; end
 		frame;
 	end
 End
