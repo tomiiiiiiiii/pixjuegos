@@ -20,6 +20,7 @@ Global
 End
 
 Begin
+	rand_seed(time());
 	set_mode(640,480,32);
 	load_fpg("bp.fpg");
 	play_song(load_song("1.ogg"),-1);
@@ -35,8 +36,9 @@ Begin
 	let_me_alone();
 	from x=1 to 12;
 		if(rand(0,4)==0)
-			puertas[x].distancia=rand(1,15)*90;
+			puertas[x].distancia=rand(2,15)*90;
 			puertas[x].tipo=rand(1,4);
+			if(rand(0,nivel)==1) puertas[x].pagado=1; end
 			if(nivel>2) puertas[x].toques=rand(10,25)/10; else puertas[x].toques=1; end
 		end
 		marcador(x);
@@ -77,8 +79,8 @@ Begin
 		end
 		nopagado=0;
 		from x=1 to 12;
-			if(puertas[x].tipo==0 and rand(0,50)==0)
-				puertas[x].distancia=rand(1,15)*90;
+			if(puertas[x].tipo==0 and rand(0,200)==0)
+				puertas[x].distancia=rand(3,6)*90;
 				puertas[x].tipo=rand(1,4);
 				if(nivel>2) puertas[x].toques=rand(10,25)/10; else puertas[x].toques=1; end
 			end
@@ -124,7 +126,7 @@ Begin
 	loop
 		x=320+(hueco)*200+x_central;
 		move_text(id_txt,x,187);
-		if(puertas[num_puerta].distancia==0 and hueco>=-1 and hueco<=1 and x_central==0 and puertas[num_puerta].pagado==0 and rand(0,100)==0)
+		if(puertas[num_puerta].distancia==0 and hueco>=-1 and hueco<=1 and x_central==0 and puertas[num_puerta].tipo!=0 and rand(0,100)==0)
 			break;
 		end
 		frame;
@@ -166,17 +168,18 @@ Begin
 	end
 	id_caja=grafico(21,x,85,-11);
 	z=-11;
-	while(puertas[num_puerta].tipo==0) frame; end
 	graph=25;
 	loop
 		y=85-puertas[num_puerta].distancia/6;
+		if(puertas[num_puerta].pagado) id_caja.graph=22; end
+		while(puertas[num_puerta].tipo==0) graph=0; frame; graph=25; end
 		if(puertas[num_puerta].distancia==0)
 			id_caja.graph=24; 
-			graph=0; 
+			graph=0;
 		else
 			puertas[num_puerta].distancia--;
 		end
-		if(puertas[num_puerta].pagado) id_caja.graph=22; end
+
 		frame;
 	end
 End
