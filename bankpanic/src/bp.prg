@@ -17,12 +17,14 @@ Global
 	nivel=1;
 	tiempo_margen=60;
 	x_central; //para cuando movemos las puertas
+	fnt_nums;
 End
 
 Begin
 	rand_seed(time());
 	set_mode(640,480,32);
 	load_fpg("bp.fpg");
+	fnt_nums=load_fnt("nums.fnt");
 	play_song(load_song("1.ogg"),-1);
 	pon_nivel();
 End
@@ -35,10 +37,12 @@ Private
 Begin
 	let_me_alone();
 	from x=1 to 12;
-		if(rand(0,4)==0)
+		if(rand(0,nivel)==0) puertas[x].pagado=1; end
+	end
+	from x=1 to 12;
+		if(rand(0,4)==0 and puertas[x].pagado==0)
 			puertas[x].distancia=rand(2,15)*90;
 			puertas[x].tipo=rand(1,4);
-			if(rand(0,nivel)==1) puertas[x].pagado=1; end
 			if(nivel>2) puertas[x].toques=rand(10,25)/10; else puertas[x].toques=1; end
 		end
 		marcador(x);
@@ -53,6 +57,10 @@ Begin
 	grafico(2,320,55,-10);
 	set_fps(28+(nivel*2),0);
 	
+	grafico(26,320,240,-10);
+	grafico(26,120,240,-10);
+	grafico(26,520,240,-10);
+
 	loop
 		while(!ready) frame; end
 		if(key(_left)) 
@@ -122,7 +130,8 @@ Begin
 	x=320+(hueco)*200;
 	y=260;
 	z=1;
-	id_txt=write(0,x,187,4,num_puerta);
+	id_txt=write(fnt_nums,x,187,4,num_puerta);
+	if(hueco>=-1 and hueco<=1) cuadropuerta(num_puerta); end
 	loop
 		x=320+(hueco)*200+x_central;
 		move_text(id_txt,x,187);
@@ -132,6 +141,7 @@ Begin
 		frame;
 	end
 	ready--;
+	delete_text(id_txt);
 	graph=12;
 	frame(1000);
 	graph=13;
@@ -141,6 +151,23 @@ Begin
 	ready++;
 	delete_text(id_txt);
 	puerta(orig_num_puerta);
+End
+
+Process cuadropuerta(num_puerta);
+Private
+	hueco;
+Begin
+	graph=27;
+	y=85;
+	z=-15;
+	if(num_puerta<=6)
+		x=-10+num_puerta*45;
+	else
+		x=65+num_puerta*45;
+	end
+	while(exists(father))
+		frame;
+	end
 End
 
 Process banquero(num_puerta);
