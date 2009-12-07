@@ -272,8 +272,6 @@ Begin
 				//le disparamos
 				tomapuntos(500,x,y);
 				id_grafico[1].graph=403;
-				frame(400);
-				id_grafico[1].graph=404;
 				frame(2000);
 			end
 		end
@@ -382,12 +380,12 @@ Begin
 	delete_text(all_text);
 	put_screen(0,901);
 	disparo(320,240);
-	graph=401;
+	graph=501;
 	x=320;
 	y=320;
 	frame(200);
 	y=370;
-	graph=403;
+	graph=504;
 	frame(3000);
 	vidas--;
 	if(vidas>0) pon_nivel(1); end
