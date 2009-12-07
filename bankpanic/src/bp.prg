@@ -17,7 +17,7 @@ Global
 	nivel=1;
 	tiempo_margen;
 	x_central; //para cuando movemos las puertas
-	fnt_nums;
+	fnt;
 	moviendo;
 	todo_pagado;
 	puntos;
@@ -30,10 +30,10 @@ Begin
 	rand_seed(time());
 	set_mode(640,480,32);
 	load_fpg("bp.fpg");
-	fnt_nums=load_fnt("nums.fnt");
+	fnt=load_fnt("oeste.fnt");
+	put_screen(0,903);
+	while(!key(_enter)) frame; end
 	intro();
-	//play_song(load_song("1.ogg"),-1);
-	//pon_nivel();
 End
 
 Process pon_nivel(inicio);
@@ -43,14 +43,14 @@ Private
 Begin
 	let_me_alone();
 	delete_text(all_text);
-
+	play_song(load_song("1.ogg"),-1);
 	ready=1;
 	moviendo=0;
 	todo_pagado=0;
 	tiempo_margen=60-nivel*2;
 
-	write_int(fnt_nums,0,0,0,&puntos);
-	write_int(fnt_nums,0,20,0,&vidas);
+	write_int(fnt,0,0,0,&puntos);
+	write_int(fnt,0,20,0,&vidas);
 	
 	if(inicio==0) //si inicio=1:reiniciamos el nivel porque perdimos una vida. no tocamos estas variables
 		puerta_actual=5;
@@ -68,7 +68,7 @@ Begin
 			end
 		end
 	end
-
+	
 	from x=1 to 12;
 		marcador(x);
 	end
@@ -84,6 +84,7 @@ Begin
 	grafico(14,520,260,5);
 	
 	reloj();
+	tiempo();
 	
 	//panel marcadores
 	grafico(2,320,55,-10);
@@ -185,7 +186,7 @@ Begin
 	y=260;
 	z=1;
 
-	if(hueco>=-2 and hueco<=2) id_txt[hueco+3]=write(fnt_nums,x,187,4,num_puerta); end
+	if(hueco>=-2 and hueco<=2) id_txt[hueco+3]=write(fnt,x,187,4,num_puerta); end
 	if(hueco>=-1 and hueco<=1) cuadropuerta(num_puerta); end
 	loop
 		x=320+(hueco)*200+x_central;
@@ -399,6 +400,7 @@ Begin
 	x=320;
 	y=320;
 	frame(3000);
+	write(fnt,320,140,4,"Nivel "+nivel);
 	graph=502;
 	disparo_intro(271,330);
 	frame(5000);
@@ -409,4 +411,22 @@ Process queja(tipo,x);
 Begin
 	//aqui meteremos al protestón
 	game_over();
+End
+
+Process tiempo();
+Private
+	time=1800;
+Begin
+	grafico(905,512,465,-15);
+	z=-16;
+	graph=904;
+	region=1;
+	x=512;
+	y=465;
+	define_region(1,384,449,256,31);
+	loop
+		if(ready==1) time--; end
+		define_region(1,384,449,(float)256/1800*time,31);
+		frame;
+	end
 End
