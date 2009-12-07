@@ -62,7 +62,7 @@ Begin
 		//ponemos enemigos y distancias
 		from x=1 to 12;
 			if(rand(0,4)==0 and puertas[x].pagado==0)
-				puertas[x].distancia=rand(2,15)*90;
+				puertas[x].distancia=rand(2,5)*90;
 				puertas[x].tipo=rand(1,4);
 				if(nivel>2) puertas[x].toques=rand(10,25)/10; else puertas[x].toques=1; end
 			end
@@ -123,8 +123,8 @@ Begin
 		end
 		nopagado=0;
 		from x=1 to 12;
-			if(puertas[x].tipo==0 and (rand(0,200)==0 or puertas[x].pagado==0))
-				puertas[x].distancia=rand(3,6)*90;
+			if(puertas[x].tipo==0 and (rand(0,100)==0 or puertas[x].pagado==0))
+				puertas[x].distancia=rand(2,5)*90;
 				puertas[x].tipo=rand(1,4);
 				if(nivel>2) puertas[x].toques=rand(10,25)/10; else puertas[x].toques=1; end
 			end
@@ -210,19 +210,19 @@ Begin
 			graph=13; //abrimos la puerta del todo
 			//aparece
 			from temp=0 to 10;
-				if(collision(type disparo)) signal(id_grafico[1],s_kill); queja(puertas[num_puerta].tipo,x); loop frame; end end
+				if(collision(type disparo)) signal(id_grafico[1],s_kill); puertas[num_puerta].tipo=0; queja(puertas[num_puerta].tipo,x); loop frame; end end
 				frame;
 			end
 			//mira para los lados
 			if(rand(0,1)) 
 				id_grafico[1].graph=i*100+2;
 				from temp=0 to 10; 
-					if(collision(type disparo)) signal(id_grafico[1],s_kill); queja(puertas[num_puerta].tipo,x); loop frame; end end
+					if(collision(type disparo)) signal(id_grafico[1],s_kill); puertas[num_puerta].tipo=0; queja(puertas[num_puerta].tipo,x); loop frame; end end
 					if(temp<5) id_grafico[1].flags=0; else id_grafico[1].flags=1; end 
 					frame;
 				end
 				from temp=0 to 10; 
-					if(collision(type disparo)) signal(id_grafico[1],s_kill); queja(puertas[num_puerta].tipo,x); loop frame; end end
+					if(collision(type disparo)) signal(id_grafico[1],s_kill); puertas[num_puerta].tipo=0; queja(puertas[num_puerta].tipo,x); loop frame; end end
 					if(temp<5) id_grafico[1].flags=0; else id_grafico[1].flags=1; end 
 					frame;
 				end
@@ -230,8 +230,8 @@ Begin
 			id_grafico[1].flags=0;
 			//entrega la pasta
 			id_grafico[1].graph=i*100+3;
-			from temp=0 to 10;
-				if(collision(type disparo)) signal(id_grafico[1],s_kill); queja(puertas[num_puerta].tipo,x); loop frame; end end
+			from temp=0 to 20;
+				if(collision(type disparo)) signal(id_grafico[1],s_kill); puertas[num_puerta].tipo=0; queja(puertas[num_puerta].tipo,x); loop frame; end end
 				frame;
 			end
 			//y se va
@@ -245,9 +245,9 @@ Begin
 			graph=13; //abrimos la puerta del todo
 			//aparece
 			temp=0;
-			while(temp<20)
+			while(temp<30)
 				if(collision(type disparo)) temp=0; tomapuntos((id_grafico[1].graph-300)*100,x,y); id_grafico[1].graph++; end
-				if(id_grafico[1].graph==306) frame(400); break; end
+				if(id_grafico[1].graph==306) puertas[num_puerta].pagado=1; frame(400); break; end
 				temp++;
 				frame;
 			end
@@ -265,6 +265,7 @@ Begin
 				//nos disparan
 				id_grafico[1].graph=402;
 				frame(2000);
+				puertas[num_puerta].tipo=0;
 				game_over();
 				return;
 			else
@@ -364,7 +365,15 @@ Begin
 	disparando=1;
 	graph=902;
 	z=-15;
-	from alpha=255 to 100 step -25; size-=3; frame; end
+	frame(200);
+End
+
+Process disparo_intro(x,y);
+Begin
+	disparando=1;
+	graph=902;
+	z=-15;
+	from alpha=255 to 100 step -40; size-=3; frame; end
 End
 
 Process game_over();
@@ -393,7 +402,7 @@ Begin
 	y=320;
 	frame(3000);
 	graph=502;
-	disparo(271,330);
+	disparo_intro(271,330);
 	frame(5000);
 	pon_nivel(0);
 End
