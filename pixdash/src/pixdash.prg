@@ -15,10 +15,10 @@ Global
 		resolucion;
 	End
 
-	Struct botones;
-		int p[8][6];
-	End
+	modo_juego=1; //0: COMPETITIVO, 1: COOPERATIVO
+	
 	struct p[8];
+		botones[6];
 		identificador;
 		control;
 		puntos;
@@ -32,6 +32,9 @@ Global
 		pixismatados;
 		muertes;
 	end
+	
+	joysticks[4];
+	
 	posiciones[4];
 	jugadores=2;
 	tiles[100];
@@ -45,6 +48,7 @@ Global
 	fpg_menu;
 	fpg_moneda;
 	fpg_durezas;
+	wavs[20];
 	tilesize=40;
 	fondo;
 	flash;
@@ -113,14 +117,14 @@ Begin
 	alto=29;
 	loop
 		while(todo_preparado==0) frame; end
-		if(botones.p[jugador][1]) flags=0; inercia+=2; end //la inercia sube al ir hacia la derecha
-		if(botones.p[jugador][0]) flags=1; inercia-=2; end //la inercia baja al ir hacia la izquierda
-		if(botones.p[jugador][2] and pulsando==0 and saltando==0) saltando=1; sonido("salta"); saltogradual=1; gravedad=-15; pulsando=1; y--; end 
+		if(p[jugador].botones[1]) flags=0; inercia+=2; end //la inercia sube al ir hacia la derecha
+		if(p[jugador].botones[0]) flags=1; inercia-=2; end //la inercia baja al ir hacia la izquierda
+		if(p[jugador].botones[4] and pulsando==0 and saltando==0) saltando=1; sonido(5); saltogradual=1; gravedad=-15; pulsando=1; y--; end 
 		//al saltar suena el sonido correspondiente y se aplica la gravedad, y el salto gradual si saltamos poco 
-		if(botones.p[jugador][2] and pulsando==0 and powerup==3 and tiempo_powerup>0 and doble_salto==0) saltogradual=1; doble_salto=1; gravedad=-15; pulsando=1; y--; end
+		if(p[jugador].botones[4] and pulsando==0 and powerup==3 and tiempo_powerup>0 and doble_salto==0) saltogradual=1; doble_salto=1; gravedad=-15; pulsando=1; y--; end
 		//e l doblesalto si disponemos del power-up 3
-		if(botones.p[jugador][2] and saltogradual<5 and saltogradual!=0) gravedad-=4; saltogradual++; end
-		if(!botones.p[jugador][2] and pulsando==1) pulsando=0; saltogradual=0; end
+		if(p[jugador].botones[4] and saltogradual<5 and saltogradual!=0) gravedad-=4; saltogradual++; end
+		if(!p[jugador].botones[4] and pulsando==1) pulsando=0; saltogradual=0; end
 		if(map_get_pixel(0,durezas,x,y+alto)==suelo or map_get_pixel(0,durezas,x-(ancho/3),y+alto)==suelo or map_get_pixel(0,durezas,x+(ancho/3),y+alto)==suelo and gravedad>0) gravedad=0; saltando=0; doble_salto=0; else saltando=1; gravedad++; end //al tocar el suelo, gravedad es 0
 		if(x>ancho_nivel) 
 			p[i].tiempos[num_nivel]=timer[1];
@@ -152,10 +156,10 @@ Begin
 			end
 			graph=0;
 			loop
-				if(botones.p[jugador][1] and x<ancho_nivel) x+=15; end
-				if(botones.p[jugador][0] and x>0) x-=15; end
-				if(botones.p[jugador][3] and y<alto_nivel) y+=15; end
-				if(botones.p[jugador][2] and y>0) y-=15; end
+				if(p[jugador].botones[1] and x<ancho_nivel) x+=15; end
+				if(p[jugador].botones[0] and x>0) x-=15; end
+				if(p[jugador].botones[3] and y<alto_nivel) y+=15; end
+				if(p[jugador].botones[4] and y>0) y-=15; end
 				frame; 
 			end //aquí se queda!
 		end //al ganar mike canta y nos damos la vuelta xD
@@ -221,7 +225,7 @@ Begin
 				graph=2;
 				gravedad=-20;
 				flash_muerte(jugador);
-				sonido("muerte");
+				sonido(6);
 				if(y<alto_nivel)
 					while(y<alto_nivel+150)
 						gravedad++;
@@ -408,67 +412,36 @@ End
 
 Process controlador(jugador);
 Private
-	distancia;
 	gamepads;
 Begin
 	from i=0 to 5;
-		botones.p[jugador][i]=0;
+		p[jugador].botones[i]=0;
 	end
 	Loop
 		if(!exists(father)) return; end
 		if(p[jugador].control==-1) return; end
 		If(p[jugador].control==0)  // teclado
-			If(key(_left)) botones.p[jugador][0]=1; Else botones.p[jugador][0]=0; End
-			If(key(_right)) botones.p[jugador][1]=1; Else botones.p[jugador][1]=0; End
-			If(key(_up)) botones.p[jugador][2]=1; Else botones.p[jugador][2]=0; End
-			If(key(_down)) botones.p[jugador][3]=1; Else botones.p[jugador][3]=0; End
-			If(key(_enter)) botones.p[jugador][4]=1; Else botones.p[jugador][4]=0; End
-			If(key(_esc)) botones.p[jugador][5]=1; Else botones.p[jugador][5]=0; End
+			If(key(_left)) p[jugador].botones[0]=1; Else p[jugador].botones[0]=0; End
+			If(key(_right)) p[jugador].botones[1]=1; Else p[jugador].botones[1]=0; End
+			If(key(_up)) p[jugador].botones[2]=1; Else p[jugador].botones[2]=0; End
+			If(key(_down)) p[jugador].botones[3]=1; Else p[jugador].botones[3]=0; End
+			If(key(_a)) p[jugador].botones[4]=1; Else p[jugador].botones[4]=0; End
+			If(key(_s)) p[jugador].botones[5]=1; Else p[jugador].botones[5]=0; End
+			If(key(_d)) p[jugador].botones[6]=1; Else p[jugador].botones[6]=0; End
 		End
-		If(p[jugador].control==1)  // teclado
-			If(key(_a)) botones.p[jugador][0]=1; Else botones.p[jugador][0]=0; End
-			If(key(_d)) botones.p[jugador][1]=1; Else botones.p[jugador][1]=0; End
-			If(key(_w)) botones.p[jugador][2]=1; Else botones.p[jugador][2]=0; End
-			If(key(_s)) botones.p[jugador][3]=1; Else botones.p[jugador][3]=0; End
-			If(key(_space)) botones.p[jugador][4]=1; Else botones.p[jugador][4]=0; End
+		If(p[jugador].control>0)  // joysticks
+			If(get_joy_position(joysticks[p[jugador].control-1],0)<-10000) p[jugador].botones[0]=1; Else p[jugador].botones[0]=0; End
+			If(get_joy_position(joysticks[p[jugador].control-1],0)>10000) p[jugador].botones[1]=1; Else p[jugador].botones[1]=0; End
+			If(get_joy_position(joysticks[p[jugador].control-1],1)<-7500) p[jugador].botones[2]=1; Else p[jugador].botones[2]=0; End
+			If(get_joy_position(joysticks[p[jugador].control-1],1)>7500) p[jugador].botones[3]=1; Else p[jugador].botones[3]=0; End
+			If(get_joy_button(joysticks[p[jugador].control-1],0)) p[jugador].botones[4]=1; Else p[jugador].botones[4]=0; End
+			If(get_joy_button(joysticks[p[jugador].control-1],1)) p[jugador].botones[5]=1; Else p[jugador].botones[5]=0; End
+			If(get_joy_button(joysticks[p[jugador].control-1],2)) p[jugador].botones[6]=1; Else p[jugador].botones[6]=0; End
 		End
-		If(p[jugador].control==2)  // joystick
-			If(get_joy_position(0,0)<-10000) botones.p[jugador][0]=1; Else botones.p[jugador][0]=0; End
-			If(get_joy_position(0,0)>10000) botones.p[jugador][1]=1; Else botones.p[jugador][1]=0; End
-			If(get_joy_position(0,1)<-7500) botones.p[jugador][2]=1; Else botones.p[jugador][2]=0; End
-			If(get_joy_position(0,1)>7500) botones.p[jugador][3]=1; Else botones.p[jugador][3]=0; End
-			If(get_joy_position(0,1)<-7500) botones.p[jugador][4]=1; Else botones.p[jugador][4]=0; End
-			If(get_joy_button(0,1)) botones.p[jugador][5]=1; Else botones.p[jugador][5]=0; End
-			If(get_joy_button(0,2)) botones.p[jugador][6]=1; Else botones.p[jugador][6]=0; End
-		End
-		If(p[jugador].control==3)  // joystick
-			If(get_joy_position(0,2)<-10000) botones.p[jugador][0]=1; Else botones.p[jugador][0]=0; End
-			If(get_joy_position(0,2)>10000) botones.p[jugador][1]=1; Else botones.p[jugador][1]=0; End
-			If(get_joy_position(0,3)<-7500) botones.p[jugador][2]=1; Else botones.p[jugador][2]=0; End
-			If(get_joy_position(0,3)>7500) botones.p[jugador][3]=1; Else botones.p[jugador][3]=0; End
-			If(get_joy_position(0,3)<-7500) botones.p[jugador][4]=1; Else botones.p[jugador][4]=0; End
-			If(get_joy_button(0,1)) botones.p[jugador][5]=1; Else botones.p[jugador][5]=0; End
-			If(get_joy_button(0,2)) botones.p[jugador][6]=1; Else botones.p[jugador][6]=0; End
-		End
-/*		If(p[jugador].control==3)  // joystick 2
-			If(get_joy_position(1,0)<-10000) botones.p[jugador][0]=1; Else botones.p[jugador][0]=0; End
-			If(get_joy_position(1,0)>10000) botones.p[jugador][1]=1; Else botones.p[jugador][1]=0; End
-			If(get_joy_position(1,1)<-7500) botones.p[jugador][2]=1; Else botones.p[jugador][2]=0; End
-			If(get_joy_position(1,1)>7500) botones.p[jugador][3]=1; Else botones.p[jugador][3]=0; End
-			If(get_joy_button(1,0) OR get_joy_button(1,1)) botones.p[jugador][4]=1; Else botones.p[jugador][4]=0; End
-			If(get_joy_button(1,2) OR get_joy_button(1,3)) botones.p[jugador][5]=1; Else botones.p[jugador][5]=0; End
-		End
-		If(p[jugador].control==4)  // joystick 3
-			If(get_joy_position(2,0)<-10000) botones.p[jugador][0]=1; Else botones.p[jugador][0]=0; End
-			If(get_joy_position(2,0)>10000) botones.p[jugador][1]=1; Else botones.p[jugador][1]=0; End
-			If(get_joy_position(2,1)<-7500) botones.p[jugador][2]=1; Else botones.p[jugador][2]=0; End
-			If(get_joy_position(2,1)>7500) botones.p[jugador][3]=1; Else botones.p[jugador][3]=0; End
-			If(get_joy_button(2,0) OR get_joy_button(2,1)) botones.p[jugador][4]=1; Else botones.p[jugador][4]=0; End
-			If(get_joy_button(2,2) OR get_joy_button(2,3)) botones.p[jugador][5]=1; Else botones.p[jugador][5]=0; End
-		End*/
-		frame;
+		Frame;
 	End
 End
+
 //1: dañosalta, 2:escudo, 3:doblesalto, 4:slowmotion, 5:velocidad
 Process powerups(x,y,tipo);
 Private
@@ -531,7 +504,7 @@ Begin
 		if(graph==5) graph=1; end
 		if(id_colision=collision(type prota)) 
 			if(id_colision.accion!="muerte")
-				sonido("moneda");
+				sonido(4);
 				p[id_colision.jugador].monedas++;
 				break;
 			end
@@ -710,52 +683,65 @@ BEGIN
 		end
 	end
 	//FIN DE PINTAR COSAS WACHIS!!!
-	if(jugadores<=2) //definir la pantalla partida y la división al ser 2 jugadores
-		define_region(1,0,0,ancho_pantalla,alto_pantalla/2);
-		define_region(2,0,alto_pantalla/2,ancho_pantalla,alto_pantalla);
-
-		start_scroll(0,0,mapa_scroll,fondo,1,4);
-		scroll[0].camera=prota(1);
-		start_scroll(1,0,mapa_scroll,fondo,2,4);
-		if(jugadores==2) scroll[1].camera=prota(2); end
-
-		graph=new_map(ancho_pantalla,alto_pantalla,16);
-		drawing_color(200);
-		drawing_map(0,graph);
-		draw_box(0,alto_pantalla/2-5,ancho_pantalla,alto_pantalla/2+5);
-
-		flash=new_map(ancho_pantalla,alto_pantalla/2,8);
-		drawing_color(suelo);
-		drawing_map(0,flash);
-		draw_box(0,0,ancho_pantalla,alto_pantalla/2);
-	end
-	if(jugadores==3 or jugadores==4) //definirlo al ser 4
-		define_region(1,0,0,ancho_pantalla/2,alto_pantalla/2);
-		define_region(2,ancho_pantalla/2,0,ancho_pantalla,alto_pantalla/2);
-		define_region(3,0,alto_pantalla/2,ancho_pantalla/2,alto_pantalla);
-		define_region(4,ancho_pantalla/2,alto_pantalla/2,ancho_pantalla,alto_pantalla);
-
-		start_scroll(0,0,mapa_scroll,fondo,1,4);
-		scroll[0].camera=prota(1);
-		start_scroll(1,0,mapa_scroll,fondo,2,4);
-		scroll[1].camera=prota(2);
-		start_scroll(2,0,mapa_scroll,fondo,3,4);
-		scroll[2].camera=prota(3);
-		start_scroll(3,0,mapa_scroll,fondo,4,4);
-		if(jugadores==4) 
-			scroll[3].camera=prota(4);
+	if(modo_juego==0) //competitivo: 4 pantallas
+		if(jugadores<=2) //definir la pantalla partida y la división al ser 2 jugadores
+			define_region(1,0,0,ancho_pantalla,alto_pantalla/2);
+			define_region(2,0,alto_pantalla/2,ancho_pantalla,alto_pantalla);
+	
+			start_scroll(0,0,mapa_scroll,fondo,1,4);
+			scroll[0].camera=prota(1);
+			start_scroll(1,0,mapa_scroll,fondo,2,4);
+			if(jugadores==2) scroll[1].camera=prota(2); end
+	
+			graph=new_map(ancho_pantalla,alto_pantalla,16);
+			drawing_color(200);
+			drawing_map(0,graph);
+			draw_box(0,alto_pantalla/2-5,ancho_pantalla,alto_pantalla/2+5);
+	
+			flash=new_map(ancho_pantalla,alto_pantalla/2,8);
+			drawing_color(suelo);
+			drawing_map(0,flash);
+			draw_box(0,0,ancho_pantalla,alto_pantalla/2);
 		end
+		if(jugadores==3 or jugadores==4) //definirlo al ser 4
+			define_region(1,0,0,ancho_pantalla/2,alto_pantalla/2);
+			define_region(2,ancho_pantalla/2,0,ancho_pantalla,alto_pantalla/2);
+			define_region(3,0,alto_pantalla/2,ancho_pantalla/2,alto_pantalla);
+			define_region(4,ancho_pantalla/2,alto_pantalla/2,ancho_pantalla,alto_pantalla);
+	
+			start_scroll(0,0,mapa_scroll,fondo,1,4);
+			scroll[0].camera=prota(1);
+			start_scroll(1,0,mapa_scroll,fondo,2,4);
+			scroll[1].camera=prota(2);
+			start_scroll(2,0,mapa_scroll,fondo,3,4);
+			scroll[2].camera=prota(3);
+			start_scroll(3,0,mapa_scroll,fondo,4,4);
+			if(jugadores==4) 
+				scroll[3].camera=prota(4);
+			end
 
-		graph=new_map(ancho_pantalla,alto_pantalla,16);
-		drawing_color(200);
-		drawing_map(0,graph);
-		draw_box(0,alto_pantalla/2-5,ancho_pantalla,alto_pantalla/2+5);
-		draw_box(ancho_pantalla/2-5,0,ancho_pantalla/2+5,alto_pantalla);
+			graph=new_map(ancho_pantalla,alto_pantalla,16);
+			drawing_color(200);
+			drawing_map(0,graph);
+			draw_box(0,alto_pantalla/2-5,ancho_pantalla,alto_pantalla/2+5);
+			draw_box(ancho_pantalla/2-5,0,ancho_pantalla/2+5,alto_pantalla);
+			
+			flash=new_map(ancho_pantalla/2,alto_pantalla/2,8);
+			drawing_color(suelo);
+			drawing_map(0,flash);
+			draw_box(0,0,ancho_pantalla,alto_pantalla/2);
+		end
+	end
+	if(modo_juego==1) //cooperativo
+		start_scroll(0,0,mapa_scroll,fondo,0,0);
+		scroll[0].camera=cam_cooperativo();
+
+		from i=1 to jugadores; prota(i); end
 		
-		flash=new_map(ancho_pantalla/2,alto_pantalla/2,8);
+		flash=new_map(ancho_pantalla,alto_pantalla,8);
 		drawing_color(suelo);
 		drawing_map(0,flash);
-		draw_box(0,0,ancho_pantalla,alto_pantalla/2);
+		draw_box(0,0,ancho_pantalla,alto_pantalla);	
 	end
 	x=ancho_pantalla/2; 
 	y=alto_pantalla/2;
@@ -769,11 +755,11 @@ BEGIN
 	from i=3 to 1 step -1;
 		timer=0;
 		texto=write(fuente,ancho_pantalla/2,alto_pantalla/2,4,i);
-		sonido("1");
+		sonido(1);
 		while(timer<100) frame;	end
 		delete_text(texto);
 	end
-	sonido("3");
+	sonido(3);
 	delete_text(all_text);
 	marcadores(); //llamar a los marcadores de puntos
 	texto=write(fuente,ancho_pantalla/2,alto_pantalla/2,4,"¡YA!");
@@ -800,9 +786,10 @@ BEGIN
 END
 
 //ganar, muerte, salto
-Process sonido(string sonidaco);
+Process sonido(numsonido);
 Begin
-	if(ops.sonido) play_wav(load_wav("wav\"+father.jugador+sonidaco+".wav"),0); end
+	if(numsonido==6) numsonido+=father.jugador-1; end
+	if(ops.sonido) play_wav(wavs[numsonido],0); end
 End
 
 Process pon_tiempo(tiempo,permanecer,x,y);
@@ -852,9 +839,9 @@ Begin
 		graph=p[jugador].identificador.graph;
 		flags=p[jugador].identificador.flags;
 		if(ancho_nivel>alto_nivel)
-			x=p[jugador].identificador.x/(ancho_nivel/ancho_pantalla);
+			if(ancho_nivel>ancho_pantalla) x=p[jugador].identificador.x/(ancho_nivel/ancho_pantalla); else break; end
 		else
-			x=p[jugador].identificador.y/(alto_nivel/ancho_pantalla);
+			if(ancho_nivel>ancho_pantalla) x=p[jugador].identificador.y/(alto_nivel/ancho_pantalla); else break; end
 		end
 		frame;
 	end
@@ -923,6 +910,10 @@ Begin
 	p[2].control=1;
 	p[3].control=2;
 	p[4].control=3; //el control de los jugadores
+	from i=1 to 4;
+		joysticks[i]=i;
+		p[i].control=i;
+	end
 	set_fps(50,0); //imágenes por segundo
 	set_mode(800,600,16); //resolución y colores	    
 	fpg_enemigos=load_fpg("fpg/enemigos.fpg"); //cargar el mapa de tiles
@@ -930,10 +921,57 @@ Begin
 	fpg_menu=load_fpg("fpg/menu.fpg"); //cargar el mapa de tiles
 	fpg_moneda=load_fpg("fpg/moneda.fpg");
 	fpg_durezas=load_fpg("fpg/durezas.fpg");
+
 	fuente=load_fnt("fnt/fuente_peq.fnt");
 	fuente_peq=load_fnt("fnt/fuente_peq.fnt");
+
+	i=1;
+	while(fexists("wav\"+i+".wav"));
+		wavs[i]=load_wav("wav\"+i+".wav");
+		i++;
+	end
+	
 	//editor_de_niveles();
 	if(argc>1) importar_paquete_offline(); end
 	menu();
 	//carga_nivel(); //cargar el nivel
 End
+
+Process cam_cooperativo();
+Private
+	cuantos_seguimos;
+	antes_x;
+	antes_y;
+Begin
+	loop
+		antes_x=x; antes_y=y;
+		x=0; y=0; cuantos_seguimos=0;
+		from i=1 to 8;
+			if(exists(p[i].identificador) and p[i].identificador.x>antes_x-(ancho_pantalla*1.2) and p[i].identificador.x<antes_x+(ancho_pantalla*1.2))
+				x+=p[i].identificador.x;
+				y+=p[i].identificador.y;
+				cuantos_seguimos++;
+			end
+		end
+		if(cuantos_seguimos!=0) //ocurre en la carga, ¿y en algún momento más?
+			x=x/cuantos_seguimos;
+			y=y/cuantos_seguimos;
+		end
+		//AQUI LO DEJASTE PENSANDO EN COMO HACER PARA QUE LA CAMARA FUERA SUAVE
+		frame;
+	end
+End
+
+
+
+
+
+
+
+
+
+
+
+
+
+
