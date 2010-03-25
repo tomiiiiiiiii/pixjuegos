@@ -16,6 +16,10 @@ Global
 	End
 
 	modo_juego=1; //0: COMPETITIVO, 1: COOPERATIVO
+	id_cam;
+	id_carganivel;
+	separados[8]; //en modo cooperativo para saber cuántas sub-regiones necesitamos
+	num_separados;
 	
 	struct p[8];
 		botones[6];
@@ -125,6 +129,12 @@ Begin
 		//e l doblesalto si disponemos del power-up 3
 		if(p[jugador].botones[4] and saltogradual<5 and saltogradual!=0) gravedad-=4; saltogradual++; end
 		if(!p[jugador].botones[4] and pulsando==1) pulsando=0; saltogradual=0; end
+		if(p[jugador].botones[5] and modo_juego==1)
+			if(exists(id_cam))
+			 x=id_cam.x;
+			 y=id_cam.y;
+			end
+		end
 		if(map_get_pixel(0,durezas,x,y+alto)==suelo or map_get_pixel(0,durezas,x-(ancho/3),y+alto)==suelo or map_get_pixel(0,durezas,x+(ancho/3),y+alto)==suelo and gravedad>0) gravedad=0; saltando=0; doble_salto=0; else saltando=1; gravedad++; end //al tocar el suelo, gravedad es 0
 		if(x>ancho_nivel) 
 			p[i].tiempos[num_nivel]=timer[1];
@@ -156,10 +166,11 @@ Begin
 			end
 			graph=0;
 			loop
-				if(p[jugador].botones[1] and x<ancho_nivel) x+=15; end
+				accion="ganando";
+/*				if(p[jugador].botones[1] and x<ancho_nivel) x+=15; end
 				if(p[jugador].botones[0] and x>0) x-=15; end
 				if(p[jugador].botones[3] and y<alto_nivel) y+=15; end
-				if(p[jugador].botones[4] and y>0) y-=15; end
+				if(p[jugador].botones[4] and y>0) y-=15; end*/
 				frame; 
 			end //aquí se queda!
 		end //al ganar mike canta y nos damos la vuelta xD
@@ -234,6 +245,7 @@ Begin
 						frame;
 					end			
 				end
+				if(modo_juego==1) loop accion="muerte"; frame; end end //si te mueres, te mueres. fin
 				alpha=128;
 				while(x>100 or y>100)
 					if(x>100) x-=x/10; end
@@ -530,6 +542,7 @@ PRIVATE
 	fichero;
 	j;
 BEGIN
+	id_carganivel=id;
 	if(num_nivel!=1)
 		p[posiciones[1]].puntos+=6;
 		p[posiciones[2]].puntos+=4;
@@ -688,9 +701,9 @@ BEGIN
 			define_region(1,0,0,ancho_pantalla,alto_pantalla/2);
 			define_region(2,0,alto_pantalla/2,ancho_pantalla,alto_pantalla);
 	
-			start_scroll(0,0,mapa_scroll,fondo,1,4);
+			start_scroll(0,0,mapa_scroll,fondo,1,0);
 			scroll[0].camera=prota(1);
-			start_scroll(1,0,mapa_scroll,fondo,2,4);
+			start_scroll(1,0,mapa_scroll,fondo,2,0);
 			if(jugadores==2) scroll[1].camera=prota(2); end
 	
 			graph=new_map(ancho_pantalla,alto_pantalla,16);
@@ -709,13 +722,13 @@ BEGIN
 			define_region(3,0,alto_pantalla/2,ancho_pantalla/2,alto_pantalla);
 			define_region(4,ancho_pantalla/2,alto_pantalla/2,ancho_pantalla,alto_pantalla);
 	
-			start_scroll(0,0,mapa_scroll,fondo,1,4);
+			start_scroll(0,0,mapa_scroll,fondo,1,0);
 			scroll[0].camera=prota(1);
-			start_scroll(1,0,mapa_scroll,fondo,2,4);
+			start_scroll(1,0,mapa_scroll,fondo,2,0);
 			scroll[1].camera=prota(2);
-			start_scroll(2,0,mapa_scroll,fondo,3,4);
+			start_scroll(2,0,mapa_scroll,fondo,3,0);
 			scroll[2].camera=prota(3);
-			start_scroll(3,0,mapa_scroll,fondo,4,4);
+			start_scroll(3,0,mapa_scroll,fondo,4,0);
 			if(jugadores==4) 
 				scroll[3].camera=prota(4);
 			end
@@ -733,15 +746,8 @@ BEGIN
 		end
 	end
 	if(modo_juego==1) //cooperativo
-		start_scroll(0,0,mapa_scroll,fondo,0,0);
-		scroll[0].camera=cam_cooperativo();
-
+		id_cam=cam_cooperativo();
 		from i=1 to jugadores; prota(i); end
-		
-		flash=new_map(ancho_pantalla,alto_pantalla,8);
-		drawing_color(suelo);
-		drawing_map(0,flash);
-		draw_box(0,0,ancho_pantalla,alto_pantalla);	
 	end
 	x=ancho_pantalla/2; 
 	y=alto_pantalla/2;
@@ -863,7 +869,11 @@ Private
 	segundos;
 Begin
 	play_song(load_song("hurry.ogg"),1);
-	contador=60*50; //60 segs, 50 fps
+	if(modo_juego==0) 
+		contador=60*50; //60 segs, 50 fps
+	else
+		contador=5*50; //60 segs, 50 fps
+	end
 	segundos=contador/50;
 	write_int(fuente,ancho_pantalla/2,alto_pantalla/2,4,&segundos);
 	while(contador>0 and posiciones[jugadores]==0)
@@ -907,13 +917,14 @@ Begin
 		scale_resolution=ops.resolucion;
 	end
 
-	p[2].control=1;
-	p[3].control=2;
-	p[4].control=3; //el control de los jugadores
-	from i=1 to 4;
+	p[1].control=0;
+	p[2].control=0;
+	p[3].control=0;
+	p[4].control=0; //el control de los jugadores
+/*	from i=1 to 4;
 		joysticks[i]=i;
 		p[i].control=i;
-	end
+	end*/
 	set_fps(50,0); //imágenes por segundo
 	set_mode(800,600,16); //resolución y colores	    
 	fpg_enemigos=load_fpg("fpg/enemigos.fpg"); //cargar el mapa de tiles
@@ -942,36 +953,105 @@ Private
 	cuantos_seguimos;
 	antes_x;
 	antes_y;
+	antes_separados;
 Begin
+	cambia_regiones();
 	loop
-		antes_x=x; antes_y=y;
-		x=0; y=0; cuantos_seguimos=0;
+		antes_x=x; antes_y=y; antes_separados=num_separados;
+		x=0; y=0; cuantos_seguimos=0; 
+		num_separados=0;
 		from i=1 to 8;
-			if(exists(p[i].identificador) and p[i].identificador.x>antes_x-(ancho_pantalla*1.2) and p[i].identificador.x<antes_x+(ancho_pantalla*1.2))
+		//objetivo: que quede centrado en los jugadores, haciendo caso al que vaya más adelantado y que si hay separación, que se creen subregiones! :D
+			if(exists(p[i].identificador) and p[i].identificador.accion!="ganando"  and p[i].identificador.accion!="muerte")
+			  if(p[i].identificador.x>antes_x-(ancho_pantalla*0.6))
 				x+=p[i].identificador.x;
 				y+=p[i].identificador.y;
 				cuantos_seguimos++;
+			  else
+			    num_separados++;
+				separados[num_separados]=i;
+			  end
 			end
 		end
 		if(cuantos_seguimos!=0) //ocurre en la carga, ¿y en algún momento más?
 			x=x/cuantos_seguimos;
 			y=y/cuantos_seguimos;
 		end
+		//esto se supone que adelantará la cámara en caso de que uno se adelante
+		from i=1 to 8;
+			while(exists(p[i].identificador) AND x+((ancho_pantalla/2)*0.8)<p[i].identificador.x) x++; end
+		end
+		say(x);		
+		if(num_separados!=antes_separados) cambia_regiones(); end
 		//AQUI LO DEJASTE PENSANDO EN COMO HACER PARA QUE LA CAMARA FUERA SUAVE
 		frame;
 	end
 End
 
+Function cambia_regiones();
+Begin
+	from i=0 to 8; stop_scroll(i); end
+	switch(num_separados)
+	  case 0: //todos juntos!
+	  	if(alto_nivel<alto_pantalla) define_region(1,0,(alto_pantalla/2)-(alto_nivel/2),ancho_pantalla,alto_nivel); end
+		start_scroll(1,0,mapa_scroll,fondo,1,0);
+		//scroll[1].camera=id_cam;
+		scroll[1].camera=father.id;
 
+	    id_carganivel.graph=new_map(ancho_pantalla,alto_pantalla,16);
+		
+		flash=new_map(ancho_pantalla,alto_pantalla,8);
+		drawing_color(suelo);
+		drawing_map(0,flash);
+		draw_box(0,0,ancho_pantalla,alto_pantalla);	
+	  end
+	  case 1:
+		define_region(1,0,0,ancho_pantalla,alto_pantalla/2);
+		start_scroll(1,0,mapa_scroll,fondo,1,0);
+		scroll[1].camera=id_cam;
+		
+		define_region(2,0,alto_pantalla/2,ancho_pantalla,alto_pantalla);
+		start_scroll(2,0,mapa_scroll,fondo,2,0);
+		scroll[2].camera=p[separados[1]].identificador;
+		//say(scroll[2].camera);
+		
+		id_carganivel.graph=new_map(ancho_pantalla,alto_pantalla,16);
+		drawing_color(200);
+		drawing_map(0,id_carganivel.graph);
+		draw_box(0,alto_pantalla/2-5,ancho_pantalla,alto_pantalla/2+5);
 
+		flash=new_map(ancho_pantalla,alto_pantalla/2,8);
+		drawing_color(suelo);
+		drawing_map(0,flash);
+		draw_box(0,0,ancho_pantalla,alto_pantalla/2);
+	  end
+	  default:
+			define_region(1,0,0,ancho_pantalla/2,alto_pantalla/2);
+			define_region(2,ancho_pantalla/2,0,ancho_pantalla,alto_pantalla/2);
+			define_region(3,0,alto_pantalla/2,ancho_pantalla/2,alto_pantalla);
+			define_region(4,ancho_pantalla/2,alto_pantalla/2,ancho_pantalla,alto_pantalla);
+	
+			start_scroll(0,0,mapa_scroll,fondo,1,0);
+			scroll[0].camera=p[separados[1]].identificador;
+			start_scroll(1,0,mapa_scroll,fondo,2,0);
+			scroll[1].camera=p[separados[2]].identificador;
+			start_scroll(2,0,mapa_scroll,fondo,3,0);
+			scroll[2].camera=p[separados[3]].identificador;
+			start_scroll(3,0,mapa_scroll,fondo,4,0);
+			if(jugadores==4) 
+				scroll[3].camera=p[separados[4]].identificador;
+			end
 
-
-
-
-
-
-
-
-
-
-
+			id_carganivel.graph=new_map(ancho_pantalla,alto_pantalla,16);
+			drawing_color(200);
+			drawing_map(0,id_carganivel.graph);
+			draw_box(0,alto_pantalla/2-5,ancho_pantalla,alto_pantalla/2+5);
+			draw_box(ancho_pantalla/2-5,0,ancho_pantalla/2+5,alto_pantalla);
+			
+			flash=new_map(ancho_pantalla/2,alto_pantalla/2,8);
+			drawing_color(suelo);
+			drawing_map(0,flash);
+			draw_box(0,0,ancho_pantalla,alto_pantalla/2);
+		end
+	end
+End

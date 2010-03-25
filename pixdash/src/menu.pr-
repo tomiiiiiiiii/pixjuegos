@@ -73,7 +73,7 @@ begin
 			keytime--;
 		end
 		//elige algo
-		if(botones.p[1][4] and keytime==0)
+		if(p[1].botones[4] and keytime==0)
 			delete_text(all_text);
 			if(ops.sonido==1)
 				sonido(3);
@@ -115,7 +115,7 @@ begin
 				exit(0);
 			end
 		end
-		if(botones.p[1][3])
+		if(p[1].botones[3])
 			if(tec==0)
 				elecc++;
 				if(ops.sonido==1)
@@ -126,7 +126,7 @@ begin
 		else
 			tec=0;
 		end
-		if(botones.p[1][2])
+		if(p[1].botones[2])
 			if(tec2==0)
 				elecc--;
 				if(ops.sonido==1)
@@ -224,9 +224,9 @@ begin
 	z=50;
 	keytime=10;
 	controlador(1);	
-	while(botones.p[1][4]) frame; end
+	while(p[1].botones[4]) frame; end
 	loop
-		if(botones.p[1][5] or (graph==200 and botones.p[1][4]))
+		if(p[1].botones[5] or (graph==200 and p[1].botones[4]))
 			sonido(1);
 			let_me_alone();
 			menu();
@@ -244,7 +244,7 @@ begin
 				save(savegamedir+"opciones.dat",ops);
 				exit(0);
 			end
-			if(botones.p[1][4] and keytime==0)
+			if(p[1].botones[4] and keytime==0)
 				graph++;
 				if(graph==22)
 					sonido(1);
@@ -295,7 +295,7 @@ begin
 	write(fuente_peq,x,y+=60,3,"Resolucion");
 	
 	loop
-		if(botones.p[1][4])
+		if(p[1].botones[4])
 			if(tecenter==0)
 				if(elecc==0)
 					if(full_screen==0)
@@ -340,7 +340,7 @@ begin
 			tecenter=0;
 		end //enter
 	
-		if(botones.p[1][3])
+		if(p[1].botones[3])
 			if(tec==0)
 				if(ops.sonido==1)
 					sonido(2);
@@ -351,7 +351,7 @@ begin
 		else
 			tec=0;
 		end
-		if(botones.p[1][2])
+		if(p[1].botones[2])
 			if(tec2==0)
 				if(ops.sonido==1)
 					sonido(2);
@@ -389,7 +389,7 @@ begin
 	from i=0 to 20; elep(); end
 	tecenter=1;
 	loop
-		if(botones.p[1][4])
+		if(p[1].botones[4])
 			if(tecenter==0)
 				if(elecc==0)
 					jugadores=1;
@@ -410,7 +410,7 @@ begin
 			tecenter=0;
 		end //enter
 	
-		if(botones.p[1][3])
+		if(p[1].botones[3])
 			if(tec==0)
 				if(ops.sonido==1)
 					sonido(2);
@@ -421,7 +421,7 @@ begin
 		else
 			tec=0;
 		end
-		if(botones.p[1][2])
+		if(p[1].botones[2])
 			if(tec2==0)
 				if(ops.sonido==1)
 					sonido(2);
@@ -486,7 +486,7 @@ begin
 			elegir_paquete_niveles();
 			return;
 		end
-		if(botones.p[1][4])
+		if(p[1].botones[4])
 			if(tecenter==0)
 				paqueteniveles=nombres_paquetes[elecc+1];
 				if(elecc==num_paquetes) pedir_nuevos_niveles(); return; end
@@ -498,7 +498,7 @@ begin
 			tecenter=0;
 		end //enter
 	
-		if(botones.p[1][3])
+		if(p[1].botones[3])
 			if(tec==0)
 				if(ops.sonido==1)
 					sonido(2);
@@ -509,7 +509,7 @@ begin
 		else
 			tec=0;
 		end
-		if(botones.p[1][2])
+		if(p[1].botones[2])
 			if(tec2==0)
 				if(ops.sonido==1)
 					sonido(2);
@@ -621,7 +621,7 @@ if(nuevosniveles!=0)
 	from i=0 to 20; elep(); end
 	tecenter=1;
 	loop
-		if(botones.p[1][4])
+		if(p[1].botones[4])
 			if(tecenter==0)
 				let_me_alone();
 				sonido(3);
@@ -649,7 +649,7 @@ if(nuevosniveles!=0)
 			tecenter=0;
 		end //enter
 	
-		if(botones.p[1][3])
+		if(p[1].botones[3])
 			if(tec==0)
 				if(ops.sonido==1)
 					sonido(2);
@@ -660,7 +660,7 @@ if(nuevosniveles!=0)
 		else
 			tec=0;
 		end
-		if(botones.p[1][2])
+		if(p[1].botones[2])
 			if(tec2==0)
 				if(ops.sonido==1)
 					sonido(2);
