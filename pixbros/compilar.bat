@@ -5,7 +5,7 @@ echo Compilando...
 move pixbros.dcb ..
 pause
 cd ..
-..\..\bennu-win\bgdi pixbros.dcb
+..\bennu-win\bgdi pixbros.dcb
 
 pause
 exit
