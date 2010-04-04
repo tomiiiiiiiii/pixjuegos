@@ -24,13 +24,19 @@ Global
 	vidas=5;
 	id_txt[5];
 	disparando;
+	sonidos[5];
 End
 
 Begin
 	rand_seed(time());
+	full_screen=1;
 	set_mode(640,480,32);
 	load_fpg("bp.fpg");
 	fnt=load_fnt("oeste.fnt");
+	play_song(load_song("2.ogg"),0);
+	sonidos[1]=load_wav("1.wav");
+	sonidos[2]=load_wav("2.wav");
+	
 	put_screen(0,903);
 	while(!key(_enter)) frame; end
 	intro();
@@ -231,6 +237,7 @@ Begin
 			id_grafico[1].flags=0;
 			//entrega la pasta
 			id_grafico[1].graph=i*100+3;
+			suena(2);
 			from temp=0 to 20;
 				if(collision(type disparo)) signal(id_grafico[1],s_kill); puertas[num_puerta].tipo=0; queja(puertas[num_puerta].tipo,x); loop frame; end end
 				frame;
@@ -248,7 +255,7 @@ Begin
 			temp=0;
 			while(temp<30)
 				if(collision(type disparo)) temp=0; tomapuntos((id_grafico[1].graph-300)*100,x,y); id_grafico[1].graph++; end
-				if(id_grafico[1].graph==306) puertas[num_puerta].pagado=1; frame(400); break; end
+				if(id_grafico[1].graph==306) puertas[num_puerta].pagado=1; suena(2); frame(1000); break; end
 				temp++;
 				frame;
 			end
@@ -265,7 +272,9 @@ Begin
 			if(temp>=25)
 				//nos disparan
 				id_grafico[1].graph=402;
-				frame(2000);
+				suena(1);
+				disparo(x-35,y-5);
+				frame(1000);
 				puertas[num_puerta].tipo=0;
 				game_over();
 				return;
@@ -364,6 +373,7 @@ Begin
 	disparando=1;
 	graph=902;
 	z=-15;
+	suena(1);
 	frame(200);
 End
 
@@ -372,6 +382,7 @@ Begin
 	disparando=1;
 	graph=902;
 	z=-15;
+	suena(1);
 	from alpha=255 to 100 step -40; size-=3; frame; end
 End
 
@@ -429,4 +440,9 @@ Begin
 		define_region(1,384,449,(float)256/1800*time,31);
 		frame;
 	end
+End
+
+Process suena(sonido);
+Begin
+	play_wav(sonidos[sonido],0);
 End

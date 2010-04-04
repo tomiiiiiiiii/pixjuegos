@@ -8,8 +8,12 @@ echo Exportando...
 mkdir export
 mkdir export\fpg
 mkdir export\fnt
+mkdir export\ogg
+mkdir export\wav
 copy fpg\*.fpg export\fpg
 copy fnt\*.fnt export\fnt
+copy ogg\*.ogg export\ogg
+copy wav\*.wav export\wav
 copy ..\bennu-win\*.dll export
 copy ..\bennu-win\bgdi.exe export\bp.exe
 copy bp.dcb export
