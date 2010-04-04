@@ -5,7 +5,7 @@ Global
 	dur_pinchos;
 	dur_muelle;
 	ancho_pantalla=1280;
-	alto_pantalla=1024;
+	alto_pantalla=720;
 	ancho_nivel;
 	alto_nivel;
 	Struct ops; 
@@ -65,6 +65,7 @@ Global
 	slowmotion;
 	foto;
 	njoys;
+	posibles_jugadores;
 	// COMPATIBILIDAD CON XP/VISTA/LINUX (usuarios)
 	string savegamedir;
 	string developerpath="\PiXJuegos\PiXDash\";
@@ -129,12 +130,13 @@ Begin
 		//e l doblesalto si disponemos del power-up 3
 		if(p[jugador].botones[4] and saltogradual<5 and saltogradual!=0) gravedad-=4; saltogradual++; end
 		if(!p[jugador].botones[4] and pulsando==1) pulsando=0; saltogradual=0; end
-		if(p[jugador].botones[5] and modo_juego==1)
+/*		if(p[jugador].botones[5] and modo_juego==1)
 			if(exists(id_cam))
 			 x=id_cam.x;
 			 y=id_cam.y;
 			end
-		end
+			frame(2000);
+		end*/
 		if(map_get_pixel(0,durezas,x,y+alto)==suelo or map_get_pixel(0,durezas,x-(ancho/3),y+alto)==suelo or map_get_pixel(0,durezas,x+(ancho/3),y+alto)==suelo and gravedad>0) gravedad=0; saltando=0; doble_salto=0; else saltando=1; gravedad++; end //al tocar el suelo, gravedad es 0
 		if(x>ancho_nivel) 
 			p[i].tiempos[num_nivel]=timer[1];
@@ -245,7 +247,7 @@ Begin
 						frame;
 					end			
 				end
-				if(modo_juego==1) loop accion="muerte"; frame; end end //si te mueres, te mueres. fin
+				//if(modo_juego==1) loop accion="muerte"; frame; end end //si te mueres, te mueres. fin
 				alpha=128;
 				while(x>100 or y>100)
 					if(x>100) x-=x/10; end
@@ -422,38 +424,6 @@ Begin
 	num_enemigos--;
 End
 
-Process controlador(jugador);
-Private
-	gamepads;
-Begin
-	from i=0 to 5;
-		p[jugador].botones[i]=0;
-	end
-	Loop
-		if(!exists(father)) return; end
-		if(p[jugador].control==-1) return; end
-		If(p[jugador].control==0)  // teclado
-			If(key(_left)) p[jugador].botones[0]=1; Else p[jugador].botones[0]=0; End
-			If(key(_right)) p[jugador].botones[1]=1; Else p[jugador].botones[1]=0; End
-			If(key(_up)) p[jugador].botones[2]=1; Else p[jugador].botones[2]=0; End
-			If(key(_down)) p[jugador].botones[3]=1; Else p[jugador].botones[3]=0; End
-			If(key(_a)) p[jugador].botones[4]=1; Else p[jugador].botones[4]=0; End
-			If(key(_s)) p[jugador].botones[5]=1; Else p[jugador].botones[5]=0; End
-			If(key(_d)) p[jugador].botones[6]=1; Else p[jugador].botones[6]=0; End
-		End
-		If(p[jugador].control>0)  // joysticks
-			If(get_joy_position(joysticks[p[jugador].control-1],0)<-10000) p[jugador].botones[0]=1; Else p[jugador].botones[0]=0; End
-			If(get_joy_position(joysticks[p[jugador].control-1],0)>10000) p[jugador].botones[1]=1; Else p[jugador].botones[1]=0; End
-			If(get_joy_position(joysticks[p[jugador].control-1],1)<-7500) p[jugador].botones[2]=1; Else p[jugador].botones[2]=0; End
-			If(get_joy_position(joysticks[p[jugador].control-1],1)>7500) p[jugador].botones[3]=1; Else p[jugador].botones[3]=0; End
-			If(get_joy_button(joysticks[p[jugador].control-1],0)) p[jugador].botones[4]=1; Else p[jugador].botones[4]=0; End
-			If(get_joy_button(joysticks[p[jugador].control-1],1)) p[jugador].botones[5]=1; Else p[jugador].botones[5]=0; End
-			If(get_joy_button(joysticks[p[jugador].control-1],2)) p[jugador].botones[6]=1; Else p[jugador].botones[6]=0; End
-		End
-		Frame;
-	End
-End
-
 //1: dañosalta, 2:escudo, 3:doblesalto, 4:slowmotion, 5:velocidad
 Process powerups(x,y,tipo);
 Private
@@ -477,9 +447,18 @@ Begin
 		if(id_colision=collision(type prota)) //al tocarlos el prota
 			if(id_colision.accion!="muerte")
 				//p[id_colision.jugador].puntos++; //gana puntos
-				id_colision.powerup=tipo; //se activa el power-up
-				id_colision.tiempo_powerup=10*50; //se ajusta el tiempo del power-up
+				if(modo_juego==0)
+					id_colision.powerup=tipo; //se activa el power-up
+					id_colision.tiempo_powerup=10*50; //se ajusta el tiempo del power-up
+				end
+				if(modo_juego==1)
+					from i=1 to jugadores;
+						p[i].identificador.powerup=tipo; //se activa el power-up
+						p[i].identificador.tiempo_powerup=10*50; //se ajusta el tiempo del power-up
+					end
+				end
 				tiempo_powerup=10*50;
+					
 				while(alpha>0 and id_colision.powerup==tipo) //la animación en la que aparece detrás del prota
 					x=id_colision.x;
 					y=id_colision.y;
@@ -917,14 +896,8 @@ Begin
 		scale_resolution=ops.resolucion;
 	end
 
-	p[1].control=0;
-	p[2].control=0;
-	p[3].control=0;
-	p[4].control=0; //el control de los jugadores
-/*	from i=1 to 4;
-		joysticks[i]=i;
-		p[i].control=i;
-	end*/
+	configurar_controles();
+
 	set_fps(50,0); //imágenes por segundo
 	set_mode(800,600,16); //resolución y colores	    
 	fpg_enemigos=load_fpg("fpg/enemigos.fpg"); //cargar el mapa de tiles
@@ -981,7 +954,6 @@ Begin
 		from i=1 to 8;
 			while(exists(p[i].identificador) AND x+((ancho_pantalla/2)*0.8)<p[i].identificador.x) x++; end
 		end
-		say(x);		
 		if(num_separados!=antes_separados) cambia_regiones(); end
 		//AQUI LO DEJASTE PENSANDO EN COMO HACER PARA QUE LA CAMARA FUERA SUAVE
 		frame;
@@ -993,7 +965,11 @@ Begin
 	from i=0 to 8; stop_scroll(i); end
 	switch(num_separados)
 	  case 0: //todos juntos!
-	  	if(alto_nivel<alto_pantalla) define_region(1,0,(alto_pantalla/2)-(alto_nivel/2),ancho_pantalla,alto_nivel); end
+	  	if(alto_nivel<alto_pantalla) 
+			define_region(1,0,(alto_pantalla/2)-(alto_nivel/2),ancho_pantalla,alto_nivel); 
+		else
+			define_region(1,0,0,ancho_pantalla,alto_pantalla); 
+		end
 		start_scroll(1,0,mapa_scroll,fondo,1,0);
 		//scroll[1].camera=id_cam;
 		scroll[1].camera=father.id;
@@ -1013,7 +989,6 @@ Begin
 		define_region(2,0,alto_pantalla/2,ancho_pantalla,alto_pantalla);
 		start_scroll(2,0,mapa_scroll,fondo,2,0);
 		scroll[2].camera=p[separados[1]].identificador;
-		//say(scroll[2].camera);
 		
 		id_carganivel.graph=new_map(ancho_pantalla,alto_pantalla,16);
 		drawing_color(200);
@@ -1055,3 +1030,5 @@ Begin
 		end
 	end
 End
+
+include "controles.pr-";

@@ -36,7 +36,7 @@ begin
 	end
 	file=fpg_menu;
 	let_me_alone();
-	controlador(1);
+	controlador(0);
 	if(ops.musica and !is_playing_song()) play_song(load_song("menu.ogg"),-1); end
 	elecc=0;
 	//lista(3);
@@ -73,7 +73,7 @@ begin
 			keytime--;
 		end
 		//elige algo
-		if(p[1].botones[4] and keytime==0)
+		if(p[0].botones[4] and keytime==0)
 			delete_text(all_text);
 			if(ops.sonido==1)
 				sonido(3);
@@ -115,7 +115,7 @@ begin
 				exit(0);
 			end
 		end
-		if(p[1].botones[3])
+		if(p[0].botones[3])
 			if(tec==0)
 				elecc++;
 				if(ops.sonido==1)
@@ -126,7 +126,7 @@ begin
 		else
 			tec=0;
 		end
-		if(p[1].botones[2])
+		if(p[0].botones[2])
 			if(tec2==0)
 				elecc--;
 				if(ops.sonido==1)
@@ -223,10 +223,10 @@ begin
 	y=300;
 	z=50;
 	keytime=10;
-	controlador(1);	
-	while(p[1].botones[4]) frame; end
+	controlador(0);	
+	while(p[0].botones[4]) frame; end
 	loop
-		if(p[1].botones[5] or (graph==200 and p[1].botones[4]))
+		if(p[0].botones[5] or (graph==200 and p[0].botones[4]))
 			sonido(1);
 			let_me_alone();
 			menu();
@@ -244,7 +244,7 @@ begin
 				save(savegamedir+"opciones.dat",ops);
 				exit(0);
 			end
-			if(p[1].botones[4] and keytime==0)
+			if(p[0].botones[4] and keytime==0)
 				graph++;
 				if(graph==22)
 					sonido(1);
@@ -278,7 +278,7 @@ private
 begin
 	file=fpg_menu;
 	elecc=0;
-	controlador(1);
+	controlador(0);
 	back(1);
 	//lista(30);
 	logo(105);
@@ -295,7 +295,7 @@ begin
 	write(fuente_peq,x,y+=60,3,"Resolucion");
 	
 	loop
-		if(p[1].botones[4])
+		if(p[0].botones[4])
 			if(tecenter==0)
 				if(elecc==0)
 					if(full_screen==0)
@@ -340,7 +340,7 @@ begin
 			tecenter=0;
 		end //enter
 	
-		if(p[1].botones[3])
+		if(p[0].botones[3])
 			if(tec==0)
 				if(ops.sonido==1)
 					sonido(2);
@@ -351,7 +351,7 @@ begin
 		else
 			tec=0;
 		end
-		if(p[1].botones[2])
+		if(p[0].botones[2])
 			if(tec2==0)
 				if(ops.sonido==1)
 					sonido(2);
@@ -381,7 +381,7 @@ private
 begin
 	file=fpg_menu;
 	elecc=0;
-	controlador(1);
+	controlador(0);
 	back(1);
 	lista(31);
 	logo(253);
@@ -389,7 +389,7 @@ begin
 	from i=0 to 20; elep(); end
 	tecenter=1;
 	loop
-		if(p[1].botones[4])
+		if(p[0].botones[4])
 			if(tecenter==0)
 				if(elecc==0)
 					jugadores=1;
@@ -410,7 +410,7 @@ begin
 			tecenter=0;
 		end //enter
 	
-		if(p[1].botones[3])
+		if(p[0].botones[3])
 			if(tec==0)
 				if(ops.sonido==1)
 					sonido(2);
@@ -421,7 +421,7 @@ begin
 		else
 			tec=0;
 		end
-		if(p[1].botones[2])
+		if(p[0].botones[2])
 			if(tec2==0)
 				if(ops.sonido==1)
 					sonido(2);
@@ -473,7 +473,7 @@ begin
 	write(fuente_peq,x,y,3,"Descargar nuevos niveles");
 	file=fpg_menu;
 	elecc=0;
-	controlador(1);
+	controlador(0);
 	back(1);
 	logo(253);
 	machango2();
@@ -486,7 +486,7 @@ begin
 			elegir_paquete_niveles();
 			return;
 		end
-		if(p[1].botones[4])
+		if(p[0].botones[4])
 			if(tecenter==0)
 				paqueteniveles=nombres_paquetes[elecc+1];
 				if(elecc==num_paquetes) pedir_nuevos_niveles(); return; end
@@ -498,7 +498,7 @@ begin
 			tecenter=0;
 		end //enter
 	
-		if(p[1].botones[3])
+		if(p[0].botones[3])
 			if(tec==0)
 				if(ops.sonido==1)
 					sonido(2);
@@ -509,7 +509,7 @@ begin
 		else
 			tec=0;
 		end
-		if(p[1].botones[2])
+		if(p[0].botones[2])
 			if(tec2==0)
 				if(ops.sonido==1)
 					sonido(2);
@@ -556,7 +556,6 @@ Begin
 	mkdir(savegamedir+'niveles\'+nombre_paquete);
 	argumentos='e -tzip "'+savegamedir+nombre_paquete+'.pdn" -o"'+savegamedir+'niveles\'+nombre_paquete+'" -y';	
 	exec(_P_WAIT,"7za",1,&argumentos);
-	say(argumentos);
 //	argumentos='-o -x "'+savegamedir+nombre_paquete+'.pdn" -d "'+savegamedir+'niveles"';
 //	exec(_P_WAIT,"unzip",1,&argumentos);
 	chdir("..");
@@ -614,14 +613,14 @@ if(nuevosniveles!=0)
 	from i=1 to nuevosniveles; write(fuente_peq,x,y,3,nombresniveles[i]); y+=30; end
 	file=fpg_menu;
 	elecc=0;
-	controlador(1);
+	controlador(0);
 	back(1);
 	logo(253);
 	machango2();
 	from i=0 to 20; elep(); end
 	tecenter=1;
 	loop
-		if(p[1].botones[4])
+		if(p[0].botones[4])
 			if(tecenter==0)
 				let_me_alone();
 				sonido(3);
@@ -649,7 +648,7 @@ if(nuevosniveles!=0)
 			tecenter=0;
 		end //enter
 	
-		if(p[1].botones[3])
+		if(p[0].botones[3])
 			if(tec==0)
 				if(ops.sonido==1)
 					sonido(2);
@@ -660,7 +659,7 @@ if(nuevosniveles!=0)
 		else
 			tec=0;
 		end
-		if(p[1].botones[2])
+		if(p[0].botones[2])
 			if(tec2==0)
 				if(ops.sonido==1)
 					sonido(2);
@@ -712,7 +711,6 @@ Private
 	string temp;
 Begin
 	while((temp=glob(savegamedir+'niveles\'+nombre_paquete+'\*.*'))!="")
-		SAY(TEMP);
 		if(temp!="." and temp!="..") rm(savegamedir+'niveles\'+nombre_paquete+'\'+temp); end
 	end
 	//chdir("..");
