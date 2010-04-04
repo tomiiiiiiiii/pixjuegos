@@ -1,0 +1,267 @@
+
+//-----------------------------------------------------------------------
+// Maneja la nave protagonista
+//-----------------------------------------------------------------------
+
+PROCESS nave01(x,y)
+
+private acelx; acely; disparando; inmunidad=75; retardo=5;
+
+BEGIN
+graph=1;
+file=fpg_nave;
+loop
+LOOP
+	if(pausa==0)
+		if(inmunidad<75) inmunidad++; estado=0; flags=4; else flags=0; end
+		if(retardo<5) retardo++; end
+		if(estado==-1 and inmunidad==75) 
+			if(escudo>0) 
+				escudo--; 
+				inmunidad=0; 
+			else 
+				explosion(x,y,3,200); 
+				break; 
+			end 
+		end
+		if(key(opciones.teclado.derecha) and acelx<10) graph=3; acelx+=2;end
+		if(key(opciones.teclado.izquierda) and acelx>-10) graph=2; acelx-=2;end
+		if(key(opciones.teclado.arriba) and acely>-10) acely-=2;end
+		if(key(opciones.teclado.abajo) and acely<10) acely+=2;end
+
+		if(x>740) x=740; end
+		if(x<60) x=60; end
+		if(y<140) y=140; end
+		if(y>540) y=540; end
+
+		if(acelx>0 and not key(opciones.teclado.derecha) and x<730) acelx--; end
+		if(acelx<0 and not key(opciones.teclado.izquierda) and x>70) acelx++; end
+		if(acely<0 and not key(opciones.teclado.arriba) and y>150) acely++; end
+		if(acely>0 and not key(opciones.teclado.abajo) and y<530) acely--; end
+
+		x+=acelx; y+=acely;
+    		if(acelx==0) graph=1; end
+		IF (key(opciones.teclado.disparar1) and disparando==0 and retardo==5)
+			retardo=0;
+			if(poder==1)
+				disparo01(x-15,y-10,angle+pi/2);
+				disparo01(x+15,y-10,angle+pi/2);
+					suena(s_disparo);
+			END
+			if(poder==2)
+				disparo01(x,y-15,angle+pi/2);
+				disparo01(x-20,y+10,angle+pi/2);
+				disparo01(x+20,y+10,angle+pi/2);
+				suena(s_disparo);
+			END
+			if(poder==3)
+				disparo01(x-30,y+15,angle+pi/2);
+				disparo01(x-10,y-10,angle+pi/2);
+				disparo01(x+10,y-10,angle+pi/2);
+				disparo01(x+30,y+15,angle+pi/2);
+				suena(s_disparo);
+			END
+			if(poder==4)
+				disparo01(x-30,y+15,angle+pi*2/3);
+				disparo01(x-30,y+15,angle+pi/2);
+				disparo01(x-10,y-10,angle+pi/2);
+				disparo01(x+10,y-10,angle+pi/2);
+				disparo01(x+30,y+15,angle+pi/2);
+				disparo01(x+30,y+15,angle+pi*1/3);
+				suena(s_disparo);
+			END
+		end
+		if(disparando==0 and key(opciones.teclado.disparar2))
+			if(habil==1)
+				if(energia>4)
+					bomba(habil); energia-=5; disparando=1;
+				end
+			end
+			if(habil==2)
+				if(energia>9)
+					bomba(habil); energia-=10; disparando=1;
+				end
+			end
+			if(habil==3)
+				if(energia>9)
+					bomba(habil); energia-=10; disparando=1;
+				end
+			end
+			if(habil==4)
+				if(energia>6)
+					bomba(habil); energia-=7; disparando=1;
+				end
+			end
+			if(habil==5)
+				if(energia>1)
+					bomba(habil); energia-=1; disparando=1;
+				end
+			end
+			if(habil==6)
+				if(energia>6)
+					bomba(habil); energia-=7; disparando=1;
+				end
+			end
+		end
+		if(not exists(type bomba))
+			disparando=0;
+		end
+	end
+	FRAME;
+END
+if(poder>1) poder--; end
+escudo=5;
+inmunidad=0;
+estado=0;
+if(vidas>-1) vidas--; else break; end
+x=400;
+y=650;
+while(y>550) y-=5; frame; end
+frame;
+end
+END
+
+//-----------------------------------------------------------------------
+// Maneja marcadores
+//-----------------------------------------------------------------------
+
+process marcador();
+
+private gatillo; direccion=1; time;
+
+begin
+x=400; y=50; z=-100; file=fpg_menu;
+
+graph=20;
+
+barra_energia();
+barra_escudo();
+habilidad();
+objeto(100,50,12,fpg_nave,100);
+objeto(300,50,1,fpg_nave,20);
+write_var(fuente1,320,50,4,vidas);
+
+loop
+	if(pausa==0)
+
+		time++;
+		if(time>125 and energia<20) energia++; time=0; end
+
+		if(direccion==1) graph++; else graph--; end
+		if(graph==20) direccion=1; end
+		if(graph==44) direccion=0; end
+
+		if(key(opciones.teclado.cambiar_sig) and gatillo==0) habil++; gatillo=1; end
+		if(key(opciones.teclado.cambiar_ant) and gatillo==0) habil--; gatillo=1; end
+		if(not key(opciones.teclado.cambiar_sig) and not key(opciones.teclado.cambiar_ant) and gatillo==1) gatillo=0; end
+		if(habil>6) habil=1; end
+		if(habil<1) habil=6; end
+		if(escudo>5) escudo=5; end
+		if(poder>4) poder=4; end
+		if(energia>20) energia=20; end
+	end
+	frame;
+end
+end
+
+//-----------------------------------------------------------------------
+// muestra la habilidad
+//-----------------------------------------------------------------------
+
+process habilidad();
+
+begin
+x=400; y=50; z=-110; file=fpg_nave;
+loop
+	if(habil==1) graph=30; end
+	if(habil==2) graph=31; end
+	if(habil==3) graph=32; end
+	if(habil==4) graph=33; end
+	if(habil==5) graph=34; end
+	if(habil==6) graph=0; end
+ 	frame;
+end
+end
+
+//-----------------------------------------------------------------------
+// Maneja la barra de energia
+//-----------------------------------------------------------------------
+process barra_energia();
+
+private
+energia2;
+
+begin
+x=100; y=50; z=-110; graph=11; region=2; file=fpg_nave;
+loop
+	if(pausa==0)
+		if(energia>energia2) energia2++; end
+		if(energia<energia2) energia2--; end
+		define_region(2,25,30,energia2*150/20,60);
+	end
+	frame;
+end
+end
+
+//-----------------------------------------------------------------------
+// Maneja la barra de escudo
+//-----------------------------------------------------------------------
+
+process barra_escudo();
+
+private
+escudo2;
+escudo_ant;
+
+begin
+x=700; y=50; z=-110; graph=10; region=3; file=fpg_nave;
+loop
+	if(pausa==0)
+
+		if(escudo_ant>escudo)
+			if(escudo==4) sombra(20,635,y,file,1); end
+			if(escudo==3) sombra(20,670,y,file,1); end
+			if(escudo==2) sombra(20,705,y,file,1); end
+			if(escudo==1) sombra(20,735,y,file,1); end
+			if(escudo==0) sombra(20,765,y,file,1); end		
+		end
+
+		if(escudo==5) escudo2=620; end
+		if(escudo==4) escudo2=650; end
+		if(escudo==3) escudo2=690; end
+		if(escudo==2) escudo2=720; end
+		if(escudo==1) escudo2=750; end
+		if(escudo==0) escudo2=780; end
+		define_region(3,escudo2,30,800,60);
+		escudo_ant=escudo;
+	end
+	frame;
+end
+end
+
+//-----------------------------------------------------------------------
+// Maneja los bonos
+//-----------------------------------------------------------------------
+
+process bono(x,y,tipo);
+
+begin
+file=fpg_nave;
+if(tipo==1) graph=20; end
+if(tipo==2) graph=21; end
+if(tipo==3) graph=22; end
+
+loop
+	if(pausa==0)
+		y+=3; angle+=3000;
+		if(collision(id_nave))
+			if(tipo==1) escudo+=1; end
+			if(tipo==2) energia=20; end
+			if(tipo==3) poder+=1; end
+			break;
+		end
+		if(y>650) break; end
+	end
+	frame;
+end
+end
