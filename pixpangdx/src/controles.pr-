@@ -1,0 +1,93 @@
+Process controlador(jugador);
+Private
+	j;
+Begin
+	from i=0 to 5;
+		p[jugador].botones[i]=0;
+	end
+	Loop
+		if(!exists(father)) return; end
+		if(p[jugador].control==-2) //GLOBAL: Para menús y tal
+			from i=1 to posibles_jugadores;
+				controlador(i);
+			end
+			loop
+				from j=0 to 6;
+					p[0].botones[j]=0;
+				end
+				from i=1 to posibles_jugadores;
+					from j=0 to 6;
+						if(p[i].botones[j]) p[0].botones[j]=1; end
+					end
+				end
+				frame;
+			end
+		end
+		if(p[jugador].control==-1) return; end
+		If(p[jugador].control==0)  // teclado
+			If(key(_left)) p[jugador].botones[0]=1; Else p[jugador].botones[0]=0; End
+			If(key(_right)) p[jugador].botones[1]=1; Else p[jugador].botones[1]=0; End
+			If(key(_up)) p[jugador].botones[2]=1; Else p[jugador].botones[2]=0; End
+			If(key(_down)) p[jugador].botones[3]=1; Else p[jugador].botones[3]=0; End
+			If(key(_a) or key(_enter)) p[jugador].botones[4]=1; Else p[jugador].botones[4]=0; End
+			If(key(_s) or key(_esc)) p[jugador].botones[5]=1; Else p[jugador].botones[5]=0; End
+			If(key(_d)) p[jugador].botones[6]=1; Else p[jugador].botones[6]=0; End
+		End
+		If(p[jugador].control>0)  // joysticks
+			If(get_joy_position(joysticks[p[jugador].control-1],0)<-10000) p[jugador].botones[0]=1; Else p[jugador].botones[0]=0; End
+			If(get_joy_position(joysticks[p[jugador].control-1],0)>10000) p[jugador].botones[1]=1; Else p[jugador].botones[1]=0; End
+			If(get_joy_position(joysticks[p[jugador].control-1],1)<-7500) p[jugador].botones[2]=1; Else p[jugador].botones[2]=0; End
+			If(get_joy_position(joysticks[p[jugador].control-1],1)>7500) p[jugador].botones[3]=1; Else p[jugador].botones[3]=0; End
+			If(get_joy_button(joysticks[p[jugador].control-1],0)) p[jugador].botones[4]=1; Else p[jugador].botones[4]=0; End
+			If(get_joy_button(joysticks[p[jugador].control-1],1)) p[jugador].botones[5]=1; Else p[jugador].botones[5]=0; End
+			If(get_joy_button(joysticks[p[jugador].control-1],2)) p[jugador].botones[6]=1; Else p[jugador].botones[6]=0; End
+		End
+		Frame;
+	End
+End
+
+Function configurar_controles();
+Begin
+	//1. Averiguamos cuantos joysticks tenemos
+	njoys=number_joy();
+	//2. ¿Cuántos de ellos son utilizables/tienen al menos dos ejes y dos botones?
+	from i=0 to njoys;
+		if(joy_numbuttons(i)=>2)
+			posibles_jugadores++;
+			joysticks[posibles_jugadores]=i;
+		end
+	end
+	posibles_jugadores++; //+1 por el jugador en teclado
+	//3. Si tenemos X joysticks, X jugadores jugarán con joystick y el siguiente jugará con teclado
+	if(posibles_jugadores==1) //no hay joysticks
+		p[1].control=0;
+		from i=2 to 4; p[i].control=-1; end
+	end
+	if(posibles_jugadores==2) //hay 1 joysticks
+		p[1].control=1;
+		p[2].control=0;
+		from i=3 to 4; p[i].control=-1; end
+	end
+	if(posibles_jugadores==3) //hay 2 joysticks
+		p[1].control=1;
+		p[2].control=2;
+		p[3].control=0;
+		p[4].control=-1;
+	end
+	if(posibles_jugadores==4) //hay 3 joysticks
+		p[1].control=1;
+		p[2].control=2;
+		p[3].control=3;
+		p[4].control=0;
+	end
+	if(posibles_jugadores==4) //hay 4 joysticks
+		p[1].control=1;
+		p[2].control=2;
+		p[3].control=3;
+		p[4].control=0;
+	end
+	
+	p[0].control=-2; //Esto son los menus :)
+	
+	//Y creo que ya estamos :)
+End

@@ -2,12 +2,16 @@ Const
 	resolucion_x=1920;
 	resolucion_y=1080;
 	
-	area_juego_x=1560;
-	area_juego_y=960;
+	bloques_x=50;
+	bloques_y=30;
+	bloques_max=100;
+	bolas_max=100;
 	
 	tamanyo_bloque_min=30;
 	bits=16;
 Global
+	area_juego_x;
+	area_juego_y;
 	borde_arriba;
 	borde_abajo;
 	borde_izquierda;
@@ -24,10 +28,32 @@ Global
 	end
 
 	mapa_durezas; //mapa de durezas para las colisiones
-	mini_mapa_durezas; //fichero de bloques
+	//mini_mapa_durezas; //fichero de bloques, deprecado!
 	fondo; //grafico de fondo
 	
-	velocidad_bolas=200; //velocidad de las bolas (cuando menos, mayor velocidad)
+	struct nivel;
+		string nombre;
+		tiempo;
+		struct bolas[bolas_max];
+			char x,y,tipo,tamanyo,lado,regalo;
+		end
+		struct bloques[bloques_max];
+			char x1,x2,y1,y2,tipo,regalo,destructible;
+			int color;
+		end
+	end
+	num_bloques;
+	num_bolas;
+	
+	struct opciones;
+		int lenguaje=-1; 	// 0 = castellano, 1 = inglés
+		int musica=1;
+		int sonido=1;
+		int pantalla_completa=0;
+		int dificultad=2; //1:fácil, 2:normal, 3:difícil, 4:muy difícil 5:imposible
+	End
+	
+	velocidad_bolas=200; //velocidad de las bolas (cuanto menos, mayor velocidad)
 	
 	bolas; //número de bolas en pantalla
 
@@ -61,8 +87,13 @@ Global
 		items_recogidos; //items_recogidos en el nivel
 	end
 	
+	posibles_jugadores;
+	njoys;
+	
 	fpg_general;
+	
 	fnt;
+	
 Local
 	gravedad;
 	inercia;
@@ -77,19 +108,29 @@ Local
 	i;
 	jugador;
 	primera_caida; //de las bolas, para la dinamita y la bola pang
+	
 Begin
+	area_juego_x=bloques_x*tamanyo_bloque_min;
+	area_juego_y=bloques_y*tamanyo_bloque_min;
+	
 	borde_arriba=(resolucion_y/2)-(area_juego_y/2);
 	borde_abajo=(resolucion_y/2)+(area_juego_y/2);
 	borde_izquierda=(resolucion_x/2)-(area_juego_x/2);
 	borde_derecha=(resolucion_x/2)+(area_juego_x/2);
 
-	full_screen=0;
-	scale_resolution=10240576;
+	full_screen=1;
+	if(!mode_is_ok(1920,1080,32,MODE_WAITVSYNC+MODE_FULLSCREEN))
+		if(!mode_is_ok(1280,720,32,MODE_WAITVSYNC+MODE_FULLSCREEN))
+			scale_resolution=10240576;
+		else
+			scale_resolution=12800720;
+		end
+	end
 	set_mode(resolucion_x,resolucion_y,bits,WAITVSYNC);
-	set_fps(60,9);
+	set_fps(60,3);
 	frame;
 	
-	preparar_controladores();
+	configurar_controles();
 	
 	color.negro=rgb(0,0,0);
 	color.blanco=rgb(255,255,255);
@@ -104,44 +145,13 @@ Begin
 	
 	p[1].fpg=load_fpg("pix.fpg");
 	p[2].fpg=load_fpg("pixmorao.fpg");
-	
-	mapa_durezas=new_map(1920,1080,bits);
-	drawing_map(0,mapa_durezas);
-	drawing_color(color.negro);
-	draw_box(0,0,resolucion_x,resolucion_y);
-	
-	if(fexists("durezastemp.png")) 
-		mini_mapa_durezas=load_png("durezastemp.png");
-		crea_mapa_durezas();
-	end
-		
-	//bordes de la zona de juego
-	drawing_color(color.blanco);
-	draw_line(borde_izquierda,borde_arriba,borde_derecha,borde_arriba);
-	draw_line(borde_izquierda,borde_abajo,borde_derecha,borde_abajo);
-	draw_line(borde_izquierda,borde_arriba,borde_izquierda,borde_abajo);
-	draw_line(borde_derecha,borde_arriba,borde_derecha,borde_abajo);
 
-	//posiciones caretos
-	if(p[1].jugando) grafico(p[1].fpg,1,resolucion_x/28,resolucion_y/12,-2,0); end
-	if(p[2].jugando) grafico(p[2].fpg,1,resolucion_x-(resolucion_x/28),resolucion_y/12,-2,1); end
-	if(p[3].jugando) grafico(p[3].fpg,1,resolucion_x/28,resolucion_y-(resolucion_y/12),-2,0); end
-	if(p[4].jugando) grafico(p[4].fpg,1,resolucion_x-(resolucion_x/28),resolucion_y-(resolucion_y/12),-2,1); end
-	
-	dibuja_fondo();
-	
-	//grafico(0,load_png("bordes.png"),resolucion_x/2,resolucion_y/2,-1,0);
-	//grafico(0,fondo,resolucion_x/2,resolucion_y/2,1,0);	
-	//grafico(0,mapa_durezas,resolucion_x/2,resolucion_y/2,3,0);	
+	carga_nivel(1);
+end
 
-	//PRINCIPAL
-	
-	personaje(1);
-	pinta();
-	//raton();
-	ready=1;
+Process debuj();
+Begin
 	x=1;
-	//bola(1000,borde_arriba+150,9,120,0,0);
 	
 	/**/
 	write(fnt,0,y+=40,0,"F1-Recrea personajes");
@@ -151,13 +161,13 @@ Begin
 	write(fnt,0,y+=40,0,"F5-Pantalla completa");
 	write(fnt,0,y+=40,0,"F10-Guardar durezas");
 	/**/
-	
+
 	loop 
-		if(key(_F10)) save_png(0,mini_mapa_durezas,"durezastemp.png"); while(key(_F10)) frame; end end
+		if(key(_F10)) guarda_nivel("niveltemp.pang"); while(key(_F10)) frame; end end
 		if(key(_F1)) personaje(1);personaje(2); while(key(_F1)) frame; end end
 		if(key(_F2)) if(ready) ready=0; else ready=1; end while(key(_F2)) frame; end end
 		if(key(_F3)) item_reloj(5); while(key(_F3)) frame; end end
-		if(key(_F4)) 
+/*		if(key(_F4)) 
 			if(scale_resolution==10240576) 
 				scale_resolution=12800720;
 			elseif(scale_resolution==12800720)
@@ -167,10 +177,10 @@ Begin
 			end
 			set_mode(resolucion_x,resolucion_y,bits,WAITVSYNC);
 			while(key(_F4)) frame; end
-		end
+		end*/
 		if(key(_F5)) if(full_screen==1) full_screen=0; else full_screen=1; end set_mode(resolucion_x,resolucion_y,bits,WAITVSYNC); while(key(_F5)) frame; end end
 
-		if(bolas==0) bola(1000,borde_arriba+150,x++,120,0,0); end
+		//if(bolas==0) bola(1000,borde_arriba+150,x++,120,0,0); end
 		frame; 
 	end
 End
@@ -186,6 +196,7 @@ Private
 	animacion; //0: quieto, 1:andar, 2:disparar, 3:enescaleras
 	toca_suelo;
 	disparando;
+	retraso_disparo;
 	invencibilidad; //para cuando pierdes la protección
 Begin
 	if(p[jugador].jugando) return; end // POR QUÉ? xD
@@ -193,7 +204,7 @@ Begin
 	file=p[jugador].fpg;
 	graph=11;
 	prepara_proceso_grafico();
-	controlador();
+	controlador(jugador);
 	//x=borde_izquierda+(area_juego_x/2);
 	x=borde_izquierda+(area_juego_x/2)-(tamanyo_bloque_min/2);
 	y=borde_abajo-alto;
@@ -201,7 +212,7 @@ Begin
 	personaje_colisionador();
 	loop
 		while(ready==0) accion=0; frame; end
-		if(!(p[jugador].botones[0] and p[jugador].botones[1]) and (p[jugador].botones[0] or p[jugador].botones[1]))
+		if(!(p[jugador].botones[0] and p[jugador].botones[1]) and (p[jugador].botones[0] or p[jugador].botones[1]) and retraso_disparo==0)
 			if(p[jugador].botones[0]) x_destino-=tamanyo_bloque_min/3; else
 				if(p[jugador].botones[1]) x_destino+=tamanyo_bloque_min/3; end 
 			end
@@ -220,6 +231,7 @@ Begin
 			p[jugador].arma==3)) //Comprobamos que se pueda disparar teniendo en cuenta la arma, y si ha soltado el gatillo antes de volver a darle
 			disparo(p[jugador].arma); 
 			disparando=1; 
+			retraso_disparo=-5;
 		end
 		y_destino=gravedad;
 		while(x_destino!=0)
@@ -287,6 +299,7 @@ Begin
 		
 		x_destino=0;
 		y_destino=0;
+		if(retraso_disparo<0) graph=31; retraso_disparo++; end
 		frame;
 	end
 	
@@ -352,17 +365,18 @@ Private
 	lado_y; //para la bola rombo
 	distancias[4]; //para los cálculos de la bola perseguidora
 	id_perseguir; // id a perseguir
+	bloqueo_x_destino;
 Begin
 	bolas++;
 	primera_caida=-20;
 	file=fpg_general;
 	if(tipo==20) tipo_mutante=1; tipo=1; end
 	graph=tipo+10;
-	if(tipo==4) // bola gravedad negativa
-		gravedad=10;	
-	else
-		gravedad=-10;
-	end
+//	if(tipo==4) // bola gravedad negativa
+//		gravedad=10;	
+//	else
+		gravedad=-10; //probaremos con sólo esto
+//	end
 	
 	ancho=(graphic_info(file,graph,g_width)/2)*tamanyo/100;
 	alto=(graphic_info(file,graph,g_height)/2)*tamanyo/100;
@@ -383,11 +397,11 @@ Begin
 		
 		if(tipo_mutante) graph=tipo+10; end
 		if(tipo!=8) //bola sin desplazamiento lateral
-			x_destino += lado ? 9 : -9; //WOW xD. Pd: 1 derecha, 0 izquierda
+			x_destino += lado ? 7 : -7; //WOW xD. Pd: 1 derecha, 0 izquierda
 		end
 		if((tipo==3 or gravedad>0) and primera_caida<1) primera_caida++; end //retraso en la muerte de las recien nacidas bola con dinamita o bola pang
 			
-		if(tipo==3) //movimiento rombo
+		if(tipo==3) //movimiento vertical rombo
 			rebote=0;
 			if(lado_y) //para abajo
 				gravedad=8;
@@ -445,11 +459,11 @@ Begin
 				if(tipo_mutante) if(tipo<10) tipo++; else tipo=1; end end
 				if(y==borde_abajo-alto) //el rebote (con la variable) sólo se produce en las plataformas
 					if(tipo==2) //bola mayor rebote
-						gravedad=-30-(tamanyo/8); 
+						gravedad=-20-(tamanyo/8); 
 					elseif(tipo==9) //bola perdida rebote
 						gravedad=-rebote*0.9; 
 					else //el resto rebotan normal
-						gravedad=-20-(tamanyo/6); 
+						gravedad=-15-(tamanyo/6); 
 					end
 				else 
 					if(tipo==9)//bola perdida rebote
@@ -467,7 +481,7 @@ Begin
 				if(tipo==4) //bola con gravedad negativa!
 					if(tipo_mutante) if(tipo<10) tipo++; else tipo=1; end end
 					if(y==borde_arriba+alto)
-						gravedad=45-(tamanyo/15);
+						gravedad=45-(tamanyo/14);
 					else
 						gravedad=-rebote;
 					end
@@ -489,8 +503,7 @@ Begin
 		//------------------------
 		
 		x_destino=x_destino;
-		y_destino=gravedad;
-		
+		y_destino=gravedad;		
 		
 		while(x_destino!=0)
 			if(x_destino>0)
@@ -498,7 +511,8 @@ Begin
 					map_get_pixel(0,mapa_durezas,x+ancho,y)!=color.negro or 
 					map_get_pixel(0,mapa_durezas,x+(ancho/2),y+(alto/2))!=color.negro) //colision derecha 
 					lado=0;
-					break; 
+					x_destino=-x_destino;
+					bloqueo_x_destino+=1;
 				else
 					x++;
 					x_destino--;
@@ -508,14 +522,17 @@ Begin
 					map_get_pixel(0,mapa_durezas,x-ancho,y)!=color.negro or 
 					map_get_pixel(0,mapa_durezas,x-(ancho/2),y+(alto/2))!=color.negro) //colision derecha
 					lado=1;
-					break; 
+					x_destino=-x_destino;
+					bloqueo_x_destino+=1;
 				else
 					x--;
 					x_destino++;
 				end
 			end
+			if(bloqueo_x_destino=>10) x_destino=0; /*accion=-1;*/ end
 		end
-
+		bloqueo_x_destino=0;
+		
 		while(y_destino!=0)
 			if(y_destino>0)
 				if(map_get_pixel(0,mapa_durezas,x-(ancho/2),y+(alto/2))!=color.negro or
@@ -563,11 +580,11 @@ Begin
 
 	if(tamanyo>20 and tipo!=5 and tipo!=6 and tipo!=10) 
 		if(tipo_mutante)
-			bola(x-(ancho/2),y,20,tamanyo-25,0,regalo);
-			bola(x+(ancho/2),y,20,tamanyo-25,1,regalo);
+			bola(x,y,20,tamanyo-25,0,regalo);
+			bola(x,y,20,tamanyo-25,1,regalo);
 		else
-			bola(x-(ancho/2),y,tipo,tamanyo-25,0,regalo);
-			bola(x+(ancho/2),y,tipo,tamanyo-25,1,regalo);
+			bola(x,y,tipo,tamanyo-25,0,regalo);
+			bola(x,y,tipo,tamanyo-25,1,regalo);
 		end
 	end
 	
@@ -579,10 +596,10 @@ Begin
 	end
 
 	//animacion de explosion
-	explotalo(x,y,z,size,file,graph,60);
+	//explotalo(x,y,z,size,file,graph,60);
 	
 	//prueba
-	item_drop(x,y,rand(1,23));
+	if(tamanyo>20 and !bola_pang) item_drop(x,y,rand(1,23)); end
 	//item_drop(x,y,regalo);
 	
 	bolas--;
@@ -603,77 +620,103 @@ Begin
 	father.alto=graphic_info(father.file,father.graph,g_height)/2;
 End
 
+/*
+durezas:
+*/
 Process pinta();
 Private
 	x1;
 	y1;
 	mapa_temporal;
 	id_grafico;
+	bloque_x;
+	bloque_y;
+	modo=1; //1: durezas, 2:bloques, 3:bolas, ...
+	punto_verde;
+	micolor;
+	regalo;
+	destructible;
+	pulsando;
 Begin
-	if(mini_mapa_durezas==0) mini_mapa_durezas=new_map(area_juego_x/tamanyo_bloque_min,area_juego_y/tamanyo_bloque_min,bits); end
-	graph=new_map(10,10,bits);
-	drawing_color(color.verde);
+	x1=-1;
+	y1=-1;
+	graph=punto_verde=new_map(10,10,bits);
+	drawing_color(color.rojo);
 	drawing_map(0,graph);
 	draw_box(0,0,10,10);
 	drawing_map(0,mapa_durezas);
-	x=borde_izquierda;
-	y=borde_arriba;
-	mapa_temporal=new_map(1920,1080,bits);
-	grafico(0,mapa_temporal,resolucion_x/2,resolucion_y/2,-3,0);
+	frame;
+	write_int(fnt,0,0,0,&pulsando);
 	loop
-		x=mouse.x*2/tamanyo_bloque_min*tamanyo_bloque_min;
-		y=mouse.y*2/tamanyo_bloque_min*tamanyo_bloque_min;
+		if(key(_1)) modo=1; file=0; graph=punto_verde; elseif(key(_2)) modo=2; graph=0; elseif(key(_3)) modo=3; file=fpg_general; graph=12; end
 		
-		if(x<borde_izquierda) x=borde_izquierda; end
-		if(x>borde_derecha) x=borde_derecha; end
-		if(y>borde_abajo) y=borde_abajo; end
-		if(y<borde_arriba) y=borde_arriba; end
-		
-		if(x1!=0) //para que se vea el cuadro rojo que vamos a colocar
-			drawing_color(color.rojo);
-			draw_rect(x1,y1,x,y);
+		if(key(_f) and !key(_ins) and (map_get_pixel(0,mapa_durezas,x-tamanyo_bloque_min,y)==color.negro or pulsando==0))
+			bloque_x--; 
+		elseif(key(_h) and (map_get_pixel(0,mapa_durezas,x+tamanyo_bloque_min,y)==color.negro or pulsando==0)) 
+			bloque_x++; 
 		end
-		if(mouse.left or mouse.right)
-			if(x1==0)
-				x1=x; y1=y;
-				while(mouse.left or mouse.right) frame; end
-			elseif(y1!=y and x1!=x) //no se pueden hacer líneas
-				drawing_map(0,mapa_durezas);
-				if(mouse.left) //metemos la dureza
-					drawing_color(color.verde);
-				else //quitamos la dureza
-					drawing_color(color.negro);
+		if(key(_t) and !key(_ins) and (map_get_pixel(0,mapa_durezas,x,y-tamanyo_bloque_min)==color.negro or pulsando==0)) 
+			bloque_y--; 
+		elseif(key(_g) and (map_get_pixel(0,mapa_durezas,x,y+tamanyo_bloque_min)==color.negro or pulsando==0)) bloque_y++; end
+		
+		if(bloque_x<0) bloque_x=0; end
+		if(bloque_y<0) bloque_y=0; end
+		if(bloque_x>area_juego_x/tamanyo_bloque_min-1) bloque_x=area_juego_x/tamanyo_bloque_min-1; end
+		if(bloque_y>area_juego_y/tamanyo_bloque_min-1) bloque_y=area_juego_y/tamanyo_bloque_min-1; end
+		
+		x=tamanyo_bloque_min/2+borde_izquierda+bloque_x*tamanyo_bloque_min;
+		y=tamanyo_bloque_min/2+borde_arriba+bloque_y*tamanyo_bloque_min;
+		
+		switch(modo)
+			case 1:
+				if(key(_ins) and num_bloques<bloques_max and pulsando==0 and map_get_pixel(0,mapa_durezas,x,y)==color.negro)
+					num_bloques++;
+					nivel.bloques[num_bloques].x1=bloque_x; //queda más bonito si empezamos desde el 1
+					nivel.bloques[num_bloques].y1=bloque_y;
+					nivel.bloques[num_bloques].tipo=tipo;
+					nivel.bloques[num_bloques].regalo=regalo;
+					nivel.bloques[num_bloques].color=color.verde;
+					pulsando=1;
+					//nivel.bloques[num_bloques].color=micolor; //cuando haya selección de color
 				end
-				draw_box(x1,y1,x,y);
-				
-				drawing_map(0,mini_mapa_durezas);
-				draw_box((x1-borde_izquierda)/tamanyo_bloque_min,(y1-borde_arriba)/tamanyo_bloque_min,((x-borde_izquierda)/tamanyo_bloque_min)-1,((y-borde_arriba)/tamanyo_bloque_min)-1);
-				
-				drawing_map(0,mapa_durezas);
-				drawing_color(color.blanco);
-				//recreamos los bordes (no nos fiemos de los usuarios NUNCA!
-				draw_line(borde_izquierda,borde_arriba,borde_derecha,borde_arriba);
-				draw_line(borde_izquierda,borde_abajo,borde_derecha,borde_abajo);
-				draw_line(borde_izquierda,borde_arriba,borde_izquierda,borde_abajo);
-				draw_line(borde_derecha,borde_arriba,borde_derecha,borde_abajo);
-				
-				//borramos el rectángulo del mapa temporal
-				drawing_color(0);
-				drawing_map(0,mapa_temporal);
-				draw_rect(x1,y1,x,y);
-				
-				dibuja_fondo();				
-				
-				x1=0; y1=0;
-				while(mouse.left or mouse.right) frame; end
+				if(pulsando==1 and !key(_ins))
+					if(bloque_x=>nivel.bloques[num_bloques].x1 and bloque_y=>nivel.bloques[num_bloques].y1)
+						nivel.bloques[num_bloques].x2=bloque_x;
+						nivel.bloques[num_bloques].y2=bloque_y;
+						say("bloque "+itoa(nivel.bloques[num_bloques].x1)+","+itoa(nivel.bloques[num_bloques].y1)+","+itoa(nivel.bloques[num_bloques].x2)+","+itoa(nivel.bloques[num_bloques].y2)+","+itoa(nivel.bloques[num_bloques].tipo)+","+itoa(nivel.bloques[num_bloques].regalo)+","+itoa(nivel.bloques[num_bloques].color)+","+itoa(nivel.bloques[num_bloques].destructible));
+						pulsando=0;
+						carga_nivel(0);
+					else
+						nivel.bloques[num_bloques].x1=0;
+						nivel.bloques[num_bloques].y1=0;
+						nivel.bloques[num_bloques].x2=0;
+						nivel.bloques[num_bloques].y2=0;
+						nivel.bloques[num_bloques].tipo=0;
+						nivel.bloques[num_bloques].regalo=0;
+						nivel.bloques[num_bloques].color=0;
+						pulsando=0;
+						num_bloques--;
+					end
+				end
+				if(key(_del) and num_bloques>0 and pulsando==0)
+					nivel.bloques[num_bloques].x1=0;
+					nivel.bloques[num_bloques].y1=0;
+					nivel.bloques[num_bloques].x2=0;
+					nivel.bloques[num_bloques].y2=0;
+					nivel.bloques[num_bloques].tipo=0;
+					nivel.bloques[num_bloques].regalo=0;
+					nivel.bloques[num_bloques].color=0;
+					num_bloques--;
+					while(key(_del)) frame; end
+					carga_nivel(0);
+				end
+			end
+			case 2:
+			end
+			case 3:
 			end
 		end
-		frame;
-		if(x1!=0) //limpieza del cuadro rojo
-			drawing_map(0,mapa_temporal);
-			drawing_color(0);
-			draw_rect(x1,y1,x,y);
-		end
+		frame(400);
 	end
 End
 
@@ -752,40 +795,6 @@ Begin
 	end
 End
 
-Process controlador();
-Private
-	gamepads;
-Begin
-	from i=0 to 5;
-		p[jugador].botones[i]=0;
-	end
-	jugador=father.jugador;
-	Loop
-		if(!exists(father)) return; end
-		if(p[jugador].control==-1) return; end
-		While(ready==0) Frame; End
-		If(p[jugador].control==0)  // teclado
-			If(key(_left)) p[jugador].botones[0]=1; Else p[jugador].botones[0]=0; End
-			If(key(_right)) p[jugador].botones[1]=1; Else p[jugador].botones[1]=0; End
-			If(key(_up)) p[jugador].botones[2]=1; Else p[jugador].botones[2]=0; End
-			If(key(_down)) p[jugador].botones[3]=1; Else p[jugador].botones[3]=0; End
-			If(key(_a)) p[jugador].botones[4]=1; Else p[jugador].botones[4]=0; End
-			If(key(_s)) p[jugador].botones[5]=1; Else p[jugador].botones[5]=0; End
-			If(key(_d)) p[jugador].botones[6]=1; Else p[jugador].botones[6]=0; End
-		End
-		If(p[jugador].control>0)  // joysticks
-			If(get_joy_position(joysticks[p[jugador].control-1],0)<-10000) p[jugador].botones[0]=1; Else p[jugador].botones[0]=0; End
-			If(get_joy_position(joysticks[p[jugador].control-1],0)>10000) p[jugador].botones[1]=1; Else p[jugador].botones[1]=0; End
-			If(get_joy_position(joysticks[p[jugador].control-1],1)<-7500) p[jugador].botones[2]=1; Else p[jugador].botones[2]=0; End
-			If(get_joy_position(joysticks[p[jugador].control-1],1)>7500) p[jugador].botones[3]=1; Else p[jugador].botones[3]=0; End
-			If(get_joy_button(joysticks[p[jugador].control-1],0)) p[jugador].botones[4]=1; Else p[jugador].botones[4]=0; End
-			If(get_joy_button(joysticks[p[jugador].control-1],1)) p[jugador].botones[5]=1; Else p[jugador].botones[5]=0; End
-			If(get_joy_button(joysticks[p[jugador].control-1],2)) p[jugador].botones[6]=1; Else p[jugador].botones[6]=0; End
-		End
-		Frame;
-	End
-End
-
 /* TIPOS DE ITEMS
 1.Vida
 2.Reloj
@@ -860,6 +869,7 @@ Process proteccion(jugador);
 Begin
 	file=p[jugador].fpg;
 	graph=201;
+	priority=1;
 	while(p[jugador].proteccion>0 and exists(p[jugador].id))
 		x=p[jugador].id.x;
 		y=p[jugador].id.y;
@@ -893,7 +903,7 @@ Begin
 	
 	while(reloj>0)
 		while(!ready) frame; end
-		if(reloj>10*60) reloj=10*60; end //tampoco hay que ser variciosos
+		if(reloj>7*60) reloj=7*60; end //tampoco hay que ser variciosos
 		tiempo_en_segundos=(reloj/60)+1;
 		reloj--;
 		frame;
@@ -901,7 +911,7 @@ Begin
 	delete_text(txt_reloj);
 End
 
-Function preparar_controladores();
+/*Function preparar_controladores();
 Begin
 	p[2].control=1;
 	p[3].control=2;
@@ -911,7 +921,9 @@ Begin
 	joysticks[1]=1;
 	joysticks[2]=2;
 	joysticks[3]=3;
-End
+End*/
+
+include "controles.pr-";
 
 include "explosion.pr-";
 
@@ -936,15 +948,156 @@ Begin
 	draw_line(borde_derecha,borde_arriba,borde_derecha,borde_abajo);
 End
 
-Function crea_mapa_durezas();
+/* formato del fichero:
+//nombre nombre
+//tiempo segundos
+//bola x,y,tamanyo,regalo
+//[...]
+//bloque x1,y1,x2,y2,tipo,regalo
+//[...]
+
+struct nivel;
+	string nombre;
+	tiempo;
+	struct bolas[100];
+		x;
+		y;
+		tipo;
+		tamanyo;
+		lado;
+		regalo;
+	end
+	struct bloques[100];
+		x1; x2;
+		y1; y2;
+		tipo;
+		regalo;
+	end
+end
+*/
+
+Function carga_nivel(num_nivel);
+Private
+	fichero;
+	string linea;
+	string txt_temp;
+	string michar;
+	valor;
 Begin
-	drawing_map(0,mapa_durezas);
-	drawing_color(color.verde);
-	from x=0 to area_juego_x/tamanyo_bloque_min-1;
-		from y=0 to area_juego_y/tamanyo_bloque_min-1;
-			if(map_get_pixel(0,mini_mapa_durezas,x,y)!=color.negro)
-				draw_box(borde_izquierda+(x*tamanyo_bloque_min),borde_arriba+(y*tamanyo_bloque_min),borde_izquierda+((x+1)*tamanyo_bloque_min),borde_arriba+((y+1)*tamanyo_bloque_min));
+	ready=0;
+	num_bolas=0;
+	if(num_nivel!=0) //si se pasa el 0 no cargaremos el nivel. recrearemos el nivel con las variables en memoria
+		num_bloques=0;
+		let_me_alone();
+		delete_text(all_text);
+		bolas=0;
+		//CARGA DE LA ESTRUCTURA NIVEL
+		fichero=fopen("niveles/"+num_nivel+".pang",O_READ);
+		while(!feof(fichero))
+			linea=fgets(fichero);
+			if(""+linea[0]+linea[1]+linea[2]+linea[3]+linea[4]+linea[5]=="nombre")
+				nivel.nombre=substr(linea,7);
+			end
+			if(""+linea[0]+linea[1]+linea[2]+linea[3]+linea[4]+linea[5]=="tiempo")
+				nivel.tiempo=substr(linea,7);
+			end
+			if(""+linea[0]+linea[1]+linea[2]+linea[3]=="bola")
+				num_bolas++;
+				linea=substr(linea,5);
+				michar="";
+				valor=0;
+				from i=0 to len(linea);
+					if(""+linea[i]=="," or i==len(linea))
+						if(valor==0) nivel.bolas[num_bolas].x=atoi(michar); end
+						if(valor==1) nivel.bolas[num_bolas].y=atoi(michar); end
+						if(valor==2) nivel.bolas[num_bolas].tipo=atoi(michar); end
+						if(valor==3) nivel.bolas[num_bolas].tamanyo=atoi(michar); end
+						if(valor==4) nivel.bolas[num_bolas].lado=atoi(michar); end
+						if(valor==5) nivel.bolas[num_bolas].regalo=atoi(michar); break; end
+						michar="";
+						valor++;
+					else
+						michar+=""+linea[i];
+					end
+				end
+			end
+			if(""+linea[0]+linea[1]+linea[2]+linea[3]+linea[4]+linea[5]=="bloque")
+				num_bloques++;
+				linea=substr(linea,7);
+				michar="";
+				valor=0;
+				from i=0 to len(linea);
+					if(""+linea[i]=="," or i==len(linea))
+						if(valor==0) nivel.bloques[num_bloques].x1=atoi(michar); end
+						if(valor==1) nivel.bloques[num_bloques].y1=atoi(michar); end			
+						if(valor==2) nivel.bloques[num_bloques].x2=atoi(michar); end
+						if(valor==3) nivel.bloques[num_bloques].y2=atoi(michar); end
+						if(valor==4) nivel.bloques[num_bloques].tipo=atoi(michar); end
+						if(valor==5) nivel.bloques[num_bloques].regalo=atoi(michar); end
+						if(valor==6) nivel.bloques[num_bloques].color=atoi(michar); end
+						if(valor==7) nivel.bloques[num_bloques].destructible=atoi(michar); end
+						michar="";
+						valor++;
+					else
+						michar+=""+linea[i];
+					end
+				end
 			end
 		end
+		fclose(fichero);
+		//FIN DE LA CARGA DE LA ESTRUCTURA NIVEL
 	end
+	
+	if(mapa_durezas>0 and map_exists(0,mapa_durezas)) unload_map(0,mapa_durezas); end
+	mapa_durezas=new_map(resolucion_x,resolucion_y,bits);
+	drawing_map(0,mapa_durezas);
+	drawing_color(color.negro);
+	draw_box(0,0,resolucion_x,resolucion_y);
+	from i=1 to num_bloques;
+		if(nivel.bloques[i].x1!=0)
+			drawing_color(nivel.bloques[i].color);
+			//le quitamos 1 a x1 que le sumamos al añadir el bloque
+			draw_box(borde_izquierda+(nivel.bloques[i].x1)*tamanyo_bloque_min,
+			borde_arriba+(nivel.bloques[i].y1)*tamanyo_bloque_min,
+			borde_izquierda+(nivel.bloques[i].x2)*tamanyo_bloque_min+tamanyo_bloque_min,
+			borde_arriba+(nivel.bloques[i].y2)*tamanyo_bloque_min+tamanyo_bloque_min);
+			//borde_izquierda+(nivel.bloques[i].x2-1)*tamanyo_bloque_min,
+			//borde_arriba+(nivel.bloques[i].y2-1)*tamanyo_bloque_min);
+		end
+	end
+	drawing_color(color.blanco);
+	draw_rect(borde_izquierda,borde_arriba,borde_derecha,borde_abajo);
+	
+	dibuja_fondo();			
+	
+	if(num_nivel==0) ready=1; bola_pang=1; while(bolas>0) frame; end ready=0; bola_pang=0; end
+	from i=1 to bolas_max;
+		if(nivel.bolas[i].tipo!=0)	
+			bola((borde_izquierda+(tamanyo_bloque_min/2)+(nivel.bolas[i].x*tamanyo_bloque_min)),
+			(borde_arriba+(tamanyo_bloque_min/2)+(nivel.bolas[i].y*tamanyo_bloque_min)),
+			nivel.bolas[i].tipo,
+			nivel.bolas[i].tamanyo,
+			nivel.bolas[i].lado,
+			nivel.bolas[i].regalo);
+		end
+	end
+	
+	if(num_nivel!=0)
+		//posiciones caretos
+		if(p[1].jugando) grafico(p[1].fpg,1,resolucion_x/28,resolucion_y/12,-2,0); end
+		if(p[2].jugando) grafico(p[2].fpg,1,resolucion_x-(resolucion_x/28),resolucion_y/12,-2,1); end
+		if(p[3].jugando) grafico(p[3].fpg,1,resolucion_x/28,resolucion_y-(resolucion_y/12),-2,0); end
+		if(p[4].jugando) grafico(p[4].fpg,1,resolucion_x-(resolucion_x/28),resolucion_y-(resolucion_y/12),-2,1); end
+		
+		//PRINCIPAL
+		personaje(1);
+		pinta();
+		debuj();
+		//raton();
+	end
+	ready=1;
+End
+
+Function guarda_nivel(string fichero);
+Begin
 End
