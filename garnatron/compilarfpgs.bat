@@ -1,4 +1,6 @@
 @echo off
+rd /s /q fpg
+mkdir fpg
 ECHO CREANDO FPGS...
 cd fpg-sources
 ..\..\bennu-win\bgdc -Ca pxlfpg.prg
