@@ -505,7 +505,7 @@ begin
 			rana_elec(320,380,505,0);
 			ranpuntos[ganador]++;
 			timer[0]=0;
-			while(timer[0]<500 and !key(_enter)) frame; end
+			while(timer[0]<300 or !key(_enter)) frame; end
 			alpha=60;
 			dand=100;
 			loop
@@ -550,7 +550,6 @@ begin
 			unload_map(0,graph);
 			break;
 		end
-		say(fps);
 		frame;
 	end
 end
@@ -604,7 +603,8 @@ private
 	qy;
 	up;
 	gr;
-
+	id_obst;
+	
 begin
 	y=400;
 	x=100;
@@ -655,7 +655,7 @@ begin
 				frame(200);
 			end
 		end
-		if(collision(type obstcc) or (llegada!=jugador and llegada!=0))
+		if((graph!=gr+1 and (id_obst=collision(type obstcc)) and id_obst.y==y) or (llegada!=jugador and llegada!=0))
 			golp(x,y,graph);
 			explotalo(x,y,z,alpha,angle,file,graph,60);
 			sonido(4);
@@ -690,7 +690,6 @@ process obstc(qy,tip)
 private
 	gr;
 begin
-
 	if(tip==0 or tip==1)
 		gr=rand(100,104);
 	end
@@ -921,7 +920,6 @@ Private
 Begin
 	ancho=graphic_info(file,grafico,g_width);
 	alto=graphic_info(file,grafico,g_height);
-	say(alto);
 	from b=0 to alto-1 step 3;
 		from a=0 to ancho-1 step 3;
 			if(map_get_pixel(file,grafico,a,b)!=0)
