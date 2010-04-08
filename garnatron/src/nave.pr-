@@ -20,7 +20,8 @@ LOOP
 				escudo--; 
 				inmunidad=0; 
 			else 
-				explosion(x,y,3,200); 
+				explosion(x,y,3,200);
+				explotalo(x,y,z,alpha,angle,file,graph,20);
 				break; 
 			end 
 		end
@@ -88,16 +89,11 @@ LOOP
 				end
 			end
 			if(habil==4)
-				if(energia>6)
-					bomba(habil); energia-=7; disparando=1;
-				end
-			end
-			if(habil==5)
 				if(energia>1)
 					bomba(habil); energia-=1; disparando=1;
 				end
 			end
-			if(habil==6)
+			if(habil==5)
 				if(energia>6)
 					bomba(habil); energia-=7; disparando=1;
 				end
@@ -154,8 +150,8 @@ loop
 		if(key(opciones.teclado.cambiar_sig) and gatillo==0) habil++; gatillo=1; end
 		if(key(opciones.teclado.cambiar_ant) and gatillo==0) habil--; gatillo=1; end
 		if(not key(opciones.teclado.cambiar_sig) and not key(opciones.teclado.cambiar_ant) and gatillo==1) gatillo=0; end
-		if(habil>6) habil=1; end
-		if(habil<1) habil=6; end
+		if(habil>5) habil=1; end
+		if(habil<1) habil=5; end
 		if(escudo>5) escudo=5; end
 		if(poder>4) poder=4; end
 		if(energia>20) energia=20; end
@@ -219,11 +215,11 @@ loop
 	if(pausa==0)
 
 		if(escudo_ant>escudo)
-			if(escudo==4) sombra(20,635,y,file,1); end
-			if(escudo==3) sombra(20,670,y,file,1); end
-			if(escudo==2) sombra(20,705,y,file,1); end
-			if(escudo==1) sombra(20,735,y,file,1); end
-			if(escudo==0) sombra(20,765,y,file,1); end		
+			if(escudo==4) explotalo(635,y,z,alpha,angle,file,20,10); end
+			if(escudo==3) explotalo(670,y,z,alpha,angle,file,20,10); end
+			if(escudo==2) explotalo(705,y,z,alpha,angle,file,20,10); end
+			if(escudo==1) explotalo(735,y,z,alpha,angle,file,20,10); end
+			if(escudo==0) explotalo(765,y,z,alpha,angle,file,20,10); end		
 		end
 
 		if(escudo==5) escudo2=620; end
@@ -258,6 +254,7 @@ loop
 			if(tipo==1) escudo+=1; end
 			if(tipo==2) energia=20; end
 			if(tipo==3) poder+=1; end
+			explotalo(x,y,z,alpha,angle,file,graph,20);
 			break;
 		end
 		if(y>650) break; end

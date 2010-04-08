@@ -192,15 +192,23 @@ select_joy(0);
 
 start_scroll(0,fpg_menu,7,8,1,15); //numero,file,grafico,fondo,region,loop
 musica(1);
-graph=0;
-dibuja(fpg_menu,2,3,5,400,300);
+graph=2;
+
+from alpha=0 to 255 step 10; frame; end
 timer[2]=0;
 
-while(timer[2]<800) frame; end
+while(timer[2]<200)
+	if(scan_code)
+		break;
+	end
+	frame;
+end
+
+from alpha=255 to 0 step -10; frame; end
 
 clear_screen();
 historia(1);
-//juego(4);
+//(juego(4);
 frame;
 
 end
@@ -454,7 +462,7 @@ begin
 			frame;
 		end
 	
-		letra("Creditos",160,120,1);
+		letra("Autores",160,120,1);
 		timer[2]=0;
 		while(timer[2]<600)
 			if(id_nave.x<320) id_nave.x+=1; end
@@ -472,7 +480,7 @@ begin
 		end
 	
 		letra("Ayudante",480,360,0);
-		letra("Panreyes",480,390,0);
+		letra("PiXeL",480,390,0);
 		timer[2]=0;
 		while(timer[2]<400)
 			scroll.x0+=3;
@@ -491,7 +499,7 @@ begin
 	
 	
 		letra("Sonido",480,120,3);
-		letra("Danner",480,150,3);
+		letra("no me acuerdo",480,150,3);
 		timer[2]=0;
 		while(timer[2]<400)
 			scroll.x0+=3;
@@ -516,14 +524,14 @@ begin
 			frame;
 		end
 
-		letra("Hecho en Fenix",480,120,3);
+		letra("Hecho en Bennu",480,120,3);
 		timer[2]=0;
 		while(timer[2]<400)
 			scroll.x0+=3;
 			frame;
 		end
 
-		letra("creado por PiX Juegos",480,360,0);
+		letra("Creado por PiX Juegos",480,360,0);
 		timer[2]=0;
 		while(timer[2]<600)
 			if(id_nave.x<850) id_nave.x+=1; end
@@ -531,7 +539,7 @@ begin
 			frame;
 		end
 
-		letra("FIN DEL JUEGO",400,300,4);
+		letra("Gracias por jugar",400,300,4);
 		timer[2]=0;
 		while(timer[2]<600)
 			if(id_nave.x<850) id_nave.x+=2; end
@@ -1624,20 +1632,7 @@ if(nivel==1)
 	pausa=0;
 	LOOP
 
-		if(key(opciones.teclado.pausa) and gatillo==0)
-			gatillo=1;
-			if(pausa==0)
-				pausa=1;
-				graph=20;
-				size=100;
-				direccion=1;
-				id_texto=write(fuente1,x,y,4,"pausa");
-			else
-				pausa=0;
-				graph=0;
-				delete_text(id_texto);
-			end
-		end
+
 
 		if(key(opciones.teclado.salir) and gatillo==0)
 			gatillo=1;
@@ -1855,20 +1850,7 @@ if(nivel==2)
 	pausa=0;
 	LOOP
 
-		if(key(opciones.teclado.pausa) and gatillo==0)
-			gatillo=1;
-			if(pausa==0)
-				pausa=1;
-				graph=20;
-				size=100;
-				direccion=1;
-				id_texto=write(fuente1,x,y,4,"pausa");
-			else
-				pausa=0;
-				graph=0;
-				delete_text(id_texto);
-			end
-		end
+
 
 		if(key(opciones.teclado.salir) and gatillo==0)
 			gatillo=1;
@@ -2060,20 +2042,7 @@ if(nivel==3)
 	pausa=0;
 	LOOP
 
-		if(key(opciones.teclado.pausa) and gatillo==0)
-			gatillo=1;
-			if(pausa==0)
-				pausa=1;
-				graph=20;
-				size=100;
-				direccion=1;
-				id_texto=write(fuente1,x,y,4,"pausa");
-			else
-				pausa=0;
-				graph=0;
-				delete_text(id_texto);
-			end
-		end
+
 
 		if(key(opciones.teclado.salir) and gatillo==0)
 			gatillo=1;
@@ -2236,20 +2205,7 @@ if(nivel==4)
 	pausa=0;
 	LOOP
 
-		if(key(opciones.teclado.pausa) and gatillo==0)
-			gatillo=1;
-			if(pausa==0)
-				pausa=1;
-				graph=20;
-				size=100;
-				direccion=1;
-				id_texto=write(fuente1,x,y,4,"pausa");
-			else
-				pausa=0;
-				graph=0;
-				delete_text(id_texto);
-			end
-		end
+
 
 		if(key(opciones.teclado.salir) and gatillo==0)
 			gatillo=1;
@@ -2442,20 +2398,7 @@ if(nivel==5)
 	pausa=0;
 	LOOP
 
-		if(key(opciones.teclado.pausa) and gatillo==0)
-			gatillo=1;
-			if(pausa==0)
-				pausa=1;
-				graph=20;
-				size=100;
-				direccion=1;
-				id_texto=write(fuente1,x,y,4,"pausa");
-			else
-				pausa=0;
-				graph=0;
-				delete_text(id_texto);
-			end
-		end
+
 
 		if(key(opciones.teclado.salir) and gatillo==0)
 			gatillo=1;
@@ -2603,7 +2546,6 @@ END
 
 process explosion(x,y,tipo,size);
 begin
-explotalo(father.x,father.y,father.z,father.alpha,father.angle,father.file,father.graph,20);
 file=fpg_explosiones;
 z=father.z-1;
 region=1;
@@ -2642,6 +2584,10 @@ if(tipo==4)
 end
 end
 
+//-----------------------------------------------------------------------
+// funcion para guardar archivos
+//-----------------------------------------------------------------------
+
 Function crear_jerarquia(string nuevo_directorio)                // Mejor Function que Process aquí
 Private
 	string directorio_actual="";
@@ -2676,10 +2622,9 @@ Begin
     return 0;
 End
 
-include "nave.pr-"
-include "bombas.pr-"
-include "bosses.pr-"
-include "enemigos.pr-"
+//-----------------------------------------------------------------------
+// explosiones de particulas
+//-----------------------------------------------------------------------
 
 Process explotalo(x,y,z,alpha,angle,file,grafico,frames);
 Private
@@ -2699,8 +2644,7 @@ Private
 Begin
 	ancho=graphic_info(file,grafico,g_width);
 	alto=graphic_info(file,grafico,g_height);
-	say(alto);
-	from b=0 to alto-1 step 3;
+		from b=0 to alto-1 step 3;
 		from a=0 to ancho-1 step 3;
 			if(map_get_pixel(file,grafico,a,b)!=0)
 				particula[c].pixell=map_get_pixel(file,grafico,a,b);
@@ -2709,24 +2653,20 @@ Begin
 				particula[c].pos_y=b-(alto/2);
 				particula[c].vel_x=((a-(ancho/2))/12)+rand(-1,1);
 				particula[c].vel_y=((b-(alto/2))/12)+rand(-1,1);
-				
-			//	particula[c].vel_x=(a-(ancho/2))/12;
-			//	particula[c].vel_y=(b-(alto/2))/12;
-				
+
 				c++;
 			end
 		end
 	end
 	a=c;
+	size=200;
 	while(tiempo<frames)
 		graph=new_map(ancho*8,alto*8,32);
-		from c=0 to a;
+		from c=0 to a step 4;
 			map_put_pixel(0,graph,particula[c].pos_x+(ancho*8/2),particula[c].pos_y+(alto*8/2),particula[c].pixell);
-			map_put_pixel(0,graph,particula[c].pos_x+(ancho*8/2)+1,particula[c].pos_y+(alto*8/2),particula[c].pixell);
-			map_put_pixel(0,graph,particula[c].pos_x+(ancho*8/2),particula[c].pos_y+(alto*8/2)+1,particula[c].pixell);
-			map_put_pixel(0,graph,particula[c].pos_x+(ancho*8/2)+1,particula[c].pos_y+(alto*8/2)+1,particula[c].pixell);
+			
 			particula[c].pos_x+=particula[c].vel_x;
-			particula[c].pos_y+=particula[c].vel_y+tiempo-10;
+			particula[c].pos_y+=particula[c].vel_y;
 			
 		end
 		tiempo++;
@@ -2734,3 +2674,10 @@ Begin
 		unload_map(0,graph);
 	end
 end
+
+
+
+include "nave.pr-"
+include "bombas.pr-"
+include "bosses.pr-"
+include "enemigos.pr-"

@@ -52,7 +52,7 @@ if(tipo==1)	//nivel 1
 			id_nave.estado=-1;
 		end
 
-		if(vida_boss<1) signal(id_boss02,s_kill); explosion(x,y,4,200); break; end
+		if(vida_boss<1) signal(id_boss02,s_kill); explosion(x,y,4,200); explotalo(x,y,z,alpha,angle,file,graph,40); break; end
 	end
 	frame;
 	end
@@ -96,7 +96,7 @@ if(tipo==2)	//nivel 2
 			id_nave.estado=-1;
 		end
 
-		if(vida_boss<1) signal(id2,s_kill); explosion(x,y,4,100); break; end
+		if(vida_boss<1) explosion(x,y,4,100); explotalo(x,y,z,alpha,angle,file,graph,40); break; end
 	end
 	frame;
 	end
@@ -138,7 +138,7 @@ if(tipo==3)	//nivel 3
 			id_nave.estado=-1;
 		end
 
-		if(vida_boss<1) signal(id2,s_kill); explosion(x,y,4,100); break; end
+		if(vida_boss<1) explosion(x,y,4,100); explotalo(x,y,z,alpha,angle,file,graph,40); break; end
 	end
 	frame;
 	end
@@ -171,8 +171,8 @@ if(tipo==4) //nivel 3 escudo
 			id_nave.estado=-1;
 		end
 
-		if(vida<1) explosion(x,y,3,100); break; end
-		if(vida_boss<250) explosion(x,y,3,100); break; end
+		if(vida<1) explosion(x,y,3,100); explotalo(x,y,z,alpha,angle,file,graph,40); break; end
+		if(vida_boss<250) explosion(x,y,3,100); break; explotalo(x,y,z,alpha,angle,file,graph,40); end
 	end
 	frame;
 	end
@@ -205,8 +205,8 @@ if(tipo==5)	//nivel 3 escudo
 			id_nave.estado=-1;
 		end
 
-		if(vida<1) explosion(x,y,3,100); break; end
-		if(vida_boss<250) explosion(x,y,3,100); break; end
+		if(vida<1) explosion(x,y,3,100); explotalo(x,y,z,alpha,angle,file,graph,40); break; end
+		if(vida_boss<250) explosion(x,y,3,100); explotalo(x,y,z,alpha,angle,file,graph,40); break; end
 	end
 	frame;
 	end
@@ -264,7 +264,7 @@ if(tipo==6)	//nivel 4
 			id_nave.estado=-1;
 		end
 
-		if(vida_boss<1) signal(id_boss04,s_kill); signal(id_boss05,s_kill); explosion(x,y,4,200); break; end
+		if(vida_boss<1) signal(id_boss04,s_kill); signal(id_boss05,s_kill); explosion(x,y,4,200); explotalo(x,y,z,alpha,angle,file,graph,40); break; end
 	end
 	frame;
 	end
@@ -295,8 +295,8 @@ if(tipo==7)	//nivel 4 ala
 		end
 
 		if(id2) vida-=2; explosion(id2.x,id2.y,2,100); end
-		if(vida<1) explosion(x+150,y,3,100); break; end
-		if(vida_boss<500) explosion(x+150,y,3,100); break; end
+		if(vida<1) explosion(x+150,y,3,100); break; explotalo(x,y,z,alpha,angle,file,graph,40); end
+		if(vida_boss<500) explosion(x+150,y,3,100); explotalo(x,y,z,alpha,angle,file,graph,40); break; end
 	end
 	frame;
 	end
@@ -328,8 +328,8 @@ if(tipo==8)	//nivel 4 ala
 			id_nave.estado=-1;
 		end
 
-		if(vida<1) explosion(x-150,y,3,100); break; end
-		if(vida_boss<500) explosion(x-150,y,3,100); break; end
+		if(vida<1) explosion(x-150,y,3,100); break; explotalo(x,y,z,alpha,angle,file,graph,40); end
+		if(vida_boss<500) explosion(x-150,y,3,100); explotalo(x,y,z,alpha,angle,file,graph,40); break; end
 	end
 	frame;
 	end
@@ -406,11 +406,8 @@ if(tipo==9)	//nivel 5
 		end
 
 		if(vida_boss<-99)
-			signal(id_boss02,s_kill);
-			signal(id_boss03,s_kill);
-			signal(id_boss04,s_kill);
-			signal(id_boss05,s_kill);
-			explosion(x,y,4,1000); 
+			
+			explosion(x,y,4,1000);
 			break;
 		end
 	end
@@ -507,8 +504,8 @@ if(tipo==12)	//nivel 5 motor
 			id_nave.estado=-1;
 		end
 
-		if(vida<1) explosion(x-150,y+200,3,100); break; end
-		if(vida_boss<1000) explosion(x-150,y+200,3,100); break; end
+		if(vida<1) explosion(x-150,y+200,3,100);break; end
+		if(vida_boss<1000) explosion(x-150,y+200,3,100);  break; end
 	end
 	frame;
 	end
@@ -537,7 +534,7 @@ if(tipo==13)	//nivel 5 motor
 			id_nave.estado=-1;
 		end
 
-		if(vida_boss<1000) explosion(x+150,y+200,3,100); break; end
+		if(vida_boss<1000) explosion(x+150,y+200,3,100);break; end
 		if(vida<1) explosion(x+150,y+200,3,100); break; end
 	end
 	frame;

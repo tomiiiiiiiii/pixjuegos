@@ -82,23 +82,6 @@ if(tipo==3)
 end
 
 if(tipo==4)
-	graph=50;
-	size=0;
-	loop
-	if(pausa==0)
-		x=father.x;
-		y=father.y-30;
-		time++;
-		if(time<20) size+=5; end
-		if(time>20) laser(x,y,40,id); laser(x,y,41,id); end
-		if(time==25) suena(s_laser2); end
-		if(time>75) break; end
-	end
-	frame;
-	end
-end
-
-if(tipo==5)
 	x=id_nave.x;
 	y=id_nave.y;
 	if(exists(type enemigo))
@@ -110,13 +93,13 @@ if(tipo==5)
 	elseif(exists(type boss))
 		id2=get_id(type boss);
 	end
-	laser(x-20,y,50,id2);
-	laser(x+20,y,50,id2);
+	laser(x-20,y,40,id2);
+	laser(x+20,y,40,id2);
 	frame(700);
 end
 
-if(tipo==6)
-	laser(x,y,60,id_nave);
+if(tipo==5)
+	laser(x,y,50,id_nave);
 	while(time<140)
 		time++;
 		frame;
@@ -154,7 +137,7 @@ if(tipo==10)
 	end
 end
 if(tipo==11)
-	angulo=0;
+	angulo=-pi/2;
 	graph=12;
 	angle=pi/2;
 	size=10;
@@ -162,17 +145,16 @@ if(tipo==11)
 	if(pausa==0)
 		y-=30; 
 		x=id2.x+get_distx(angulo,100);
-		angulo+=30000;
+		angulo+=10000;
 		if(size<100) size+=10; end
 		if(angulo<pi) z=id2.z+1; else z=id2.z-1; end 
-		if(angulo==2*pi) angulo=0; end		
 		if(y<-50) break; end
 	end
 	frame;
 	end
 end
 if(tipo==12)
-	angulo=pi;
+	angulo=pi/2;
 	graph=12;
 	angle=pi/2;
 	size=10;
@@ -180,10 +162,9 @@ if(tipo==12)
 	if(pausa==0)
 		y-=30; 
 		x=id2.x+get_distx(angulo,100);
-		angulo+=30000;
+		angulo+=10000;
 		if(size<100) size+=10; end
 		if(angulo<pi) z=id2.z+1; else z=id2.z-1; end 
-		if(angulo==2*pi) angulo=0; end		
 		if(y<-50) break; end
 	end
 	frame;
@@ -193,7 +174,7 @@ if(tipo==20)
 	graph=21;
 	angle=pi/2;
 	z=16;
-	avance=-10;
+	avance=30;
 	loop
 	if(pausa==0)
 		if(exists(id2))
@@ -211,10 +192,10 @@ if(tipo==20)
 	end
 end
 if(tipo==21)
-	graph=rand(22,24);
+	graph=22;
 	angle=pi/2;
 	z=16;
-	avance=-30;
+	avance=10;
 	loop
 	if(pausa==0)
 		if(exists(id2))
@@ -222,7 +203,7 @@ if(tipo==21)
 			y=id2.y+get_distx(angulo,avance);
 		else
 			size_y-=5;
-			y-=30;
+			y-=50;
 		end
 		avance-=40;
 		if(out_region(id,1)) break; end
@@ -243,50 +224,8 @@ if(tipo==30)
 	frame;
 	end
 end
-if(tipo==40)
-	graph=51;
-	z=16;
-	angulo=90000;
-	//id2=father;
-	loop
-	if(pausa==0)
-		if(exists(id2))
-			x=father.x+get_distx(angulo,20);
-			x1=father.x;
-		else
-			x=x1+get_distx(angulo,20);
-		end
-		y-=30;
-		z=16+get_distx(angulo-90000,2);
-		angulo+=30000;
-		if(out_region(id,1)) break; end
-	end
-	frame;
-	end
-end
-if(tipo==41)
-	graph=52;
-	z=16;
-	angulo=90000;
-	//id2=father;
-	loop
-	if(pausa==0)
-		if(exists(id2))
-			x=father.x-get_distx(angulo,20);
-			x1=father.x;
-		else
-			x=x1-get_distx(angulo,20);
-		end
-		y-=30;
-		z=16-get_distx(angulo-90000,2);
-		angulo+=30000;
-		if(out_region(id,1)) break; end
-	end
-	frame;
-	end
-end
 
-if(tipo==50)
+if(tipo==40)
 	graph=101;
 	angle=90000;
 	loop
@@ -317,17 +256,17 @@ if(tipo==50)
 	end
 	file=fpg_explosiones;
 	graph=1;
-	suena(s_explosion_grande);
+	suena(s_explosion);
 	repeat
-		if(pausa==0) graph++; size+=20; end
+		if(pausa==0) graph++; end
 	frame;
 	until(graph==12)
 	
 end
 
-if(tipo==60)
+if(tipo==50)
 	graph=60;
-	flags=4;
+	flags=0;
 	size=0;
 	loop
 		if(pausa==0)
@@ -389,11 +328,15 @@ REPEAT
 		advance(20);
 		if(id2=collision(type laser))
 			if(id2.graph!=60)
-				explosion(x,y,2,100);
+				explotalo(x,y,z,alpha,angle,file,graph,10);
 				break;
 			end
 		end
-		if(collision(id_nave)) id_nave.estado=-1; explosion(x,y,2,100); end
+		if(tipo==4)
+			estela(x,y,angle,fpg_explosiones,42);
+		end
+
+		if(collision(id_nave)) id_nave.estado=-1; explotalo(x,y,z,alpha,angle,file,graph,10); end
 		if(collision(type disparo01)) break; end
 	end
 	FRAME;
@@ -445,10 +388,10 @@ file=fpg_bombas;
 region=1;
 graph=41;
 id2=father;
-avance=10;
+avance=30;
 loop
 	if(pausa==0)
-		if(collision(id_nave)) id_nave.estado=-1; explosion(x,y,2,100); end
+		if(collision(id_nave)) id_nave.estado=-1; explosion(x,y,2,200); end
 		if(exists(id2))
 			x1=id2.x;
 			y1=id2.y;
@@ -459,7 +402,7 @@ loop
 			x=x1+get_distx(angle,avance);
 			y=y1+get_disty(angle,avance);
 		end
-		avance+=30;
+		avance+=50;
 		if(out_region(id,1)) break; end
 	end
 	frame;
