@@ -477,6 +477,7 @@ private
 begin
 	llegada=0;
 	wy=0;
+	priority=1;
 	delete_text(all_text);
 	if(ranpuntos[1]!=0) write_int(ler,200,470,4,&ranpuntos[1]); end
 	if(ranpuntos[2]!=0) write_int(ler,250,470,4,&ranpuntos[2]); end
@@ -505,7 +506,7 @@ begin
 			rana_elec(320,380,505,0);
 			ranpuntos[ganador]++;
 			timer[0]=0;
-			while(timer[0]<300 or !key(_enter)) frame; end
+			while(timer[0]<300) frame; end
 			alpha=60;
 			dand=100;
 			loop
@@ -559,9 +560,10 @@ process bac();
 begin
 	z=father.z+5;
 	flags=father.flags;
-	LOOP
+//	LOOP
 		if(!exists(father))
-			break;
+			//break;
+			return;
 		else
 			x=father.x+(father.x/30)-10;
 			y=father.y+5;
@@ -595,7 +597,7 @@ begin
 			end
 			FRAME;
 		end
-	END
+//	END
 END
 
 process ran(jugador);
@@ -604,7 +606,7 @@ private
 	up;
 	gr;
 	id_obst;
-	
+	gr_antes;
 begin
 	y=400;
 	x=100;
@@ -629,7 +631,6 @@ begin
 	end
 
 	graph=gr;
-		bac();
 	loop
 		if(up>0)
 			up--;
@@ -643,7 +644,7 @@ begin
 		if(qy==-2200) llegada=jugador; end
 		if(jugador==11 or jugador==12 or jugador==13 or jugador==14)
 			graph=gr;
-			if(rand(0,100)>90 or collision (type obstc))
+				if(rand(0,100)>90 or collision (type obstc))
 				graph=gr+1;
 				
 				qy-=50;
@@ -655,12 +656,20 @@ begin
 				frame(200);
 			end
 		end
-		if((graph!=gr+1 and (id_obst=collision(type obstcc)) and id_obst.y==y) or (llegada!=jugador and llegada!=0))
+		
+		//POSIBLES FORMAS DE PERDER: NOS ATROPELLAN O GANA OTRO
+		gr_antes=graph; //guardamos el gráfico actual
+		graph=61; //y ponemos este para colisionar!
+		if((graph!=gr+1 and collision(type obstcc)) or (llegada!=jugador and llegada!=0))
+			graph=gr_antes;
 			golp(x,y,graph);
 			explotalo(x,y,z,alpha,angle,file,graph,60);
 			sonido(4);
 			break;
 		end
+		graph=gr_antes;
+
+
 		if((
 			(jugador==1 and ((key(_up) and buzz==0) or (get_joy_button(buzz_joy,0) and buzz)))
 			or 
@@ -681,6 +690,7 @@ begin
 			wy+=5;
 		end
 		y=wy+qy;
+		bac();
 		frame;
 	end
 	if(jugador<10) ranviva[jugador]=0; else ranviva[jugador-10]=0; end
