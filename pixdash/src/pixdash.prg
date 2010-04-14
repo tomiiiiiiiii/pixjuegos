@@ -4,8 +4,8 @@ Global
 	suelo;
 	dur_pinchos;
 	dur_muelle;
-	ancho_pantalla=1280;
-	alto_pantalla=720;
+	ancho_pantalla=1360;
+	alto_pantalla=768;
 	ancho_nivel;
 	alto_nivel;
 	Struct ops; 
@@ -61,7 +61,7 @@ Global
 	num_enemigos;
 	max_num_enemigos;
 	num_nivel=1;
-	todo_preparado;
+	ready;
 	slowmotion;
 	foto;
 	njoys;
@@ -121,7 +121,7 @@ Begin
 	ancho=18;
 	alto=29;
 	loop
-		while(todo_preparado==0) frame; end
+		while(ready==0) frame; end
 		if(p[jugador].botones[1]) flags=0; inercia+=2; end //la inercia sube al ir hacia la derecha
 		if(p[jugador].botones[0]) flags=1; inercia-=2; end //la inercia baja al ir hacia la izquierda
 		if(p[jugador].botones[4] and pulsando==0 and saltando==0) saltando=1; sonido(5); saltogradual=1; gravedad=-15; pulsando=1; y--; end 
@@ -129,14 +129,8 @@ Begin
 		if(p[jugador].botones[4] and pulsando==0 and powerup==3 and tiempo_powerup>0 and doble_salto==0) saltogradual=1; doble_salto=1; gravedad=-15; pulsando=1; y--; end
 		//e l doblesalto si disponemos del power-up 3
 		if(p[jugador].botones[4] and saltogradual<5 and saltogradual!=0) gravedad-=4; saltogradual++; end
+		if(saltogradual>0 and p[jugador].botones[4]==0 and gravedad<-10) saltogradual=0; gravedad=-10; end
 		if(!p[jugador].botones[4] and pulsando==1) pulsando=0; saltogradual=0; end
-/*		if(p[jugador].botones[5] and modo_juego==1)
-			if(exists(id_cam))
-			 x=id_cam.x;
-			 y=id_cam.y;
-			end
-			frame(2000);
-		end*/
 		if(map_get_pixel(0,durezas,x,y+alto)==suelo or map_get_pixel(0,durezas,x-(ancho/3),y+alto)==suelo or map_get_pixel(0,durezas,x+(ancho/3),y+alto)==suelo and gravedad>0) gravedad=0; saltando=0; doble_salto=0; else saltando=1; gravedad++; end //al tocar el suelo, gravedad es 0
 		if(x>ancho_nivel) 
 			p[i].tiempos[num_nivel]=timer[1];
@@ -156,7 +150,8 @@ Begin
 				elseif(posiciones[3]==0) posicion=3; posiciones[3]=jugador;
 				elseif(posiciones[4]==0) posicion=4; posiciones[4]=jugador; end
 			end
-			if(jugadores<=2)
+			
+/*			if(jugadores<=2)
 				if(jugador==1) write(fuente,ancho_pantalla/2,alto_pantalla/4,4,posicion); pon_tiempo(p[i].tiempos[num_nivel],1,ancho_pantalla/2,(alto_pantalla/4)+50); end
 				if(jugador==2) write(fuente,ancho_pantalla/2,(alto_pantalla/4)*3,4,posicion); pon_tiempo(p[i].tiempos[num_nivel],1,ancho_pantalla/2,((alto_pantalla/4)*3)+50); end
 				end
@@ -165,21 +160,18 @@ Begin
 				if(jugador==2) write(fuente,(ancho_pantalla/4)*3,alto_pantalla/4,4,posicion); pon_tiempo(p[i].tiempos[num_nivel],1,(ancho_pantalla/4)*3,(alto_pantalla/4)+50); end
 				if(jugador==3) write(fuente,ancho_pantalla/4,(alto_pantalla/4)*3,4,posicion); pon_tiempo(p[i].tiempos[num_nivel],1,ancho_pantalla/4,((alto_pantalla/4)*3)+50); end
 				if(jugador==4) write(fuente,(ancho_pantalla/4)*3,(alto_pantalla/4)*3,4,posicion); pon_tiempo(p[i].tiempos[num_nivel],1,(ancho_pantalla/4)*3,((alto_pantalla/4)*3)+50); end
-			end
+			end*/
+			
 			graph=0;
 			loop
 				accion="ganando";
-/*				if(p[jugador].botones[1] and x<ancho_nivel) x+=15; end
-				if(p[jugador].botones[0] and x>0) x-=15; end
-				if(p[jugador].botones[3] and y<alto_nivel) y+=15; end
-				if(p[jugador].botones[4] and y>0) y-=15; end*/
 				frame; 
 			end //aquí se queda!
 		end //al ganar mike canta y nos damos la vuelta xD
 		if(inercia>0) inercia--; end
 		if(inercia<0) inercia++; end
-		if(inercia>20) inercia=20; end
-		if(inercia<-20) inercia=-20; end //límites de la inercia
+		if(inercia>15) inercia=15; end
+		if(inercia<-15) inercia=-15; end //límites de la inercia
 		if(gravedad>40) gravedad=40; end
 		if(powerup==5) 
 			inercia*=2;
@@ -239,6 +231,7 @@ Begin
 				gravedad=-20;
 				flash_muerte(jugador);
 				sonido(6);
+				if(ready==1) ready=0; frame(3000); ready=1; end
 				if(y<alto_nivel)
 					while(y<alto_nivel+150)
 						gravedad++;
@@ -247,7 +240,6 @@ Begin
 						frame;
 					end			
 				end
-				//if(modo_juego==1) loop accion="muerte"; frame; end end //si te mueres, te mueres. fin
 				alpha=128;
 				while(x>100 or y>100)
 					if(x>100) x-=x/10; end
@@ -264,7 +256,7 @@ Begin
 				accion=""; 
 			end 
 		end
-		if(id_colision=collision(type prota)) 
+		if(modo_juego==0 and (id_colision=collision(type prota))) 
 			if(id_colision.accion!="muerte")
 				if(id_colision>id)
 					if(id_colision.y>y)
@@ -299,19 +291,12 @@ Begin
 	end      
 End
 
-Process flash_muerte(jugador);
+Process flash_muerte(region);
 Begin
-	if(jugadores<=2)
-		x=ancho_pantalla/2;
-		if(jugador==1) y=alto_pantalla/4; end
-		if(jugador==2) y=(alto_pantalla/4)*3; end
-	end
-	if(jugadores>2)
-		if(jugador==1) x=ancho_pantalla/4; y=alto_pantalla/4; end
-		if(jugador==2) x=(ancho_pantalla/4)*3; y=alto_pantalla/4; end
-		if(jugador==3) x=ancho_pantalla/4; y=(alto_pantalla/4)*3; end
-		if(jugador==4) x=(ancho_pantalla/4)*3; y=(alto_pantalla/4)*3; end
-	end
+	x=ancho_pantalla/2;
+	y=alto_pantalla/2;
+	z=-5;
+	
 	from i=0 to 2;
 		graph=flash;
 		frame;
@@ -324,12 +309,12 @@ End //el flashazo de cuando muere el prota
 Process enemigo(x,y,tipo);
 Private
 	id_colision;
-	renacer;
 	x_original;
 	y_original;
 	anim_base;
 	frames_anim;
 	anim;
+	spikys;
 Begin
    ctype=c_scroll;
    file=fpg_enemigos;
@@ -344,16 +329,17 @@ Begin
    graph=anim_base+1;
    ancho=graphic_info(file,graph,g_width)/2;
    alto=graphic_info(file,graph,g_height)/2;
-   //if(tipo==7) from alpha=0 to 255 step 5; frame; end end
+   if(tipo==7) alpha=0; frame(rand(2000,10000)); angle=20000; from alpha=0 to 255 step 3; angle+=4000; frame; end angle=0; alpha=255; end
+   if(exists(father) and father.accion=="renacer") alpha=200; end
    loop
 		if(anim<10) anim++; else anim=0; if(graph<anim_base+frames_anim) graph++; else graph=anim_base+1; end end
-		while(todo_preparado==0) frame; end
+		while(ready==0) frame; end
 		if(alpha<255) alpha+=5; end
 		if(map_get_pixel(0,durezas,x+ancho,y)==suelo) flags=0; end //giramos cuando chocamos por la derecha
-		if(map_get_pixel(0,durezas,x-ancho,y)==suelo or x=<10) if(tipo==7) break; end flags=1; end //giramos cuando chocamos, o nos salimos, por la izquierda. aunque billbala muere
-		if(map_get_pixel(0,durezas,x,y-alto)==suelo) gravedad=10; y++; end //si chocamos arriba, nos vamos pabajo. pd: sólo chocan los para-algo
+		if(map_get_pixel(0,durezas,x-ancho,y)==suelo or x=<10) if(tipo==7) explotalo(x,y,z,255,0,file,graph,60); break; end flags=1; end //giramos cuando chocamos, o nos salimos, por la izquierda. aunque billbala muere
+		if(map_get_pixel(0,durezas,x,y-alto)==suelo and tipo!=7) gravedad=10; y++; end //si chocamos arriba, nos vamos pabajo. pd: sólo chocan los para-algo
 		if(tipo==7) flags=0; x-=6; end //billbala siempre va hacia la izquierda
-		if(tipo==8 and rand(0,200)==0) enemigo(x,y,9); end //lakitu tirando pinchones
+		if(tipo==8 and rand(0,200)==0 and spikys<10) spikys++; enemigo(x,y,9); end //lakitu tirando pinchones
 		if(flags==0) 
 			if(tipo!=8) 
 				x-=2; 
@@ -374,17 +360,17 @@ Begin
 		else 
 			gravedad++; //pos no lo tocó
 		end //gravedad
-		if(y>alto_nivel or y<0) break; end //si caemos por un bujero, morimos
-		while(map_get_pixel(0,durezas,x,y+alto-1)==suelo and tipo!=8) y--; end //corregimos atravesamiento de suelos...
+		if(y>alto_nivel or y<0) break; end //si cae por un bujero, muere
+		while(map_get_pixel(0,durezas,x,y+alto-1)==suelo and tipo!=7 and tipo!=8) y--; end //corregimos atravesamiento de suelos...
 
 		if(alpha==255 and (id_colision=collision(type prota))) //chocamos con el prota
-			if(id_colision.y<y and id_colision.saltando==1 and tipo!=5 and tipo!=6 and tipo!=9 and tipo!=10 and id_colision.accion!="muerte") //si el prota está más arriba, el malo muere. a menos que sean spikis o sus huevos! y que no esté muriendo el prota xD
+			if(id_colision.y<y-(alto/2) and id_colision.saltando==1 and tipo!=5 and tipo!=6 and tipo!=9 and tipo!=10 and id_colision.accion!="muerte") //si el prota está más arriba, el malo muere. a menos que sean spikis o sus huevos! y que no esté muriendo el prota xD
 				//p[id_colision.jugador].puntos++;
 				id_colision.gravedad=-20; //rebota el prota
 				if(tipo!=2 and tipo!=4)  //animacion de la muerte, salvo que sean para-algo
 					explotalo(x,y,z,255,0,file,graph,60);
 				end
-				if(tipo==2 or tipo==4) enemigo(x,y,tipo-1); end //los para-algo llamando a los correspondientes malos cuando los pisas
+				if(tipo==2 or tipo==4) accion="renacer"; enemigo(x,y,tipo-1); end //los para-algo llamando a los correspondientes malos cuando los pisas
 				frame;
 				break; //suicidamos al malo
 			else //el prota chocó por debajo de la altura del enemigo
@@ -406,11 +392,7 @@ Begin
 		end
 		if(map_get_pixel(0,durezas,x,y)==dur_pinchos or map_get_pixel(0,durezas,x,y+alto)==dur_pinchos or map_get_pixel(0,durezas,x,y-alto)==dur_pinchos or
 		map_get_pixel(0,durezas,x-ancho,y)==dur_pinchos or map_get_pixel(0,durezas,x+ancho,y)==dur_pinchos) 
-			while(size>0)  
-				size=size-5; 
-				angle+=7000;
-				frame; 
-			end
+			explotalo(x,y,z,255,0,file,graph,60);
 			break; 
 		end
 		if(map_get_pixel(0,durezas,x,y)==dur_muelle or map_get_pixel(0,durezas,x,y+alto)==dur_muelle or map_get_pixel(0,durezas,x,y-alto)==dur_muelle or
@@ -502,6 +484,7 @@ Begin
 		end
 		frame;
 	end
+	from alpha=255 to 0 step -20; size++; frame; end
 End
 
 Process carga_nivel();
@@ -546,7 +529,7 @@ BEGIN
 	set_mode(ancho_pantalla,alto_pantalla,16);
 	delete_text(all_text);
 	rand_seed(num_nivel);
-	todo_preparado=0;
+	ready=0;
 	slowmotion=0;
 	let_me_alone();
 	if(num_nivel==1) frame(3000); end
@@ -675,6 +658,11 @@ BEGIN
 		end
 	end
 	//FIN DE PINTAR COSAS WACHIS!!!
+	flash=new_map(ancho_pantalla,alto_pantalla,8);
+	drawing_color(suelo);
+	drawing_map(0,flash);
+	draw_box(0,0,ancho_pantalla,alto_pantalla);
+
 	if(modo_juego==0) //competitivo: 4 pantallas
 		if(jugadores<=2) //definir la pantalla partida y la división al ser 2 jugadores
 			define_region(1,0,0,ancho_pantalla,alto_pantalla/2);
@@ -690,10 +678,6 @@ BEGIN
 			drawing_map(0,graph);
 			draw_box(0,alto_pantalla/2-5,ancho_pantalla,alto_pantalla/2+5);
 	
-			flash=new_map(ancho_pantalla,alto_pantalla/2,8);
-			drawing_color(suelo);
-			drawing_map(0,flash);
-			draw_box(0,0,ancho_pantalla,alto_pantalla/2);
 		end
 		if(jugadores==3 or jugadores==4) //definirlo al ser 4
 			define_region(1,0,0,ancho_pantalla/2,alto_pantalla/2);
@@ -718,10 +702,6 @@ BEGIN
 			draw_box(0,alto_pantalla/2-5,ancho_pantalla,alto_pantalla/2+5);
 			draw_box(ancho_pantalla/2-5,0,ancho_pantalla/2+5,alto_pantalla);
 			
-			flash=new_map(ancho_pantalla/2,alto_pantalla/2,8);
-			drawing_color(suelo);
-			drawing_map(0,flash);
-			draw_box(0,0,ancho_pantalla,alto_pantalla/2);
 		end
 	end
 	if(modo_juego==1) //cooperativo
@@ -746,9 +726,9 @@ BEGIN
 	end
 	sonido(3);
 	delete_text(all_text);
-	marcadores(); //llamar a los marcadores de puntos
+	if(modo_juego==0) marcadores(); end //marcadores de puntos en modo competición
 	texto=write(fuente,ancho_pantalla/2,alto_pantalla/2,4,"¡YA!");
-	todo_preparado=1;
+	ready=1;
 	timer=0;
 	timer[1]=0; //para contrarreloj
 	//if(ops.musica) play_song(load_song(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".ogg"),-1); end
@@ -759,13 +739,13 @@ BEGIN
             play_song(load_song("ogg\"+rand(1,5)+".ogg"),-1);
         end
     end
+	pon_tiempo(-1,0,(ancho_pantalla/4)*3,70);
 	loop
-		pon_tiempo(timer[1],0,(ancho_pantalla/4)*3,alto_pantalla/2);
 		if(key(_n)) while(key(_n)) frame; end num_nivel++; carga_nivel(); end
 		if(key(_esc)) menu(); end
 		if(timer>300 and texto!=0) delete_text(texto); texto=0; end
-		if(jugadores==3 and ((!exists(scroll[3].camera)) or scroll[3].camera==0 or rand(0,500)==333)) scroll[3].camera=get_id(type enemigo); end
-		if(jugadores==1 and ((!exists(scroll[1].camera)) or scroll[1].camera==0 or rand(0,500)==333)) scroll[1].camera=get_id(type enemigo); end
+//		if(jugadores==3 and ((!exists(scroll[3].camera)) or scroll[3].camera==0 or rand(0,500)==333)) scroll[3].camera=get_id(type enemigo); end
+//		if(jugadores==1 and ((!exists(scroll[1].camera)) or scroll[1].camera==0 or rand(0,500)==333)) scroll[1].camera=get_id(type enemigo); end
 		frame;
 	end 
 END
@@ -783,19 +763,27 @@ Private
 	segundos;
 	minutos;
 	txt_tiempo;
+	bucle;
+	mi_tiempo;
 	string string_tiempo;
 Begin
-	decimas=tiempo; while(decimas=>100) decimas-=100; end
-	segundos=tiempo/100; while(segundos=>60) segundos-=60; end
-	minutos=tiempo/6000;
-
-	if(decimas<10 and segundos<10) string_tiempo=itoa(minutos)+"' 0"+itoa(segundos)+"'' 0"+itoa(decimas); end
-	if(decimas>9 and segundos<10) string_tiempo=itoa(minutos)+"' 0"+itoa(segundos)+"'' "+itoa(decimas); end
-	if(decimas<10 and segundos>9) string_tiempo=itoa(minutos)+"' "+itoa(segundos)+"'' 0"+itoa(decimas); end
-	if(decimas>9 and segundos>9) string_tiempo=itoa(minutos)+"' "+itoa(segundos)+"'' "+itoa(decimas); end
-	txt_tiempo=write(fuente,x,y,4,string_tiempo);
-	frame;
-	if(!permanecer) delete_text(txt_tiempo); end
+	if(tiempo==-1) bucle=1; end
+	loop
+		if(bucle) mi_tiempo++; tiempo=mi_tiempo*2; end 
+		decimas=tiempo; while(decimas=>100) decimas-=100; end
+		segundos=tiempo/100; while(segundos=>60) segundos-=60; end
+		minutos=tiempo/6000;
+	
+		if(decimas<10 and segundos<10) string_tiempo=itoa(minutos)+"' 0"+itoa(segundos)+"'' 0"+itoa(decimas); end
+		if(decimas>9 and segundos<10) string_tiempo=itoa(minutos)+"' 0"+itoa(segundos)+"'' "+itoa(decimas); end
+		if(decimas<10 and segundos>9) string_tiempo=itoa(minutos)+"' "+itoa(segundos)+"'' 0"+itoa(decimas); end
+		if(decimas>9 and segundos>9) string_tiempo=itoa(minutos)+"' "+itoa(segundos)+"'' "+itoa(decimas); end
+		txt_tiempo=write(fuente,x,y,4,string_tiempo);
+		frame;
+		while(!ready) frame; end
+		if(!permanecer) delete_text(txt_tiempo); end
+		if(!bucle) break; end
+	end
 End
 
 Process marcadores();
@@ -847,7 +835,6 @@ Private
 	contador;
 	segundos;
 Begin
-	play_song(load_song("hurry.ogg"),1);
 	if(modo_juego==0) 
 		contador=60*50; //60 segs, 50 fps
 	else
@@ -861,7 +848,7 @@ Begin
 		frame;
 	end
 	timer[2]=0;
-	while(timer[2]<300) frame; end
+	delete_text(all_text);
 	num_nivel++;
 	carga_nivel();
 End
@@ -935,7 +922,7 @@ Begin
 		num_separados=0;
 		from i=1 to 8;
 		//objetivo: que quede centrado en los jugadores, haciendo caso al que vaya más adelantado y que si hay separación, que se creen subregiones! :D
-			if(exists(p[i].identificador) and p[i].identificador.accion!="ganando"  and p[i].identificador.accion!="muerte")
+			if(exists(p[i].identificador) and p[i].identificador.accion!="ganando")
 			  if(p[i].identificador.x>antes_x-(ancho_pantalla*0.6))
 				x+=p[i].identificador.x;
 				y+=p[i].identificador.y;
@@ -952,7 +939,7 @@ Begin
 		end
 		//esto se supone que adelantará la cámara en caso de que uno se adelante
 		from i=1 to 8;
-			while(exists(p[i].identificador) AND x+((ancho_pantalla/2)*0.8)<p[i].identificador.x) x++; end
+			while(exists(p[i].identificador) AND p[i].identificador.accion!="ganando" AND x+((ancho_pantalla/2)*0.6)<p[i].identificador.x) x++; end
 		end
 		if(num_separados!=antes_separados) cambia_regiones(); end
 		//AQUI LO DEJASTE PENSANDO EN COMO HACER PARA QUE LA CAMARA FUERA SUAVE
@@ -967,19 +954,20 @@ Begin
 	  case 0: //todos juntos!
 	  	if(alto_nivel<alto_pantalla) 
 			define_region(1,0,(alto_pantalla/2)-(alto_nivel/2),ancho_pantalla,alto_nivel); 
+			define_region(2,0,(alto_pantalla/2)-(alto_nivel/2),ancho_pantalla,alto_nivel); 
+			define_region(3,0,(alto_pantalla/2)-(alto_nivel/2),ancho_pantalla,alto_nivel); 
+			define_region(4,0,(alto_pantalla/2)-(alto_nivel/2),ancho_pantalla,alto_nivel); 
 		else
 			define_region(1,0,0,ancho_pantalla,alto_pantalla); 
+			define_region(2,0,0,ancho_pantalla,alto_pantalla); 
+			define_region(3,0,0,ancho_pantalla,alto_pantalla); 
+			define_region(4,0,0,ancho_pantalla,alto_pantalla); 
 		end
 		start_scroll(1,0,mapa_scroll,fondo,1,0);
 		//scroll[1].camera=id_cam;
 		scroll[1].camera=father.id;
 
 	    id_carganivel.graph=new_map(ancho_pantalla,alto_pantalla,16);
-		
-		flash=new_map(ancho_pantalla,alto_pantalla,8);
-		drawing_color(suelo);
-		drawing_map(0,flash);
-		draw_box(0,0,ancho_pantalla,alto_pantalla);	
 	  end
 	  case 1:
 		define_region(1,0,0,ancho_pantalla,alto_pantalla/2);
@@ -994,11 +982,6 @@ Begin
 		drawing_color(200);
 		drawing_map(0,id_carganivel.graph);
 		draw_box(0,alto_pantalla/2-5,ancho_pantalla,alto_pantalla/2+5);
-
-		flash=new_map(ancho_pantalla,alto_pantalla/2,8);
-		drawing_color(suelo);
-		drawing_map(0,flash);
-		draw_box(0,0,ancho_pantalla,alto_pantalla/2);
 	  end
 	  default:
 			define_region(1,0,0,ancho_pantalla/2,alto_pantalla/2);
@@ -1006,15 +989,15 @@ Begin
 			define_region(3,0,alto_pantalla/2,ancho_pantalla/2,alto_pantalla);
 			define_region(4,ancho_pantalla/2,alto_pantalla/2,ancho_pantalla,alto_pantalla);
 	
-			start_scroll(0,0,mapa_scroll,fondo,1,0);
-			scroll[0].camera=p[separados[1]].identificador;
-			start_scroll(1,0,mapa_scroll,fondo,2,0);
-			scroll[1].camera=p[separados[2]].identificador;
-			start_scroll(2,0,mapa_scroll,fondo,3,0);
-			scroll[2].camera=p[separados[3]].identificador;
-			start_scroll(3,0,mapa_scroll,fondo,4,0);
+			start_scroll(1,0,mapa_scroll,fondo,1,0);
+			scroll[1].camera=p[1].identificador;
+			start_scroll(2,0,mapa_scroll,fondo,2,0);
+			scroll[2].camera=p[2].identificador;
+			start_scroll(3,0,mapa_scroll,fondo,3,0);
+			scroll[3].camera=p[3].identificador;
 			if(jugadores==4) 
-				scroll[3].camera=p[separados[4]].identificador;
+				start_scroll(4,0,mapa_scroll,fondo,4,0);
+				scroll[4].camera=p[4].identificador;
 			end
 
 			id_carganivel.graph=new_map(ancho_pantalla,alto_pantalla,16);
@@ -1022,13 +1005,9 @@ Begin
 			drawing_map(0,id_carganivel.graph);
 			draw_box(0,alto_pantalla/2-5,ancho_pantalla,alto_pantalla/2+5);
 			draw_box(ancho_pantalla/2-5,0,ancho_pantalla/2+5,alto_pantalla);
-			
-			flash=new_map(ancho_pantalla/2,alto_pantalla/2,8);
-			drawing_color(suelo);
-			drawing_map(0,flash);
-			draw_box(0,0,ancho_pantalla,alto_pantalla/2);
 		end
 	end
+	//if(ready==1 and !exists(type bomba)) set_fps(20,0); frame(2000); set_fps(50,0); end
 End
 
 include "controles.pr-";

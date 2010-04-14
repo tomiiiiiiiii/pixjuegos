@@ -16,7 +16,7 @@ private
 begin
 	set_fps(50,9);
 	chdir(dir_juego);
-	todo_preparado=0;
+	ready=0;
 	slowmotion=0;
 	num_nivel=1;
 	let_me_alone();
