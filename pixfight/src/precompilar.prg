@@ -3,7 +3,7 @@ Global
 	fp[4];
 	numpersonajes;
 Begin
-	set_mode(100,100,32);
+	set_mode(100,100,16);
 	//CREAMOS FPGS Y cargar_fpgs.pr-
 	fp[0]=fopen("cargar_fpgs.pr-", O_WRITE);
 	fp[1]=fopen("personaje1.pr-", O_WRITE);
