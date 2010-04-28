@@ -9,6 +9,7 @@ Const
    MAX_SONIDOS     = 32;    // Número máximo de sonidos por frame
    MAX_PROCESOS    = 35;    // Número máximo de procesos en pantalla
    TIEMPO_ESPERA   = 1000;  // Timeout de espera de jugadores
+   OS_WII=1000;
 End
    type _IPaddress
     int host;
@@ -115,11 +116,14 @@ Global
 		int p[8][6];
 	End
 	struct p[8];
-		porcentual; vidas=5; puntos; control; juega; identificador; personaje;
+		porcentual; vidas=5; puntos; control; juega; identificador; personaje; botones[8];
 	end
 	ready=1;
 	limites[3]; //arriba,derecha,abajo,izquierda
 	numpersonajes;
+	posibles_jugadores;
+	joysticks[8];
+	njoys;
 Local
 	ancho;
 	alto;
@@ -136,8 +140,10 @@ Local
 	var;
 Begin
 	//full_screen=true;
-	set_mode(1024,600,32);
+	scale_resolution=06400480;
+	set_mode(1024,600,16);
 	cargar_fpgs();
+	configurar_controles();
 	p[1].personaje=7; p[1].control=0; personaje(1);
 
 //	personaje(3);
@@ -157,8 +163,8 @@ Begin
 	limites[2]=800;
 	limites[3]=-300;
 
-	if(cliente) net_cliente("pruebas.panreyes.es"); return; end
-		zoom();
+	//if(cliente) net_cliente("pruebas.panreyes.es"); return; end
+	//	zoom();
 	loop
 		if(servidor_iniciado)
 			if(nConectados>0)
@@ -229,60 +235,7 @@ Begin
 	end
 End
 
-Process controlador(jugador);
-Private
-	distancia;
-	gamepads;
-Begin
-	from i=0 to 5;
-		botones.p[jugador][i]=0;
-	end
-	Loop
-		if(!exists(father)) return; end
-		if(p[jugador].control==-1) return; end
-		While(ready==0) Frame; End
-		If(p[jugador].control==0)  // teclado
-			If(key(_left)) botones.p[jugador][0]=1; Else botones.p[jugador][0]=0; End
-			If(key(_right)) botones.p[jugador][1]=1; Else botones.p[jugador][1]=0; End
-			If(key(_up)) botones.p[jugador][2]=1; Else botones.p[jugador][2]=0; End
-			If(key(_down)) botones.p[jugador][3]=1; Else botones.p[jugador][3]=0; End
-			If(key(_a)) botones.p[jugador][4]=1; Else botones.p[jugador][4]=0; End
-			If(key(_s)) botones.p[jugador][5]=1; Else botones.p[jugador][5]=0; End
-			If(key(_d)) botones.p[jugador][6]=1; Else botones.p[jugador][6]=0; End
-		End
-		If(p[jugador].control==1)  // joystick
-			If(get_joy_position(0,0)<-10000) botones.p[jugador][0]=1; Else botones.p[jugador][0]=0; End
-			If(get_joy_position(0,0)>10000) botones.p[jugador][1]=1; Else botones.p[jugador][1]=0; End
-			If(get_joy_position(0,1)<-7500) botones.p[jugador][2]=1; Else botones.p[jugador][2]=0; End
-			If(get_joy_position(0,1)>7500) botones.p[jugador][3]=1; Else botones.p[jugador][3]=0; End
-			If(get_joy_button(0,0)) botones.p[jugador][4]=1; Else botones.p[jugador][4]=0; End
-			If(get_joy_button(0,1)) botones.p[jugador][5]=1; Else botones.p[jugador][5]=0; End
-			If(get_joy_button(0,2)) botones.p[jugador][6]=1; Else botones.p[jugador][6]=0; End
-		End
-		If(p[jugador].control==2)  // joystick 2
-			If(get_joy_position(1,0)<-10000) botones.p[jugador][0]=1; Else botones.p[jugador][0]=0; End
-			If(get_joy_position(1,0)>10000) botones.p[jugador][1]=1; Else botones.p[jugador][1]=0; End
-			If(get_joy_position(1,1)<-7500) botones.p[jugador][2]=1; Else botones.p[jugador][2]=0; End
-			If(get_joy_position(1,1)>7500) botones.p[jugador][3]=1; Else botones.p[jugador][3]=0; End
-			If(get_joy_button(1,0) OR get_joy_button(1,1)) botones.p[jugador][4]=1; Else botones.p[jugador][4]=0; End
-			If(get_joy_button(1,2) OR get_joy_button(1,3)) botones.p[jugador][5]=1; Else botones.p[jugador][5]=0; End
-		End
-		If(p[jugador].control==3)  // joystick 3
-			If(get_joy_position(2,0)<-10000) botones.p[jugador][0]=1; Else botones.p[jugador][0]=0; End
-			If(get_joy_position(2,0)>10000) botones.p[jugador][1]=1; Else botones.p[jugador][1]=0; End
-			If(get_joy_position(2,1)<-7500) botones.p[jugador][2]=1; Else botones.p[jugador][2]=0; End
-			If(get_joy_position(2,1)>7500) botones.p[jugador][3]=1; Else botones.p[jugador][3]=0; End
-			If(get_joy_button(2,0) OR get_joy_button(2,1)) botones.p[jugador][4]=1; Else botones.p[jugador][4]=0; End
-			If(get_joy_button(2,2) OR get_joy_button(2,3)) botones.p[jugador][5]=1; Else botones.p[jugador][5]=0; End
-		End
-		If(p[jugador].control=>5)
-			from i=0 to 7; 
-				botones.p[jugador][i]=rand(0,1);
-			end
-		end
-		Frame;
-	End
-End
+include "controles.pr-";
 
 include "net.pr-";
 

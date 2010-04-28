@@ -18,13 +18,13 @@
 					if(graph!=811) if(graph<801 or graph>806) graph=801; else graph++; end end
 				end
 			end
-			if(botones.p[jugador][0] and !botones.p[jugador][1]) flags=1; if(x_inc!=0) accion="correr"; else accion="andar"; end x_inc-=1; end
-			if(botones.p[jugador][1] and !botones.p[jugador][0]) flags=0; if(x_inc!=0) accion="correr"; else accion="andar"; end x_inc+=1; end
+			if(p[jugador].botones[0] and !p[jugador].botones[1]) flags=1; if(x_inc!=0) accion="correr"; else accion="andar"; end x_inc-=1; end
+			if(p[jugador].botones[1] and !p[jugador].botones[0]) flags=0; if(x_inc!=0) accion="correr"; else accion="andar"; end x_inc+=1; end
 		end
 		case "andar":
 			if(ataque=="")	
 			   if(izquierda_suelto==0 or izquierda_suelto==margen)
-				if(botones.p[jugador][0] and !botones.p[jugador][1]) //ANDAR IZQUIERDA
+				if(p[jugador].botones[0] and !p[jugador].botones[1]) //ANDAR IZQUIERDA
 					x_inc-=2; 
 					flags=1;
 					if(x_inc>0) 
@@ -45,7 +45,7 @@
 				end
 			    end
 			    if(derecha_suelto==0 or derecha_suelto==margen)
-				if(botones.p[jugador][1] and !botones.p[jugador][0]) //ANDAR DERECHA
+				if(p[jugador].botones[1] and !p[jugador].botones[0]) //ANDAR DERECHA
 					x_inc+=2; 
 					flags=0;
 					if(x_inc<0) 
@@ -65,14 +65,14 @@
 					end
 				end
 			    end
-			    if((!botones.p[jugador][0] and !botones.p[jugador][1]) or (botones.p[jugador][0] and botones.p[jugador][1])) accion="quieto"; end
+			    if((!p[jugador].botones[0] and !p[jugador].botones[1]) or (p[jugador].botones[0] and p[jugador].botones[1])) accion="quieto"; end
 			else
 				if(ataque=="escudo")
-					if(botones.p[jugador][0] and !botones.p[jugador][1] and x_inc==0 and botones.p[jugador][6])
+					if(p[jugador].botones[0] and !p[jugador].botones[1] and x_inc==0 and p[jugador].botones[6])
 						flags=1;
 						x_inc=-20;
 					end
-					if(botones.p[jugador][1] and !botones.p[jugador][0] and x_inc==0 and botones.p[jugador][6])
+					if(p[jugador].botones[1] and !p[jugador].botones[0] and x_inc==0 and p[jugador].botones[6])
 						flags=0;
 						x_inc=20;
 					end
@@ -84,7 +84,7 @@
 		end
 		case "correr":
 			if(ataque=="")
-				if(botones.p[jugador][0] and !botones.p[jugador][1])
+				if(p[jugador].botones[0] and !p[jugador].botones[1])
 					x_inc-=2; 
 					flags=1;
 					if(x_inc>0) 
@@ -103,7 +103,7 @@
 						end
 					end
 				end
-				if(botones.p[jugador][1] and !botones.p[jugador][0])
+				if(p[jugador].botones[1] and !p[jugador].botones[0])
 					x_inc+=2; 
 					flags=0;
 					if(x_inc<0) 
@@ -122,17 +122,17 @@
 						end
 					end
 				end
-				if((!botones.p[jugador][0] and !botones.p[jugador][1]) or (botones.p[jugador][0] and botones.p[jugador][1])) accion="quieto"; end
+				if((!p[jugador].botones[0] and !p[jugador].botones[1]) or (p[jugador].botones[0] and p[jugador].botones[1])) accion="quieto"; end
 			else
 				accion="quieto";
 			end
 		end
 		case "aire":
 			if(ataque=="")
-				if(botones.p[jugador][0] and x_inc>-velocidad*1.5) x_inc-=2; end
-				if(botones.p[jugador][1] and x_inc<velocidad*1.5) x_inc+=2; end
-				if(!botones.p[jugador][2] and doblesalto==-1) doblesalto=0; end
-				if(botones.p[jugador][2] and doblesalto==0) doblesalto=1; gravedad=-15; end
+				if(p[jugador].botones[0] and x_inc>-velocidad*1.5) x_inc-=2; end
+				if(p[jugador].botones[1] and x_inc<velocidad*1.5) x_inc+=2; end
+				if(!p[jugador].botones[2] and doblesalto==-1) doblesalto=0; end
+				if(p[jugador].botones[2] and doblesalto==0) doblesalto=1; gravedad=-15; end
 				if(gravedad<0) graph=3; else graph=5; end
 			else
 				if(ataque=="escudo") ataque=""; end
@@ -153,7 +153,7 @@
 			daño=0;
 			atacante=0;
 			//flags=flags_antes;
-			if((botones.p[jugador][6] and tiempoescudo[jugador]>0) or (x_inc!=0 and gravedad==0))
+			if((p[jugador].botones[6] and tiempoescudo[jugador]>0) or (x_inc!=0 and gravedad==0))
 				graph=5;
 				tiempoescudo[jugador]--;
 			else
@@ -167,8 +167,8 @@
 		end
 		case "dañorecibido":
 			graph=2;
-			if(botones.p[jugador][0] and x_inc>-4) x_inc-=2; end
-			if(botones.p[jugador][1] and x_inc<4) x_inc+=2; end
+			if(p[jugador].botones[0] and x_inc>-4) x_inc-=2; end
+			if(p[jugador].botones[1] and x_inc<4) x_inc+=2; end
 			angle+=3000;
 			if(gravedad=>0) 
 				if(accion!="aire") angle=0; end
@@ -181,34 +181,34 @@
 			if(foo==10)
 				gravedad=0; x_inc=0;
 				//var: 0 izq, 1 der, 2 up, 3 down, 4 up-izq, 5 up-der, 6 down-izq, 7 down-der		
-				if(botones.p[jugador][2]) //arribases
-					if(botones.p[jugador][0]) var=4; x_inc=-30; gravedad=-30;
-					elseif(botones.p[jugador][1]) var=5; x_inc=30; gravedad=-30;
+				if(p[jugador].botones[2]) //arribases
+					if(p[jugador].botones[0]) var=4; x_inc=-30; gravedad=-30;
+					elseif(p[jugador].botones[1]) var=5; x_inc=30; gravedad=-30;
 					else var=2; gravedad=-30; end
-				elseif(botones.p[jugador][3]) //abajoses
-					if(botones.p[jugador][0]) var=6; x_inc=-30; gravedad=30;
-					elseif(botones.p[jugador][1]) var=7; x_inc=30; gravedad=30;
+				elseif(p[jugador].botones[3]) //abajoses
+					if(p[jugador].botones[0]) var=6; x_inc=-30; gravedad=30;
+					elseif(p[jugador].botones[1]) var=7; x_inc=30; gravedad=30;
 					else var=3; gravedad=30; end
 				else //solo ladoses
-					if(botones.p[jugador][0]) var=0; x_inc=-30; end
-					if(botones.p[jugador][1]) var=1; x_inc=30; end
+					if(p[jugador].botones[0]) var=0; x_inc=-30; end
+					if(p[jugador].botones[1]) var=1; x_inc=30; end
 				end
 				if(var==-1) var=2; gravedad=-30; end
 			end
 			if(foo>15 and foo<20) gravedad=0; x_inc=0; end
 			if(foo==20)
 				gravedad=0; x_inc=0;
-				if(botones.p[jugador][2]) //arribases
-					if(botones.p[jugador][0]) if(var!=4) x_inc=-30; gravedad=-30; end
-					elseif(botones.p[jugador][1]) if(var!=5) x_inc=30; gravedad=-30; end
+				if(p[jugador].botones[2]) //arribases
+					if(p[jugador].botones[0]) if(var!=4) x_inc=-30; gravedad=-30; end
+					elseif(p[jugador].botones[1]) if(var!=5) x_inc=30; gravedad=-30; end
 					elseif(var!=2) var=2; gravedad=-30; end
-				elseif(botones.p[jugador][3]) //abajoses
-					if(botones.p[jugador][0]) if(var!=6) x_inc=-30; gravedad=30; end
-					elseif(botones.p[jugador][1]) if(var!=7) x_inc=30; gravedad=30; end
+				elseif(p[jugador].botones[3]) //abajoses
+					if(p[jugador].botones[0]) if(var!=6) x_inc=-30; gravedad=30; end
+					elseif(p[jugador].botones[1]) if(var!=7) x_inc=30; gravedad=30; end
 					elseif(var!=3) gravedad=30; end
 				else //solo ladoses
-					if(botones.p[jugador][0] and var!=0) x_inc=-30; end
-					if(botones.p[jugador][1] and var!=1) x_inc=30; end
+					if(p[jugador].botones[0] and var!=0) x_inc=-30; end
+					if(p[jugador].botones[1] and var!=1) x_inc=30; end
 				end
 			end
 			if(foo>25)
@@ -217,8 +217,8 @@
 			foo++;
 		end
 		case "cayendo":
-			if(botones.p[jugador][0]) x_inc=-6; end
-			if(botones.p[jugador][1]) x_inc=6; end
+			if(p[jugador].botones[0]) x_inc=-6; end
+			if(p[jugador].botones[1]) x_inc=6; end
 			if(accion=="aire")
 				graph=2;
 				if(flags==1) 
@@ -248,7 +248,7 @@
 			graph=31;
 			gravedad=1;
 			x_inc=0;
-			if(botones.p[jugador][5] and foo<90) 
+			if(p[jugador].botones[5] and foo<90) 
 				foo++; 
 			else 
 				if(foo<50) foo=50; end
@@ -294,31 +294,31 @@
 		if(ataque=="") //HAY QUE COMPROBAR SIEMPRE EL ATAQUE PORQUE SINO SE PUEDEN PRODUCIR VARIAS. P. EJ: 3ERSALTO Y KUNAI
 			if(accion!="aire")
 				//BOTON ATAQUE 1: ESTÁ TODOO MAL, ESTOS SE PUEDEN PRODUCIR SIN TENER QUE DARLE AL LADO EN EL MISMISIMO MOMENTO.
-		/*ESCUDO*/	if(ataque=="" and botones.p[jugador][6] and ataque=="") ataque="escudo"; flags_antes=flags; escudo(); end	
+		/*ESCUDO*/	if(ataque=="" and p[jugador].botones[6] and ataque=="") ataque="escudo"; flags_antes=flags; escudo(); end	
 	
-		/*RAYO VERTICAL*/ if(ataque=="" and botones.p[jugador][5] and botones.p[jugador][3] and ataque2_suelto>0 and ataque2_suelto<margen) ataque="rayovertical"; pikachu_rayovertical(); foo=0; end
+		/*RAYO VERTICAL*/ if(ataque=="" and p[jugador].botones[5] and p[jugador].botones[3] and ataque2_suelto>0 and ataque2_suelto<margen) ataque="rayovertical"; pikachu_rayovertical(); foo=0; end
 
-		/*SALIR DISPARADO*/	if(ataque=="" and botones.p[jugador][5] and botones.p[jugador][0] and ataque2_suelto>0 and ataque2_suelto<margen and izquierda_suelto>0 and izquierda_suelto<margen) flags=1; ataque="disparado"; foo=0; end
-		if(ataque=="" and botones.p[jugador][5] and botones.p[jugador][1] and ataque2_suelto>0 and ataque2_suelto<margen and derecha_suelto>0 and derecha_suelto<margen) flags=0; ataque="disparado"; foo=0; end
+		/*SALIR DISPARADO*/	if(ataque=="" and p[jugador].botones[5] and p[jugador].botones[0] and ataque2_suelto>0 and ataque2_suelto<margen and izquierda_suelto>0 and izquierda_suelto<margen) flags=1; ataque="disparado"; foo=0; end
+		if(ataque=="" and p[jugador].botones[5] and p[jugador].botones[1] and ataque2_suelto>0 and ataque2_suelto<margen and derecha_suelto>0 and derecha_suelto<margen) flags=0; ataque="disparado"; foo=0; end
 
 		
-		/*3ERSALTO*/	if(ataque=="" and botones.p[jugador][5] and botones.p[jugador][2] and ataque2_suelto>0 and ataque2_suelto<margen) ataque="tercersalto"; foo=0; end
+		/*3ERSALTO*/	if(ataque=="" and p[jugador].botones[5] and p[jugador].botones[2] and ataque2_suelto>0 and ataque2_suelto<margen) ataque="tercersalto"; foo=0; end
 
 			//BOTON ATAQUE 2
 
 			else
 				//BOTON ATAQUE 1: ESTÁ TODOO MAL, ESTOS SE PUEDEN PRODUCIR SIN TENER QUE DARLE AL LADO EN EL MISMISIMO MOMENTO.
-		/*RAYO VERTICAL*/ if(ataque=="" and botones.p[jugador][5] and botones.p[jugador][3] and ataque2_suelto>0 and ataque2_suelto<margen) ataque="rayovertical"; pikachu_rayovertical(); foo=0; end				
+		/*RAYO VERTICAL*/ if(ataque=="" and p[jugador].botones[5] and p[jugador].botones[3] and ataque2_suelto>0 and ataque2_suelto<margen) ataque="rayovertical"; pikachu_rayovertical(); foo=0; end				
 
-		/*SALIR DISPARADO*/	if(ataque=="" and botones.p[jugador][5] and botones.p[jugador][0] and ataque2_suelto>0 and ataque2_suelto<margen and izquierda_suelto>0 and izquierda_suelto<margen) flags=1; ataque="disparado"; foo=0; end
-		if(ataque=="" and botones.p[jugador][5] and botones.p[jugador][1] and ataque2_suelto>0 and ataque2_suelto<margen and derecha_suelto>0 and derecha_suelto<margen) flags=0; ataque="disparado"; foo=0; end
+		/*SALIR DISPARADO*/	if(ataque=="" and p[jugador].botones[5] and p[jugador].botones[0] and ataque2_suelto>0 and ataque2_suelto<margen and izquierda_suelto>0 and izquierda_suelto<margen) flags=1; ataque="disparado"; foo=0; end
+		if(ataque=="" and p[jugador].botones[5] and p[jugador].botones[1] and ataque2_suelto>0 and ataque2_suelto<margen and derecha_suelto>0 and derecha_suelto<margen) flags=0; ataque="disparado"; foo=0; end
 		
-		/*ESCUDO*/	//if(ataque=="" and botones.p[jugador][6] and escudo_suelto>4) ataque="escudoaire"; end
+		/*ESCUDO*/	//if(ataque=="" and p[jugador].botones[6] and escudo_suelto>4) ataque="escudoaire"; end
 	
-		/*3ERSALTO*/	if(ataque=="" and botones.p[jugador][5] and botones.p[jugador][2] and ataque2_suelto>0 and ataque2_suelto<margen) ataque="tercersalto"; end
+		/*3ERSALTO*/	if(ataque=="" and p[jugador].botones[5] and p[jugador].botones[2] and ataque2_suelto>0 and ataque2_suelto<margen) ataque="tercersalto"; end
 	
 			//BOTON ATAQUE 2
-		/*VOLTERETA*/	if(ataque=="" and botones.p[jugador][4] and ataque=="" and ataque1_suelto>0) ataque="voltereta"; end	
+		/*VOLTERETA*/	if(ataque=="" and p[jugador].botones[4] and ataque=="" and ataque1_suelto>0) ataque="voltereta"; end	
 			end
 		end
 
@@ -339,10 +339,10 @@
 			if(x_inc<0) x_inc++; end
 			if(x_inc>0) x_inc--; end
 			if(accion=="quieto" or accion=="andar")
-				if(botones.p[jugador][2] and ataque=="") gravedad=-15; accion="aire"; doblesalto=-1; end
+				if(p[jugador].botones[2] and ataque=="") gravedad=-15; accion="aire"; doblesalto=-1; end
 			end
 			if(accion=="correr")
-				if(botones.p[jugador][2] and ataque=="") gravedad=-15; accion="aire"; doblesalto=-1; end //cuestionable
+				if(p[jugador].botones[2] and ataque=="") gravedad=-15; accion="aire"; doblesalto=-1; end //cuestionable
 			end
 		end
 		//por debajo del suelo (cayendo?)
@@ -438,7 +438,7 @@
 		y_destino=y+gravedad;
 
 //		if(gravedad==0 and map_get_pixel(0,durezas_nivel,x,y+alto)==dureza_suelo and accion=="aire") if(x_inc==0) accion="quieto"; else accion="andar"; end end
-		if(gravedad==0 and botones.p[jugador][3] and ataque=="" and map_get_pixel(0,durezas_nivel,x,y+alto)==dureza_plataforma) gravedad++; end
+		if(gravedad==0 and p[jugador].botones[3] and ataque=="" and map_get_pixel(0,durezas_nivel,x,y+alto)==dureza_plataforma) gravedad++; end
 		if(gravedad>0) 
 			if(gravedad>5 or ataque!="")
 				if(x_inc<0) x_inc++; end
@@ -446,7 +446,7 @@
 			end
 
 			from y=y-1 to y_destino-1;
-				if(map_get_pixel(0,durezas_nivel,x,y+alto)==dureza_suelo or (map_get_pixel(0,durezas_nivel,x,y+alto)==dureza_plataforma and !botones.p[jugador][3]))
+				if(map_get_pixel(0,durezas_nivel,x,y+alto)==dureza_suelo or (map_get_pixel(0,durezas_nivel,x,y+alto)==dureza_plataforma and !p[jugador].botones[3]))
 					accion="quieto";
 					gravedad=0; 
 					angle=0;
