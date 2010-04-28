@@ -57,17 +57,19 @@ begin
 	write(fuente_peq,x,y+=60,3,"Ayuda");
 	write(fuente_peq,x,y+=60,3,"Creditos");
 	write(fuente_peq,x,y+=60,3,"PiXJuegos.com");
-	write(fuente_peq,x,y+=60,3,"Editor de niveles");
+	if(os_id!=1000)
+		write(fuente_peq,x,y+=60,3,"Editor de niveles");
+	end
 	write(fuente_peq,x,y+=60,3,"Salir");
 
 	x=400;
 	y=300;
 	loop
-		if(elecc==7)
+		if(elecc==7 or (elecc==6 and os_id==1000))
 			elecc=0;
 		end
 		if(elecc==-1)
-			elecc=6;
+			if(os_id==1000) elecc=5; else elecc=6; end
 		end
 		if(keytime>0)
 			keytime--;
@@ -108,7 +110,13 @@ begin
 				exit(0);
 			end
 			if(elecc==5)
-				editor_de_niveles(); return;
+				if(os_id!=1000)
+					editor_de_niveles(); 
+					return;
+				else
+					save(savegamedir+"opciones.dat",ops);
+					exit(0);
+				end
 			end
 			if(elecc==6)
 				save(savegamedir+"opciones.dat",ops);
@@ -455,6 +463,7 @@ begin
 	let_me_alone();
 	delete_text(all_text);
 	//chdir(savegamedir+"niveles");
+	say(cd());
 	i=1;
 	dir_handle=diropen(savegamedir+"niveles\*.");
 	//while((carpeta=glob("*")) != "")
@@ -541,7 +550,7 @@ Begin
 	animacion_nomuerto();
 	chdir("bin");
 	argumentos='http://www.pixdash.com/'+nombre_paquete+'.pdn --output-document="'+savegamedir+nombre_paquete+'.pdn"';
-	exec(_P_NOWAIT,"wget",1,&argumentos);
+	exec(1,"wget",1,&argumentos);
 	while(!fexists(savegamedir+nombre_paquete+".pdn")) frame; end
 	write(fuente,0,0,0,"Descargando paquete "+nombre_paquete+"...");
 	fichero=fopen(savegamedir+nombre_paquete+".pdn", O_READ);
@@ -555,9 +564,9 @@ Begin
 	end
 	mkdir(savegamedir+'niveles\'+nombre_paquete);
 	argumentos='e -tzip "'+savegamedir+nombre_paquete+'.pdn" -o"'+savegamedir+'niveles\'+nombre_paquete+'" -y';	
-	exec(_P_WAIT,"7za",1,&argumentos);
+	exec(0,"7za",1,&argumentos);
 //	argumentos='-o -x "'+savegamedir+nombre_paquete+'.pdn" -d "'+savegamedir+'niveles"';
-//	exec(_P_WAIT,"unzip",1,&argumentos);
+//	exec(0,"unzip",1,&argumentos);
 	chdir("..");
 	if(!fexists(savegamedir+"niveles\"+nombre_paquete+"\nivel1.png")) father.z=1; rmdir(savegamedir+'niveles\'+nombre_paquete); end
 End
@@ -584,7 +593,7 @@ Begin
 //	set_mode(300,100,16);
 	chdir("bin");
 	argumentos='http://www.pixdash.com/niveles.txt --output-document="'+savegamedir+'niveles.txt"';
-	exec(_P_WAIT,"wget",1,&argumentos);
+	exec(0,"wget",1,&argumentos);
 	fichero=fopen(savegamedir+"niveles.txt",O_READ);
 	i=1;
 	while(!feof(fichero))
@@ -748,7 +757,7 @@ Begin
 		end
 		mkdir(savegamedir+'niveles\'+nombre_paquete);
 		argumentos='e -tzip '+ruta+' -o"'+savegamedir+'niveles\'+nombre_paquete+'" -y';	
-		exec(_P_WAIT,"7za",1,&argumentos);
+		exec(0,"7za",1,&argumentos);
 		chdir("..");
 		mensaje("Paquete de niveles importado correctamente");
 	else
@@ -756,4 +765,13 @@ Begin
 	end
 	timer[0]=0;
 	while(timer<300) frame; end
+End
+
+Process mensaje(string texto);
+Private
+	id_txt;
+Begin
+	id_txt=write(fuente_peq,400,300,4,texto);
+	frame(4000);
+	delete_text(id_txt);
 End

@@ -1,6 +1,9 @@
 Process controlador(jugador);
 Private
 	j;
+	pov;
+	povy;
+	povx;
 Begin
 	from i=0 to 5;
 		p[jugador].botones[i]=0;
@@ -34,13 +37,38 @@ Begin
 			If(key(_d)) p[jugador].botones[6]=1; Else p[jugador].botones[6]=0; End
 		End
 		If(p[jugador].control>0)  // joysticks
-			If(get_joy_position(joysticks[p[jugador].control-1],0)<-10000) p[jugador].botones[0]=1; Else p[jugador].botones[0]=0; End
-			If(get_joy_position(joysticks[p[jugador].control-1],0)>10000) p[jugador].botones[1]=1; Else p[jugador].botones[1]=0; End
-			If(get_joy_position(joysticks[p[jugador].control-1],1)<-7500) p[jugador].botones[2]=1; Else p[jugador].botones[2]=0; End
-			If(get_joy_position(joysticks[p[jugador].control-1],1)>7500) p[jugador].botones[3]=1; Else p[jugador].botones[3]=0; End
-			If(get_joy_button(joysticks[p[jugador].control-1],0)) p[jugador].botones[4]=1; Else p[jugador].botones[4]=0; End
-			If(get_joy_button(joysticks[p[jugador].control-1],1)) p[jugador].botones[5]=1; Else p[jugador].botones[5]=0; End
-			If(get_joy_button(joysticks[p[jugador].control-1],2)) p[jugador].botones[6]=1; Else p[jugador].botones[6]=0; End
+			POV=joy_gethat(joysticks[p[jugador].control-1],0); POVx=0; POVy=0;
+ 
+			// ANALOGICO
+			IF (get_joy_position(joysticks[p[jugador].control-1],0)<-10000) POVx=1; END // izquierda
+			IF (get_joy_position(joysticks[p[jugador].control-1],0)>10000) POVx=2; END // derecha
+			IF (get_joy_position(joysticks[p[jugador].control-1],1)<-7500) POVy=1; END // arriba
+			IF (get_joy_position(joysticks[p[jugador].control-1],1)>7500) POVy=2; END // abajo
+ 
+			// DIGITAL
+			IF (POV==1) POVy=1; END // arriba
+			IF (POV==3) POVy=1; POVx=2; END // der
+			IF (POV==9) POVy=1; POVx=1; END // izq
+			IF (POV==4) POVy=2; END // abajo
+			IF (POV==6) POVy=2; POVx=2; END // der
+			IF (POV==12) POVy=2; POVx=1; END // izq
+			IF (POV==2) POVx=2; END // der
+			IF (POV==8) POVx=1; END // izq
+		
+			If(povx==1) p[jugador].botones[0]=1; Else p[jugador].botones[0]=0; End
+			If(povx==2) p[jugador].botones[1]=1; Else p[jugador].botones[1]=0; End
+			If(povy==1) p[jugador].botones[2]=1; Else p[jugador].botones[2]=0; End
+			If(povy==2) p[jugador].botones[3]=1; Else p[jugador].botones[3]=0; End
+
+			if(os_id==1000)
+				If(get_joy_button(joysticks[p[jugador].control-1],3)) p[jugador].botones[4]=1; Else p[jugador].botones[4]=0; End
+				If(get_joy_button(joysticks[p[jugador].control-1],2)) p[jugador].botones[5]=1; Else p[jugador].botones[5]=0; End
+				If(get_joy_button(joysticks[p[jugador].control-1],6)) exit(); End
+			else
+				If(get_joy_button(joysticks[p[jugador].control-1],0)) p[jugador].botones[4]=1; Else p[jugador].botones[4]=0; End
+				If(get_joy_button(joysticks[p[jugador].control-1],1)) p[jugador].botones[5]=1; Else p[jugador].botones[5]=0; End
+				If(get_joy_button(joysticks[p[jugador].control-1],2)) p[jugador].botones[6]=1; Else p[jugador].botones[6]=0; End
+			end
 		End
 		Frame;
 	End
@@ -80,11 +108,11 @@ Begin
 		p[3].control=3;
 		p[4].control=0;
 	end
-	if(posibles_jugadores==4) //hay 4 joysticks
+	if(posibles_jugadores=>4) //hay 4 joysticks
 		p[1].control=1;
 		p[2].control=2;
 		p[3].control=3;
-		p[4].control=0;
+		p[4].control=4;
 	end
 	
 	p[0].control=-2; //Esto son los menus :)

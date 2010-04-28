@@ -1,11 +1,18 @@
 Program plataformas;
-import "mod_image";
+
+//comentar las dos siguientes líneas para Wii
+#ifndef WII
+ import "mod_image";
+ import "mod_sys"; 
+#endif
+
 Global                 
+	app_data;
 	suelo;
 	dur_pinchos;
 	dur_muelle;
-	ancho_pantalla=1360;
-	alto_pantalla=768;
+	ancho_pantalla=1280;
+	alto_pantalla=720;
 	ancho_nivel;
 	alto_nivel;
 	Struct ops; 
@@ -231,7 +238,7 @@ Begin
 				gravedad=-20;
 				flash_muerte(jugador);
 				sonido(6);
-				if(ready==1) ready=0; frame(3000); ready=1; end
+				if(ready==1) ready=0; frame(3000); end
 				if(y<alto_nivel)
 					while(y<alto_nivel+150)
 						gravedad++;
@@ -252,6 +259,7 @@ Begin
 				accion="";
 				gravedad=0;
 				inercia=0;
+				ready=1;
 			else 
 				accion=""; 
 			end 
@@ -332,6 +340,7 @@ Begin
    if(tipo==7) alpha=0; frame(rand(2000,10000)); angle=20000; from alpha=0 to 255 step 3; angle+=4000; frame; end angle=0; alpha=255; end
    if(exists(father) and father.accion=="renacer") alpha=200; end
    loop
+		if(!alguiencerca()) frame(10000); end
 		if(anim<10) anim++; else anim=0; if(graph<anim_base+frames_anim) graph++; else graph=anim_base+1; end end
 		while(ready==0) frame; end
 		if(alpha<255) alpha+=5; end
@@ -422,6 +431,7 @@ Begin
     alto=graphic_info(file,graph,g_height)/2;
     priority=-1;
     loop
+		if(!alguiencerca()) frame(10000); end
 		if(map_get_pixel(0,durezas,x,y+alto)!=suelo) y+=6; end 
 		if(map_get_pixel(0,durezas,x,y+alto)==dur_pinchos) break; end 
 		while(map_get_pixel(0,durezas,x,y+alto-1)==suelo) y--; end //colisiones con el suelo
@@ -473,6 +483,7 @@ Begin
 	file=fpg_moneda;
 	graph=1;
 	loop
+		if(!alguiencerca()) frame(10000); end
 		if(anim<5) anim++; else graph++; anim=0; end
 		if(graph==5) graph=1; end
 		if(id_colision=collision(type prota)) 
@@ -512,7 +523,7 @@ BEGIN
 		p[posiciones[4]].puntos++;
 		from i=1 to 4; posiciones[i]=0; end
 	else
-		if(fexists(savegamedir+"niveles\"+paqueteniveles+"\descripciones.txt"))
+		if(os_id!=1000 and fexists(savegamedir+"niveles\"+paqueteniveles+"\descripciones.txt")) //la WII falla con fgets actualmente
 			i=1;
 			fichero=fopen(savegamedir+"niveles\"+paqueteniveles+"\descripciones.txt",O_READ);	
 			while(!feof(fichero))
@@ -540,14 +551,24 @@ BEGIN
 	stop_scroll(4);
 	unload_map(0,mapa_scroll);
 	unload_map(0,durezas);
-	//set_mode(ancho_pantalla,alto_pantalla,16); //resolución y colores	    
 
 	mapa=load_png(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".png"); 
+
+#ifndef WII
 	if(fexists(savegamedir+"niveles\"+paqueteniveles+"\fondo"+num_nivel+".jpg"))
 		fondo=load_image(savegamedir+"niveles\"+paqueteniveles+"\fondo"+num_nivel+".jpg"); //cargar el fondo
 	else
 		fondo=load_image("fondos\fondo"+rand(1,5)+".jpg"); //cargar el fondo
 	end
+#endif
+
+#ifdef WII
+	if(fexists(savegamedir+"niveles\"+paqueteniveles+"\fondo"+num_nivel+".jpg.png"))
+		fondo=load_png(savegamedir+"niveles\"+paqueteniveles+"\fondo"+num_nivel+".jpg.png"); //cargar el fondo. ponemos .jpg.png para saber que viene de un jpg
+	else
+		fondo=load_png("fondos\fondo"+rand(1,5)+".jpg.png"); //cargar el fondo
+	end
+#endif
 	if(fexists(savegamedir+"niveles\"+paqueteniveles+"\tiles.fpg"))
 		fpg_tiles=load_fpg(savegamedir+"niveles\"+paqueteniveles+"\tiles.fpg");
 	else
@@ -566,7 +587,8 @@ BEGIN
 	ancho_nivel=ancho*tilesize;
 	
 	max_num_enemigos=(alto_nivel*ancho_nivel)/100000;
-	
+//BURRADA TEMPORAL PARA PRUEBAS CON MEMORIA DE LA WII
+if(os_id!=1000)
 	mapa_scroll=new_map(ancho*tilesize,(alto-3)*tilesize,16);
 	//LO VISIBLE:
 	repeat
@@ -577,19 +599,18 @@ BEGIN
 		if(tile==tiles[1]) MAP_PUT(fpg_tiles,mapa_scroll,2,pos_x+(tilesize/2),pos_y+(tilesize/2)); end
 		if(tile==tiles[2]) MAP_PUT(fpg_tiles,mapa_scroll,3,pos_x+(tilesize/2),pos_y+(tilesize/2)); end
 		if(tile==tiles[3]) MAP_PUT(fpg_tiles,mapa_scroll,4,pos_x+(tilesize/2),pos_y+(tilesize/2)); end
-		if(tile==tiles[4]) moneda(pos_x+(tilesize/2),pos_y+(tilesize/2)); end
-		
-		from i=1 to 10; if(tile==enemigos[i]) enemigo(pos_x+(tilesize/2),pos_y+(tilesize/2),i); end end
-		from i=1 to 5; if(tile==powerups[i]) powerups(pos_x+(tilesize/2),pos_y+(tilesize/2),i); end end
 		if(x<ancho)
 			x++;
 		else
 			y++; x=0;
 		end
 	until(y=>alto-3)
-
+END
 	x=0; y=0;
 	durezas=new_map(ancho*tilesize,(alto-3)*tilesize,8);
+//BURRADA TEMPORAL PARA PRUEBAS CON MEMORIA DE LA WII
+if(os_id==1000) mapa_scroll=durezas; end
+
 	suelo=map_get_pixel(fpg_durezas,501,0,0);
 	dur_pinchos=map_get_pixel(fpg_durezas,502,0,0);
 	dur_muelle=map_get_pixel(fpg_durezas,504,0,0);
@@ -602,6 +623,11 @@ BEGIN
 		if(tile==tiles[1]) tile=2; end
 		if(tile==tiles[2]) tile=3; end
 		if(tile==tiles[3]) tile=4; end
+		if(tile==tiles[4]) moneda(pos_x+(tilesize/2),pos_y+(tilesize/2)); end
+		
+		from i=1 to 10; if(tile==enemigos[i]) enemigo(pos_x+(tilesize/2),pos_y+(tilesize/2),i); end end
+		from i=1 to 5; if(tile==powerups[i]) powerups(pos_x+(tilesize/2),pos_y+(tilesize/2),i); end end
+
 		tile=tile+500;
 		if(tile==500) tile=0; end
 		if(tile!=0) MAP_PUT(fpg_durezas,durezas,tile,pos_x+(tilesize/2),pos_y+(tilesize/2)); end
@@ -612,6 +638,8 @@ BEGIN
 		end
 	until(y=>alto-3)
 
+//BURRADA TEMPORAL PARA PRUEBAS CON MEMORIA DE LA WII
+if(os_id!=1000)
 	//EMPEZAMOS A PINTAR COSAS WACHIS!!!
 	from y=0 to alto;
 		from x=0 to ancho;
@@ -658,6 +686,9 @@ BEGIN
 		end
 	end
 	//FIN DE PINTAR COSAS WACHIS!!!
+//BURRADA TEMPORAL PARA PRUEBAS CON MEMORIA DE LA WII
+end //FIN IF WII
+
 	flash=new_map(ancho_pantalla,alto_pantalla,8);
 	drawing_color(suelo);
 	drawing_map(0,flash);
@@ -856,36 +887,46 @@ End
 include "menu.pr-";
 include "guardar.pr-";
 include "navegador.pr-";
+#ifndef WII
 include "editorniveles.pr-";
+#endif
 include "explosion.pr-";
 
-
+//PROCESS MAIN
 Begin
 	set_title("PiX Dash");
-	dir_juego=cd();
+	
 	// Código aportado por Devilish Games / Josebita
-	if(os_id==0) //windows
-		savegamedir=getenv("APPDATA")+developerpath;
-		if(savegamedir==developerpath) //windows 9x/me
-			savegamedir=cd();
-		else
+	if(app_data)
+		dir_juego=cd();
+		if(os_id==0) //windows	
+			savegamedir=getenv("APPDATA")+developerpath;
+			if(savegamedir==developerpath) //windows 9x/me
+				savegamedir=cd();
+			else
+				crear_jerarquia(savegamedir);
+			end
+		end
+		if(os_id==1) //linux
+			savegamedir=getenv("HOME")+developerpath;
 			crear_jerarquia(savegamedir);
 		end
-	end
-	if(os_id==1) //linux
-		savegamedir=getenv("HOME")+developerpath;
-		crear_jerarquia(savegamedir);
-	end
-	mkdir(savegamedir+"niveles");
-	if(file_exists(savegamedir+"opciones.dat"))
-		load(savegamedir+"opciones.dat",ops);
-		full_screen=ops.pantalla_completa;
-		scale_resolution=ops.resolucion;
+		mkdir(savegamedir+"niveles");
+		if(file_exists(savegamedir+"opciones.dat"))
+			load(savegamedir+"opciones.dat",ops);
+			full_screen=ops.pantalla_completa;
+			scale_resolution=ops.resolucion;
+		end
+	else
+		//lo tenemos justo delante!
+		savegamedir="";
+		developerpath="";
 	end
 
 	configurar_controles();
 
-	set_fps(50,0); //imágenes por segundo
+	set_fps(50,9); //imágenes por segundo
+	probar_pantalla();
 	set_mode(800,600,16); //resolución y colores	    
 	fpg_enemigos=load_fpg("fpg/enemigos.fpg"); //cargar el mapa de tiles
 	fpg_powerups=load_fpg("fpg/powerups.fpg"); //cargar el mapa de tiles
@@ -902,10 +943,16 @@ Begin
 		i++;
 	end
 	
-	//editor_de_niveles();
-	if(argc>1) importar_paquete_offline(); end
-	menu();
-	//carga_nivel(); //cargar el nivel
+	if(os_id!=1000) 
+		//editor_de_niveles();
+		if(argc>1) importar_paquete_offline(); end
+		menu();
+		//carga_nivel(); //cargar el nivel
+	else
+		paqueteniveles="nel";
+		jugadores=1;
+		carga_nivel();
+	end
 End
 
 Process cam_cooperativo();
@@ -1010,4 +1057,52 @@ Begin
 	//if(ready==1 and !exists(type bomba)) set_fps(20,0); frame(2000); set_fps(50,0); end
 End
 
+Function alguiencerca();
+Begin
+	x=father.x;
+	y=father.y;
+	from i=1 to 4; 
+		if(jugadores==i and exists(p[i].identificador)) 
+			if(get_dist(p[i].identificador)<ancho_pantalla*1.5)
+				return 1; //ALGUIEN ESTÁ CERCA!
+			end
+		end
+	end
+	return 0; //No hay nadie cerca. Congelamos para ahorrarnos CPU! :)
+End
+
+function probar_pantalla();
+begin
+	if(os_id==1000) 
+		scale_resolution=06400480; 
+		ancho_pantalla=1066;
+		alto_pantalla=600;
+		return;
+	end
+
+    if(mode_is_ok(1360,768,16,MODE_WAITVSYNC+MODE_FULLSCREEN)) //Si soporta 1360x760 nativamente...
+        ancho_pantalla=1360; alto_pantalla=768; scale_resolution=0;
+    elseif(mode_is_ok(1280,720,16,MODE_WAITVSYNC+MODE_FULLSCREEN)) //Si soporta 1280x720 nativamente...
+        ancho_pantalla=1280; alto_pantalla=720; scale_resolution=0;
+    elseif(mode_is_ok(1280,1024,16,MODE_WAITVSYNC+MODE_FULLSCREEN)) //Si soporta 1280x1024 nativamente...
+        ancho_pantalla=1280; alto_pantalla=1024; scale_resolution=0;
+    elseif(mode_is_ok(1024,768,16,MODE_WAITVSYNC+MODE_FULLSCREEN)) //Si soporta 1024x768 nativamente...
+        ancho_pantalla=1280; alto_pantalla=1024; scale_resolution=0;
+    elseif(mode_is_ok(800,600,16,MODE_WAITVSYNC+MODE_FULLSCREEN)) //Si soporta 800x600 nativamente...
+        ancho_pantalla=1280; alto_pantalla=1024; scale_resolution=0;
+    elseif(mode_is_ok(640,480,16,MODE_WAITVSYNC+MODE_FULLSCREEN)) //Si soporta 640x480 nativamente... lo escalamos desde 1280x1024.
+        ancho_pantalla=1280; alto_pantalla=1024; scale_resolution=06400480;
+    else //WIZ!!?!???
+        ancho_pantalla=1280; alto_pantalla=1024; scale_resolution=03200240; //Si soporta 320x240... puf, ¿cómo hemos llegado a esto?
+    end
+end
+
 include "controles.pr-";
+
+//stubs necesarios temporalmente para Wii
+#ifdef WII
+function getenv(string basura); begin end
+function exec(int basura1,string basura2,int basura3,pointer basura4); begin end
+function set_title(string basura); begin end
+function editor_de_niveles(); begin end
+#endif

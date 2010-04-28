@@ -12,6 +12,7 @@ Private
 		vel_x;
 	end
 Begin
+	if(os_id==1000) return; end
 	ctype=c_scroll;
 	ancho=graphic_info(file,grafico,g_width);
 	alto=graphic_info(file,grafico,g_height);

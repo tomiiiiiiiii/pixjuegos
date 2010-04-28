@@ -24,7 +24,6 @@ mod_scroll.dll
 mod_sort.dll
 mod_sound.dll
 mod_string.dll
-mod_sys.dll
 mod_text.dll
 mod_time.dll
 mod_timers.dll

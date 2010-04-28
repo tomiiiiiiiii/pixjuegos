@@ -530,12 +530,3 @@ Begin
 		frame;
 	end
 End
-
-Process mensaje(string texto);
-Private
-	id_txt;
-Begin
-	id_txt=write(fuente_peq,400,300,4,texto);
-	frame(4000);
-	delete_text(id_txt);
-End
