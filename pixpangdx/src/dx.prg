@@ -9,6 +9,8 @@ Const
 	
 	tamanyo_bloque_min=30;
 	bits=16;
+
+	app_data=1;
 Global
 	area_juego_x;
 	area_juego_y;
