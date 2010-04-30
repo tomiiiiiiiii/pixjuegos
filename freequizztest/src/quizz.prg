@@ -1,4 +1,5 @@
 program prueba;
+import "mod_image";
 global
 	wii; //si estamos en la wii, esto debe ser 1
 	buzz; //si jugamos con buzzers, esto debe ser 1
@@ -40,7 +41,7 @@ begin
 	full_screen=1; //pantalla completa por defecto
 	set_fps(60,0); //60fps nos dará un buen control sobre el juego
 	if(wii) scale_resolution=06400480; end //resolución de la Wii
-	set_mode(1024,768,32);
+	set_mode(1024,768,16);
 	
 	frame; //inicializamos previo a cargar recursos gráficos
 	
@@ -322,8 +323,8 @@ Begin
 	loop
 		if(key(_esc)) final(); end
 		if(buzz)
-			from i=1 to 4;
-				from j=0 to 4;
+			from i=1 to 4; //jugadores
+				from j=0 to 4; //botones
 					if(jugador[i].boton_suelto and get_joy_button(joy_buzz,((i-1)*5)+(j))) //comprobamos todos los botones de todos.
 						jugador[i].botones[j]=1;
 						jugador[i].boton_suelto=0;
@@ -331,7 +332,9 @@ Begin
 						jugador[i].botones[j]=0;
 					end
 				end
-				if(!(get_joy_button(joy_buzz,((i-1)*5)) or get_joy_button(joy_buzz,(((i-1)*5)+1)) or get_joy_button(joy_buzz,(((i-1)*5)+2)) or get_joy_button(joy_buzz,(((i-1)*5)+3)) or get_joy_button(joy_buzz,(((i-1)*5)+4))))
+				if(!(get_joy_button(joy_buzz,((i-1)*5)) or get_joy_button(joy_buzz,(((i-1)*5)+1)) 
+				or get_joy_button(joy_buzz,(((i-1)*5)+2)) or get_joy_button(joy_buzz,(((i-1)*5)+3)) 
+				or get_joy_button(joy_buzz,(((i-1)*5)+4))))
 					jugador[i].boton_suelto=1;
 				end
 			end
@@ -410,19 +413,36 @@ End
 
 Process final();
 Private
-	ganadores[4];
+	ganadores[4][2]; //2º[]-> 1:jugador,2:puntos
+	aux[2]; //para intercambios
 	temp;
 	posicion;
 	cambios;
+	j;
 Begin
-	from i=1 to 4; ganadores[i]=i; end
-	while(cambios>0)
-		from ganadores=1 to 4; 
+	from i=1 to 4; 
+		ganadores[i][1]=i; 
+		ganadores[i][2]=jugador[i].puntos; 
+	end
+
+	loop
+		cambios=0;
+		from i=1 to 4; 
 			from j=1 to 4;
-				if(jugador[i].puntos>jugador[i]) end
+				if(j<i and ganadores[i][2]>ganadores[j][2])
+					aux[1]=ganadores[j][1];
+					aux[2]=ganadores[j][2];
+					ganadores[j][1]=ganadores[i][1];
+					ganadores[j][2]=ganadores[i][2];
+					ganadores[i][1]=aux[1];
+					ganadores[i][2]=aux[2];
+					cambios=1;
+				end
 			end
 		end
+		if(cambios==0) break; end
 	end
+
 	let_me_alone();
 	delete_text(all_text);
 	
@@ -430,6 +450,15 @@ Begin
 	musica("taluego");
 	put_screen(0,22);
 	write(fnts[3],512,150,4,"Resultados");
+	
+	if(ganadores[1][2]!=ganadores[2][2]) write(fnts[3],512,400,4,"Ganador jugador "+ganadores[1][1]); end
+	if(ganadores[1][2]==ganadores[2][2] and ganadores[1][2]!=ganadores[3][2]) write(fnts[3],512,400,4,"Empate entre jugador "+ganadores[1][1]+" y jugador "+ganadores[2][1]); end
+	if(ganadores[1][2]==ganadores[2][2] and ganadores[1][2]==ganadores[3][2] and ganadores[1][2]!=ganadores[4][2]) 
+		write(fnts[3],512,400,4,"Empate entre los jugadores "+ganadores[1][1]+", "+ganadores[2][1]+" y "+ganadores[3][1]); 
+	end
+	if(ganadores[1][2]==ganadores[2][2] and ganadores[1][2]==ganadores[3][2] and ganadores[1][2]!=ganadores[4][2]) 
+		write(fnts[3],512,400,4,"¡Todos empatados!"); 
+	end
 	
 	while(!key(_enter)) frame; end	
 End
@@ -453,4 +482,8 @@ Begin
 		frame;
 	end
 	delete_text(id_txt);
+End
+
+Process imagen_en_pantalla(graph);
+Begin
 End

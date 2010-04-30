@@ -1,5 +1,7 @@
 #¿De qué color es una naranja?
-
+#NOS SALTAMOS UNA LINEA
+# $ -> YOUTUBE
+# ? -> IMAGEN
 
 ¿Qué año es según el calendario de Chuck Norris?
 --66
