@@ -1,7 +1,8 @@
 #¿De qué color es una naranja?
-#NOS SALTAMOS UNA LINEA
+# # -> NOS SALTAMOS UNA LINEA
 # $ -> YOUTUBE
 # ? -> IMAGEN
+# @ -> SONIDO
 
 ¿Qué año es según el calendario de Chuck Norris?
 --66
@@ -17,7 +18,7 @@
 --3
 
 
-?simbolo.png#¿Nombre original?
+?octothorpe#¿Nombre original?
 --Ortoescuadro
 --Ermohadil
 --Sharp
@@ -69,7 +70,7 @@ $KMU0tzLwhbE#¿Quién es este hombre?
 --Astigmatismo
 
 
-@wp-content/uploads/frikitest/sound1.wav#Lo que escuchas es...
+@sputnik1#Lo que escuchas es...
 --R2D2 en el primer teaser de 'Una nueva esperanza'
 -*El Sputnik 1
 --cat /usr/src/linux-headers-2.6.20-19-386/* > /dev/dsp
@@ -86,7 +87,7 @@ $KMU0tzLwhbE#¿Quién es este hombre?
 --Miney
 
 
-#¿Con qué juego relacionarías el <em>Korobeiniki</em>?
+#¿Con qué juego relacionarías el Korobeiniki?
 
 
 Resistance is futile!
@@ -103,7 +104,7 @@ Resistance is futile!
 --Anthony J. Murphy
 
 
-?personaje.jpg#¿Quién es este personaje?
+?lakitu#¿Quién es este personaje?
 --Sihiro
 --Armando
 -*Lakitu
@@ -120,14 +121,14 @@ Con 23 personas, la probabilidad de que 2 personas compartan cumpleaños es del..
 #¿Cuál es el símbolo del elemento químico Estroncio?
 
 
-En una calculadora, ¿cómo puedo conseguir, sin pulsar los dígitos, el número <em>2.721828...</em>?
+En una calculadora, ¿cómo puedo conseguir, sin pulsar los dígitos, el número 2.721828...?
 --ln p
 -*e^x e^x
 --vp
 --cos log e
 
 
-¿Qué personaje se hace pasar por <em>Guybrush Threepwood</em>?
+¿Qué personaje se hace pasar por Guybrush Threepwood?
 -*Larry Laffer
 --Manny Calavera
 --Freddy Hardest
@@ -162,10 +163,10 @@ En una calculadora, ¿cómo puedo conseguir, sin pulsar los dígitos, el número <em
 --Xuzo
 
 
-#¿Cuál será el nombre de la próxima release de <em>Ubuntu</em>?
+#¿Cuál será el nombre de la próxima release de Ubuntu?
 
 
-#¿Cuál es el nombre del más famoso <em>Blade Runner</em>?
+#¿Cuál es el nombre del más famoso Blade Runner?
 
 
 ¿Qué no puede faltar en tu oficina?
@@ -189,14 +190,14 @@ En una calculadora, ¿cómo puedo conseguir, sin pulsar los dígitos, el número <em
 --Bender Sánchez Ford
 
 
-?gusano.gif#¿Dónde no querrías meterlo?
+?gusano#¿Dónde no querrías meterlo?
 -*Arrakis
 --Trantor
 --Naboo
 --Endor
 
 
-¿De qué ojo está tuerto Morgan Freeman en <em>Million Dollar Baby</em>?
+¿De qué ojo está tuerto Morgan Freeman en Million Dollar Baby?
 -*Derecho
 --Izquierdo
 --Es ciego
@@ -217,7 +218,7 @@ En una calculadora, ¿cómo puedo conseguir, sin pulsar los dígitos, el número <em
 --Mohandas K. Gandhi
 
 
-¿Qué significa actualmente la K de <em>KDE</em>?
+¿Qué significa actualmente la K de KDE?
 --Kaka
 --Kool
 --Kreative
@@ -245,21 +246,309 @@ En una calculadora, ¿cómo puedo conseguir, sin pulsar los dígitos, el número <em
 --No sé, pero sabe a azúcar
 
 
-¿Cuánto pesa un <em>Macbook Air</em>?
+¿Cuánto pesa un Macbook Air?
 --1kg
 --1,2kg
 --0,9kg
 -*1,36kg
 
 
-$XpHJdGmT8k4#¿Qué tecla se le <em>escapa</em> al famoso niño alemán?
+$XpHJdGmT8k4#¿Qué tecla se le escapa al famoso niño alemán?
 -*El 'esc'
 --El 'intro'
 --El espacio
 --El 'shift'
 
+17 de Marzo de 2009, el 'old man' ante la ONU. La audiencia le despide con:
+--Aplausos
+--Tirandole un zapato
+--Que la fuerza te acompañe
+-*So say we all
 
-#¿Cuántas preguntas forman este test?
+TBBT. Nombre del asesor cientifico de la serie:
+--Robert Aymar
+--Marcos Aguinis
+-*David Saltzberg
+--Richard Alpert
 
+¿Que pasaria si se te cayera un bocadillo en el LHC?
+--Desintegración
+--Materia oscura
+-*Tardarias un año en volver a ponerlo en marcha
+--7,4TeV
 
-#¡Muy bien! Si quieres, déjanos un mensaje personal:
+¿Cual es el objetivo original por el que se creó el LHC?
+-*Demostrar la existencia del Boson de Higgs
+--Demostrar la teoria de la relatividad
+--Hallar el zenit de la materia
+--Crear una bomba de antimateria
+
+¿De quién es la estatua gigante de la isla de Lost?
+--De Tutankamon
+-*De Tueris
+--De Anubis
+--De Osiris
+
+¿Cuál de estas afirmaciones no pertenece al Código de Harry?
+--La muerte debe servir a un propósito
+--Armonizar, mantener las aparencias
+-*Disfruta con tu trabajo
+--Controlar las necesidades y canalizarlas
+
+¿Cuál de estas no es una de las leyes de la robótica propuestas por Isaac Asimov?
+--Un robot no debe dañar a un ser humano o, por su inacción, dejar que un ser humano sufra daño.
+-*Un robot debe obedecer siempre a su creador.
+--Un robot debe obedecer las órdenes que le son dadas por un ser humano, excepto si estas órdenes entran en conflicto con la Primera Ley.
+--Un robot debe proteger su propia existencia, hasta donde esta protección no entre en conflicto con la Primera o la Segunda Ley.
+
+¿Quién hizo famosa la frase "That's what she said"?
+--Dwight Schrute
+--Jim Halpert
+-*Michael Scott
+--Creed
+
+¿Quién es el mejor amigo de Michael Scott?
+--Jim Halpert
+--Dwight Schrute
+-*Todd Packer
+--Ryan Howard
+
+¿En que década se rodó el videoclip del cantante Edward Anatolevich Khil?
+--50's
+-*60's
+--70's
+--80's
+
+¿Cuál de los siguientes NO aparece en "La Vida de Brian"?
+--Una nave espacial
+--Un ex-leproso
+-*Un Emilio Molina
+--Brian en pelotas
+
+Punto débil de "Lobo":
+--La kriptonita
+--Las drogas
+-*El gas
+--La radiación
+
+¿Cómo se llamaba el mago que aparece en la película "Monty Python and the Holy Grial"?
+--The Black Wizzard
+--Biggus Dickus
+--James
+-*Tim
+
+¿Qué objeto no se llega a usar en el juego "La maldición de Monkey Island"?
+-*Quitagrapas
+--Telescopio
+--Platano
+--Labios de cera
+
+Jason Peter Garrick es
+-*Flash
+--Spiderman
+--Capitán América
+--Wolverine
+
+¿Qué significa la T de "James T. Kirk"?
+--Thomas
+--Ted
+-*Tiberius
+--Taylor
+
+¿Cuantas películas componen la saga de Star Wars?
+--6
+--7
+--8
+-*3
+
+Número atómico del Wolframio:
+--86
+--25
+--No existe un elemento con un nombre tan ridículo
+-*74
+
+IT Crowd: Si buscas google en google:
+-*lo puedes romper
+--no aparece nada
+--aparece porno con mapaches
+--enciendes una luz en Oklahoma
+
+IT Crowd: ¿Por quién se hace pasar Roy en un capítulo?
+--por camarero
+--por la madre de Moss
+--por el padre de Jen
+-*por discapacitado
+
+IT Crowd: Apellido de Roy:
+--Tottleman
+-*Tenneman
+--Taylorman
+--Roy es el apellido
+
+IT Crowd: Apellido de Moss:
+--Maurice
+-*Moss es el apellido
+--Martin
+--Michel
+
+El motor de curvatura se menciona en:
+--Star Wars
+-*Star Trek
+--Starship Troopers
+--Stard, mone a dormir
+
+Un nibble son
+-*cuatro bits
+--medio bit
+--dos bytes
+--un byte
+
+¿Cuál de estos NO es el nombre de una nave humana en Matrix?
+--Nabucodonosor
+--Osiris
+-*Prometeo
+--Logos
+
+¿A cuál de estas películas NO se parece el argumento de "Avatar"?
+--Dune
+--La Misión
+--Bailando con Lobos
+-*Tiempo de Valientes
+
+Regla número 1 de Zombieland:
+-*Cardio
+--No mires atrás
+--Revisa el maletero
+--Prepárate a morir
+
+"Don't be evil"
+--Microsoft
+--Apple
+-*Google
+--Sun
+
+"Mamá, ¿los pedos pesan? No. Entonces me he cagado":
+--Hot Shots
+-*Hot Shots 2
+--Robin Hood: Hombres con medias
+--SpaceBalls
+
+¿Qué le da el Amo del Calabozo a Hank?
+--Una pistola
+--Una vara
+-*Un arco
+--Una porra
+
+¿En qué comic apareció por primera vez el personaje de Lobezno?
+--Captain America
+--Uncanny X-Men
+-*The Incredible Hulk
+--Strange Tales
+
+¿De qué planeta es el Dr. Who?
+--Papilion
+--Elecus
+-*Gallifrey
+--Remiliard 15:06
+
+¿Cómo se llama el archienemigo de El Zorro?
+-*Rafael Montero
+--Joaquín de la Vega
+--Diego de la Vega
+--Joaquín Cortés
+
+Bruce Banner es
+--Wolverine
+--Spiderman
+-*Hulk
+--Capitán América
+
+James Howlett Hudson es
+--Spiderman
+--Capitán América
+--Hulk
+-*Wolverine
+
+¿Cómo se llama la mujer de David el Gnomo?
+-*Lisa
+--Elisa
+--Melisa
+--Felisa
+
+NO es uno de los 4 Fantásticos:
+--Reed Richards
+--Susan Storm
+--Ben Grimm
+-*Victor Storm
+
+4, 8, 16, 23, 42. ¿Qué falta?:
+--10
+-*15
+--17
+--Enter
+
+Las dos estrellas más grandes y brillantes de Orión son
+-*Betelgeuse y Rigel
+--Antares y Rigel
+--Antares y Alfa Centauri
+--Vega y Rigel
+
+BSG(remake). Los cylons:
+-*tienen un plan
+--están hechos de metapopileno
+--se usan como arma por los Borgs
+--son dicieseis
+
+¿Cómo se llama la nave de los humanos de Alien?
+--Nostromus
+-*Nostromo
+--Nostermo
+--Nantermo
+
+¿Cómo se llama el sobrino de Cálico Electrónico?
+--Jesusín
+-*Carlitos Jack
+--Pepín
+--Patxi
+
+¿Que fue antes la vaca o el pollo?
+-*Pollo
+--Vaca
+--Gemelos
+--Según la temporada
+
+¿Dónde trabaja Bob Esponja?
+--En una piña
+--En el Crusty Burguer
+-*En el Krusty Krab
+--En el Ojo Muerto 
+
+¿Cual es el mejor amigo de Bob Esponja?
+--Calamardo
+--Señor Cangrejo
+-*Patricio
+--Gary
+
+TBBT. Al final de la segunda temporada se van en una expedicción al Polo Norte a estudiar...:
+-*La existencia de monopolos magnéticos
+--La interacción de la orbita terrestre con las mareas
+--El calentamiento global
+--Teoria de trenzas
+
+¿Qué significa el acrónimo WINE?
+--Windows Internal NT Emulator
+-*Wine Is Not an Emulator
+--Windows Is Not Erfect
+--Wine Is Not Enough!
+
+¿Cuál era el nombre del DOS original?
+-*Quick and Dirty Operating System
+--Disk Operating System
+--DOS Operating System
+--UNO
+
+¿Donde murió el maestro Antoñete?
+--Pozoblanco
+--Linares
+--Sevilla
+-*No se sabe, aún

@@ -1,5 +1,4 @@
 program prueba;
-import "mod_image";
 global
 	wii; //si estamos en la wii, esto debe ser 1
 	buzz; //si jugamos con buzzers, esto debe ser 1
@@ -16,9 +15,12 @@ global
 		juega; //si juega
 	end
 	
-	correcta=1; //num respuesta correcta
+	correcta; //num respuesta correcta
 	ready; //servirá para que pause el texto ssi alguien pulsa el botón
 	jugadores; //de 1 a 4
+
+	id_sonido; //para el sonido de la pregunta
+	wav_pregunta; //para el sonido de la pregunta
 	
 	string txt_respuestas[4]; //0: pregunta, 1-4 respuestas
 	id_txt_pregunta[2]; //ids de los writes de los textos de las preguntas
@@ -28,12 +30,14 @@ global
 	boton;
 	
 	posicion_fichero;
-	string fichero="0"; //nombre del quizz a cargar
+	string fichero="base"; //nombre del quizz a cargar
+	string argumentos;
 local
 	i;
 
 //MAIN	
 begin
+
 	//estamos en la Wii?
 	if(os_id==1000) wii=1; end
 	
@@ -52,13 +56,6 @@ begin
 
 	//para unificar los difrentes controles
 	controlador(); 
-
-	//PRUEBAS!!!!!!!!!!!!!!!
-	txt_respuestas[0]="¿De qué color es el lago pipicaca?";
-	txt_respuestas[1]="Verde";
-	txt_respuestas[2]="Amarillo";
-	txt_respuestas[3]="Rojo";
-	txt_respuestas[4]="Aún más rojo";
 
 	//intro & elección de jugadores
 	presentacion();
@@ -97,7 +94,10 @@ Begin
 		jugador[1].juega=1;
 		while(!key(_enter)) frame; end
 	end
+
+	//para que desparezca el "pulsa intro para empezar"
 	delete_text(all_text);
+
 	//para que desaparezcanlos botoncicos de los jugadores
 	ready=1;
 
@@ -123,11 +123,15 @@ Private;
 Begin
 	//no estamos pulsando ningún botón
 	boton=0;
-	
+		
 	//actualizamos marcadores
 	marcadores();
 
+	if(id_sonido>0 and is_playing_wav(id_sonido)) stop_wav(id_sonido); unload_wav(wav_pregunta); end
 	pon_pregunta();
+
+	//si estamos mostrando algo por pantalla, esperamos
+	while(exists(type imagen_en_pantalla)) frame; end
 	
 	//reiniciamos los rebotes
 	from i=1 to 4; jugador[i].rebote=0; end
@@ -136,19 +140,19 @@ Begin
 	ready=1;
 	loop
 		from i=1 to 4; 
-		  if(jugador[i].juega)
-			if(jugador[i].botones[0] and jugador[i].rebote==0)
-				parpadeo();
-				graph=30+i; // Esto será un icono de "JUGADOR 1" y cosas asín...
-				
-				sonido(1);
-				ready=0;
+			//hay que pulsar el botón rojo para poder contestar
+		  if(jugador[i].juega) //solo los que realmente están jugando
+			
+			//si solo juega uno, no hará falta que pulse. y si han intentado responder esta pregunta ya, no podrá volver a hacerlo
+			if(jugadores==1 or (jugador[i].botones[0] and jugador[i].rebote==0)) 
+				if(jugadores>1) //si juega más de un jugador: avisamos de qué jugador ha sido y pausamos la colocación del texto
+					graph=30+i; // Esto será un icono de "JUGADOR 1" y cosas asín...			
+					sonido(1);
+					ready=0;
+					frame(2000);
+				end
 
-				frame(2000);
-				from alpha=255 to 50 step -20; size-=5; frame; end
-				size=0;
-				
-				tiempo();
+				tiempo(); //cuenta atrás para responder
 				
 				while(boton==0 and exists(type tiempo))
 					from j=1 to 4;
@@ -156,6 +160,10 @@ Begin
 					end
 					frame; 
 				end
+
+				from alpha=255 to 50 step -20; size-=5; frame; end
+				size=0;
+
 				
 				if(boton!=0) sonido(boton+4); end
 						
@@ -169,13 +177,11 @@ Begin
 				if(boton==correcta)
 					jugador[i].puntos++; 
 					sonido(3);
-					parpadeo();
 					graph=4;
 					frame(4000);
 					ronda();
 					return;
 				else //rebote!
-					parpadeo();
 					jugador[i].rebote=1;
 								
 					//put_screen(0,24);
@@ -184,7 +190,7 @@ Begin
 					num_rebotes=0;
 					from i=1 to 4; if(jugador[i].rebote or !jugador[i].juega) num_rebotes++; end end
 					if(num_rebotes==4) //fail...
-						//podríamos dar la solución... o no?
+						//podríamos dar la solución... o no? no! xD
 						ronda(); 
 						return; 
 					end					
@@ -204,15 +210,6 @@ Begin
 	end
 End
 
-process parpadeo();
-begin
-
-	graph=25;
-	x=512; y=384;
-	z=-5;
-	frame(300);
-end
-
 Process pon_pregunta();
 Private
 	lineas; //numero de lineas para ordenar el texto, cada 40 caracteres
@@ -224,33 +221,57 @@ Private
 	id_fichero;
 	j;
 	string ejecutar;
+	char tipo_ejecutar; //$:youtube, ?:imagen, @:sonido
+	num_respuestas;
+	string argumentos;
 Begin
 	//importante! las respuestas deben ir ordenadas de abajo a arriba!
 
+	//reestablecemos la respuesta correcta: si alguna pregunta no tiene respuesta correcta el juego peta
+	correcta=0;
+	
 	//leemos la siguiente pregunta y sus respuestas
-	id_fichero=fopen("quizz/"+fichero+".txt",O_READ);
+	id_fichero=fopen("quizz/"+fichero+"/"+fichero+".txt",O_READ);
 	if(posicion_fichero!=0) fseek(id_fichero,posicion_fichero,0); end
+
 	from i=0 to 4; 
 		txt_respuestas[i]=""; //vaciamos la anterior
-		while((txt_respuestas[i]=="" or txt_respuestas[i][0]=="#") and !feof(id_fichero)) 
+		
+		//cogemos la lineas que no estén vacías y que no estén comentadas, hasta acabar el fichero
+		while((txt_respuestas[i]=="" or txt_respuestas[i][0]=="#") and !feof(id_fichero))
 			txt_respuestas[i]=fgets(id_fichero); 
 		end //y buscamos lineas con contenido
 		
+		//Si hemos llegado al final del fichero o todas las líneas no están llenas, acabamos
 		if(feof(id_fichero))
+			fclose(id_fichero);
 			final();
 			return;
 		end
 		
-		if(txt_respuestas[i][0]=="$" or txt_respuestas[i][0]=="?") //pregunta con cosas...
+		//Prefijos de los adjuntos de las preguntas -> $:youtube, ?:imagen, @:sonido
+		if(txt_respuestas[i][0]=="$" or txt_respuestas[i][0]=="?" or txt_respuestas[i][0]=="@")
+			tipo_ejecutar=""+txt_respuestas[i][0];
 			from j=1 to len(txt_respuestas[i]);
-				if(txt_respuestas[i][j]=="#") break; else ejecutar+=""+txt_respuestas[i][j]; end
+				if(txt_respuestas[i][j]=="#") 
+					break; 
+				else 
+					ejecutar+=""+txt_respuestas[i][j]; 
+				end
 			end
 			txt_respuestas[i]=substr(txt_respuestas[i],j+1);
 		end
 		
+
 		if(txt_respuestas[i][0]=="-") //respuestas!
+			num_respuestas++;
 			if(txt_respuestas[i][1]=="*") //correcta!
-				correcta=i;
+				if(correcta!=0)
+					fclose(id_fichero);
+					exit("Error: Dos o más respuestas correctas. Pregunta: "+txt_respuestas[0]);
+				else
+					correcta=i;
+				end
 			end
 			txt_respuestas[i]=substr(txt_respuestas[i],2);
 		end
@@ -258,6 +279,38 @@ Begin
 
 	posicion_fichero=ftell(id_fichero);
 	fclose(id_fichero);
+	
+	//Comprobamos posibles errores...
+	if(correcta==0) exit("Error: No hay respuesta correcta. Pregunta: "+txt_respuestas[0]); end
+	if(num_respuestas!=4) exit("Error: No hay cuatro respuestas. Pregunta: "+txt_respuestas[0]); end
+
+	
+	//¿La pregunta tiene algun... adjunto?
+	if(ejecutar!="")
+		switch(tipo_ejecutar)
+			case "$": //Youtube: No va...
+				argumentos="http://www.youtube.com/watch?v="+ejecutar;
+				if(os_id==0) //windows
+					exec(_P_WAIT,"start",1,&argumentos);
+				elseif(os_id==1) //linux
+					exec(_P_WAIT,"firefox",1,&argumentos);
+				else
+					//versión que no estamos seguros que soporte el acceso a youtube!
+					//ponemos otra pregunta!
+					let_me_alone();
+					ronda();
+				end
+			end
+			case "?": //Imagen
+				imagen_en_pantalla(ejecutar); 
+				while(exists(type imagen_en_pantalla)) frame; end 
+			end 
+			case "@": //Sonido!
+				wav_pregunta=load_wav("quizz/"+fichero+"/"+ejecutar+".wav");
+				id_sonido=play_wav(wav_pregunta,-1);
+			end
+		end
+	end
 	
 	//para la pregunta hay una línea seguro...
 	lineas=1;
@@ -303,7 +356,7 @@ Begin
 		//if(todolleno==6 or !exists(father)) break; end
 		if(!exists(father)) break; end
 		
-		while(!ready) frame; end
+		while(!ready and jugadores>1) frame; end //si solo hay un jugador, no paramos el texto
 		frame(500);
 		num_caracter++;
 	end
@@ -449,7 +502,7 @@ Begin
 	marcadores();
 	musica("taluego");
 	put_screen(0,22);
-	write(fnts[3],512,150,4,"Resultados");
+	write(fnts[3],512,100,4,"Resultados");
 	
 	if(ganadores[1][2]!=ganadores[2][2]) write(fnts[3],512,400,4,"Ganador jugador "+ganadores[1][1]); end
 	if(ganadores[1][2]==ganadores[2][2] and ganadores[1][2]!=ganadores[3][2]) write(fnts[3],512,400,4,"Empate entre jugador "+ganadores[1][1]+" y jugador "+ganadores[2][1]); end
@@ -469,7 +522,11 @@ Private
 	segundos;
 Begin
 	id_txt=write_int(fnts[3],100,384,4,&segundos);
-	from i=360 to 1 step -1;
+	//si solo hay un jugador, tiene 10 segundos para responder
+	//sino, 5
+	if(jugadores==1) i=60*10; else i=60*5; end //fps por segundos
+	while(i>0)
+		i--;
 		segundos=i/60;
 		if(boton!=0) break; end
 		if(i%60==0) 
@@ -484,6 +541,25 @@ Begin
 	delete_text(id_txt);
 End
 
-Process imagen_en_pantalla(graph);
+Process gristodo();
 Begin
+	x=512;
+	y=384;
+	z=-299;
+	graph=25;
+	while(exists(father)) frame; end
+End
+
+Process imagen_en_pantalla(string nombre_imagen);
+Begin
+	x=512;
+	y=384;
+	z=-300;
+	gristodo();
+	from i=0 to 100 step 10; son.alpha=i; frame; end
+	graph=load_png("quizz/"+fichero+"/"+nombre_imagen+".png");
+	from i=0 to 180; frame; end
+	unload_map(0,graph);
+	graph=0;
+	from i=100 to 0 step -10; son.alpha=i; frame; end
 End
