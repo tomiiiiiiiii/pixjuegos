@@ -660,7 +660,7 @@ begin
 		//POSIBLES FORMAS DE PERDER: NOS ATROPELLAN O GANA OTRO
 		gr_antes=graph; //guardamos el gráfico actual
 		graph=61; //y ponemos este para colisionar!
-		if((graph!=gr+1 and collision(type obstcc)) or (llegada!=jugador and llegada!=0))
+		if(collision(type obstcc) or (llegada!=jugador and llegada!=0))
 			graph=gr_antes;
 			golp(x,y,graph);
 			explotalo(x,y,z,alpha,angle,file,graph,60);
