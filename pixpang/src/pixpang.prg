@@ -3089,6 +3089,7 @@ Private
 		vel_x;
 	end
 Begin
+	if(!ready) return; end
 	ancho=graphic_info(file,graffico,g_width);
 	alto=graphic_info(file,graffico,g_height);
 	from b=0 to alto-1 step 5;
