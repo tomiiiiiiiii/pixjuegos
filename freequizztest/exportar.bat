@@ -12,13 +12,15 @@ mkdir export\xm
 mkdir export\fnt
 mkdir export\wav
 mkdir export\quizz
+mkdir export\vlc
 copy fpg\*.fpg export\fpg
 copy xm\*.xm export\xm
 copy wav\*.wav export\wav
 copy fnt\*.fnt export\fnt
-copy quizz\*.txt export\quizz
+copy quizz\*.* export\quizz
 
 copy ..\bennu-win\*.dll export
+copy ..\bennu-win\vlc\*.dll export\vlc
 copy ..\bennu-win\bgdi.exe export\quizz.exe
 
 copy quizz.dcb export

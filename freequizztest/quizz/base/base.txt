@@ -1,5 +1,5 @@
 #¿De qué color es una naranja?
-# # -> NOS SALTAMOS UNA LINEA
+# # -> IGNORAR
 # $ -> YOUTUBE
 # ? -> IMAGEN
 # @ -> SONIDO
@@ -56,7 +56,7 @@
 --16
 
 
-$KMU0tzLwhbE#¿Quién es este hombre?
+$ballmer#¿Quién es este hombre?
 --Steve Jobs
 -*Steve Ballmer
 --Steve Bates
@@ -253,7 +253,7 @@ En una calculadora, ¿cómo puedo conseguir, sin pulsar los dígitos, el número 2.7
 -*1,36kg
 
 
-$XpHJdGmT8k4#¿Qué tecla se le escapa al famoso niño alemán?
+$niñoaleman#¿Qué tecla se le escapa al famoso niño alemán?
 -*El 'esc'
 --El 'intro'
 --El espacio

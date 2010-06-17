@@ -1,4 +1,5 @@
 program prueba;
+import "mod_vlc";
 global
 	wii; //si estamos en la wii, esto debe ser 1
 	buzz; //si jugamos con buzzers, esto debe ser 1
@@ -19,6 +20,7 @@ global
 	ready; //servirá para que pause el texto ssi alguien pulsa el botón
 	jugadores; //de 1 a 4
 
+	id_video; //para el video de la pregunta
 	id_sonido; //para el sonido de la pregunta
 	wav_pregunta; //para el sonido de la pregunta
 	
@@ -45,10 +47,13 @@ begin
 	full_screen=1; //pantalla completa por defecto
 	set_fps(60,0); //60fps nos dará un buen control sobre el juego
 	if(wii) scale_resolution=06400480; end //resolución de la Wii
-	set_mode(1024,768,16);
+	set_mode(1024,768,32);
+
+	dump_type=complete_dump;
+    restore_type=complete_restore;
 	
 	frame; //inicializamos previo a cargar recursos gráficos
-	
+
 	//cargamos recursos: fpg, fnt, wav
 	load_fpg("quizz.fpg");
 	from i=1 to 4; fnts[i]=load_fnt(i+".fnt"); end
@@ -131,7 +136,7 @@ Begin
 	pon_pregunta();
 
 	//si estamos mostrando algo por pantalla, esperamos
-	while(exists(type imagen_en_pantalla)) frame; end
+	if(jugadores==1) while(exists(type imagen_en_pantalla) or exists(type video_en_pantalla)) frame; end end
 	
 	//reiniciamos los rebotes
 	from i=1 to 4; jugador[i].rebote=0; end
@@ -221,7 +226,7 @@ Private
 	id_fichero;
 	j;
 	string ejecutar;
-	char tipo_ejecutar; //$:youtube, ?:imagen, @:sonido
+	char tipo_ejecutar; //$:video, ?:imagen, @:sonido
 	num_respuestas;
 	string argumentos;
 Begin
@@ -249,7 +254,7 @@ Begin
 			return;
 		end
 		
-		//Prefijos de los adjuntos de las preguntas -> $:youtube, ?:imagen, @:sonido
+		//Prefijos de los adjuntos de las preguntas -> $:video, ?:imagen, @:sonido
 		if(txt_respuestas[i][0]=="$" or txt_respuestas[i][0]=="?" or txt_respuestas[i][0]=="@")
 			tipo_ejecutar=""+txt_respuestas[i][0];
 			from j=1 to len(txt_respuestas[i]);
@@ -288,12 +293,9 @@ Begin
 	//¿La pregunta tiene algun... adjunto?
 	if(ejecutar!="")
 		switch(tipo_ejecutar)
-			case "$": //Youtube: No va...
-				argumentos="http://www.youtube.com/watch?v="+ejecutar;
-				if(os_id==0) //windows
-					exec(_P_WAIT,"start",1,&argumentos);
-				elseif(os_id==1) //linux
-					exec(_P_WAIT,"firefox",1,&argumentos);
+			case "$": //Video
+				if(os_id==0 or os_id==1) //windows
+					video_en_pantalla(ejecutar);
 				else
 					//versión que no estamos seguros que soporte el acceso a youtube!
 					//ponemos otra pregunta!
@@ -406,6 +408,12 @@ Begin
 					from i=0 to 4; jugador[1].botones[i]=0; end
 					if(!(key(_1) or key(_q) or key(_a) or key(_z) or key(_enter))) jugador[1].boton_suelto=1; end
 				end
+			end
+		end
+		from i=0 to 4; jugador[0].botones[i]=0; end
+		from i=1 to 4;
+			from j=0 to 4;
+				jugador[0].botones[j]+=jugador[i].botones[j];
 			end
 		end
 		frame;
@@ -551,6 +559,8 @@ Begin
 End
 
 Process imagen_en_pantalla(string nombre_imagen);
+Private
+	j;
 Begin
 	x=512;
 	y=384;
@@ -558,8 +568,47 @@ Begin
 	gristodo();
 	from i=0 to 100 step 10; son.alpha=i; frame; end
 	graph=load_png("quizz/"+fichero+"/"+nombre_imagen+".png");
-	from i=0 to 180; frame; end
+	from alpha=0 to 255 step 10; 
+		if(jugador[0].botones[0]) break; end
+		frame; 
+	end
+	from i=0 to 180; 
+		if(jugador[0].botones[0]) break; end
+		frame; 
+	end
 	unload_map(0,graph);
 	graph=0;
-	from i=100 to 0 step -10; son.alpha=i; frame; end
+	from i=100 to 0 step -10; 
+		son.alpha=i; 
+		alpha=i;
+		if(jugador[0].botones[0]) break; end
+		frame; 
+	end
+End
+
+Process video_en_pantalla(string nombre_video);
+Private
+	grav;
+	duracion_en_ms;
+Begin
+	pause_song();
+	graph=video_play("quizz/"+fichero+"/"+nombre_video+".webm",1024,768);
+	set_center(0,graph,0,0);
+	x=0; y=0; z=-300; angle=90000; grav=0;
+
+    while(!video_is_playing()) frame; end
+	duracion_en_ms=video_get_length()-100; //se usa para evitar un peazo de bug en video_stop
+	timer=0;
+	while(timer<duracion_en_ms)
+		while(angle>0) angle-=(grav/2)*300; grav++; frame; end
+		if(angle<0) angle=0; end
+		if(jugador[0].botones[0]) break; end
+        FRAME;
+	end
+	resume_song();
+	from alpha=255 to 0 step -10; 
+		frame; 
+	end
+	if(video_is_playing()) video_stop(); end
+	graph=0;
 End
