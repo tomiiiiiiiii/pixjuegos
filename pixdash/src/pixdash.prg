@@ -6,8 +6,8 @@ Program plataformas;
  import "mod_sys"; 
 #endif
 
-Global                 
-	app_data;
+Global     
+	app_data=1;
 	suelo;
 	dur_pinchos;
 	dur_muelle;
@@ -895,6 +895,8 @@ include "explosion.pr-";
 //PROCESS MAIN
 Begin
 	set_title("PiX Dash");
+	
+	if(os_id!=1000) app_data=1; end
 	
 	// Código aportado por Devilish Games / Josebita
 	if(app_data)
