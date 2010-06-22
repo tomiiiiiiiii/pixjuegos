@@ -7,7 +7,7 @@ global
 	ran4;
 	pantc;
 	Struct ops; 
-		pantalla_completa;
+		pantalla_completa=1;
 		sonido=1;
 		musica=1;
 		lenguaje=-1;
@@ -29,7 +29,7 @@ global
 
 	// COMPATIBILIDAD CON XP/VISTA/LINUX (usuarios)
 	string savegamedir;
-	string developerpath="/PiXJuegos/PiXFrogger/";
+	string developerpath="/.PiXJuegos/PiXFrogger/";
 Local
 	i; // la variable maestra
 begin
@@ -58,8 +58,8 @@ begin
 	end
 	if(file_exists(savegamedir+"opciones"))
 		load(savegamedir+"opciones",ops);
-		full_screen=ops.pantalla_completa;
 	end
+	full_screen=ops.pantalla_completa;
 	carga_sonidos();
 	alpha_steps=255;	
 	set_mode(640,480,32);
@@ -67,6 +67,7 @@ begin
 	ler=load_fnt("fnt/puntos.fnt");
 	load_fpg("fpg/pixfrogger.fpg");
 	music=load_song("ogg/1.ogg");
+	set_title("PiX Frogger");
 	sound_freq=44100;
 	ops.sonido=1;
 	if(ops.lenguaje==-1) elige_lenguaje(); else logo_pixjuegos(); end
@@ -115,12 +116,6 @@ begin
 	y=240;
 	keytime=10;
 	loop
-		if(elecc==5)
-			elecc=0;
-		end
-		if(elecc==-1)
-			elecc=4;
-		end
 		if(keytime>0)
 			keytime--;
 		end
@@ -146,15 +141,6 @@ begin
 				break;
 			end
 			if(elecc==3)
-				let_me_alone();
-				if(os_id==0)
-					shell("http://pixjuegos.com");
-				else
-					shell("firefox http://pixjuegos.com &");
-				end
-				break;
-			end
-			if(elecc==4)
 				guarda_opciones();
 				exit(0);
 			end
@@ -176,6 +162,12 @@ begin
 			end
 		else
 			tec2=0;
+		end
+		if(elecc==4)
+			elecc=0;
+		end
+		if(elecc==-1)
+			elecc=3;
 		end
 		frame;
 	end
@@ -906,11 +898,6 @@ end
 
 include "sonido.inc";
 include "guardar.inc";
-
-process shell(string url);
-begin
-	//exec(_P_WAIT, "notepad.exe", 0, NULL);
-end
 
 Process explotalo(x,y,z,alpha,angle,file,grafico,frames);
 Private
