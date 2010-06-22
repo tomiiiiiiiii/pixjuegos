@@ -42,11 +42,12 @@ begin
 
 	//estamos en la Wii?
 	if(os_id==1000) wii=1; end
-	
+
 	//seteo de pantalla
 	full_screen=1; //pantalla completa por defecto
 	set_fps(60,0); //60fps nos dará un buen control sobre el juego
 	if(wii) scale_resolution=06400480; end //resolución de la Wii
+	if(!wii) set_title("FreeQuizzTest"); end
 	set_mode(1024,768,32);
 
 	dump_type=complete_dump;
