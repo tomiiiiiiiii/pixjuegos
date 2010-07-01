@@ -110,7 +110,6 @@ Local
 	i;
 	jugador;
 	primera_caida; //de las bolas, para la dinamita y la bola pang
-	
 Begin
 	area_juego_x=bloques_x*tamanyo_bloque_min;
 	area_juego_y=bloques_y*tamanyo_bloque_min;
@@ -129,7 +128,7 @@ Begin
 		end
 	end
 	set_mode(resolucion_x,resolucion_y,bits,WAITVSYNC);
-	set_fps(60,3);
+	set_fps(60,0);
 	frame;
 	
 	configurar_controles();
@@ -185,11 +184,12 @@ End
 
 Process personaje(jugador);
 Private
-	animacion; //0: quieto, 1:andar, 2:disparar, 3:enescaleras
+	string animacion; //0: quieto, 1:andar, 2:disparar, 3:enescaleras
 	toca_suelo;
 	disparando;
 	retraso_disparo;
 	invencibilidad; //para cuando pierdes la protección
+	anim;
 Begin
 	if(p[jugador].jugando) return; end // POR QUÉ? xD
 	p[jugador].jugando=1;
@@ -204,12 +204,14 @@ Begin
 	personaje_colisionador();
 	loop
 		while(ready==0) accion=0; frame; end
+		while(bolas==0) graph=41; frame; end
 		if(!(p[jugador].botones[0] and p[jugador].botones[1]) and (p[jugador].botones[0] or p[jugador].botones[1]) and retraso_disparo==0)
-			if(p[jugador].botones[0]) x_destino-=tamanyo_bloque_min/3; else
-				if(p[jugador].botones[1]) x_destino+=tamanyo_bloque_min/3; end 
+			animacion="andar";
+			if(p[jugador].botones[0]) flags=1; x_destino-=tamanyo_bloque_min/3; else
+				if(p[jugador].botones[1]) flags=0; x_destino+=tamanyo_bloque_min/3; end 
 			end
 		else
-			animacion=0;
+			animacion="quieto";
 		end
 		if(map_get_pixel(0,mapa_durezas,x,y+alto)!=color.negro) 
 			gravedad=0;
@@ -228,7 +230,7 @@ Begin
 		y_destino=gravedad;
 		while(x_destino!=0)
 			if(x_destino>0)
-				from i=y-alto to y+alto-51;
+				from i=y-alto+10 to y+alto-51;
 					if(map_get_pixel(0,mapa_durezas,x+ancho,i)!=color.negro) toca_suelo=1; end
 				end
 				if(toca_suelo) 
@@ -238,7 +240,7 @@ Begin
 					x_destino--;
 				end
 			else
-				from i=y-alto to y+alto-51;
+				from i=y-alto+10 to y+alto-51;
 					if(map_get_pixel(0,mapa_durezas,x-ancho,i)!=color.negro) toca_suelo=1; end
 				end
 				if(toca_suelo) 
@@ -292,6 +294,20 @@ Begin
 		x_destino=0;
 		y_destino=0;
 		if(retraso_disparo<0) graph=31; retraso_disparo++; end
+		if(anim<6) anim++; else anim=0; end
+		switch(animacion)
+			case "quieto": graph=11; end
+			case "andar": 
+				if(graph<21 or graph>24) anim=0; graph=21; end
+				if(anim==5)
+					if(graph<24) 
+						graph++; 
+					else 
+						graph=21; 
+					end
+				end
+			end
+		end
 		frame;
 	end
 	
@@ -300,6 +316,7 @@ Begin
 	gravedad=rand(-30,-40);
 	lado=rand(0,1);
 	x_destino=rand(16,40);
+	graph=51;
 	while(y<resolucion_y)
 		y+=gravedad;
 		gravedad++;
@@ -386,7 +403,7 @@ Begin
 		elseif(key(_2)) //pintamos... algo? :S
 			modo=2; graph=0; size=100; tipo=1;
 		elseif(key(_3)) //ponemos bolas
-			modo=3; file=fpg_general; graph=12; size=100; tipo=0;
+			modo=3; file=fpg_general; graph=11; size=100; tipo=1;
 		end
 		
 		switch(modo)
@@ -488,13 +505,20 @@ Begin
 					nivel.bolas[num_bolas].tamanyo=size;
 					nivel.bolas[num_bolas].lado=lado;
 					nivel.bolas[num_bolas].regalo=regalo;
-					bola((borde_izquierda+(tamanyo_bloque_min/2)+(bloque_x*tamanyo_bloque_min)),
-			(borde_arriba+(tamanyo_bloque_min/2)+(bloque_y*tamanyo_bloque_min)),
-			tipo,size,lado,regalo);
 					say("bola "+bloque_x+","+bloque_y+","+tipo+","+size+","+lado+","+regalo);
+					carga_nivel(0);
 				end
-			end
-			case 3:
+				if(key(_backspace) and num_bolas>0)
+					while(key(_backspace)) frame; end
+					nivel.bolas[num_bolas].x=0;
+					nivel.bolas[num_bolas].y=0;
+					nivel.bolas[num_bolas].tipo=0;
+					nivel.bolas[num_bolas].tamanyo=0;
+					nivel.bolas[num_bolas].lado=0;
+					nivel.bolas[num_bolas].regalo=0;
+					num_bolas--;
+					carga_nivel(0);
+				end
 			end
 		end
 		frame(400);
@@ -655,12 +679,13 @@ Process proteccion(jugador);
 Begin
 	file=p[jugador].fpg;
 	graph=201;
-	priority=1;
+	priority=-1;
 	while(p[jugador].proteccion>0 and exists(p[jugador].id))
 		x=p[jugador].id.x;
 		y=p[jugador].id.y;
 		frame;
 	end
+	explotalo(x,y,z,size,file,graph,60);
 End
 
 Process item_ancla();
@@ -716,9 +741,10 @@ include "explosion.pr-";
 Function dibuja_fondo();
 Begin
 	put_screen(0,mapa_durezas);
+	//put_screen(0,load_png("bordes.png"));
 	//fondo cuadriculado
 	drawing_map(0,BACKGROUND);
-	drawing_color(color.gris);
+	drawing_color(rgb(20,20,20));
 	from y=borde_arriba to borde_abajo step tamanyo_bloque_min;
 		draw_line(borde_izquierda,y,borde_derecha,y);
 	end
@@ -732,6 +758,20 @@ Begin
 	draw_line(borde_izquierda,borde_abajo,borde_derecha,borde_abajo);
 	draw_line(borde_izquierda,borde_arriba,borde_izquierda,borde_abajo);
 	draw_line(borde_derecha,borde_arriba,borde_derecha,borde_abajo);
+	
+	drawing_color(color.gris);
+	draw_box(0,0,resolucion_x,borde_arriba);
+	draw_box(0,borde_abajo,resolucion_x,resolucion_y);
+	
+	drawing_color(color.verde);
+	draw_box(0,0,borde_izquierda,resolucion_y/2);
+	drawing_color(color.amarillo);
+	draw_box(0,resolucion_y/2,borde_izquierda,resolucion_y);
+	drawing_color(color.azul);
+	draw_box(borde_derecha,0,resolucion_x,resolucion_y/2);
+	drawing_color(color.rojo);
+	draw_box(borde_derecha,resolucion_y/2,resolucion_x,resolucion_y);
+	//raw_box ( <INT x0> , <INT y0> , <INT x1> , <INT y1> )
 End
 
 /* formato del fichero:
@@ -858,15 +898,16 @@ Begin
 	dibuja_fondo();			
 	
 	if(num_nivel==0) ready=1; bola_pang=1; while(bolas>0) frame; end ready=0; bola_pang=0; end
-	from i=1 to bolas_max;
-		if(nivel.bolas[i].tipo!=0)	
-			bola((borde_izquierda+(tamanyo_bloque_min/2)+(nivel.bolas[i].x*tamanyo_bloque_min)),
-			(borde_arriba+(tamanyo_bloque_min/2)+(nivel.bolas[i].y*tamanyo_bloque_min)),
-			nivel.bolas[i].tipo,
-			nivel.bolas[i].tamanyo,
-			nivel.bolas[i].lado,
-			nivel.bolas[i].regalo);
-		end
+	i=1;
+	while(nivel.bolas[i].tipo!=0 and i<bolas_max)	
+		bola((borde_izquierda+(tamanyo_bloque_min/2)+(nivel.bolas[i].x*tamanyo_bloque_min)),
+		(borde_arriba+(tamanyo_bloque_min/2)+(nivel.bolas[i].y*tamanyo_bloque_min)),
+		nivel.bolas[i].tipo,
+		nivel.bolas[i].tamanyo,
+		nivel.bolas[i].lado,
+		nivel.bolas[i].regalo);
+		num_bolas++;
+		i++;
 	end
 	
 	if(num_nivel!=0)
