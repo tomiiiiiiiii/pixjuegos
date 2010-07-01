@@ -58,7 +58,7 @@ Begin
 			If(povy==1) p[jugador].botones[2]=1; Else p[jugador].botones[2]=0; End
 			If(povy==2) p[jugador].botones[3]=1; Else p[jugador].botones[3]=0; End
 
-			if(os_id==os_wii)
+			if(os_id==1000)
 				If(get_joy_button(joysticks[p[jugador].control-1],3)) p[jugador].botones[4]=1; Else p[jugador].botones[4]=0; End
 				If(get_joy_button(joysticks[p[jugador].control-1],2)) p[jugador].botones[5]=1; Else p[jugador].botones[5]=0; End
 				If(get_joy_button(joysticks[p[jugador].control-1],6)) exit(); End

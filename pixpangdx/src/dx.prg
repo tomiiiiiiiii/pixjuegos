@@ -39,7 +39,7 @@ Global
 		struct bolas[bolas_max];
 			char x,y,tipo,tamanyo,lado,regalo;
 		end
-		struct bloques[bloques_max];
+		struct bloques[bloques_max]; //qué tipos de bloques hay? :S
 			char x1,x2,y1,y2,tipo,regalo,destructible;
 			int color;
 		end
@@ -120,9 +120,9 @@ Begin
 	borde_izquierda=(resolucion_x/2)-(area_juego_x/2);
 	borde_derecha=(resolucion_x/2)+(area_juego_x/2);
 
-	full_screen=1;
-	if(!mode_is_ok(1920,1080,32,MODE_WAITVSYNC+MODE_FULLSCREEN))
-		if(!mode_is_ok(1280,720,32,MODE_WAITVSYNC+MODE_FULLSCREEN))
+	full_screen=0;
+	if(!mode_is_ok(1920,1080,32,MODE_FULLSCREEN))
+		if(!mode_is_ok(1280,720,32,MODE_FULLSCREEN))
 			scale_resolution=10240576;
 		else
 			scale_resolution=12800720;
@@ -148,7 +148,9 @@ Begin
 	p[1].fpg=load_fpg("pix.fpg");
 	p[2].fpg=load_fpg("pixmorao.fpg");
 
+	//debuj();
 	carga_nivel(1);
+	//pinta();
 end
 
 Process debuj();
@@ -159,8 +161,7 @@ Begin
 	write(fnt,0,y+=40,0,"F1-Recrea personajes");
 	write(fnt,0,y+=40,0,"F2-Pause");
 	write(fnt,0,y+=40,0,"F3-Item reloj");
-	write(fnt,0,y+=40,0,"F4-Cambiar resolución");
-	write(fnt,0,y+=40,0,"F5-Pantalla completa");
+	write(fnt,0,y+=40,0,"F4-Pantalla completa");
 	write(fnt,0,y+=40,0,"F10-Guardar durezas");
 	/**/
 
@@ -169,18 +170,7 @@ Begin
 		if(key(_F1)) personaje(1);personaje(2); while(key(_F1)) frame; end end
 		if(key(_F2)) if(ready) ready=0; else ready=1; end while(key(_F2)) frame; end end
 		if(key(_F3)) item_reloj(5); while(key(_F3)) frame; end end
-/*		if(key(_F4)) 
-			if(scale_resolution==10240576) 
-				scale_resolution=12800720;
-			elseif(scale_resolution==12800720)
-				scale_resolution=0;
-			elseif(scale_resolution==0)
-				scale_resolution=10240576;
-			end
-			set_mode(resolucion_x,resolucion_y,bits,WAITVSYNC);
-			while(key(_F4)) frame; end
-		end*/
-		if(key(_F5)) if(full_screen==1) full_screen=0; else full_screen=1; end set_mode(resolucion_x,resolucion_y,bits,WAITVSYNC); while(key(_F5)) frame; end end
+		if(key(_F4)) if(full_screen==1) full_screen=0; else full_screen=1; end set_mode(resolucion_x,resolucion_y,bits,WAITVSYNC); while(key(_F4)) frame; end end
 
 		//if(bolas==0) bola(1000,borde_arriba+150,x++,120,0,0); end
 		frame; 
@@ -345,267 +335,7 @@ Begin
 	end
 End
 
-/*-----------------------------------------------
-  === TIPOS DE BOLAS ===
-* Bolas estándar, tipo 1
-* Bolas con mayor rebote, tipo 2
-* Bolas sin gravedad (rombos?) que rebotan cambiando su dirección en 90º, tipo 3
-* Bolas con gravedad contraria (botan en el techo!), tipo 4
-* Bola estrella: lo destruye todo, tipo 5, no decrece!
-* Bola reloj: paraliza las bolas durante 7 segundos, tipo 6, no decrece!
-* Bolas perseguidoras: cuando botan, se dirigen hacia el personaje más cercano, tipo 7
-* Bolas sin movimiento lateral: solo botan, tipo 8
-* Bolas pesadas: rebotan cada vez menos, tipo 9
-* Bolas bomba: tienen una onda expansiva que destruye las bolas a su alrededor, tipo 10, no decrece!
-* Bolas mutantes: recorren todos los anteriores tipos, tipo 20*/
-//----------------------------------------------------------------
-Process bola(x,y,tipo,tamanyo,lado,regalo);
-Private
-	rebote;
-	id_jugador;
-	tipo_mutante;
-	lado_y; //para la bola rombo
-	distancias[4]; //para los cálculos de la bola perseguidora
-	id_perseguir; // id a perseguir
-	bloqueo_x_destino;
-Begin
-	bolas++;
-	primera_caida=-20;
-	file=fpg_general;
-	if(tipo==20) tipo_mutante=1; tipo=1; end
-	graph=tipo+10;
-//	if(tipo==4) // bola gravedad negativa
-//		gravedad=10;	
-//	else
-		gravedad=-10; //probaremos con sólo esto
-//	end
-	
-	ancho=(graphic_info(file,graph,g_width)/2)*tamanyo/100;
-	alto=(graphic_info(file,graph,g_height)/2)*tamanyo/100;
-	size=tamanyo;
-	loop
-		while(ready==0) frame; end
-		while(reloj>0) //cuando hay un item reloj que paraliza las bolas cerca, no nos movemos
-			if((tipo==3 or gravedad>0) and primera_caida<1) primera_caida++; end //retraso en la muerte de las recien nacidas bola con dinamita o bola pang
-			if(id_jugador=collision(type disparo)) if(id_jugador.accion!=-1) id_jugador.accion=-1; accion=-1; end end //salimos del while y pasamos una variable para...
-			if((((dinamita and tamanyo>20) or bola_pang) and primera_caida) or collision(type bomba)) accion=-1; end
-			if(accion==-1) break; end
-			frame;
-		end
-		if(accion==-1) break; end //...luego salir del loop
-
-		if(gravedad>50) gravedad=50; end
-		if(gravedad<-50) gravedad=-50; end
-		
-		if(tipo_mutante) graph=tipo+10; end
-		if(tipo!=8) //bola sin desplazamiento lateral
-			x_destino += lado ? 7 : -7; //WOW xD. Pd: 1 derecha, 0 izquierda
-		end
-		if((tipo==3 or gravedad>0) and primera_caida<1) primera_caida++; end //retraso en la muerte de las recien nacidas bola con dinamita o bola pang
-			
-		if(tipo==3) //movimiento vertical rombo
-			rebote=0;
-			if(lado_y) //para abajo
-				gravedad=8;
-				if(map_get_pixel(0,mapa_durezas,x-(ancho/2),y+(alto/2))!=color.negro OR
-				map_get_pixel(0,mapa_durezas,x,y+alto)!=color.negro OR
-				map_get_pixel(0,mapa_durezas,x+(ancho/2),y+(alto/2))!=color.negro) //toca el suelo
-					lado_y=0;
-				end
-			else //arriba
-				gravedad=-8;
-				if(map_get_pixel(0,mapa_durezas,x-(ancho/2),y-(alto/2))!=color.negro OR
-				map_get_pixel(0,mapa_durezas,x,y-alto)!=color.negro OR
-				map_get_pixel(0,mapa_durezas,x+(ancho/2),y-(alto/2))!=color.negro) //toca el suelo
-					lado_y=1;
-				end
-			end
-		end
-			
-		//GESTION DE GRAVEDAD PARA TODAS LAS BOLAS QUE NO SEAN ROMBOS (!TIPO3 o TIPO10 Y NOTOCASUELO)
-		if(tipo!=3 AND
-		map_get_pixel(0,mapa_durezas,x-(ancho/2),y+(alto/2))!=color.negro OR
-		map_get_pixel(0,mapa_durezas,x,y+alto)!=color.negro OR
-		map_get_pixel(0,mapa_durezas,x+(ancho/2),y+(alto/2))!=color.negro)  //toca el suelo
-			if(tipo==7) //bola perseguidora
-				id_perseguir=0;
-				from i=1 to 4;
-					distancias[i]=0;
-					if(p[i].jugando and p[i].id!=0 and exists(p[i].id))
-						distancias[i]=get_dist(p[i].id);
-					end
-				end
-				if(distancias[1]!=0 and 
-				(distancias[1]=<distancias[2] or distancias[2]==0) and
-				(distancias[1]=<distancias[3] or distancias[3]==0) and
-				(distancias[1]=<distancias[4] or distancias[4]==0)) id_perseguir=1; end
-				if(distancias[2]!=0 and 
-				(distancias[2]=<distancias[1] or distancias[1]==0) and
-				(distancias[2]=<distancias[3] or distancias[3]==0) and
-				(distancias[2]=<distancias[4] or distancias[4]==0)) id_perseguir=2; end
-				if(distancias[3]!=0 and 
-				(distancias[3]=<distancias[1] or distancias[1]==0) and
-				(distancias[3]=<distancias[2] or distancias[2]==0) and
-				(distancias[3]=<distancias[4] or distancias[4]==0)) id_perseguir=3; end
-				if(distancias[4]!=0 and 
-				(distancias[4]=<distancias[1] or distancias[1]==0) and
-				(distancias[4]=<distancias[2] or distancias[2]==0) and
-				(distancias[4]=<distancias[3] or distancias[3]==0)) id_perseguir=4; end
-				
-				if(id_perseguir!=0) if(p[id_perseguir].id.x<x) lado=0; else lado=1; end end
-			end //fin bola perseguidora!
-
-			if(tipo==4)
-				gravedad=-gravedad;
-			else
-				if(tipo_mutante) if(tipo<10) tipo++; else tipo=1; end end
-				if(y==borde_abajo-alto) //el rebote (con la variable) sólo se produce en las plataformas
-					if(tipo==2) //bola mayor rebote
-						gravedad=-20-(tamanyo/8); 
-					elseif(tipo==9) //bola perdida rebote
-						gravedad=-rebote*0.9; 
-					else //el resto rebotan normal
-						gravedad=-15-(tamanyo/6); 
-					end
-				else 
-					if(tipo==9)//bola perdida rebote
-						gravedad=-rebote*0.9; //rebotamos dependiendo de desde la altura que caemos
-					else
-						gravedad=-rebote; //rebotamos dependiendo de desde la altura que caemos
-					end
-				end 
-				if(tipo!=4) rebote=0; end //todos pierden el rebote al tocar el suelo salvo la bola con gravedad negativa!
-			end
-		else
-			if(map_get_pixel(0,mapa_durezas,x-(ancho/2),y-(alto/2))!=color.negro OR
-			map_get_pixel(0,mapa_durezas,x,y-alto)!=color.negro OR
-			map_get_pixel(0,mapa_durezas,x+(ancho/2),y-(alto/2))!=color.negro)  //toca el techo
-				if(tipo==4) //bola con gravedad negativa!
-					if(tipo_mutante) if(tipo<10) tipo++; else tipo=1; end end
-					if(y==borde_arriba+alto)
-						gravedad=45-(tamanyo/14);
-					else
-						gravedad=-rebote;
-					end
-					rebote=0;
-				else
-					gravedad=-gravedad;
-					rebote=gravedad;
-				end
-			else
-				if(tipo==4) //bola de gravedad al revés!
-					gravedad--;
-					if(gravedad<0) rebote--; end
-				else
-					gravedad++;
-					if(gravedad>0) rebote++; end
-				end
-			end
-		end
-		//------------------------
-		
-		x_destino=x_destino;
-		y_destino=gravedad;		
-		
-		while(x_destino!=0)
-			if(x_destino>0)
-				if(map_get_pixel(0,mapa_durezas,x+(ancho/2),y-(alto/2))!=color.negro or
-					map_get_pixel(0,mapa_durezas,x+ancho,y)!=color.negro or 
-					map_get_pixel(0,mapa_durezas,x+(ancho/2),y+(alto/2))!=color.negro) //colision derecha 
-					lado=0;
-					x_destino=-x_destino;
-					bloqueo_x_destino+=1;
-				else
-					x++;
-					x_destino--;
-				end
-			else
-				if(map_get_pixel(0,mapa_durezas,x-(ancho/2),y-(alto/2))!=color.negro or
-					map_get_pixel(0,mapa_durezas,x-ancho,y)!=color.negro or 
-					map_get_pixel(0,mapa_durezas,x-(ancho/2),y+(alto/2))!=color.negro) //colision derecha
-					lado=1;
-					x_destino=-x_destino;
-					bloqueo_x_destino+=1;
-				else
-					x--;
-					x_destino++;
-				end
-			end
-			if(bloqueo_x_destino=>10) x_destino=0; /*accion=-1;*/ end
-		end
-		bloqueo_x_destino=0;
-		
-		while(y_destino!=0)
-			if(y_destino>0)
-				if(map_get_pixel(0,mapa_durezas,x-(ancho/2),y+(alto/2))!=color.negro or
-				  map_get_pixel(0,mapa_durezas,x,y+alto)!=color.negro or
-				  map_get_pixel(0,mapa_durezas,x+(ancho/2),y+(alto/2))!=color.negro) //toca el suelo
-					break; 
-				else
-					y++;
-					y_destino--;
-				end
-			else
-				if(map_get_pixel(0,mapa_durezas,x-(ancho/2),y-(alto/2))!=color.negro or
-				  map_get_pixel(0,mapa_durezas,x,y-alto)!=color.negro or
-				  map_get_pixel(0,mapa_durezas,x+(ancho/2),y-(alto/2))!=color.negro) //toca el suelo
-					break; 
-				else
-					y--;
-					y_destino++;
-				end
-			end
-		end
-		
-		if(id_jugador=collision(type disparo)) if(id_jugador.accion!=-1) id_jugador.accion=-1; break; end end
-		if((((dinamita and tamanyo>20) or bola_pang) and primera_caida) or collision(type bomba)) break; end
-		frame(velocidad_bolas);
-	end
-	
-	if(tipo==5) //bola pang
-		explotalo(x,y,z,size,file,graph,60);
-		graph=0;
-		bola_pang=1;
-		while(bolas>1) frame; end
-		bola_pang=0;
-		//from i=0 to 3*60; frame; end
-		return;
-	end
-	
-	if(tipo==6) //bola reloj
-		item_reloj(7);
-	end
-	if(tipo==10) //bola bomba
-		bomba(x-(ancho*2),y,tamanyo);
-		bomba(x+(ancho*2),y,tamanyo);
-	end
-
-	if(tamanyo>20 and tipo!=5 and tipo!=6 and tipo!=10) 
-		if(tipo_mutante)
-			bola(x,y,20,tamanyo-25,0,regalo);
-			bola(x,y,20,tamanyo-25,1,regalo);
-		else
-			bola(x,y,tipo,tamanyo-25,0,regalo);
-			bola(x,y,tipo,tamanyo-25,1,regalo);
-		end
-	end
-	
-	if(id_jugador!=0)
-		if(exists(id_jugador))
-			p[id_jugador.jugador].bolas_destruidas++;
-			p[id_jugador.jugador].puntos+=100*tamanyo;
-		end
-	end
-
-	//animacion de explosion
-	//explotalo(x,y,z,size,file,graph,60);
-	
-	//prueba
-	if(tamanyo>20 and !bola_pang) item_drop(x,y,rand(1,23)); end
-	//item_drop(x,y,regalo);
-	
-	bolas--;
-End
+include "bolas.pr-";
 
 Process bomba(x,y,size);
 Begin
@@ -643,23 +373,64 @@ Begin
 	x1=-1;
 	y1=-1;
 	graph=punto_verde=new_map(10,10,bits);
-	drawing_color(color.rojo);
+	micolor=color.verde;
+	drawing_color(micolor);
 	drawing_map(0,graph);
 	draw_box(0,0,10,10);
 	drawing_map(0,mapa_durezas);
 	frame;
-	write_int(fnt,0,0,0,&pulsando);
+	raton();
 	loop
-		if(key(_1)) modo=1; file=0; graph=punto_verde; elseif(key(_2)) modo=2; graph=0; elseif(key(_3)) modo=3; file=fpg_general; graph=12; end
+		if(key(_1)) //pintamos plataformas
+			modo=1; file=0; graph=punto_verde; size=100; tipo=1;
+		elseif(key(_2)) //pintamos... algo? :S
+			modo=2; graph=0; size=100; tipo=1;
+		elseif(key(_3)) //ponemos bolas
+			modo=3; file=fpg_general; graph=12; size=100; tipo=0;
+		end
 		
-		if(key(_f) and !key(_ins) and (map_get_pixel(0,mapa_durezas,x-tamanyo_bloque_min,y)==color.negro or pulsando==0))
+		switch(modo)
+			case 1:
+				if(key(_space))
+					while(key(_space)) frame; end
+					switch(micolor)
+						case color.verde: micolor=color.rojo; end
+						case color.rojo: micolor=color.azul; end
+						case color.azul: micolor=color.amarillo; end
+						case color.amarillo: micolor=color.verde; end
+					end
+					drawing_color(micolor);
+					drawing_map(0,graph);
+					draw_box(0,0,10,10);
+					drawing_map(0,mapa_durezas);
+				end
+			end
+			case 3:
+				if(key(_space))
+					while(key(_space)) frame; end
+					if(tipo==20) tipo=0; end //a cero porque aquí abajo nos ponen a 1
+					if(tipo<10 and tipo!=20) tipo++; else tipo=20; end
+					graph=tipo+10;
+				end
+				if(key(_c_minus) and size>25)
+					while(key(_c_minus)) frame; end
+					size-=25;
+				end
+				if(key(_c_plus) and size<100)
+					while(key(_c_plus)) frame; end
+					size+=25;
+				end
+			end
+		end
+		
+		if(key(_A) and (map_get_pixel(0,mapa_durezas,x-tamanyo_bloque_min,y)==color.negro or pulsando==0))
 			bloque_x--; 
-		elseif(key(_h) and (map_get_pixel(0,mapa_durezas,x+tamanyo_bloque_min,y)==color.negro or pulsando==0)) 
+		elseif(key(_D) and (map_get_pixel(0,mapa_durezas,x+tamanyo_bloque_min,y)==color.negro or pulsando==0)) 
 			bloque_x++; 
 		end
-		if(key(_t) and !key(_ins) and (map_get_pixel(0,mapa_durezas,x,y-tamanyo_bloque_min)==color.negro or pulsando==0)) 
+		if(key(_W) and (map_get_pixel(0,mapa_durezas,x,y-tamanyo_bloque_min)==color.negro or pulsando==0)) 
 			bloque_y--; 
-		elseif(key(_g) and (map_get_pixel(0,mapa_durezas,x,y+tamanyo_bloque_min)==color.negro or pulsando==0)) bloque_y++; end
+		elseif(key(_S) and (map_get_pixel(0,mapa_durezas,x,y+tamanyo_bloque_min)==color.negro or pulsando==0)) bloque_y++; end
 		
 		if(bloque_x<0) bloque_x=0; end
 		if(bloque_y<0) bloque_y=0; end
@@ -671,36 +442,30 @@ Begin
 		
 		switch(modo)
 			case 1:
-				if(key(_ins) and num_bloques<bloques_max and pulsando==0 and map_get_pixel(0,mapa_durezas,x,y)==color.negro)
+				if(key(_enter) and num_bloques<bloques_max and pulsando==0 and map_get_pixel(0,mapa_durezas,x,y)==color.negro)
 					num_bloques++;
 					nivel.bloques[num_bloques].x1=bloque_x; //queda más bonito si empezamos desde el 1
 					nivel.bloques[num_bloques].y1=bloque_y;
 					nivel.bloques[num_bloques].tipo=tipo;
 					nivel.bloques[num_bloques].regalo=regalo;
-					nivel.bloques[num_bloques].color=color.verde;
 					pulsando=1;
-					//nivel.bloques[num_bloques].color=micolor; //cuando haya selección de color
+					nivel.bloques[num_bloques].color=micolor; //cuando haya selección de color
 				end
-				if(pulsando==1 and !key(_ins))
-					if(bloque_x=>nivel.bloques[num_bloques].x1 and bloque_y=>nivel.bloques[num_bloques].y1)
-						nivel.bloques[num_bloques].x2=bloque_x;
-						nivel.bloques[num_bloques].y2=bloque_y;
+				if(pulsando==1 and !key(_enter))
+						if(bloque_x=>nivel.bloques[num_bloques].x1 and bloque_y=>nivel.bloques[num_bloques].y1)
+							nivel.bloques[num_bloques].x2=bloque_x;
+							nivel.bloques[num_bloques].y2=bloque_y;
+						else
+							nivel.bloques[num_bloques].x2=nivel.bloques[num_bloques].x1;
+							nivel.bloques[num_bloques].y2=nivel.bloques[num_bloques].y1;
+							nivel.bloques[num_bloques].x1=bloque_x;
+							nivel.bloques[num_bloques].y1=bloque_y;
+						end
 						say("bloque "+itoa(nivel.bloques[num_bloques].x1)+","+itoa(nivel.bloques[num_bloques].y1)+","+itoa(nivel.bloques[num_bloques].x2)+","+itoa(nivel.bloques[num_bloques].y2)+","+itoa(nivel.bloques[num_bloques].tipo)+","+itoa(nivel.bloques[num_bloques].regalo)+","+itoa(nivel.bloques[num_bloques].color)+","+itoa(nivel.bloques[num_bloques].destructible));
 						pulsando=0;
 						carga_nivel(0);
-					else
-						nivel.bloques[num_bloques].x1=0;
-						nivel.bloques[num_bloques].y1=0;
-						nivel.bloques[num_bloques].x2=0;
-						nivel.bloques[num_bloques].y2=0;
-						nivel.bloques[num_bloques].tipo=0;
-						nivel.bloques[num_bloques].regalo=0;
-						nivel.bloques[num_bloques].color=0;
-						pulsando=0;
-						num_bloques--;
-					end
 				end
-				if(key(_del) and num_bloques>0 and pulsando==0)
+				if(key(_backspace) and num_bloques>0 and pulsando==0)
 					nivel.bloques[num_bloques].x1=0;
 					nivel.bloques[num_bloques].y1=0;
 					nivel.bloques[num_bloques].x2=0;
@@ -709,11 +474,25 @@ Begin
 					nivel.bloques[num_bloques].regalo=0;
 					nivel.bloques[num_bloques].color=0;
 					num_bloques--;
-					while(key(_del)) frame; end
+					while(key(_backspace)) frame; end
 					carga_nivel(0);
 				end
 			end
-			case 2:
+			case 3:
+				if(key(_enter))
+					while(key(_enter)) frame; end
+					num_bolas++;
+					nivel.bolas[num_bolas].x=bloque_x;
+					nivel.bolas[num_bolas].y=bloque_y;
+					nivel.bolas[num_bolas].tipo=tipo;
+					nivel.bolas[num_bolas].tamanyo=size;
+					nivel.bolas[num_bolas].lado=lado;
+					nivel.bolas[num_bolas].regalo=regalo;
+					bola((borde_izquierda+(tamanyo_bloque_min/2)+(bloque_x*tamanyo_bloque_min)),
+			(borde_arriba+(tamanyo_bloque_min/2)+(bloque_y*tamanyo_bloque_min)),
+			tipo,size,lado,regalo);
+					say("bola "+bloque_x+","+bloque_y+","+tipo+","+size+","+lado+","+regalo);
+				end
 			end
 			case 3:
 			end
@@ -765,7 +544,8 @@ Begin
 		while(y_destino!=0)
 			if(map_get_pixel(0,mapa_durezas,x-ancho,y)!=color.negro or
 			map_get_pixel(0,mapa_durezas,x,y)!=color.negro or
-			map_get_pixel(0,mapa_durezas,x+ancho,y)!=color.negro)
+			map_get_pixel(0,mapa_durezas,x+ancho,y)!=color.negro or
+			x<borde_izquierda or x>borde_derecha)
 				break;
 			else
 				y--;
@@ -821,6 +601,10 @@ Begin
 	//temporal:
 	if(ancho=<1) return; end
 	loop
+		if(x<borde_izquierda+ancho) x=borde_izquierda+ancho; end
+		if(x>borde_derecha-ancho) x=borde_derecha-ancho; end
+		if(y<borde_arriba+ancho) y=borde_arriba+ancho; end
+		if(y>borde_abajo-ancho) y=borde_abajo-ancho; end
 		while(!ready) frame; end
 		y_destino=6;
 		while(y_destino!=0)
@@ -988,13 +772,14 @@ Private
 Begin
 	ready=0;
 	num_bolas=0;
-	if(num_nivel!=0) //si se pasa el 0 no cargaremos el nivel. recrearemos el nivel con las variables en memoria
+	if(num_nivel>0) //si se pasa el 0 no cargaremos el nivel. recrearemos el nivel con las variables en memoria
 		num_bloques=0;
 		let_me_alone();
 		delete_text(all_text);
 		bolas=0;
 		//CARGA DE LA ESTRUCTURA NIVEL
 		fichero=fopen("niveles/"+num_nivel+".pang",O_READ);
+		if(!fichero) exit("[ERROR] No se pudo cargar el nivel."); end
 		while(!feof(fichero))
 			linea=fgets(fichero);
 			if(""+linea[0]+linea[1]+linea[2]+linea[3]+linea[4]+linea[5]=="nombre")

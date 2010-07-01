@@ -1,0 +1,267 @@
+/*-----------------------------------------------
+  === TIPOS DE BOLAS ===
+* 1: Bolas estándar
+* 2: Bolas con mayor rebote
+* 3: Bolas sin gravedad (rombos?) que rebotan cambiando su dirección en 90º
+* 4: Bolas con gravedad contraria (botan en el techo!)
+* 5: Bola estrella: lo destruye todo, no decrece!
+* 6: Bola reloj: paraliza las bolas durante 7 segundos, no decrece!
+* 7: Bolas perseguidoras: cuando botan, se dirigen hacia el personaje más cercano
+* 8: Bolas sin movimiento lateral: solo botan
+* 9: Bolas pesadas: rebotan cada vez menos
+* 10: Bolas bomba: tienen una onda expansiva que destruye las bolas a su alrededor, no decrece!
+* 20: Bolas mutantes: recorren todos los anteriores tipos
+----------------------------------------------------------------*/
+Process bola(x,y,tipo,tamanyo,lado,regalo);
+Private
+	rebote;
+	id_jugador;
+	tipo_mutante;
+	lado_y; //para la bola rombo
+	distancias[4]; //para los cálculos de la bola perseguidora
+	id_perseguir; // id a perseguir
+	bloqueo_x_destino;
+	separacion;
+Begin
+	bolas++;
+	primera_caida=-20;
+	file=fpg_general;
+	if(tipo==20) tipo_mutante=1; tipo=1; end
+	graph=tipo+10;
+//	if(tipo==4) // bola gravedad negativa
+//		gravedad=10;	
+//	else
+		gravedad=-10; //probaremos con sólo esto
+//	end
+	
+	ancho=(graphic_info(file,graph,g_width)/2)*tamanyo/100;
+	alto=(graphic_info(file,graph,g_height)/2)*tamanyo/100;
+	size=tamanyo;
+	loop
+		if(x<borde_izquierda+ancho) x=borde_izquierda+ancho; end
+		if(x>borde_derecha-ancho) x=borde_derecha-ancho; end
+		if(y<borde_arriba+ancho) y=borde_arriba+ancho; end
+		if(y>borde_abajo-ancho) y=borde_abajo-ancho; end
+		while(ready==0) frame; end
+		while(reloj>0) //cuando hay un item reloj que paraliza las bolas cerca, no nos movemos
+			if((tipo==3 or gravedad>0) and primera_caida<1) primera_caida++; end //retraso en la muerte de las recien nacidas bola con dinamita o bola pang
+			if(id_jugador=collision(type disparo)) if(id_jugador.accion!=-1) id_jugador.accion=-1; accion=-1; end end //salimos del while y pasamos una variable para...
+			if((((dinamita and tamanyo>20) or bola_pang) and primera_caida) or collision(type bomba)) accion=-1; end
+			if(accion==-1) break; end
+			frame;
+		end
+		if(accion==-1) break; end //...luego salir del loop
+
+		if(gravedad>50) gravedad=50; end
+		if(gravedad<-50) gravedad=-50; end
+		
+		if(tipo_mutante) graph=tipo+10; end
+		if(tipo!=8) //bola sin desplazamiento lateral
+			x_destino += lado ? 7 : -7; //WOW xD. Pd: 1 derecha, 0 izquierda
+		end
+		if((tipo==3 or gravedad>0) and primera_caida<1) primera_caida++; end //retraso en la muerte de las recien nacidas bola con dinamita o bola pang
+			
+		if(tipo==3) //movimiento vertical rombo
+			rebote=0;
+			if(lado_y) //para abajo
+				gravedad=8;
+				if(map_get_pixel(0,mapa_durezas,x-(ancho/2),y+(alto/2))!=color.negro OR
+				map_get_pixel(0,mapa_durezas,x,y+alto)!=color.negro OR
+				map_get_pixel(0,mapa_durezas,x+(ancho/2),y+(alto/2))!=color.negro) //toca el suelo
+					lado_y=0;
+				end
+			else //arriba
+				gravedad=-8;
+				if(map_get_pixel(0,mapa_durezas,x-(ancho/2),y-(alto/2))!=color.negro OR
+				map_get_pixel(0,mapa_durezas,x,y-alto)!=color.negro OR
+				map_get_pixel(0,mapa_durezas,x+(ancho/2),y-(alto/2))!=color.negro) //toca el suelo
+					lado_y=1;
+				end
+			end
+		end
+			
+		//GESTION DE GRAVEDAD PARA TODAS LAS BOLAS QUE NO SEAN ROMBOS (!TIPO3 o TIPO10 Y NOTOCASUELO)
+		if(tipo!=3 AND
+		map_get_pixel(0,mapa_durezas,x-(ancho/2),y+(alto/2))!=color.negro OR
+		map_get_pixel(0,mapa_durezas,x,y+alto)!=color.negro OR
+		map_get_pixel(0,mapa_durezas,x+(ancho/2),y+(alto/2))!=color.negro)  //toca el suelo
+			if(tipo==7) //bola perseguidora
+				id_perseguir=0;
+				from i=1 to 4;
+					distancias[i]=0;
+					if(p[i].jugando and p[i].id!=0 and exists(p[i].id))
+						distancias[i]=get_dist(p[i].id);
+					end
+				end
+				if(distancias[1]!=0 and 
+				(distancias[1]=<distancias[2] or distancias[2]==0) and
+				(distancias[1]=<distancias[3] or distancias[3]==0) and
+				(distancias[1]=<distancias[4] or distancias[4]==0)) id_perseguir=1; end
+				if(distancias[2]!=0 and 
+				(distancias[2]=<distancias[1] or distancias[1]==0) and
+				(distancias[2]=<distancias[3] or distancias[3]==0) and
+				(distancias[2]=<distancias[4] or distancias[4]==0)) id_perseguir=2; end
+				if(distancias[3]!=0 and 
+				(distancias[3]=<distancias[1] or distancias[1]==0) and
+				(distancias[3]=<distancias[2] or distancias[2]==0) and
+				(distancias[3]=<distancias[4] or distancias[4]==0)) id_perseguir=3; end
+				if(distancias[4]!=0 and 
+				(distancias[4]=<distancias[1] or distancias[1]==0) and
+				(distancias[4]=<distancias[2] or distancias[2]==0) and
+				(distancias[4]=<distancias[3] or distancias[3]==0)) id_perseguir=4; end
+				
+				if(id_perseguir!=0) if(p[id_perseguir].id.x<x) lado=0; else lado=1; end end
+			end //fin bola perseguidora!
+
+			if(tipo==4)
+				gravedad=-gravedad;
+			else
+				if(tipo_mutante) if(tipo<10) tipo++; else tipo=1; end end
+				if(y==borde_abajo-alto) //el rebote (con la variable) sólo se produce en las plataformas
+					if(tipo==2) //bola mayor rebote
+						gravedad=-20-(tamanyo/8); 
+					elseif(tipo==9) //bola perdida rebote
+						gravedad=-rebote*0.9; 
+					else //el resto rebotan normal
+						gravedad=-15-(tamanyo/6); 
+					end
+				else 
+					if(tipo==9)//bola perdida rebote
+						gravedad=-rebote*0.9; //rebotamos dependiendo de desde la altura que caemos
+					else
+						gravedad=-rebote; //rebotamos dependiendo de desde la altura que caemos
+					end
+				end 
+				if(tipo!=4) rebote=0; end //todos pierden el rebote al tocar el suelo salvo la bola con gravedad negativa!
+			end
+		else
+			if(map_get_pixel(0,mapa_durezas,x-(ancho/2),y-(alto/2))!=color.negro OR
+			map_get_pixel(0,mapa_durezas,x,y-alto)!=color.negro OR
+			map_get_pixel(0,mapa_durezas,x+(ancho/2),y-(alto/2))!=color.negro)  //toca el techo
+				if(tipo==4) //bola con gravedad negativa!
+					if(tipo_mutante) if(tipo<10) tipo++; else tipo=1; end end
+					if(y==borde_arriba+alto)
+						gravedad=45-(tamanyo/14);
+					else
+						gravedad=-rebote;
+					end
+					rebote=0;
+				else
+					gravedad=-gravedad;
+					rebote=gravedad;
+				end
+			else
+				if(tipo==4) //bola de gravedad al revés!
+					gravedad--;
+					if(gravedad<0) rebote--; end
+				else
+					gravedad++;
+					if(gravedad>0) rebote++; end
+				end
+			end
+		end
+		//------------------------
+		
+		x_destino=x_destino;
+		y_destino=gravedad;		
+		
+		while(x_destino!=0)
+			if(x_destino>0)
+				if(map_get_pixel(0,mapa_durezas,x+(ancho/2),y-(alto/2))!=color.negro or
+					map_get_pixel(0,mapa_durezas,x+ancho,y)!=color.negro or 
+					map_get_pixel(0,mapa_durezas,x+(ancho/2),y+(alto/2))!=color.negro) //colision derecha 
+					lado=0;
+					x_destino=-x_destino;
+					bloqueo_x_destino+=1;
+				else
+					x++;
+					x_destino--;
+				end
+			else
+				if(map_get_pixel(0,mapa_durezas,x-(ancho/2),y-(alto/2))!=color.negro or
+					map_get_pixel(0,mapa_durezas,x-ancho,y)!=color.negro or 
+					map_get_pixel(0,mapa_durezas,x-(ancho/2),y+(alto/2))!=color.negro) //colision derecha
+					lado=1;
+					x_destino=-x_destino;
+					bloqueo_x_destino+=1;
+				else
+					x--;
+					x_destino++;
+				end
+			end
+			if(bloqueo_x_destino=>10) x_destino=0; /*accion=-1;*/ end
+		end
+		bloqueo_x_destino=0;
+		
+		while(y_destino!=0)
+			if(y_destino>0)
+				if(map_get_pixel(0,mapa_durezas,x-(ancho/2),y+(alto/2))!=color.negro or
+				  map_get_pixel(0,mapa_durezas,x,y+alto)!=color.negro or
+				  map_get_pixel(0,mapa_durezas,x+(ancho/2),y+(alto/2))!=color.negro) //toca el suelo
+					break; 
+				else
+					y++;
+					y_destino--;
+				end
+			else
+				if(map_get_pixel(0,mapa_durezas,x-(ancho/2),y-(alto/2))!=color.negro or
+				  map_get_pixel(0,mapa_durezas,x,y-alto)!=color.negro or
+				  map_get_pixel(0,mapa_durezas,x+(ancho/2),y-(alto/2))!=color.negro) //toca el suelo
+					break; 
+				else
+					y--;
+					y_destino++;
+				end
+			end
+		end
+		
+		if(id_jugador=collision(type disparo)) if(id_jugador.accion!=-1) id_jugador.accion=-1; break; end end
+		if((((dinamita and tamanyo>20) or bola_pang) and primera_caida) or collision(type bomba)) break; end
+		frame(velocidad_bolas);
+	end
+	
+	if(tipo==5 and bola_pang==0) //bola pang
+		explotalo(x,y,z,size,file,graph,60);
+		graph=0;
+		bola_pang=1;
+		while(bolas>1) frame; end
+		bola_pang=0;
+		//from i=0 to 3*60; frame; end
+		return;
+	end
+	
+	if(tipo==6) //bola reloj
+		item_reloj(7);
+	end
+	if(tipo==10) //bola bomba
+		bomba(x-(ancho*2),y,tamanyo);
+		bomba(x+(ancho*2),y,tamanyo);
+	end
+
+	if(tamanyo>25 and tipo!=5 and tipo!=6 and tipo!=10) 
+		separacion=(ancho*(tamanyo-25)/100);
+		if(tipo_mutante)
+			bola(x-separacion,y,20,tamanyo-25,0,regalo);
+			bola(x+separacion,y,20,tamanyo-25,1,regalo);
+		else
+			bola(x-separacion,y,tipo,tamanyo-25,0,regalo);
+			bola(x+separacion,y,tipo,tamanyo-25,1,regalo);
+		end
+	end
+	
+	if(id_jugador!=0)
+		if(exists(id_jugador))
+			p[id_jugador.jugador].bolas_destruidas++;
+			p[id_jugador.jugador].puntos+=100*tamanyo;
+		end
+	end
+
+	//animacion de explosion
+	//explotalo(x,y,z,size,file,graph,60);
+	
+	//prueba
+	if(tamanyo>20 and !bola_pang) item_drop(x,y,rand(1,23)); end
+	//item_drop(x,y,regalo);
+	
+	bolas--;
+End
