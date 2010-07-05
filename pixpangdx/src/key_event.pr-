@@ -1,0 +1,39 @@
+//Por SplinterGU! :D
+#ifndef _key_EVENT_LIB
+#define _key_EVENT_LIB
+
+global
+    key_use = 0;
+    key_state[127][1];
+end
+
+#define key_pressed    0
+#define key_down       1
+#define key_up         2
+
+process key_init();
+private
+    pid;
+begin
+    //if ((pid=exists(type key_init)) && pid!=id) return; end
+
+    priority = 1000;
+
+    loop
+        key_use ^= 1;
+        for ( i = 0; i < 127; i++ )
+            key_state[ i ][ key_use ] = key( i );
+        end
+        frame;
+    end
+end
+
+function key_exit()
+begin
+    signal( type key_init, s_kill );
+end
+
+#define key_event(k,ev) ((ev==key_down)?(  key_state[ k ][ key_use ] && !key_state[ k ][ key_use ^ 1 ] ): \
+                    (ev==key_up  )?( !key_state[ k ][ key_use ] &&  key_state[ k ][ key_use ^ 1 ] ): \
+                    ( key_state[ k ][ key_use ]))
+#endif

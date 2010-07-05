@@ -6,6 +6,8 @@ Const
 	bloques_y=30;
 	bloques_max=100;
 	bolas_max=100;
+
+	reduccion_bolas_size=22;
 	
 	tamanyo_bloque_min=30;
 	bits=16;
@@ -148,9 +150,11 @@ Begin
 	p[2].fpg=load_fpg("pixmorao.fpg");
 
 	//debuj();
-	carga_nivel(1);
+	carga_nivel(2);
 	//pinta();
 end
+
+include "key_event.pr-";
 
 Process debuj();
 Begin
@@ -161,17 +165,15 @@ Begin
 	write(fnt,0,y+=40,0,"F2-Pause");
 	write(fnt,0,y+=40,0,"F3-Item reloj");
 	write(fnt,0,y+=40,0,"F4-Pantalla completa");
-	write(fnt,0,y+=40,0,"F10-Guardar durezas");
+	write(fnt,0,y+=40,0,"F10-Guardar nivel");
 	/**/
 
 	loop 
-		if(key(_F10)) guarda_nivel("niveltemp.pang"); while(key(_F10)) frame; end end
-		if(key(_F1)) personaje(1);personaje(2); while(key(_F1)) frame; end end
-		if(key(_F2)) if(ready) ready=0; else ready=1; end while(key(_F2)) frame; end end
-		if(key(_F3)) item_reloj(5); while(key(_F3)) frame; end end
-		if(key(_F4)) if(full_screen==1) full_screen=0; else full_screen=1; end set_mode(resolucion_x,resolucion_y,bits,WAITVSYNC); while(key(_F4)) frame; end end
-
-		//if(bolas==0) bola(1000,borde_arriba+150,x++,120,0,0); end
+		if(key_event(_F10,key_up)) guarda_nivel("niveltemp.pang"); end
+		if(key_event(_F1,key_up)) personaje(1);personaje(2); end
+		if(key_event(_F2,key_up)) if(ready) ready=0; else ready=1; end end
+		if(key_event(_F3,key_up)) item_reloj(5); end
+		if(key_event(_F4,key_up)) if(full_screen==1) full_screen=0; else full_screen=1; end set_mode(resolucion_x,resolucion_y,bits,WAITVSYNC); end
 		frame; 
 	end
 End
@@ -396,7 +398,7 @@ Begin
 	draw_box(0,0,10,10);
 	drawing_map(0,mapa_durezas);
 	frame;
-	raton();
+	tipo=1;
 	loop
 		if(key(_1)) //pintamos plataformas
 			modo=1; file=0; graph=punto_verde; size=100; tipo=1;
@@ -429,13 +431,13 @@ Begin
 					if(tipo<10 and tipo!=20) tipo++; else tipo=20; end
 					graph=tipo+10;
 				end
-				if(key(_c_minus) and size>25)
+				if(key(_c_minus) and size>20)
 					while(key(_c_minus)) frame; end
-					size-=25;
+					size-=reduccion_bolas_size;
 				end
 				if(key(_c_plus) and size<100)
 					while(key(_c_plus)) frame; end
-					size+=25;
+					size+=reduccion_bolas_size;
 				end
 			end
 		end
@@ -459,7 +461,7 @@ Begin
 		
 		switch(modo)
 			case 1:
-				if(key(_enter) and num_bloques<bloques_max and pulsando==0 and map_get_pixel(0,mapa_durezas,x,y)==color.negro)
+				if(key(_enter) and num_bloques<bloques_max and pulsando==0)
 					num_bloques++;
 					nivel.bloques[num_bloques].x1=bloque_x; //queda más bonito si empezamos desde el 1
 					nivel.bloques[num_bloques].y1=bloque_y;
@@ -545,7 +547,7 @@ Begin
 	set_center(file,graph,ancho,0);
 	x=father.x;
 	y=father.y;
-	if(arma_temp==2) enganchado=-180; end
+	if(arma_temp==2) enganchado=-80; end
 	if(arma_temp==3) graph=0; disparo(31); disparo(32); disparo(33); disparo(34); frame; end
 	if(arma_temp<10) //no subdisparos
 		p[jugador].disparos++;
@@ -596,7 +598,7 @@ Begin
 	loop
 		x=mouse.x;
 		y=mouse.y;
-		if(mouse.left) bola(x,y,rand(1,11),rand(20,100),0,0); while(mouse.left) frame; end end
+		if(mouse.left) bola(x,y,rand(1,11),100-(rand(0,4)*reduccion_bolas_size),0,0); while(mouse.left) frame; end end
 		frame;
 	end
 End
@@ -712,7 +714,7 @@ Begin
 	
 	txt_reloj=write_int(fnt,resolucion_x/2,resolucion_y/4,4,&tiempo_en_segundos);
 	
-	while(reloj>0)
+	while(reloj>0 and bolas>0)
 		while(!ready) frame; end
 		if(reloj>7*60) reloj=7*60; end //tampoco hay que ser variciosos
 		tiempo_en_segundos=(reloj/60)+1;
@@ -820,7 +822,7 @@ Begin
 		//CARGA DE LA ESTRUCTURA NIVEL
 		fichero=fopen("niveles/"+num_nivel+".pang",O_READ);
 		if(!fichero) exit("[ERROR] No se pudo cargar el nivel."); end
-		while(!feof(fichero))
+		repeat
 			linea=fgets(fichero);
 			if(""+linea[0]+linea[1]+linea[2]+linea[3]+linea[4]+linea[5]=="nombre")
 				nivel.nombre=substr(linea,7);
@@ -870,7 +872,7 @@ Begin
 					end
 				end
 			end
-		end
+		until(feof(fichero))
 		fclose(fichero);
 		//FIN DE LA CARGA DE LA ESTRUCTURA NIVEL
 	end
@@ -881,7 +883,7 @@ Begin
 	drawing_color(color.negro);
 	draw_box(0,0,resolucion_x,resolucion_y);
 	from i=1 to num_bloques;
-		if(nivel.bloques[i].x1!=0)
+		if(nivel.bloques[i].tipo!=0)
 			drawing_color(nivel.bloques[i].color);
 			//le quitamos 1 a x1 que le sumamos al añadir el bloque
 			draw_box(borde_izquierda+(nivel.bloques[i].x1)*tamanyo_bloque_min,
@@ -918,14 +920,32 @@ Begin
 		if(p[4].jugando) grafico(p[4].fpg,1,resolucion_x-(resolucion_x/28),resolucion_y-(resolucion_y/12),-2,1); end
 		
 		//PRINCIPAL
+		if(!exists(type key_init)) key_init(); end
 		personaje(1);
+		personaje(2);
 		pinta();
 		debuj();
-		//raton();
+		raton();
 	end
 	ready=1;
 End
 
 Function guarda_nivel(string fichero);
+Private
+	fp;
 Begin
+	fp=fopen(fichero,O_WRITE);
+	i=1;
+	while(nivel.bloques[i].tipo!=0 and i<bloques_max)
+		fputs(fp,"bloque "+itoa(nivel.bloques[i].x1)+","+itoa(nivel.bloques[i].y1)+","+itoa(nivel.bloques[i].x2)+","+itoa(nivel.bloques[i].y2)+","+itoa(nivel.bloques[i].tipo)+","+itoa(nivel.bloques[i].regalo)+","+itoa(nivel.bloques[i].color)+","+itoa(nivel.bloques[i].destructible));
+		i++;
+	end
+	
+	i=1;
+	while(nivel.bolas[i].tipo!=0 and i<bolas_max)	
+		fputs(fp,"bola "+itoa(nivel.bolas[i].x)+","+itoa(nivel.bolas[i].y)+","+itoa(nivel.bolas[i].tipo)+","+itoa(nivel.bolas[i].tamanyo)+","+itoa(nivel.bolas[i].lado)+","+itoa(nivel.bolas[i].regalo));
+		num_bolas++;
+		i++;
+	end
+	fclose(fp);
 End
