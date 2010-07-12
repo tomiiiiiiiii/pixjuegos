@@ -258,6 +258,8 @@ Begin
 	end
 
 	//explotalo(x,y,z,size,file,graph,60);
+	desaparece();
+	
 	
 	//if(tamanyo>20 and !bola_pang) item_drop(x,y,rand(1,23)); end
 	

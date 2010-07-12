@@ -166,14 +166,28 @@ Begin
 	write(fnt,0,y+=40,0,"F3-Item reloj");
 	write(fnt,0,y+=40,0,"F4-Pantalla completa");
 	write(fnt,0,y+=40,0,"F10-Guardar nivel");
+	
+	y=0;
+	write(fnt,resolucion_x,y+=40,2,"Teclas:");
+	write(fnt,resolucion_x,y+=40,2,"1. Bloques");
+	write(fnt,resolucion_x,y+=40,2,"2. Elementos especiales del nivel");
+	write(fnt,resolucion_x,y+=40,2,"3. Bolas");
+	write(fnt,resolucion_x,y+=40,2,"AWSD para mover el punto de colocación");
+	write(fnt,resolucion_x,y+=40,2,"Intro para colocar principio o fin de bloque, elemento o bola.");
+	write(fnt,resolucion_x,y+=40,2,"Espacio cambia color en bloques, tipo de elemento o tipo de bola");
+	write(0,0,y+=40,2,"");
+	write(0,0,y+=40,2,"");
+	write(0,0,y+=40,2,"");
+	write(0,0,y+=40,2,"");
+	
 	/**/
 
 	loop 
-		if(key_event(_F10,key_up)) guarda_nivel("niveltemp.pang"); end
 		if(key_event(_F1,key_up)) personaje(1);personaje(2); end
 		if(key_event(_F2,key_up)) if(ready) ready=0; else ready=1; end end
 		if(key_event(_F3,key_up)) item_reloj(5); end
 		if(key_event(_F4,key_up)) if(full_screen==1) full_screen=0; else full_screen=1; end set_mode(resolucion_x,resolucion_y,bits,WAITVSYNC); end
+		if(key_event(_F10,key_up)) guarda_nivel("niveltemp.pang"); end
 		frame; 
 	end
 End
@@ -192,6 +206,7 @@ Private
 	retraso_disparo;
 	invencibilidad; //para cuando pierdes la protección
 	anim;
+	movimiento_lateral;
 Begin
 	if(p[jugador].jugando) return; end // POR QUÉ? xD
 	p[jugador].jugando=1;
@@ -204,13 +219,16 @@ Begin
 	y=borde_abajo-alto;
 	p[jugador].id=id;
 	personaje_colisionador();
+	
+	movimiento_lateral=(tamanyo_bloque_min*7)/24;
+	
 	loop
 		while(ready==0) accion=0; frame; end
 		while(bolas==0) graph=41; frame; end
 		if(!(p[jugador].botones[0] and p[jugador].botones[1]) and (p[jugador].botones[0] or p[jugador].botones[1]) and retraso_disparo==0)
 			animacion="andar";
-			if(p[jugador].botones[0]) flags=1; x_destino-=tamanyo_bloque_min/3; else
-				if(p[jugador].botones[1]) flags=0; x_destino+=tamanyo_bloque_min/3; end 
+			if(p[jugador].botones[0]) flags=1; x_destino-=movimiento_lateral; else
+				if(p[jugador].botones[1]) flags=0; x_destino+=movimiento_lateral; end 
 			end
 		else
 			animacion="quieto";
@@ -471,13 +489,16 @@ Begin
 					nivel.bloques[num_bloques].color=micolor; //cuando haya selección de color
 				end
 				if(pulsando==1 and !key(_enter))
-						if(bloque_x=>nivel.bloques[num_bloques].x1 and bloque_y=>nivel.bloques[num_bloques].y1)
+						if(bloque_x=>nivel.bloques[num_bloques].x1)
 							nivel.bloques[num_bloques].x2=bloque_x;
-							nivel.bloques[num_bloques].y2=bloque_y;
 						else
 							nivel.bloques[num_bloques].x2=nivel.bloques[num_bloques].x1;
-							nivel.bloques[num_bloques].y2=nivel.bloques[num_bloques].y1;
 							nivel.bloques[num_bloques].x1=bloque_x;
+						end
+						if(bloque_y=>nivel.bloques[num_bloques].y1)
+							nivel.bloques[num_bloques].y2=bloque_y;
+						else
+							nivel.bloques[num_bloques].y2=nivel.bloques[num_bloques].y1;
 							nivel.bloques[num_bloques].y1=bloque_y;
 						end
 						say("bloque "+itoa(nivel.bloques[num_bloques].x1)+","+itoa(nivel.bloques[num_bloques].y1)+","+itoa(nivel.bloques[num_bloques].x2)+","+itoa(nivel.bloques[num_bloques].y2)+","+itoa(nivel.bloques[num_bloques].tipo)+","+itoa(nivel.bloques[num_bloques].regalo)+","+itoa(nivel.bloques[num_bloques].color)+","+itoa(nivel.bloques[num_bloques].destructible));
@@ -583,6 +604,7 @@ Begin
 		if(y_destino!=0 or accion==-1) break; end //tocó techo o tocamos una bola
 		frame; 
 	end
+	desaparece();
 	if(arma_temp<10) //no subdisparos
 		p[jugador].disparos--;
 		region_ocupada[region]=0;
@@ -948,4 +970,33 @@ Begin
 		i++;
 	end
 	fclose(fp);
+End
+
+Process desaparece();
+Begin
+	x=father.x;
+	y=father.y;
+	z=father.z-1;
+	file=father.file;
+	graph=father.graph;
+	angle=father.graph;
+	size=father.size;
+	region=father.region;
+	flags=father.flags;
+	from alpha=255 to 0 step -10; frame; end
+End
+
+Process sombraguachi();
+Begin
+	x=father.x;
+	y=father.y;
+	z=father.z-1;
+	file=father.file;
+	graph=father.graph;
+	angle=father.graph;
+	size=father.size;
+	region=father.region;
+	flags=father.flags;
+	alpha=rand(20,200);
+	frame(1000);
 End
