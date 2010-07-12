@@ -1,0 +1,114 @@
+Const
+	resolucion_x=1920;
+	resolucion_y=1080;
+	
+	bloques_x=50;
+	bloques_y=30;
+	bloques_max=100;
+	bolas_max=100;
+
+	reduccion_bolas_size=22;
+	
+	tamanyo_bloque_min=30;
+	bits=16;
+
+	app_data=1;
+Global
+	area_juego_x;
+	area_juego_y;
+	borde_arriba;
+	borde_abajo;
+	borde_izquierda;
+	borde_derecha;
+	
+	struct color;
+		negro;
+		blanco;
+		verde;
+		rojo;
+		azul;
+		amarillo;
+		gris;
+	end
+
+	mapa_durezas; //mapa de durezas para las colisiones
+	//mini_mapa_durezas; //fichero de bloques, deprecado!
+	fondo; //grafico de fondo
+	
+	struct nivel;
+		string nombre;
+		tiempo;
+		struct bolas[bolas_max];
+			char x,y,tipo,tamanyo,lado,regalo;
+		end
+		struct bloques[bloques_max]; //qué tipos de bloques hay? :S
+			char x1,x2,y1,y2,tipo,regalo,destructible;
+			int color;
+		end
+	end
+	num_bloques;
+	num_bolas;
+	
+	struct opciones;
+		int lenguaje=-1; 	// 0 = castellano, 1 = inglés
+		int musica=1;
+		int sonido=1;
+		int pantalla_completa=0;
+		int dificultad=2; //1:fácil, 2:normal, 3:difícil, 4:muy difícil 5:imposible
+	End
+	
+	velocidad_bolas=200; //velocidad de las bolas (cuanto menos, mayor velocidad)
+	
+	bolas; //número de bolas en pantalla
+
+	ready; //pausa el juego si está a 0
+	
+	region_ocupada[30]; //para los disparos
+	
+	joysticks[4]; //aquí se almacenarán los joysticks funcionales
+	
+	dinamita;
+	bola_pang;
+	reloj; //paralizamos las bolas. aquí meteremos el tiempo en segs*60
+	ancla;
+	
+	struct p[4]; //players, jugadores
+		id; //guardamos el id aquí también, nunca está de más
+		jugando; //si están jugando o no, esto lo dirá
+		botones[8]; //controladores y joysticks
+		control; //el número indica su controlador: 0, teclado, =>1 joystick
+		fpg; //su fpg de su personaje
+		disparos; //controlamos que no disparen más de dos veces
+		vidas; //su número de vidas
+		vidas_bonus; //vidas conseguidas por punttos
+		puntos; //puntos conseguidos
+		bonus; //puntos a sumar si destruye más bolas que los otros jugadores
+		arma; //0: gancho, 1: doble gancho, 2: gancho enganchable, 3: metralleta
+		item; //por usar, para saltos y cosas
+		proteccion; //la protección clásica, aunque ahora podremos tener varias capas!
+		fases_ganadas; //número de fases ganadas a los otros jugadores durante la partida
+		bolas_destruidas; //bolas destruidas en el nivel
+		items_recogidos; //items_recogidos en el nivel
+	end
+	
+	posibles_jugadores;
+	njoys;
+	
+	fpg_general;
+	
+	fnt;
+	
+Local
+	gravedad;
+	inercia;
+	estado;
+	accion;
+	tipo;
+	ancho;
+	alto;
+	x_destino;
+	y_destino;
+	lado;
+	i;
+	jugador;
+	primera_caida; //de las bolas, para la dinamita y la bola pang

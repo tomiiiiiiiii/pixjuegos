@@ -265,3 +265,12 @@ Begin
 	
 	bolas--;
 End
+
+Process bomba(x,y,size);
+Begin
+	graph=31;
+	while(alpha>0)
+		alpha-=5;
+		frame;
+	end
+End

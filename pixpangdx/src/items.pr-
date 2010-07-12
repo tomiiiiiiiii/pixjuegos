@@ -1,0 +1,120 @@
+/* TIPOS DE ITEMS
+1.Vida
+2.Reloj
+3.Proteccion
+4.Ancla
+5.Dinamita
+6.???
+11.14.Comida
+15-19.??? (probablemente más comida)
+21.Doble disparo
+22.Gancho
+23.Metralleta
+24.???
+*/
+Process item_drop(x,y,tipo);
+Private
+	id_jugador;
+Begin
+	file=fpg_general;
+	graph=100+tipo;
+	prepara_proceso_grafico();
+	//temporal:
+	if(ancho=<1) return; end
+	loop
+		if(x<borde_izquierda+ancho) x=borde_izquierda+ancho; end
+		if(x>borde_derecha-ancho) x=borde_derecha-ancho; end
+		if(y<borde_arriba+ancho) y=borde_arriba+ancho; end
+		if(y>borde_abajo-ancho) y=borde_abajo-ancho; end
+		while(!ready) frame; end
+		y_destino=6;
+		while(y_destino!=0)
+			if(y_destino>0)
+				if(map_get_pixel(0,mapa_durezas,x-(ancho/2),y+alto)!=color.negro or
+				map_get_pixel(0,mapa_durezas,x,y+alto)!=color.negro or
+				map_get_pixel(0,mapa_durezas,x+(ancho/2),y+alto)!=color.negro) 
+					break; 
+				else
+					y++;
+					y_destino--;
+				end
+			else
+				if(map_get_pixel(0,mapa_durezas,x,y-alto)!=color.negro) 
+					break; 
+				else
+					y--;
+					y_destino++;
+				end
+			end
+		end
+		if(id_jugador=collision(type personaje)) jugador=id_jugador.jugador; break; end
+		frame;
+	end
+	
+	switch(tipo)
+		case 1: p[jugador].vidas++; end
+		case 2: item_reloj(rand(3,5)); end
+		case 3: p[jugador].proteccion++; proteccion(jugador); end
+		case 4: item_ancla(); end
+		case 5: dinamita=1; from alpha=200 to 60 step -15; frame; end frame(5000); dinamita=0; return; end
+		case 11..19: p[jugador].puntos+=(tipo-10)*1000; mostrar_puntos(x,y,(tipo-10)*1000); end
+		case 21..23: p[jugador].arma=tipo-20; end
+	end
+	from alpha=200 to 60 step -15; frame; end
+End
+
+Process mostrar_puntos(x,y,puntos);
+Private
+	id_txt;
+Begin
+	id_txt=write(fnt,x,y,4,puntos);
+	from i=0 to 3*60; frame; end
+	delete_text(id_txt);
+End
+
+Process proteccion(jugador);
+Begin
+	file=p[jugador].fpg;
+	graph=201;
+	priority=-1;
+	while(p[jugador].proteccion>0 and exists(p[jugador].id))
+		x=p[jugador].id.x;
+		y=p[jugador].id.y;
+		frame;
+	end
+	explotalo(x,y,z,size,file,graph,60);
+End
+
+Process item_ancla();
+Begin
+	if(ancla) ancla+=3*60; return; end
+	velocidad_bolas=300; //lentas
+	ancla=5*60;
+	while(ancla>0)
+		ancla--;
+		frame;
+	end
+	velocidad_bolas=200; //rapidas
+End
+
+Process item_reloj(tiempo_en_segundos);
+Private
+	txt_reloj;
+Begin
+	if(reloj>0) 
+		reloj+=tiempo_en_segundos*60; return; 
+	else
+		reloj=tiempo_en_segundos*60;
+	end
+	
+	txt_reloj=write_int(fnt,resolucion_x/2,resolucion_y/4,4,&tiempo_en_segundos);
+	
+	while(reloj>0 and bolas>0)
+		while(!ready) frame; end
+		if(reloj>7*60) reloj=7*60; end //tampoco hay que ser variciosos
+		tiempo_en_segundos=(reloj/60)+1;
+		reloj--;
+		frame;
+	end
+	delete_text(txt_reloj);
+End

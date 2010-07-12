@@ -1,0 +1,62 @@
+/*
+armas: 
+	0-disparo único
+	1-doble disparo
+	2-gancho
+	3-metralleta
+	 31..34-disparitos metralleta
+*/
+Process disparo(arma_temp);
+Private
+	enganchado;
+Begin
+	if(!exists(father)) return; end
+	jugador=father.jugador;
+	file=father.file;
+	graph=101+arma_temp;
+	prepara_proceso_grafico();
+	set_center(file,graph,ancho,0);
+	x=father.x;
+	y=father.y;
+	if(arma_temp==2) enganchado=-80; end
+	if(arma_temp==3) graph=0; disparo(31); disparo(32); disparo(33); disparo(34); frame; end
+	if(arma_temp<10) //no subdisparos
+		p[jugador].disparos++;
+		from i=1 to 30;
+			if(region_ocupada[i]==0) region_ocupada[i]=1; region=i; break; end
+		end
+		define_region(region,0,0,resolucion_x,y+father.alto);
+	end
+	switch(arma_temp)
+		case 31: x_destino=-8; end
+		case 32: x_destino=-2; end
+		case 33: x_destino=+2; end
+		case 34: x_destino=+8; end
+	end
+	
+	loop
+		if(arma_temp==3) break; end
+		while(!ready) frame; end
+		if(arma_temp<10) y_destino=-10; else y_destino=-20; end //la metralleta va más rápido
+		while(y_destino!=0)
+			if(map_get_pixel(0,mapa_durezas,x-ancho,y)!=color.negro or
+			map_get_pixel(0,mapa_durezas,x,y)!=color.negro or
+			map_get_pixel(0,mapa_durezas,x+ancho,y)!=color.negro or
+			x<borde_izquierda or x>borde_derecha)
+				break;
+			else
+				y--;
+				y_destino++;
+			end
+		end
+		x+=x_destino;
+		if(arma_temp==2 and enganchado<0 and y_destino!=0) enganchado++; y_destino=0; end
+		if(y_destino!=0 or accion==-1) break; end //tocó techo o tocamos una bola
+		frame; 
+	end
+	desaparece();
+	if(arma_temp<10) //no subdisparos
+		p[jugador].disparos--;
+		region_ocupada[region]=0;
+	end
+End

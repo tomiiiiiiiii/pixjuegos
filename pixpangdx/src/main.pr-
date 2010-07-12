@@ -1,0 +1,41 @@
+Begin
+	area_juego_x=bloques_x*tamanyo_bloque_min;
+	area_juego_y=bloques_y*tamanyo_bloque_min;
+	
+	borde_arriba=(resolucion_y/2)-(area_juego_y/2);
+	borde_abajo=(resolucion_y/2)+(area_juego_y/2);
+	borde_izquierda=(resolucion_x/2)-(area_juego_x/2);
+	borde_derecha=(resolucion_x/2)+(area_juego_x/2);
+
+	full_screen=0;
+	if(!mode_is_ok(1920,1080,32,MODE_FULLSCREEN))
+		if(!mode_is_ok(1280,720,32,MODE_FULLSCREEN))
+			scale_resolution=10240576;
+		else
+			scale_resolution=12800720;
+		end
+	end
+	set_mode(resolucion_x,resolucion_y,bits,WAITVSYNC);
+	set_fps(60,0);
+	frame;
+	
+	configurar_controles();
+	
+	color.negro=rgb(0,0,0);
+	color.blanco=rgb(255,255,255);
+	color.verde=rgb(0,255,0);
+	color.rojo=rgb(255,0,0);
+	color.azul=rgb(0,0,255);
+	color.amarillo=rgb(255,255,0);
+	color.gris=rgb(128,128,128);
+	
+	fpg_general=load_fpg("pixpang.fpg");
+	fnt=load_fnt("fnt.fnt");
+	
+	p[1].fpg=load_fpg("pix.fpg");
+	p[2].fpg=load_fpg("pixmorao.fpg");
+
+	//debuj();
+	carga_nivel(2);
+	//crear_nivel();
+end

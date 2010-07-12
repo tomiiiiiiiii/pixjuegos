@@ -1,0 +1,355 @@
+/*
+durezas:
+*/
+Process crear_nivel();
+Private
+	x1;
+	y1;
+	mapa_temporal;
+	id_grafico;
+	bloque_x;
+	bloque_y;
+	modo=1; //1: durezas, 2:bloques, 3:bolas, ...
+	punto_verde;
+	micolor;
+	regalo;
+	destructible;
+	pulsando;
+Begin
+	x1=-1;
+	y1=-1;
+	graph=punto_verde=new_map(10,10,bits);
+	micolor=color.verde;
+	drawing_color(micolor);
+	drawing_map(0,graph);
+	draw_box(0,0,10,10);
+	drawing_map(0,mapa_durezas);
+	frame;
+	tipo=1;
+	loop
+		if(key(_1)) //pintamos plataformas
+			modo=1; file=0; graph=punto_verde; size=100; tipo=1;
+		elseif(key(_2)) //pintamos... algo? :S
+			modo=2; graph=0; size=100; tipo=1;
+		elseif(key(_3)) //ponemos bolas
+			modo=3; file=fpg_general; graph=11; size=100; tipo=1;
+		end
+		
+		switch(modo)
+			case 1:
+				if(key(_space))
+					while(key(_space)) frame; end
+					switch(micolor)
+						case color.verde: micolor=color.rojo; end
+						case color.rojo: micolor=color.azul; end
+						case color.azul: micolor=color.amarillo; end
+						case color.amarillo: micolor=color.verde; end
+					end
+					drawing_color(micolor);
+					drawing_map(0,graph);
+					draw_box(0,0,10,10);
+					drawing_map(0,mapa_durezas);
+				end
+			end
+			case 3:
+				if(key(_space))
+					while(key(_space)) frame; end
+					if(tipo==20) tipo=0; end //a cero porque aquí abajo nos ponen a 1
+					if(tipo<10 and tipo!=20) tipo++; else tipo=20; end
+					graph=tipo+10;
+				end
+				if(key(_c_minus) and size>20)
+					while(key(_c_minus)) frame; end
+					size-=reduccion_bolas_size;
+				end
+				if(key(_c_plus) and size<100)
+					while(key(_c_plus)) frame; end
+					size+=reduccion_bolas_size;
+				end
+			end
+		end
+		
+		if(key(_A) and (map_get_pixel(0,mapa_durezas,x-tamanyo_bloque_min,y)==color.negro or pulsando==0))
+			bloque_x--; 
+		elseif(key(_D) and (map_get_pixel(0,mapa_durezas,x+tamanyo_bloque_min,y)==color.negro or pulsando==0)) 
+			bloque_x++; 
+		end
+		if(key(_W) and (map_get_pixel(0,mapa_durezas,x,y-tamanyo_bloque_min)==color.negro or pulsando==0)) 
+			bloque_y--; 
+		elseif(key(_S) and (map_get_pixel(0,mapa_durezas,x,y+tamanyo_bloque_min)==color.negro or pulsando==0)) bloque_y++; end
+		
+		if(bloque_x<0) bloque_x=0; end
+		if(bloque_y<0) bloque_y=0; end
+		if(bloque_x>area_juego_x/tamanyo_bloque_min-1) bloque_x=area_juego_x/tamanyo_bloque_min-1; end
+		if(bloque_y>area_juego_y/tamanyo_bloque_min-1) bloque_y=area_juego_y/tamanyo_bloque_min-1; end
+		
+		x=tamanyo_bloque_min/2+borde_izquierda+bloque_x*tamanyo_bloque_min;
+		y=tamanyo_bloque_min/2+borde_arriba+bloque_y*tamanyo_bloque_min;
+		
+		switch(modo)
+			case 1:
+				if(key(_enter) and num_bloques<bloques_max and pulsando==0)
+					num_bloques++;
+					nivel.bloques[num_bloques].x1=bloque_x; //queda más bonito si empezamos desde el 1
+					nivel.bloques[num_bloques].y1=bloque_y;
+					nivel.bloques[num_bloques].tipo=tipo;
+					nivel.bloques[num_bloques].regalo=regalo;
+					pulsando=1;
+					nivel.bloques[num_bloques].color=micolor; //cuando haya selección de color
+				end
+				if(pulsando==1 and !key(_enter))
+						if(bloque_x=>nivel.bloques[num_bloques].x1)
+							nivel.bloques[num_bloques].x2=bloque_x;
+						else
+							nivel.bloques[num_bloques].x2=nivel.bloques[num_bloques].x1;
+							nivel.bloques[num_bloques].x1=bloque_x;
+						end
+						if(bloque_y=>nivel.bloques[num_bloques].y1)
+							nivel.bloques[num_bloques].y2=bloque_y;
+						else
+							nivel.bloques[num_bloques].y2=nivel.bloques[num_bloques].y1;
+							nivel.bloques[num_bloques].y1=bloque_y;
+						end
+						say("bloque "+itoa(nivel.bloques[num_bloques].x1)+","+itoa(nivel.bloques[num_bloques].y1)+","+itoa(nivel.bloques[num_bloques].x2)+","+itoa(nivel.bloques[num_bloques].y2)+","+itoa(nivel.bloques[num_bloques].tipo)+","+itoa(nivel.bloques[num_bloques].regalo)+","+itoa(nivel.bloques[num_bloques].color)+","+itoa(nivel.bloques[num_bloques].destructible));
+						pulsando=0;
+						carga_nivel(0);
+				end
+				if(key(_backspace) and num_bloques>0 and pulsando==0)
+					nivel.bloques[num_bloques].x1=0;
+					nivel.bloques[num_bloques].y1=0;
+					nivel.bloques[num_bloques].x2=0;
+					nivel.bloques[num_bloques].y2=0;
+					nivel.bloques[num_bloques].tipo=0;
+					nivel.bloques[num_bloques].regalo=0;
+					nivel.bloques[num_bloques].color=0;
+					num_bloques--;
+					while(key(_backspace)) frame; end
+					carga_nivel(0);
+				end
+			end
+			case 3:
+				if(key(_enter))
+					while(key(_enter)) frame; end
+					num_bolas++;
+					nivel.bolas[num_bolas].x=bloque_x;
+					nivel.bolas[num_bolas].y=bloque_y;
+					nivel.bolas[num_bolas].tipo=tipo;
+					nivel.bolas[num_bolas].tamanyo=size;
+					nivel.bolas[num_bolas].lado=lado;
+					nivel.bolas[num_bolas].regalo=regalo;
+					say("bola "+bloque_x+","+bloque_y+","+tipo+","+size+","+lado+","+regalo);
+					carga_nivel(0);
+				end
+				if(key(_backspace) and num_bolas>0)
+					while(key(_backspace)) frame; end
+					nivel.bolas[num_bolas].x=0;
+					nivel.bolas[num_bolas].y=0;
+					nivel.bolas[num_bolas].tipo=0;
+					nivel.bolas[num_bolas].tamanyo=0;
+					nivel.bolas[num_bolas].lado=0;
+					nivel.bolas[num_bolas].regalo=0;
+					num_bolas--;
+					carga_nivel(0);
+				end
+			end
+		end
+		frame(400);
+	end
+End
+
+Function carga_nivel(num_nivel);
+Private
+	fichero;
+	string linea;
+	string txt_temp;
+	string michar;
+	valor;
+Begin
+	ready=0;
+	num_bolas=0;
+	if(num_nivel>0) //si se pasa el 0 no cargaremos el nivel. recrearemos el nivel con las variables en memoria
+		num_bloques=0;
+		let_me_alone();
+		delete_text(all_text);
+		bolas=0;
+		//CARGA DE LA ESTRUCTURA NIVEL
+		fichero=fopen("niveles/"+num_nivel+".pang",O_READ);
+		if(!fichero) exit("[ERROR] No se pudo cargar el nivel."); end
+		repeat
+			linea=fgets(fichero);
+			if(""+linea[0]+linea[1]+linea[2]+linea[3]+linea[4]+linea[5]=="nombre")
+				nivel.nombre=substr(linea,7);
+			end
+			if(""+linea[0]+linea[1]+linea[2]+linea[3]+linea[4]+linea[5]=="tiempo")
+				nivel.tiempo=substr(linea,7);
+			end
+			if(""+linea[0]+linea[1]+linea[2]+linea[3]=="bola")
+				num_bolas++;
+				linea=substr(linea,5);
+				michar="";
+				valor=0;
+				from i=0 to len(linea);
+					if(""+linea[i]=="," or i==len(linea))
+						if(valor==0) nivel.bolas[num_bolas].x=atoi(michar); end
+						if(valor==1) nivel.bolas[num_bolas].y=atoi(michar); end
+						if(valor==2) nivel.bolas[num_bolas].tipo=atoi(michar); end
+						if(valor==3) nivel.bolas[num_bolas].tamanyo=atoi(michar); end
+						if(valor==4) nivel.bolas[num_bolas].lado=atoi(michar); end
+						if(valor==5) nivel.bolas[num_bolas].regalo=atoi(michar); break; end
+						michar="";
+						valor++;
+					else
+						michar+=""+linea[i];
+					end
+				end
+			end
+			if(""+linea[0]+linea[1]+linea[2]+linea[3]+linea[4]+linea[5]=="bloque")
+				num_bloques++;
+				linea=substr(linea,7);
+				michar="";
+				valor=0;
+				from i=0 to len(linea);
+					if(""+linea[i]=="," or i==len(linea))
+						if(valor==0) nivel.bloques[num_bloques].x1=atoi(michar); end
+						if(valor==1) nivel.bloques[num_bloques].y1=atoi(michar); end			
+						if(valor==2) nivel.bloques[num_bloques].x2=atoi(michar); end
+						if(valor==3) nivel.bloques[num_bloques].y2=atoi(michar); end
+						if(valor==4) nivel.bloques[num_bloques].tipo=atoi(michar); end
+						if(valor==5) nivel.bloques[num_bloques].regalo=atoi(michar); end
+						if(valor==6) nivel.bloques[num_bloques].color=atoi(michar); end
+						if(valor==7) nivel.bloques[num_bloques].destructible=atoi(michar); end
+						michar="";
+						valor++;
+					else
+						michar+=""+linea[i];
+					end
+				end
+			end
+		until(feof(fichero))
+		fclose(fichero);
+		//FIN DE LA CARGA DE LA ESTRUCTURA NIVEL
+	end
+	
+	if(mapa_durezas>0 and map_exists(0,mapa_durezas)) unload_map(0,mapa_durezas); end
+	mapa_durezas=new_map(resolucion_x,resolucion_y,bits);
+	drawing_map(0,mapa_durezas);
+	drawing_color(color.negro);
+	draw_box(0,0,resolucion_x,resolucion_y);
+	from i=1 to num_bloques;
+		if(nivel.bloques[i].tipo!=0)
+			drawing_color(nivel.bloques[i].color);
+			//le quitamos 1 a x1 que le sumamos al añadir el bloque
+			draw_box(borde_izquierda+(nivel.bloques[i].x1)*tamanyo_bloque_min,
+			borde_arriba+(nivel.bloques[i].y1)*tamanyo_bloque_min,
+			borde_izquierda+(nivel.bloques[i].x2)*tamanyo_bloque_min+tamanyo_bloque_min,
+			borde_arriba+(nivel.bloques[i].y2)*tamanyo_bloque_min+tamanyo_bloque_min);
+			//borde_izquierda+(nivel.bloques[i].x2-1)*tamanyo_bloque_min,
+			//borde_arriba+(nivel.bloques[i].y2-1)*tamanyo_bloque_min);
+		end
+	end
+	drawing_color(color.blanco);
+	draw_rect(borde_izquierda,borde_arriba,borde_derecha,borde_abajo);
+	
+	dibuja_fondo();			
+	
+	if(num_nivel==0) ready=1; bola_pang=1; while(bolas>0) frame; end ready=0; bola_pang=0; end
+	i=1;
+	while(nivel.bolas[i].tipo!=0 and i<bolas_max)	
+		bola((borde_izquierda+(tamanyo_bloque_min/2)+(nivel.bolas[i].x*tamanyo_bloque_min)),
+		(borde_arriba+(tamanyo_bloque_min/2)+(nivel.bolas[i].y*tamanyo_bloque_min)),
+		nivel.bolas[i].tipo,
+		nivel.bolas[i].tamanyo,
+		nivel.bolas[i].lado,
+		nivel.bolas[i].regalo);
+		num_bolas++;
+		i++;
+	end
+	
+	if(num_nivel!=0)
+		//posiciones caretos
+		if(p[1].jugando) grafico(p[1].fpg,1,resolucion_x/28,resolucion_y/12,-2,0); end
+		if(p[2].jugando) grafico(p[2].fpg,1,resolucion_x-(resolucion_x/28),resolucion_y/12,-2,1); end
+		if(p[3].jugando) grafico(p[3].fpg,1,resolucion_x/28,resolucion_y-(resolucion_y/12),-2,0); end
+		if(p[4].jugando) grafico(p[4].fpg,1,resolucion_x-(resolucion_x/28),resolucion_y-(resolucion_y/12),-2,1); end
+		
+		//PRINCIPAL
+		if(!exists(type key_init)) key_init(); end
+		personaje(1);
+		personaje(2);
+		crear_nivel();
+		debuj();
+		raton();
+	end
+	ready=1;
+End
+
+Function guarda_nivel(string fichero);
+Private
+	fp;
+Begin
+	fp=fopen(fichero,O_WRITE);
+	i=1;
+	while(nivel.bloques[i].tipo!=0 and i<bloques_max)
+		fputs(fp,"bloque "+itoa(nivel.bloques[i].x1)+","+itoa(nivel.bloques[i].y1)+","+itoa(nivel.bloques[i].x2)+","+itoa(nivel.bloques[i].y2)+","+itoa(nivel.bloques[i].tipo)+","+itoa(nivel.bloques[i].regalo)+","+itoa(nivel.bloques[i].color)+","+itoa(nivel.bloques[i].destructible));
+		i++;
+	end
+	
+	i=1;
+	while(nivel.bolas[i].tipo!=0 and i<bolas_max)	
+		fputs(fp,"bola "+itoa(nivel.bolas[i].x)+","+itoa(nivel.bolas[i].y)+","+itoa(nivel.bolas[i].tipo)+","+itoa(nivel.bolas[i].tamanyo)+","+itoa(nivel.bolas[i].lado)+","+itoa(nivel.bolas[i].regalo));
+		num_bolas++;
+		i++;
+	end
+	fclose(fp);
+End
+
+Process raton();
+Begin
+	graph=new_map(5,5,bits);
+	drawing_map(0,graph);
+	draw_box(0,0,5,5);
+	drawing_map(0,mapa_durezas);
+	loop
+		x=mouse.x;
+		y=mouse.y;
+		if(mouse.left) bola(x,y,rand(1,11),100-(rand(0,4)*reduccion_bolas_size),0,0); while(mouse.left) frame; end end
+		frame;
+	end
+End
+
+Process debuj();
+Begin
+	x=1;
+	
+	/**/
+	write(fnt,0,y+=40,0,"F1-Recrea personajes");
+	write(fnt,0,y+=40,0,"F2-Pause");
+	write(fnt,0,y+=40,0,"F3-Item reloj");
+	write(fnt,0,y+=40,0,"F4-Pantalla completa");
+	write(fnt,0,y+=40,0,"F10-Guardar nivel");
+	
+	y=0;
+	write(fnt,resolucion_x,y+=40,2,"Teclas:");
+	write(fnt,resolucion_x,y+=40,2,"1. Bloques");
+	write(fnt,resolucion_x,y+=40,2,"2. Elementos especiales del nivel");
+	write(fnt,resolucion_x,y+=40,2,"3. Bolas");
+	write(fnt,resolucion_x,y+=40,2,"AWSD para mover el punto de colocación");
+	write(fnt,resolucion_x,y+=40,2,"Intro para colocar principio o fin de bloque, elemento o bola.");
+	write(fnt,resolucion_x,y+=40,2,"Espacio cambia color en bloques, tipo de elemento o tipo de bola");
+	write(0,0,y+=40,2,"");
+	write(0,0,y+=40,2,"");
+	write(0,0,y+=40,2,"");
+	write(0,0,y+=40,2,"");
+	
+	/**/
+
+	loop 
+		if(key_event(_F1,key_up)) personaje(1);personaje(2); end
+		if(key_event(_F2,key_up)) if(ready) ready=0; else ready=1; end end
+		if(key_event(_F3,key_up)) item_reloj(5); end
+		if(key_event(_F4,key_up)) if(full_screen==1) full_screen=0; else full_screen=1; end set_mode(resolucion_x,resolucion_y,bits,WAITVSYNC); end
+		if(key_event(_F10,key_up)) guarda_nivel("niveltemp.pang"); end
+		frame; 
+	end
+End
+

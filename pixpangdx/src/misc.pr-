@@ -1,0 +1,75 @@
+Process grafico(file,graph,x,y,z,flags);
+Begin
+	prepara_proceso_grafico();
+	loop frame; end
+End
+
+Function prepara_proceso_grafico();
+Begin
+	father.ancho=graphic_info(father.file,father.graph,g_width)/2;
+	father.alto=graphic_info(father.file,father.graph,g_height)/2;
+End
+
+Function dibuja_fondo();
+Begin
+	put_screen(0,mapa_durezas);
+
+	//fondo cuadriculado
+	drawing_map(0,BACKGROUND);
+	drawing_color(rgb(20,20,20));
+	from y=borde_arriba to borde_abajo step tamanyo_bloque_min;
+		draw_line(borde_izquierda,y,borde_derecha,y);
+	end
+	from x=borde_izquierda to borde_derecha step tamanyo_bloque_min;
+		draw_line(x,borde_arriba,x,borde_abajo);
+	end
+	
+	//bordes de la zona de juego
+	drawing_color(color.blanco);
+	draw_line(borde_izquierda,borde_arriba,borde_derecha,borde_arriba);
+	draw_line(borde_izquierda,borde_abajo,borde_derecha,borde_abajo);
+	draw_line(borde_izquierda,borde_arriba,borde_izquierda,borde_abajo);
+	draw_line(borde_derecha,borde_arriba,borde_derecha,borde_abajo);
+	
+	drawing_color(color.gris);
+	draw_box(0,0,resolucion_x,borde_arriba);
+	draw_box(0,borde_abajo,resolucion_x,resolucion_y);
+	
+	drawing_color(color.verde);
+	draw_box(0,0,borde_izquierda,resolucion_y/2);
+	drawing_color(color.amarillo);
+	draw_box(0,resolucion_y/2,borde_izquierda,resolucion_y);
+	drawing_color(color.azul);
+	draw_box(borde_derecha,0,resolucion_x,resolucion_y/2);
+	drawing_color(color.rojo);
+	draw_box(borde_derecha,resolucion_y/2,resolucion_x,resolucion_y);
+End
+
+Process desaparece();
+Begin
+	x=father.x;
+	y=father.y;
+	z=father.z-1;
+	file=father.file;
+	graph=father.graph;
+	angle=father.graph;
+	size=father.size;
+	region=father.region;
+	flags=father.flags;
+	from alpha=255 to 0 step -10; frame; end
+End
+
+Process sombraguachi();
+Begin
+	x=father.x;
+	y=father.y;
+	z=father.z-1;
+	file=father.file;
+	graph=father.graph;
+	angle=father.graph;
+	size=father.size;
+	region=father.region;
+	flags=father.flags;
+	alpha=rand(20,200);
+	frame(1000);
+End

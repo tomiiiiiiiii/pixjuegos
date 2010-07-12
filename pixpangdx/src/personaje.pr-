@@ -1,0 +1,174 @@
+Process personaje(jugador);
+Private
+	string animacion; //0: quieto, 1:andar, 2:disparar, 3:enescaleras
+	toca_suelo;
+	disparando;
+	retraso_disparo;
+	invencibilidad; //para cuando pierdes la protección
+	anim;
+	movimiento_lateral;
+Begin
+	if(p[jugador].jugando) return; end // POR QUÉ? xD
+	p[jugador].jugando=1;
+	file=p[jugador].fpg;
+	graph=11;
+	prepara_proceso_grafico();
+	controlador(jugador);
+	//x=borde_izquierda+(area_juego_x/2);
+	x=borde_izquierda+(area_juego_x/2)-(tamanyo_bloque_min/2);
+	y=borde_abajo-alto;
+	p[jugador].id=id;
+	personaje_colisionador();
+	
+	movimiento_lateral=(tamanyo_bloque_min*7)/24;
+	
+	loop
+		while(ready==0) accion=0; frame; end
+		while(bolas==0) graph=41; frame; end
+		if(!(p[jugador].botones[0] and p[jugador].botones[1]) and (p[jugador].botones[0] or p[jugador].botones[1]) and retraso_disparo==0)
+			animacion="andar";
+			if(p[jugador].botones[0]) flags=1; x_destino-=movimiento_lateral; else
+				if(p[jugador].botones[1]) flags=0; x_destino+=movimiento_lateral; end 
+			end
+		else
+			animacion="quieto";
+		end
+		if(map_get_pixel(0,mapa_durezas,x,y+alto)!=color.negro) 
+			gravedad=0;
+		else
+			gravedad++; 
+		end
+		if(!p[jugador].botones[4]) disparando=0; end
+		if(p[jugador].botones[4] and disparando==0 AND 
+			(((p[jugador].arma==0 OR p[jugador].arma==2) and p[jugador].disparos<1) OR
+			(p[jugador].arma==1 and p[jugador].disparos<2) OR
+			p[jugador].arma==3)) //Comprobamos que se pueda disparar teniendo en cuenta la arma, y si ha soltado el gatillo antes de volver a darle
+			disparo(p[jugador].arma); 
+			disparando=1; 
+			retraso_disparo=-5;
+		end
+		y_destino=gravedad;
+		while(x_destino!=0)
+			if(x_destino>0)
+				from i=y-alto+10 to y+alto-51;
+					if(map_get_pixel(0,mapa_durezas,x+ancho,i)!=color.negro) toca_suelo=1; end
+				end
+				if(toca_suelo) 
+					break; 
+				else
+					x++;
+					x_destino--;
+				end
+			else
+				from i=y-alto+10 to y+alto-51;
+					if(map_get_pixel(0,mapa_durezas,x-ancho,i)!=color.negro) toca_suelo=1; end
+				end
+				if(toca_suelo) 
+					break; 
+				else
+					x--;
+					x_destino++;
+				end
+			end
+		end
+		toca_suelo=0;
+		from i=y+alto-51 to y+alto;
+			if(map_get_pixel(0,mapa_durezas,x-(ancho/2),i)!=color.negro or
+			map_get_pixel(0,mapa_durezas,x,i)!=color.negro or
+			map_get_pixel(0,mapa_durezas,x+(ancho/2),i)!=color.negro)
+				y=i-alto;
+			end
+		end
+		while(y_destino!=0)
+			if(y_destino>0)
+				if(map_get_pixel(0,mapa_durezas,x-(ancho/2),y+alto)!=color.negro or
+				map_get_pixel(0,mapa_durezas,x,y+alto)!=color.negro or
+				map_get_pixel(0,mapa_durezas,x+(ancho/2),y+alto)!=color.negro) 
+					break; 
+				else
+					y++;
+					y_destino--;
+				end
+			else
+				if(map_get_pixel(0,mapa_durezas,x,y-alto)!=color.negro) 
+					break; 
+				else
+					y--;
+					y_destino++;
+				end
+			end
+		end
+		if(invencibilidad>0) alpha=128; invencibilidad--; else alpha=255; end //cuando perdemos la protección tenemos 3 segundos de invencibilidad
+		if(accion==-1) //algo nos ha atacado
+			if(invencibilidad==0)
+				if(p[jugador].proteccion==0) 
+					break; 
+				else
+					p[jugador].proteccion--;
+					invencibilidad=3*60;
+				end			
+			end
+			accion=0;
+		end
+		
+		x_destino=0;
+		y_destino=0;
+		if(retraso_disparo<0) graph=31; retraso_disparo++; end
+		if(anim<6) anim++; else anim=0; end
+		switch(animacion)
+			case "quieto": graph=11; end
+			case "andar": 
+				if(graph<21 or graph>24) anim=0; graph=21; end
+				if(anim==5)
+					if(graph<24) 
+						graph++; 
+					else 
+						graph=21; 
+					end
+				end
+			end
+		end
+		frame;
+	end
+	
+	//muerteeeeeee
+	ready=0;
+	gravedad=rand(-30,-40);
+	lado=rand(0,1);
+	x_destino=rand(16,40);
+	graph=51;
+	while(y<resolucion_y)
+		y+=gravedad;
+		gravedad++;
+		if(x>borde_derecha) lado=0; end
+		if(x<borde_izquierda) lado=1; end
+		if(lado==1) x+=x_destino; else x-=x_destino; end
+		frame;
+	end
+	
+	p[jugador].jugando=0;
+	p[jugador].id=0;
+	p[jugador].vidas--;
+	p[jugador].bonus=0;
+	from i=1 to 4; if(p[i].jugando==1) item_reloj(3); break; end end
+	ready=1;
+End
+
+
+Process personaje_colisionador();
+Private
+	id_collision;
+Begin
+	graph=401;
+	alpha=0;
+	while(exists(father))
+		x=father.x;
+		y=father.y;
+		if((id_collision=collision(type bola)) and reloj==0) 
+			if(p[father.jugador].proteccion>0) id_collision.accion=-1; end
+			father.accion=-1; 
+		end
+		while(!ready) frame; end
+		frame;
+	end
+End
