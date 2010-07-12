@@ -2535,18 +2535,20 @@ Begin
 	map_xput(fpg_bloquesmask,mapadurezas,graph,x,y,angle,size,0);
 	Loop
 		If(x==0 OR y==0) Break; End
-		if(rompible==1 and p1_arma==4 and ((iddisp[0]=collision(Type cachodisp)) OR (iddisp[2]=collision(Type cachodisp2))))
+/*		if(rompible==1 and p1_arma==4 and ((iddisp[0]=collision(Type cachodisp)) OR (iddisp[2]=collision(Type cachodisp2))))
 			If(collision(iddisp[0])) signal(p1_disparos[1],s_kill); End
 			If(collision(iddisp[2])) signal(p1_disparos[2],s_kill); End
 		End
+*/
 		If(rompible==0 AND graph!=429 AND p1_arma!=3 AND (((iddisp[0]=collision(Type cachodisp)) OR (iddisp[1]=collision(Type dispcab))) OR ((iddisp[2]=collision(Type cachodisp2)) OR (iddisp[3]=collision(Type dispcab2)))))
 			If(((collision(iddisp[0]) AND p1_arma==4) OR collision(iddisp[1])) and exists(p1_disparos[1])) if(p1_disparos[1].y>y) signal(p1_disparos[1],s_kill); end End
 			If(((collision(iddisp[2]) AND p1_arma==4) OR collision(iddisp[3])) and exists(p1_disparos[2])) if(p1_disparos[2].y>y) signal(p1_disparos[2],s_kill); end End
 		End
-		if(rompible==1 and p2_arma==4 and ((iddisp[4]=collision(Type cachodisp3)) OR (iddisp[6]=collision(Type cachodisp4))))
+/*		if(rompible==1 and p2_arma==4 and ((iddisp[4]=collision(Type cachodisp3)) OR (iddisp[6]=collision(Type cachodisp4))))
 			If(collision(iddisp[4])) signal(p2_disparos[1],s_kill); End
 			If(collision(iddisp[6])) signal(p2_disparos[2],s_kill); End
-		End
+		End*/
+
 		If(rompible==0 AND graph!=429 AND p2_arma!=3 AND (((iddisp[4]=collision(Type cachodisp3)) OR (iddisp[5]=collision(Type dispcab3))) OR ((iddisp[6]=collision(Type cachodisp4)) OR (iddisp[7]=collision(Type dispcab4)))))
 			If(((collision(iddisp[4]) AND p2_arma==4) OR collision(iddisp[5])) and exists(p2_disparos[1])) if(p2_disparos[1].y>y) signal(p2_disparos[1],s_kill); end End
 			If(((collision(iddisp[6]) AND p2_arma==4) OR collision(iddisp[7])) and exists(p2_disparos[2])) if(p2_disparos[2].y>y) signal(p2_disparos[2],s_kill); end End
