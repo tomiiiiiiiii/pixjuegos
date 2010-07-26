@@ -1064,7 +1064,7 @@ Begin
 	x=father.x;
 	y=father.y;
 	from i=1 to 4; 
-		if(jugadores==i and exists(p[i].identificador)) 
+		if(exists(p[i].identificador))
 			if(get_dist(p[i].identificador)<ancho_pantalla*1.5)
 				return 1; //ALGUIEN ESTÁ CERCA!
 			end
@@ -1082,7 +1082,9 @@ begin
 		return;
 	end
 
-    if(mode_is_ok(1360,768,16,MODE_WAITVSYNC+MODE_FULLSCREEN)) //Si soporta 1360x760 nativamente...
+    if(mode_is_ok(1920,1080,16,MODE_WAITVSYNC+MODE_FULLSCREEN)) //Si soporta 1360x760 nativamente...
+        ancho_pantalla=1920; alto_pantalla=1080; scale_resolution=0;
+    elseif(mode_is_ok(1360,768,16,MODE_WAITVSYNC+MODE_FULLSCREEN)) //Si soporta 1360x760 nativamente...
         ancho_pantalla=1360; alto_pantalla=768; scale_resolution=0;
     elseif(mode_is_ok(1280,720,16,MODE_WAITVSYNC+MODE_FULLSCREEN)) //Si soporta 1280x720 nativamente...
         ancho_pantalla=1280; alto_pantalla=720; scale_resolution=0;
