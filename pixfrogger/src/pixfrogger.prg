@@ -36,8 +36,8 @@ begin
 	njoys=number_joy();
 	if(njoys>0)
 		from i=0 to njoys-1;
-			joyname=JOY_NAME(i);
-			if(joyname[9]+joyname[10]+joyname[11]+joyname[12]=="Buzz");
+			joyname=lcase(JOY_NAME(i));
+			if(find(joyname,"buzz")=>0)
 				buzz=1;
 				buzz_joy=i;
 			end

@@ -17,7 +17,7 @@ global
 	end
 	
 	correcta; //num respuesta correcta
-	ready; //servir· para que pause el texto ssi alguien pulsa el botÛn
+	ready; //servir√° para que pause el texto ssi alguien pulsa el bot√≥n
 	jugadores; //de 1 a 4
 
 	id_video; //para el video de la pregunta
@@ -45,15 +45,15 @@ begin
 
 	//seteo de pantalla
 	full_screen=1; //pantalla completa por defecto
-	set_fps(60,0); //60fps nos dar· un buen control sobre el juego
-	if(wii) scale_resolution=06400480; end //resoluciÛn de la Wii
+	set_fps(60,0); //60fps nos dar√° un buen control sobre el juego
+	if(wii) scale_resolution=06400480; end //resoluci√≥n de la Wii
 	if(!wii) set_title("FreeQuizzTest"); end
 	set_mode(1024,768,32);
 
 	dump_type=complete_dump;
     restore_type=complete_restore;
 	
-	frame; //inicializamos previo a cargar recursos gr·ficos
+	frame; //inicializamos previo a cargar recursos gr√°ficos
 
 	//cargamos recursos: fpg, fnt, wav
 	load_fpg("quizz.fpg");
@@ -63,39 +63,39 @@ begin
 	//para unificar los difrentes controles
 	controlador(); 
 
-	//intro & elecciÛn de jugadores
+	//intro & elecci√≥n de jugadores
 	presentacion();
 End
 
-// PRESENTACI”N Y ELECCI”N DE JUGADORES
+// PRESENTACI√ìN Y ELECCI√ìN DE JUGADORES
 Process presentacion();
 Private
 	grav;
 Begin
-	//colocamos en el centro la imagen de presentaciÛn
+	//colocamos en el centro la imagen de presentaci√≥n
 	x=512; y=384; z=-1;
 	graph=23;
 	
-	//y una m˙sica de introducciÛn, en bucle
+	//y una m√∫sica de introducci√≥n, en bucle
 	musica("aperture");
 	
 	//que haga un fade in para aparecer
 	from alpha=0 to 255 step 2; frame; end
 
-	//vamos poniendo el fondo del juego, que no se ver· hasta que se aparte el grafico de la presentaciÛn
+	//vamos poniendo el fondo del juego, que no se ver√° hasta que se aparte el grafico de la presentaci√≥n
 	put_screen(0,21);
 
 	write(fnts[3],512,600,4,"Pulsa intro para continuar...");
 	
-	//si hay Buzzers o mandos de Wii podr· haber m·s de un jugador
+	//si hay Buzzers o mandos de Wii podr√° haber m√°s de un jugador
 	if(wii or buzz)
-		write(fnts[3],512,520,4,"°Pulsar un botÛn de cada mando para jugar!");
+		write(fnts[3],512,520,4,"¬°Pulsar un bot√≥n de cada mando para jugar!");
 		loop
 			if(jugadores>0 and key(_enter)) break; end
 			from i=1 to 4; if(jugador[i].botones[0] and !jugador[i].juega) jugador[i].juega=1; jugadores++; para_jugar(i); end end
 			frame;
 		end
-	else //sino, sÛlo 1
+	else //sino, s√≥lo 1
 		jugadores=1;
 		jugador[1].juega=1;
 		while(!key(_enter)) frame; end
@@ -107,10 +107,10 @@ Begin
 	//para que desaparezcanlos botoncicos de los jugadores
 	ready=1;
 
-	//quitamos la m˙sica en medio segundo
+	//quitamos la m√∫sica en medio segundo
 	fade_music_off(50);
 
-	//transiciÛn chula
+	//transici√≥n chula
 	set_center(0,23,1024,0);
 	x=1024;
 	y=0;
@@ -127,7 +127,7 @@ Private;
 	num_rebotes;
 	j;
 Begin
-	//no estamos pulsando ning˙n botÛn
+	//no estamos pulsando ning√∫n bot√≥n
 	boton=0;
 		
 	//actualizamos marcadores
@@ -146,19 +146,19 @@ Begin
 	ready=1;
 	loop
 		from i=1 to 4; 
-			//hay que pulsar el botÛn rojo para poder contestar
-		  if(jugador[i].juega) //solo los que realmente est·n jugando
+			//hay que pulsar el bot√≥n rojo para poder contestar
+		  if(jugador[i].juega) //solo los que realmente est√°n jugando
 			
-			//si solo juega uno, no har· falta que pulse. y si han intentado responder esta pregunta ya, no podr· volver a hacerlo
+			//si solo juega uno, no har√° falta que pulse. y si han intentado responder esta pregunta ya, no podr√° volver a hacerlo
 			if(jugadores==1 or (jugador[i].botones[0] and jugador[i].rebote==0)) 
-				if(jugadores>1) //si juega m·s de un jugador: avisamos de quÈ jugador ha sido y pausamos la colocaciÛn del texto
-					graph=30+i; // Esto ser· un icono de "JUGADOR 1" y cosas asÌn...			
+				if(jugadores>1) //si juega m√°s de un jugador: avisamos de qu√© jugador ha sido y pausamos la colocaci√≥n del texto
+					graph=30+i; // Esto ser√° un icono de "JUGADOR 1" y cosas as√≠n...			
 					sonido(1);
 					ready=0;
 					frame(2000);
 				end
 
-				tiempo(); //cuenta atr·s para responder
+				tiempo(); //cuenta atr√°s para responder
 				
 				while(boton==0 and exists(type tiempo))
 					from j=1 to 4;
@@ -178,7 +178,7 @@ Begin
 				graph=3;
 				x=512;
 				y=718-((boton-1)*78);
-				if(boton!=0) frame(6000); end //hacemos un parÛn para intrigar, a menos que se haya acabado el tiempo
+				if(boton!=0) frame(6000); end //hacemos un par√≥n para intrigar, a menos que se haya acabado el tiempo
 				
 				if(boton==correcta)
 					jugador[i].puntos++; 
@@ -196,7 +196,7 @@ Begin
 					num_rebotes=0;
 					from i=1 to 4; if(jugador[i].rebote or !jugador[i].juega) num_rebotes++; end end
 					if(num_rebotes==4) //fail...
-						//podrÌamos dar la soluciÛn... o no? no! xD
+						//podr√≠amos dar la soluci√≥n... o no? no! xD
 						ronda(); 
 						return; 
 					end					
@@ -243,12 +243,12 @@ Begin
 	from i=0 to 4; 
 		txt_respuestas[i]=""; //vaciamos la anterior
 		
-		//cogemos la lineas que no estÈn vacÌas y que no estÈn comentadas, hasta acabar el fichero
+		//cogemos la lineas que no est√©n vac√≠as y que no est√©n comentadas, hasta acabar el fichero
 		while((txt_respuestas[i]=="" or txt_respuestas[i][0]=="#") and !feof(id_fichero))
 			txt_respuestas[i]=fgets(id_fichero); 
 		end //y buscamos lineas con contenido
 		
-		//Si hemos llegado al final del fichero o todas las lÌneas no est·n llenas, acabamos
+		//Si hemos llegado al final del fichero o todas las l√≠neas no est√°n llenas, acabamos
 		if(feof(id_fichero))
 			fclose(id_fichero);
 			final();
@@ -274,7 +274,7 @@ Begin
 			if(txt_respuestas[i][1]=="*") //correcta!
 				if(correcta!=0)
 					fclose(id_fichero);
-					exit("Error: Dos o m·s respuestas correctas. Pregunta: "+txt_respuestas[0]);
+					exit("Error: Dos o m√°s respuestas correctas. Pregunta: "+txt_respuestas[0]);
 				else
 					correcta=i;
 				end
@@ -291,14 +291,14 @@ Begin
 	if(num_respuestas!=4) exit("Error: No hay cuatro respuestas. Pregunta: "+txt_respuestas[0]); end
 
 	
-	//øLa pregunta tiene algun... adjunto?
+	//¬øLa pregunta tiene algun... adjunto?
 	if(ejecutar!="")
 		switch(tipo_ejecutar)
 			case "$": //Video
 				if(os_id==0 or os_id==1) //windows
 					video_en_pantalla(ejecutar);
 				else
-					//versiÛn que no estamos seguros que soporte el acceso a youtube!
+					//versi√≥n que no estamos seguros que soporte el acceso a youtube!
 					//ponemos otra pregunta!
 					let_me_alone();
 					ronda();
@@ -315,7 +315,7 @@ Begin
 		end
 	end
 	
-	//para la pregunta hay una lÌnea seguro...
+	//para la pregunta hay una l√≠nea seguro...
 	lineas=1;
 	
 	loop
@@ -324,7 +324,7 @@ Begin
 		from i=1 to 4; if(id_txt_pregunta[i]!=0) delete_text(id_txt_pregunta[i]); end end
 		
 		//txt_pregunta[1]=txt_respuestas[0];
-		if(num_caracter<=len(txt_respuestas[0])) //si no hemos rellenado la pregunta del todo a˙n
+		if(num_caracter<=len(txt_respuestas[0])) //si no hemos rellenado la pregunta del todo a√∫n
 			i=num_caracter;
 			num_letras_juntas=0;
 			
@@ -339,11 +339,11 @@ Begin
 			if(lineas==1) txt_pregunta[1]+=""+txt_respuestas[0][num_caracter]; end
 			if(lineas==2) txt_pregunta[2]+=""+txt_respuestas[0][num_caracter]; end
 		else //si ya hemos rellenado la pregunta
-			//nos servir· para comprobar si ya hemos metido los textos del todo.
+			//nos servir√° para comprobar si ya hemos metido los textos del todo.
 			todolleno=2;
 		end
 		
-		//si hay 1 linea de texto la Y ser· 384. Sino, en la linea 1 ser· 369 y en la segunda 396
+		//si hay 1 linea de texto la Y ser√° 384. Sino, en la linea 1 ser√° 369 y en la segunda 396
 		if(lineas==1) id_txt_pregunta[1]=write(fnts[2],512,384,4,txt_pregunta[1]); end
 		if(lineas==2) 
 			id_txt_pregunta[1]=write(fnts[2],512,369,4,txt_pregunta[1]); 
@@ -370,14 +370,20 @@ Private
 	j;
 Begin
 	//Comprobamos si hay algun buzz controller puesto.
-	//Como ya est· claro que los controladores Buzz tienen m·s nombres que una ..
-	//sÛlo comprobaremos si tiene 20 botones. xD
+	//Como ya est√° claro que los controladores Buzz tienen m√°s nombres que una ..
+	//s√≥lo comprobaremos si tiene 20 botones. xD
 	from i=0 to joy_number();
 		if(joy_numbuttons(i)==20) joy_buzz=i; buzz=1; end
 	end
 	
 	loop
-		if(key(_esc)) final(); end
+		if(key(_esc)) 
+			if(exists(type presentacion))
+				exit();
+			else
+				final(); 
+			end
+		end
 		if(buzz)
 			from i=1 to 4; //jugadores
 				from j=0 to 4; //botones
@@ -475,7 +481,7 @@ End
 
 Process final();
 Private
-	ganadores[4][2]; //2∫[]-> 1:jugador,2:puntos
+	ganadores[4][2]; //2¬∫[]-> 1:jugador,2:puntos
 	aux[2]; //para intercambios
 	temp;
 	posicion;
@@ -519,7 +525,7 @@ Begin
 		write(fnts[3],512,400,4,"Empate entre los jugadores "+ganadores[1][1]+", "+ganadores[2][1]+" y "+ganadores[3][1]); 
 	end
 	if(ganadores[1][2]==ganadores[2][2] and ganadores[1][2]==ganadores[3][2] and ganadores[1][2]!=ganadores[4][2]) 
-		write(fnts[3],512,400,4,"°Todos empatados!"); 
+		write(fnts[3],512,400,4,"¬°Todos empatados!"); 
 	end
 	
 	while(!key(_enter)) frame; end	
