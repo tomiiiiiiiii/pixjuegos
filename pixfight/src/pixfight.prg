@@ -164,7 +164,7 @@ Begin
 	limites[3]=-300;
 
 	//if(cliente) net_cliente("pruebas.panreyes.es"); return; end
-	//	zoom();
+		zoom();
 	loop
 		if(servidor_iniciado)
 			if(nConectados>0)

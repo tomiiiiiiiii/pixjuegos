@@ -4,6 +4,18 @@
 # ? -> IMAGEN
 # @ -> SONIDO
 
+$ninoaleman#¿Qué tecla se le escapa al famoso niño alemán?
+-*El 'esc'
+--El 'intro'
+--El espacio
+--El 'shift'
+
+$ninoaleman#¿Qué tecla se le escapa al famoso niño alemán?
+-*El 'esc'
+--El 'intro'
+--El espacio
+--El 'shift'
+
 ¿Qué año es según el calendario de Chuck Norris?
 --66
 -*68
@@ -253,7 +265,7 @@ En una calculadora, ¿cómo puedo conseguir, sin pulsar los dígitos, el número 2.7
 -*1,36kg
 
 
-$niñoaleman#¿Qué tecla se le escapa al famoso niño alemán?
+$ninoaleman#¿Qué tecla se le escapa al famoso niño alemán?
 -*El 'esc'
 --El 'intro'
 --El espacio

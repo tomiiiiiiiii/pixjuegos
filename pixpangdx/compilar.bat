@@ -2,12 +2,14 @@
 ECHO CREANDO FPGS...
 rd /s /q fpg
 mkdir fpg
+mkdir fpg\personajes
 cd fpg-sources
 ..\..\bennu-win\bgdc pxlfpg.prg
 ..\..\bennu-win\bgdi pxlfpg pixpang
-..\..\bennu-win\bgdi pxlfpg pix
-..\..\bennu-win\bgdi pxlfpg pixmorao
-cd ..
+cd personajes
+..\..\..\bennu-win\bgdc pxlfpg.prg
+for /D %%i in (*) do ..\..\..\bennu-win\bgdi pxlfpg %%i
+cd ..\..
 
 echo Compilando...
 cd src

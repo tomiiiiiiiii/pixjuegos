@@ -122,9 +122,6 @@ Begin
 		case 3: file=load_fpg("fpg/pax.fpg"); end
 		case 4: file=load_fpg("fpg/pex.fpg"); end
 	end
-	//ctype=c_screen;
-//	ancho=graphic_info(file,1,g_width)/2;
-//	alto=graphic_info(file,1,g_height)/2; //el ancho y el alto de cada imagen
 	ancho=18;
 	alto=29;
 	loop
@@ -177,8 +174,13 @@ Begin
 		end //al ganar mike canta y nos damos la vuelta xD
 		if(inercia>0) inercia--; end
 		if(inercia<0) inercia++; end
-		if(inercia>15) inercia=15; end
-		if(inercia<-15) inercia=-15; end //límites de la inercia
+		if(p[jugador].botones[5])
+			if(inercia>20) inercia=20; end
+			if(inercia<-20) inercia=-20; end
+		else
+			if(inercia>10) inercia=10; end
+			if(inercia<-10) inercia=-10; end
+		end
 		if(gravedad>40) gravedad=40; end
 		if(powerup==5) 
 			inercia*=2;
@@ -204,8 +206,7 @@ Begin
 			map_get_pixel(0,durezas,x-ancho,y)==dur_pinchos or map_get_pixel(0,durezas,x+ancho,y)==dur_pinchos) accion="muerte"; end
 		if(map_get_pixel(0,durezas,x,y)==dur_muelle or map_get_pixel(0,durezas,x,y+alto)==dur_muelle or map_get_pixel(0,durezas,x,y-alto)==dur_muelle or
 			map_get_pixel(0,durezas,x-ancho,y)==dur_muelle or map_get_pixel(0,durezas,x+ancho,y)==dur_muelle) doble_salto=0; gravedad=-40; y--; end
-
-		
+	
 		if(x<10) x=10; end //pa no salirse de la pantalla por la izquierda
 		//y=y+gravedad;
 		y_destino=y+(gravedad/2);

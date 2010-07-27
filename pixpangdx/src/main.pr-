@@ -32,8 +32,8 @@ Begin
 	fpg_general=load_fpg("pixpang.fpg");
 	fnt=load_fnt("fnt.fnt");
 	
-	p[1].fpg=load_fpg("pix.fpg");
-	p[2].fpg=load_fpg("pixmorao.fpg");
+	p[1].fpg=load_fpg("fpg\personajes\pix.fpg");
+	p[2].fpg=load_fpg("fpg\personajes\oldpix.fpg");
 
 	//debuj();
 	carga_nivel(2);

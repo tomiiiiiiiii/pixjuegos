@@ -13,7 +13,7 @@ Begin
 	if(!exists(father)) return; end
 	jugador=father.jugador;
 	file=father.file;
-	graph=101+arma_temp;
+	graph=101+(arma_temp*10);
 	prepara_proceso_grafico();
 	set_center(file,graph,ancho,0);
 	x=father.x;
@@ -39,12 +39,10 @@ Begin
 		while(!ready) frame; end
 		if(arma_temp<10) y_destino=-10; else y_destino=-20; end //la metralleta va más rápido
 		while(y_destino!=0)
-/*			if(map_get_pixel(0,mapa_durezas,x-ancho,y)!=color.negro or
+			if(map_get_pixel(0,mapa_durezas,x-(ancho/2),y)!=color.negro or
 			map_get_pixel(0,mapa_durezas,x,y)!=color.negro or
-			map_get_pixel(0,mapa_durezas,x+ancho,y)!=color.negro or
-			x<borde_izquierda or x>borde_derecha)*/
-
-			if(map_get_pixel(0,mapa_durezas,x,y)!=color.negro or x<borde_izquierda or x>borde_derecha)
+			map_get_pixel(0,mapa_durezas,x+(ancho/2),y)!=color.negro or
+			x<borde_izquierda or x>borde_derecha)
 				break;
 			else
 				y--;
