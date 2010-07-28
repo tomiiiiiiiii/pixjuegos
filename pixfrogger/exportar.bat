@@ -34,6 +34,7 @@ copy ..\bennu-win\mod_text.dll export
 copy ..\bennu-win\mod_timers.dll export
 copy ..\bennu-win\mod_video.dll export
 copy ..\bennu-win\mod_wm.dll export
+copy ..\bennu-win\libeay32.dll export
 copy ..\bennu-win\libbgdrtm.dll export
 copy ..\bennu-win\libblit.dll export
 copy ..\bennu-win\libdraw.dll export

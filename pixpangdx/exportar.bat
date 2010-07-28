@@ -7,9 +7,13 @@ cd ..
 echo Exportando...
 mkdir export
 mkdir export\fpg
+mkdir export\fpg\personajes
 mkdir export\fnt
+mkdir export\niveles
 copy fpg\*.fpg export\fpg
+copy fpg\personajes\*.fpg export\fpg\personajes
 copy fnt\*.fnt export\fnt
+copy niveles\*.pang export\niveles
 copy ..\bennu-win\*.dll export
 copy ..\bennu-win\bgdi.exe export\dx.exe
 copy dx.dcb export
