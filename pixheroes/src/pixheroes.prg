@@ -178,10 +178,9 @@ Begin
 	ancho_queco=graphic_info(file,graph,g_wide);
 	alto_queco=graphic_info(file,graph,g_height);
 	Loop
-		if(key(_esc)) exit(); end
 		while(ready==0) frame; end
-		if(key(_space) and collision(id_pasivo) and saltando==0 and cambiar==1) 
-			while(key(_space)) frame; end 
+		if(p[1].botones[4] and collision(id_pasivo) and saltando==0 and cambiar==1) 
+			while(p[1].botones[4]) frame; end 
 			if(estado!=0) id_jugador=sonic(x,y); else id_jugador=sonic(x,y-10); end
 			personaje=1; 
 			delete_text(all_text); 
@@ -202,37 +201,37 @@ Begin
 			toca_up_left=map_get_pixel(0,mapa_durezas,x-ancho_queco/2+1,y-alto_queco/2);
 			toca_up_right=map_get_pixel(0,mapa_durezas,x+ancho_queco/2-1,y-alto_queco/2);
 // horizontal
-		If((key(_left) AND !key(_right) and !key(_down)) OR (!key(_down) and !key(_left) AND key(_right)) OR (inercia>0 OR inercia<0))
+		If((p[1].botones[0] AND !p[1].botones[1] and !p[1].botones[3]) OR (!p[1].botones[3] and !p[1].botones[0] AND p[1].botones[1]) OR (inercia>0 OR inercia<0))
 			If(estado==0)
 				If(anim<=45) graph=4; End
 				If(anim>45) graph=5; End
-				If(inercia>20 AND key(_left)) graph=3; End
-				If(inercia<-20 AND key(_right)) graph=3; End
+				If(inercia>20 AND p[1].botones[0]) graph=3; End
+				If(inercia<-20 AND p[1].botones[1]) graph=3; End
 			End
 			If(estado==1)
 				If(anim<=45) graph=17; End
 				If(anim>45) graph=18; End
-				If(inercia>20 AND key(_left)) graph=16; End
-				If(inercia<-20 AND key(_right)) graph=16; End
+				If(inercia>20 AND p[1].botones[0]) graph=16; End
+				If(inercia<-20 AND p[1].botones[1]) graph=16; End
 			End
 			If(estado==2)
 				If(anim<=45) graph=33; End
 				If(anim>45) graph=34; End
-				If(inercia>20 AND key(_left)) graph=31; End
-				If(inercia<-20 AND key(_right)) graph=31; End
+				If(inercia>20 AND p[1].botones[0]) graph=31; End
+				If(inercia<-20 AND p[1].botones[1]) graph=31; End
 			End
-			If(key(_left) AND toca_left!=suelo AND !key(_down) and !key(_right)) if(inercia==0 and saltando==0) inercia=-15; end inercia-=2; If(saltando==0) flags=0; End End
-			If(key(_right) AND toca_right!=suelo AND !key(_down) and !key(_left)) if(inercia==0 and saltando==0) inercia=15; end inercia+=2; If(saltando==0) flags=1; End End
+			If(p[1].botones[0] AND toca_left!=suelo AND !p[1].botones[3] and !p[1].botones[1]) if(inercia==0 and saltando==0) inercia=-15; end inercia-=2; If(saltando==0) flags=0; End End
+			If(p[1].botones[1] AND toca_right!=suelo AND !p[1].botones[3] and !p[1].botones[0]) if(inercia==0 and saltando==0) inercia=15; end inercia+=2; If(saltando==0) flags=1; End End
 		End
-		If(inercia>0 AND (!key(_right) or (key(_left) and key(_right)))) inercia--; End
-		If(inercia<0 AND (!key(_left) or (key(_left) and key(_right)))) inercia++; End
-		If(((!key(_left) AND !key(_right) AND !key(_down)) or (key(_left) and key(_right) and (inercia>-4 AND inercia<4))) AND subiendo==0 AND (inercia>-4 AND inercia<4) OR (key(_left) AND key(_right)))
+		If(inercia>0 AND (!p[1].botones[1] or (p[1].botones[0] and p[1].botones[1]))) inercia--; End
+		If(inercia<0 AND (!p[1].botones[0] or (p[1].botones[0] and p[1].botones[1]))) inercia++; End
+		If(((!p[1].botones[0] AND !p[1].botones[1] AND !p[1].botones[3]) or (p[1].botones[0] and p[1].botones[1] and (inercia>-4 AND inercia<4))) AND subiendo==0 AND (inercia>-4 AND inercia<4) OR (p[1].botones[0] AND p[1].botones[1]))
 			If(estado==0) graph=7; End
 			If(estado==1) graph=20; End
 			If(estado==2) graph=36; End
 		End
-		If(inercia<-50 AND !key(_alt)) inercia=-50; End
-		If(inercia>50 AND !key(_alt)) inercia=50; End
+		If(inercia<-50 AND !p[1].botones[4]) inercia=-50; End
+		If(inercia>50 AND !p[1].botones[4]) inercia=50; End
 		If(inercia<-80) inercia=-80; End
 		If(inercia>80) inercia=80; End
 		x_out=x+inercia/20;
@@ -252,29 +251,29 @@ Begin
 		While(x>ancho_pantalla-8) x--; End
 // vertical
 		If(toca_down==suelo) grav=0; saltando=0; doble_salto=0; angle=0; End
-		If(key(_control) AND subiendo==0 AND pulsando_control==0 and(toca_down==suelo OR toca_down_left==suelo OR toca_down_right==suelo) AND saltando==0)
+		If(p[1].botones[5] AND subiendo==0 AND pulsando_control==0 and(toca_down==suelo OR toca_down_left==suelo OR toca_down_right==suelo) AND saltando==0)
 			sonido(8);
 			saltando=1;
 			If(inercia>60) grav=-70; Else grav=-40; End
 			y-=2;
 		End
-		If(key(_control) AND saltando==1)
+		If(p[1].botones[5] AND saltando==1)
 			grav-=10;
 			If(grav<-90 AND inercia<60) saltando=-1; End
 			If(grav<-110 AND inercia>60) saltando=-1; End
 		End
 		If(toca_up==suelo AND saltando!=0 AND grav<40) saltando=-1; grav=40; End
-		If(saltando==1 AND (!key(_control) OR grav<-140)) saltando=-1; End
+		If(saltando==1 AND (!p[1].botones[5] OR grav<-140)) saltando=-1; End
 		If(toca_down!=suelo AND subiendo!=1 AND saltando!=1)
-			if(key(_down) and saltando==0 and inercia==0)
+			if(p[1].botones[3] and saltando==0 and inercia==0)
 				//fcaca	
 			else
 				grav+=4;
 				saltando=-1;
-				if(doble_salto==0 and key(_control) and pulsando_control==0) grav=-100; sonido(21); doble_salto=1; end
+				if(doble_salto==0 and p[1].botones[5] and pulsando_control==0) grav=-100; sonido(21); doble_salto=1; end
 			end
 		End
-		if(key(_alt) and !key(_down) and rodando==0 and inercia==0 and pulsando_alt==0 and saltando==0) 
+		if(p[1].botones[4] and !p[1].botones[3] and rodando==0 and inercia==0 and pulsando_alt==0 and saltando==0) 
 			rodando=1;
 			if(flags==0) inercia=-100; else inercia=+100; end
 		end
@@ -282,7 +281,7 @@ Begin
 			puño_fuego();
 			inercia--;
 		end
-		If(key(_alt)) anim+=8; pulsando_alt=1; Else anim+=4; pulsando_alt=0; End
+		If(p[1].botones[4]) anim+=8; pulsando_alt=1; Else anim+=4; pulsando_alt=0; End
 		y_out=y+grav/20;
 		While(toca_down!=suelo AND y<y_out)
 			toca_down=map_get_pixel(0,mapa_durezas,x,y+alto_queco/2);
@@ -303,20 +302,20 @@ Begin
 			If(estado==2) graph=30; End
 			if(doble_salto==1) angle=anim*4000; end
 		End
-		If(key(_down) and saltando==0)
+		If(p[1].botones[3] and saltando==0)
 			If(estado==1) graph=14; End
 			If(estado==2) graph=29; End
 		End
 		If(estado==-1) Break; End
 		if(invencibilidad<180) alpha=128; if(item==-1) item=0; end invencibilidad++; end
 		if(invencibilidad==180) alpha=255; end
-		If(saltando!=0 and key(_control) and key(_left) and flags==1 and pulsando_control==0 and toca_right==suelo)
+		If(saltando!=0 and p[1].botones[5] and p[1].botones[0] and flags==1 and pulsando_control==0 and toca_right==suelo)
 			grav=-80;
 			flags=0;
 			inercia=-100;
 			sombra2();
 		end
-		If(saltando!=0 and key(_control) and key(_right) and flags==0 and pulsando_control==0 and toca_left==suelo)
+		If(saltando!=0 and p[1].botones[5] and p[1].botones[1] and flags==0 and pulsando_control==0 and toca_left==suelo)
 			grav=-80;
 			flags=1;
 			inercia=100;
@@ -330,8 +329,8 @@ include "./masmario.pix";
 			y--;
 		end
 		//////////////////
-		if(rodando==1 and inercia==0 or !key(_alt) or saltando!=0) rodando=0; end
-		if(key(_control)) pulsando_control=1; else pulsando_control=0; end
+		if(rodando==1 and inercia==0 or !p[1].botones[4] or saltando!=0) rodando=0; end
+		if(p[1].botones[5]) pulsando_control=1; else pulsando_control=0; end
 //		if(key(_s)) while(key(_s)) frame; end team_blast(); end
 		If((inercia>0 AND toca_right==suelo) OR ((inercia<0 AND toca_left==suelo))) inercia=0; End
 		Frame;	
@@ -392,8 +391,8 @@ Begin
 	Loop
 		if(key(_esc)) exit(); end
 		while(ready==0) frame; end
-		if(key(_space) and collision(id_pasivo) and saltando==0 and rodando==0 and cambiar==1) 
-			while(key(_space)) frame; end 
+		if(p[1].botones[4] and collision(id_pasivo) and saltando==0 and rodando==0 and cambiar==1) 
+			while(p[1].botones[4]) frame; end 
 			if(estado!=0) id_jugador=mario(x,y); else id_jugador=mario(x,y+10); end
 			personaje=0; 
 			delete_text(all_text); 
@@ -414,26 +413,26 @@ Begin
 			toca_up_left=map_get_pixel(0,mapa_durezas,x-ancho_queco/2+1,y-alto_queco/2);
 			toca_up_right=map_get_pixel(0,mapa_durezas,x+ancho_queco/2-1,y-alto_queco/2);
 // horizontal
-		If((key(_left) AND !key(_right) and !key(_down)) OR (!key(_down) and !key(_left) AND key(_right)) OR (inercia>0 OR inercia<0))
+		If((p[1].botones[0] AND !p[1].botones[1] and !p[1].botones[3]) OR (!p[1].botones[3] and !p[1].botones[0] AND p[1].botones[1]) OR (inercia>0 OR inercia<0))
 			If(anim<=30) graph=5; End
 			If(anim>30 AND anim<=60) graph=6; End
 			If(anim>60) graph=7; End
-			If(inercia>20 AND key(_left)) graph=56; if(saltando==0 and rodando==0 and !is_playing_wav(sonido_muneco)) sonido(15); end End
-			If(inercia<-20 AND key(_right)) graph=56; if(saltando==0 and rodando==0 and !is_playing_wav(sonido_muneco)) sonido(15); end End
-			If(key(_left) AND toca_left!=suelo and rodando==0 and !key(_right)) inercia-=2; If(saltando==0) flags=1; End End
-			If(key(_right) AND toca_right!=suelo and rodando==0 and !key(_left)) inercia+=2; If(saltando==0) flags=0; End End
+			If(inercia>20 AND p[1].botones[0]) graph=56; if(saltando==0 and rodando==0 and !is_playing_wav(sonido_muneco)) sonido(15); end End
+			If(inercia<-20 AND p[1].botones[1]) graph=56; if(saltando==0 and rodando==0 and !is_playing_wav(sonido_muneco)) sonido(15); end End
+			If(p[1].botones[0] AND toca_left!=suelo and rodando==0 and !p[1].botones[1]) inercia-=2; If(saltando==0) flags=1; End End
+			If(p[1].botones[1] AND toca_right!=suelo and rodando==0 and !p[1].botones[0]) inercia+=2; If(saltando==0) flags=0; End End
 		End
-		If(inercia>0 AND (!key(_right) or (key(_left) and key(_right)))) inercia--; End
-		If(inercia<0 AND (!key(_left) or (key(_left) and key(_right)))) inercia++; End
-		if(!key(_down) and graph==71) graph=12; end
-		If(key(_down) and saltando==0)
+		If(inercia>0 AND (!p[1].botones[1] or (p[1].botones[0] and p[1].botones[1]))) inercia--; End
+		If(inercia<0 AND (!p[1].botones[0] or (p[1].botones[0] and p[1].botones[1]))) inercia++; End
+		if(!p[1].botones[3] and graph==71) graph=12; end
+		If(p[1].botones[3] and saltando==0)
 			if(inercia==0)
 				graph=71;
 				if(collision(id_pasivo)) end
-				if(key(_control) and collision(id_pasivo) and pulsando_control==0) 
+				if(p[1].botones[5] and collision(id_pasivo) and pulsando_control==0) 
 					sonido(18);
 					y+=6;
-					while(key(_down))
+					while(p[1].botones[3])
 						graph=16;
 						angle=rand(0,360)*1000;
 						frame;
@@ -459,7 +458,7 @@ Begin
 		if(rodando==1)
 			if(saltando!=0 or inercia==0) rodando=0; y-=6; end
 		end
-		If(!key(_left) AND !key(_right) AND !key(_down) AND subiendo==0 AND (inercia>-4 AND inercia<4) OR (key(_left) AND key(_right)))
+		If(!p[1].botones[0] AND !p[1].botones[1] AND !p[1].botones[3] AND subiendo==0 AND (inercia>-4 AND inercia<4) OR (p[1].botones[0] AND p[1].botones[1]))
 			if(anim>20 and (graph<12 or graph>15)) graph=12; anim=0; end
 			if(anim>80 and graph>11 and graph<15) graph++; anim=0; end
 			if(anim>80 and graph==15) graph=12; anim=0; end
@@ -482,21 +481,21 @@ Begin
 		While(x<scroll.camera.x-152 OR x<8) x++; inercia=0; End
 // vertical
 		If(toca_down==suelo) grav=0; saltando=0; End
-		If((key(_control) and !key(_down)) AND subiendo==0 and pulsando_control==0 AND (toca_down==suelo OR toca_down_left==suelo OR toca_down_right==suelo) AND saltando==0)
+		If((p[1].botones[5] and !p[1].botones[3]) AND subiendo==0 and pulsando_control==0 AND (toca_down==suelo OR toca_down_left==suelo OR toca_down_right==suelo) AND saltando==0)
 			sonido(17);
 			saltando=1;
 			If(inercia>100) grav=-120; Else grav=-60; End
 			y-=2;
 		End
-		If((key(_control) and !key(_down)) AND saltando==1)
+		If((p[1].botones[5] and !p[1].botones[3]) AND saltando==1)
 			grav-=10;
 			If(grav<-90 AND inercia<60) saltando=-1; End
 			If(grav<-110 AND inercia>60) saltando=-1; End
 		End
 		If(toca_up==suelo AND saltando!=0 AND grav<40) saltando=-1; grav=40; End
-		If(saltando==1 AND (!key(_control) OR grav<-140)) saltando=-1; End
+		If(saltando==1 AND (!p[1].botones[5] OR grav<-140)) saltando=-1; End
 		If(toca_down!=suelo AND subiendo!=1 AND saltando!=1)
-			if(key(_down) and saltando==0 and inercia==0)
+			if(p[1].botones[3] and saltando==0 and inercia==0)
 				//fcaca	
 			else
 				saltando=-1;
@@ -530,9 +529,9 @@ Begin
 //
 include "./massonic.pix";
 //
-		if(key(_control)) pulsando_control=1; else pulsando_control=0; end
+		if(p[1].botones[5]) pulsando_control=1; else pulsando_control=0; end
 		if(collision(id_pasivo)) end //bug con la siguiente linea
-		if(key(_alt) and collision(id_pasivo) and timer[9]>200 and saltando!=0 and pulsando_alt==0)
+		if(p[1].botones[4] and collision(id_pasivo) and timer[9]>200 and saltando!=0 and pulsando_alt==0)
 			timer[9]=0;
 			sonido(18);
 			while(timer[9]<100)
@@ -549,8 +548,8 @@ include "./massonic.pix";
 			rodando=1;
 			if(flags==0) inercia+=250; else inercia-=250; end
 		end
-		if(key(_alt) and rodando==0 and !exists(type persigue_anillos)) persigue_anillos(); end
-		If(key(_alt)) pulsando_alt=1; anim+=8; Else pulsando_alt=0; anim+=8; End
+		if(p[1].botones[4] and rodando==0 and !exists(type persigue_anillos)) persigue_anillos(); end
+		If(p[1].botones[4]) pulsando_alt=1; anim+=8; Else pulsando_alt=0; anim+=8; End
 		if(rodando==1) graph=16; angle=rand(0,360)*1000; end
 
 		//////////////////////
@@ -854,7 +853,7 @@ Begin
 // despues de muerto
 	y+=6;
 	graph=grafs[2];
-	if(key(_control)) id_jugador.grav=-120; else id_jugador.grav=-80; end
+	if(p[1].botones[5]) id_jugador.grav=-120; else id_jugador.grav=-80; end
 	combo++;
 	enem_puntos=enem_puntos*(combo*2);
 	enem_da_puntos(enem_puntos);

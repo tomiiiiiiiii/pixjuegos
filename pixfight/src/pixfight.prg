@@ -9,7 +9,6 @@ Const
    MAX_SONIDOS     = 32;    // Número máximo de sonidos por frame
    MAX_PROCESOS    = 35;    // Número máximo de procesos en pantalla
    TIEMPO_ESPERA   = 1000;  // Timeout de espera de jugadores
-   OS_WII=1000;
 End
    type _IPaddress
     int host;
@@ -235,7 +234,7 @@ Begin
 	end
 End
 
-include "controles.pr-";
+include "../../common-src/controles.pr-";
 
 include "net.pr-";
 

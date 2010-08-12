@@ -5,7 +5,6 @@ Private
 	id_col_bola;
 	choca_enemigo;
 	sobre_enemigo;
-	j;
 	j2;
 	ipendiente;
 	sepuedebajar;
@@ -35,14 +34,14 @@ Begin
 	if(accion!=chilena)
 		//disparo
 		if(pulsando_disparo==0 and accion!=disparando)
-			if(botones.p[jugador][4])
+			if(p[jugador].botones[4])
 				pulsando_disparo=1;
 				accion=disparando;
 				anim=0;
 				disparo1(); //CUIDADO!
 			end
 		end
-		if(!botones.p[jugador][4]) pulsando_disparo=0; end
+		if(!p[jugador].botones[4]) pulsando_disparo=0; end
 
 		//colisiones
 	if(accion!=muere and accion!=atrapado)
@@ -71,7 +70,7 @@ Begin
 		end
 	end
 		//izquierda
-		if(botones.p[jugador][0])
+		if(p[jugador].botones[0])
 			if(accion!=disparando) accion=anda; end
 			flags=1;
 			if(!p[jugador].velocidad)
@@ -82,7 +81,7 @@ Begin
 		end
 
 		//derecha
-		if(botones.p[jugador][1])
+		if(p[jugador].botones[1])
 			if(accion!=disparando) accion=anda; end
 			flags=0;
 			if(!p[jugador].velocidad)
@@ -92,20 +91,20 @@ Begin
 			end
 		end
 
-		if(!botones.p[jugador][0] and !botones.p[jugador][1] and accion==anda)
+		if(!p[jugador].botones[0] and !p[jugador].botones[1] and accion==anda)
 			accion=0;
 			graph=1;
 		end
 
 		//salto
 		if(saltando==0 and pulsando_salto==0)
-			if(botones.p[jugador][5] and !botones.p[jugador][3])
+			if(p[jugador].botones[5] and !p[jugador].botones[3])
 				sonido(7);
 				y-=2;
 				grav=-16*(gravedad)/3;
 				saltando=1;
 				pulsando_salto=1;
-			elseif(botones.p[jugador][5] and botones.p[jugador][3])
+			elseif(p[jugador].botones[5] and p[jugador].botones[3])
 				sepuedebajar=0;
 				from j2=y+(alto/2)+1 to 480;
 					if((map_get_pixel(0,masknivel,x,j2)==color_colision or map_get_pixel(0,masknivel,x,j2)==color_pendiente) and map_get_pixel(0,masknivel,x,j2+1)!=color_colision)
@@ -118,7 +117,7 @@ Begin
 			end
 		end
 
-		if(!botones.p[jugador][5]) pulsando_salto=0; end
+		if(!p[jugador].botones[5]) pulsando_salto=0; end
 	end
 		incy=grav;
 		if(grav<0) grav++; end

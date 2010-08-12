@@ -18,9 +18,7 @@ begin
 	let_me_alone();
 	reinicia_variables();
 	jugador=1;
-	controlador(1);
-	if(njoys=>1) controlador(2); end
-	if(njoys=>2) controlador(3); end
+	controlador(0);
 	musica("2");
 	elecc=0;
 	lista(3);
@@ -45,7 +43,7 @@ begin
 			keytime--;
 		end
 		//elige algo
-		if((botones.p[1][4] or botones.p[2][4] or botones.p[3][4]) and keytime==0)
+		if(p[0].botones[4] and keytime==0)
 			if(ops.sonido==1)
 				sonido(3);
 			end
@@ -92,7 +90,7 @@ begin
 				exit(0);
 			end
 		end
-		if((botones.p[1][3] or botones.p[2][3] or botones.p[3][3]))
+		if(p[0].botones[3])
 			if(tec==0)
 				elecc++;
 				if(elecc==1 and !continuable)
@@ -106,7 +104,7 @@ begin
 		else
 			tec=0;
 		end
-		if((botones.p[1][2] or botones.p[2][2] or botones.p[3][2]))
+		if(p[0].botones[2])
 			if(tec2==0)
 				elecc--;
 				if(elecc==1 and !continuable)
@@ -212,14 +210,13 @@ begin
 	z=50;
 	keytime=10;
 	jugador=1;
-	controlador(1);
+	controlador(0);
 	if(njoys=>1) controlador(2); end
 	if(njoys=>2) controlador(3); end
 
-	while(botones.p[1][4] or botones.p[2][4] or botones.p[3][4]) frame; end
+	while(p[0].botones[4]) frame; end
 	loop
-//		if((botones.p[1][5] or botones.p[2][5] or botones.p[3][5]) or (graph==200 and ((botones.p[1][5] or botones.p[2][5] or botones.p[3][5]) or botones.p[2][4] or botones.p[3][4])))
-		if((botones.p[1][5] or botones.p[2][5] or botones.p[3][5]))
+		if(p[0].botones[5])
 			sonido(1);
 			let_me_alone();
 			menu();
@@ -237,7 +234,7 @@ begin
 				save(savegamedir+"opciones.dat",ops);
 				exit(0);
 			end
-			if((botones.p[1][4] or botones.p[2][4] or botones.p[3][4]) and keytime==0)
+			if(p[0].botones[4] and keytime==0)
 				graph++;
 				if(graph==22 or graph==202)
 					sonido(1);
@@ -325,7 +322,7 @@ begin
 	end
 	id_controlador=controlador(jugador);
 	p[jugador].juega=0;
-	while(botones.p[jugador][4]==0)
+	while(p[jugador].botones[4]==0)
 		if(timer[0]>500) signal(id_controlador,s_kill); return; end
 		frame;
 	end
@@ -376,18 +373,18 @@ begin
 	size=84;
 	from alpha=60 to 220 step 20; size+=2; frame; end
 	repeat
-		if(botones.p[jugador][0])
+		if(p[jugador].botones[0])
 			sonido(2);
-			while(botones.p[jugador][0]) frame; end
+			while(p[jugador].botones[0]) frame; end
 			personaje_elegido--;
 			if(personaje_elegido=<0) personaje_elegido=3; end
 			while(p[1].muneco==personaje_elegido or p[2].muneco==personaje_elegido or p[3].muneco==personaje_elegido)
 				personaje_elegido--;
 			end
 		end
-		if(botones.p[jugador][1])
+		if(p[jugador].botones[1])
 			sonido(2);
-			while(botones.p[jugador][1]) frame; end
+			while(p[jugador].botones[1]) frame; end
 			personaje_elegido++;
 			if(personaje_elegido==4) personaje_elegido=1; end
 			while(p[1].muneco==personaje_elegido or p[2].muneco==personaje_elegido or p[3].muneco==personaje_elegido)
@@ -406,8 +403,8 @@ begin
 			end
 		end
 		frame;
-	until(botones.p[jugador][4]);
-	while(botones.p[jugador][4]) frame; end
+	until(p[jugador].botones[4]);
+	while(p[jugador].botones[4]) frame; end
 	signal(id_controlador,s_kill);
 	p[jugador].muneco=personaje_elegido;
 	sonido(3);
@@ -494,17 +491,17 @@ begin
 		if(ops.dificultad==2)
 			ponimgn(130,300,100,252);
 		end
-		if(botones.p[1][4] or botones.p[2][4] or botones.p[3][4])
+		if(p[1].botones[4] or p[2].botones[4] or p[3].botones[4])
 			if(tecenter==0)
 				if(elecc==0)
 					if(full_screen==0)
 						full_screen=1;
 						ops.ventana=0;
-						set_mode(640,480,32);
+						set_mode(640,480,bitscolor);
 					else
 						full_screen=0;
 						ops.ventana=1;
-						set_mode(640,480,32);
+						set_mode(640,480,bitscolor);
 					end
 				end
 				if(elecc==1)
@@ -536,7 +533,7 @@ begin
 			tecenter=0;
 		end //enter
 
-		if((botones.p[1][3] or botones.p[2][3] or botones.p[3][3]))
+		if((p[1].botones[3] or p[2].botones[3] or p[3].botones[3]))
 			if(tec==0)
 				if(ops.sonido==1)
 					sonido(2);
@@ -547,7 +544,7 @@ begin
 		else
 			tec=0;
 		end
-		if((botones.p[1][2] or botones.p[2][2] or botones.p[3][2]))
+		if((p[1].botones[2] or p[2].botones[2] or p[3].botones[2]))
 			if(tec2==0)
 				if(ops.sonido==1)
 					sonido(2);
@@ -610,18 +607,18 @@ begin
 	size=84;
 	from alpha=60 to 220 step 20; size+=2; frame; end
 	repeat
-		if(botones.p[jugador][0])
+		if(p[jugador].botones[0])
 			sonido(2);
-			while(botones.p[jugador][0]) frame; end
+			while(p[jugador].botones[0]) frame; end
 			personaje_elegido--;
 			if(personaje_elegido=<0) personaje_elegido=3; end
 			while(p[1].muneco==personaje_elegido or p[2].muneco==personaje_elegido or p[3].muneco==personaje_elegido)
 				personaje_elegido--;
 			end
 		end
-		if(botones.p[jugador][1])
+		if(p[jugador].botones[1])
 			sonido(2);
-			while(botones.p[jugador][1]) frame; end
+			while(p[jugador].botones[1]) frame; end
 			personaje_elegido++;
 			if(personaje_elegido==4) personaje_elegido=1; end
 			while(p[1].muneco==personaje_elegido or p[2].muneco==personaje_elegido or p[3].muneco==personaje_elegido)
@@ -640,8 +637,8 @@ begin
 			end
 		end
 		frame;
-	until(botones.p[jugador][4]);
-	while(botones.p[jugador][4]) frame; end
+	until(p[jugador].botones[4]);
+	while(p[jugador].botones[4]) frame; end
 	signal(id_controlador,s_kill);
 	p[jugador].muneco=personaje_elegido;
 	p[jugador].juega=1;
@@ -697,7 +694,7 @@ Begin
 	end
 End
 
-process elige_lenguaje();
+function elige_lenguaje();
 private
 	tec;
 	tec2;
@@ -706,7 +703,7 @@ private
 begin
 	file=fpg_menu;
 	elecc=0;
-	controlador(1);
+	controlador(0);
 	lista(8);
 	machango();
 	from i=0 to 20; elep(); end
@@ -724,12 +721,10 @@ begin
 
 		fpg_menu2=load_fpg("fpg/menu-"+lang_suffix+".fpg");
 		fpg_intro=load_fpg("fpg/intro-"+lang_suffix+".fpg");
-		let_me_alone();
-		logo_pixjuegos();	
 		return;
 	end
 	loop
-		if(botones.p[1][4] or botones.p[2][4] or botones.p[3][4])
+		if(p[0].botones[4])
 			if(tecenter==0)
 				if(elecc==0) ops.lenguaje=0; lang_suffix="en"; end
 				if(elecc==1) ops.lenguaje=1; lang_suffix="es"; end
@@ -738,16 +733,15 @@ begin
 				if(elecc==4) ops.lenguaje=4; lang_suffix="fr"; end
 				fpg_menu2=load_fpg("fpg/menu-"+lang_suffix+".fpg");
 				fpg_intro=load_fpg("fpg/intro-"+lang_suffix+".fpg");
-				let_me_alone();
-				logo_pixjuegos();	
 				tecenter=1;
+				while(p[0].botones[4]) frame; end
 				return;
 			end
 		else
 			tecenter=0;
 		end //enter
 
-		if((botones.p[1][3] or botones.p[2][3] or botones.p[3][3]))
+		if(p[0].botones[3])
 			if(tec==0)
 				if(ops.sonido==1)
 					sonido(2);
@@ -758,7 +752,7 @@ begin
 		else
 			tec=0;
 		end
-		if((botones.p[1][2] or botones.p[2][2] or botones.p[3][2]))
+		if(p[0].botones[2])
 			if(tec2==0)
 				if(ops.sonido==1)
 					sonido(2);

@@ -17,12 +17,15 @@ Const
 End
 
 Global
+	bitscolor=32;
 	njoys;
 	posibles_jugadores;
 	debuj;
-	struct p[3];
+	struct p[4];
+		botones[6];
 		vidas=5; puntos; velocidad=0; lejos=0; tocho=0; invencibilidad; muneco; control; juega; identificador;
 	end
+	joysticks[10];
 	hayjefe;
 	Struct ops;
 		byte lenguaje=100; 	// 0 = inglés, 1 = español, 2 = italiano, 3 = alemán, 4 = francés
@@ -32,9 +35,6 @@ Global
 		byte dificultad=1; //la normal
 	End
 	string lang_suffix;
-	Struct botones;
-		int p[3][5];
-	End
 	wavs[50]; //sonidos del juego
 	fpg_intro;
 	fpg_general;
@@ -103,6 +103,7 @@ Local
 	nieve;
 	anim;
 	i;
+	j;
 	duracion;
 	tipo;
 Private
@@ -145,35 +146,13 @@ Begin
 		case 3:	lang_suffix="de"; end
 		case 4:	lang_suffix="fr"; end
 	end	
-	set_mode(640,480,32);
+	if(os_id==9) bitscolor=16; scale_resolution=03200240; end
+	set_mode(640,480,bitscolor);
 	set_fps(40,0);
 	frame;
-	njoys=number_joy();
-	posibles_jugadores=njoys+1;
-	if(posibles_jugadores>4) posibles_jugadores=4; end //3 joysticks
-	switch(posibles_jugadores)
-		case 1:
-			p[1].control=0;
-			p[2].control=-1;
-			p[3].control=-1;
-		end
-		case 2:
-			p[1].control=1;
-			p[2].control=0;
-			p[3].control=-1;
-		end
-		case 3:
-			p[1].control=1;
-			p[2].control=2;
-			p[3].control=0;
-		end
-		case 4:
-			p[1].control=1;
-			p[2].control=2;
-			p[3].control=3;
-		end
-	end
 
+	configurar_controles();
+	
 	fpg_general=load_fpg("fpg/general.fpg");
 	fpg_menu=load_fpg("fpg/menu.fpg");
 	if(lang_suffix!="") fpg_menu2=load_fpg("fpg/menu-"+lang_suffix+".fpg"); end
@@ -194,29 +173,33 @@ Begin
 	set_center(fpg_pax,8,26,33);
 	if(ops.lenguaje==100)
 		elige_lenguaje(); 
-		signal(id,s_kill);
 	end
 	logo_pixjuegos();
 end
 
 process logo_pixjuegos();
 begin
+	let_me_alone();
 	delete_text(0);
 	graph=19;
 	x=320;
 	y=240;
 	z=-10;
+	controlador(0);
 	from alpha=50 to 255 step 5;
-		if(key(_enter) or key(_esc)) break; end
+		if(p[0].botones[4] or p[0].botones[5]) break; end 
 		frame;
 	end
 	timer[0]=0;
-	while(timer[0]<300) if(scan_code!=0) break; end frame; end
-	while(scan_code!=0) frame; end
-	intro();
-	from alpha=alpha to 0 step -10;
+	while(timer[0]<300) 
+		if(p[0].botones[4] or p[0].botones[5]) break; end 
+		frame; 
+	end
+	while(p[0].botones[4] or p[0].botones[5]) frame; end
+	from alpha=alpha to 0 step -20;
 		frame;
 	end
+	intro();
 end
 
 process nivel();
@@ -350,9 +333,9 @@ begin
 	if(p[2].juega==0) controlador(2); end
 	if(p[3].juega==0) controlador(3); end
 	loop
-		if(p[1].juega==0 and botones.p[1][4]==1 and botones.p[1][5]==1) elecpersonaje_ingame(1); end
-		if(p[2].juega==0 and botones.p[2][4]==1 and botones.p[2][5]==1) elecpersonaje_ingame(2); end
-		if(p[3].juega==0 and botones.p[3][4]==1 and botones.p[3][5]==1) elecpersonaje_ingame(3); end
+		if(p[1].juega==0 and p[1].botones[4]==1 and p[1].botones[5]==1) elecpersonaje_ingame(1); end
+		if(p[2].juega==0 and p[2].botones[4]==1 and p[2].botones[5]==1) elecpersonaje_ingame(2); end
+		if(p[3].juega==0 and p[3].botones[4]==1 and p[3].botones[5]==1) elecpersonaje_ingame(3); end
 		if(!exists(type enemigo) and !exists(type item) and !exists(type enemigo_lanzado) and !exists(type boladeenemigos) and hayjefe==0)
 			if(mundo<num_mundos) mundo++; else ganar(); end
 			nivel();
@@ -382,7 +365,7 @@ begin
 			frame(3000);
 			game_over();
 		end
-      		if(key(_esc))
+      		if(key(_esc) or (os_id==os_caanoo and get_joy_button(0,8)))
 				let_me_alone();
 				clear_screen();
 				menu();
@@ -555,7 +538,6 @@ Private
 	rebotes;
 	graf;
 	ipendiente;
-	j;
 	lanzada;
 Begin
 	if(tipo_nivel==1) ctype=c_scroll; end	
@@ -641,7 +623,7 @@ Begin
 							grav=-10;
 							y-=2;
 						end
-						if(botones.p[id_muneco1.jugador][4])
+						if(p[id_muneco1.jugador].botones[4])
 							if(id_muneco1.flags==1 or id_muneco1.flags==5)
 								flags=0;
 							else
@@ -824,7 +806,7 @@ Begin
 				if(id_muneco1.accion!=muere) 
 					id_muneco1.x=x;	id_muneco1.y=y;	id_muneco1.grav=0; id_muneco1.accion=atrapado;
 					if(flags==0) id_muneco1.angle+=15000; else id_muneco1.angle-=15000; end
-					if(botones.p[id_muneco1.jugador][5])
+					if(p[id_muneco1.jugador].botones[5])
 						id_muneco1.grav=-20; id_muneco1.y-=2; muneco1_enganchado=0;
 						p[id_muneco1.jugador].invencibilidad=-60; id_muneco1.accion=0;
 					end
@@ -836,7 +818,7 @@ Begin
 				if(id_muneco2.accion!=muere) 
 					id_muneco2.x=x;	id_muneco2.y=y;	id_muneco2.grav=0; id_muneco2.accion=atrapado;
 					if(flags==0) id_muneco2.angle+=15000; else id_muneco2.angle-=15000; end
-					if(botones.p[id_muneco2.jugador][5])
+					if(p[id_muneco2.jugador].botones[5])
 						id_muneco2.grav=-20; id_muneco2.y-=2; muneco2_enganchado=0;
 						p[id_muneco2.jugador].invencibilidad=-60; id_muneco2.accion=0;
 					end
@@ -848,7 +830,7 @@ Begin
 				if(id_muneco3.accion!=muere) 
 					id_muneco3.x=x;	id_muneco3.y=y;	id_muneco3.grav=0; id_muneco3.accion=atrapado;
 					if(flags==0) id_muneco3.angle+=15000; else id_muneco3.angle-=15000; end
-					if(botones.p[id_muneco3.jugador][5])
+					if(p[id_muneco3.jugador].botones[5])
 						id_muneco3.grav=-20; id_muneco3.y-=2; muneco3_enganchado=0;
 						p[id_muneco3.jugador].invencibilidad=-60; id_muneco3.accion=0;
 					end
@@ -890,7 +872,6 @@ Private
 	id_bola;
 Local
 	direccion; //1: arriba, 2: derecha, 3: izquierda, 4: abajo
-	j;
 	petar;
 Begin
 	if(tipo_nivel==1) ctype=c_scroll; end	
@@ -992,7 +973,7 @@ Begin
 
 		if(collision(type muneco1))
 			if(id_muneco1.accion!=muere and id_muneco1.accion!=atrapado)
-				if(id_muneco1.y<y-alto/2 and botones.p[id_muneco1.jugador][5])
+				if(id_muneco1.y<y-alto/2 and p[id_muneco1.jugador].botones[5])
 					id_muneco1.grav=-17;
 				elseif(id_muneco1.x<x)
 					incx=3;
@@ -1003,7 +984,7 @@ Begin
 		end
 		if(collision(type muneco3))
 			if(id_muneco3.accion!=muere and id_muneco3.accion!=atrapado)
-				if(id_muneco3.y<y-alto/2 and botones.p[id_muneco3.jugador][5])
+				if(id_muneco3.y<y-alto/2 and p[id_muneco3.jugador].botones[5])
 					id_muneco3.grav=-17;
 				elseif(id_muneco3.x<x)
 					incx=3;
@@ -1014,7 +995,7 @@ Begin
 		end
 		if(collision(type muneco2))
 			if(id_muneco2.y<y-alto/2)
-				if(botones.p[id_muneco2.jugador][5])
+				if(p[id_muneco2.jugador].botones[5])
 					id_muneco2.grav=-17;
 				else
 					accion=muere;
@@ -1280,7 +1261,7 @@ Begin
 		end
 		if(anim<2) anim++; else anim=0; graph++; if(graph==26) graph=21; end end
 
-		if(!botones.p[father.jugador][4]) accion=muere; end //esto es cuando se lanzan los enemigos
+		if(!p[father.jugador].botones[4]) accion=muere; end //esto es cuando se lanzan los enemigos
 		if(!p[father.jugador].lejos)
 			x=father.x;
 		else
@@ -1801,56 +1782,7 @@ end
 
 
 //-----------------------------------------------------------------------------------------
-
-Process controlador(jugador);
-Private
-	distancia;
-	gamepads;
-Begin
-	from i=0 to 5;
-		botones.p[jugador][i]=0;
-	end
-	Loop
-		if(!exists(father)) return; end
-		x=father.x;
-		y=father.y;
-		while(p[jugador].control==-1) frame; end
-		While(ready==0) Frame; End
-		If(p[jugador].control==0)  // teclado
-			If(key(_left) or key(_a)) botones.p[jugador][0]=1; Else botones.p[jugador][0]=0; End
-			If(key(_right) or key(_d)) botones.p[jugador][1]=1; Else botones.p[jugador][1]=0; End
-			If(key(_up) or key(_w)) botones.p[jugador][2]=1; Else botones.p[jugador][2]=0; End
-			If(key(_down) or key(_s)) botones.p[jugador][3]=1; Else botones.p[jugador][3]=0; End
-			If(key(_enter) or key(_control) OR key(_space) or key(_x)) botones.p[jugador][4]=1; Else botones.p[jugador][4]=0; End
-			If(key(_esc) or key(_z) or key(_alt) or key(_r_shift)) botones.p[jugador][5]=1; Else botones.p[jugador][5]=0; End
-		End
-		If(p[jugador].control==1)  // joystick
-			If(get_joy_position(0,0)<-10000) botones.p[jugador][0]=1; Else botones.p[jugador][0]=0; End
-			If(get_joy_position(0,0)>10000) botones.p[jugador][1]=1; Else botones.p[jugador][1]=0; End
-			If(get_joy_position(0,1)<-7500) botones.p[jugador][2]=1; Else botones.p[jugador][2]=0; End
-			If(get_joy_position(0,1)>7500) botones.p[jugador][3]=1; Else botones.p[jugador][3]=0; End
-			If(get_joy_button(0,0) OR get_joy_button(0,1)) botones.p[jugador][4]=1; Else botones.p[jugador][4]=0; End
-			If(get_joy_button(0,2) OR get_joy_button(0,3)) botones.p[jugador][5]=1; Else botones.p[jugador][5]=0; End
-		End
-		If(p[jugador].control==2)  // joystick 2
-			If(get_joy_position(1,0)<-10000) botones.p[jugador][0]=1; Else botones.p[jugador][0]=0; End
-			If(get_joy_position(1,0)>10000) botones.p[jugador][1]=1; Else botones.p[jugador][1]=0; End
-			If(get_joy_position(1,1)<-7500) botones.p[jugador][2]=1; Else botones.p[jugador][2]=0; End
-			If(get_joy_position(1,1)>7500) botones.p[jugador][3]=1; Else botones.p[jugador][3]=0; End
-			If(get_joy_button(1,0) OR get_joy_button(1,1)) botones.p[jugador][4]=1; Else botones.p[jugador][4]=0; End
-			If(get_joy_button(1,2) OR get_joy_button(1,3)) botones.p[jugador][5]=1; Else botones.p[jugador][5]=0; End
-		End
-		If(p[jugador].control==3)  // joystick 3
-			If(get_joy_position(2,0)<-10000) botones.p[jugador][0]=1; Else botones.p[jugador][0]=0; End
-			If(get_joy_position(2,0)>10000) botones.p[jugador][1]=1; Else botones.p[jugador][1]=0; End
-			If(get_joy_position(2,1)<-7500) botones.p[jugador][2]=1; Else botones.p[jugador][2]=0; End
-			If(get_joy_position(2,1)>7500) botones.p[jugador][3]=1; Else botones.p[jugador][3]=0; End
-			If(get_joy_button(2,0) OR get_joy_button(2,1)) botones.p[jugador][4]=1; Else botones.p[jugador][4]=0; End
-			If(get_joy_button(2,2) OR get_joy_button(2,3)) botones.p[jugador][5]=1; Else botones.p[jugador][5]=0; End
-		End
-		Frame;
-	End
-End
+include "../../common-src/controles.pr-";
 
 Process readyando();
 Begin
@@ -2010,7 +1942,6 @@ End
 Process marcadores();
 Private
 	ids_grafs[9];
-	j;
 Begin
 //	if(tipo_nivel==1) ctype=c_scroll; end	
 	if(debuj) write_int(0,0,0,0,&fps); end

@@ -1,5 +1,5 @@
 Begin
-	set_mode(100,100,32);
+	set_mode(100,100,16);
 	cd(argv[1]);
 	file=fpg_new();
 	from x=0 to 999;

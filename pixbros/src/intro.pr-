@@ -22,14 +22,9 @@ End
 
 Process saltable();
 Begin
-	jugador=1;
-	controlador(1);
-	if(njoys=>1) controlador(2); end
-	if(njoys=>2) controlador(3); end
+	controlador(0);
 	loop
-//		por la sincronización con la música ya no se pueden saltar partes
-//		if(botones.p[1][4]) timer[3]=500; while(botones.p[1][4]) frame; end end
-		if(botones.p[1][5] or botones.p[2][5] or botones.p[3][5]) signal(father,s_kill); menu(); end
+		if(p[0].botones[4] or p[0].botones[5] or p[0].botones[6]) signal(father,s_kill); menu(); end
 		frame;
 	end
 End

@@ -10,7 +10,7 @@ include "main.pr-";
 include "key_event.pr-";
 
 //centralización de joysticks y teclados
-include "controles.pr-";
+include "../../common-src/controles.pr-";
 
 //personajes de los jugadores
 include "personaje.pr-";

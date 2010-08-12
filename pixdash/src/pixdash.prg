@@ -92,7 +92,7 @@ Local
 	ancho;
 	alto;
 	string accion;
-	i;
+	i; j;
 	tiempo_powerup;
 	saltando;
 End
@@ -172,8 +172,8 @@ Begin
 				frame; 
 			end //aquí se queda!
 		end //al ganar mike canta y nos damos la vuelta xD
-		if(inercia>0) inercia--; end
-		if(inercia<0) inercia++; end
+		if(inercia>0 and gravedad==0) inercia--; end
+		if(inercia<0 and gravedad==0) inercia++; end
 		if(p[jugador].botones[5])
 			if(inercia>20) inercia=20; end
 			if(inercia<-20) inercia=-20; end
@@ -514,7 +514,6 @@ PRIVATE
 	decimas;
 	string string_tiempo;
 	fichero;
-	j;
 BEGIN
 	id_carganivel=id;
 	if(num_nivel!=1)
@@ -1102,7 +1101,7 @@ begin
     end
 end
 
-include "controles.pr-";
+include "../../common-src/controles.pr-";
 
 //stubs necesarios temporalmente para Wii
 #ifdef WII

@@ -109,6 +109,6 @@ Local
 	x_destino;
 	y_destino;
 	lado;
-	i;
+	i; j;
 	jugador;
 	primera_caida; //de las bolas, para la dinamita y la bola pang

@@ -9,7 +9,6 @@ Private
 	id_txt_ficheracos[20];
 	num_ficheros;
 	string temp;
-	j;
 	dir_handle;
 Begin
 	//ANTIBUG BIZARRO:

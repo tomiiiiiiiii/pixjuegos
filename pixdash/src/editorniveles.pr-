@@ -182,7 +182,6 @@ Private
 	mapa_scroll;
 	ancho_scroll;
 	alto_scroll;
-	j;
 	base;
 	file_descripciones;
 	graph_cursor;

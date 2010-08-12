@@ -164,7 +164,11 @@ Begin
 	Alpha_steps=64;
 	set_title("PiX Pang");
 	if(ops.ventana==0) Full_screen=true; else full_screen=false; end
-	set_mode(800,600,32);
+	if(os_id==9) 
+		scale_resolution=03200240; set_mode(800,600,16); 
+	else
+		set_mode(800,600,32);
+	end
 	load_fpg("./fpg/pixpang.fpg");
 	fpg_menu=load_fpg("fpg/menu.fpg");
 	fpg_bloquesmask=load_fpg("fpg/bloquesmask.fpg");
@@ -1387,7 +1391,7 @@ Begin
 	If(peq_izq==1 and matabolas==0 and jefe==0) if(reloj==0) itemreloj(1); else secs+=60; end End
 	If(tamano!=1 AND tamano!=6 AND tamano!=10 and tamano!=13 and tamano!=17 and tamano!=18 and tamano!=19 and tamano!=20 and tamano!=21 and tamano!=22) if(cheto_borracho==0 or matabolas==1 or dinamita==1) bola(x-(ancho_bola/4),y,tamano-1,1); bola(x+(ancho_bola/4),y,tamano-1,0); else if(rand(0,3)==0 and tamano<17) bola(x-(ancho_bola/4),y,tamano,1); bola(x+(ancho_bola/4),y,tamano,0); else bola(x-(ancho_bola/4),y,tamano-1,1); bola(x+(ancho_bola/4),y,tamano-1,0); End End End
 	If(tamano==1 OR tamano==6 OR tamano==10 or tamano==13) size=0; End
-	explotalo(x,y,z,alpha,0,file,graph,60);
+	if(os_id!=9) explotalo(x,y,z,alpha,0,file,graph,60); end
 	suena(2);
 	bolas--;
 	if(tamano==17) bola_estrella=0; matabolas=1; graph=0; frame(6000); matabolas=0; end
@@ -1481,7 +1485,9 @@ Private
     cargada;
     String numerito;
 	int numerete;
+	string formato="ogg";
 Begin
+	if(os_id==9) formato="wav"; end
 	If(is_playing_song()) stop_song(); End
 // nota para el señor programador, osea yop: esto es un **** lío
 // cuando puedas bórralo todo y hazlo tal como se usa ahora!
@@ -1490,32 +1496,32 @@ Begin
 	if(numerete==1 and modo_juego==1) numerete=rand(1,13); end
 	while(numerete>13) numerete-=13; end
 	numerito=itoa(numerete);
-	If(cancion==0) cargada=load_song("./ogg/23.ogg"); End
+	If(cancion==0) cargada=load_song("./ogg/23."+formato); End
 	numerete=mundo;
 	while(numerete>2) numerete-=3; end
 	If(cancion=>1 AND cancion=<4) 
 		switch(numerete) 
 			case 0:
-				cargada=load_song("./ogg/23.ogg"); 
+				cargada=load_song("./ogg/23."+formato); 
 			end
 			case 1: 
-				cargada=load_song("./ogg/pang2.ogg"); 
+				cargada=load_song("./ogg/pang2."+formato); 
 			end 
 			case 2: 
-				cargada=load_song("./ogg/pang3.ogg"); 
+				cargada=load_song("./ogg/pang3."+formato); 
 			end 
 		End
 	end
 	// no hay mucha música oficial por ahora...
 	
-	If(cancion==5) cargada=load_song("./ogg/menu.ogg"); End
-	If(cancion==6) cargada=load_song("./ogg/20.ogg"); End
+	If(cancion==5) cargada=load_song("./ogg/menu."+formato); End
+	If(cancion==6) cargada=load_song("./ogg/20."+formato); End
     If(cancion==7) //prisa!
-			cargada=load_song("./ogg/24.ogg");
+			cargada=load_song("./ogg/24."+formato);
     End
-    If(cancion==8) cargada=load_song("./ogg/18.ogg"); End
-	If(cancion==9) cargada=load_song("./ogg/19.ogg"); End
-	If(cancion==10) cargada=load_song("./ogg/intro.ogg"); End
+    If(cancion==8) cargada=load_song("./ogg/18."+formato); End
+	If(cancion==9) cargada=load_song("./ogg/19."+formato); End
+	If(cancion==10) cargada=load_song("./ogg/intro."+formato); End
 	If(cancion==-1)
 		fade_music_off(250);
 		Return;
@@ -2563,7 +2569,7 @@ Begin
 		Frame;
 	End
 	if(y>10) items(x,y,regalo); end
-	explotalo(x,y,z,alpha,0,file,graph,60);
+	if(os_id!=9) explotalo(x,y,z,alpha,0,file,graph,60); end
 	//from alpha=255 to 0 step -10; frame; end
 End
 
