@@ -165,6 +165,7 @@ Begin
 	set_title("PiX Pang");
 	if(ops.ventana==0) Full_screen=true; else full_screen=false; end
 	if(os_id==9) 
+		ops.op_sombras=0;
 		scale_resolution=03200240; set_mode(800,600,16); 
 	else
 		set_mode(800,600,32);
@@ -203,6 +204,8 @@ Begin
 			ops.p2_control=2;
 		end
 	end
+	
+	if(os_id==9) ops.p1_control=9; posibles_jugadores=1; end
 //
 
 // caca
@@ -1889,7 +1892,6 @@ Begin
 	While(modo_juego!=2 and timer[5]<500) Frame; End
 	If(modo_juego==1 OR modo_juego==3)
 		faderaro(img_pixpang);
-		If(modo_juego==3) stop_scroll(0); End
 		let_me_alone();
 	End
 	If(modo_juego==2) If(mundo==tour_levels+1) menu(); else inicio(); End end
@@ -2233,7 +2235,7 @@ Begin
 			If(key(_f) AND txt_fps==0) txt_fps=write_int(fnt1,0,0,0,&fps); End
 			If(key(_n)) nube(); End
 		End
-		If(key(_esc) and !exists(type opciones) and ready==1) opciones(); ready=0; End
+		If((key(_esc) or os_id==os_caanoo and get_joy_button(0,8))  and !exists(type opciones) and ready==1) opciones(); ready=0; End
 		If((p1_bolas+p2_bolas)>100 AND rand(0,200)==0) nube(); End
 		If(bolas=>13 AND prisa==0) prisa=1; hayprisa(); End
 		If(bolas<8 AND prisa==1) prisa=0; timer[8]=0; musica(0); End
@@ -2309,7 +2311,7 @@ Begin
 		End
 		if(cheto_avaricioso) if(avaricioso<20) avaricioso++; else cocodrilo(rand(0,1)); avaricioso=0; end end
 		If(key(_g)) p1_arma=1; p2_arma=1; End
-		If(key(_esc) and !exists(type opciones) and ready==1) opciones(); ready=0; End
+		If((key(_esc) or os_id==os_caanoo and get_joy_button(0,8)) and !exists(type opciones) and ready==1) opciones(); ready=0; End
 		If(players==1 AND key(_2)) players=3; suena(6); p2_vidas=10; faderaro(-2); frame; inicio(); End
 		If(players==2 AND key(_1)) players=3; suena(6); p1_vidas=10; inicio(); End
 		If(key(_d) AND key(_b) AND key(_g)) pixel_mola=1; End
@@ -2889,6 +2891,14 @@ Begin
 			If(get_joy_button(0,0) OR get_joy_button(0,1)) botones.p1[4]=1; Else botones.p1[4]=0; End
 			If(get_joy_button(0,2) OR get_joy_button(0,3)) botones.p1[5]=1; Else botones.p1[5]=0; End
 		End
+		If(ops.p1_control==9)  // joystick		
+			If(get_joy_position(1,0)<-10000) botones.p1[0]=1; Else botones.p1[0]=0; End
+			If(get_joy_position(1,0)>10000) botones.p1[1]=1; Else botones.p1[1]=0; End
+			If(get_joy_position(1,1)<-7500) botones.p1[2]=1; Else botones.p1[2]=0; End
+			If(get_joy_position(1,1)>7500) botones.p1[3]=1; Else botones.p1[3]=0; End
+			If(get_joy_button(1,0) OR get_joy_button(0,1)) botones.p1[4]=1; Else botones.p1[4]=0; End
+			If(get_joy_button(1,2) OR get_joy_button(0,3)) botones.p1[5]=1; Else botones.p1[5]=0; End
+		End
 		Frame;
 	End
 End
@@ -2921,7 +2931,6 @@ Begin
 			If(get_joy_button(1,0) OR get_joy_button(1,1)) botones.p2[4]=1; Else botones.p2[4]=0; End
 			If(get_joy_button(1,2) OR get_joy_button(1,3)) botones.p2[5]=1; Else botones.p2[5]=0; End
 		End
-
 		Frame;
 	End
 End

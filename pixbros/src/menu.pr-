@@ -270,6 +270,7 @@ begin
 		write_int(fnt_intro,320,350,4,&i);
 		while(timer[0]<500)
 			ponimgn(320,280,100,6);
+			if(p[1].juega+p[2].juega+p[3].juega==0) timer[0]=0; end
 			i=(500-timer[0])/100;
 			frame;
 		end

@@ -148,7 +148,7 @@ Begin
 	end	
 	if(os_id==9) bitscolor=16; scale_resolution=03200240; end
 	set_mode(640,480,bitscolor);
-	set_fps(40,0);
+	set_fps(40,9);
 	frame;
 
 	configurar_controles();
@@ -329,13 +329,17 @@ begin
 	ready=1;
 	frame;
 	unload_map(0,graph);
-	if(p[1].juega==0) controlador(1); end
-	if(p[2].juega==0) controlador(2); end
-	if(p[3].juega==0) controlador(3); end
+	if(posibles_jugadores>1)
+		if(p[1].juega==0) controlador(1); end
+		if(p[2].juega==0) controlador(2); end
+		if(p[3].juega==0) controlador(3); end
+	end
 	loop
-		if(p[1].juega==0 and p[1].botones[4]==1 and p[1].botones[5]==1) elecpersonaje_ingame(1); end
-		if(p[2].juega==0 and p[2].botones[4]==1 and p[2].botones[5]==1) elecpersonaje_ingame(2); end
-		if(p[3].juega==0 and p[3].botones[4]==1 and p[3].botones[5]==1) elecpersonaje_ingame(3); end
+		if(posibles_jugadores>1)
+			if(p[1].juega==0 and p[1].botones[4]==1 and p[1].botones[5]==1) elecpersonaje_ingame(1); end
+			if(p[2].juega==0 and p[2].botones[4]==1 and p[2].botones[5]==1) elecpersonaje_ingame(2); end
+			if(p[3].juega==0 and p[3].botones[4]==1 and p[3].botones[5]==1) elecpersonaje_ingame(3); end
+		end
 		if(!exists(type enemigo) and !exists(type item) and !exists(type enemigo_lanzado) and !exists(type boladeenemigos) and hayjefe==0)
 			if(mundo<num_mundos) mundo++; else ganar(); end
 			nivel();
@@ -386,7 +390,6 @@ Private
 	yyy[3];
 	jugadores;
 Begin
-//	from i=0 to ancho_nivel step 200; enemigo(rand(1,5),i,0); end
 	loop
 		jugadores=0;
 		from i=1 to 3;
@@ -414,10 +417,6 @@ Begin
 				y=yyy[0]/3;
 			end
 		end
-
-//		if(rand(0,1000)==100)
-//			enemigo(rand(1,5),x+640,0);
-//		end
 		frame;
 	end
 End
