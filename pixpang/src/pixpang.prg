@@ -1490,7 +1490,7 @@ Private
 	int numerete;
 	string formato="ogg";
 Begin
-	if(os_id==9) formato="wav"; end
+	if(os_id==9) formato="mp3"; end
 	If(is_playing_song()) stop_song(); End
 // nota para el señor programador, osea yop: esto es un **** lío
 // cuando puedas bórralo todo y hazlo tal como se usa ahora!

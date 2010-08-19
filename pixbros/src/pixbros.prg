@@ -1894,14 +1894,17 @@ Begin
 End
 
 Process musica(num);
+Private
+	string formato="ogg";
 Begin
+	if(os_id==9) formato="mp3"; end
 	if(ops.musica)
 		if(num==cancionsonando) return; end
 		cancionsonando=num;
 		if(num<100)
-			play_song(load_song("ogg/"+num+".ogg"),999);
+			play_song(load_song("ogg/"+num+"."+formato),999);
 		else
-			play_song(load_song("ogg/"+num+".ogg"),1);
+			play_song(load_song("ogg/"+num+"."+formato),1);
 		end
 	else
 		if(is_playing_song()) stop_song(); end
