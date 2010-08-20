@@ -1236,7 +1236,7 @@ Begin
 	if(tipo==5)
 		explosion_con_humo(x,y);
 	else
-		explotalo(x,y,z,alpha,angle,file,graph,60);
+		if(os_id!=9) explotalo(x,y,z,alpha,angle,file,graph,60); end
 	end
 	item(rand(1,5));
 end
