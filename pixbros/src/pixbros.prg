@@ -32,7 +32,7 @@ Global
 		byte musica=1;
 		byte sonido=1;
 		int ventana=1;
-		byte dificultad=1; //la normal
+		byte dificultad=1; //0,1,2
 	End
 	string lang_suffix;
 	wavs[50]; //sonidos del juego
@@ -72,9 +72,9 @@ Global
 	masknivel;
 	color_colision;
 	color_pendiente;
-	id_muneco1;
-	id_muneco2;
-	id_muneco3;
+	id_muneco1; id_muneco1_col;
+	id_muneco2; id_muneco2_col;
+	id_muneco3; id_muneco3_col;
 	menu_elec; //eleccion en el menu principal
 	matabichos;
 
@@ -253,7 +253,6 @@ begin
 	repeat
 		i=0;
 		string_mander=fgets(descriptor_nivel);
-		say(string_mander);
 		if(string_mander[0]!="/")
 			if(string_mander[0]=="m" and string_mander[1]=="u" and string_mander[2]=="n" and string_mander[3]=="e" and string_mander[4]=="c" and string_mander[5]=="o")
 				datosvarios[0]=atoi(string_mander[7]);
@@ -494,8 +493,10 @@ Begin
 			if(id_enemigo.accion!=muere or id_enemigo.accion!=atrapado)
 				if(p[jugador].tocho)
 					id_enemigo.nieve+=2;
+					id_enemigo.i=0;
 				else
 					id_enemigo.nieve++;
+					id_enemigo.i=0;
 				end
 				signal(id,s_kill);
 			end
@@ -538,6 +539,7 @@ Private
 	graf;
 	ipendiente;
 	lanzada;
+	pendientes_y;
 Begin
 	if(tipo_nivel==1) ctype=c_scroll; end	
 	nieve=1;
@@ -570,7 +572,9 @@ Begin
 			id_enemigo.grav=0;
 			rebotes=0;
 			if(accion==muere) break; end
-			if(i==120) nieve--; i=0; else i++; end
+			if(i==60 and ops.dificultad==0 or
+			i==30 and ops.dificultad==1 or
+			i==20 and ops.dificultad==2) nieve--; i=0; else i++; end
 			if(id_bola=collision(type boladenieve))
 				if(fget_dist(x,y,id_bola.x,id_bola.y)<50 and id>id_bola)
 					if(id_bola.x=<x)
@@ -601,9 +605,7 @@ Begin
 					graf=15;
 				end
 				case 5..10:
-					if(nieve>5)
-						if(id_col=collision(type boladenieve)) id_col.nieve++; end nieve=8;
-					end
+					if(nieve>8) nieve=8; end
 					id_enemigo.size=0;
 					graf=16;
 					if(collision(type muneco1))
@@ -611,11 +613,11 @@ Begin
 							id_muneco1.y=y-((alto/5)*4)-2;
 							id_muneco1.grav=0;
 							id_muneco1.saltando=0;
-						elseif(id_muneco1.x<x and id_muneco1.x>x-(ancho/5)*3)
-							id_muneco1.x=x-(ancho/5)*3;
+						elseif(id_muneco1.x<x)
+							id_muneco1.x=x-(ancho/5)*4;
 							incx=4;
-						elseif(id_muneco1.x>x and id_muneco1.x<x+(ancho/5)*3)
-							id_muneco1.x=x+(ancho/5)*3;
+						elseif(id_muneco1.x>x)
+							id_muneco1.x=x+(ancho/5)*4;
 							incx=-4;
 						end
 						if(id_muneco1.y>y and id_muneco1.saltando==1 and id_muneco1.grav<0)
@@ -676,7 +678,7 @@ Begin
 			if(x<18+ancho/2) flags=1; if(y<alto_nivel-65) rebotes++; else accion=muere; end x=18+ancho/2; end
 
 			if(flags==1) incx=12; else incx=-12; end
-			if(collision(type muneco1) and lanzada==20)
+			if(collision(type muneco1))
 				if(p[id_muneco1.jugador].invencibilidad==0 and id_muneco1.accion!=atrapado and id_muneco1.accion!=chilena and id_muneco1.accion!=muere)
 					muneco1_enganchado=1;
 				end
@@ -725,16 +727,16 @@ Begin
 		end
 
 			//pendientes
-			if(map_get_pixel(0,masknivel,x,y+(alto/2)+1)==color_pendiente)
-				y++;
-			end
-			if(map_get_pixel(0,masknivel,x,y+(alto/2)-1)==color_pendiente)
-				y--;
+			from pendientes_y=y to y+alto;
+				if(map_get_pixel(0,masknivel,x,pendientes_y+(alto/2))==color_pendiente) 
+					y=pendientes_y;
+					break;
+				end
 			end
 
 			// inicio movimiento!
 			if(map_get_pixel(0,masknivel,x,y+(alto/2))==color_colision or map_get_pixel(0,masknivel,x,y+(alto/2))==color_pendiente)
-				if(grav>20)
+				if(grav>15)
 					grav=-10;
 					y-=2;
 				else
@@ -749,7 +751,7 @@ Begin
 			incy=grav;
 
 			if(grav<0) grav++; end
-
+			if(grav>16) grav=16; end
 			if(flags==1 and (map_get_pixel(0,masknivel,x+(ancho/2),y)==color_colision or map_get_pixel(0,masknivel,x+1,y)==color_colision) or x>ancho_nivel-ancho/2)
 					if(y<alto_nivel-65) rebotes++; else accion=muere; end
 					flags=0;
@@ -2135,12 +2137,75 @@ End
 
 include "intro.pr-";
 include "menu.pr-";
-include "muneco1.pr-";
-include "muneco2.pr-";
-include "muneco3.pr-";
 include "enemigo.pr-";
 include "jefes.pr-";
 
 Process shell(string caca);
 Begin
+End
+
+Function contar_enemigos();
+Begin
+	while(get_id(type enemigo)) x++; end
+	while(get_id(type enemigo_jefe)) x++; end
+	return x;
+End
+
+Process colisionador();
+Private
+	id_col_bola;
+Begin
+	alpha=0;
+	graph=27;
+	jugador=father.jugador;
+	while(exists(father))
+		//colisiones
+		if(accion!=muere and accion!=atrapado)
+			if(id_col_bola=collision(type enemigo))
+				if(id_col_bola.accion!=atrapado and p[jugador].invencibilidad==0 and id_col_bola.accion!=muere)
+					father.accion=muere;
+				end
+			end
+			if(id_col_bola=collision(type disparo))
+				if(p[jugador].invencibilidad==0 and id_col_bola.accion!=muere)
+					id_col_bola.accion=muere;
+					father.accion=muere;
+				end
+			end
+			if(id_col_bola=collision(type jefe))
+				if(p[jugador].invencibilidad==0 and id_col_bola.accion!=muere)
+					father.accion=muere;
+				end
+			end
+			if(id_col_bola=collision(type enemigo_jefe))
+				if(p[jugador].invencibilidad==0 and id_col_bola.accion!=muere)
+					id_col_bola.accion=muere;
+					father.accion=muere;
+				end
+			end
+		end
+
+		if(accion!=-10) father.accion=accion; accion=-10; end
+		x=father.x;
+		y=father.y;
+		frame;
+	end
+End
+
+Process muneco1(jugador);
+Private
+	num_muneco=1;
+	include "muneco_general.pr-";
+End
+
+Process muneco2(jugador);
+Private
+	num_muneco=2;
+	include "muneco_general.pr-";
+End
+
+Process muneco3(jugador);
+Private
+	num_muneco=3;
+	include "muneco_general.pr-";
 End

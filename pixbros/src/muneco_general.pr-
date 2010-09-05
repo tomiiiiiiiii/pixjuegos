@@ -1,5 +1,4 @@
-Process muneco1(jugador);
-Private
+// general de los munecos
 	pulsando_salto;
 	pulsando_disparo;
 	id_col_bola;
@@ -11,24 +10,37 @@ Private
 Begin
 	if(tipo_nivel==1) ctype=c_scroll; end
 	controlador(jugador);
-	// anim aparicion
+	
 	z=-1;
-	file=fpg_pix;
+	
+	switch(num_muneco)
+		case 1: 
+			x=muneco1x; y=muneco1y;
+			id_muneco1_col=colisionador();
+			file=fpg_pix;
+		end
+		case 2:
+			x=muneco2x; y=muneco2y;
+			id_muneco2_col=colisionador();
+			file=fpg_pux;
+		end
+		case 3: 
+			x=muneco3x; y=muneco3y;
+			id_muneco2_col=colisionador();
+			file=fpg_pax;
+		end
+	end
+	
 
 	graph=1;
 	ancho=graphic_info(file,graph,g_width);
-	alto=graphic_info(file,graph,g_height);
-	
-//	if(tipo_nivel==1)
-		y=scroll[0].y0;
-		x=scroll[0].x0+320;
-//	else
-		x=muneco1x; y=muneco1y;
-//	end
+	alto=graphic_info(file,graph,g_height);	
+
 	p[jugador].identificador=id;
 	p[jugador].invencibilidad=-60;
 
 	repeat
+		if(grav>15) grav=15; end
 		while(accion==atrapado) graph=2; frame; end
 		while(!ready) frame; end
 	if(accion!=chilena)
@@ -38,37 +50,22 @@ Begin
 				pulsando_disparo=1;
 				accion=disparando;
 				anim=0;
-				disparo1(); //CUIDADO!
+				switch(num_muneco)
+					case 1:	disparo1(); end
+					case 2: disparo2(); end
+					case 3: disparo3(); end
+				end
+			end
+		elseif(num_muneco==3)
+			if(p[jugador].botones[4])
+				pulsando_disparo=1;
+			else
+				pulsando_disparo=0;
+				accion=0;
 			end
 		end
 		if(!p[jugador].botones[4]) pulsando_disparo=0; end
 
-		//colisiones
-	if(accion!=muere and accion!=atrapado)
-		if(id_col_bola=collision(type enemigo))
-			if(id_col_bola.accion!=atrapado and p[jugador].invencibilidad==0 and id_col_bola.accion!=muere)
-				break;
-			end
-		end
-		if(id_col_bola=collision(type disparo))
-			if(p[jugador].invencibilidad==0 and id_col_bola.accion!=muere)
-				id_col_bola.accion=muere;
-				break;
-			end
-		end
-		if(id_col_bola=collision(type jefe))
-			if(p[jugador].invencibilidad==0 and id_col_bola.accion!=muere)
-				id_col_bola.accion=muere;
-				break;
-			end
-		end
-		if(id_col_bola=collision(type enemigo_jefe))
-			if(p[jugador].invencibilidad==0 and id_col_bola.accion!=muere)
-				id_col_bola.accion=muere;
-				break;
-			end
-		end
-	end
 		//izquierda
 		if(p[jugador].botones[0])
 			if(accion!=disparando) accion=anda; end
@@ -121,22 +118,13 @@ Begin
 	end
 		incy=grav;
 		if(grav<0) grav++; end
-//		from ipendiente=y to y+(alto/2)+16;
-//			if(map_get_pixel(0,masknivel,x,ipendiente)==color_pendiente and grav=>0)
-//				y=ipendiente-(alto/2)-1;
-//				break;
-//			end
-//		end
 
-//-------------------------------------------------------------------------------------------
 		if(map_get_pixel(0,masknivel,x,y+(alto/2)+1)==color_pendiente)
 			y++;
 		end
 		if(map_get_pixel(0,masknivel,x,y+(alto/2)-1)==color_pendiente)
 			y--;
 		end		
-//---------------------------------------------------------------------------------------------		
-		
 		if((map_get_pixel(0,masknivel,x,y+(alto/2))==color_colision or map_get_pixel(0,masknivel,x,y+(alto/2))==color_pendiente) and grav=>0)
 			grav=0;
 			saltando=0;
@@ -147,37 +135,25 @@ Begin
 
 		//movimiento
 		if(incx!=0)
-//			while(incx>0 and map_get_pixel(0,masknivel,x+(ancho/3)+1,y+(alto/2)-1)!=color_colision)
-//añadido----------------------------------------------------------------------------------------
 			while(incx>0 and map_get_pixel(0,masknivel,x+(ancho/3)+1,y+(alto/4))!=color_colision)
-//fin--------------------------------------------------------------------------------------------
 				incx--;
 				x++;
-//añadido-------------------------------------------------------------------------------------------
 				if(map_get_pixel(0,masknivel,x,y+(alto/2)+1)==color_pendiente)
 					y++;
 				end
 				if(map_get_pixel(0,masknivel,x,y+(alto/2)-1)==color_pendiente)
 					y--;
 				end		
-//fin---------------------------------------------------------------------------------------------		
-	
 			end
-//			while(incx<0 and map_get_pixel(0,masknivel,x-(ancho/3)-1,y+(alto/2)-1)!=color_colision)
-//añadido-------------------------------------------------------------------------------------------
 			while(incx<0 and map_get_pixel(0,masknivel,x-(ancho/3)-1,y+(alto/4))!=color_colision)
-//fin---------------------------------------------------------------------------------------------
 				incx++;
 				x--;
-//añadido-------------------------------------------------------------------------------------------
 				if(map_get_pixel(0,masknivel,x,y+(alto/2)+1)==color_pendiente)
 					y++;
 				end
 				if(map_get_pixel(0,masknivel,x,y+(alto/2)-1)==color_pendiente)
 					y--;
 				end		
-//fin---------------------------------------------------------------------------------------------		
-
 			end
 			incx=0;
 		end
@@ -205,14 +181,31 @@ Begin
 				if(saltando and accion!=disparando)
 					graph=2;
 				elseif(accion==disparando)
-					if(anim<3)
-						graph=7; anim++;
-					elseif(anim<6)
-						graph=8; anim++;
-					else
-						graph=1;
-						accion=0;
-						anim=0;
+					if(p[jugador].tocho or num_muneco!=2)
+						if(anim<3)
+							graph=7; anim++;
+						elseif(anim<6)
+							graph=8; anim++;
+						else
+							if(num_muneco!=3)
+								graph=1;
+								accion=0;
+								anim=0;
+							else
+								graph=8;
+								anim=7;
+							end
+						end
+					elseif(num_muneco!=3)
+						if(anim<8)
+							graph=7; anim++;
+						elseif(anim<20)
+							graph=8; anim++;
+						else
+							graph=1;
+							accion=0;
+							anim=0;
+						end
 					end
 				elseif(accion==anda)
 					if(anim<5)
@@ -237,14 +230,26 @@ Begin
 					graph=2;
 					if(flags==0) angle+=50000; else angle-=50000; end
 				elseif(accion==disparando)
-					if(anim<1)
-						graph=7; anim++;
-					elseif(anim<3)
-						graph=8; anim++;
-					else
-						graph=1;
-						accion=0;
-						anim=0;
+					if(p[jugador].tocho or num_muneco!=2)
+						if(anim<3)
+							graph=7; anim++;
+						elseif(anim<6)
+							graph=8; anim++;
+						else
+							graph=1;
+							accion=0;
+							anim=0;
+						end
+					elseif(num_muneco!=3)
+						if(anim<8)
+							graph=7; anim++;
+						elseif(anim<20)
+							graph=8; anim++;
+						else
+							graph=1;
+							accion=0;
+							anim=0;
+						end
 					end
 				else
 					if(anim<1)
@@ -281,8 +286,12 @@ Begin
 		if(p[jugador].velocidad) sombra(); end
 		if(p[jugador].invencibilidad<0) p[jugador].invencibilidad++; flags-=4; end
 		if(flags<0) flags=0; end
-	until(accion==muere);
-	sonido(11);
+	until(accion==muere)
+	switch(num_muneco)
+		case 1: sonido(11); end
+		case 2: sonido(10); end
+		case 3: sonido(12); end
+	end
 	// anim muerte
 	from anim=0 to 30;
 		y-=2;
@@ -304,4 +313,5 @@ Begin
 	p[jugador].lejos=0;
 	p[jugador].tocho=0;
 	// fin anim muerte
-End
+	
+// fin general de los munecacos

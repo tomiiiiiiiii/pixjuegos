@@ -9,7 +9,7 @@ Begin
 	file=fpg_jefes;
 	hayjefe=1;
 	Switch(tipo)
-		case 1:
+		case 1: //mono raro horrible
 			graph=4;
 			x=527;
 			y=-300;
@@ -18,7 +18,7 @@ Begin
 			varsjefe[1]=330;
 			vidajefe=5*(ops.dificultad+1);
 		end
-		case 2:
+		case 2: //araña gigante
 			graph=12;
 			x=320;
 			y=700;
@@ -47,7 +47,7 @@ Begin
 						varsjefe[1]=posicion y abajo
 						*/
 				if(id_col=collision(type boladenieve))
-					if(id_col.accion!=atrapado)
+					if(id_col.accion==chutado)
 						id_col.accion=muere;
 						vidajefe--;
 						sonido(9);
@@ -95,7 +95,7 @@ Begin
 							anim=0;
 						end
 						switch(anim)
-							case 25,50,75: graph=7; sonido(4); enemigo_jefe(1); end
+							case 25,50,75: graph=7; sonido(4); if(contar_enemigos()<5) enemigo_jefe(1); end end
 							case 30,55,80: graph=6; end
 						end
 						switch(ops.dificultad)
@@ -187,7 +187,7 @@ Begin
 						varsjefe[1]=posicion y abajo
 						*/
 				if(id_col=collision(type boladenieve))
-					if(id_col.accion!=atrapado)
+					if(id_col.accion==chutado)
 						id_col.accion=muere;
 						vidajefe--;
 						sonido(9);
@@ -232,15 +232,9 @@ Begin
 						sonido(4); 
 						switch(ops.dificultad)
 							case 0:
-								enemigo_jefe(2);
+								enemigo_jefe(rand(2,3));
 							end
-							case 1:
-								enemigo_jefe(2);
-								enemigo_jefe(3);
-							end
-							case 2:
-								enemigo_jefe(2);
-								enemigo_jefe(3);
+							case 1..2:
 								enemigo_jefe(2);
 								enemigo_jefe(3);
 							end
@@ -277,6 +271,7 @@ End
 
 Process enemigo_jefe(tipo);
 Begin
+	if(contar_enemigos()>5) return; end
 	if(tipo_nivel==1) ctype=c_scroll; end	
 	if(tipo==3) tipo=2; flags=1; end
 	switch(tipo)

@@ -1,0 +1,1322 @@
+//-------------------------------------------------------------
+//
+//Proceso enemigo.Tipo:	1 caracol: anda, gira, baja
+//			2 mago que dispara: anda, gira, baja, sube, dispara
+//			3 mago que dispara hacia abajo: anda, gira, baja, sube, dispara
+//			4 mono: anda, gira, baja, sube
+//			5 raruto: anda, gira, baja, sube, dispara, esquiva
+//			6 arañita: anda //panreyes!
+//-------------------------------------------------------------
+
+Process enemigo(tipo,x,y);
+Private
+	animacion[20];
+	id_muñeco;
+	id_disparo;
+	altura;
+	anim_max;
+	antigua_accion;
+	ipendiente;
+	no_cae;
+	bucle_caida;
+Begin
+	if(tipo_nivel==1) ctype=c_scroll; end	
+	file=fpg_enemigos;
+	z=-1;
+	if(tipo==5) explosion_con_humo(x,y); end
+	if(tipo>6) tipo=2; end
+ 	accion=cae;
+	loop
+		switch(accion)
+			case piensa:
+				switch(tipo)
+					case 1:
+						switch(anim)
+							case 0..9: graph=13; end
+							case 10..19: graph=14; end
+							case 20..29: graph=15; end
+							case 30..39: graph=16; end
+							case 41: graph=1; accion=anda; end
+						end
+						anim_max=42;
+					end
+					case 2..3:
+						switch(anim)
+							case 0..9: graph=36; end
+							case 10..19: graph=35; end
+							case 20..29: graph=36; end
+							case 30..39: graph=37; end
+							case 41: graph=21; accion=anda; end
+						end
+						anim_max=42;
+					end
+					case 4:
+						switch(anim)
+							case 0..9: graph=44; end
+							case 10..19: graph=45; end
+							case 20..29: graph=46; end
+							case 30..39: graph=45; end
+							case 41: graph=45; accion=anda; end
+						end
+						anim_max=42;
+					end
+					case 5:
+						switch(anim)
+							case 0..13: graph=62; end
+							case 14..26: graph=67; end
+							case 27..40: graph=62; end
+							case 41: graph=45; accion=anda; end
+						end
+						anim_max=42;
+					end
+					case 6:
+						graph=102;
+						alto=43;
+						accion=anda;
+					end
+				end
+			end
+			case anda:
+				switch(tipo)
+					case 1:
+						alto=48;
+						anim_max=59;
+						switch(anim)
+							case 0..9: graph=1; end
+							case 10..19: graph=4; end
+							case 20..29: graph=2; end
+							case 30..39: graph=3; end
+							case 40..49: graph=2; end
+							case 50..59: graph=4; end
+						end
+						if(flags==1)
+
+							if(map_get_pixel(0,masknivel,x-(ancho/2),y)==color_colision and map_get_pixel(0,masknivel,x-(ancho/2)-1,y)!=color_colision and map_get_pixel(0,masknivel,x-(ancho/2)+1,y)!=color_colision)
+								accion=gira;
+							end
+
+							if(map_get_pixel(0,masknivel,x-(ancho/4),y+(alto/2))==color_pendiente)
+								no_cae=1;
+							end
+
+							if(map_get_pixel(0,masknivel,x,y+(alto/2))!=color_pendiente)
+								if(map_get_pixel(0,masknivel,x-(ancho/4),y+(alto/2))!=color_colision and no_cae==0)
+									if(rand(0,3)<ops.dificultad)
+										
+										if(exists(type muneco1) and id_muneco1_col.y-10>y)
+											accion=baja;
+										elseif(exists(id_muneco2_col) and id_muneco2_col.y-10>y)
+											accion=baja;
+										elseif(exists(id_muneco3_col) and id_muneco3_col.y-10>y)
+											accion=baja;
+										else
+											accion=gira;
+										end
+									else
+										accion=gira;
+									end
+								end
+							end
+							x--;
+						end
+						if(flags==0)
+
+							if(map_get_pixel(0,masknivel,x+(ancho/2),y)==color_colision and map_get_pixel(0,masknivel,x+(ancho/2)+1,y)!=color_colision and map_get_pixel(0,masknivel,x+(ancho/2)-1,y)!=color_colision)
+								accion=gira;
+							end
+
+							if(map_get_pixel(0,masknivel,x+(ancho/4),y+(alto/2))==color_pendiente)
+								no_cae=1;
+							end
+
+							if(map_get_pixel(0,masknivel,x,y+(alto/2))!=color_pendiente)
+								if(map_get_pixel(0,masknivel,x+(ancho/4),y+(alto/2))!=color_colision and no_cae==0)
+									if(rand(0,3)<ops.dificultad)
+										if(exists(type muneco1) and id_muneco1_col.y-10>y)
+											accion=baja;
+										elseif(exists(id_muneco2_col) and id_muneco2_col.y-10>y)
+											accion=baja;
+										elseif(exists(id_muneco3_col) and id_muneco3_col.y-10>y)
+											accion=baja;
+										else
+											accion=gira;
+										end
+									else
+										accion=gira;
+									end
+								end
+							end
+							x++;
+						end
+						if(id_enemigo=collision(type enemigo))
+							if(id_enemigo.accion!=atrapado or id_enemigo.accion!=chutado)
+								if(id_enemigo.x>x)
+									if(flags==0)
+										accion=gira;
+									end
+								else
+									if(flags==1)
+										accion=gira;
+									end
+								end
+							end
+						end
+						if(map_get_pixel(0,masknivel,x,y+(alto/2)-1)==color_pendiente) y--; no_cae=0; end
+						if(map_get_pixel(0,masknivel,x,y+(alto/2)+1)==color_pendiente) y++; no_cae=0; end
+					end
+					case 2..3:
+						anim_max=39;
+						switch(anim)
+							case 0..9: graph=21; end
+							case 10..19: graph=22; end
+							case 20..29: graph=21; end
+							case 30..39: graph=23; end
+						end
+						from incx=0 to 1;
+							if(flags==1)
+								if(map_get_pixel(0,masknivel,x-(ancho/2),y)==color_colision and map_get_pixel(0,masknivel,x-(ancho/2)-1,y)!=color_colision and map_get_pixel(0,masknivel,x-(ancho/2)+1,y)!=color_colision)
+									accion=gira;
+								end
+								if(map_get_pixel(0,masknivel,x-(ancho/4)-1,y+(alto/2))==color_pendiente)
+									no_cae=1;
+								end
+
+								if(map_get_pixel(0,masknivel,x,y+(alto/2))!=color_pendiente)
+									if(map_get_pixel(0,masknivel,x-(ancho/4),y+(alto/2))!=color_colision and no_cae==0)
+										if(rand(0,3)<ops.dificultad)
+											if(exists(type muneco1) and id_muneco1_col.y-10>y)
+												accion=baja;
+											elseif(exists(id_muneco2_col) and id_muneco2_col.y-10>y)
+												accion=baja;
+											elseif(exists(id_muneco3_col) and id_muneco3_col.y-10>y)
+												accion=baja;
+											else
+												accion=gira;
+											end
+										else
+											accion=gira;
+										end
+									end
+								end
+								if(rand(-1,2)<ops.dificultad and !exists(id_disparo) and tipo==2)
+									if(exists(id_muneco1_col) and id_muneco1_col.y<y+50 and id_muneco1_col.y>y-50 and id_muneco1_col.x<x)
+										accion=dispara;
+									end
+									if(exists(id_muneco2_col) and id_muneco2_col.y<y+50 and id_muneco2_col.y>y-50 and id_muneco2_col.x<x)
+										accion=dispara;
+									end
+									if(exists(id_muneco3_col) and id_muneco3_col.y<y+50 and id_muneco3_col.y>y-50 and id_muneco3_col.x<x)
+										accion=dispara;
+									end
+								end
+								x--;
+							end
+	
+							if(flags==0)
+								if(map_get_pixel(0,masknivel,x+(ancho/2),y)==color_colision and map_get_pixel(0,masknivel,x+(ancho/2)+1,y)!=color_colision and map_get_pixel(0,masknivel,x+(ancho/2)-1,y)!=color_colision)
+									accion=gira;
+								end
+								if(map_get_pixel(0,masknivel,x+(ancho/4)+1,y+(alto/2))==color_pendiente)
+									no_cae=1;
+								end
+
+								if(map_get_pixel(0,masknivel,x,y+(alto/2))!=color_pendiente)
+									if(map_get_pixel(0,masknivel,x+(ancho/4),y+(alto/2))!=color_colision and no_cae==0)
+										if(rand(0,3)<ops.dificultad)
+											if(exists(type muneco1) and id_muneco1_col.y-10>y)
+												accion=baja;
+											elseif(exists(id_muneco2_col) and id_muneco2_col.y-10>y)
+												accion=baja;
+											elseif(exists(id_muneco3_col) and id_muneco3_col.y-10>y)
+												accion=baja;
+											else
+												accion=gira;
+											end
+										else
+											accion=gira;
+										end
+									end
+								end
+								if(rand(-1,2)<ops.dificultad and !exists(id_disparo) and tipo==2)
+									if(exists(id_muneco1_col) and id_muneco1_col.y<y+50 and id_muneco1_col.y>y-50 and id_muneco1_col.x>x)
+										accion=dispara;
+									end
+									if(exists(id_muneco2_col) and id_muneco2_col.y<y+50 and id_muneco2_col.y>y-50 and id_muneco2_col.x>x)
+										accion=dispara;
+									end
+									if(exists(id_muneco3_col) and id_muneco3_col.y<y+50 and id_muneco3_col.y>y-50 and id_muneco3_col.x>x)
+										accion=dispara;
+									end
+								end
+								x++;
+							end
+							if(map_get_pixel(0,masknivel,x,y+(alto/2)-1)==color_pendiente) y--; no_cae=0; end
+							if(map_get_pixel(0,masknivel,x,y+(alto/2)+1)==color_pendiente) y++; no_cae=0; end
+
+							if(rand(-1,2)<ops.dificultad and !exists(id_disparo) and tipo==3)
+								if(exists(id_muneco1_col) and id_muneco1_col.x<x+50 and id_muneco1_col.x>x-50 and id_muneco1_col.y>y)
+									accion=dispara;
+								end
+								if(exists(id_muneco2_col) and id_muneco2_col.x<x+50 and id_muneco2_col.x>x-50 and id_muneco2_col.y>y)
+									accion=dispara;
+								end
+								if(exists(id_muneco3_col) and id_muneco3_col.x<x+50 and id_muneco3_col.x>x-50 and id_muneco3_col.y>y)
+									accion=dispara;
+								end
+							end	
+						end
+						altura=y-70;
+						incy=y;
+						while(incy>altura)
+							incy--;
+							if(map_get_pixel(0,masknivel,x,incy)==color_colision and
+							map_get_pixel(0,masknivel,x,incy-1)!=color_colision and 
+							map_get_pixel(0,masknivel,x,incy+1)!=color_colision and 
+							rand(-1,2)<ops.dificultad
+							)
+								if(exists(id_muneco1_col) and id_muneco1_col.y+50<y)
+									accion=sube;
+								end
+								if(exists(id_muneco2_col) and id_muneco2_col.y+50<y)
+									accion=sube;
+								end
+								if(exists(id_muneco3_col) and id_muneco3_col.y+50<y)
+									accion=sube;
+								end
+								break;
+							end
+						end
+						if(id_enemigo=collision(type enemigo))
+							if(id_enemigo.accion!=atrapado or id_enemigo.accion!=chutado)
+								if(id_enemigo.x>x)
+									if(flags==0)
+										accion=gira;
+									end
+								else
+									if(flags==1)
+										accion=gira;
+									end
+								end
+							end
+						end
+						if(map_get_pixel(0,masknivel,x,y+(alto/2)-1)==color_pendiente) y--; no_cae=0; end
+						if(map_get_pixel(0,masknivel,x,y+(alto/2)+1)==color_pendiente) y++; no_cae=0; end
+					end
+					case 4:
+						anim_max=39;
+						switch(anim)
+							case 0..9: graph=41; end
+							case 10..19: graph=42; end
+							case 20..29: graph=43; end
+							case 30..39: graph=42; end
+						end
+						from incx=0 to 2;
+						if(flags==1)
+							if(map_get_pixel(0,masknivel,x-(ancho/2),y)==color_colision and map_get_pixel(0,masknivel,x-(ancho/2)-1,y)!=color_colision and map_get_pixel(0,masknivel,x-(ancho/2)+1,y)!=color_colision)
+								accion=gira;
+							end
+							if(map_get_pixel(0,masknivel,x-(ancho/4)-1,y+(alto/2))==color_pendiente)
+								no_cae=1;
+							end
+
+							if(map_get_pixel(0,masknivel,x,y+(alto/2))!=color_pendiente)
+								if(map_get_pixel(0,masknivel,x-(ancho/4),y+(alto/2))!=color_colision and no_cae==0)
+									if(rand(0,3)<ops.dificultad)
+										if(exists(type muneco1) and id_muneco1_col.y-10>y)
+											accion=baja;
+										elseif(exists(id_muneco2_col) and id_muneco2_col.y-10>y)
+											accion=baja;
+										elseif(exists(id_muneco3_col) and id_muneco3_col.y-10>y)
+											accion=baja;
+										else
+											accion=gira;
+										end
+									else
+										accion=gira;
+									end
+								end
+							end
+							x--;
+						end
+
+						if(flags==0)
+							if(map_get_pixel(0,masknivel,x+(ancho/2),y)==color_colision and map_get_pixel(0,masknivel,x+(ancho/2)+1,y)!=color_colision and map_get_pixel(0,masknivel,x+(ancho/2)-1,y)!=color_colision)
+								accion=gira;
+							end
+							if(map_get_pixel(0,masknivel,x+(ancho/4)+1,y+(alto/2))==color_pendiente)
+								no_cae=1;
+							end
+
+							if(map_get_pixel(0,masknivel,x,y+(alto/2))!=color_pendiente)
+								if(map_get_pixel(0,masknivel,x+(ancho/4),y+(alto/2))!=color_colision and no_cae==0)
+									if(rand(0,3)<ops.dificultad)
+										if(exists(type muneco1) and id_muneco1_col.y-10>y)
+											accion=baja;
+										elseif(exists(id_muneco2_col) and id_muneco2_col.y-10>y)
+											accion=baja;
+										elseif(exists(id_muneco3_col) and id_muneco3_col.y-10>y)
+											accion=baja;
+										else
+											accion=gira;
+										end
+									else
+										accion=gira;
+									end
+								end
+							end
+							x++;
+						end
+						if(map_get_pixel(0,masknivel,x,y+(alto/2)-1)==color_pendiente) y--; no_cae=0; end
+						if(map_get_pixel(0,masknivel,x,y+(alto/2)+1)==color_pendiente) y++; no_cae=0; end
+						end
+						if(exists(type muneco1) and id_muneco1_col.y>y and id_muneco1_col.y-y<150 and id_muneco1_col.x>x-30 and id_muneco1_col.x<x+30)
+							accion=baja;
+						elseif(exists(id_muneco2_col) and id_muneco2_col.y>y and id_muneco2_col.y-y<150 and id_muneco2_col.x>x-30 and id_muneco2_col.x<x+30)
+							accion=baja;
+						elseif(exists(id_muneco3_col) and id_muneco3_col.y>y and id_muneco3_col.y-y<150 and id_muneco3_col.x>x-30 and id_muneco3_col.x<x+30)
+							accion=baja;
+						end
+						altura=y-70;
+						incy=y;
+						while(incy>altura)
+							incy--;
+							if(map_get_pixel(0,masknivel,x,incy)==color_colision and
+							map_get_pixel(0,masknivel,x,incy-1)!=color_colision and 
+							map_get_pixel(0,masknivel,x,incy+1)!=color_colision and 
+							rand(-1,2)<ops.dificultad
+							)
+								if(exists(id_muneco1_col) and id_muneco1_col.y+50<y)
+									accion=sube;
+								end
+								if(exists(id_muneco2_col) and id_muneco2_col.y+50<y)
+									accion=sube;
+								end
+								if(exists(id_muneco3_col) and id_muneco3_col.y+50<y)
+									accion=sube;
+								end
+								break;
+							end
+						end
+						if(id_enemigo=collision(type enemigo))
+							if(id_enemigo.accion!=atrapado or id_enemigo.accion!=chutado)
+								if(id_enemigo.x>x)
+									if(flags==0)
+										accion=gira;
+									end
+								else
+									if(flags==1)
+										accion=gira;
+									end
+								end
+							end
+						end
+
+					end
+					case 5:
+						anim_max=39;
+						switch(anim)
+							case 0..9: graph=63; end
+							case 10..19: graph=64; end
+							case 20..29: graph=65; end
+							case 30..39: graph=64; end
+						end
+						from incx=0 to 1;
+							if(flags==1)
+								if(map_get_pixel(0,masknivel,x-(ancho/2),y)==color_colision and map_get_pixel(0,masknivel,x-(ancho/2)-1,y)!=color_colision and map_get_pixel(0,masknivel,x-(ancho/2)+1,y)!=color_colision)
+									accion=gira;
+								end
+								if(map_get_pixel(0,masknivel,x-(ancho/4)-1,y+(alto/2))==color_pendiente)
+									no_cae=1;
+								end
+
+								if(map_get_pixel(0,masknivel,x,y+(alto/2))!=color_pendiente)
+									if(map_get_pixel(0,masknivel,x-(ancho/4),y+(alto/2))!=color_colision and no_cae==0)
+										if(rand(0,3)<ops.dificultad)
+											if(exists(type muneco1) and id_muneco1_col.y-10>y)
+												accion=baja;
+											elseif(exists(id_muneco2_col) and id_muneco2_col.y-10>y)
+												accion=baja;
+											elseif(exists(id_muneco3_col) and id_muneco3_col.y-10>y)
+												accion=baja;
+											else
+												accion=gira;
+											end
+										else
+											accion=gira;
+										end
+									end
+								end
+								if(rand(-1,2)<ops.dificultad and !exists(id_disparo))
+									if(exists(id_muneco1_col) and id_muneco1_col.y<y+50 and id_muneco1_col.y>y-50 and id_muneco1_col.x<x)
+										if(rand(0,3)<ops.dificultad)
+											accion=especial;
+										else
+											accion=dispara;
+										end
+									end
+									if(exists(id_muneco2_col) and id_muneco2_col.y<y+50 and id_muneco2_col.y>y-50 and id_muneco2_col.x<x)
+										if(rand(0,3)<ops.dificultad)
+											accion=especial;
+										else
+											accion=dispara;
+										end
+									end
+									if(exists(id_muneco3_col) and id_muneco3_col.y<y+50 and id_muneco3_col.y>y-50 and id_muneco3_col.x<x)
+										if(rand(0,3)<ops.dificultad)
+											accion=especial;
+										else
+											accion=dispara;
+										end
+									end
+								end
+								x--;
+							end
+	
+							if(flags==0)
+								if(map_get_pixel(0,masknivel,x+(ancho/2),y)==color_colision and map_get_pixel(0,masknivel,x+(ancho/2)+1,y)!=color_colision and map_get_pixel(0,masknivel,x+(ancho/2)-1,y)!=color_colision)
+									accion=gira;
+								end
+								if(map_get_pixel(0,masknivel,x+(ancho/4)+1,y+(alto/2))==color_pendiente)
+									no_cae=1;
+								end
+
+								if(map_get_pixel(0,masknivel,x,y+(alto/2))!=color_pendiente)
+									if(map_get_pixel(0,masknivel,x+(ancho/4),y+(alto/2))!=color_colision and no_cae==0)
+										if(rand(0,3)<ops.dificultad)
+											if(exists(type muneco1) and id_muneco1_col.y-10>y)
+												accion=baja;
+											elseif(exists(id_muneco2_col) and id_muneco2_col.y-10>y)
+												accion=baja;
+											elseif(exists(id_muneco3_col) and id_muneco3_col.y-10>y)
+												accion=baja;
+											else
+												accion=gira;
+											end
+										else
+											accion=gira;
+										end
+									end
+								end
+								if(rand(-1,2)<ops.dificultad and !exists(id_disparo))
+									if(exists(id_muneco1_col) and id_muneco1_col.y<y+50 and id_muneco1_col.y>y-50 and id_muneco1_col.x>x)
+										if(rand(0,3)<ops.dificultad)
+											accion=especial;
+										else
+											accion=dispara;
+										end
+									end
+									if(exists(id_muneco2_col) and id_muneco2_col.y<y+50 and id_muneco2_col.y>y-50 and id_muneco2_col.x>x)
+										if(rand(0,3)<ops.dificultad)
+											accion=especial;
+										else
+											accion=dispara;
+										end
+									end
+									if(exists(id_muneco3_col) and id_muneco3_col.y<y+50 and id_muneco3_col.y>y-50 and id_muneco3_col.x>x)
+										if(rand(0,3)<ops.dificultad)
+											accion=especial;
+										else
+											accion=dispara;
+										end;
+									end
+								end
+								x++;
+							end
+							if(map_get_pixel(0,masknivel,x,y+(alto/2)-1)==color_pendiente) y--; no_cae=0; end
+							if(map_get_pixel(0,masknivel,x,y+(alto/2)+1)==color_pendiente) y++; no_cae=0; end
+
+						end
+						if(exists(type muneco1) and id_muneco1_col.y>y and id_muneco1_col.y-y<150 and id_muneco1_col.x>x-30 and id_muneco1_col.x<x+30)
+							accion=baja;
+						elseif(exists(id_muneco2_col) and id_muneco2_col.y>y and id_muneco2_col.y-y<150 and id_muneco2_col.x>x-30 and id_muneco2_col.x<x+30)
+							accion=baja;
+						elseif(exists(id_muneco3_col) and id_muneco3_col.y>y and id_muneco3_col.y-y<150 and id_muneco3_col.x>x-30 and id_muneco3_col.x<x+30)
+							accion=baja;
+						end
+						altura=y-70;
+						incy=y;
+						while(incy>altura)
+							incy--;
+							if(map_get_pixel(0,masknivel,x,incy)==color_colision and
+							map_get_pixel(0,masknivel,x,incy-1)!=color_colision and 
+							map_get_pixel(0,masknivel,x,incy+1)!=color_colision and 
+							rand(-1,2)<ops.dificultad
+							)
+								if(exists(id_muneco1_col) and id_muneco1_col.y+50<y)
+									accion=sube;
+								end
+								if(exists(id_muneco2_col) and id_muneco2_col.y+50<y)
+									accion=sube;
+								end
+								if(exists(id_muneco3_col) and id_muneco3_col.y+50<y)
+									accion=sube;
+								end
+								break;
+							end
+						end
+						if(id_enemigo=collision(type enemigo))
+							if(id_enemigo.accion!=atrapado or id_enemigo.accion!=chutado)
+								if(id_enemigo.x>x)
+									if(flags==0)
+										accion=gira;
+									end
+								else
+									if(flags==1)
+										accion=gira;
+									end
+								end
+							end
+						end
+						if(map_get_pixel(0,masknivel,x,y+(alto/2)-1)==color_pendiente) y--; no_cae=0; end
+						if(map_get_pixel(0,masknivel,x,y+(alto/2)+1)==color_pendiente) y++; no_cae=0; end
+					end
+					case 6:
+						alto=43;
+						anim_max=10;
+						switch(anim)
+							case 0..2: graph=102; end
+							case 3..5: graph=103; end
+							case 6..8: graph=104; end
+							case 9..10: graph=105; end
+						end
+						from incx=0 to 3;
+						if(flags==1)
+
+							if(map_get_pixel(0,masknivel,x-(ancho/2),y)==color_colision and map_get_pixel(0,masknivel,x-(ancho/2)-1,y)!=color_colision and map_get_pixel(0,masknivel,x-(ancho/2)+1,y)!=color_colision)
+								accion=gira;
+							end
+
+							if(map_get_pixel(0,masknivel,x-(ancho/4),y+(alto/2))==color_pendiente)
+								no_cae=1;
+							end
+
+							if(map_get_pixel(0,masknivel,x,y+(alto/2))!=color_pendiente)
+								if(map_get_pixel(0,masknivel,x-(ancho/4),y+(alto/2))!=color_colision and no_cae==0)
+									accion=gira;
+								end
+							end
+							x--;
+						end
+						if(flags==0)
+
+							if(map_get_pixel(0,masknivel,x+(ancho/2),y)==color_colision and map_get_pixel(0,masknivel,x+(ancho/2)+1,y)!=color_colision and map_get_pixel(0,masknivel,x+(ancho/2)-1,y)!=color_colision)
+								accion=gira;
+							end
+
+							if(map_get_pixel(0,masknivel,x+(ancho/4),y+(alto/2))==color_pendiente)
+								no_cae=1;
+							end
+
+							if(map_get_pixel(0,masknivel,x,y+(alto/2))!=color_pendiente)
+								if(map_get_pixel(0,masknivel,x+(ancho/4),y+(alto/2))!=color_colision and no_cae==0)
+									accion=gira;
+								end
+							end
+							x++;
+						end
+
+						if(id_enemigo=collision(type enemigo))
+							if(id_enemigo.accion!=atrapado or id_enemigo.accion!=chutado)
+								if(id_enemigo.x>x)
+									if(flags==0)
+										accion=gira;
+									end
+								else
+									if(flags==1)
+										accion=gira;
+									end
+								end
+							end
+						end
+						if(map_get_pixel(0,masknivel,x,y+(alto/2)-1)==color_pendiente) y--; no_cae=0; end
+						if(map_get_pixel(0,masknivel,x,y+(alto/2)+1)==color_pendiente) y++; no_cae=0; end
+					end
+					end //incx
+				end
+			end
+			case gira:
+				no_cae=0;
+				switch(tipo)
+					case 1:
+						switch(anim)
+							case 0..5: graph=6; end
+							case 6..11: graph=7; end
+							case 12..17: graph=8; end
+							case 18..22: graph=1; end
+						end
+						anim_max=22;
+						if(anim==18)
+							if(flags==0)
+								flags=1;
+							else
+								flags=0;
+							end
+						end
+						if(anim==22) accion=anda; end
+					end
+					case 2..3:
+						switch(anim)
+							case 0..5: graph=33; end
+							case 6..17: graph=34; end
+							case 18..22: graph=33; end
+						end
+						anim_max=22;
+						if(anim==11)
+							if(flags==0)
+								flags=1;
+							else
+								flags=0;
+							end
+						end
+						if(anim==22)
+							accion=anda;
+						end
+					end
+					case 4:
+						switch(anim)
+							case 0..5: graph=59; end
+							case 6..17: graph=60; end
+							case 18..22: graph=59; end
+						end
+						anim_max=22;
+						if(anim==11)
+							if(flags==0)
+								flags=1;
+							else
+								flags=0;
+							end
+						end
+						if(anim==22)
+							accion=anda;
+						end
+					end
+					case 5:
+						switch(anim)
+							case 0..5: graph=62; end
+							case 6..17: graph=68; end
+							case 18..22: graph=62; end
+						end
+						anim_max=22;
+						if(anim==11)
+							if(flags==0)
+								flags=1;
+							else
+								flags=0;
+							end
+						end
+						if(anim==22)
+							accion=anda;
+						end
+					end
+					case 6:
+						if(flags==0)
+							flags=1;
+						else
+							flags=0;
+						end
+						accion=anda;
+					end
+
+				end
+			end
+			case sube:
+				switch(tipo)
+					case 2..3:
+						switch(anim)
+							case 0..9: graph=38; end
+							case 10..19: graph=39; end
+							case 20..29: graph=40; end
+							case 30..39: graph=39; end
+						end
+						anim_max=39;
+						if(anim==39)
+							accion=cae;
+							grav=-13;
+						end
+					end
+					case 4:
+						switch(anim)
+							case 0..9: graph=56; end
+							case 10..19: graph=57; end
+							case 20..29: graph=58; end
+							case 30..39: graph=57; end
+						end
+						anim_max=39;
+						if(anim==39)
+							accion=cae;
+							grav=-20;
+						end
+					end
+					case 5:
+						switch(anim)
+							case 0..39: graph=62; end
+						end
+						anim_max=39;
+						if(anim==39)
+							accion=cae;
+							grav=-13;
+						end
+					end
+				end
+			end
+			case baja:
+				switch(tipo)
+					case 1:
+						switch(anim)
+							case 0..9: graph=9; end
+							case 10..29: graph=10; end
+						end
+						anim_max=39;
+						if(anim==29)
+							accion=cae;
+							grav=0;
+							if(flags==0)
+								x+=(ancho/2);
+							else
+								x-=(ancho/2);
+							end
+						end
+					end
+					case 2..3:
+						switch(anim)
+							case 0..9: graph=27; end
+							case 10..19: graph=28; end
+							case 20..29: graph=27; end
+							case 30..39: graph=29; end
+						end
+						anim_max=39;
+						if(anim==39) accion=cae; grav=0; end
+					end
+					case 4:
+						switch(anim)
+							case 0..9: graph=53; end
+							case 10..19: graph=54; end
+							case 20..29: graph=55; end
+							case 30..39: graph=54; end
+						end
+						anim_max=39;
+						if(anim==39) accion=cae; grav=0; end
+					end
+					case 5:
+						switch(anim)
+							case 0..39: graph=62; end
+						end
+						anim_max=39;
+						if(anim==39) accion=cae; grav=0; end
+					end
+				end
+			end
+			case cae:
+				switch(tipo)
+					case 1:
+						switch(anim)
+							case 0..9: graph=9; end
+							case 10..29: graph=10; end
+						end
+						anim_max=29;
+						grav++;
+					//	alto=48;
+						from incy=0 to grav;
+							y++;
+							if(map_get_pixel(0,masknivel,x,y+(alto/2))==color_colision and (map_get_pixel(0,masknivel,x,y+(alto/2)-1)!=color_colision and map_get_pixel(0,masknivel,x,y+(alto/2)+1)!=color_colision))
+								accion=anda;
+								grav=0;
+								break;
+							end
+							if(map_get_pixel(0,masknivel,x,y+(alto/2))==color_pendiente)
+								accion=anda;
+								grav=0;
+								break;
+							end
+						end
+						if(y>alto_nivel+20) y=-20; end
+					end
+					case 2..3:
+						switch(anim)
+							case 0..9: graph=27; end
+							case 10..19: graph=28; end
+							case 20..29: graph=27; end
+							case 30..39: graph=29; end
+						end
+						anim_max=39;
+						grav++;
+						incy=0;
+						while(incy!=grav)
+							if(incy>grav)
+								incy--;
+							elseif(incy<grav)
+								incy++;
+							end
+							if(grav>0)
+								y++;
+							else
+								y--;
+							end		
+							if(map_get_pixel(0,masknivel,x,y+(alto/2))==color_colision and (map_get_pixel(0,masknivel,x,y+(alto/2)-1)!=color_colision and map_get_pixel(0,masknivel,x,y+(alto/2)+1)!=color_colision))
+								accion=anda;
+								grav=0;
+								break;
+							end
+							if(map_get_pixel(0,masknivel,x,y+(alto/2))==color_pendiente)
+								accion=anda;
+								grav=0;
+								break;
+							end
+						end
+						if(y>alto_nivel+20) y=-20; end
+					end
+					case 4:
+						switch(anim)
+							case 0..9: graph=50; end
+							case 10..19: graph=51; end
+							case 20..29: graph=52; end
+							case 30..39: graph=51; end
+						end
+						anim_max=39;
+						grav++;
+						incy=0;
+						while(incy!=grav)
+							if(incy>grav)
+								incy--;
+							elseif(incy<grav)
+								incy++;
+							end
+							if(grav>0)
+								y++;
+							else
+								y--;
+							end		
+							if(map_get_pixel(0,masknivel,x,y+(alto/2))==color_colision and (map_get_pixel(0,masknivel,x,y+(alto/2)-1)!=color_colision and map_get_pixel(0,masknivel,x,y+(alto/2)+1)!=color_colision))
+								accion=anda;
+								grav=0;
+								break;
+							end
+							if(map_get_pixel(0,masknivel,x,y+(alto/2))==color_pendiente)
+								accion=anda;
+								grav=0;
+								break;
+							end
+						end
+						if(y>alto_nivel+20) y=-20; end
+					end
+					case 5:
+						switch(anim)
+							case 0..39: graph=69; end
+						end
+						anim_max=39;
+						grav++;
+						incy=0;
+						while(incy!=grav)
+							if(incy>grav)
+								incy--;
+							elseif(incy<grav)
+								incy++;
+							end
+							if(grav>0)
+								y++;
+							else
+								y--;
+							end		
+							if(map_get_pixel(0,masknivel,x,y+(alto/2))==color_colision and (map_get_pixel(0,masknivel,x,y+(alto/2)-1)!=color_colision and map_get_pixel(0,masknivel,x,y+(alto/2)+1)!=color_colision))
+								accion=anda;
+								grav=0;
+								break;
+							end
+							if(map_get_pixel(0,masknivel,x,y+(alto/2))==color_pendiente)
+								accion=anda;
+								grav=0;
+								break;
+							end
+						end
+						if(y>alto_nivel+20) y=-20; end
+					end
+					case 6:
+						graph=101;
+						grav++;
+						alto=43;
+						from incy=0 to grav;
+							y++;
+							if(map_get_pixel(0,masknivel,x,y+(alto/2))==color_colision and (map_get_pixel(0,masknivel,x,y+(alto/2)-1)!=color_colision and map_get_pixel(0,masknivel,x,y+(alto/2)+1)!=color_colision))
+								accion=anda;
+								grav=0;
+								break;
+							end
+							if(map_get_pixel(0,masknivel,x,y+(alto/2))==color_pendiente)
+								accion=anda;
+								grav=0;
+								break;
+							end
+						end
+						if(y>alto_nivel+20) y=-20; end
+					end
+				end
+			end
+			case dispara:
+				switch(tipo)
+					case 2:
+						switch(anim)
+							case 0..9: graph=30; end
+							case 10..19: graph=31; end
+							case 20..29: graph=32; end
+							case 30..39: graph=31; end
+							case 30..39: graph=30; end
+						end
+						anim_max=39;
+						if(anim==25) id_disparo=disparo(x,y,flags,tipo); end
+						if(anim==39) accion=anda; end
+						
+					end
+					case 3:
+						switch(anim)
+							case 0..9: graph=33; end
+							case 10..19: graph=34; end
+							case 20..29: graph=61; end
+							case 30..39: graph=34; end
+							case 30..39: graph=33; end
+						end
+						anim_max=39;
+						if(anim==25) id_disparo=disparo(x,y,flags,tipo); end
+						if(anim==39) accion=anda; end
+						
+					end
+					case 5:
+						switch(anim)
+							case 0..9: graph=70; end
+							case 10..19: graph=70; end
+							case 20..29: graph=71; end
+							case 30..39: graph=71; end
+							case 30..39: graph=62; end
+						end
+						anim_max=39;
+						if(anim==20) id_disparo=disparo(x,y,flags,tipo-1); end
+						if(anim==39) accion=anda; end
+						
+					end
+				end
+			end
+			case atrapado:
+				switch(tipo)
+					case 1:
+						anim_max=40;
+						switch(anim)
+							case 0..9: graph=1; end
+							case 10..19: graph=12; end
+							case 20..29: graph=11; end
+							case 30..39: graph=5; end
+						end
+						if(anim>38) anim=38; end
+					end
+					case 2..3:
+						anim_max=39;
+						switch(anim)
+							case 0..9: graph=24; end
+							case 10..19: graph=25; end
+							case 20..29: graph=26; end
+							case 30..39: graph=25; end
+						end
+					end
+					case 4:
+						anim_max=39;
+						switch(anim)
+							case 0..9: graph=47; end
+							case 10..19: graph=48; end
+							case 20..29: graph=49; end
+							case 30..39: graph=48; end
+						end
+					end
+					case 5:
+						anim_max=39;
+						switch(anim)
+							case 0..39: graph=66; end
+						end
+					end
+					case 6:
+						graph=101;
+					end
+				end
+			end
+			case chutado:
+				switch(tipo)
+					case 1:
+						graph=5;
+					end
+					case 2..3:
+						graph=0;
+					end
+					case 4:
+						graph=0;
+					end
+					case 5:
+						graph=0;
+					end
+					case 6:
+						graph=0;
+					end
+				end
+			end
+			case especial:
+				switch(tipo)
+					case 5:	//mano-chan
+						anim_max=41;
+						if(anim<30)
+							graph=62;
+						else
+							graph=73;
+						end
+						if(anim>30)
+							disparo(x,y,flags,tipo);
+						end
+						if(anim>40)
+							accion=anda;
+						end
+					end
+				end
+			end				
+			case muere:
+				break;
+			end
+		end
+		anim++;
+		if(anim>anim_max) anim=0; end
+		if(matabichos) accion=muere; end
+		if(antigua_accion!=accion) anim=0; end
+		antigua_accion=accion;
+		ancho=graphic_info(file,graph,g_width);
+		alto=graphic_info(file,graph,g_height);
+		while(ready==0) frame; end
+		if(grav>30) accion=muere; end //bucles infinitos :S
+		frame;
+	end
+end
+
+
+//--------------------------------------------------------------
+//	proceso disparo del enemigo
+//	tipos:	1:-
+//		2 y 3: magos
+//		4: kunai
+//		5: laser
+//----------------------------------------------------------------
+
+process disparo(x,y,flags,tipo);
+
+private
+	distancia;
+	id_col;
+begin
+	if(tipo_nivel==1) ctype=c_scroll; end	
+	file=fpg_enemigos;
+	if(flags==0)
+		x+=15;
+	else
+		x-=15;
+	end
+	if(tipo==2)
+		graph=17;
+	end
+	if(tipo==3)
+		graph=17;
+		if(flags==0)
+			angle-=90000;
+		else
+			angle+=90000;
+		end
+	end
+	if(tipo==4)
+		graph=72;
+	end
+	if(tipo==5)
+		graph=74;
+		if(flags==0)
+			flags=b_ablend;
+		else
+			flags=b_ablend+1;
+		end
+
+	end
+	ancho=graphic_info(file,graph,g_width);
+	alto=graphic_info(file,graph,g_height);
+	loop
+		while(ready==0) frame; end
+		if(tipo==2 or tipo==3)
+			anim++;
+			distancia++;
+			if(anim>15)
+				graph++;
+				anim=0;
+			end
+			if(graph>20)
+				graph=17;
+			end
+		end
+		if(tipo==2 or tipo==4 or tipo==5)
+			if(flags==0 or flags==b_ablend)
+				from incx=0 to 7;
+					x++;
+					if(map_get_pixel(0,masknivel,x+incx,y)==color_colision or map_get_pixel(0,masknivel,x+incx,y)==color_pendiente)
+						break;
+					end
+				end
+			else
+				from incx=0 to -7;
+					x--;
+					if(map_get_pixel(0,masknivel,x+incx,y)==color_colision or map_get_pixel(0,masknivel,x+incx,y)==color_pendiente)
+						break;
+					end
+				end
+			end
+			if(map_get_pixel(0,masknivel,x+incx,y)==color_colision or map_get_pixel(0,masknivel,x+incx,y)==color_pendiente or distancia>25 or accion==muere) break; end
+		end
+		if(tipo==3)
+			from incy=0 to 7;
+				y++;
+				if(map_get_pixel(0,masknivel,x,y+incy)==color_colision or map_get_pixel(0,masknivel,x,y+incy)==color_pendiente)
+					break;
+				end
+			end
+			if(map_get_pixel(0,masknivel,x,y+incy)==color_colision or map_get_pixel(0,masknivel,x,y+incy)==color_pendiente or distancia>25 or accion==muere) break; end
+		end
+		if(id_col=collision(type boladenieve)) id_col.nieve-=3;	break; end
+		if(id_col=collision(type burbuja)) id_col.duracion=tiempo_burbujas-1; break; end
+		frame;
+	end
+	accion=muere;
+	from size_x=100 to 0 step -10;
+		frame;
+	end
+end
+
+process enemigo_lanzado(x,y,tipo,lado);
+Private
+	suelorand;
+	suelos;
+	j2;
+Begin
+	if(tipo_nivel==1) ctype=c_scroll; end	
+	file=fpg_enemigos;
+	z=-1;
+	switch(tipo)
+		case 1: graph=5; end
+		case 2: graph=25; end
+		case 3: graph=25; end
+		case 4: graph=51; end
+		case 5: graph=66; end
+		case 6: graph=101; end
+	end
+	if(lado==0)
+		incx=rand(10,20);
+	else
+		incx=rand(-10,-20);
+	end
+	incy=rand(-25,-30);
+	alto=graphic_info(file,graph,g_height);
+	repeat
+		if(y<20) y=21; incy=0;  end
+		incy++;
+		if(y>alto_nivel+20) y=-20; end
+		angle+=10000;
+		x+=incx;
+		if(x<21) incx*=(-1); x=21; end
+		if(x>ancho_nivel-21) incx*=(-1); x=ancho_nivel-21; end
+		if(incy>0)
+			from grav=0 to incy;
+				y++;		
+				if(map_get_pixel(0,masknivel,x,y+(alto/2))==color_colision and rand(0,1)==1 and (map_get_pixel(0,masknivel,x,y+(alto/2)-1)!=color_colision and map_get_pixel(0,masknivel,x,y+(alto/2)+1)!=color_colision))
+					break;
+				end
+			end
+		else
+			y+=incy;
+		end
+		while(ready==0) frame; end
+		frame;
+	until(map_get_pixel(0,masknivel,x,y+(alto/2))==color_colision or map_get_pixel(0,masknivel,x,y+(alto/2)-1)==color_colision)
+	angle=0;
+	flags=2;
+	frame(3000);
+	if(tipo==5)
+		explosion_con_humo(x,y);
+	else
+		if(os_id!=9) explotalo(x,y,z,alpha,angle,file,graph,60); end
+	end
+	item(rand(1,5));
+end
+
+Process explosion_con_humo(x,y);
+begin
+	if(tipo_nivel==1) ctype=c_scroll; end	
+	file=fpg_enemigos;
+	graph=76;
+	from alpha=255 to 0 step -5;
+		while(ready==0) frame; end
+		y--;
+		size_y--;
+		size_x+=2;
+		frame;
+	end
+end
+
+process tronco(x,y);
+begin
+	if(tipo_nivel==1) ctype=c_scroll; end	
+	file=fpg_enemigos;
+	graph=75;
+	alto=graphic_info(file,graph,g_height);
+	from alpha=255 to 0 step -10;
+		y+=2;
+		while(ready==0) frame; end
+		frame;
+	end
+end
+
+Process explotalo(x,y,z,alpha,angle,file,grafico,frames);
+Private
+	a;
+	b;
+	c;
+	tiempo;
+	struct particula[10000];
+		pixel;
+		pos_x;
+		pos_y;
+		vel_y;
+		vel_x;
+	end
+Begin
+	ancho=graphic_info(file,grafico,g_width);
+	alto=graphic_info(file,grafico,g_height);
+	from b=0 to alto-1 step 3;
+		from a=0 to ancho-1 step 3;
+			if(map_get_pixel(file,grafico,a,b)!=0)
+				particula[c].pixel=map_get_pixel(file,grafico,a,b);
+				
+				particula[c].pos_x=a-(ancho/2);
+				particula[c].pos_y=b-(alto/2);
+				particula[c].vel_x=((a-(ancho/2))/12)+rand(-1,1);
+				particula[c].vel_y=((b-(alto/2))/12)+rand(-1,1);
+				
+			//	particula[c].vel_x=(a-(ancho/2))/12;
+			//	particula[c].vel_y=(b-(alto/2))/12;
+				
+				c++;
+			end
+		end
+	end
+	a=c;
+	while(tiempo<frames)
+		graph=new_map(ancho*8,alto*8,32);
+		from c=0 to a;
+			map_put_pixel(0,graph,particula[c].pos_x+(ancho*8/2),particula[c].pos_y+(alto*8/2),particula[c].pixel);
+			map_put_pixel(0,graph,particula[c].pos_x+(ancho*8/2)+1,particula[c].pos_y+(alto*8/2),particula[c].pixel);
+			map_put_pixel(0,graph,particula[c].pos_x+(ancho*8/2),particula[c].pos_y+(alto*8/2)+1,particula[c].pixel);
+			map_put_pixel(0,graph,particula[c].pos_x+(ancho*8/2)+1,particula[c].pos_y+(alto*8/2)+1,particula[c].pixel);
+			particula[c].pos_x+=particula[c].vel_x;
+			particula[c].pos_y+=particula[c].vel_y+tiempo-10;
+			
+		end
+		tiempo++;
+		frame;
+		unload_map(0,graph);
+	end
+end
+
