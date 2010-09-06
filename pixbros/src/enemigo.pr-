@@ -14,7 +14,7 @@ Private
 	struct puede;
 		andar; //velocidad
 		girar;
-		bajar;
+		bajar; //1: solo esquinas, 2: en cualquier momento
 		subir;
 		disparar; //1: mago, 2: mago abajo, 3: raruto kunai, 4:
 		pensar;
@@ -87,7 +87,7 @@ Begin
 			animacion[sube][0]=56; animacion[sube][1]=58;
 			animacion[dispara][0]=0; animacion[dispara][1]=0;
 			puede.andar=3; puede.girar=1;
-			puede.bajar=1; puede.subir=1;
+			puede.bajar=2; puede.subir=1;
 			puede.disparar=0; puede.pensar=1;
 		end
 		case 5: //raruto
@@ -100,7 +100,7 @@ Begin
 			animacion[dispara][0]=70; animacion[dispara][1]=71;
 			animacion[especial][0]=73; animacion[especial][1]=73;
 			puede.andar=2; puede.girar=1;
-			puede.bajar=1; puede.subir=1;
+			puede.bajar=2; puede.subir=1;
 			puede.disparar=3; puede.pensar=1;
 			puede.especializar=1; 
 		end
@@ -185,7 +185,7 @@ Begin
 						end
 					end
 					
-					if(puede.bajar and rand(-1,10)<ops.dificultad and
+					if(puede.bajar==2 and rand(-1,10)<ops.dificultad and
 					(exists(id_muneco1_col) and id_muneco1_col.y>y and id_muneco1_col.y-y<150 and id_muneco1_col.x>x-30 and id_muneco1_col.x<x+30) or
 					(exists(id_muneco2_col) and id_muneco2_col.y>y and id_muneco2_col.y-y<150 and id_muneco2_col.x>x-30 and id_muneco2_col.x<x+30) or
 					(exists(id_muneco3_col) and id_muneco3_col.y>y and id_muneco3_col.y-y<150 and id_muneco3_col.x>x-30 and id_muneco3_col.x<x+30))
@@ -362,8 +362,7 @@ Begin
 						end
 					end
 				end
-			end		
-			
+			end				
 		end
 		anim++;
 		if(matabichos) accion=muere; end
