@@ -1,3 +1,12 @@
+CONST
+	CARACOL=1;
+	MAGO=2;
+	MAGO_ABAJO=3;
+	MONO=4;
+	RARUTO=5;
+	ARANA=6;
+END
+
 //-------------------------------------------------------------
 //
 //Proceso enemigo.Tipo:	1 caracol: anda, gira, baja
@@ -16,7 +25,7 @@ Private
 		girar;
 		bajar; //1: solo esquinas, 2: en cualquier momento
 		subir;
-		disparar; //1: mago, 2: mago abajo, 3: raruto kunai, 4:
+		disparar; //1: mago, 2: mago abajo, 3: raruto kunai
 		pensar;
 		especializar; //1: raruto laser
 	end
@@ -39,7 +48,7 @@ Begin
  	accion=cae;
 	
 	switch(tipo)
-		case 1: //caracol
+		case CARACOL:
 			animacion[anda][0]=1; animacion[anda][1]=4;
 			animacion[piensa][0]=14; animacion[piensa][1]=16;
 			animacion[atrapado][0]=11; animacion[atrapado][1]=13;
@@ -52,7 +61,7 @@ Begin
 			puede.bajar=1; puede.subir=0;
 			puede.disparar=0; puede.pensar=1;
 		end
-		case 2: //mago normal
+		case MAGO: //mago normal
 			animacion[anda][0]=21; animacion[anda][1]=23;
 			animacion[piensa][0]=35; animacion[piensa][1]=37;
 			animacion[atrapado][0]=24; animacion[atrapado][1]=26;
@@ -65,7 +74,7 @@ Begin
 			puede.bajar=1; puede.subir=1;
 			puede.disparar=1; puede.pensar=1;
 		end
-		case 3: //mago dispara abajo
+		case MAGO_ABAJO: //mago dispara abajo
 			animacion[anda][0]=21; animacion[anda][1]=23;
 			animacion[piensa][0]=35; animacion[piensa][1]=37;
 			animacion[atrapado][0]=24; animacion[atrapado][1]=26;
@@ -78,7 +87,7 @@ Begin
 			puede.bajar=1; puede.subir=1;
 			puede.disparar=2; puede.pensar=1;
 		end
-		case 4: //mono
+		case MONO: //mono
 			animacion[anda][0]=41;	animacion[anda][1]=43;
 			animacion[piensa][0]=44; animacion[piensa][1]=46;
 			animacion[atrapado][0]=50; animacion[atrapado][1]=52;
@@ -90,7 +99,7 @@ Begin
 			puede.bajar=2; puede.subir=1;
 			puede.disparar=0; puede.pensar=1;
 		end
-		case 5: //raruto
+		case RARUTO: //raruto
 			animacion[anda][0]=62;	animacion[anda][1]=65;
 			animacion[piensa][0]=62; animacion[piensa][1]=62;
 			animacion[atrapado][0]=66; animacion[atrapado][1]=66;
@@ -104,10 +113,10 @@ Begin
 			puede.disparar=3; puede.pensar=1;
 			puede.especializar=1; 
 		end
-		case 6: //arañita
+		case ARANA: //arañita
 			animacion[anda][0]=102; animacion[anda][1]=105;
 			animacion[atrapado][0]=101; animacion[atrapado][1]=101;
-			puede.andar=4; puede.girar=0;
+			puede.andar=2; puede.girar=0;
 			puede.bajar=0; puede.subir=0;
 			puede.disparar=0; puede.pensar=0;
 		end
@@ -116,7 +125,7 @@ Begin
 	graph=animacion[atrapado][1];
 
 	//ancho=graphic_info(file,graph,g_width);
-	alto=graphic_info(file,graph,g_height);
+	if(alto==0) alto=graphic_info(file,graph,g_height); end
 	ancho=40;
 	//alto=40;
 	
@@ -124,9 +133,6 @@ Begin
 	loop
 		switch(accion)
 			case piensa:
-				/*if(map_get_pixel(0,masknivel,x,y+(alto/2))!=color_colision and map_get_pixel(0,masknivel,x,y+(alto/2))!=color_pendiente)
-					accion=cae;
-				end*/
 				if(!puede.pensar)
 					accion=anda;
 				else
@@ -142,11 +148,11 @@ Begin
 						anim=0;
 						graph=animacion[atrapado][0];
 					end
-					if(anim>10 and graph!=animacion[anda][1]) graph++; anim=0; end
+					if(anim>10 and graph!=animacion[atrapado][1]) graph++; anim=0; end
 			end
 			case anda:
 				if(puede.andar==0)
-					//nothing
+					//????
 				else
 					if(anim>10)	graph++; anim=0; end
 					if(graph<animacion[anda][0] or graph>animacion[anda][1])
@@ -220,8 +226,8 @@ Begin
 						end
 						
 						//hay un vacío delante, ¿bajamos o giramos?
-						if(map_get_pixel(0,masknivel,x+(ancho_flags/4),y+(alto/2))!=color_colision and no_cae==0 and puede.bajar)
-							if(rand(0,3)<ops.dificultad)
+						if(map_get_pixel(0,masknivel,x+(ancho_flags/4),y+(alto/2))!=color_colision and no_cae==0)
+							if(rand(0,3)<ops.dificultad and puede.bajar)
 								if(rand(0,5)==0 or
 								 (exists(type muneco1) and id_muneco1_col.y-10>y) or
 								 (exists(id_muneco2_col) and id_muneco2_col.y-10>y) or
@@ -268,7 +274,23 @@ Begin
 						anim=0;
 						graph=animacion[gira][0];
 					end
-					if(anim>10) if(graph==animacion[gira][1]) accion=anda; graph=animacion[anda][0]; if(flags) flags=0; else flags=1; end end graph++; anim=0; end
+					if(anim>10) 
+						if(graph==animacion[gira][1]) 
+							if(tipo!=MAGO) 
+								accion=anda; 
+							else
+								accion=dispara;
+							end
+							graph=animacion[anda][0]; 
+							if(flags) 
+								flags=0; 
+							else 
+								flags=1; 
+							end 
+						end 
+						graph++; 
+						anim=0; 
+					end
 				end
 			end
 			case cae:
@@ -300,7 +322,7 @@ Begin
 					anim=0;
 					graph=animacion[sube][0];
 				end
-				if(anim>10) if(graph==animacion[sube][1]) graph=animacion[sube][1]--; accion=cae; grav=-13; end graph++; anim=0; end
+				if(anim>10) if(graph==animacion[sube][1]) accion=cae; grav=-16; else graph++; anim=0; end end
 			end
 			case baja:
 				if(graph<animacion[baja][0] or graph>animacion[baja][1])
@@ -333,13 +355,15 @@ Begin
 					graph=animacion[dispara][0];
 				end
 				if(anim>10)
-					if(graph==animacion[dispara][1])
-						graph=animacion[dispara][1]--;
-						id_disparo=disparo(x,y,flags,tipo);
+					graph++; 
+					anim=0;
+				end
+				if(graph==animacion[dispara][1])
+					if(anim==0)
+						id_disparo=disparo(x,y,flags,puede.disparar);
+					elseif(anim==9)
 						accion=anda;
 					end
-					graph++; 
-					anim=0; 
 				end
 			end
 			case especial:
@@ -377,14 +401,13 @@ end
 
 //--------------------------------------------------------------
 //	proceso disparo del enemigo
-//	tipos:	1:-
-//		2 y 3: magos
-//		4: kunai
-//		5: laser
+//	tipos:	1:mago
+//		2: mago abajo
+//		3: kunai
+//		4: laser
 //----------------------------------------------------------------
 
 process disparo(x,y,flags,tipo);
-
 private
 	distancia;
 	id_col;
@@ -396,10 +419,10 @@ begin
 	else
 		x-=15;
 	end
-	if(tipo==2)
+	if(tipo==1)
 		graph=17;
 	end
-	if(tipo==3)
+	if(tipo==2)
 		graph=17;
 		if(flags==0)
 			angle-=90000;
@@ -407,23 +430,22 @@ begin
 			angle+=90000;
 		end
 	end
-	if(tipo==4)
+	if(tipo==3)
 		graph=72;
 	end
-	if(tipo==5)
+	if(tipo==4)
 		graph=74;
 		if(flags==0)
 			flags=b_ablend;
 		else
 			flags=b_ablend+1;
 		end
-
 	end
 	ancho=graphic_info(file,graph,g_width);
 	alto=graphic_info(file,graph,g_height);
 	loop
 		while(ready==0) frame; end
-		if(tipo==2 or tipo==3)
+		if(tipo==1 or tipo==2)
 			anim++;
 			distancia++;
 			if(anim>15)
@@ -434,7 +456,7 @@ begin
 				graph=17;
 			end
 		end
-		if(tipo==2 or tipo==4 or tipo==5)
+		if(tipo==1 or tipo==3 or tipo==4)
 			if(flags==0 or flags==b_ablend)
 				from incx=0 to 7;
 					x++;
@@ -452,7 +474,7 @@ begin
 			end
 			if(map_get_pixel(0,masknivel,x+incx,y)==color_colision or map_get_pixel(0,masknivel,x+incx,y)==color_pendiente or distancia>25 or accion==muere) break; end
 		end
-		if(tipo==3)
+		if(tipo==2)
 			from incy=0 to 7;
 				y++;
 				if(map_get_pixel(0,masknivel,x,y+incy)==color_colision or map_get_pixel(0,masknivel,x,y+incy)==color_pendiente)

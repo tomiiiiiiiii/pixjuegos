@@ -552,6 +552,7 @@ Begin
 	alpha=0;
 	loop
 		if(nieve<0) nieve=0; end
+		if(nieve>8) nieve=8; end
 		alpha=0;
 		ancho=graphic_info(file,graph,g_width);
 		alto=graphic_info(file,graph,g_height);
@@ -605,7 +606,6 @@ Begin
 					graf=15;
 				end
 				case 5..10:
-					if(nieve>8) nieve=8; end
 					id_enemigo.size=0;
 					graf=16;
 					if(collision(type muneco1))

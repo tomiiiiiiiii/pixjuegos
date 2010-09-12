@@ -539,6 +539,7 @@ BEGIN
 	if(num_nivel!=1) foto=get_screen(); end
 	set_mode(ancho_pantalla,alto_pantalla,16);
 	delete_text(all_text);
+	
 	rand_seed(num_nivel);
 	ready=0;
 	slowmotion=0;
@@ -606,6 +607,7 @@ if(os_id!=1000)
 		end
 	until(y=>alto-3)
 END
+
 	x=0; y=0;
 	durezas=new_map(ancho*tilesize,(alto-3)*tilesize,8);
 //BURRADA TEMPORAL PARA PRUEBAS CON MEMORIA DE LA WII
@@ -771,6 +773,7 @@ end //FIN IF WII
         end
     end
 	pon_tiempo(-1,0,(ancho_pantalla/4)*3,70);
+	save_png(0,mapa_scroll,"c:\algo.png");
 	loop
 		if(key(_n)) while(key(_n)) frame; end num_nivel++; carga_nivel(); end
 		if(key(_esc)) menu(); end
@@ -927,7 +930,7 @@ Begin
 
 	configurar_controles();
 
-	set_fps(50,9); //imágenes por segundo
+	set_fps(0,0); //imágenes por segundo
 	probar_pantalla();
 	set_mode(800,600,16); //resolución y colores	    
 	fpg_enemigos=load_fpg("fpg/enemigos.fpg"); //cargar el mapa de tiles
