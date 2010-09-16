@@ -540,6 +540,7 @@ Private
 	ipendiente;
 	lanzada;
 	pendientes_y;
+	cambio_y;
 Begin
 	if(tipo_nivel==1) ctype=c_scroll; end	
 	nieve=1;
@@ -624,8 +625,8 @@ Begin
 							grav=-10;
 							y-=2;
 						end
-						if(p[id_muneco1.jugador].botones[4])
-							if(id_muneco1.flags==1 or id_muneco1.flags==5)
+						if(p[id_muneco1.jugador].botones[4] and ((id_muneco1.flags==0 and id_muneco1.x<x) or (id_muneco1.flags==1 and id_muneco1.x>x)))
+							if(id_muneco1.flags==1)
 								flags=0;
 							else
 								flags=1;
@@ -674,11 +675,11 @@ Begin
 			id_enemigo.grav=0;
 
 			if(lanzada<20) lanzada++; end
-			if(x>ancho_nivel-(ancho/2)) flags=0; if(y<alto_nivel-65) rebotes++; else accion=muere; end x=ancho_nivel-ancho/2; end
-			if(x<18+ancho/2) flags=1; if(y<alto_nivel-65) rebotes++; else accion=muere; end x=18+ancho/2; end
+			//if(x>ancho_nivel-(ancho/2)) flags=0; if(y<alto_nivel-65) rebotes++; else accion=muere; end x=ancho_nivel-ancho/2; end
+			//if(x<18+ancho/2) flags=1; if(y<alto_nivel-65) rebotes++; else accion=muere; end x=18+ancho/2; end
 
 			if(flags==1) incx=12; else incx=-12; end
-			if(collision(type muneco1))
+			if(collision(type muneco1) and lanzada>5)
 				if(p[id_muneco1.jugador].invencibilidad==0 and id_muneco1.accion!=atrapado and id_muneco1.accion!=chilena and id_muneco1.accion!=muere)
 					muneco1_enganchado=1;
 				end
@@ -693,6 +694,7 @@ Begin
 				muneco3_enganchado=1;
 				end
 			end
+			
 			if(id_bola=collision(type boladenieve))
 				if(id_bola.nieve=>5 and id_bola.accion!=muere)
 					id_bola.flags=flags;
@@ -703,6 +705,7 @@ Begin
 					combo++;
 				end
 			end
+			
 			if(id_bola=collision(type enemigo))
 				if(id_bola.accion!=atrapado)
 					if(id_bola.tipo==5 and id_bola.i==0)
@@ -717,6 +720,7 @@ Begin
 					end
 				end
 			end
+			
 			while(id_bola=collision(type burbuja))
 				if(id_bola.accion!=atrapado)
 					id_bola.accion=muere;
@@ -752,16 +756,24 @@ Begin
 
 			if(grav<0) grav++; end
 			if(grav>16) grav=16; end
-			if(flags==1 and (map_get_pixel(0,masknivel,x+(ancho/2),y)==color_colision or map_get_pixel(0,masknivel,x+1,y)==color_colision) or x>ancho_nivel-ancho/2)
-					if(y<alto_nivel-65) rebotes++; else accion=muere; end
+			if(grav!=0) cambio_y=0; end
+			
+			//if(flags==1 and (map_get_pixel(0,masknivel,x+(ancho/2),y)==color_colision or map_get_pixel(0,masknivel,x+1,y)==color_colision) or x>ancho_nivel-ancho/2)
+			if(flags==1 and (map_get_pixel(0,masknivel,x+(ancho/2),y)==color_colision or map_get_pixel(0,masknivel,x+1,y)==color_colision))
+					//if(y<alto_nivel-65) rebotes++; else accion=muere; end
+					rebotes++;
+					cambio_y++;
 					flags=0;
 			end
-			if(flags==0 and (map_get_pixel(0,masknivel,x-(ancho/2),y)==color_colision or map_get_pixel(0,masknivel,x-1,y)==color_colision) or x<18+ancho/2)
-					if(y<alto_nivel-65) rebotes++; else accion=muere; end
+			//if(flags==0 and (map_get_pixel(0,masknivel,x-(ancho/2),y)==color_colision or map_get_pixel(0,masknivel,x-1,y)==color_colision) or x<18+ancho/2)
+			if(flags==0 and (map_get_pixel(0,masknivel,x-(ancho/2),y)==color_colision or map_get_pixel(0,masknivel,x-1,y)==color_colision))
+					//if(y<alto_nivel-65) rebotes++; else accion=muere; end
+					rebotes++;
+					cambio_y++;
 					flags=1;
 			end
 
-			if(rebotes>rebotesmax)
+			if(rebotes>rebotesmax or cambio_y==2)
 				frame;
 				break;
 			end
