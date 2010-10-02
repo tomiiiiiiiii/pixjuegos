@@ -1,0 +1,57 @@
+Es waren einmal drei Brüder, die wirklich gerne Videospiele spielten. Alle drei mochten die gleichen Spiele, aber unterschiedliche Favoriten.
+Pix liebte "Snow Bros", in dem einen Schneemann spielt, der seine Gegner in Schneebälle verwandelt und dann wegschleudert.
+Pux konnte nicht genug von "Bubble Bobble" kriegen, wobei man einen Drachen spielt, der Blasen spuckt und damit Gegner einschließt.
+Pax war besessen von "Tumble Pop", in dem man einen Jungen spielt, der Monster einsaugt.
+Eines Tages begannen sie sich zu streiten, welcher Held der größte sei. 
+Nachdem sie eine weile debattiert hatten, bemerkten sie, daß sie sich wohl nicht einigen könnten. 
+Sie fanden hinter sich eine geöffnete Tür, eine Tür, die sie nie zuvor gesehen hatten, eine Tür, 
+die einen geheimnissvollen Raum verbarg.
+Als sie den Raum betraten, sahen sie einen besonderen Spielautomaten ohne Joysticks oder Knöpfe, außer 3 "Start"-Knöpfen.
+Hätten sie gewusst, was mit ihnen passieren würde, hätten sie sie niemals gedrückt. Sie drückten die Knöpfe und verschwanden.
+Niemand weiß, was mit ihnen passiert ist.
+------------------------
+Neues Spiel
+Fortsetzen
+Optionen
+Hilfe
+Mitwirkende
+PixJuegos.com
+Verlassen
+Spiel beenden
+------------------------
+Gratulation! Du hast die erste Pix Bros Demo beendet. Wir hoffen, sie
+hat dir gefallen  :)  Hast du die anderen Spieler probiert, oder im
+Mehrspielermodus mit 3 Joysticks gleichzeitig zu spielen?
+Das Spiel wird aktiv weiterentwickelt, besuche daher die Homepage, um
+dich über neue Versionen zu informieren.
+------------------------
+Drücke irgendeine Tast um das Spiel zu betreten. Man kann das Spiel
+jederzeit nachträglich betreten, indem man den Sprung- und den
+Feuerknopf gleichzeitig drückt.
+------------------------
+Wähle einen Charakter.
+------------------------
+Was ist Pix Bros?
+Pix Bros ist ein Spiel, das verschiedene Arcade Classiker mit einander
+vermischt. Snow Bros (Pix), Bubble Bobble (Pux) und Tumble Pop (Pax).
+Pix Bros ist freie Software und wird unter der GPL vertrieben.
+------------------------
+Es tut uns leid, aber die Hilfe ist noch nicht im Spiel erreichbar. Bei
+Problemem oder Fragen stehen wir jederzeit in unserem Forum und auf
+unserer Webseite bereit und helfen gerne  :) 
+------------------------
+Drücke den Knopf "F" um das Forum zu besuchen
+------------------------
+Vollbild
+Ton
+Musik
+Schwierigkeitsgrad
+------------------------
+Richtung
+Programmierung
+Grafik
+Musik
+Helfer
+Dank
+Und danke fürs Spielen
+Spieler

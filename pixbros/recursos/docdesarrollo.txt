@@ -1,0 +1,73 @@
+Documento de desarrollo de:
+Nombre del juego: PiX Tumble Snow Pop (o algo así, ya veremos xD)
+Versión: 0.05
+Créditos: PiX Juegos
+Nota: Los números en ( %) reflejan el tanto por ciento del juego si este elemento se consigue graficar y codear completamente.
+
+*
+
+El juego estará basado en 3 juegos ya conocidos: Tumble Pop, Bubble bobble y Snow Bros.
+
+Tendremos 3 personajes
+PiX(?%) (Snow Boy - PiX el de PiX Pang, con gafas de sol)
+PaX(?%) (Tumble Boy - PaX, nuevo, por diseñar...)
+PuX(?%) (Bubble Boy - PuX el de PiX Pang, con los ojos así ^^)
+
+*
+
+Constará de 50 niveles, 10 niveles por mundo y un jefe por mundo haciendo un total de 5 jefes en todo el juego.
+(Esto son, 9 niveles normales + 1 nivel de jefe)
+Idea opcional: ¿Niveles secretos desbloqueables? (si hay tiempo se hará...)
+
+10 niveles del mundo de ?(?%)
+jefe del mundo:? (?%)
+10 niveles del mundo de ?(?%)
+jefe del mundo:? (?%)
+10 niveles del mundo de ?(?%)
+jefe del mundo:? (?%)
+10 niveles del mundo de ?(?%)
+jefe del mundo:? (?%)
+10 niveles del mundo de ?(?%)
+jefe del mundo:? (?%)
+
+*
+
+Lo que pone "flecha siguiente, flecha atrás" y tal... imaginaros en plan navegador, simplemente.
+
+Tendrá un menu principal con las siguientes opciones:
+1.Nuevo juego
+	1.1 Selección de personajes
+	1.2 Flecha "Siguiente"
+	1.3 Flecha "Atrás"
+2.Continuar
+	Se inicia el juego con la última partida jugada, hasta el nivel al que se llegara
+3.Opciones
+	3.1 Pantalla completa (Si | No)
+	3.2 Sonido (Si | No)
+	3.3 Música (Si | No)
+	3.4 Dificultad (Fácil | Normal | Difícil)
+	[3.5 Lenguaje](ya se verá...)
+	3.6 Flecha "Atrás"
+4.Ayuda
+	Aquí aparecerán varias imágenes explicando como funcionan los personajes y como se matan a los enemigos, lo básico.
+	Se navegará entre la ayuda con las flechas de Atrás y Siguiente (es muy útil y la gente lo entiende... xD)
+5.Créditos
+	Si alguien tiene una buena idea para los créditos, ESTE ES SU MOMENTO! Hay que superar el remake del ending de Chobits que sale en PiX Pang xD
+6.Ir a PiXJuegos.com
+	SPAM!! Home, ya que juegan, que vengan a vernos xD
+7.Salir
+	Y sale... xD
+*
+Enemigos:
+1. Caracol tipo A: ? (%?)
+..?
+*
+Recompensas del juego:
+1. ¿Personajes desbloqueables? Empezaremos con los 3 personajes? xD
+2. Niveles ocultos
+3. Galería de bocetos
+4. Información sobre los autores xD
+5. Trucos secretos - Modo debug xD
+6. Cameos de otros juegos libres o de Fenixeros...
+7. Minijuegos ocultos...
+..?

@@ -28,7 +28,7 @@ Global
 	joysticks[10];
 	hayjefe;
 	Struct ops;
-		byte lenguaje=100; 	// 0 = inglés, 1 = español, 2 = italiano, 3 = alemán, 4 = francés
+		byte lenguaje=100; 	// 0 = inglés, 1 = español, 2 = italiano, 3 = alemán, 4 = francés, 5 = japones
 		byte musica=1;
 		byte sonido=1;
 		int ventana=1;
@@ -108,6 +108,10 @@ Local
 	tipo;
 Private
 	string env_lang;
+	string argumentos[10];
+	fp;
+	string cadena_lenguaje;
+	string cadena_lenguaje_bien;
 Begin
 	if(os_id==0) //windows
 		savegamedir=getenv("APPDATA")+developerpath;
@@ -126,18 +130,38 @@ Begin
 		full_screen=!ops.ventana;
 	end
 
-	if(os_id==1) //linux
-		// Aportado por Miry: Se pone aquí para evitar que use el lenguaje ya asignado en una versión anterior
-		env_lang=getenv("LANG");
-		env_lang=env_lang[0]+env_lang[1];
-		ops.lenguaje=0;
-		switch(env_lang)
-			case "es": ops.lenguaje=1; end
-			case "it": ops.lenguaje=2; end
-			case "de": ops.lenguaje=3; end
-			case "fr": ops.lenguaje=4; end
+	if(ops.lenguaje==100)
+		//PODEMOS ADIVINAR EL LENGUAJE! :D
+		if(os_id==0) //windows
+			//qué lenguaje lleva este windows?
+			if(!fexists(getenv("TEMP")+"\lang.txt")) exec(1,"language.bat",0,0); end
+			fp=fopen(getenv("TEMP")+"\lang.txt",O_READ);
+			if(fp) 
+				cadena_lenguaje=fgets(fp);
+				fclose(fp);
+			end
+			cadena_lenguaje_bien=""+cadena_lenguaje[25]+cadena_lenguaje[26]+cadena_lenguaje[27]+cadena_lenguaje[28];
+			ops.lenguaje=0;
+			switch(cadena_lenguaje_bien)
+				case "0c0a": ops.lenguaje=1; end
+				case "0410": ops.lenguaje=2; end
+				case "0407": ops.lenguaje=3; end
+				case "040c": ops.lenguaje=4; end
+			end
 		end
-		//-------------------
+		if(os_id==1) //linux
+			// Aportado por Miry: Se pone aquí para evitar que use el lenguaje ya asignado en una versión anterior
+			env_lang=getenv("LANG");
+			env_lang=env_lang[0]+env_lang[1];
+			ops.lenguaje=0;
+			switch(env_lang)
+				case "es": ops.lenguaje=1; end
+				case "it": ops.lenguaje=2; end
+				case "de": ops.lenguaje=3; end
+				case "fr": ops.lenguaje=4; end
+			end
+			//-------------------
+		end
 	end
 	switch(ops.lenguaje)
 		case 0:	lang_suffix="en"; end
@@ -353,11 +377,6 @@ begin
 							case 3:	id_muneco3=muneco3(ii);	end
 						end
 						p[ii].vidas--;
-						if(p[1].vidas==0 and p[2].vidas==0 and p[3].vidas==0)
-							let_me_alone();
-							menu();
-							break;
-						end
 					else
 						p[ii].juega=0;
 					end
@@ -368,12 +387,12 @@ begin
 			frame(3000);
 			game_over();
 		end
-      		if(key(_esc) or (os_id==os_caanoo and get_joy_button(0,8)))
-				let_me_alone();
-				clear_screen();
-				menu();
-				return;
-	      	end
+      	if(key(_esc) or (os_id==os_caanoo and get_joy_button(0,8)))
+			let_me_alone();
+			clear_screen();
+			menu();
+			return;
+	    end
 		if(key(_k) and debuj)
 			matabichos=1;
 		else
@@ -1042,7 +1061,7 @@ Begin
 			end
 		end
 		if(accion==muere)
-			if(hayjefe and id_enemigo!=0) burbujarayo(x,y,0); burbujarayo(x,y,1); end
+			if(hayjefe and id_enemigo!=0) burbujarayo(x,y,0); burbujarayo(x,y,1); burbujarayo(x,y,2); burbujarayo(x,y,3); end
 			sonido(6);
 			break;
 		end
@@ -1085,7 +1104,7 @@ Begin
 	frame;
 End
 
-Process burbujarayo(x,y,flags);
+Process burbujarayo(x,y,direccion);
 Private
 	id_col;
 Begin
@@ -1095,10 +1114,17 @@ Begin
 	graph=4;
 	size=30;
 	loop
-		if(flags==1) x+=10; angle+=30000; else x-=10; angle-=30000; end
+		switch(direccion)
+			case 0: x-=10; end
+			case 1: x+=10; end
+			case 2: y-=10; end
+			case 3: y+=10; end
+		end
+		angle+=30000;
 		if(x<-50 or x>ancho_nivel+50) break; end
+		if(y<-50 or y>alto_nivel+50) break; end
 		if(id_col=collision(type enemigo))
-			if(id_col.accion!=atrapado)
+			if(id_col.accion!=atrapado and id_col.accion!=muere)
 				id_col.accion=muere;
 				enemigo_lanzado(id_col.x,id_col.y,id_col.tipo,rand(0,1));
 				frame(500);
@@ -1293,7 +1319,7 @@ Begin
 					tronco(id_col.x,id_col.y);
 					explosion_con_humo(id_col.x,id_col.y);
 					id_col.y-=200;
-					id_col.accion=cae;
+					id_col.accion=anda;
 				else
 					id_col.accion=atrapado;
 					id_col.grav=0;
@@ -1313,7 +1339,7 @@ Begin
 						tronco(id_col.x,id_col.y);
 						explosion_con_humo(id_col.x,id_col.y);
 						id_col.y-=200;
-						id_col.accion=cae;
+						id_col.accion=anda;
 					else
 						id_col.accion=atrapado;
 					id_col.grav=0;
@@ -1332,7 +1358,7 @@ Begin
 						tronco(id_col.x,id_col.y);
 						explosion_con_humo(id_col.x,id_col.y);
 						id_col.y-=200;
-						id_col.accion=cae;
+						id_col.accion=anda;
 					else
 						id_col.accion=atrapado;
 						id_col.grav=0;
@@ -1347,27 +1373,25 @@ Begin
 		//-----------------------------
 		from i=0 to 10;
 			if(atrapados[i].identificador!=0)
-				if(!collision(atrapados[i].identificador) and atrapados[i].toques=>0 and atrapados[i].toques<30)
-						atrapados[i].toques--;
-				end
-				if(!collision(atrapados[i].identificador) and atrapados[i].toques=<0)
+				if(atrapados[i].toques<30)
+					if(!collision(atrapados[i].identificador))
 						atrapados[i].identificador.angle=0;
 						atrapados[i].identificador.size=100;
-						atrapados[i].identificador.accion=cae;
+						atrapados[i].identificador.accion=anda;
 						atrapados[i].identificador=0;
-				end
-				if(atrapados[i].toques>30)
+					else
+						if(p[father.jugador].tocho) atrapados[i].toques+=2; else atrapados[i].toques++; end
+					end
+				else
 					if(atrapados[i].identificador.size>3) atrapados[i].identificador.size-=7; atrapados[i].identificador.angle+=30000;
 						if(accion==muere) accion=0; end //retrasamos el lanzamiento hasta que se atrape el enemigo del todo
-						if(atrapados[i].identificador.x<x) atrapados[i].identificador.x+=5; end
-						if(atrapados[i].identificador.x>x) atrapados[i].identificador.x-=5; end
+						if(atrapados[i].identificador.x<x) atrapados[i].identificador.x+=(x-atrapados[i].identificador.x)/8; end
+						if(atrapados[i].identificador.x>x) atrapados[i].identificador.x-=(atrapados[i].identificador.x-x)/8; end
 					else
 						atrapados[i].identificador.size=0;
 						atrapados[i].identificador.x=x;
 						atrapados[i].identificador.y=y;
 					end
-				else
-					if(p[father.jugador].tocho) atrapados[i].toques+=3; else atrapados[i].toques++; end
 				end
 			end
 		end
@@ -1384,7 +1408,8 @@ Begin
 			if(atrapados[i].identificador!=0)
 				atrapados[i].identificador.size=100;
 				atrapados[i].identificador.angle=0;
-				atrapados[i].identificador.accion=cae;
+				atrapados[i].identificador.accion=anda;
+				atrapados[i].identificador.y-=2;
 			end
 		end
 	end
@@ -1396,7 +1421,7 @@ Begin
 				if(atrapados[i].toques<30)
 					atrapados[i].identificador.size=100;
 					atrapados[i].identificador.angle=0;
-					atrapados[i].identificador.accion=cae;
+					atrapados[i].identificador.accion=anda;
 					atrapados[i].identificador=0;
 				end
 			end
@@ -1404,166 +1429,6 @@ Begin
 		boladeenemigos(atrapados[0].identificador,atrapados[1].identificador,atrapados[2].identificador,atrapados[3].identificador,atrapados[4].identificador,atrapados[5].identificador,atrapados[6].identificador,atrapados[7].identificador,atrapados[8].identificador,atrapados[9].identificador,atrapados[10].identificador);
 	end
 End
-
-Process boladeenemigos1(atrapados0,atrapados1,atrapados2,atrapados3,atrapados4,atrapados5,atrapados6,atrapados7,atrapados8,atrapados9,atrapados10);
-Private
-	atrapados[10];
-	atrapadosgraph[10];
-	numatrapados;
-	moviendoatrapado;
-	angleatrapado;
-	radio;
-	rebotes;
-	id_bola;
-	ipendiente;
-Begin
-	if(tipo_nivel==1) ctype=c_scroll; end	
-	// puff -_-
-	sonido(4);
-	atrapados[0]=atrapados0;
-	atrapados[1]=atrapados1;
-	atrapados[2]=atrapados2;
-	atrapados[3]=atrapados3;
-	atrapados[4]=atrapados4;
-	atrapados[5]=atrapados5;
-	atrapados[6]=atrapados6;
-	atrapados[7]=atrapados7;
-	atrapados[8]=atrapados8;
-	atrapados[9]=atrapados9;
-	atrapados[10]=atrapados10;
-	from i=0 to 10;
-		if(atrapados[i]!=0)
-			numatrapados++;
-			atrapadosgraph[i]=atrapados[i].graph;
-			atrapados[i].accion=muere;
-		end
-	end
-
-	x=father.x; y=father.y; z=-1;
-	if(father.flags==1) flags=0; else flags=1; end
-	if(numatrapados==0) return; end
-	radio=numatrapados*5;
-	//if(numatrapados<3) radio=10; end
-	//if(numatrapados==3) radio=15; end
-	//if(numatrapados>3) radio=20; end
-
-	angleatrapado=360000/numatrapados;
-
-	ancho=alto=radio*2;
-
-	graph=new_map(radio*2,radio*2,8);
-	drawing_map(0,graph);
-	drawing_color(150);
-	draw_fcircle(radio,radio,radio);
-	alpha=0;
-	loop
-		moviendoatrapado=0;
-		from i=0 to 10;
-			if(atrapados[i]!=0)
-				if(numatrapados>2)
-					moviendoatrapado++;
-					pon_graph_un_frame(fpg_enemigos,atrapadosgraph[i],x+get_distx(angle+(moviendoatrapado*angleatrapado),radio),y-get_disty(angle+(moviendoatrapado*angleatrapado),radio),angle+(moviendoatrapado*angleatrapado),0,-2);
-				else
-					pon_graph_un_frame(fpg_enemigos,atrapadosgraph[i],x,y,angle,0,-2);
-				end
-			end
-		end
-		ancho=graphic_info(file,graph,g_width);
-		alto=graphic_info(file,graph,g_height);
-		z=-2;
-		if(x>622-ancho/2) flags=0; if(y<415) rebotes++; else accion=muere; end x=622-ancho/2; end
-		if(x<18+ancho/2) flags=1; if(y<415) rebotes++; else accion=muere; end x=18+ancho/2; end
-		if(flags==1) incx=12; angle-=25000; else incx=-12; angle+=25000; end
-		if(id_bola=collision(type boladenieve))
-			if(id_bola.accion!=atrapado)
-				id_bola.accion=muere;
-			end
-		end
-		if(id_bola=collision(type enemigo))
-			if(id_bola.accion!=atrapado)
-				id_bola.accion=muere;
-				enemigo_lanzado(id_bola.x,id_bola.y,id_bola.tipo,rand(0,1));
-				if(numatrapados<3)
-					enemigo_lanzado(id_bola.x,id_bola.y,id_bola.tipo,rand(0,1));
-					accion=muere;
-				end
-			end
-		end
-		while(id_bola=collision(type burbuja))
-			if(id_bola.accion!=atrapado)
-				id_bola.accion=muere;
-			end
-		end
-		from ipendiente=y to y+(alto/2)+4;
-			if(map_get_pixel(0,masknivel,x,ipendiente)==color_pendiente and grav=>0)
-				y=ipendiente-(alto/2);
-				break;
-			end
-		end
-		// inicio movimiento!
-		if(map_get_pixel(0,masknivel,x,y+(alto/2))==color_colision or map_get_pixel(0,masknivel,x,y+(alto/2))==color_pendiente)
-			if(grav>20)
-				grav=-10;
-				y-=2;
-			else
-				grav=0;
-			end
-			saltando=0;
-		else
-			grav+=2;
-			saltando=1;
-		end
-
-		incy=grav/2;
-
-		if(grav<0) grav++; end
-
-		if(flags==1 and (map_get_pixel(0,masknivel,x+(ancho/2),y)==color_colision or map_get_pixel(0,masknivel,x+1,y)==color_colision) or x>622-ancho/2)
-				if(y<415) rebotes++; else accion=muere; end
-				flags=0;
-		end
-		if(flags==0 and (map_get_pixel(0,masknivel,x-(ancho/2),y)==color_colision or map_get_pixel(0,masknivel,x-1,y)==color_colision) or x<18+ancho/2)
-				if(y<415) rebotes++; else accion=muere; end
-				flags=1;
-		end
-
-		if(rebotes>rebotesmax)
-			frame;
-			break;
-		end
-
-		if(rand(0,300)<numatrapados*2) item(rand(1,5)); end
-
-		if(incx!=0)
-			while(incx>0 and map_get_pixel(0,masknivel,x+1,y)!=color_colision)
-				incx--;
-				x++;
-			end
-			while(incx<0 and map_get_pixel(0,masknivel,x-1,y)!=color_colision)
-				incx++;
-				x--;
-			end
-			incx=0;
-		end
-		if(incy!=0)
-			while(incy>0 and map_get_pixel(0,masknivel,x,y+(alto/2))!=color_colision)
-				incy--;
-				y++;
-			end
-			while(incy<0)
-				incy++;
-				y--;
-			end
-			incy=0;
-		end
-		if(y>480-alto/2) y=-alto/2; end
-		// fin movimiento!
-		frame;
-		if(accion==muere) break; end
-	end
-end
-
-//----------------------------------------------------------------------------------------------------
 
 Process boladeenemigos(atrapados0,atrapados1,atrapados2,atrapados3,atrapados4,atrapados5,atrapados6,atrapados7,atrapados8,atrapados9,atrapados10);
 Private
@@ -1638,21 +1503,6 @@ Begin
 //		if(x<18+ancho/2) flags=1; if(y<415) rebotes++; else accion=muere; end x=18+ancho/2; end
 
 		if(flags==1) incx=12; angle-=25000; else incx=-12; angle+=25000; end
-		if(id_bola=collision(type boladenieve))
-			if(id_bola.accion!=atrapado)
-				id_bola.accion=muere;
-//añadido----------------------------------------------------------------------------------------
-				enemigo_lanzado(id_bola.x,id_bola.y,id_bola.id_enemigo.tipo,rand(0,1));
-//fin--------------------------------------------------------------------------------------------
-			else
-				id_bola.accion=chutado;
-				if(x>id_bola.x) id_bola.flags=0; flags=1; end
-				if(x<id_bola.x) id_bola.flags=1; flags=0; end
-				numatrapados-=1;
-				enemigo_lanzado(x,y,atrapadostipo[numatrapados],rand(0,1));
-				atrapados[numatrapados]=0;
-			end
-		end
 		if(id_bola=collision(type enemigo))
 			if(id_bola.accion!=atrapado)
 				if(id_bola.tipo==5 and id_bola.i==0)
@@ -1665,37 +1515,17 @@ Begin
 					id_bola.accion=muere;
 					enemigo_lanzado(id_bola.x,id_bola.y,id_bola.tipo,rand(0,1));
 				end
-//				if(numatrapados<3)
-//					enemigo_lanzado(id_bola.x,id_bola.y,id_bola.tipo,rand(0,1));
-//					accion=muere;
-//				end
-//añadido----------------------------------------------------------------------------------------
 				numatrapados-=1;
 				enemigo_lanzado(x,y,atrapadostipo[numatrapados],rand(0,1));
 				atrapados[numatrapados]=0;
-//fin--------------------------------------------------------------------------------------------
 			end
 		end
-		while(id_bola=collision(type burbuja))
-			if(id_bola.accion!=atrapado)
-				id_bola.accion=muere;
-			end
-		end
-//		from ipendiente=y to y+(alto/2)+4;
-//			if(map_get_pixel(0,masknivel,x,ipendiente)==color_pendiente and grav=>0)
-//				y=ipendiente-(alto/2);
-//				break;
-//			end
-//		end
-//añadido----------------------------------------------------------------------------------------
 			if(map_get_pixel(0,masknivel,x,y+(alto/2)+1)==color_pendiente)
 				y++;
 			end
 			if(map_get_pixel(0,masknivel,x,y+(alto/2)-1)==color_pendiente)
 				y--;
 			end
-//fin--------------------------------------------------------------------------------------------
-
 
 		// inicio movimiento!
 		if(map_get_pixel(0,masknivel,x,y+(alto/2))==color_colision or map_get_pixel(0,masknivel,x,y+(alto/2))==color_pendiente)
@@ -1716,67 +1546,45 @@ Begin
 		if(grav<0) grav++; end
 
 		if(flags==1 and (map_get_pixel(0,masknivel,x+(ancho/2),y)==color_colision or map_get_pixel(0,masknivel,x+1,y)==color_colision) or x>622-ancho/2)
-//				if(y<415) rebotes++; else accion=muere; end
-//añadido----------------------------------------------------------------------------------------
 				numatrapados-=1;
 				enemigo_lanzado(x,y,atrapadostipo[numatrapados],rand(0,1));
 				atrapados[numatrapados]=0;
-//fin--------------------------------------------------------------------------------------------
 				flags=0;
 		end
 		if(flags==0 and (map_get_pixel(0,masknivel,x-(ancho/2),y)==color_colision or map_get_pixel(0,masknivel,x-1,y)==color_colision) or x<18+ancho/2)
-//				if(y<415) rebotes++; else accion=muere; end
-//añadido----------------------------------------------------------------------------------------
 				numatrapados-=1;
 				enemigo_lanzado(x,y,atrapadostipo[numatrapados],rand(0,1));
 				atrapados[numatrapados]=0;
-//fin--------------------------------------------------------------------------------------------
 				flags=1;
 		end
 
-//		if(rebotes>rebotesmax)
-//			frame;
-//			break;
-//		end
-//añadido----------------------------------------------------------------------------------------
 		if(numatrapados<1) break; end
-//fin--------------------------------------------------------------------------------------------
-//		if(rand(0,300)<numatrapados*2) item(rand(1,5)); end
 
 		if(incx!=0)
 			while(incx>0 and map_get_pixel(0,masknivel,x+1,y)!=color_colision)
 				incx--;
 				x++;
-//añadido----------------------------------------------------------------------------------------
-			if(map_get_pixel(0,masknivel,x,y+(alto/2)+1)==color_pendiente)
-				y++;
-			end
-			if(map_get_pixel(0,masknivel,x,y+(alto/2)-1)==color_pendiente)
-				y--;
-			end
-//fin--------------------------------------------------------------------------------------------
-
+				if(map_get_pixel(0,masknivel,x,y+(alto/2)+1)==color_pendiente)
+					y++;
+				end
+				if(map_get_pixel(0,masknivel,x,y+(alto/2)-1)==color_pendiente)
+					y--;
+				end
 			end
 			while(incx<0 and map_get_pixel(0,masknivel,x-1,y)!=color_colision)
 				incx++;
 				x--;
-//añadido----------------------------------------------------------------------------------------
-			if(map_get_pixel(0,masknivel,x,y+(alto/2)+1)==color_pendiente)
-				y++;
-			end
-			if(map_get_pixel(0,masknivel,x,y+(alto/2)-1)==color_pendiente)
-				y--;
-			end
-//fin--------------------------------------------------------------------------------------------
-
+				if(map_get_pixel(0,masknivel,x,y+(alto/2)+1)==color_pendiente)
+					y++;
+				end
+				if(map_get_pixel(0,masknivel,x,y+(alto/2)-1)==color_pendiente)
+					y--;
+				end
 			end
 			incx=0;
 		end
 		if(incy!=0)
-//			while(incy>0 and map_get_pixel(0,masknivel,x,y+(alto/2))!=color_colision )
-//añadido----------------------------------------------------------------------------------------
 			while(incy>0 and (map_get_pixel(0,masknivel,x,y+(alto/2))!=color_colision and map_get_pixel(0,masknivel,x,y+(alto/2))!=color_pendiente))
-//fin--------------------------------------------------------------------------------------------
 				incy--;
 				y++;
 			end
@@ -1791,6 +1599,7 @@ Begin
 		frame;
 		if(accion==muere) break; end
 	end
+	unload_map(0,graph);
 end
 
 
@@ -1944,22 +1753,27 @@ End
 Process sonido_aspiradora();
 Private
 	canal;
+	tiempo;
 Begin
 	if(ops.sonido)
 		canal=play_wav(wavs[8],0);
-      		while(exists(type disparo3))
-	      		if(!is_playing_wav(canal)) father.accion=-2; break; end
-	      		frame;
-	      	end
-      		stop_wav(canal);
+		while(exists(type disparo3) and is_playing_wav(canal))
+			frame;
+		end
+		stop_wav(canal);
+	else
+		while(exists(type disparo3) and tiempo<200)
+			tiempo++;
+			frame;
+		end
 	end
+	if(exists(father)) father.accion=-2; end
 End
 
 Process marcadores();
 Private
 	ids_grafs[9];
 Begin
-//	if(tipo_nivel==1) ctype=c_scroll; end	
 	if(debuj) write_int(0,0,0,0,&fps); end
 	if(p[1].juega)
 		ids_grafs[3]=pon_graph(fpg_general,26,90,40,-2);
@@ -2004,6 +1818,7 @@ Begin
 		IF((p[1].juega and !exists(ids_grafs[0])) or (!p[1].juega and exists(ids_grafs[0]))
 		or (p[2].juega and !exists(ids_grafs[1])) or (!p[2].juega and exists(ids_grafs[1]))
 		or (p[3].juega and !exists(ids_grafs[2])) or (!p[3].juega and exists(ids_grafs[2])))
+			delete_text(all_text);
 			marcadores();
 			break;
 		end

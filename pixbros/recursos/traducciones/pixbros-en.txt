@@ -1,0 +1,51 @@
+Once upon a time there were three brothers who really enjoyed playing videogames. The three of them enjoyed the same games, but each had their favorite character.
+Pix loved Snow Bros, where you manage a Snowman that turns enemies into a snowball and then push it away.
+Pux just couldn't get enough of Bubble Bobble, where you're a dragon that throws bubbles to lock on enemies.
+Pax was a fanatic of Tumple Top, where you play as a boy that vacuums monsters.
+One day, they began arguing about which Heroe was the greatest. 
+After a while discussing about it, they realized they were all alone in the Arcades. Just as they were leaving a door opened 
+right behind them, a door they had never seen before, a door that locked a misterious rooms.
+When they entered the room, they saw an special arcade machine, with no joysticks nor buttons, only 3 "Starts".
+If they had known what would happen to them, they would've have never pushed those buttons.. They just pushed it and they dissapeared.
+No one knows what happened to them.
+------------------------
+New Game
+Continue
+Options
+Help
+Credits
+PixJuegos.com
+Exit
+Game Over
+------------------------
+Congratulations! You have finished the first PiX Bros demo. We hope you enjoyed it :). Have you tried out the other 
+characters or playing in multiplayer with 3 joysticks at a time?
+Check the website for newer versions because the game is being actively developed.
+------------------------
+Push a button on your joystick or keyboard to join the game. You can always join later by pushing the jump and fire 
+button at the same time.
+------------------------
+Choose a character.
+------------------------
+What's PiX Bros?
+PiX Bros is a game that mixes the different arcade classics. Snow Bros (PiX), Bubble Bobble (PuX) and Tumble Pop 
+(PaX). PiX Bros is free software distributed under the GPL License.
+------------------------
+We're sorry, but the help is not yet available in-game. If you have any problem/question you can always visit our 
+forums or website and we'll gladly help you out :)
+
+Press the F key to go to the forum
+------------------------
+Fullscreen
+Sound
+Music
+Difficulty
+------------------------
+Direction
+Programming
+Graphics
+Music
+Collaborators
+Thanks
+And thank you for playing
+Player

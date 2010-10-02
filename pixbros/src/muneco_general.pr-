@@ -33,8 +33,10 @@ Begin
 	
 
 	graph=1;
-	ancho=graphic_info(file,graph,g_width);
-	alto=graphic_info(file,graph,g_height);	
+	//ancho=graphic_info(file,graph,g_width);
+	//alto=graphic_info(file,graph,g_height);
+	ancho=36;
+	alto=58;
 
 	p[jugador].identificador=id;
 	p[jugador].invencibilidad=-60;

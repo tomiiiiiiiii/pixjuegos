@@ -88,7 +88,7 @@ Begin
 			puede.disparar=2; puede.pensar=1;
 		end
 		case MONO: //mono
-			animacion[anda][0]=41;	animacion[anda][1]=43;
+			animacion[anda][0]=41; animacion[anda][1]=43;
 			animacion[piensa][0]=44; animacion[piensa][1]=46;
 			animacion[atrapado][0]=50; animacion[atrapado][1]=52;
 			animacion[gira][0]=59; animacion[gira][1]=60;
@@ -161,15 +161,45 @@ Begin
 					end
 
 					if(puede.disparar>0)
-						if(rand(-1,10)<ops.dificultad and !exists(id_disparo))
-							if((exists(id_muneco1_col) and id_muneco1_col.y<y+50 and id_muneco1_col.y>y-50 and 
-							((id_muneco1_col.x>x and flags==0) or (id_muneco1_col.x<x and flags==1))) or
-							(exists(id_muneco2_col) and id_muneco2_col.y<y+50 and id_muneco2_col.y>y-50 and 
-							((id_muneco2_col.x>x and flags==0) or (id_muneco2_col.x<x and flags==1))) or
-							(exists(id_muneco3_col) and id_muneco3_col.y<y+50 and id_muneco3_col.y>y-50 and 
-							((id_muneco3_col.x>x and flags==0) or (id_muneco3_col.x<x and flags==1))))
-								accion=dispara;
+						if(puede.disparar==2)
+							if(rand(-1,2)<ops.dificultad and !exists(id_disparo))
+								if(exists(id_muneco1_col) and id_muneco1_col.x<x+50 and id_muneco1_col.x>x-50 and id_muneco1_col.y>y)
+									accion=dispara;
+								end
+								if(exists(id_muneco2_col) and id_muneco2_col.x<x+50 and id_muneco2_col.x>x-50 and id_muneco2_col.y>y)
+									accion=dispara;
+								end
+								if(exists(id_muneco3_col) and id_muneco3_col.x<x+50 and id_muneco3_col.x>x-50 and id_muneco3_col.y>y)
+									accion=dispara;
+								end
+							end	
+						else
+							if(rand(-1,5)<ops.dificultad and !exists(id_disparo))
+								if((exists(id_muneco1_col) and id_muneco1_col.y<y+50 and id_muneco1_col.y>y-50 and 
+								((id_muneco1_col.x>x and flags==0) or (id_muneco1_col.x<x and flags==1))) or
+								(exists(id_muneco2_col) and id_muneco2_col.y<y+50 and id_muneco2_col.y>y-50 and 
+								((id_muneco2_col.x>x and flags==0) or (id_muneco2_col.x<x and flags==1))) or
+								(exists(id_muneco3_col) and id_muneco3_col.y<y+50 and id_muneco3_col.y>y-50 and 
+								((id_muneco3_col.x>x and flags==0) or (id_muneco3_col.x<x and flags==1))))
+									accion=dispara;
+								end
 							end
+						end
+					end
+
+					if(puede.especializar>0)
+						if(puede.especializar==1)
+							if(rand(-1,2)<ops.dificultad and !exists(id_disparo))
+								if(exists(id_muneco1_col) and id_muneco1_col.x<x+50 and id_muneco1_col.x>x-50 and id_muneco1_col.y>y)
+									accion=especial;
+								end
+								if(exists(id_muneco2_col) and id_muneco2_col.x<x+50 and id_muneco2_col.x>x-50 and id_muneco2_col.y>y)
+									accion=especial;
+								end
+								if(exists(id_muneco3_col) and id_muneco3_col.x<x+50 and id_muneco3_col.x>x-50 and id_muneco3_col.y>y)
+									accion=especial;
+								end
+							end	
 						end
 					end
 					
@@ -190,11 +220,11 @@ Begin
 							end
 						end
 					end
-					
-					if(puede.bajar==2 and rand(-1,10)<ops.dificultad and
-					(exists(id_muneco1_col) and id_muneco1_col.y>y and id_muneco1_col.y-y<150 and id_muneco1_col.x>x-30 and id_muneco1_col.x<x+30) or
+
+					if(puede.bajar==2 and
+					((exists(id_muneco1_col) and id_muneco1_col.y>y and id_muneco1_col.y-y<150 and id_muneco1_col.x>x-30 and id_muneco1_col.x<x+30) or
 					(exists(id_muneco2_col) and id_muneco2_col.y>y and id_muneco2_col.y-y<150 and id_muneco2_col.x>x-30 and id_muneco2_col.x<x+30) or
-					(exists(id_muneco3_col) and id_muneco3_col.y>y and id_muneco3_col.y-y<150 and id_muneco3_col.x>x-30 and id_muneco3_col.x<x+30))
+					(exists(id_muneco3_col) and id_muneco3_col.y>y and id_muneco3_col.y-y<150 and id_muneco3_col.x>x-30 and id_muneco3_col.x<x+30)))
 						accion=baja;
 					end
 					
@@ -227,11 +257,11 @@ Begin
 						
 						//hay un vacío delante, ¿bajamos o giramos?
 						if(map_get_pixel(0,masknivel,x+(ancho_flags/4),y+(alto/2))!=color_colision and no_cae==0)
-							if(rand(0,3)<ops.dificultad and puede.bajar)
-								if(rand(0,5)==0 or
-								 (exists(type muneco1) and id_muneco1_col.y-10>y) or
+							if(rand(0,3)<ops.dificultad and puede.bajar>0)
+								if(rand(0,5)==0 and
+								 ((exists(id_muneco1_col) and id_muneco1_col.y-10>y) or
 								 (exists(id_muneco2_col) and id_muneco2_col.y-10>y) or
-								 (exists(id_muneco3_col) and id_muneco3_col.y-10>y))
+								 (exists(id_muneco3_col) and id_muneco3_col.y-10>y)))
 									accion=baja;
 								else
 									accion=gira;
@@ -309,7 +339,7 @@ Begin
 					end		
 					if((map_get_pixel(0,masknivel,x,y+(alto/2))==color_colision and (map_get_pixel(0,masknivel,x,y+(alto/2)-1)!=color_colision and map_get_pixel(0,masknivel,x,y+(alto/2)+1)!=color_colision))
 					or map_get_pixel(0,masknivel,x,y+(alto/2))==color_pendiente)
-						accion=piensa;
+						if(tipo==CARACOL) accion=piensa; else accion=anda; end
 						grav=0;
 						break;
 					end
@@ -375,14 +405,15 @@ Begin
 						end
 						if(anim>10) 
 							if(graph==animacion[especial][1]) 
-								graph=animacion[especial][1]--; accion=anda;
-								disparo(x,y,flags,tipo);
-							end 
-							graph++; 
-							anim=0; 
+								disparo(x,y,flags,4);
+								accion=anda;
+							else
+								graph++; 
+								anim=0; 
+							end
 						end
 						if(graph==animacion[especial][1]) 
-							disparo(x,y,flags,tipo);
+							disparo(x,y,flags,4);
 						end
 					end
 				end
@@ -569,8 +600,12 @@ begin
 	file=fpg_enemigos;
 	graph=75;
 	alto=graphic_info(file,graph,g_height);
+	while(map_get_pixel(0,masknivel,x,y+(alto/2))!=color_colision and map_get_pixel(0,masknivel,x,y+(alto/2))!=color_pendiente)
+		y++;
+		while(ready==0) frame; end
+		frame;
+	end
 	from alpha=255 to 0 step -10;
-		y+=2;
 		while(ready==0) frame; end
 		frame;
 	end
@@ -626,4 +661,3 @@ Begin
 		unload_map(0,graph);
 	end
 end
-

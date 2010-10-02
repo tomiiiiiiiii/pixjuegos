@@ -1,0 +1,1341 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="640"
+   height="480"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.45.1"
+   version="1.0"
+   sodipodi:docbase="/home/danigm/Documentos/dibujos"
+   sodipodi:docname="spider.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape">
+  <defs
+     id="defs4">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient11625">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:0.14678898"
+         offset="0"
+         id="stop11627" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:0;"
+         offset="1"
+         id="stop11629" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient11603">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:0.32549021"
+         offset="0"
+         id="stop11605" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:0;"
+         offset="1"
+         id="stop11607" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient10600">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:0.32110092"
+         offset="0"
+         id="stop10602" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:0;"
+         offset="1"
+         id="stop10604" />
+    </linearGradient>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient11603"
+       id="radialGradient11613"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.9878104,1.0619757e-7,-8.6053612e-8,0.8004325,-2.0769093,-11.438187)"
+       cx="18.162163"
+       cy="240.70047"
+       fx="18.162163"
+       fy="240.70047"
+       r="28.017192" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient11603"
+       id="radialGradient11621"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.9878104,1.0619757e-7,-8.6053612e-8,0.8004325,5.3989124e-2,-132.09268)"
+       cx="18.162163"
+       cy="240.70047"
+       fx="18.162163"
+       fy="240.70047"
+       r="28.017192" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient11625"
+       id="radialGradient11631"
+       cx="298.09213"
+       cy="362.61899"
+       fx="298.09213"
+       fy="362.61899"
+       r="60.540539"
+       gradientTransform="matrix(0.9010509,0.6738153,-0.6874377,0.5480863,278.77388,-24.99876)"
+       gradientUnits="userSpaceOnUse" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient10600"
+       id="radialGradient11637"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.9984184,0.4067629,-0.3772963,0.9260925,44.180589,-190.07019)"
+       cx="488.1796"
+       cy="115.05146"
+       fx="488.1796"
+       fy="115.05146"
+       r="27.396497" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient11603"
+       id="radialGradient11680"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.9878104,1.0619757e-7,-8.6053612e-8,0.8004325,-2.0769093,-71.569086)"
+       cx="18.162163"
+       cy="240.70047"
+       fx="18.162163"
+       fy="240.70047"
+       r="28.017192" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient11603"
+       id="radialGradient11709"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.9878104,1.0619757e-7,-8.6053612e-8,0.8004325,0.614106,46.169117)"
+       cx="18.162163"
+       cy="240.70047"
+       fx="18.162163"
+       fy="240.70047"
+       r="28.017192" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#aeff00"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     gridtolerance="10000"
+     guidetolerance="10"
+     objecttolerance="10"
+     inkscape:pageopacity="1"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.1889386"
+     inkscape:cx="400.56112"
+     inkscape:cy="151.54074"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     width="640px"
+     height="480px"
+     borderlayer="true"
+     inkscape:window-width="1197"
+     inkscape:window-height="771"
+     inkscape:window-x="0"
+     inkscape:window-y="29"
+     showguides="true"
+     inkscape:guide-bbox="true">
+    <sodipodi:guide
+       orientation="horizontal"
+       position="232.86961"
+       id="guide11711" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g9406"
+       transform="matrix(0.9428858,0,0,1.0360525,16.666042,-17.729207)">
+      <g
+         style="fill:none;stroke:#ffffff;stroke-width:1.01176488;stroke-opacity:1"
+         transform="matrix(1.0433732,0,0,0.9748935,642.72463,-53.285257)"
+         id="g4388">
+        <path
+           style="opacity:1;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:1.00318515;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           d="M -541.2509,492.34123 C -451.33625,517.02368 -430.17987,573.44071 -430.17987,573.44071 C -267.9809,545.23219 -223.90509,585.78193 -223.90509,585.78193 C -104.0189,501.15639 -65.232193,504.68245 -65.232193,504.68245 C -146.33168,391.84839 -125.17529,351.29865 -125.17529,351.29865 C -229.19419,347.77258 -306.76761,263.14703 -306.76761,263.14703 C -384.34103,338.95742 -470.72961,323.09013 -470.72961,323.09013 C -513.04238,480 -539.48787,494.10426 -541.2509,492.34123 z "
+           id="path3377"
+           sodipodi:nodetypes="cccccccc" />
+        <path
+           sodipodi:nodetypes="cccccccc"
+           id="path3379"
+           d="M -509.32254,483.23567 C -431.4697,504.607 -413.15137,553.45584 -413.15137,553.45584 C -272.71095,529.03144 -234.54781,564.14153 -234.54781,564.14153 C -130.74401,490.86828 -97.160433,493.92133 -97.160433,493.92133 C -167.38066,396.22366 -149.06232,361.11354 -149.06232,361.11354 C -239.12735,358.06049 -306.29454,284.78723 -306.29454,284.78723 C -373.4617,350.42789 -448.26148,336.68914 -448.26148,336.68914 C -484.89811,472.54995 -507.79601,484.76219 -509.32254,483.23567 z "
+           style="opacity:1;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:1.00318456;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+        <path
+           style="opacity:1;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:1.0031848;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           d="M -478.40362,474.41808 C -412.23126,492.58299 -396.66128,534.10291 -396.66128,534.10291 C -277.29155,513.34295 -244.85412,543.18535 -244.85412,543.18535 C -156.6243,480.90554 -128.07938,483.50054 -128.07938,483.50054 C -187.76428,400.46073 -172.1943,370.61825 -172.1943,370.61825 C -248.74659,368.02327 -305.83649,305.74339 -305.83649,305.74339 C -362.92637,361.53582 -426.5037,349.85831 -426.5037,349.85831 C -457.64366,465.33553 -477.10613,475.71554 -478.40362,474.41808 z "
+           id="path3381"
+           sodipodi:nodetypes="cccccccc" />
+        <path
+           sodipodi:nodetypes="cccccccc"
+           id="path3383"
+           d="M -450.49014,466.45754 C -394.86288,481.72774 -381.77407,516.63114 -381.77407,516.63114 C -281.4269,499.17943 -254.15861,524.26623 -254.15861,524.26623 C -179.98891,471.91118 -155.99284,474.09265 -155.99284,474.09265 C -206.16647,404.28591 -193.07772,379.19905 -193.07772,379.19905 C -257.43081,377.01761 -305.42297,324.6625 -305.42297,324.6625 C -353.4151,371.56397 -406.86088,361.74737 -406.86088,361.74737 C -433.03844,458.82241 -449.39941,467.54823 -450.49014,466.45754 z "
+           style="opacity:1;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:1.00318503;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+        <path
+           style="opacity:1;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:1.00318551;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           d="M -427.57441,459.92236 C -380.60423,472.81609 -369.55239,502.28762 -369.55239,502.28762 C -284.82182,487.55185 -261.79719,508.73447 -261.79719,508.73447 C -199.17025,464.52725 -178.90859,466.36923 -178.90859,466.36923 C -221.2739,407.42624 -210.22207,386.24353 -210.22207,386.24353 C -264.56018,384.40157 -305.08347,340.1943 -305.08347,340.1943 C -345.6068,379.79669 -390.73499,371.50782 -390.73499,371.50782 C -412.83869,453.47544 -426.65344,460.84329 -427.57441,459.92236 z "
+           id="path3385"
+           sodipodi:nodetypes="cccccccc" />
+        <path
+           style="opacity:1;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:1.00318575;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           d="M -407.05655,454.06938 C -367.83759,464.83474 -358.60955,489.4414 -358.60955,489.4414 C -287.86158,477.13808 -268.63656,494.82407 -268.63656,494.82407 C -216.34454,457.91414 -199.42654,459.45207 -199.42654,459.45207 C -234.80058,410.23882 -225.57256,392.55275 -225.57256,392.55275 C -270.94357,391.01484 -304.77955,354.10487 -304.77955,354.10487 C -338.61558,387.17008 -376.29651,380.24947 -376.29651,380.24947 C -394.75259,448.68665 -406.28759,454.8383 -407.05655,454.06938 z "
+           id="path3389"
+           sodipodi:nodetypes="cccccccc" />
+        <path
+           style="opacity:1;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:1.00318575;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           d="M -386.29315,448.13479 C -354.91814,456.74213 -347.53574,476.41615 -347.53574,476.41615 C -290.93763,466.57915 -275.55769,480.71981 -275.55769,480.71981 C -233.72427,451.20883 -220.18994,452.43847 -220.18994,452.43847 C -248.48903,413.09049 -241.10665,398.94976 -241.10665,398.94976 C -277.40329,397.72014 -304.47194,368.20913 -304.47194,368.20913 C -331.54064,394.6461 -361.68524,389.11279 -361.68524,389.11279 C -376.45004,443.83108 -385.67799,448.74957 -386.29315,448.13479 z "
+           id="path3391"
+           sodipodi:nodetypes="cccccccc" />
+        <path
+           style="opacity:1;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:1.00318575;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           d="M -365.52976,442.2002 C -341.99868,448.64952 -336.46193,463.3909 -336.46193,463.3909 C -294.01368,456.02022 -282.47882,466.61555 -282.47882,466.61555 C -251.104,444.50352 -240.95333,445.42487 -240.95333,445.42487 C -262.17748,415.94216 -256.64074,405.34677 -256.64074,405.34677 C -283.86301,404.42544 -304.16434,382.31339 -304.16434,382.31339 C -324.4657,402.12212 -347.07397,397.97611 -347.07397,397.97611 C -358.14748,438.97551 -365.06839,442.66085 -365.52976,442.2002 z "
+           id="path3393"
+           sodipodi:nodetypes="cccccccc" />
+        <path
+           style="opacity:1;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:1.00318575;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           d="M -347.36179,437.00744 C -330.69416,441.56849 -326.77235,451.99381 -326.77235,451.99381 C -296.70523,446.78115 -288.5348,454.27433 -288.5348,454.27433 C -266.31126,438.63638 -259.1213,439.28797 -259.1213,439.28797 C -274.15488,418.43737 -270.23307,410.94416 -270.23307,410.94416 C -289.51526,410.29258 -303.89518,394.65461 -303.89518,394.65461 C -318.27513,408.66364 -334.28911,405.73152 -334.28911,405.73152 C -342.13274,434.72689 -347.03499,437.33321 -347.36179,437.00744 z "
+           id="path3395"
+           sodipodi:nodetypes="cccccccc" />
+        <path
+           style="opacity:1;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:1.00318575;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           d="M -336.98009,434.04014 C -324.23443,437.52219 -321.23544,445.48118 -321.23544,445.48118 C -298.24325,441.50169 -291.99537,447.2222 -291.99537,447.2222 C -275.00113,435.28372 -269.503,435.78117 -269.503,435.78117 C -280.9991,419.8632 -278.00012,414.14266 -278.00012,414.14266 C -292.74512,413.64523 -303.74138,401.70674 -303.74138,401.70674 C -314.73766,412.40165 -326.98348,410.16318 -326.98348,410.16318 C -332.98147,432.29911 -336.73019,434.28885 -336.98009,434.04014 z "
+           id="path3397"
+           sodipodi:nodetypes="cccccccc" />
+        <path
+           style="opacity:1;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:1.00318575;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           d="M -324.00297,430.33102 C -316.15978,432.46431 -314.31431,437.3404 -314.31431,437.3404 C -300.16578,434.90235 -296.32107,438.40704 -296.32107,438.40704 C -285.86346,431.09291 -282.48012,431.39767 -282.48012,431.39767 C -289.55439,421.64549 -287.70892,418.14079 -287.70892,418.14079 C -296.78244,417.83604 -303.54912,410.5219 -303.54912,410.5219 C -310.31582,417.07416 -317.85143,415.70276 -317.85143,415.70276 C -321.54237,429.26438 -323.84919,430.48339 -324.00297,430.33102 z "
+           id="path3399"
+           sodipodi:nodetypes="cccccccc" />
+        <path
+           style="opacity:1;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:1.00318575;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           d="M -316.2167,428.10555 C -311.31498,429.42958 -310.16163,432.45593 -310.16163,432.45593 C -301.3193,430.94275 -298.91649,433.11794 -298.91649,433.11794 C -292.38086,428.57842 -290.26639,428.76757 -290.26639,428.76757 C -294.68756,422.71487 -293.53421,420.53967 -293.53421,420.53967 C -299.20483,420.35053 -303.43377,415.811 -303.43377,415.811 C -307.66271,419.87766 -312.37221,419.0265 -312.37221,419.0265 C -314.67891,427.44354 -316.12059,428.20012 -316.2167,428.10555 z "
+           id="path3401"
+           sodipodi:nodetypes="cccccccc" />
+        <path
+           sodipodi:nodetypes="cccccccc"
+           id="path3387"
+           d="M -317.52424,428.49371 C -312.12855,429.95888 -310.85898,433.30784 -310.85898,433.30784 C -301.12559,431.63337 -298.48064,434.04042 -298.48064,434.04042 C -291.28639,429.01698 -288.95884,429.22629 -288.95884,429.22629 C -293.82554,422.52837 -292.55596,420.1213 -292.55596,420.1213 C -298.79804,419.91199 -303.45313,414.88854 -303.45313,414.88854 C -308.10824,419.38871 -313.29232,418.44683 -313.29232,418.44683 C -315.83148,427.76113 -317.41844,428.59836 -317.52424,428.49371 z "
+           style="opacity:1;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:1.00318575;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+        <path
+           style="opacity:1;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:1.00318515;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           d="M -305.10941,423.30342 C -451.8191,329.1988 -471.69213,321.60029 -471.69213,321.60029"
+           id="path3403" />
+        <path
+           style="opacity:1;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:1.00318515;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           d="M -304.52491,423.88793 C -305.10941,283.60774 -306.86291,263.15021 -306.86291,263.15021"
+           id="path4376" />
+        <path
+           style="opacity:1;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:1.00318515;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           d="M -305.10941,423.30342 C -254.84234,411.02891 -184.11775,377.71236 -168.92073,370.11385 C -153.7237,362.51534 -124.49867,351.40983 -124.49867,351.40983"
+           id="path4378" />
+        <path
+           style="opacity:1;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:1.00318515;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           d="M -305.10941,423.88793 C -67.21759,501.62653 -64.295086,504.54903 -64.295086,504.54903"
+           id="path4380" />
+        <path
+           style="opacity:1;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:1.00318515;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           d="M -305.10941,423.30342 C -230.29331,560.07661 -222.1103,586.96364 -222.1103,586.96364"
+           id="path4382" />
+        <path
+           style="opacity:1;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:1.00318515;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           d="M -304.52491,422.13442 C -420.25606,567.67512 -430.77707,574.10463 -430.77707,574.10463"
+           id="path4384" />
+        <path
+           style="opacity:1;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:1.00318515;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           d="M -305.69391,422.71892 C -538.32522,496.95052 -540.66322,491.10551 -540.66322,491.10551"
+           id="path4386" />
+      </g>
+      <path
+         id="path4410"
+         d="M 322.51805,203.48374 L 324.54011,-5.2936193"
+         style="opacity:1;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:1.01176488;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    </g>
+    <path
+       transform="matrix(1.7904416,0,0,2.3187685,-273.66304,-555.93683)"
+       d="M 394.37837 386.5946 A 60.540539 30.270269 0 1 1  273.29729,386.5946 A 60.540539 30.270269 0 1 1  394.37837 386.5946 z"
+       sodipodi:ry="30.270269"
+       sodipodi:rx="60.540539"
+       sodipodi:cy="386.5946"
+       sodipodi:cx="333.83783"
+       id="path3194"
+       style="opacity:1;fill:#800000;fill-opacity:1;stroke:#000000;stroke-width:0.49078503;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       sodipodi:type="arc"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:url(#radialGradient11631);fill-opacity:1.0;stroke:none;stroke-width:0.49078503;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path11623"
+       sodipodi:cx="333.83783"
+       sodipodi:cy="386.5946"
+       sodipodi:rx="60.540539"
+       sodipodi:ry="30.270269"
+       d="M 394.37837 386.5946 A 60.540539 30.270269 0 1 1  273.29729,386.5946 A 60.540539 30.270269 0 1 1  394.37837 386.5946 z"
+       transform="matrix(1.7904416,0,0,2.3187685,-273.66304,-555.93683)"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <g
+       id="g3267"
+       transform="translate(-6.1300219,-11.376674)"
+       style="fill:#000000"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999">
+      <path
+         style="opacity:1;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.99999994;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         d="M 233.97039,357.75063 C 233.97039,357.75063 214.82674,305.76551 205.35717,306.87737 C 190.44628,308.62808 162.43734,361.90215 162.43734,361.90215 C 162.43734,361.90215 125.8124,363.16704 130.39053,374.16809 C 134.96864,385.16912 172.16582,374.90708 172.16582,374.90708 C 172.16582,374.90708 197.35951,332.60362 204.78491,330.7534 C 212.96829,328.7143 223.66963,361.75457 235.11492,366.65274 C 241.6058,372.19841 244.94603,375.7093 233.97039,357.75063 z "
+         id="path3265"
+         sodipodi:nodetypes="cscscscc" />
+      <path
+         sodipodi:nodetypes="cscscscc"
+         id="path3263"
+         d="M 232.8341,373.09688 C 232.8341,373.09688 213.34892,323.68456 203.71041,326.54766 C 188.53351,331.05592 160.02488,390.40157 160.02488,390.40157 C 160.02488,390.40157 122.74655,398.38552 127.40635,408.74577 C 132.06614,419.106 169.92692,401.85975 169.92692,401.85975 C 169.92692,401.85975 195.57007,354.19518 203.12794,350.95428 C 211.45732,347.38256 222.34957,379.05563 233.99905,381.94854 C 240.60573,386.40635 244.00555,389.36914 232.8341,373.09688 z "
+         style="opacity:1;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.99999988;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <path
+         style="opacity:1;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         d="M 246.29023,386.08424 C 246.29023,386.08424 225.43844,335.25668 215.12393,339.33479 C 198.8826,345.75622 168.37448,412.26394 168.37448,412.26394 C 168.37448,412.26394 128.48161,424.73046 133.46822,435.327 C 138.45483,445.92354 178.97102,423.4838 178.97102,423.4838 C 178.97102,423.4838 206.41267,369.77795 214.50061,365.51448 C 223.41417,360.81579 235.07037,393.56415 247.53689,395.43413 C 254.60694,399.50941 258.2452,402.32227 246.29023,386.08424 z "
+         id="path3261"
+         sodipodi:nodetypes="cscscscc" />
+      <path
+         sodipodi:nodetypes="cscscsssc"
+         id="path3259"
+         d="M 265.27684,400.21426 C 265.27684,400.21426 239.43844,351.25668 229.12393,355.33479 C 212.8826,361.75622 182.37448,428.26394 182.37448,428.26394 C 182.37448,428.26394 142.48161,440.73046 147.46822,451.327 C 152.45483,461.92354 192.97102,439.4838 192.97102,439.4838 C 192.97102,439.4838 220.41267,385.77795 228.50061,381.51448 C 237.41417,376.81579 249.07037,409.56415 261.53689,411.43413 C 274.00341,413.30411 288.33991,417.04407 281.48332,413.30411 C 274.62673,409.56415 265.90017,402.08424 265.27684,400.21426 z "
+         style="opacity:1;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    </g>
+    <g
+       id="g11713"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999">
+      <path
+         id="path3222"
+         d="M 312.2605,423.72041 C 312.2605,423.72041 302.12306,434.73936 303.00458,437.82466 C 303.8861,440.90997 308.73443,443.55452 310.49747,442.673 C 312.2605,441.79149 313.58277,441.79149 313.58277,441.79149 L 308.73443,441.35073 L 306.08989,437.38391 L 317.10884,426.80571 L 312.2605,423.72041 z "
+         style="opacity:1;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <path
+         style="opacity:1;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         d="M 329.15404,423.48344 C 329.15404,423.48344 339.29148,434.50239 338.40996,437.58769 C 337.52844,440.673 332.68011,443.31755 330.91707,442.43603 C 329.15404,441.55452 327.83177,441.55452 327.83177,441.55452 L 332.68011,441.11376 L 335.32465,437.14694 L 324.3057,426.56874 L 329.15404,423.48344 z "
+         id="path3224" />
+      <path
+         sodipodi:nodetypes="ccsccsscsccccscssc"
+         id="path3196"
+         d="M 298.75481,419.82225 C 277.40589,401.43414 275.06842,391.77258 275.06842,391.77258 C 290.49574,363.87874 310.75463,360.57847 321.03871,360.45045 C 356.4468,360.00969 372.46311,390.83759 372.46311,390.83759 C 362.80156,410.6282 346.43925,420.75724 346.43925,420.75724 C 346.43925,420.75724 368.21136,439.71522 368.21136,441.89686 C 368.21136,444.0785 351.53739,458.72666 349.51158,458.72666 C 347.48577,458.72666 341.56418,456.70085 341.56418,456.70085 C 341.56418,456.70085 347.79744,457.16835 348.88826,456.54502 C 349.97908,455.9217 359.0173,446.10431 359.0173,446.10431 L 328.20696,429.01631 L 312.31215,428.86048 L 284.98357,443.74469 C 284.98357,443.74469 290.90516,454.49706 292.30765,454.96456 C 293.71013,455.43205 297.13842,455.89954 297.13842,455.89954 C 297.13842,455.89954 291.52849,457.61369 289.65851,457.30203 C 287.78853,456.99036 275.32201,443.58886 275.32201,441.71888 C 275.32201,439.8489 298.75481,420.13392 298.75481,419.82225 z "
+         style="opacity:1;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <path
+         transform="translate(0,2)"
+         d="M 299.71547 389.64459 A 2.6445484 2.6445484 0 1 1  294.42637,389.64459 A 2.6445484 2.6445484 0 1 1  299.71547 389.64459 z"
+         sodipodi:ry="2.6445484"
+         sodipodi:rx="2.6445484"
+         sodipodi:cy="389.64459"
+         sodipodi:cx="297.07092"
+         id="path3198"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         sodipodi:type="arc" />
+      <path
+         transform="matrix(1.9879428,0,0,1.9879428,-283.48907,-382.94655)"
+         sodipodi:type="arc"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.50303257;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path3200"
+         sodipodi:cx="297.07092"
+         sodipodi:cy="389.64459"
+         sodipodi:rx="2.6445484"
+         sodipodi:ry="2.6445484"
+         d="M 299.71547 389.64459 A 2.6445484 2.6445484 0 1 1  294.42637,389.64459 A 2.6445484 2.6445484 0 1 1  299.71547 389.64459 z" />
+      <path
+         d="M 299.71547 389.64459 A 2.6445484 2.6445484 0 1 1  294.42637,389.64459 A 2.6445484 2.6445484 0 1 1  299.71547 389.64459 z"
+         sodipodi:ry="2.6445484"
+         sodipodi:rx="2.6445484"
+         sodipodi:cy="389.64459"
+         sodipodi:cx="297.07092"
+         id="path3202"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.60877365;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         sodipodi:type="arc"
+         transform="matrix(1.6426466,0,0,1.6426466,-194.91162,-238.40377)" />
+      <path
+         transform="matrix(1.3035412,0,0,1.3035412,-81.969462,-104.9509)"
+         sodipodi:type="arc"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.7671411;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path3204"
+         sodipodi:cx="297.07092"
+         sodipodi:cy="389.64459"
+         sodipodi:rx="2.6445484"
+         sodipodi:ry="2.6445484"
+         d="M 299.71547 389.64459 A 2.6445484 2.6445484 0 1 1  294.42637,389.64459 A 2.6445484 2.6445484 0 1 1  299.71547 389.64459 z" />
+      <path
+         d="M 299.71547 389.64459 A 2.6445484 2.6445484 0 1 1  294.42637,389.64459 A 2.6445484 2.6445484 0 1 1  299.71547 389.64459 z"
+         sodipodi:ry="2.6445484"
+         sodipodi:rx="2.6445484"
+         sodipodi:cy="389.64459"
+         sodipodi:cx="297.07092"
+         id="path3206"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.79009986;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         sodipodi:type="arc"
+         transform="matrix(1.265663,0,0,1.265663,-60.920714,-93.514094)" />
+      <path
+         transform="matrix(0.6220439,0,0,0.6220439,115.16135,154.15016)"
+         sodipodi:type="arc"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.60760403;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path3208"
+         sodipodi:cx="297.07092"
+         sodipodi:cy="389.64459"
+         sodipodi:rx="2.6445484"
+         sodipodi:ry="2.6445484"
+         d="M 299.71547 389.64459 A 2.6445484 2.6445484 0 1 1  294.42637,389.64459 A 2.6445484 2.6445484 0 1 1  299.71547 389.64459 z" />
+      <path
+         sodipodi:type="arc"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path3210"
+         sodipodi:cx="297.07092"
+         sodipodi:cy="389.64459"
+         sodipodi:rx="2.6445484"
+         sodipodi:ry="2.6445484"
+         d="M 299.71547 389.64459 A 2.6445484 2.6445484 0 1 1  294.42637,389.64459 A 2.6445484 2.6445484 0 1 1  299.71547 389.64459 z"
+         transform="matrix(-1,0,0,1,643.14493,2)" />
+      <path
+         d="M 299.71547 389.64459 A 2.6445484 2.6445484 0 1 1  294.42637,389.64459 A 2.6445484 2.6445484 0 1 1  299.71547 389.64459 z"
+         sodipodi:ry="2.6445484"
+         sodipodi:rx="2.6445484"
+         sodipodi:cy="389.64459"
+         sodipodi:cx="297.07092"
+         id="path3212"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.50303257;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         sodipodi:type="arc"
+         transform="matrix(-1.9879428,0,0,1.9879428,926.634,-382.94655)" />
+      <path
+         transform="matrix(-1.6426466,0,0,1.6426466,838.05655,-238.40377)"
+         sodipodi:type="arc"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.60877365;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path3214"
+         sodipodi:cx="297.07092"
+         sodipodi:cy="389.64459"
+         sodipodi:rx="2.6445484"
+         sodipodi:ry="2.6445484"
+         d="M 299.71547 389.64459 A 2.6445484 2.6445484 0 1 1  294.42637,389.64459 A 2.6445484 2.6445484 0 1 1  299.71547 389.64459 z" />
+      <path
+         d="M 299.71547 389.64459 A 2.6445484 2.6445484 0 1 1  294.42637,389.64459 A 2.6445484 2.6445484 0 1 1  299.71547 389.64459 z"
+         sodipodi:ry="2.6445484"
+         sodipodi:rx="2.6445484"
+         sodipodi:cy="389.64459"
+         sodipodi:cx="297.07092"
+         id="path3216"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.7671411;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         sodipodi:type="arc"
+         transform="matrix(-1.3035412,0,0,1.3035412,725.11439,-104.9509)" />
+      <path
+         transform="matrix(-1.265663,0,0,1.265663,704.06565,-93.514094)"
+         sodipodi:type="arc"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.79009986;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path3218"
+         sodipodi:cx="297.07092"
+         sodipodi:cy="389.64459"
+         sodipodi:rx="2.6445484"
+         sodipodi:ry="2.6445484"
+         d="M 299.71547 389.64459 A 2.6445484 2.6445484 0 1 1  294.42637,389.64459 A 2.6445484 2.6445484 0 1 1  299.71547 389.64459 z" />
+      <path
+         d="M 299.71547 389.64459 A 2.6445484 2.6445484 0 1 1  294.42637,389.64459 A 2.6445484 2.6445484 0 1 1  299.71547 389.64459 z"
+         sodipodi:ry="2.6445484"
+         sodipodi:rx="2.6445484"
+         sodipodi:cy="389.64459"
+         sodipodi:cx="297.07092"
+         id="path3220"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.60760403;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         sodipodi:type="arc"
+         transform="matrix(-0.6220439,0,0,0.6220439,527.98358,154.15016)" />
+    </g>
+    <path
+       sodipodi:type="arc"
+       style="fill:#b3b3b3;fill-opacity:1;stroke:#000000;stroke-width:1.09962177;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path3226"
+       sodipodi:cx="314.77963"
+       sodipodi:cy="312.32529"
+       sodipodi:rx="33.659607"
+       sodipodi:ry="9.3498907"
+       d="M 348.43924 312.32529 A 33.659607 9.3498907 0 1 1  281.12003,312.32529 A 33.659607 9.3498907 0 1 1  348.43924 312.32529 z"
+       transform="matrix(0.8540203,0,0,0.9683785,54.964819,13.694744)"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 323.7944,312.89344 C 311.166,312.89344 300.4292,315.46826 296.5725,319.03659 C 300.42328,322.60825 311.15845,325.21001 323.7944,325.21 C 336.43034,325.21 347.16552,322.60824 351.01629,319.03659 C 347.15959,315.46826 336.42279,312.89343 323.7944,312.89344 z "
+       id="path3228"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       d="M 348.43924 312.32529 A 33.659607 9.3498907 0 1 1  281.12003,312.32529 A 33.659607 9.3498907 0 1 1  348.43924 312.32529 z"
+       sodipodi:ry="9.3498907"
+       sodipodi:rx="33.659607"
+       sodipodi:cy="312.32529"
+       sodipodi:cx="314.77963"
+       id="path3239"
+       style="fill:#b3b3b3;fill-opacity:1;stroke:#000000;stroke-width:1.38998032;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       sodipodi:type="arc"
+       transform="matrix(0.696027,-0.1898307,0.2516812,0.6749873,-18.248786,146.87494)"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       id="path3241"
+       d="M 278.60909,295.66978 C 268.31694,298.4768 260.23564,302.65809 258.01983,306.00258 C 262.08649,307.63618 271.51186,307.06348 281.81016,304.25477 C 292.10846,301.44607 300.18144,297.24636 302.39155,293.90087 C 298.32093,292.27091 288.90124,292.86274 278.60909,295.66978 z "
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#b3b3b3;fill-opacity:1;stroke:#000000;stroke-width:1.38998032;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path3245"
+       sodipodi:cx="314.77963"
+       sodipodi:cy="312.32529"
+       sodipodi:rx="33.659607"
+       sodipodi:ry="9.3498907"
+       d="M 348.43924 312.32529 A 33.659607 9.3498907 0 1 1  281.12003,312.32529 A 33.659607 9.3498907 0 1 1  348.43924 312.32529 z"
+       transform="matrix(-0.696027,-0.1898307,-0.2516812,0.6749873,661.9344,146.2784)"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 365.07653,295.07324 C 375.36868,297.88026 383.44997,302.06155 385.66578,305.40604 C 381.59912,307.03964 372.17376,306.46694 361.87545,303.65823 C 351.57715,300.84953 343.50418,296.64982 341.29406,293.30433 C 345.36469,291.67437 354.78438,292.2662 365.07653,295.07324 z "
+       id="path3247"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       d="M 348.43924 312.32529 A 33.659607 9.3498907 0 1 1  281.12003,312.32529 A 33.659607 9.3498907 0 1 1  348.43924 312.32529 z"
+       sodipodi:ry="9.3498907"
+       sodipodi:rx="33.659607"
+       sodipodi:cy="312.32529"
+       sodipodi:cx="314.77963"
+       id="path3255"
+       style="fill:#b3b3b3;fill-opacity:1;stroke:#000000;stroke-width:1.51227045;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       sodipodi:type="arc"
+       transform="matrix(0.6209861,0,0,0.7041399,126.31918,60.224767)"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       id="path3257"
+       d="M 321.79396,277.78199 C 312.61144,277.78199 304.80436,279.65423 302.00003,282.24888 C 304.80006,284.84595 312.60595,286.73778 321.79396,286.73777 C 330.98197,286.73777 338.78787,284.84594 341.58789,282.24888 C 338.78356,279.65423 330.97648,277.78198 321.79396,277.78199 z "
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.9999997;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <g
+       transform="matrix(-1,0,0,1,654.13368,-11.376674)"
+       id="g3273"
+       style="fill:#000000"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999">
+      <path
+         sodipodi:nodetypes="cscscscc"
+         id="path3275"
+         d="M 233.97039,357.75063 C 233.97039,357.75063 214.82674,305.76551 205.35717,306.87737 C 190.44628,308.62808 162.43734,361.90215 162.43734,361.90215 C 162.43734,361.90215 125.8124,363.16704 130.39053,374.16809 C 134.96864,385.16912 172.16582,374.90708 172.16582,374.90708 C 172.16582,374.90708 197.35951,332.60362 204.78491,330.7534 C 212.96829,328.7143 223.66963,361.75457 235.11492,366.65274 C 241.6058,372.19841 244.94603,375.7093 233.97039,357.75063 z "
+         style="opacity:1;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.99999994;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <path
+         style="opacity:1;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.99999988;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         d="M 232.8341,373.09688 C 232.8341,373.09688 213.34892,323.68456 203.71041,326.54766 C 188.53351,331.05592 160.02488,390.40157 160.02488,390.40157 C 160.02488,390.40157 122.74655,398.38552 127.40635,408.74577 C 132.06614,419.106 169.92692,401.85975 169.92692,401.85975 C 169.92692,401.85975 195.57007,354.19518 203.12794,350.95428 C 211.45732,347.38256 222.34957,379.05563 233.99905,381.94854 C 240.60573,386.40635 244.00555,389.36914 232.8341,373.09688 z "
+         id="path3277"
+         sodipodi:nodetypes="cscscscc" />
+      <path
+         sodipodi:nodetypes="cscscscc"
+         id="path3279"
+         d="M 246.29023,386.08424 C 246.29023,386.08424 225.43844,335.25668 215.12393,339.33479 C 198.8826,345.75622 168.37448,412.26394 168.37448,412.26394 C 168.37448,412.26394 128.48161,424.73046 133.46822,435.327 C 138.45483,445.92354 178.97102,423.4838 178.97102,423.4838 C 178.97102,423.4838 206.41267,369.77795 214.50061,365.51448 C 223.41417,360.81579 235.07037,393.56415 247.53689,395.43413 C 254.60694,399.50941 258.2452,402.32227 246.29023,386.08424 z "
+         style="opacity:1;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <path
+         style="opacity:1;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         d="M 265.27684,400.21426 C 265.27684,400.21426 239.43844,351.25668 229.12393,355.33479 C 212.8826,361.75622 182.37448,428.26394 182.37448,428.26394 C 182.37448,428.26394 142.48161,440.73046 147.46822,451.327 C 152.45483,461.92354 192.97102,439.4838 192.97102,439.4838 C 192.97102,439.4838 220.41267,385.77795 228.50061,381.51448 C 237.41417,376.81579 249.07037,409.56415 261.53689,411.43413 C 274.00341,413.30411 288.33991,417.04407 281.48332,413.30411 C 274.62673,409.56415 265.90017,402.08424 265.27684,400.21426 z "
+         id="path3281"
+         sodipodi:nodetypes="cscscsssc" />
+    </g>
+    <path
+       id="path6352"
+       d="M 246.08621,305.37347 C 237.83195,301.70492 235.99767,311.33488 235.99767,311.33488"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       id="path6354"
+       d="M 248.37906,314.54487 C 240.1248,310.87632 238.29052,320.50628 238.29052,320.50628"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       id="path6356"
+       d="M 266.26328,315.462 C 258.00902,311.79345 256.17474,321.42341 256.17474,321.42341"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       id="path6358"
+       d="M 255.25761,331.05337 C 247.00335,327.38482 245.16907,337.01478 245.16907,337.01478"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       id="path6360"
+       d="M 267.18042,341.14191 C 258.92616,337.47336 257.09188,347.10332 257.09188,347.10332"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       id="path6362"
+       d="M 286.89892,310.87631 C 278.64466,307.20776 276.81038,316.83772 276.81038,316.83772"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       id="path6364"
+       d="M 287.35749,325.55054 C 279.10323,321.88199 277.26895,331.51195 277.26895,331.51195"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       id="path6366"
+       d="M 274.97611,323.71626 C 266.72185,320.04771 264.88757,329.67767 264.88757,329.67767"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       id="path6368"
+       d="M 282.77179,344.3519 C 274.51753,340.68335 272.68325,350.31331 272.68325,350.31331"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       id="path6370"
+       d="M 273.14183,357.65042 C 264.88757,353.98187 263.05329,363.61183 263.05329,363.61183"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       id="path6372"
+       d="M 276.35181,372.78322 C 268.09755,369.11467 266.26327,378.74463 266.26327,378.74463"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       id="path6374"
+       d="M 258.92617,356.27471 C 250.67191,352.60616 248.83763,362.23612 248.83763,362.23612"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       id="path6376"
+       d="M 251.58905,342.97619 C 243.33479,339.30764 241.50051,348.9376 241.50051,348.9376"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       id="path6378"
+       d="M 236.91482,330.5948 C 228.66056,326.92625 226.82628,336.55621 226.82628,336.55621"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       id="path6380"
+       d="M 250.21334,323.25769 C 241.95908,319.58914 240.1248,329.2191 240.1248,329.2191"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       id="path6382"
+       d="M 258.92617,292.53352 C 250.67191,288.86497 248.83763,298.49493 248.83763,298.49493"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       id="path6384"
+       d="M 271.30755,288.40639 C 263.05329,284.73784 261.21901,294.3678 261.21901,294.3678"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       id="path6386"
+       d="M 278.18609,281.52785 C 269.93183,277.8593 268.09755,287.48926 268.09755,287.48926"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       id="path6388"
+       d="M 287.81606,284.27926 C 279.5618,280.61071 277.72752,290.24067 277.72752,290.24067"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       id="path6390"
+       d="M 293.77746,276.94215 C 285.5232,273.2736 283.68892,282.90356 283.68892,282.90356"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       id="path6394"
+       d="M 317.62309,290.24067 C 309.36883,286.57212 307.53455,296.20208 307.53455,296.20208"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       id="path6396"
+       d="M 311.66168,298.49493 C 303.40742,294.82638 301.57314,304.45634 301.57314,304.45634"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       id="path6398"
+       d="M 296.52888,326.46768 C 288.27462,322.79913 286.44034,332.42909 286.44034,332.42909"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       id="path6400"
+       d="M 293.77746,335.63907 C 285.5232,331.97052 283.68892,341.60048 283.68892,341.60048"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       id="path6402"
+       d="M 296.52888,348.02045 C 288.27462,344.3519 286.44034,353.98186 286.44034,353.98186"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       id="path6404"
+       d="M 291.48461,362.69468 C 283.23035,359.02613 281.39607,368.65609 281.39607,368.65609"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       inkscape:transform-center-y="3.8974502"
+       inkscape:transform-center-x="17.884219"
+       id="path6406"
+       d="M 342.84441,358.10899 C 351.09867,354.44044 352.93295,364.0704 352.93295,364.0704"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       inkscape:transform-center-y="3.8974541"
+       inkscape:transform-center-x="17.884221"
+       id="path6408"
+       d="M 354.30865,364.0704 C 362.56291,360.40185 364.39719,370.03181 364.39719,370.03181"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       inkscape:transform-center-y="3.8974509"
+       inkscape:transform-center-x="17.884223"
+       id="path6410"
+       d="M 368.06574,374.6175 C 376.32,370.94895 378.15428,380.57891 378.15428,380.57891"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       inkscape:transform-center-y="3.8974538"
+       inkscape:transform-center-x="17.884217"
+       id="path6412"
+       d="M 376.77857,363.61183 C 385.03283,359.94328 386.86711,369.57324 386.86711,369.57324"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       inkscape:transform-center-y="3.8974538"
+       inkscape:transform-center-x="17.884215"
+       id="path6414"
+       d="M 364.85576,363.61183 C 373.11002,359.94328 374.9443,369.57324 374.9443,369.57324"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       inkscape:transform-center-y="3.8974552"
+       inkscape:transform-center-x="17.88422"
+       id="path6416"
+       d="M 356.14293,350.31331 C 364.39719,346.64476 366.23147,356.27472 366.23147,356.27472"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       inkscape:transform-center-y="3.8974561"
+       inkscape:transform-center-x="17.884222"
+       id="path6418"
+       d="M 368.52431,351.68902 C 376.77857,348.02047 378.61285,357.65043 378.61285,357.65043"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       inkscape:transform-center-y="3.8974476"
+       inkscape:transform-center-x="17.884223"
+       id="path6420"
+       d="M 383.19854,353.98186 C 391.4528,350.31331 393.28708,359.94327 393.28708,359.94327"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       inkscape:transform-center-y="3.8974491"
+       inkscape:transform-center-x="17.884217"
+       id="path6422"
+       d="M 360.72863,340.68334 C 368.98289,337.01479 370.81717,346.64475 370.81717,346.64475"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       inkscape:transform-center-y="3.8974514"
+       inkscape:transform-center-x="17.884222"
+       id="path6424"
+       d="M 352.93294,328.76053 C 361.1872,325.09198 363.02148,334.72194 363.02148,334.72194"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       inkscape:transform-center-y="3.8974538"
+       inkscape:transform-center-x="17.884223"
+       id="path6426"
+       d="M 367.1486,332.42909 C 375.40286,328.76054 377.23714,338.3905 377.23714,338.3905"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       inkscape:transform-center-y="3.8974479"
+       inkscape:transform-center-x="17.884215"
+       id="path6428"
+       d="M 379.07142,338.84906 C 387.32568,335.18051 389.15996,344.81047 389.15996,344.81047"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       inkscape:transform-center-y="3.8974544"
+       inkscape:transform-center-x="17.88422"
+       id="path6430"
+       d="M 388.24281,348.9376 C 396.49707,345.26905 398.33135,354.89901 398.33135,354.89901"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       inkscape:transform-center-y="3.8974502"
+       inkscape:transform-center-x="17.884223"
+       id="path6432"
+       d="M 397.87277,342.51762 C 406.12703,338.84907 407.96131,348.47903 407.96131,348.47903"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       inkscape:transform-center-y="3.8974561"
+       inkscape:transform-center-x="17.884217"
+       id="path6434"
+       d="M 360.72863,320.50628 C 368.98289,316.83773 370.81717,326.46769 370.81717,326.46769"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       inkscape:transform-center-y="3.8974508"
+       inkscape:transform-center-x="17.884217"
+       id="path6436"
+       d="M 361.64577,312.25202 C 369.90003,308.58347 371.73431,318.21343 371.73431,318.21343"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       inkscape:transform-center-y="3.8974502"
+       inkscape:transform-center-x="17.884217"
+       id="path6438"
+       d="M 377.23714,326.92625 C 385.4914,323.2577 387.32568,332.88766 387.32568,332.88766"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       inkscape:transform-center-y="3.8974529"
+       inkscape:transform-center-x="17.884215"
+       id="path6440"
+       d="M 380.44713,315.46201 C 388.70139,311.79346 390.53567,321.42342 390.53567,321.42342"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       inkscape:transform-center-y="3.8974505"
+       inkscape:transform-center-x="17.884216"
+       id="path6442"
+       d="M 393.74565,327.38482 C 401.99991,323.71627 403.83419,333.34623 403.83419,333.34623"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       inkscape:transform-center-y="3.8974561"
+       inkscape:transform-center-x="17.88422"
+       id="path6444"
+       d="M 403.37561,336.09765 C 411.62987,332.4291 413.46415,342.05906 413.46415,342.05906"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       inkscape:transform-center-y="3.8974473"
+       inkscape:transform-center-x="17.884224"
+       id="path6446"
+       d="M 411.62986,330.13624 C 419.88412,326.46769 421.7184,336.09765 421.7184,336.09765"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       inkscape:transform-center-y="3.8974491"
+       inkscape:transform-center-x="17.884223"
+       id="path6448"
+       d="M 397.87277,317.29629 C 406.12703,313.62774 407.96131,323.2577 407.96131,323.2577"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       inkscape:transform-center-y="3.897449"
+       inkscape:transform-center-x="17.884217"
+       id="path6450"
+       d="M 391.91137,301.70492 C 400.16563,298.03637 401.99991,307.66633 401.99991,307.66633"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       inkscape:transform-center-y="3.8974517"
+       inkscape:transform-center-x="17.884219"
+       id="path6452"
+       d="M 387.78424,290.24068 C 396.0385,286.57213 397.87278,296.20209 397.87278,296.20209"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       inkscape:transform-center-y="3.8974487"
+       inkscape:transform-center-x="17.884218"
+       id="path6454"
+       d="M 373.56858,285.65498 C 381.82284,281.98643 383.65712,291.61639 383.65712,291.61639"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       inkscape:transform-center-y="3.8974543"
+       inkscape:transform-center-x="17.884219"
+       id="path6456"
+       d="M 357.06007,278.77644 C 365.31433,275.10789 367.14861,284.73785 367.14861,284.73785"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       inkscape:transform-center-y="3.8974561"
+       inkscape:transform-center-x="17.884222"
+       id="path6458"
+       d="M 352.47437,281.52786 C 360.72863,277.85931 362.56291,287.48927 362.56291,287.48927"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       inkscape:transform-center-y="3.8974523"
+       inkscape:transform-center-x="17.884217"
+       id="path6460"
+       d="M 407.50274,306.74919 C 415.757,303.08064 417.59128,312.7106 417.59128,312.7106"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       inkscape:transform-center-y="3.8974491"
+       inkscape:transform-center-x="17.884215"
+       id="path6462"
+       d="M 410.71273,317.29629 C 418.96699,313.62774 420.80127,323.2577 420.80127,323.2577"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       inkscape:transform-center-y="10.963236"
+       inkscape:transform-center-x="13.457047"
+       id="path6464"
+       d="M 302.43522,357.27949 C 307.82203,350.02874 314.15109,357.51498 314.15109,357.51498"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       inkscape:transform-center-y="10.963235"
+       inkscape:transform-center-x="13.457046"
+       id="path6466"
+       d="M 318.94373,355.90378 C 324.33054,348.65303 330.6596,356.13927 330.6596,356.13927"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       inkscape:transform-center-y="10.96323"
+       inkscape:transform-center-x="13.457047"
+       id="path6468"
+       d="M 333.15939,348.56666 C 338.5462,341.31591 344.87526,348.80215 344.87526,348.80215"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       inkscape:transform-center-y="10.963229"
+       inkscape:transform-center-x="13.457048"
+       id="path6470"
+       d="M 316.19231,346.27381 C 321.57912,339.02306 327.90818,346.5093 327.90818,346.5093"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       inkscape:transform-center-y="10.963234"
+       inkscape:transform-center-x="13.457045"
+       id="path6472"
+       d="M 304.72807,339.39527 C 310.11488,332.14452 316.44394,339.63076 316.44394,339.63076"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       inkscape:transform-center-y="10.963233"
+       inkscape:transform-center-x="13.457045"
+       id="path6474"
+       d="M 320.77801,337.10242 C 326.16482,329.85167 332.49388,337.33791 332.49388,337.33791"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       inkscape:transform-center-y="10.963235"
+       inkscape:transform-center-x="13.457045"
+       id="path6476"
+       d="M 335.45224,341.22955 C 340.83905,333.9788 347.16811,341.46504 347.16811,341.46504"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       inkscape:transform-center-y="10.96323"
+       inkscape:transform-center-x="13.457045"
+       id="path6478"
+       d="M 336.36938,332.97529 C 341.75619,325.72454 348.08525,333.21078 348.08525,333.21078"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       inkscape:transform-center-y="10.963232"
+       inkscape:transform-center-x="13.457041"
+       id="path6480"
+       d="M 326.73942,304.0854 C 332.12623,296.83465 338.45529,304.32089 338.45529,304.32089"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       inkscape:transform-center-y="10.963229"
+       inkscape:transform-center-x="13.457049"
+       id="path6482"
+       d="M 314.8166,299.95827 C 320.20341,292.70752 326.53247,300.19376 326.53247,300.19376"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       inkscape:transform-center-y="10.963235"
+       inkscape:transform-center-x="13.457044"
+       id="path6484"
+       d="M 322.15372,293.99687 C 327.54053,286.74612 333.86959,294.23236 333.86959,294.23236"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <path
+       inkscape:transform-center-y="10.963234"
+       inkscape:transform-center-x="13.45704"
+       id="path6486"
+       d="M 343.24793,307.29539 C 348.63474,300.04464 354.9638,307.53088 354.9638,307.53088"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999" />
+    <g
+       id="g11682"
+       transform="translate(-1.2192126,150.40086)"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999">
+      <path
+         sodipodi:nodetypes="cssc"
+         id="path10403"
+         d="M 52.634218,67.329627 C 44.467336,62.460787 68.478813,57.860247 69.279663,64.296927 C 70.032363,70.346637 64.322993,70.187727 61.522533,69.989017 C 57.941239,69.734897 53.741713,67.697997 52.634218,67.329627 z "
+         style="fill:#800000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cscc"
+         id="path9430"
+         d="M 60.939213,67.524707 C 58.753509,50.126277 44.395791,25.203149 24.753558,31.437119 C 5.111323,37.671079 2.016141,63.193297 7.021101,70.169707 C 24.579109,78.507427 47.42819,76.040147 60.939213,67.524707 z "
+         style="fill:#800000;fill-opacity:1;stroke:#000000;stroke-width:0.99999988;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cscc"
+         id="path11619"
+         d="M 61.035105,67.199082 C 58.849401,49.800652 44.491683,24.877522 24.84945,31.111492 C 5.2072145,37.345452 2.1120325,62.867672 7.1169929,69.844082 C 24.675001,78.181802 47.524082,75.714522 61.035105,67.199082 z "
+         style="fill:url(#radialGradient11621);fill-opacity:1;stroke:none;stroke-width:0.99999988;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <path
+         id="path10420"
+         d="M 60.805433,67.530477 L 28.949338,44.796779 L 13.655196,81.399257 L 5.702844,85.627227 L 17.904874,83.162117 L 29.890899,48.397307 C 29.890899,48.397307 58.897785,69.727707 60.298253,70.087277 C 61.698733,70.446847 61.505673,67.710257 60.805433,67.530477 z "
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="ccccccsc"
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         d="M 63.402233,67.275837 L 37.504774,47.788717 L 29.851681,82.247857 L 21.899329,86.475827 L 34.101359,84.010717 L 38.446334,51.389247 C 38.446334,51.389247 61.494573,69.473077 62.895053,69.832637 C 64.295533,70.192207 64.102473,67.455617 63.402233,67.275837 z "
+         id="path10422" />
+      <path
+         id="path10426"
+         d="M 65.396843,67.349447 L 80.140393,45.682759 L 86.03871,80.560987 L 94.505892,83.630597 L 82.07863,82.903017 L 79.713653,49.379817 C 79.713653,49.379817 67.594093,69.257087 66.257963,69.809717 C 64.921843,70.362347 64.728783,67.625757 65.396843,67.349447 z "
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         sodipodi:nodetypes="ccccccsc" />
+      <path
+         sodipodi:nodetypes="ccccccsc"
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         d="M 64.273293,67.263527 L 71.995583,46.779727 L 73.153143,82.679947 L 81.62032,85.749557 L 69.193063,85.021987 L 71.568843,50.476787 C 71.568843,50.476787 66.470543,69.171177 65.134413,69.723807 C 63.798293,70.276427 63.605233,67.539837 64.273293,67.263527 z "
+         id="path10428" />
+    </g>
+    <g
+       id="g11639"
+       transform="translate(98.756222,90.867169)"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999">
+      <path
+         inkscape:export-ydpi="60"
+         inkscape:export-xdpi="60"
+         inkscape:export-filename="/home/danigm/Documentos/dibujos/aranitas.png"
+         style="fill:#800000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         d="M 50.283384,127.58959 C 42.116502,122.72075 66.12798,118.12021 66.92883,124.55689 C 67.68153,130.6066 61.972159,130.44769 59.171699,130.24898 C 55.590405,129.99486 51.390879,127.95796 50.283384,127.58959 z "
+         id="path10430"
+         sodipodi:nodetypes="cssc" />
+      <path
+         inkscape:export-ydpi="60"
+         inkscape:export-xdpi="60"
+         inkscape:export-filename="/home/danigm/Documentos/dibujos/aranitas.png"
+         style="fill:#800000;fill-opacity:1;stroke:#000000;stroke-width:0.99999988;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         d="M 58.588379,127.78467 C 56.402676,110.38624 42.044957,85.463104 22.402725,91.697074 C 2.7604896,97.931034 -0.3346924,123.45326 4.6702676,130.42967 C 22.228276,138.76739 45.077357,136.30011 58.588379,127.78467 z "
+         id="path10432"
+         sodipodi:nodetypes="cscc" />
+      <path
+         style="fill:url(#radialGradient11680);fill-opacity:1;stroke:none;stroke-width:0.99999988;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         d="M 58.904206,127.72268 C 56.718502,110.32425 42.360784,85.401115 22.718551,91.635085 C 3.0763161,97.869045 -0.018865942,123.39127 4.9860945,130.36768 C 22.544102,138.7054 45.393183,136.23812 58.904206,127.72268 z "
+         id="path11615"
+         sodipodi:nodetypes="cscc" />
+      <path
+         inkscape:export-ydpi="60"
+         inkscape:export-xdpi="60"
+         inkscape:export-filename="/home/danigm/Documentos/dibujos/aranitas.png"
+         sodipodi:nodetypes="ccccccsc"
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         d="M 58.4546,127.79044 L 25.253045,107.51481 L 14.377832,138.08966 L 6.4254808,142.31763 L 18.627509,139.85252 L 26.194606,111.11534 C 26.194606,111.11534 56.546951,129.98767 57.947419,130.34724 C 59.347899,130.70681 59.154839,127.97022 58.4546,127.79044 z "
+         id="path10434" />
+      <path
+         inkscape:export-ydpi="60"
+         inkscape:export-xdpi="60"
+         inkscape:export-filename="/home/danigm/Documentos/dibujos/aranitas.png"
+         id="path10436"
+         d="M 61.051399,127.5358 L 39.53685,103.66577 L 33.527349,138.12491 L 25.574997,142.35288 L 37.777026,139.88777 L 40.47841,107.2663 C 40.47841,107.2663 59.143739,129.73304 60.544219,130.0926 C 61.944699,130.45217 61.751639,127.71558 61.051399,127.5358 z "
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         sodipodi:nodetypes="ccccccsc" />
+      <path
+         inkscape:export-ydpi="60"
+         inkscape:export-xdpi="60"
+         inkscape:export-filename="/home/danigm/Documentos/dibujos/aranitas.png"
+         sodipodi:nodetypes="ccccccsc"
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         d="M 63.04601,127.60941 L 77.78956,105.94272 L 96.040136,139.44848 L 104.50732,142.51809 L 92.080056,141.79051 L 77.36282,109.63978 C 77.36282,109.63978 65.24326,129.51705 63.90713,130.06968 C 62.571009,130.62231 62.377949,127.88572 63.04601,127.60941 z "
+         id="path10438" />
+      <path
+         inkscape:export-ydpi="60"
+         inkscape:export-xdpi="60"
+         inkscape:export-filename="/home/danigm/Documentos/dibujos/aranitas.png"
+         id="path10440"
+         d="M 61.922459,127.52349 L 69.64475,107.03969 L 70.80231,142.93991 L 79.269486,146.00952 L 66.84223,145.28195 L 69.21801,110.73675 C 69.21801,110.73675 64.119709,129.43114 62.783579,129.98377 C 61.44746,130.53639 61.254399,127.7998 61.922459,127.52349 z "
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         sodipodi:nodetypes="ccccccsc" />
+    </g>
+    <g
+       id="g11691"
+       transform="translate(326.13938,29.735299)"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999">
+      <path
+         sodipodi:nodetypes="cssc"
+         id="path10490"
+         d="M 50.170495,187.99519 C 42.003613,183.12635 66.01509,178.52581 66.81594,184.96249 C 67.56864,191.0122 61.85927,190.85329 59.05881,190.65458 C 55.477516,190.40046 51.27799,188.36356 50.170495,187.99519 z "
+         style="fill:#800000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cscc"
+         id="path10492"
+         d="M 58.47549,188.19027 C 56.289786,170.79184 41.932068,145.86871 22.289835,152.10268 C 2.6475997,158.33664 -0.4475823,183.85886 4.5573777,190.83527 C 22.115386,199.17299 44.964467,196.70571 58.47549,188.19027 z "
+         style="fill:#800000;fill-opacity:1;stroke:#000000;stroke-width:0.99999988;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cscc"
+         id="path11611"
+         d="M 58.904206,187.85357 C 56.718502,170.45514 42.360784,145.53201 22.718551,151.76598 C 3.0763161,157.99994 -0.018865942,183.52216 4.9860945,190.49857 C 22.544102,198.83629 45.393183,196.36901 58.904206,187.85357 z "
+         style="fill:url(#radialGradient11613);fill-opacity:1;stroke:none;stroke-width:0.99999988;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="ccccccsc"
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         d="M 60.93851,187.9414 L 35.041051,168.45428 L 27.387958,202.91342 L 19.435606,207.14139 L 31.637636,204.67628 L 35.982611,172.05481 C 35.982611,172.05481 59.03085,190.13864 60.43133,190.4982 C 61.83181,190.85777 61.63875,188.12118 60.93851,187.9414 z "
+         id="path10496" />
+      <path
+         id="path10498"
+         d="M 64.031099,187.46602 L 73.284756,166.34832 L 91.535327,199.85408 L 100.00252,202.92369 L 87.575252,202.19611 L 72.858016,170.04538 C 72.858016,170.04538 66.228349,189.37366 64.892219,189.92629 C 63.556099,190.47892 63.363039,187.74233 64.031099,187.46602 z "
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         sodipodi:nodetypes="ccccccsc" />
+      <path
+         sodipodi:nodetypes="ccccccsc"
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         d="M 61.80957,187.92909 L 65.139946,167.44529 L 93.472477,190.99325 L 101.93966,194.06286 L 89.512395,193.33529 L 64.713206,171.14235 C 64.713206,171.14235 64.00682,189.83674 62.67069,190.38937 C 61.33457,190.94199 61.14151,188.2054 61.80957,187.92909 z "
+         id="path10500" />
+      <path
+         id="path10514"
+         d="M 58.34171,187.92155 L 38.288885,161.61942 L 40.562399,197.67291 L 32.610048,201.90088 L 44.812077,199.43577 L 39.230446,165.21995 C 39.230446,165.21995 56.434062,190.11878 57.83453,190.47835 C 59.23501,190.83792 59.04195,188.10133 58.34171,187.92155 z "
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         sodipodi:nodetypes="ccccccsc" />
+    </g>
+    <g
+       id="g11700"
+       transform="translate(209.70457,-27.404411)"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999">
+      <path
+         sodipodi:nodetypes="cssc"
+         id="path10540"
+         d="M 52.897531,245.1349 C 44.730649,240.26606 68.742126,235.66552 69.542976,242.1022 C 70.295676,248.15191 64.586306,247.993 61.785846,247.79429 C 58.204552,247.54017 54.005026,245.50327 52.897531,245.1349 z "
+         style="fill:#800000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cscc"
+         id="path10542"
+         d="M 61.202526,245.32998 C 59.016822,227.93155 44.659104,203.00842 25.016871,209.24239 C 5.374636,215.47635 2.279454,240.99857 7.2844144,247.97498 C 24.842422,256.3127 47.691503,253.84542 61.202526,245.32998 z "
+         style="fill:#800000;fill-opacity:1;stroke:#000000;stroke-width:0.99999988;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <path
+         style="fill:url(#radialGradient11709);fill-opacity:1;stroke:none;stroke-width:0.99999988;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         d="M 61.595221,245.46088 C 59.409517,228.06245 45.051799,203.13932 25.409566,209.37329 C 5.7673314,215.60725 2.6721494,241.12947 7.6771098,248.10588 C 25.235117,256.4436 48.084198,253.97632 61.595221,245.46088 z "
+         id="path11601"
+         sodipodi:nodetypes="cscc" />
+      <path
+         sodipodi:nodetypes="ccccccsc"
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         d="M 63.665546,245.08111 L 37.768087,225.59399 L 25.762647,260.05313 L 17.810295,264.2811 L 30.012325,261.81599 L 38.709647,229.19452 C 38.709647,229.19452 61.757886,247.27835 63.158366,247.63791 C 64.558846,247.99748 64.365786,245.26089 63.665546,245.08111 z "
+         id="path10544" />
+      <path
+         id="path10546"
+         d="M 66.758135,244.60573 L 79.058435,228.71085 L 85.122433,258.29949 L 93.589619,261.3691 L 81.162358,260.64152 L 78.631695,232.40791 C 78.631695,232.40791 68.955385,246.51337 67.619255,247.066 C 66.283135,247.61863 66.090075,244.88204 66.758135,244.60573 z "
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         sodipodi:nodetypes="ccccccsc" />
+      <path
+         sodipodi:nodetypes="cccccccsc"
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         d="M 64.536606,245.0688 L 84.841137,229.80782 L 105.33944,259.44906 L 113.80662,262.51867 L 101.37936,261.7911 L 100.25248,260.78265 L 84.414397,233.50488 C 84.414397,233.50488 66.733856,246.97645 65.397726,247.52908 C 64.061606,248.0817 63.868546,245.34511 64.536606,245.0688 z "
+         id="path10548" />
+      <path
+         id="path10550"
+         d="M 61.068746,245.06126 L 28.394113,224.41718 L 8.4706549,259.6002 L 0.5183049,263.82817 L 12.720333,261.36306 L 29.335674,228.01771 C 29.335674,228.01771 59.161098,247.25849 60.561566,247.61806 C 61.962046,247.97763 61.768986,245.24104 61.068746,245.06126 z "
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         sodipodi:nodetypes="ccccccsc" />
+    </g>
+    <g
+       id="g11633"
+       transform="translate(60.416701,24.582939)"
+       inkscape:export-filename="/home/danigm/Documentos/dibujos/monstruo2-v1.png"
+       inkscape:export-xdpi="68.639999"
+       inkscape:export-ydpi="68.639999">
+      <path
+         transform="matrix(0.8536986,0,0,0.8536986,-12.001491,96.375325)"
+         d="M 524.10811 108.97298 A 26.81081 26.81081 0 1 1  470.48649,108.97298 A 26.81081 26.81081 0 1 1  524.10811 108.97298 z"
+         sodipodi:ry="26.81081"
+         sodipodi:rx="26.81081"
+         sodipodi:cy="108.97298"
+         sodipodi:cx="497.2973"
+         id="path10588"
+         style="opacity:1;fill:#800000;fill-opacity:1;stroke:#000000;stroke-width:1.17137349;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         sodipodi:type="arc" />
+      <path
+         sodipodi:type="arc"
+         style="opacity:1;fill:url(#radialGradient11637);fill-opacity:1;stroke:none;stroke-width:1.17137349;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path10598"
+         sodipodi:cx="497.2973"
+         sodipodi:cy="108.97298"
+         sodipodi:rx="26.81081"
+         sodipodi:ry="26.81081"
+         d="M 524.10811 108.97298 A 26.81081 26.81081 0 1 1  470.48649,108.97298 A 26.81081 26.81081 0 1 1  524.10811 108.97298 z"
+         transform="matrix(0.8536986,0,0,0.8536986,-12.001491,96.375325)" />
+    </g>
+  </g>
+</svg>

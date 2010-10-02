@@ -1,0 +1,653 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   id="svg5809"
+   sodipodi:version="0.32"
+   inkscape:version="0.44.1"
+   sodipodi:docbase="D:\fenix\enemigos"
+   sodipodi:docname="item.svg">
+  <defs
+     id="defs5811" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.24748738"
+     inkscape:cx="466.08738"
+     inkscape:cy="790.25291"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:window-width="1280"
+     inkscape:window-height="977"
+     inkscape:window-x="-4"
+     inkscape:window-y="-4">
+    <sodipodi:guide
+       orientation="horizontal"
+       position="864.69056"
+       id="guide1946" />
+    <sodipodi:guide
+       orientation="horizontal"
+       position="1288.9546"
+       id="guide1948" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata5814">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:black;stroke-width:7.7086935;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -2072.5399,44.388538 L -1507.1364,49.257981 L -1510.6344,146.64598 C -1697.9363,188.55059 -1885.2379,200.26904 -2072.5399,151.5154 L -2072.5399,44.388538 z "
+       id="path5345"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="D:\fenix\enemigos\hamburgesa.png"
+       inkscape:export-xdpi="4.1928368"
+       inkscape:export-ydpi="4.1928368" />
+    <path
+       style="fill:#803300;fill-opacity:1;fill-rule:evenodd;stroke:black;stroke-width:7.7086935;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -2071.4676,-37.089046 C -2095.3822,-15.089051 -2106.4708,1.1617072 -2074.5827,51.155614 C -1877.0829,129.19457 -1701.6079,87.388632 -1504.1081,51.155614 C -1461.3651,-4.1931213 -1497.7642,-23.568198 -1515.8017,-51.2894 L -2071.4676,-37.089046 z "
+       id="path5347"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="D:\fenix\enemigos\hamburgesa.png"
+       inkscape:export-xdpi="4.1928368"
+       inkscape:export-ydpi="4.1928368" />
+    <path
+       style="fill:#d4aa00;fill-rule:evenodd;stroke:black;stroke-width:6.82481575;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 1512.6841,184.78238 L 2113.756,-63.887509 C 2154.431,-149.65373 1709.4332,-311.12909 1700.4565,-185.20129 L 1512.6841,184.78238 z "
+       id="path5243"
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="D:\fenix\enemigos\pizza.png"
+       inkscape:export-xdpi="4.4224329"
+       inkscape:export-ydpi="4.4224329" />
+    <path
+       style="fill:#803300;fill-rule:evenodd;stroke:black;stroke-width:7.01376247;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 452.3486,60.355805 L 452.34858,92.946665 L 656.39572,183.63429 L 985.13824,-122.43642 L 986.5553,-155.02727 L 452.3486,60.355805 z "
+       id="path1895"
+       sodipodi:nodetypes="cccccc"
+       inkscape:export-filename="D:\fenix\enemigos\choco.png"
+       inkscape:export-xdpi="4.9498472"
+       inkscape:export-ydpi="4.9498472" />
+    <path
+       style="fill:white;fill-rule:evenodd;stroke:black;stroke-width:6.69998312;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 204.03875,-204.4131 C 204.03875,-204.4131 200.29162,-141.92777 200.44947,-67.422363 C 200.60733,7.0759548 89.850818,24.448247 90.378342,132.3807 C 90.484653,154.13099 167.8554,182.89067 238.73509,182.63057 C 308.41836,182.37047 379.07293,161.19498 379.91331,132.38068 C 383.33593,15.02788 288.68587,6.7603359 288.38675,-70.413419 C 288.08763,-148.78361 287.78854,-205.01131 287.78854,-205.01131 L 204.03875,-204.4131 z "
+       id="path5819"
+       sodipodi:nodetypes="czszszcc"
+       inkscape:export-filename="D:\fenix\enemigos\azul.png"
+       inkscape:export-xdpi="6.4114294"
+       inkscape:export-ydpi="6.4114294" />
+    <path
+       style="fill:blue;fill-rule:evenodd;stroke:black;stroke-width:6.69998312;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 175.32454,-9.9939441 C 154.78125,6.6539907 87.709856,71.290475 89.181908,121.61288 C 90.202048,156.48672 157.38,182.95913 241.12546,183.21899 C 324.87063,183.47885 380.89528,158.88191 382.30616,118.0236 C 384.22065,62.580698 332.82073,12.738144 314.1099,-9.9939441 C 267.84811,-33.027128 221.58633,-36.540817 175.32454,-9.9939441 z "
+       id="path6720"
+       sodipodi:nodetypes="cszscc"
+       inkscape:export-filename="D:\fenix\enemigos\azul.png"
+       inkscape:export-xdpi="6.4114294"
+       inkscape:export-ydpi="6.4114294" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:white;fill-opacity:1;stroke:black;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path5821"
+       sodipodi:cx="300.01532"
+       sodipodi:cy="329.59802"
+       sodipodi:rx="37.375645"
+       sodipodi:ry="8.586297"
+       d="M 337.39096 329.59802 A 37.375645 8.586297 0 1 1  262.63968,329.59802 A 37.375645 8.586297 0 1 1  337.39096 329.59802 z"
+       transform="matrix(1.674996,0,0,1.674996,-254.1922,-768.8952)"
+       inkscape:export-filename="D:\fenix\enemigos\azul.png"
+       inkscape:export-xdpi="6.4114294"
+       inkscape:export-ydpi="6.4114294" />
+    <path
+       style="fill:white;fill-rule:evenodd;stroke:black;stroke-width:6.69998312;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 185.72808,-215.97379 L 185.3051,-202.01479 C 185.42756,-196.11507 215.31824,-188.41032 247.48826,-187.85143 C 279.65828,-187.29253 310.55585,-196.88545 310.51318,-202.43777 L 310.93618,-215.5508 C 311.31078,-209.92694 280.90793,-201.02217 248.75587,-200.95442 C 216.6038,-200.88667 185.53023,-209.78799 185.72808,-215.97379 z "
+       id="path6714"
+       sodipodi:nodetypes="cczcczc"
+       inkscape:export-filename="D:\fenix\enemigos\azul.png"
+       inkscape:export-xdpi="6.4114294"
+       inkscape:export-ydpi="6.4114294" />
+    <path
+       style="fill:white;fill-rule:evenodd;stroke:black;stroke-width:6.69998407;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -225.85037,-204.88313 C -225.85037,-204.88313 -229.5975,-142.39779 -229.43965,-67.892373 C -229.2818,6.6059569 -340.03834,23.978245 -339.51081,131.91072 C -339.4045,153.66101 -262.03374,182.42069 -191.15403,182.1606 C -121.47075,181.90049 -50.816165,160.725 -49.975786,131.9107 C -46.553166,14.557883 -141.20324,6.2903373 -141.50236,-70.88343 C -141.80148,-149.25363 -142.10057,-205.48134 -142.10057,-205.48134 L -225.85037,-204.88313 z "
+       id="path6722"
+       sodipodi:nodetypes="czszszcc"
+       inkscape:export-filename="D:\fenix\enemigos\amarillo.png"
+       inkscape:export-xdpi="6.4114304"
+       inkscape:export-ydpi="6.4114304" />
+    <path
+       style="fill:yellow;fill-rule:evenodd;stroke:black;stroke-width:6.69998407;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -254.56459,-10.463945 C -275.10788,6.1839919 -342.1793,70.820478 -340.70724,121.14289 C -339.68711,156.01674 -272.50914,182.48915 -188.76366,182.74901 C -105.01847,183.00887 -48.99382,158.41193 -47.582937,117.5536 C -45.66845,62.110699 -97.068367,12.268147 -115.77921,-10.463945 C -162.04101,-33.497133 -208.30279,-37.010823 -254.56459,-10.463945 z "
+       id="path6724"
+       sodipodi:nodetypes="cszscc"
+       inkscape:export-filename="D:\fenix\enemigos\amarillo.png"
+       inkscape:export-xdpi="6.4114304"
+       inkscape:export-ydpi="6.4114304" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:white;fill-opacity:1;stroke:black;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path6726"
+       sodipodi:cx="300.01532"
+       sodipodi:cy="329.59802"
+       sodipodi:rx="37.375645"
+       sodipodi:ry="8.586297"
+       d="M 337.39096 329.59802 A 37.375645 8.586297 0 1 1  262.63968,329.59802 A 37.375645 8.586297 0 1 1  337.39096 329.59802 z"
+       transform="matrix(1.674996,0,0,1.674996,-684.0815,-769.3652)"
+       inkscape:export-filename="D:\fenix\enemigos\amarillo.png"
+       inkscape:export-xdpi="6.4114304"
+       inkscape:export-ydpi="6.4114304" />
+    <path
+       style="fill:white;fill-rule:evenodd;stroke:black;stroke-width:6.69998407;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -244.16104,-216.44382 L -244.58403,-202.48482 C -244.46157,-196.5851 -214.57088,-188.88035 -182.40086,-188.32146 C -150.23083,-187.76256 -119.33327,-197.35548 -119.37593,-202.90781 L -118.95293,-216.02083 C -118.57833,-210.39697 -148.98118,-201.4922 -181.13325,-201.42445 C -213.28532,-201.35669 -244.35889,-210.25803 -244.16104,-216.44382 z "
+       id="path6728"
+       sodipodi:nodetypes="cczcczc"
+       inkscape:export-xdpi="6.4114304"
+       inkscape:export-ydpi="6.4114304"
+       inkscape:export-filename="D:\fenix\enemigos\amarillo.png" />
+    <path
+       style="fill:white;fill-rule:evenodd;stroke:black;stroke-width:6.69998312;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -777.39367,-204.88308 C -777.39367,-204.88308 -781.1408,-142.39774 -780.98295,-67.892341 C -780.8251,6.6059772 -891.58162,23.978263 -891.05409,131.91072 C -890.94778,153.66101 -813.57703,182.42069 -742.69734,182.1606 C -673.01406,181.90049 -602.35949,160.72501 -601.51911,131.91071 C -598.09649,14.557902 -692.74655,6.2903578 -693.04567,-70.883398 C -693.34479,-149.25359 -693.64388,-205.48128 -693.64388,-205.48128 L -777.39367,-204.88308 z "
+       id="path6730"
+       sodipodi:nodetypes="czszszcc"
+       inkscape:export-filename="D:\fenix\enemigos\rojo.png"
+       inkscape:export-xdpi="6.4114304"
+       inkscape:export-ydpi="6.4114304" />
+    <path
+       style="fill:red;fill-rule:evenodd;stroke:black;stroke-width:6.69998312;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -806.10789,-10.463921 C -826.65118,6.1840123 -893.72258,70.820496 -892.25053,121.1429 C -891.23039,156.01674 -824.05244,182.48915 -740.30697,182.74901 C -656.56179,183.00887 -600.53715,158.41194 -599.12626,117.55362 C -597.21178,62.110719 -648.61169,12.268166 -667.32253,-10.463921 C -713.58432,-33.497107 -759.8461,-37.010795 -806.10789,-10.463921 z "
+       id="path6732"
+       sodipodi:nodetypes="cszscc"
+       inkscape:export-filename="D:\fenix\enemigos\rojo.png"
+       inkscape:export-xdpi="6.4114304"
+       inkscape:export-ydpi="6.4114304" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:white;fill-opacity:1;stroke:black;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path6734"
+       sodipodi:cx="300.01532"
+       sodipodi:cy="329.59802"
+       sodipodi:rx="37.375645"
+       sodipodi:ry="8.586297"
+       d="M 337.39096 329.59802 A 37.375645 8.586297 0 1 1  262.63968,329.59802 A 37.375645 8.586297 0 1 1  337.39096 329.59802 z"
+       transform="matrix(1.674996,0,0,1.674996,-1235.624,-769.3652)"
+       inkscape:export-filename="D:\fenix\enemigos\rojo.png"
+       inkscape:export-xdpi="6.4114304"
+       inkscape:export-ydpi="6.4114304" />
+    <path
+       style="fill:white;fill-rule:evenodd;stroke:black;stroke-width:6.69998312;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -795.70434,-216.44376 L -796.12733,-202.48477 C -796.00487,-196.58505 -766.11418,-188.8803 -733.94416,-188.3214 C -701.77414,-187.76251 -670.87658,-197.35543 -670.91925,-202.90775 L -670.49624,-216.02078 C -670.12165,-210.39691 -700.5245,-201.49215 -732.67656,-201.42439 C -764.82862,-201.35664 -795.90219,-210.25797 -795.70434,-216.44376 z "
+       id="path6736"
+       sodipodi:nodetypes="cczcczc"
+       inkscape:export-xdpi="6.4114304"
+       inkscape:export-ydpi="6.4114304"
+       inkscape:export-filename="D:\fenix\enemigos\rojo.png" />
+    <path
+       style="fill:#502d16;fill-rule:evenodd;stroke:black;stroke-width:7.01376247;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 449.5146,63.1898 L 656.39572,156.7114 L 987.97222,-152.19329 L 766.92115,-231.54495 L 449.5146,63.1898 z "
+       id="path1881"
+       inkscape:export-filename="D:\fenix\enemigos\choco.png"
+       inkscape:export-xdpi="4.9498472"
+       inkscape:export-ydpi="4.9498472" />
+    <path
+       style="fill:#803300;fill-rule:evenodd;stroke:black;stroke-width:7.01376247;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 766.92115,-203.20507 L 710.24142,-143.69132 L 775.42324,-118.18543 L 832.10299,-177.69917 L 766.92115,-203.20507 z "
+       id="path1883"
+       inkscape:export-filename="D:\fenix\enemigos\choco.png"
+       inkscape:export-xdpi="4.9498472"
+       inkscape:export-ydpi="4.9498472" />
+    <path
+       style="fill:#803300;fill-rule:evenodd;stroke:black;stroke-width:7.01376247;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 671.49642,-112.51746 L 614.81666,-53.003707 L 679.99839,-27.497824 L 736.67809,-87.01156 L 671.49642,-112.51746 z "
+       id="path1885"
+       inkscape:export-filename="D:\fenix\enemigos\choco.png"
+       inkscape:export-xdpi="4.9498472"
+       inkscape:export-ydpi="4.9498472" />
+    <path
+       style="fill:#803300;fill-rule:evenodd;stroke:black;stroke-width:7.01376247;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 571.13296,-18.995853 L 514.4532,40.517898 L 579.63493,66.023777 L 636.31469,6.5100439 L 571.13296,-18.995853 z "
+       id="path1887"
+       inkscape:export-filename="D:\fenix\enemigos\choco.png"
+       inkscape:export-xdpi="4.9498472"
+       inkscape:export-ydpi="4.9498472" />
+    <path
+       style="fill:#803300;fill-rule:evenodd;stroke:black;stroke-width:7.01376247;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 664.16833,19.506111 L 607.48857,79.019858 L 672.6703,104.52574 L 729.35,45.012008 L 664.16833,19.506111 z "
+       id="path1889"
+       inkscape:export-filename="D:\fenix\enemigos\choco.png"
+       inkscape:export-xdpi="4.9498472"
+       inkscape:export-ydpi="4.9498472" />
+    <path
+       style="fill:#803300;fill-rule:evenodd;stroke:black;stroke-width:7.01376247;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 767.02187,-76.019424 L 710.34214,-16.505673 L 775.52395,9.0002101 L 832.20371,-50.513527 L 767.02187,-76.019424 z "
+       id="path1891"
+       inkscape:export-filename="D:\fenix\enemigos\choco.png"
+       inkscape:export-xdpi="4.9498472"
+       inkscape:export-ydpi="4.9498472" />
+    <path
+       style="fill:#803300;fill-rule:evenodd;stroke:black;stroke-width:7.01376247;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 867.52782,-172.0312 L 810.84807,-112.51744 L 876.02976,-87.01156 L 932.70952,-146.5253 L 867.52782,-172.0312 z "
+       id="path1893"
+       inkscape:export-filename="D:\fenix\enemigos\choco.png"
+       inkscape:export-xdpi="4.9498472"
+       inkscape:export-ydpi="4.9498472" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:#803300;fill-opacity:1;stroke:black;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path2785"
+       sodipodi:cx="120.71429"
+       sodipodi:cy="823.07648"
+       sodipodi:rx="73.571426"
+       sodipodi:ry="73.571426"
+       d="M 194.28571 823.07648 A 73.571426 73.571426 0 1 1  47.14286,823.07648 A 73.571426 73.571426 0 1 1  194.28571 823.07648 z"
+       transform="translate(1097.415,-983.5975)"
+       inkscape:export-filename="D:\fenix\enemigos\helado.png"
+       inkscape:export-xdpi="6.4615321"
+       inkscape:export-ydpi="6.4615321" />
+    <path
+       style="fill:#c87137;fill-rule:evenodd;stroke:black;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 1155.9858,-118.37771 C 1209.5822,-101.68923 1253.3101,-117.07353 1291.7001,-149.80628 L 1324.5572,178.76515 L 1155.9858,-118.37771 z "
+       id="path2783"
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="D:\fenix\enemigos\helado.png"
+       inkscape:export-xdpi="6.4615321"
+       inkscape:export-ydpi="6.4615321" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:black;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 1291.7001,-121.23485 L 1230.2715,-1.2348452"
+       id="path2787"
+       inkscape:export-filename="D:\fenix\enemigos\helado.png"
+       inkscape:export-xdpi="6.4615321"
+       inkscape:export-ydpi="6.4615321" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:black;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 1303.1286,-44.091996 L 1260.2715,45.908055"
+       id="path2789"
+       inkscape:export-filename="D:\fenix\enemigos\helado.png"
+       inkscape:export-xdpi="6.4615321"
+       inkscape:export-ydpi="6.4615321" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:black;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 1308.8429,55.908055 L 1285.9858,107.33655"
+       id="path2791"
+       inkscape:export-filename="D:\fenix\enemigos\helado.png"
+       inkscape:export-xdpi="6.4615321"
+       inkscape:export-ydpi="6.4615321" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:black;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 1228.8429,-111.23485 L 1203.1286,-59.806276"
+       id="path2793"
+       inkscape:export-filename="D:\fenix\enemigos\helado.png"
+       inkscape:export-xdpi="6.4615321"
+       inkscape:export-ydpi="6.4615321" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:black;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 1173.1286,-98.377706 L 1291.7001,-55.520566"
+       id="path2795"
+       inkscape:export-filename="D:\fenix\enemigos\helado.png"
+       inkscape:export-xdpi="6.4615321"
+       inkscape:export-ydpi="6.4615321" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:black;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 1214.5572,-22.663416 L 1304.5572,8.765155"
+       id="path2797"
+       inkscape:export-filename="D:\fenix\enemigos\helado.png"
+       inkscape:export-xdpi="6.4615321"
+       inkscape:export-ydpi="6.4615321" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:black;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 1257.4143,55.908055 L 1315.9858,91.622255"
+       id="path2799"
+       inkscape:export-filename="D:\fenix\enemigos\helado.png"
+       inkscape:export-xdpi="6.4615321"
+       inkscape:export-ydpi="6.4615321" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:#28170b;fill-opacity:1;stroke:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path3688"
+       sodipodi:cx="132.85715"
+       sodipodi:cy="757.36218"
+       sodipodi:rx="8.5714283"
+       sodipodi:ry="5"
+       d="M 141.42858 757.36218 A 8.5714283 5 0 1 1  124.28572,757.36218 A 8.5714283 5 0 1 1  141.42858 757.36218 z"
+       transform="translate(1082.379,-972.5295)"
+       inkscape:export-filename="D:\fenix\enemigos\helado.png"
+       inkscape:export-xdpi="6.4615321"
+       inkscape:export-ydpi="6.4615321" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:#28170b;fill-opacity:1;stroke:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path3690"
+       sodipodi:cx="95.714287"
+       sodipodi:cy="790.93359"
+       sodipodi:rx="5.7142859"
+       sodipodi:ry="4.2857141"
+       d="M 101.42857 790.93359 A 5.7142859 4.2857141 0 1 1  90.000001,790.93359 A 5.7142859 4.2857141 0 1 1  101.42857 790.93359 z"
+       transform="translate(1078.843,-957.8825)"
+       inkscape:export-filename="D:\fenix\enemigos\helado.png"
+       inkscape:export-xdpi="6.4615321"
+       inkscape:export-ydpi="6.4615321" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:#28170b;fill-opacity:1;stroke:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path3692"
+       sodipodi:cx="156.42857"
+       sodipodi:cy="793.07648"
+       sodipodi:rx="6.4285712"
+       sodipodi:ry="7.8571429"
+       d="M 162.85714 793.07648 A 6.4285712 7.8571429 0 1 1  150,793.07648 A 6.4285712 7.8571429 0 1 1  162.85714 793.07648 z"
+       transform="translate(1085.914,-946.7715)"
+       inkscape:export-filename="D:\fenix\enemigos\helado.png"
+       inkscape:export-xdpi="6.4615321"
+       inkscape:export-ydpi="6.4615321" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:#28170b;fill-opacity:1;stroke:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path3694"
+       sodipodi:cx="127.85714"
+       sodipodi:cy="818.79077"
+       sodipodi:rx="5"
+       sodipodi:ry="3.5714285"
+       d="M 132.85714 818.79077 A 5 3.5714285 0 1 1  122.85714,818.79077 A 5 3.5714285 0 1 1  132.85714 818.79077 z"
+       transform="translate(1078.843,-957.8825)"
+       inkscape:export-filename="D:\fenix\enemigos\helado.png"
+       inkscape:export-xdpi="6.4615321"
+       inkscape:export-ydpi="6.4615321" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:#28170b;fill-opacity:1;stroke:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path3696"
+       sodipodi:cx="173.57143"
+       sodipodi:cy="761.64789"
+       sodipodi:rx="5"
+       sodipodi:ry="5"
+       d="M 178.57143 761.64789 A 5 5 0 1 1  168.57143,761.64789 A 5 5 0 1 1  178.57143 761.64789 z"
+       transform="translate(1078.843,-957.8825)"
+       inkscape:export-filename="D:\fenix\enemigos\helado.png"
+       inkscape:export-xdpi="6.4615321"
+       inkscape:export-ydpi="6.4615321" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:#28170b;fill-opacity:1;stroke:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path3698"
+       sodipodi:cx="124.28571"
+       sodipodi:cy="786.64789"
+       sodipodi:rx="4.2857141"
+       sodipodi:ry="4.2857141"
+       d="M 128.57143 786.64789 A 4.2857141 4.2857141 0 1 1  120,786.64789 A 4.2857141 4.2857141 0 1 1  128.57143 786.64789 z"
+       transform="translate(1094.5,-960.9135)"
+       inkscape:export-filename="D:\fenix\enemigos\helado.png"
+       inkscape:export-xdpi="6.4615321"
+       inkscape:export-ydpi="6.4615321" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:#28170b;fill-opacity:1;stroke:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path3700"
+       sodipodi:cx="191.42857"
+       sodipodi:cy="792.36218"
+       sodipodi:rx="2.8571429"
+       sodipodi:ry="1.4285715"
+       d="M 194.28572 792.36218 A 2.8571429 1.4285715 0 1 1  188.57143,792.36218 A 2.8571429 1.4285715 0 1 1  194.28572 792.36218 z"
+       transform="matrix(1,0,0,4,1078.843,-3330.685)"
+       inkscape:export-filename="D:\fenix\enemigos\helado.png"
+       inkscape:export-xdpi="6.4615321"
+       inkscape:export-ydpi="6.4615321" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:#28170b;fill-opacity:1;stroke:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path3702"
+       sodipodi:cx="90.714287"
+       sodipodi:cy="820.2193"
+       sodipodi:rx="5"
+       sodipodi:ry="0.71428573"
+       d="M 95.714287 820.2193 A 5 0.71428573 0 1 1  85.714287,820.2193 A 5 0.71428573 0 1 1  95.714287 820.2193 z"
+       transform="matrix(1,0,0,7,1078.843,-5874.914)"
+       inkscape:export-filename="D:\fenix\enemigos\helado.png"
+       inkscape:export-xdpi="6.4615321"
+       inkscape:export-ydpi="6.4615321" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:#28170b;fill-opacity:1;stroke:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path3704"
+       sodipodi:cx="103.57143"
+       sodipodi:cy="758.79077"
+       sodipodi:rx="6.4285712"
+       sodipodi:ry="2.1428571"
+       d="M 110 758.79077 A 6.4285712 2.1428571 0 1 1  97.142855,758.79077 A 6.4285712 2.1428571 0 1 1  110 758.79077 z"
+       transform="matrix(1,0,0,3.666667,1089.45,-2976.622)"
+       inkscape:export-filename="D:\fenix\enemigos\helado.png"
+       inkscape:export-xdpi="6.4615321"
+       inkscape:export-ydpi="6.4615321" />
+    <path
+       style="fill:fuchsia;fill-rule:evenodd;stroke:black;stroke-width:6.3481617;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -1166.5863,-76.353702 L -1032.4653,-102.87126 C -1032.4653,-102.87126 -1011.028,-153.49589 -1023.6706,-170.37076 C -1036.3131,-187.24563 -1065.9956,-154.09856 -1083.0356,-170.37076 C -1100.0754,-186.64296 -1091.8303,-235.4596 -1091.8303,-235.4596 L -1166.5863,-76.353702 z "
+       id="path5480"
+       sodipodi:nodetypes="cczzcc"
+       inkscape:export-filename="D:\fenix\enemigos\caramelo.png"
+       inkscape:export-xdpi="6.3257575"
+       inkscape:export-ydpi="6.3257575" />
+    <path
+       style="fill:fuchsia;fill-rule:evenodd;stroke:black;stroke-width:6.3481617;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -1289.7135,17.663575 L -1440.1581,47.808659 C -1406.9627,60.33282 -1442.8313,87.239788 -1431.7222,107.14629 C -1420.2293,127.74049 -1390.3041,95.408412 -1373.2641,111.68066 C -1356.2242,127.9529 -1364.4694,176.7695 -1364.4694,176.7695 L -1289.7135,17.663575 z "
+       id="path5483"
+       sodipodi:nodetypes="cczscc"
+       inkscape:export-filename="D:\fenix\enemigos\caramelo.png"
+       inkscape:export-xdpi="6.3257575"
+       inkscape:export-ydpi="6.3257575" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:fuchsia;fill-opacity:1;stroke:black;stroke-width:7.87817097;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path5476"
+       sodipodi:cx="487.14285"
+       sodipodi:cy="935.2193"
+       sodipodi:rx="121.42857"
+       sodipodi:ry="54.285713"
+       d="M 608.57143 935.2193 A 121.42857 54.285713 0 1 1  365.71428,935.2193 A 121.42857 54.285713 0 1 1  608.57143 935.2193 z"
+       transform="matrix(0.634772,-0.476993,0.435046,0.695976,-1944.238,-446.6663)"
+       inkscape:export-filename="D:\fenix\enemigos\caramelo.png"
+       inkscape:export-xdpi="6.3257575"
+       inkscape:export-ydpi="6.3257575" />
+    <path
+       style="fill:white;fill-rule:evenodd;stroke:none;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -1154.8711,-86.478525 C -1173.5281,-36.206315 -1238.1661,12.53539 -1299.9719,33.229661 C -1251.4052,67.332379 -1119.2808,-50.592252 -1154.8711,-86.478525 z "
+       id="path7255"
+       sodipodi:nodetypes="ccc"
+       inkscape:export-filename="D:\fenix\enemigos\caramelo.png"
+       inkscape:export-xdpi="6.3257575"
+       inkscape:export-ydpi="6.3257575" />
+    <path
+       style="fill:white;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -1309.9475,23.253982 C -1358.2948,49.012994 -1375.2121,70.066862 -1392.4736,105.32665 C -1469.9898,127.96547 -1400.7231,66.008584 -1431.9229,49.100065 L -1309.9475,23.253982 z "
+       id="path8142"
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="D:\fenix\enemigos\caramelo.png"
+       inkscape:export-xdpi="6.3257575"
+       inkscape:export-ydpi="6.3257575" />
+    <path
+       style="fill:white;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -1155.299,-92.179504 C -1105.7329,-111.44795 -1068.6767,-139.65202 -1035.9443,-170.9446 C -1086.8683,-156.88567 -1093.2024,-162.41007 -1095.9918,-217.84 L -1155.299,-92.179504 z "
+       id="path8144"
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="D:\fenix\enemigos\caramelo.png"
+       inkscape:export-xdpi="6.3257575"
+       inkscape:export-ydpi="6.3257575" />
+    <path
+       style="fill:#fff6d5;fill-rule:evenodd;stroke:black;stroke-width:6.82481575;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 1696.6207,-177.38545 L 1528.2355,155.46901 L 2049.0549,-67.739285 L 1696.6207,-177.38545 z "
+       id="path5241"
+       inkscape:export-filename="D:\fenix\enemigos\pizza.png"
+       inkscape:export-xdpi="4.4224329"
+       inkscape:export-ydpi="4.4224329" />
+    <g
+       id="g5337"
+       transform="matrix(1.204525,0.554343,-0.481773,1.385963,510.5204,-1529.408)"
+       style="fill:#c1702e;fill-opacity:1;stroke-width:4.66124964;stroke-miterlimit:4;stroke-dasharray:none"
+       inkscape:export-filename="D:\fenix\enemigos\bocata.png"
+       inkscape:export-xdpi="4.3275003"
+       inkscape:export-ydpi="4.3275003">
+      <path
+         sodipodi:nodetypes="czz"
+         id="path17261"
+         d="M 1631.9814,543.0682 C 1680.2339,668.09578 2005.5087,262.97086 1963.8943,186.54193 C 1921.2815,108.28071 1583.7288,418.0419 1631.9814,543.0682 z "
+         style="fill:#c1702e;fill-opacity:1;fill-rule:evenodd;stroke:#121212;stroke-width:4.66124964;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cc"
+         id="path17263"
+         d="M 1643.5512,450.68986 C 1691.3106,430.54688 1712.4587,430.14219 1742.3591,445.71986"
+         style="fill:#c1702e;fill-opacity:1;fill-rule:evenodd;stroke:#121212;stroke-width:4.66124964;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cc"
+         id="path17265"
+         d="M 1709.1214,351.55979 C 1762.9804,324.45657 1792.1176,337.27351 1810.8586,354.06601"
+         style="fill:#c1702e;fill-opacity:1;fill-rule:evenodd;stroke:#121212;stroke-width:4.66124964;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cc"
+         id="path17267"
+         d="M 1777.3446,276.68237 C 1819.2851,262.74052 1843.2915,253.46332 1862.7355,271.0176"
+         style="fill:#c1702e;fill-opacity:1;fill-rule:evenodd;stroke:#121212;stroke-width:4.66124964;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <path
+       style="fill:#55d400;fill-rule:evenodd;stroke:black;stroke-width:7.7086935;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -2046.7005,-77.615436 C -2046.7005,-77.615436 -2135.8611,-59.705443 -2113.6683,-39.459361 C -2091.4754,-19.213279 -2061.885,2.2008699 -1982.8474,18.164125 C -1903.8097,34.127388 -1901.0844,22.057601 -1797.5178,24.39369 C -1693.9513,26.729779 -1636.3278,26.729763 -1553.786,6.4836813 C -1507.4148,13.892368 -1437.0193,-73.001336 -1517.966,-74.500646 L -2046.7005,-77.615436 z "
+       id="path15195"
+       sodipodi:nodetypes="czzzccc"
+       inkscape:export-filename="D:\fenix\enemigos\hamburgesa.png"
+       inkscape:export-xdpi="4.1928368"
+       inkscape:export-ydpi="4.1928368" />
+    <path
+       style="fill:#d4aa00;fill-opacity:1;fill-rule:evenodd;stroke:black;stroke-width:7.7086935;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -1505.4343,-56.798279 C -1505.0672,-270.40073 -2044.3321,-307.02189 -2065.5053,-63.101462 C -1878.8149,8.2380875 -1692.1247,-5.2161266 -1505.4343,-56.798279 z "
+       id="path5343"
+       sodipodi:nodetypes="ccc"
+       inkscape:export-filename="D:\fenix\enemigos\hamburgesa.png"
+       inkscape:export-xdpi="4.1928368"
+       inkscape:export-ydpi="4.1928368" />
+    <path
+       style="fill:#ff2a2a;fill-rule:evenodd;stroke:black;stroke-width:6.48650026;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 2216.8849,145.32732 C 2444.8203,154.68399 2608.9156,-46.693457 2779.357,-199.38383 C 2774.4375,-217.48019 2753.7285,-216.62934 2737.3015,-220.91676 C 2737.3015,-220.91676 2805.9449,-251.64348 2796.729,-209.78109 C 2787.651,-168.54514 2774.0151,-151.93312 2657.8124,-55.320477 C 2541.6097,41.292171 2454.6573,113.35914 2350.451,145.16365 C 2246.2447,176.96815 2235.7871,164.07599 2194.2597,157.54398 C 2152.7324,151.01197 2216.0946,103.96236 2216.0946,103.96236 C 2214.9731,117.75067 2213.2487,131.539 2216.8849,145.32732 z "
+       id="path5349"
+       sodipodi:nodetypes="ccczzzzcc"
+       inkscape:export-filename="D:\fenix\enemigos\bocata.png"
+       inkscape:export-xdpi="4.3275003"
+       inkscape:export-ydpi="4.3275003" />
+    <path
+       style="fill:red;fill-rule:evenodd;stroke:black;stroke-width:6.82481575;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 1640.1214,106.61562 C 1608.7063,57.099845 1696.7877,12.738257 1776.6178,50.067155 L 1640.1214,106.61562 z "
+       id="path8891"
+       sodipodi:nodetypes="ccc"
+       inkscape:export-filename="D:\fenix\enemigos\pizza.png"
+       inkscape:export-xdpi="4.4224329"
+       inkscape:export-ydpi="4.4224329" />
+    <path
+       style="fill:red;fill-rule:evenodd;stroke:black;stroke-width:6.82481575;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 1654.5787,-99.50767 C 1772.5417,-76.07315 1681.1677,28.338634 1605.83,-0.060350698 L 1654.5787,-99.50767 z "
+       id="path8893"
+       sodipodi:nodetypes="ccc"
+       inkscape:export-filename="D:\fenix\enemigos\pizza.png"
+       inkscape:export-xdpi="4.4224329"
+       inkscape:export-ydpi="4.4224329" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:red;fill-opacity:1;stroke:black;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path8895"
+       sodipodi:cx="1792.8571"
+       sodipodi:cy="-109.78065"
+       sodipodi:rx="61.42857"
+       sodipodi:ry="23.571428"
+       d="M 1854.2856 -109.78065 A 61.42857 23.571428 0 1 1  1731.4285,-109.78065 A 61.42857 23.571428 0 1 1  1854.2856 -109.78065 z"
+       transform="matrix(1.357614,0,0,1.759438,-598.3222,127.7687)"
+       inkscape:export-filename="D:\fenix\enemigos\pizza.png"
+       inkscape:export-xdpi="4.4224329"
+       inkscape:export-ydpi="4.4224329" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#743600;stroke-width:4.62521601;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -1853.5839,-164.05066 L -1900.3057,-136.01761"
+       id="path16082"
+       inkscape:export-filename="D:\fenix\enemigos\hamburgesa.png"
+       inkscape:export-xdpi="4.1928368"
+       inkscape:export-ydpi="4.1928368" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#743600;stroke-width:4.62521601;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -1775.7144,-160.93587 L -1725.8778,-132.90283"
+       id="path16084"
+       inkscape:export-filename="D:\fenix\enemigos\hamburgesa.png"
+       inkscape:export-xdpi="4.1928368"
+       inkscape:export-ydpi="4.1928368" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#743600;stroke-width:4.62521601;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -1679.1562,-176.50979 L -1657.3526,-157.82109"
+       id="path16086"
+       inkscape:export-filename="D:\fenix\enemigos\hamburgesa.png"
+       inkscape:export-xdpi="4.1928368"
+       inkscape:export-ydpi="4.1928368" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#743600;stroke-width:4.62521601;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -1925.224,-176.50979 L -1962.6013,-154.7063"
+       id="path16088"
+       inkscape:export-filename="D:\fenix\enemigos\hamburgesa.png"
+       inkscape:export-xdpi="4.1928368"
+       inkscape:export-ydpi="4.1928368" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#743600;stroke-width:4.62521601;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -1841.1248,-129.78804 L -1869.1579,-76.83675"
+       id="path16090"
+       inkscape:export-filename="D:\fenix\enemigos\hamburgesa.png"
+       inkscape:export-xdpi="4.1928368"
+       inkscape:export-ydpi="4.1928368" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#743600;stroke-width:4.62521601;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -1682.271,-123.55848 L -1651.1231,-83.066315"
+       id="path16092"
+       inkscape:export-filename="D:\fenix\enemigos\hamburgesa.png"
+       inkscape:export-xdpi="4.1928368"
+       inkscape:export-ydpi="4.1928368" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#743600;stroke-width:4.62521601;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -1607.5161,-160.93587 L -1554.5649,-107.98457"
+       id="path16094"
+       inkscape:export-filename="D:\fenix\enemigos\hamburgesa.png"
+       inkscape:export-xdpi="4.1928368"
+       inkscape:export-ydpi="4.1928368" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#743600;stroke-width:4.62521601;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -1940.7979,-136.01761 L -1987.5197,-95.525445"
+       id="path16096"
+       inkscape:export-filename="D:\fenix\enemigos\hamburgesa.png"
+       inkscape:export-xdpi="4.1928368"
+       inkscape:export-ydpi="4.1928368" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#743600;stroke-width:4.62521601;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -1872.2727,-195.19848 L -1838.01,-210.77239"
+       id="path16098"
+       inkscape:export-filename="D:\fenix\enemigos\hamburgesa.png"
+       inkscape:export-xdpi="4.1928368"
+       inkscape:export-ydpi="4.1928368" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#743600;stroke-width:4.62521601;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -1763.2553,-204.54282 L -1713.4187,-179.62456"
+       id="path16100"
+       inkscape:export-filename="D:\fenix\enemigos\hamburgesa.png"
+       inkscape:export-xdpi="4.1928368"
+       inkscape:export-ydpi="4.1928368" />
+  </g>
+</svg>

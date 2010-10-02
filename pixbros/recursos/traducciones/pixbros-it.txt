@@ -1,0 +1,52 @@
+﻿C'erano una volta tre fratelli che si divertivano veramente tanto a giocare ai videogiochi.
+Tutti e tre amavano gli stessi giochi, ma ognuno di loro aveva il suo personaggio preferito.
+Pix amava Snow Bros, in cui poteva comandare uno Spazzaneve che trasforma i nemici in palle di neve che poi getta via.
+Pux proprio non poteva separarsi da Bubble Bobble, in cui era un drago che lanciava delle sfere per bloccare i nemici.
+Pax era un fanatico di Tumple Top, in cui impersonava un ragazzo che dava una passata di aspirapolvere ai nemici.
+Un giorno, cominciarono a discutere su quale tra questi Eroi fosse il più grande. 
+Dopo un pò, capirono d'essere capitati in un Arcade. Avevano appena lasciato una porta aperta
+dietro di loro, una porta che non avevano mai visto, una porta che dava l'accesso a stanze misteriose.
+Quando entrarono nella stanza, notarono una speciale macchina per arcade, senza joystick nè pulsanti, ma solo 3 "Start".
+Se avessero saputo cosa stava per accadere loro, non avrebbero mai
+premuto quei pulsanti... Infatti, non appena li schiacciarono, sparirono.
+Nessuno sa cosa sia successo loro.
+------------------------
+Nuovo Gioco
+Continua
+Opzioni
+Aiuto
+Credits
+PixJuegos.com
+Esci
+Game Over
+------------------------
+Congratulazioni! Hai finito il primo demo PiX Bros. Ci auguriamo che ti sia piaciuto  :) . Hai gi�  provato gli altri
+personaggi, o a giocare in modalitù multigioatore con 3 joysticks contemporaneamente?
+Il gioco è in attivo sviluppo: controlla il sito per sapere se sono disponibili nuove versioni.
+------------------------
+Schiaccia un bottone sul tuo joystick o tastiera per far partire il gioco. ottone sul tuo joystick o tastiera per far partire il gioco. Puoi sempre cominciare più tardi, spingendo i pulsanti salta e fuoco contemporaneamente.
+------------------------
+Scegli un personaggio.
+------------------------
+Cos'è PiX Bros?
+PiX Bros è un gioco che unisce differenti classici degli Arcade. Snow Bros (PiX), Bubble Bobble (PuX) e Tumble Pop 
+(PaX). PiX Bros è Software Libero, distribuito sotto Licenza GPL.
+------------------------
+Ci dispiace, ma l'Aiuto non è ancora disponibile nel gioco. Se hai problemi/domande puoi sempre visitare i nostri 
+forum o il sito web, e saremo felici di aiutarti  :) 
+------------------------
+Premi F per andare al Forum
+------------------------
+Schermo Intero
+Suoni
+Musica
+Difficolt� 
+------------------------
+Direzione
+Programmazione
+Graphica
+Musica
+Collaboratori
+Ringraziamenti
+E grazie a te per aver giocato
+Giocatore

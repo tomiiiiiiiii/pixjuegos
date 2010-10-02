@@ -271,6 +271,8 @@ begin
 		while(timer[0]<500)
 			ponimgn(320,280,100,6);
 			if(p[1].juega+p[2].juega+p[3].juega==0) timer[0]=0; end
+			if(p[1].juega+p[2].juega+p[3].juega=>posibles_jugadores or 
+			p[1].juega+p[2].juega+p[3].juega==3) timer[0]=500; end
 			i=(500-timer[0])/100;
 			frame;
 		end

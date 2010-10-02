@@ -1,0 +1,42 @@
+érase una vez tres hermanos a los que les encantaba jugar a los videojuegos.
+los tres tenían gustos muy parecidos, pero cada uno tenía su favorito.
+a pix le encanta el snow bros, en el cual maneja a un muñeco de nieve que hace bolas de nieve con los enemigos y luego las lanza
+pux se habrá pasado mil veces el bubble bobble, donde maneja a un dragón que dispara burbujas que encierran enemigos
+pax es un fanático del tumble pop, en el que encarna a un chico que absorbe enemigos con una aspiradora
+y un día empezaron a discutir sobre qué héroe de dichos juegos era el mejor de todos
+cuando dejaron de discutir se dieron cuenta de que se habían quedado solos en los recreativos. se iban a marchar ya, pero de pronto...
+...oyen como una puerta se abre detrás de ellos, una puerta que nunca habían visto, que encerraba una misteriosa habitación
+entraron en aquella habitación y se encontraron con una máquina recreativa un tanto especial: no tenía joysticks, ni botones... solo tenía tres botones start
+si hubieran sabido lo que les iba a pasar, nunca hubieran pulsado aquellos botones. nada más pulsarlos, desaparecieron y...
+... nadie sabe que ha sido de ellos
+
+
+nuevo juego
+continuar
+opciones
+ayuda
+créditos
+pixjuegos.com
+salir
+has perdido
+¡felicidades! y hasta aquí llega la primera demo de pix bros. esperemos que te haya entretenido al menos un rato :) ¿has probado los otros jugadores? ¿has probado a jugar multijugador con 3 joysticks a la vez? iremos publicando nuevas versiones periódicamente en nuestra web:
+pulsa un botón en tu joystick o teclado para unirte a la partida. también puedes unirte después pulsando el botón de salto y el de disparo a la vez
+elige un personaje
+¿qué es pix bros?
+pix bros es un juego que mezcla tres clásicos arcade diferentes: snow bros (pix), bubble bobble (pux) y tumble pop (pax)
+además es un software libre que se puede copiar, modificar y redistribuir libremente, bajo los términos de la licencia GPL
+lo sentimos, pero por ahora la ayuda no está aún integrada en el juego. si tienes alguna duda más puedes ir a
+y allí te ayudaremos sin problema :)
+pulsa la tecla f para ir al foro
+pantalla completa
+sonido
+música
+dificultad
+dirección
+programación
+gráficos
+música
+colaboradores
+agradecimientos
+y gracias a ti por jugar
+jugador

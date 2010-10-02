@@ -1,0 +1,215 @@
+//debug
+global
+	Struct ops; 
+		pantalla_completa=0;
+		sonido=1;
+		musica=1;
+		dificultad=1;
+	End
+
+	fpg_menu;
+	fuente_menu;
+	
+	struct p[8];
+		botones[6];
+		control;
+	end
+	
+	joysticks[4];
+	posibles_jugadores;
+	njoys;
+	
+	string savegamedir;
+	string developerpath="\PiXJuegos\PiXDash\";
+	
+end
+
+local
+	i;
+	j;
+end
+
+begin
+	set_mode(800,600,16);
+	fuente_menu=load_fnt("menu.fnt");
+	fpg_menu=load_fpg("menu.fpg");
+	configurar_controles();
+	menu(0);
+end
+//debug
+
+process menu(num_menu);
+private
+	y_objetivo;
+	opcion_actual=1;
+	num_opciones;
+	pulsando;
+	volver_a_menu;
+begin
+	let_me_alone();
+	reinicio_variables();
+	file=fpg_menu;
+	let_me_alone();
+
+	controlador(0);
+
+	musica(1);
+
+	logo(2);
+
+	put_screen(file,1);
+
+	z=-20;
+	graph=50;
+	x=120;
+	y=60;
+	
+	//ponemos el menú actual
+	switch(num_menu)
+		case 0: //general
+			write(fuente_menu,x,y+=60,3,"Jugar");
+			write(fuente_menu,x,y+=60,3,"Opciones");
+			write(fuente_menu,x,y+=60,3,"Ayuda");
+			write(fuente_menu,x,y+=60,3,"Creditos");
+			write(fuente_menu,x,y+=60,3,"Salir");
+			num_opciones=5;
+			volver_a_menu=0;
+		end
+		case 1: //jugar
+			write(fuente_menu,x,y+=60,3,"1 jugador");
+			num_opciones=1;
+			if(posibles_jugadores>1) write(fuente_menu,x,y+=60,3,"2 jugadores"); num_opciones++; end
+			if(posibles_jugadores>2) write(fuente_menu,x,y+=60,3,"3 jugadores"); num_opciones++; end
+			if(posibles_jugadores>3) write(fuente_menu,x,y+=60,3,"4 jugadores"); num_opciones++; end
+			volver_a_menu=0;
+		end
+		case 2: //opciones
+			write(fuente_menu,x,y+=60,3,"Pantalla completa");
+			write(fuente_menu,x,y+=60,3,"Sonido");
+			write(fuente_menu,x,y+=60,3,"Música");
+			write(fuente_menu,x,y+=60,3,"Dificultad");
+			num_opciones=4;
+			volver_a_menu=0;
+		end
+	end
+	
+	x=70;
+	y=800;
+	
+	loop
+		if(opcion_actual>num_opciones) opcion_actual=1;	end
+		if(opcion_actual<1)	opcion_actual=num_opciones;	end
+
+		y_objetivo=60+(opcion_actual*60);
+		if(y!=y_objetivo) y+=(y_objetivo-y)/2; end
+
+		if(p[0].botones[4])
+			if(ops.sonido==1)
+				sonido(3);
+			end
+			while(p[0].botones[4]) frame; end
+			switch(num_menu)
+				case 0: //general
+					switch(opcion_actual)
+						case 1: let_me_alone(); menu(1); end
+						case 2: let_me_alone(); menu(2); end
+						case 3: let_me_alone(); ayuda(); return; end
+						case 4: let_me_alone(); creditos(); return; end
+						case 5: let_me_alone(); save(savegamedir+"opciones.dat",ops); exit(); end
+					end
+				end
+				case 1: //jugar
+				end
+				case 2: //opciones
+					switch(opcion_actual)
+						case 1: 
+							if(ops.pantalla_completa) ops.pantalla_completa=0; else ops.pantalla_completa=1; end 
+							full_screen=ops.pantalla_completa;
+							set_mode(800,600,16);
+						end
+						case 2: 
+							if(ops.sonido) ops.sonido=0; else ops.sonido=1; end 
+							sonido(4);
+						end
+						case 3:
+							if(ops.musica) ops.musica=0; else ops.musica=1; end 
+							musica(1);
+						end
+						case 4:
+							if(ops.dificultad<3) ops.dificultad++; else ops.dificultad=1; end 
+							sonido(4);
+						end
+					end
+				end
+			end
+		end
+		if(p[0].botones[5] and volver_a_menu!=num_menu)
+			delete_text(all_text);
+			if(ops.sonido==1)
+				sonido(3);
+			end
+			while(p[0].botones[5]) frame; end
+			menu(volver_a_menu);
+		end
+		if(p[0].botones[3])
+			if(!pulsando)
+				opcion_actual++;
+				if(ops.sonido==1)
+					sonido(2);
+				end
+				pulsando=1;
+			end
+		elseif(p[0].botones[2])
+			if(!pulsando)
+				opcion_actual--;
+				if(ops.sonido==1)
+					sonido(2);
+				end
+				pulsando=1;
+			end
+		else
+			pulsando=0;
+		end
+		frame;
+	end
+end
+
+process lista(graph);
+begin
+	file=fpg_menu;
+	x=-200;
+	y=300;
+	z=-10;
+	loop
+		x+=(x-200)/-10;
+		frame;
+	end
+end
+
+process logo(graph);
+begin
+	file=fpg_menu;
+	x=1200;
+	y=300;
+	z=-10;
+	loop
+		x+=(x-500)/-10;
+		frame;
+	end
+end
+
+function reinicio_variables();
+begin
+	delete_text(all_text);
+end
+
+include "..\..\common-src\controles.pr-";
+
+process musica(cancion);
+begin end
+process ayuda();
+begin end
+process creditos();
+begin end
+process sonido(sample);
+begin end
