@@ -140,5 +140,18 @@ Begin
 		posibles_jugadores=1;
 	end
 	
+	if(os_id==os_wii) //wii
+		joysticks[0]=0;
+		joysticks[1]=1;
+		joysticks[2]=2;
+		joysticks[3]=3;
+		p[0].control=1;
+		p[1].control=1;
+		p[2].control=2;
+		p[3].control=3;
+		p[4].control=4;
+		posibles_jugadores=4;
+	end
+	
 	//Y creo que ya estamos :)
 End

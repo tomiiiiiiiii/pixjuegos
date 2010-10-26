@@ -1720,7 +1720,7 @@ Process musica(num);
 Private
 	string formato="ogg";
 Begin
-	if(os_id==9) formato="mp3"; end
+	if(os_id==9 or os_id==1000) formato="mp3"; end
 	if(ops.musica)
 		if(num==cancionsonando) return; end
 		cancionsonando=num;
