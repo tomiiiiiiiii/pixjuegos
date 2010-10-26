@@ -604,6 +604,7 @@ begin
 	x=100;
 
 	qy=450;
+	priority=2;
 	if(jugador<10) ranviva[jugador]=1; else ranviva[jugador-10]=1; end
 	if(jugador==1 or jugador==11)
 		x=200;
