@@ -408,7 +408,7 @@ begin
 			frame(3000);
 			game_over();
 		end
-      	if(key(_esc) or (os_id==os_caanoo and get_joy_button(0,8)))
+      	if(key(_esc) or (os_id==os_caanoo and get_joy_button(0,8)) or (os_id==os_wii and get_joy_button(0,6)))
 			let_me_alone();
 			clear_screen();
 			menu();

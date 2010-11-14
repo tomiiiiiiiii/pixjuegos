@@ -73,9 +73,9 @@ Begin
 			If(povy==2) p[jugador].botones[3]=1; Else p[jugador].botones[3]=0; End
 		
 			if(os_id==os_wii)
-				If(get_joy_button(joysticks[p[jugador].control],3)) p[jugador].botones[4]=1; Else p[jugador].botones[4]=0; End
-				If(get_joy_button(joysticks[p[jugador].control],2)) p[jugador].botones[5]=1; Else p[jugador].botones[5]=0; End
-				If(get_joy_button(joysticks[p[jugador].control],6)) exit(); End
+				If(get_joy_button(joysticks[p[jugador].control],2)) p[jugador].botones[4]=1; Else p[jugador].botones[4]=0; End
+				If(get_joy_button(joysticks[p[jugador].control],3)) p[jugador].botones[5]=1; Else p[jugador].botones[5]=0; End
+				//If(get_joy_button(joysticks[p[jugador].control],6)) exit(); End
 			elseif(os_id==os_caanoo)
 				If(joy_getbutton(1,0)) p[jugador].botones[4]=1; Else p[jugador].botones[4]=0; End
 				If(joy_getbutton(1,1)) p[jugador].botones[5]=1; Else p[jugador].botones[5]=0; End
