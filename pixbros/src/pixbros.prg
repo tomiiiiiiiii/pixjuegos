@@ -1,4 +1,25 @@
 Program pixbros;
+import "mod_blendop";
+import "mod_dir";
+import "mod_draw";
+import "mod_file";
+import "mod_grproc";
+import "mod_joy";
+import "mod_key";
+import "mod_map";
+import "mod_math";
+import "mod_proc";
+import "mod_rand";
+import "mod_regex";
+import "mod_say";
+import "mod_screen";
+import "mod_scroll";
+import "mod_sound";
+import "mod_string";
+import "mod_sys";
+import "mod_text";
+import "mod_timers";
+import "mod_video";
 Const
 	piensa=1;
 	anda=2;
@@ -1969,6 +1990,12 @@ include "jefes.pr-";
 
 Process shell(string caca);
 Begin
+    let_me_alone();
+    if(is_playing_song())
+        stop_song();
+    end;
+    exec(_P_WAIT, caca, 0, 0);
+    exit();
 End
 
 Function contar_enemigos();

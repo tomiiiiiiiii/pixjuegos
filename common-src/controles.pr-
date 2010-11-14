@@ -38,7 +38,7 @@ Begin
 			If(key(_d)) p[jugador].botones[6]=1; Else p[jugador].botones[6]=0; End
 		End
 		If(p[jugador].control>0)  // joysticks
-			POV=joy_gethat(joysticks[p[jugador].control-1],0); POVx=0; POVy=0;
+			POV=joy_gethat(joysticks[p[jugador].control],0); POVx=0; POVy=0;
 			
 			if(os_id==os_caanoo)
 				axis_x = joy_getaxis(2,0);
@@ -69,7 +69,7 @@ Begin
 		
 			If(povx==1) p[jugador].botones[0]=1; Else p[jugador].botones[0]=0; End
 			If(povx==2) p[jugador].botones[1]=1; Else p[jugador].botones[1]=0; End
-			:If(povy==1) p[jugador].botones[2]=1; Else p[jugador].botones[2]=0; End
+			If(povy==1) p[jugador].botones[2]=1; Else p[jugador].botones[2]=0; End
 			If(povy==2) p[jugador].botones[3]=1; Else p[jugador].botones[3]=0; End
 		
 			if(os_id==os_wii)
@@ -95,7 +95,7 @@ Begin
 	njoys=number_joy();
 
 	//2. ¿Cuántos de ellos son utilizables/tienen al menos dos ejes y dos botones?
-	from i=0 to njoys;
+	from i=0 to (njoys-1);
 		if(joy_numbuttons(i)=>2)
 			posibles_jugadores++;
 			joysticks[posibles_jugadores]=i;
@@ -142,15 +142,16 @@ Begin
 	
 	if(os_id==os_wii) //wii
 		joysticks[0]=0;
-		joysticks[1]=1;
-		joysticks[2]=2;
-		joysticks[3]=3;
+//		joysticks[1]=1;
+//		joysticks[2]=2;
+//		joysticks[3]=3;
 		p[0].control=1;
 		p[1].control=1;
 		p[2].control=2;
 		p[3].control=3;
 		p[4].control=4;
-		posibles_jugadores=4;
+//		posibles_jugadores=4;
+		posibles_jugadores=1;
 	end
 	
 	//Y creo que ya estamos :)

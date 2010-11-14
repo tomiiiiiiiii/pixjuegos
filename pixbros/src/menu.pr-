@@ -75,7 +75,7 @@ begin
 				break;
 			end
 			if(elecc==5)
- 				if(os_id==0)
+ 				if(os_id==0 or os_id==os_wii)
  					shell("http://pixjuegos.com");
  				else
 					shell("x-www-browser http://pixjuegos.com &");
@@ -224,16 +224,6 @@ begin
 		end
 		//ayuda y tal
 		if((graph>=20 and graph<=22) or (graph=>200 and graph<=202))
-			if(key(_f) and (graph>=20 and graph<=22))
-				sonido(1);
- 				if(os_id==0)
- 					shell("http://foro.pixjuegos.com");
- 				else
-					shell("x-www-browser http://foro.pixjuegos.com &");
- 				end
-				save(savegamedir+"opciones.dat",ops);
-				exit(0);
-			end
 			if(p[0].botones[4] and keytime==0)
 				graph++;
 				if(graph==22 or graph==202)
