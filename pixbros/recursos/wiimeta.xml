@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<app version="0.7">
+  <name>PiX Bros</name>
+  <coder>PiX Juegos</coder>
+  <version>0.7</version>
+  <short_description>PiX Bros is a game that mixes three classic arcade games: Bubble Bobble, Snow Bros and Tumble Pop</short_description> 
+  <long_description>Features:
+- 3 players at the same time (not working right now)
+- 3 different characters
+- 29 levels
+- 6 different enemies
+- 2 enemy bosses
+- Save game
+- 3 difficulty levels
+- 5 different languages
+...</long_description> 
+</app>
