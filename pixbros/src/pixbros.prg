@@ -153,7 +153,7 @@ Begin
 		full_screen=!ops.ventana;
 	end
 
-	if(ops.lenguaje==100)
+//	if(ops.lenguaje==100)
 		//PODEMOS ADIVINAR EL LENGUAJE! :D
 		if(os_id==0) //windows
 			//qué lenguaje lleva este windows?
@@ -175,7 +175,7 @@ Begin
 		if(os_id==1) //linux
 			// Aportado por Miry: Se pone aquí para evitar que use el lenguaje ya asignado en una versión anterior
 			env_lang=getenv("LANG");
-			env_lang=env_lang[0]+env_lang[1];
+			env_lang=""+env_lang[0]+env_lang[1];
 			ops.lenguaje=0;
 			switch(env_lang)
 				case "es": ops.lenguaje=1; end
@@ -185,7 +185,27 @@ Begin
 			end
 			//-------------------
 		end
-	end
+		if(os_id==os_caanoo)
+			fp=fopen("/mnt/ubifs/usr/gp2x/common.ini",O_READ);
+			if(fp)
+				while(!feof(fp))
+					cadena_lenguaje=fgets(fp);
+					if(find(cadena_lenguaje,"language")>-1)
+						env_lang=""+cadena_lenguaje[11]+cadena_lenguaje[12];
+						break;
+					end
+				end
+				fclose(fp);
+			end
+			ops.lenguaje=0;
+			switch(env_lang)
+				case "es": ops.lenguaje=1; end
+				case "it": ops.lenguaje=2; end
+				case "de": ops.lenguaje=3; end
+				case "fr": ops.lenguaje=4; end
+			end
+		end
+//	end
 	switch(ops.lenguaje)
 		case 0:	lang_suffix="en"; end
 		case 1:	lang_suffix="es"; end

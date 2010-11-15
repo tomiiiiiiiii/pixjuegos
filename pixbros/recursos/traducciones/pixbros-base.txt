@@ -1,0 +1,82 @@
+------MENUS TRANSLATION:-------
+korean (as language)
+
+new game
+continue
+options
+help
+credits
+exit
+
+full screen
+sound
+music
+difficulty
+
+game over
+
+push a button on your joystick
+or keyboard to join the game
+
+you may always join later by pushing 
+the jump and fire buttons at the same time
+
+choose a character
+
+direction
+programming
+graphics
+music & sound fx
+collaborators
+thanks to...
+and thank you for playing
+
+player 1
+player 2
+player 3
+
+------INTRO TRANSLATION:------
+once upon a time there were three
+brothers who really enjoyed playing videogames
+the three of them enjoyed the same kind of games, 
+but each had their favourite game
+
+pix loved snow bros, where you play as a snowman
+that turns enemies into a snowball and then pushes
+it away
+
+pux just couldn't get enough of bubble bobble,
+where you're a dragon that throws bubbles
+to lock on enemies
+
+pax is really fan of tumble pop, where you play
+as a boy that vacuums monsters
+
+one day, they began arguing about which hero was the greatest
+
+after a while discussing about it, they realized 
+they were all alone in the arcades. just as they
+were leaving, a door opened behind them
+
+right behind them, there was a door they had never 
+seen before, a door that locked a misterious room
+
+when they entered the room, they saw a strange arcade machine,
+with no joysticks nor buttons, only 3 "starts"
+
+if they had known what would happen to them, they would've
+have never pushed those buttons. they just pushed it
+and they dissapeared
+
+no one knows what happened to them
+
+
+----PREVIEW ENDING TRANSLATION:-----
+
+congratulations!
+you have finished the first pix bros demo.
+we hope you have enjoyed it :)
+
+have you already tried out the other characters?
+
+check our website for newer versions!
