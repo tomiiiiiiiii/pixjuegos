@@ -22,3 +22,4 @@ cd fpg-sources
 ..\..\bennu-win\bgdi pxlfpg pax 32
 ..\..\bennu-win\bgdi pxlfpg pix 32
 ..\..\bennu-win\bgdi pxlfpg pux 32
+exit

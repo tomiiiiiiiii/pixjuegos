@@ -1,6 +1,8 @@
 @echo off
 echo Compila el codigo en Wii y coloca aqui el pixbros.dcb
 pause
+echo Compilamos FPGs en 16 bits
+start /wait compilarfpgs-16bit.bat
 echo exportando...
 mkdir export-wii
 mkdir export-wii\fpg

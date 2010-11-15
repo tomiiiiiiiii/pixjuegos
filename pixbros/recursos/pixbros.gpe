@@ -4,7 +4,7 @@ PATH=$PATH:./bgd-runtime
 
 echo 2 > /proc/cpu/alignment
 
-bgdi NOMBREDELJUEGO
+bgdi pixbros
 
 cd /usr/gp2x
 exec /usr/gp2x/gp2xmenu
