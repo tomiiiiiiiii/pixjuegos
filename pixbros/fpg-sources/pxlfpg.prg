@@ -1,5 +1,6 @@
 Begin
-	set_mode(100,100,16);
+	if(argv[1]=="" or argv[2]=="") exit(); end
+	set_mode(100,100,atoi(argv[2]));
 	cd(argv[1]);
 	file=fpg_new();
 	from x=0 to 999;

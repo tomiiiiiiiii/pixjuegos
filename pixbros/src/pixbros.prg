@@ -1,4 +1,5 @@
 Program pixbros;
+
 import "mod_blendop";
 import "mod_dir";
 import "mod_draw";
@@ -20,6 +21,7 @@ import "mod_sys";
 import "mod_text";
 import "mod_timers";
 import "mod_video";
+
 Const
 	piensa=1;
 	anda=2;
@@ -191,7 +193,8 @@ Begin
 		case 3:	lang_suffix="de"; end
 		case 4:	lang_suffix="fr"; end
 	end	
-	if(os_id==9) bitscolor=16; scale_resolution=03200240; end
+	if(os_id==os_caanoo or os_id==os_wii) bitscolor=16; end
+	if(os_id==os_caanoo) scale_resolution=03200240; end
 	set_mode(640,480,bitscolor);
 	set_fps(40,9);
 	frame;
@@ -226,24 +229,30 @@ process logo_pixjuegos();
 begin
 	let_me_alone();
 	delete_text(0);
-	graph=19;
 	x=320;
 	y=240;
 	z=-10;
 	controlador(0);
-	from alpha=50 to 255 step 5;
-		if(p[0].botones[4] or p[0].botones[5]) break; end 
-		frame;
+	from i=0 to 2;
+		if(!(os_id!=os_wii and i==1))
+			graph=30+i;
+			while(p[0].botones[4] or p[0].botones[5]) frame; end
+			from alpha=50 to 255 step 5;
+				if(p[0].botones[4] or p[0].botones[5]) break; end 
+				frame;
+			end
+			timer[0]=0;
+			while(timer[0]<300) 
+				if(p[0].botones[4] or p[0].botones[5]) break; end 
+				frame; 
+			end
+			while(p[0].botones[4] or p[0].botones[5]) frame; end
+			from alpha=alpha to 0 step -20;
+				frame;
+			end
+		end
 	end
-	timer[0]=0;
-	while(timer[0]<300) 
-		if(p[0].botones[4] or p[0].botones[5]) break; end 
-		frame; 
-	end
-	while(p[0].botones[4] or p[0].botones[5]) frame; end
-	from alpha=alpha to 0 step -20;
-		frame;
-	end
+	
 	intro();
 end
 
