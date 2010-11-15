@@ -33,8 +33,8 @@ Begin
 			If(key(_right)) p[jugador].botones[1]=1; Else p[jugador].botones[1]=0; End
 			If(key(_up)) p[jugador].botones[2]=1; Else p[jugador].botones[2]=0; End
 			If(key(_down)) p[jugador].botones[3]=1; Else p[jugador].botones[3]=0; End
-			If(key(_a) or key(_enter)) p[jugador].botones[4]=1; Else p[jugador].botones[4]=0; End
-			If(key(_s) or key(_esc)) p[jugador].botones[5]=1; Else p[jugador].botones[5]=0; End
+			If(key(_a) or key(_esc)) p[jugador].botones[4]=1; Else p[jugador].botones[4]=0; End
+			If(key(_s) or key(_enter)) p[jugador].botones[5]=1; Else p[jugador].botones[5]=0; End
 			If(key(_d)) p[jugador].botones[6]=1; Else p[jugador].botones[6]=0; End
 		End
 		If(p[jugador].control>0)  // joysticks

@@ -43,7 +43,7 @@ begin
 			keytime--;
 		end
 		//elige algo
-		if(p[0].botones[4] and keytime==0)
+		if(p[0].botones[5] and keytime==0)
 			if(ops.sonido==1)
 				sonido(3);
 			end
@@ -214,9 +214,9 @@ begin
 	if(njoys=>1) controlador(2); end
 	if(njoys=>2) controlador(3); end
 
-	while(p[0].botones[4]) frame; end
+	while(p[0].botones[5]) frame; end
 	loop
-		if(p[0].botones[5])
+		if(p[0].botones[4])
 			sonido(1);
 			let_me_alone();
 			menu();
@@ -224,7 +224,7 @@ begin
 		end
 		//ayuda y tal
 		if((graph>=20 and graph<=22) or (graph=>200 and graph<=202))
-			if(p[0].botones[4] and keytime==0)
+			if(p[0].botones[5] and keytime==0)
 				graph++;
 				if(graph==22 or graph==202)
 					sonido(1);
@@ -315,7 +315,7 @@ begin
 	end
 	id_controlador=controlador(jugador);
 	p[jugador].juega=0;
-	while(p[jugador].botones[4]==0)
+	while(p[jugador].botones[5]==0)
 		if(timer[0]>500) signal(id_controlador,s_kill); return; end
 		frame;
 	end
@@ -396,8 +396,8 @@ begin
 			end
 		end
 		frame;
-	until(p[jugador].botones[4]);
-	while(p[jugador].botones[4]) frame; end
+	until(p[jugador].botones[5]);
+	while(p[jugador].botones[5]) frame; end
 	signal(id_controlador,s_kill);
 	p[jugador].muneco=personaje_elegido;
 	sonido(3);
@@ -484,7 +484,7 @@ begin
 		if(ops.dificultad==2)
 			ponimgn(130,300,100,252);
 		end
-		if(p[1].botones[4] or p[2].botones[4] or p[3].botones[4])
+		if(p[1].botones[5] or p[2].botones[5] or p[3].botones[5])
 			if(tecenter==0)
 				if(elecc==0)
 					if(full_screen==0)
@@ -630,8 +630,8 @@ begin
 			end
 		end
 		frame;
-	until(p[jugador].botones[4]);
-	while(p[jugador].botones[4]) frame; end
+	until(p[jugador].botones[5]);
+	while(p[jugador].botones[5]) frame; end
 	signal(id_controlador,s_kill);
 	p[jugador].muneco=personaje_elegido;
 	p[jugador].juega=1;
@@ -717,7 +717,7 @@ begin
 		return;
 	end
 	loop
-		if(p[0].botones[4])
+		if(p[0].botones[5])
 			if(tecenter==0)
 				if(elecc==0) ops.lenguaje=0; lang_suffix="en"; end
 				if(elecc==1) ops.lenguaje=1; lang_suffix="es"; end
@@ -727,7 +727,7 @@ begin
 				fpg_menu2=load_fpg("fpg/menu-"+lang_suffix+".fpg");
 				fpg_intro=load_fpg("fpg/intro-"+lang_suffix+".fpg");
 				tecenter=1;
-				while(p[0].botones[4]) frame; end
+				while(p[0].botones[5]) frame; end
 				return;
 			end
 		else

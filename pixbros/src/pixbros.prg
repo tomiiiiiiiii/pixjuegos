@@ -925,7 +925,6 @@ Begin
 		id_muneco3.grav=-20; muneco3_enganchado=0;
 		p[id_muneco3.jugador].invencibilidad=-60; id_muneco3.accion=0;
 	end
-	if(os_id!=9) explotalo(x,y,z,255,0,0,graf,60); end
 	frame;
 End
 
@@ -1130,7 +1129,7 @@ Begin
 		if(y<-alto/2) y=alto_nivel-1+alto/2; end
 		frame;
 	end
-	if(os_id!=9) explotalo(x,y,z,alpha,angle,file,graph,60); end
+	from alpha=255 to 0 step -15; frame; end
 	frame;
 End
 
@@ -1180,7 +1179,7 @@ Begin
 		sombra();
 		frame;
 	end
-	if(os_id!=9) explotalo(x,y,z,alpha,angle,file,graph,60); end
+	from alpha=255 to 0 step -15; frame; end
 End
 
 Process burbujaroja(alpha);
