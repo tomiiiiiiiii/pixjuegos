@@ -14,15 +14,25 @@ mkdir export-caanoo\fnt
 mkdir export-caanoo\wav
 mkdir export-caanoo\niveles
 copy fpg\*.fpg export-caanoo\fpg
-copy ogg\*.mp3 export-caanoo\ogg
+REM copy ogg\*.mp3 export-caanoo\ogg
+
+cd ogg
+FOR %%G IN (*.ogg) DO ..\..\utils\ffmpeg.exe -i %%G -ar 22050 -ab 64k ..\export-caanoo\ogg\%%G.mp3
+cd ..\export-caanoo\ogg\
+ren *.ogg.mp3 *.
+ren *.ogg *.
+ren *. *.mp3
+cd ..\..
+
 copy wav\*.wav export-caanoo\wav
 copy fnt\*.fnt export-caanoo\fnt
 copy niveles\*.png export-caanoo\niveles
 copy niveles\*.lvl export-caanoo\niveles
 copy pixbros.dcb export-caanoo
-copy recursos\pixbros.gpe export-caanoo\
 
-copy recursos\pixbroscaanoo.png export-caanoo\pixbros.png
+copy recursos\caanoo\pixbros.gpe export-caanoo\
+copy recursos\caanoo\pixbros.png export-caanoo\
+
 mkdir export-caanoo\bgd-runtime
 copy ..\bennu-caanoo\bgd-runtime\lib*.* export-caanoo\bgd-runtime
 copy ..\bennu-caanoo\bgd-runtime\mod*.* export-caanoo\bgd-runtime

@@ -11,14 +11,22 @@ mkdir export-wii\fnt
 mkdir export-wii\wav
 mkdir export-wii\niveles
 copy fpg\*.fpg export-wii\fpg
-copy ogg\*.mp3 export-wii\ogg
+REM copy ogg\*.mp3 export-wii\ogg
+cd ogg
+FOR %%G IN (*.ogg) DO ..\..\utils\ffmpeg.exe -i %%G -ar 44100 -ab 128k ..\export-wii\ogg\%%G.mp3
+cd ..\export-wii\ogg\
+ren *.ogg.mp3 *.
+ren *.ogg *.
+ren *. *.mp3
+cd ..\..
+
 copy wav\*.wav export-wii\wav
 copy fnt\*.fnt export-wii\fnt
 copy niveles\*.png export-wii\niveles
 copy niveles\*.lvl export-wii\niveles
 copy ..\bennu-wii\bgdi.elf export-wii\boot.elf
 copy pixbros.dcb export-wii\boot.dcb
-copy recursos\pixbroswii.png export-wii\icon.png
-copy recursos\wiimeta.xml export-wii\meta.xml
+copy recursos\wii\icon.png export-wii\
+copy recursos\wii\meta.xml export-wii\
 echo LISTO!!
 pause
