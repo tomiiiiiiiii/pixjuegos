@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<app version="0.7">
+  <name>PiX Pang</name>
+  <coder>PiX Juegos</coder>
+  <version>2.0</version>
+  <short_description>PiX Pang is the best Super Pang clone ever</short_description> 
+  <long_description>PLEASE, DON'T UPLOAD THIS TO THE HOMEBREW BROWSER YET.
+
+  Features:
+- 2 players at the same time (not working right now)
+- 80 levels
+- many different balls
+- 5 enemy bosses
+- Save game
+- 3 difficulty levels
+- 5 different languages
+...</long_description> 
+</app>

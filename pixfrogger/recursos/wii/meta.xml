@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<app version="0.7">
+  <name>PiX Frogger</name>
+  <coder>PiX Juegos</coder>
+  <version>1.1</version>
+  <short_description>PiX Frogger is a multiplayer clone of Frogger</short_description> 
+  <long_description>PLEASE, DON'T UPLOAD THIS TO THE HOMEBREW BROWSER YET.
+
+  Features:
+- 4 players at the same time
+- infinite fun!
+...</long_description> 
+</app>

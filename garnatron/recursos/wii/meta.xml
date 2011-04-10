@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<app version="0.7">
+  <name>Garnatron</name>
+  <coder>PiX Juegos</coder>
+  <version>bennu</version>
+  <short_description>Garnatron is a fast-paced shoot'em up</short_description> 
+  <long_description>PLEASE, DON'T UPLOAD THIS TO THE HOMEBREW BROWSER YET.
+
+  Features:
+- 5 levels
+- many different enemies
+- 5 enemy bosses
+- Save game
+...</long_description> 
+</app>
