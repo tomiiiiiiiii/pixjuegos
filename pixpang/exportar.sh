@@ -52,4 +52,5 @@ cp fondos/monstruos/*.png export/fondos/monstruos
 cp ../bennu-linux/*.so export
 cp ../bennu-linux/bgdi export/pixpang
 cp pixpang.dcb export
+chmod +x export/*.so export/pixpang
 echo LISTO!!
