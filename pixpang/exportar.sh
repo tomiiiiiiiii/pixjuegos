@@ -1,6 +1,7 @@
 #!/bin/sh
 @echo off
 echo Generando FPGS
+mkdir fpg
 cd fpg-sources
 ../../bennu-linux/bgdc pxlfpg.prg
 ../../bennu-linux/bgdi pxlfpg menu
@@ -25,6 +26,8 @@ cd monstruos
 ../../../bennu-linux/bgdi pxlfpg gusano
 ../../../bennu-linux/bgdi pxlfpg maskara
 ../../../bennu-linux/bgdi pxlfpg ultraball
+
+cd ../..
 
 cd src
 echo Compilando...
