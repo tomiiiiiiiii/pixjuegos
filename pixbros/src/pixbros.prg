@@ -135,6 +135,7 @@ Private
 	fp;
 	string cadena_lenguaje;
 	string cadena_lenguaje_bien;
+	int primera_letra_lenguaje;
 Begin
 	if(os_id==0) //windows
 		savegamedir=getenv("APPDATA")+developerpath;
@@ -163,10 +164,12 @@ Begin
 				cadena_lenguaje=fgets(fp);
 				fclose(fp);
 			end
-			cadena_lenguaje_bien=""+cadena_lenguaje[25]+cadena_lenguaje[26]+cadena_lenguaje[27]+cadena_lenguaje[28];
+			primera_letra_lenguaje=find(cadena_lenguaje,"0",0);
+			cadena_lenguaje_bien=""+cadena_lenguaje[primera_letra_lenguaje]+cadena_lenguaje[primera_letra_lenguaje+1]+cadena_lenguaje[primera_letra_lenguaje+2]+cadena_lenguaje[primera_letra_lenguaje+3];
 			ops.lenguaje=0;
 			switch(cadena_lenguaje_bien)
 				case "0c0a": ops.lenguaje=1; end
+				case "040a": ops.lenguaje=1; end
 				case "0410": ops.lenguaje=2; end
 				case "0407": ops.lenguaje=3; end
 				case "040c": ops.lenguaje=4; end

@@ -19,6 +19,7 @@ copy niveles\*.png export\niveles
 copy niveles\*.lvl export\niveles
 copy ..\bennu-win\*.dll export
 copy ..\bennu-win\bgdi.exe export\pixbros.exe
+copy language.bat export
 copy pixbros.dcb export
 cd export
 echo DEBES ELEGIR EL PIXbros.EXE
