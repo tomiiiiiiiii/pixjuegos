@@ -51,10 +51,6 @@ end
 struct save;
 		nivel1;
 		vidas1;
-		nivel2;
-		vidas2;
-		nivel3;
-		vidas3;
 	end
 	
 vida_boss;
@@ -175,10 +171,6 @@ fuente1=load_fnt(".\fnt\fuente.fnt"); frame;
 
 	save.nivel1=1;
 	save.vidas1=3;
-	save.nivel2=1;
-	save.vidas2=3;
-	save.nivel3=1;
-	save.vidas3=5;
 
 	if(file_exists(savegamedir+"save.dat"))
 		archivo=fopen(savegamedir+"save.dat",o_read);
@@ -233,18 +225,25 @@ begin
 	if(cosa==1)
 	
 		while(timer[2]<200)
-			if(scan_code) menu(0); delete_text(all_text); end
+			if(scan_code) 
+				while(scan_code) scroll.x0+=3; frame; end
+				menu(0); 
+				delete_text(all_text); 
+			end
 			scroll.x0+=3;
-			while(scan_code) scroll.x0+=3; frame; end
+			
 			frame;
 		end
 
 		letra("Pix juegos  presenta",400,300,4);
 		timer[2]=0;
 		while(timer[2]<600)
-			if(scan_code) menu(0); delete_text(all_text); end
+			if(scan_code) 
+				while(scan_code) scroll.x0+=3; frame; end			
+				menu(0); 
+				delete_text(all_text); 
+			end
 			scroll.x0+=3;
-			while(scan_code) scroll.x0+=3; frame; end
 			frame;
 		end
 	
@@ -297,8 +296,7 @@ begin
 			scroll.x0+=3;
 			frame;
 		end
-	
-	
+
 		letra("Sonido",480,120,3);
 		letra("no me acuerdo",480,150,3);
 		timer[2]=0;
@@ -349,7 +347,6 @@ begin
 		end
 
 		delete_text(all_text);
-		musica(1);
 		menu(0);
 	end
 
@@ -384,8 +381,6 @@ End
 //-----------------------------------------------------------------------
 
 
-
-
 process menu(num_menu);
 
 private
@@ -406,25 +401,17 @@ begin
 
 	define_region(1,0,0,800,600);
 
-	
-//graph=9;
-//x=400;
-//y=75;
-//sombra(graph,x,y,file,2);
-//flags=16;
-//frame;
+	objeto(400,75,9,file,100,16);
+	sombra(9,400,75,file,2);
 	
 	
 //	controlador(0);
 	musica(1);
-	logo(4);
-
-//	put_screen(file,1);
 
 	z=-20;
 	graph=6;
 	x=120;
-	y=60;
+	y=100;
 	
 	//ponemos el menú actual
 	switch(num_menu)
@@ -467,8 +454,10 @@ begin
 	loop
 		if(opcion_actual>num_opciones) opcion_actual=1;	end
 		if(opcion_actual<1)	opcion_actual=num_opciones;	end
-
-		y_objetivo=60+(opcion_actual*60);
+		
+		scroll.x0+=3;
+		
+		y_objetivo=100+(opcion_actual*60);
 		if(y!=y_objetivo) y+=(y_objetivo-y)/2; end
 
 		if(key(opciones.teclado.disparar1) or key(opciones.teclado.pausa))
@@ -849,6 +838,7 @@ begin
 		else
 			pulsando=0;
 		end
+
 		frame;
 	end
 end
@@ -979,18 +969,10 @@ x=400;
 y=300;
 z=-100;
 
-if(juego==1)
+
 	save.nivel1=nivel;
 	save.vidas1=vidas;
-end
-if(juego==2)
-	save.nivel2=nivel;
-	save.vidas2=vidas;
-end
-if(juego==3)
-	save.nivel3=nivel;
-	save.vidas3=vidas;
-end
+
 
 archivo=fopen(savegamedir+"save.dat",o_write);
 fwrite(archivo,save);
@@ -1902,7 +1884,7 @@ END
 // procesos auxiliares
 //-----------------------------------------------------------------------
 
-process objeto(x,y,graph,file,size);
+process objeto(x,y,graph,file,size,flags);
 begin
 z=-90;
 loop frame; end

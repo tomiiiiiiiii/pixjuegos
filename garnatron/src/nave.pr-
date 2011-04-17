@@ -133,8 +133,8 @@ graph=20;
 barra_energia();
 barra_escudo();
 habilidad();
-objeto(100,50,12,fpg_nave,100);
-objeto(300,50,1,fpg_nave,20);
+objeto(100,50,12,fpg_nave,100,0);
+objeto(300,50,1,fpg_nave,20,0);
 write_var(fuente1,320,50,4,vidas);
 
 loop
