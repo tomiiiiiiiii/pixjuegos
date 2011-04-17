@@ -20,7 +20,7 @@ fuerza=1;
 energia=20;
 habil=1;
 
-arcade_mode=1;
+arcade_mode=0;
 
 struct opciones;
 	struct teclado;	//controles teclado
