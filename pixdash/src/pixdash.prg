@@ -29,7 +29,7 @@ Global
 	num_separados;
 	
 	struct p[8];
-		botones[6];
+		botones[7];
 		identificador;
 		control;
 		puntos;
@@ -110,7 +110,7 @@ Private
 	posicion;
 Begin
 	p[jugador].identificador=id;
-	controlador(jugador);
+	//controlador(jugador);
 	x=100;
 	y=100; //coordenadas del jugador
 	//size=125; //tamaño
@@ -774,9 +774,10 @@ end //FIN IF WII
     end
 	pon_tiempo(-1,0,(ancho_pantalla/4)*3,70);
 	save_png(0,mapa_scroll,"c:\algo.png");
+	controlador(0);
 	loop
 		if(key(_n)) while(key(_n)) frame; end num_nivel++; carga_nivel(); end
-		if(key(_esc)) menu(); end
+		if(p[0].botones[7]) menu(); end
 		if(timer>300 and texto!=0) delete_text(texto); texto=0; end
 //		if(jugadores==3 and ((!exists(scroll[3].camera)) or scroll[3].camera==0 or rand(0,500)==333)) scroll[3].camera=get_id(type enemigo); end
 //		if(jugadores==1 and ((!exists(scroll[1].camera)) or scroll[1].camera==0 or rand(0,500)==333)) scroll[1].camera=get_id(type enemigo); end

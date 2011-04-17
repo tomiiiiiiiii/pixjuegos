@@ -29,7 +29,7 @@ Global
 	posibles_jugadores;
 	debuj;
 	struct p[5];
-		botones[6];
+		botones[7];
 		vidas=10;
 		arma;
 		bolas;
@@ -208,7 +208,6 @@ Private
 	saltando;
 Begin
 	If(p[1].vidas<0) Return; End
-	controlador(1);
 	file=file_muneco1;
 	x=370;
 	graph=501;
@@ -260,7 +259,7 @@ Begin
 			if(saltando==1)	saltando=0; end
 			grav=0;
 		End
-		If(!collision(Type bloques) AND !key(_up))
+		If(!collision(Type bloques) AND !p[1].botones[2])
 			subiendo=0;
 		End
 		If(y>y_statico)	if(saltando==1)	saltando=0; end y=y_statico; grav=0; End
@@ -477,7 +476,6 @@ Private
 	inercia;
 Begin
 	If(p[2].vidas<0) Return; End
-	controlador(2);
 	file=file_muneco2;
 	graph=551;
 	x=430;
@@ -525,7 +523,7 @@ Begin
 			if(saltando==1)	saltando=0; end
 			grav=0;
 		End
-		If(!collision(Type bloques) AND !key(_up))
+		If(!collision(Type bloques) AND !p[2].botones[2])
 			subiendo=0;
 		End
 		If(y>y_statico)	if(saltando==1)	saltando=0; end y=y_statico; grav=0; End
@@ -1436,6 +1434,7 @@ Private
    energia=0;
 Begin
    graph=444;
+   set_center(file,graph,0,15);
    // Se asignan las coordenadas
    x=305; y=575; z=0;
    grafico(400,540,442,0,0,fpg_lang);
@@ -2126,8 +2125,6 @@ Begin
 	anim_global();
 	marcadores();
 	timer[9]=0;
-//	While(key(_enter) OR mouse.middle) Frame; End
-//	While(timer[9]<70 AND !key(_enter)) Frame; End
 	While(timer[9]<70) Frame; End
 	if(modo_juego==2) tiempo_nivel(pantalla.btime); end
 	if(jefe==0) readyando(); else
@@ -2175,9 +2172,9 @@ Begin
 	put_screen(fpg_menu2,4);
 	musica(8);
 	timer[9]=0;
-	While(timer[9]<500 AND !key(_space)) Frame; end
+	While(timer[9]<500 AND !p[0].botones[4]) Frame; end
 	modo_juego=0;
-	menu();;
+	menu();
 End
 
 Process panic_mode();
@@ -2192,6 +2189,7 @@ Begin
 	p[2].arma=2;
 	modo_juego=1;    
 	If(cont==12) cont=11; End
+	controlador(0);
 	Loop
 		If(pixel_mola==1 and ready==1)
 			If(key(_m) AND raton==0) coloca_raton(); End
@@ -2200,7 +2198,7 @@ Begin
 			If(key(_f) AND txt_fps==0) txt_fps=write_int(fnt1,0,0,0,&fps); End
 			If(key(_n)) nube(); End
 		End
-		If((key(_esc) or os_id==os_caanoo and get_joy_button(0,8))  and !exists(type opciones) and ready==1) opciones(); ready=0; End
+		If(p[0].botones[7]) let_me_alone(); menu(); End
 		If((p[1].bolas+p[2].bolas)>100 AND rand(0,200)==0) nube(); End
 		If(bolas=>13 AND prisa==0) prisa=1; hayprisa(); End
 		If(bolas<8 AND prisa==1) prisa=0; timer[8]=0; musica(0); End
@@ -2264,6 +2262,7 @@ Begin
 	p[2].bolas=0;
 	modo_juego=2;
 	cocos=0;
+	controlador(0);
 	Loop
 		If(pixel_mola==1 and ready==1)
 			If(key(_m) AND raton==0) coloca_raton(); End
@@ -2276,7 +2275,7 @@ Begin
 		End
 		if(cheto_avaricioso) if(avaricioso<20) avaricioso++; else cocodrilo(rand(0,1)); avaricioso=0; end end
 		If(key(_g)) p[1].arma=1; p[2].arma=1; End
-		If((key(_esc) or os_id==os_caanoo and get_joy_button(0,8)) and !exists(type opciones) and ready==1) opciones(); ready=0; End
+		If(p[0].botones[7]) let_me_alone(); menu(); end
 		If(players==1 AND key(_2)) players=3; suena(6); p[2].vidas=10; faderaro(-2); frame; inicio(); End
 		If(players==2 AND key(_1)) players=3; suena(6); p[1].vidas=10; inicio(); End
 		If(key(_d) AND key(_b) AND key(_g)) pixel_mola=1; End
@@ -2540,30 +2539,6 @@ Begin
 	//from alpha=255 to 0 step -10; frame; end
 End
 
-Process opciones();
-Private
-	opcion;
-	t_opc;
-	txt1;txt2;txt3;txt4;txt5;
-	mano;
-	txt_opmusic;
-	txt_opsombras;
-	txt_opsonido;
-	struct partidaguardada;
-		int pgpuntos[1];
-		int pgplayers;
-		int pgmundo;
-		int pgvidas[1];
-	end
-	fotopartida;
-Begin
-	let_me_alone();
-	stop_song();
-	delete_text(all_text);
-	menu();
-	return;
-End
-
 Process coloca_raton();
 Private
 	tipo=1;
@@ -2663,7 +2638,6 @@ Private
 	lado_bola;
 	el_input;
 Begin
-	While(key(_enter)) Frame; End
 	if(mundo==4) jefe=2; end
 	if(mundo==9) jefe=3; end
 	if(mundo==14) jefe=4; end
@@ -2949,8 +2923,9 @@ begin
 	x=400;
 	y=300;
 	z=-10;
+	controlador(0);
 	from alpha=50 to 255 step 5; 
-		if(key(_enter) or key(_esc)) break; end
+		if(p[0].botones[7]) break; end
 		frame; 
 	end
 	timer[0]=0;

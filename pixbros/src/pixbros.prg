@@ -45,7 +45,7 @@ Global
 	posibles_jugadores;
 	debuj;
 	struct p[5];
-		botones[6];
+		botones[7];
 		vidas=5; puntos; velocidad=0; lejos=0; tocho=0; invencibilidad; muneco; control; juega; identificador;
 	end
 	joysticks[10];
@@ -405,16 +405,18 @@ begin
 	ready=1;
 	frame;
 	unload_map(0,graph);
+	/* utilizando el controlador masivo 0 no es necesario tener uno para cada jugador
 	if(posibles_jugadores>1)
 		if(p[1].juega==0) controlador(1); end
 		if(p[2].juega==0) controlador(2); end
 		if(p[3].juega==0) controlador(3); end
-	end
+	end*/
+	controlador(0);
 	loop
 		if(posibles_jugadores>1)
 			if(p[1].juega==0 and p[1].botones[4]==1 and p[1].botones[5]==1) elecpersonaje_ingame(1); end
-			if(p[2].juega==0 and p[2].botones[4]==1 and p[2].botones[5]==1) elecpersonaje_ingame(2); end
-			if(p[3].juega==0 and p[3].botones[4]==1 and p[3].botones[5]==1) elecpersonaje_ingame(3); end
+			if(p[2].juega==0 and posibles_jugadores and p[2].botones[4]==1 and p[2].botones[5]==1) elecpersonaje_ingame(2); end
+			if(p[3].juega==0 and posibles_jugadores>2 and p[3].botones[4]==1 and p[3].botones[5]==1) elecpersonaje_ingame(3); end
 		end
 		if(!exists(type enemigo) and !exists(type item) and !exists(type enemigo_lanzado) and !exists(type boladeenemigos) and hayjefe==0)
 			if(mundo<num_mundos) mundo++; else ganar(); end
@@ -440,7 +442,7 @@ begin
 			frame(3000);
 			game_over();
 		end
-      	if(key(_esc) or (os_id==os_caanoo and get_joy_button(0,8)) or (os_id==os_wii and get_joy_button(0,6)))
+      	if(p[0].botones[7])
 			let_me_alone();
 			clear_screen();
 			menu();

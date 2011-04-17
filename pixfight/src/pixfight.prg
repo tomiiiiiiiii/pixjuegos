@@ -111,9 +111,6 @@ Global
 	dureza_imposible;
 	durezas_nivel;
 	tiempoescudo[8];
-	Struct botones;
-		int p[8][6];
-	End
 	struct p[8];
 		porcentual; vidas=5; puntos; control; juega; identificador; personaje; botones[8];
 	end
@@ -139,7 +136,15 @@ Local
 	var;
 Begin
 	//full_screen=true;
-	scale_resolution=06400480;
+	if(!mode_is_ok(1024,600,16,MODE_FULLSCREEN))
+		scale_resolution=12800720;
+		if(!mode_is_ok(1280,720,16,MODE_FULLSCREEN))
+			scale_resolution=06400480;
+			if(!mode_is_ok(1280,720,16,MODE_FULLSCREEN))
+				scale_resolution=03200240;
+			end
+		end
+	end
 	set_mode(1024,600,16);
 	cargar_fpgs();
 	configurar_controles();
@@ -163,7 +168,7 @@ Begin
 	limites[3]=-300;
 
 	//if(cliente) net_cliente("pruebas.panreyes.es"); return; end
-		zoom();
+	//zoom();
 	loop
 		if(servidor_iniciado)
 			if(nConectados>0)
@@ -184,7 +189,7 @@ Begin
 				while(key(_4)) frame; end
 				from i=3 to 8; p[i].personaje=rand(0,numpersonajes); p[i].control=5; personaje(i); end
 		end
-		if(key(_esc)) exit(); end
+		if(p[0].botones[7]) exit(); end
 		frame;
 	end
 End

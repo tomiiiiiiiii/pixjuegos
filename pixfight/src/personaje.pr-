@@ -40,37 +40,37 @@ Begin
 	loop //INICIO LOOP PRINCIPAL PERSONAJES
 
 	//-----------------
-	if(!botones.p[jugador][0]) 
+	if(!p[jugador].botones[0]) 
 		if(izquierda_suelto<margen) izquierda_suelto++; end
 	else
 		if(izquierda_suelto>0) izquierda_suelto--; end
 	end
-	if(!botones.p[jugador][1]) 
+	if(!p[jugador].botones[1]) 
 		if(derecha_suelto<margen) derecha_suelto++; end
 	else
 		if(derecha_suelto>0) derecha_suelto--; end
 	end
-	if(!botones.p[jugador][2]) 
+	if(!p[jugador].botones[2]) 
 		if(arriba_suelto<margen) arriba_suelto++; end
 	else
 		if(arriba_suelto>0) arriba_suelto--; end
 	end
-	if(!botones.p[jugador][3]) 
+	if(!p[jugador].botones[3]) 
 		if(abajo_suelto<margen) abajo_suelto++; end
 	else
 		if(abajo_suelto>0) abajo_suelto--; end
 	end
-	if(!botones.p[jugador][4]) 
+	if(!p[jugador].botones[4]) 
 		if(ataque1_suelto<margen) ataque1_suelto++; end
 	else
 		if(ataque1_suelto>0) ataque1_suelto--; end
 	end
-	if(!botones.p[jugador][5]) 
+	if(!p[jugador].botones[5]) 
 		if(ataque2_suelto<margen) ataque2_suelto++; end
 	else
 		if(ataque2_suelto>0) ataque2_suelto--; end
 	end
-	if(!botones.p[jugador][6]) 
+	if(!p[jugador].botones[6]) 
 		if(escudo_suelto<margen) escudo_suelto++; end
 	else
 		if(escudo_suelto>0) escudo_suelto--; end

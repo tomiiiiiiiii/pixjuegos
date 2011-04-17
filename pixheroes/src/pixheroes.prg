@@ -86,7 +86,7 @@ Global
 	posibles_jugadores;
 	debuj;
 	struct p[5];
-		botones[6];
+		botones[7];
 		vidas=10;
 		arma;
 		bolas;
@@ -200,7 +200,7 @@ Begin
 	ancho_queco=graphic_info(file,graph,g_wide);
 	alto_queco=graphic_info(file,graph,g_height);
 	Loop
-		if(key(_esc)) exit(); end
+		if(p[0].botones[7]) exit(); end
 		while(ready==0) frame; end
 		if(p[0].botones[6] and collision(id_pasivo) and saltando==0 and cambiar==1) 
 			while(p[0].botones[6]) frame; end 
@@ -354,7 +354,6 @@ include "./masmario.pix";
 		//////////////////
 		if(rodando==1 and inercia==0 or !p[0].botones[4] or saltando!=0) rodando=0; end
 		if(p[0].botones[5]) pulsando_control=1; else pulsando_control=0; end
-//		if(key(_s)) while(key(_s)) frame; end team_blast(); end
 		If((inercia>0 AND toca_right==suelo) OR ((inercia<0 AND toca_left==suelo))) inercia=0; End
 		Frame;	
 		movs[num_mov].la_x=x;
@@ -412,7 +411,7 @@ Begin
 	ancho_queco=graphic_info(file,graph,g_wide);
 	alto_queco=graphic_info(file,graph,g_height);
 	Loop
-		if(key(_esc)) exit(); end
+		if(p[0].botones[7]) exit(); end
 		while(ready==0) frame; end
 		if(p[0].botones[6] and collision(id_pasivo) and saltando==0 and rodando==0 and cambiar==1) 
 			while(p[0].botones[6]) frame; end 

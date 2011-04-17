@@ -9,7 +9,7 @@
 	sepuedebajar;
 Begin
 	if(tipo_nivel==1) ctype=c_scroll; end
-	controlador(jugador);
+	//controlador(jugador);
 	
 	z=-1;
 	

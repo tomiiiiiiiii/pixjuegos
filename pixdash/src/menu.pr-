@@ -440,11 +440,11 @@ begin
 		else
 			tec2=0;
 		end
-		if(elecc==4)
+		if(elecc==posibles_jugadores)
 			elecc=0;
 		end
 		if(elecc==-1)
-			elecc=3;
+			elecc=posibles_jugadores-1;
 		end
 		frame;
 	end

@@ -172,7 +172,7 @@
 			angle+=3000;
 			if(gravedad=>0) 
 				if(accion!="aire") angle=0; end
-				from i=2 to 7; if(botones.p[jugador][i]) ataque=""; end end
+				from i=2 to 7; if(p[jugador].botones[i]) ataque=""; end end
 			end
 		end
 		case "tercersalto":
