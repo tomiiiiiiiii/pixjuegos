@@ -872,8 +872,6 @@ begin
 	delete_text(all_text);
 end
 
-
-
 //-----------------------------------------------------------------------
 // proceso que crea un boton
 //-----------------------------------------------------------------------
@@ -914,11 +912,11 @@ end
 if(cosa==2)	//titulo
 	angle=father.angle;
 	from alpha=255 to 0 step -20;
-		if(exists(father))
-			x=father.x;
-			y=father.y;
+	//	if(exists(father))
+	//		x=father.x;
+	//		y=father.y;
 			size+=3;
-		end
+	//	end
     		frame;
 	end
 end
@@ -1062,7 +1060,7 @@ if(nivel==1)
 			end
 			if(key(opciones.teclado.disparar1) or key(opciones.teclado.pausa))
 				if(opcion==1) opcion=0; pausa=0; graph=0; delete_text(id_texto); delete_text(id_texto1); delete_text(id_texto2); signal(type boton,s_kill); end
-				if(opcion==2) opcion=0; let_me_alone(); menu(0); break; end
+				if(opcion==2) opcion=0; while(key(opciones.teclado.disparar1) or key(opciones.teclado.pausa)) frame; end menu(0); break; end
 			end
 
 		end
@@ -1280,7 +1278,7 @@ if(nivel==2)
 			end
 			if(key(opciones.teclado.disparar1) or key(opciones.teclado.pausa))
 				if(opcion==1) opcion=0; pausa=0; graph=0; delete_text(id_texto); delete_text(id_texto1); delete_text(id_texto2); signal(type boton,s_kill); end
-				if(opcion==2) opcion=0; let_me_alone(); menu(0); break; end
+				if(opcion==2) opcion=0; while(key(opciones.teclado.disparar1) or key(opciones.teclado.pausa)) frame; end menu(0); break; end
 			end
 
 		end
@@ -1472,7 +1470,7 @@ if(nivel==3)
 			end
 			if(key(opciones.teclado.disparar1) or key(opciones.teclado.pausa))
 				if(opcion==1) opcion=0; pausa=0; graph=0; delete_text(id_texto); delete_text(id_texto1); delete_text(id_texto2); signal(type boton,s_kill); end
-				if(opcion==2) opcion=0; let_me_alone(); menu(0); break; end
+				if(opcion==2) opcion=0; while(key(opciones.teclado.disparar1) or key(opciones.teclado.pausa)) frame; end menu(0); break; end
 			end
 
 		end
@@ -1635,7 +1633,7 @@ if(nivel==4)
 			end
 			if(key(opciones.teclado.disparar1) or key(opciones.teclado.pausa))
 				if(opcion==1) opcion=0; pausa=0; graph=0; delete_text(id_texto); delete_text(id_texto1); delete_text(id_texto2); signal(type boton,s_kill); end
-				if(opcion==2) opcion=0; let_me_alone(); menu(0); break; end
+				if(opcion==2) opcion=0; while(key(opciones.teclado.disparar1) or key(opciones.teclado.pausa)) frame; end menu(0); break; end
 			end
 
 		end
@@ -1828,7 +1826,7 @@ if(nivel==5)
 			end
 			if(key(opciones.teclado.disparar1) or key(opciones.teclado.pausa))
 				if(opcion==1) opcion=0; pausa=0; graph=0; delete_text(id_texto); delete_text(id_texto1); delete_text(id_texto2); signal(type boton,s_kill); end
-				if(opcion==2) opcion=0; let_me_alone(); menu(0); break; end
+				if(opcion==2) opcion=0; while(key(opciones.teclado.disparar1) or key(opciones.teclado.pausa)) frame; end menu(0); break; end
 			end
 
 		end
