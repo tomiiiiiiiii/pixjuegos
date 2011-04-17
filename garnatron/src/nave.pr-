@@ -10,6 +10,7 @@ private acelx; acely; disparando; inmunidad=75; retardo=5;
 BEGIN
 graph=1;
 file=fpg_nave;
+controlador(0);
 loop
 LOOP
 	if(pausa==0)
@@ -25,24 +26,24 @@ LOOP
 				break; 
 			end 
 		end
-		if(key(opciones.teclado.derecha) and acelx<10) graph=3; acelx+=2;end
-		if(key(opciones.teclado.izquierda) and acelx>-10) graph=2; acelx-=2;end
-		if(key(opciones.teclado.arriba) and acely>-10) acely-=2;end
-		if(key(opciones.teclado.abajo) and acely<10) acely+=2;end
+		if(p[0].botones[1] and acelx<10) graph=3; acelx+=2;end
+		if(p[0].botones[0] and acelx>-10) graph=2; acelx-=2;end
+		if(p[0].botones[2] and acely>-10) acely-=2;end
+		if(p[0].botones[3] and acely<10) acely+=2;end
 
 		if(x>740) x=740; end
 		if(x<60) x=60; end
 		if(y<140) y=140; end
 		if(y>540) y=540; end
 
-		if(acelx>0 and not key(opciones.teclado.derecha) and x<730) acelx--; end
-		if(acelx<0 and not key(opciones.teclado.izquierda) and x>70) acelx++; end
-		if(acely<0 and not key(opciones.teclado.arriba) and y>150) acely++; end
-		if(acely>0 and not key(opciones.teclado.abajo) and y<530) acely--; end
+		if(acelx>0 and not p[0].botones[1] and x<730) acelx--; end
+		if(acelx<0 and not p[0].botones[0] and x>70) acelx++; end
+		if(acely<0 and not p[0].botones[2] and y>150) acely++; end
+		if(acely>0 and not p[0].botones[3] and y<530) acely--; end
 
 		x+=acelx; y+=acely;
     		if(acelx==0) graph=1; end
-		IF (key(opciones.teclado.disparar1) and disparando==0 and retardo==5)
+		IF (p[0].botones[4] and disparando==0 and retardo==5)
 			retardo=0;
 			if(poder==1)
 				disparo01(x-15,y-10,angle+pi/2);
@@ -72,7 +73,7 @@ LOOP
 				suena(s_disparo);
 			END
 		end
-		if(disparando==0 and key(opciones.teclado.disparar2))
+		if(disparando==0 and p[0].botones[5])
 			if(habil==1)
 				if(energia>4)
 					bomba(habil); energia-=5; disparando=1;
@@ -147,9 +148,9 @@ loop
 		if(graph==20) direccion=1; end
 		if(graph==44) direccion=0; end
 
-		if(key(opciones.teclado.cambiar_sig) and gatillo==0) habil++; gatillo=1; end
-		if(key(opciones.teclado.cambiar_ant) and gatillo==0) habil--; gatillo=1; end
-		if(not key(opciones.teclado.cambiar_sig) and not key(opciones.teclado.cambiar_ant) and gatillo==1) gatillo=0; end
+		if(p[0].botones[6] and gatillo==0) habil++; gatillo=1; end
+		//if(key(opciones.teclado.cambiar_ant) and gatillo==0) habil--; gatillo=1; end
+		if(not p[0].botones[6] and gatillo==1) gatillo=0; end
 		if(habil>5) habil=1; end
 		if(habil<1) habil=5; end
 		if(escudo>5) escudo=5; end

@@ -48,6 +48,17 @@ struct opciones;
 	end
 end
 
+//------ inicio controles.pr-
+	njoys;
+	posibles_jugadores;
+	debuj;
+	struct p[5];
+		botones[7];
+		control;
+	end
+	joysticks[10];
+//------ fin controles.pr-
+
 struct save;
 		nivel1;
 		vidas1;
@@ -98,7 +109,7 @@ Local
 	estado;
 	patron;
 	id_texto;
-	
+	i,j; //para controles.pr-
 
 //-----------------------------------------------------------------------
 // introduccion del juego
@@ -107,7 +118,15 @@ Local
 
 BEGIN
 set_fps(40,0);
-set_mode(800,600,32);
+
+if(!mode_is_ok(800,600,32,MODE_FULLSCREEN))
+	scale_resolution=06400480; //compatible con Wii
+	if(!mode_is_ok(640,480,32,MODE_FULLSCREEN))
+		scale_resolution=03200240; //compatible con GP2X
+	end
+end
+set_mode(800,600,32,WAITVSYNC);
+
 dump_type=-1;
 restore_type=-1;
 ALPHA_STEPS=128;
@@ -180,7 +199,8 @@ fuente1=load_fnt(".\fnt\fuente.fnt"); frame;
 
 frame;
 
-select_joy(0);
+//select_joy(0);
+configurar_controles();
 
 start_scroll(0,fpg_menu,7,8,1,15); //numero,file,grafico,fondo,region,loop
 musica(1);
@@ -222,6 +242,9 @@ begin
 	define_region(1,0,75,800,450);
 	fade_on();
 	timer[2]=0;
+	
+	escapable();
+	
 	if(cosa==1)
 	
 		while(timer[2]<200)
@@ -235,7 +258,7 @@ begin
 			frame;
 		end
 
-		letra("Pix juegos  presenta",400,300,4);
+		letra("PiX Juegos  presenta",400,300,4);
 		timer[2]=0;
 		while(timer[2]<600)
 			if(scan_code) 
@@ -252,7 +275,7 @@ begin
 	end
 
 	if(cosa==2) //creditos
-	
+		
 		pausa=1;
 		id_nave=nave01(-100,300);
 		id_nave.angle=-90000;
@@ -352,6 +375,14 @@ begin
 
 end
 
+process escapable();
+Begin
+	controlador(0);
+	loop
+		if(p[0].botones[7]) while(p[0].botones[7]) frame; end menu(0); end
+		frame;
+	end
+End
 
 //-----------------------------------------------------------------------
 // proceso letra por PiXeL
@@ -405,8 +436,8 @@ begin
 	sombra(9,400,75,file,2);
 	
 	
-//	controlador(0);
-	musica(1);
+	controlador(0);
+//	musica(1);
 
 	z=-20;
 	graph=6;
@@ -460,11 +491,11 @@ begin
 		y_objetivo=100+(opcion_actual*60);
 		if(y!=y_objetivo) y+=(y_objetivo-y)/2; end
 
-		if(key(opciones.teclado.disparar1) or key(opciones.teclado.pausa))
+		if(p[0].botones[4])
 			
 			suena(s_aceptar);
 			
-			while(key(opciones.teclado.disparar1) or key(opciones.teclado.pausa)) frame; end
+			while(p[0].botones[4]) frame; end
 			switch(num_menu)
 				case 0: //general
 					switch(opcion_actual)
@@ -810,16 +841,16 @@ begin
 				end
 			end
 		end
-		if((key(opciones.teclado.disparar1) or key(opciones.teclado.pausa)) and volver_a_menu!=num_menu)
+		if(p[0].botones[5] and volver_a_menu!=num_menu)
 			delete_text(all_text);
 			
 			suena(s_aceptar);
 			
-			while(key(opciones.teclado.disparar1) or key(opciones.teclado.pausa)) frame; end
+			while(p[0].botones[4]) frame; end
 			menu(volver_a_menu);
 			
 		end
-		if(key(opciones.teclado.abajo))
+		if(p[0].botones[3])
 			if(!pulsando)
 				opcion_actual++;
 				
@@ -827,7 +858,7 @@ begin
 				
 				pulsando=1;
 			end
-		elseif(key(opciones.teclado.arriba))
+		elseif(p[0].botones[2])
 			if(!pulsando)
 				opcion_actual--;
 				
@@ -1021,7 +1052,7 @@ if(nivel==1)
 
 
 
-		if(key(opciones.teclado.salir) and gatillo==0)
+		if(p[0].botones[7] and gatillo==0)
 			gatillo=1;
 			if(pausa==0)
 				pausa=1;
@@ -1043,24 +1074,24 @@ if(nivel==1)
 			end
 		end
 
-		if(not key(opciones.teclado.pausa) and not key(opciones.teclado.salir) and not key(opciones.teclado.arriba) and not key(opciones.teclado.abajo) and gatillo==1) gatillo=0; end
+		if(not p[0].botones[7] and not p[0].botones[2] and not p[0].botones[3] and gatillo==1) gatillo=0; end
 
 		if(pausa==1)
 				
 			if(direccion==1) graph++; else graph--; end
 			if(graph==20) direccion=1; end
 			if(graph==44) direccion=0; end
-			if(key(opciones.teclado.arriba) and gatillo==0 and opcion>1)
+			if(p[0].botones[2] and gatillo==0 and opcion>1)
 				gatillo=1;
 				opcion--;
 			end
-			if(key(opciones.teclado.abajo) and gatillo==0 and opcion<2)
+			if(p[0].botones[3] and gatillo==0 and opcion<2)
 				gatillo=1;
 				opcion++;
 			end
-			if(key(opciones.teclado.disparar1) or key(opciones.teclado.pausa))
+			if(p[0].botones[4])
 				if(opcion==1) opcion=0; pausa=0; graph=0; delete_text(id_texto); delete_text(id_texto1); delete_text(id_texto2); signal(type boton,s_kill); end
-				if(opcion==2) opcion=0; while(key(opciones.teclado.disparar1) or key(opciones.teclado.pausa)) frame; end menu(0); break; end
+				if(opcion==2) opcion=0; while(p[0].botones[4]) frame; end menu(0); break; end
 			end
 
 		end
@@ -1239,7 +1270,7 @@ if(nivel==2)
 
 
 
-		if(key(opciones.teclado.salir) and gatillo==0)
+		if(p[0].botones[7] and gatillo==0)
 			gatillo=1;
 			if(pausa==0)
 				pausa=1;
@@ -1261,24 +1292,24 @@ if(nivel==2)
 			end
 		end
 
-		if(not key(opciones.teclado.pausa) and not key(opciones.teclado.salir) and not key(opciones.teclado.arriba) and not key(opciones.teclado.abajo) and gatillo==1) gatillo=0; end
+		if(not p[0].botones[7] and not p[0].botones[2] and not p[0].botones[3] and gatillo==1) gatillo=0; end
 
 		if(pausa==1)
 				
 			if(direccion==1) graph++; else graph--; end
 			if(graph==20) direccion=1; end
 			if(graph==44) direccion=0; end
-			if(key(opciones.teclado.arriba) and gatillo==0 and opcion>1)
+			if(p[0].botones[2] and gatillo==0 and opcion>1)
 				gatillo=1;
 				opcion--;
 			end
-			if(key(opciones.teclado.abajo) and gatillo==0 and opcion<2)
+			if(p[0].botones[3] and gatillo==0 and opcion<2)
 				gatillo=1;
 				opcion++;
 			end
-			if(key(opciones.teclado.disparar1) or key(opciones.teclado.pausa))
+			if(p[0].botones[4])
 				if(opcion==1) opcion=0; pausa=0; graph=0; delete_text(id_texto); delete_text(id_texto1); delete_text(id_texto2); signal(type boton,s_kill); end
-				if(opcion==2) opcion=0; while(key(opciones.teclado.disparar1) or key(opciones.teclado.pausa)) frame; end menu(0); break; end
+				if(opcion==2) opcion=0; while(p[0].botones[4]) frame; end menu(0); break; end
 			end
 
 		end
@@ -1431,7 +1462,7 @@ if(nivel==3)
 
 
 
-		if(key(opciones.teclado.salir) and gatillo==0)
+		if(p[0].botones[7] and gatillo==0)
 			gatillo=1;
 			if(pausa==0)
 				pausa=1;
@@ -1453,24 +1484,24 @@ if(nivel==3)
 			end
 		end
 
-		if(not key(opciones.teclado.pausa) and not key(opciones.teclado.salir) and not key(opciones.teclado.arriba) and not key(opciones.teclado.abajo) and gatillo==1) gatillo=0; end
+		if(not p[0].botones[7] and not p[0].botones[2] and not p[0].botones[3] and gatillo==1) gatillo=0; end
 
 		if(pausa==1)
 				
 			if(direccion==1) graph++; else graph--; end
 			if(graph==20) direccion=1; end
 			if(graph==44) direccion=0; end
-			if(key(opciones.teclado.arriba) and gatillo==0 and opcion>1)
+			if(p[0].botones[2] and gatillo==0 and opcion>1)
 				gatillo=1;
 				opcion--;
 			end
-			if(key(opciones.teclado.abajo) and gatillo==0 and opcion<2)
+			if(p[0].botones[3] and gatillo==0 and opcion<2)
 				gatillo=1;
 				opcion++;
 			end
-			if(key(opciones.teclado.disparar1) or key(opciones.teclado.pausa))
+			if(p[0].botones[4])
 				if(opcion==1) opcion=0; pausa=0; graph=0; delete_text(id_texto); delete_text(id_texto1); delete_text(id_texto2); signal(type boton,s_kill); end
-				if(opcion==2) opcion=0; while(key(opciones.teclado.disparar1) or key(opciones.teclado.pausa)) frame; end menu(0); break; end
+				if(opcion==2) opcion=0; while(p[0].botones[4]) frame; end menu(0); break; end
 			end
 
 		end
@@ -1594,7 +1625,7 @@ if(nivel==4)
 
 
 
-		if(key(opciones.teclado.salir) and gatillo==0)
+		if(p[0].botones[7] and gatillo==0)
 			gatillo=1;
 			if(pausa==0)
 				pausa=1;
@@ -1616,24 +1647,24 @@ if(nivel==4)
 			end
 		end
 
-		if(not key(opciones.teclado.pausa) and not key(opciones.teclado.salir) and not key(opciones.teclado.arriba) and not key(opciones.teclado.abajo) and gatillo==1) gatillo=0; end
+		if(not p[0].botones[7] and not p[0].botones[2] and not p[0].botones[3] and gatillo==1) gatillo=0; end
 
 		if(pausa==1)
 				
 			if(direccion==1) graph++; else graph--; end
 			if(graph==20) direccion=1; end
 			if(graph==44) direccion=0; end
-			if(key(opciones.teclado.arriba) and gatillo==0 and opcion>1)
+			if(p[0].botones[2] and gatillo==0 and opcion>1)
 				gatillo=1;
 				opcion--;
 			end
-			if(key(opciones.teclado.abajo) and gatillo==0 and opcion<2)
+			if(p[0].botones[3] and gatillo==0 and opcion<2)
 				gatillo=1;
 				opcion++;
 			end
-			if(key(opciones.teclado.disparar1) or key(opciones.teclado.pausa))
+			if(p[0].botones[4])
 				if(opcion==1) opcion=0; pausa=0; graph=0; delete_text(id_texto); delete_text(id_texto1); delete_text(id_texto2); signal(type boton,s_kill); end
-				if(opcion==2) opcion=0; while(key(opciones.teclado.disparar1) or key(opciones.teclado.pausa)) frame; end menu(0); break; end
+				if(opcion==2) opcion=0; while(p[0].botones[4]) frame; end menu(0); break; end
 			end
 
 		end
@@ -1787,7 +1818,7 @@ if(nivel==5)
 
 
 
-		if(key(opciones.teclado.salir) and gatillo==0)
+		if(p[0].botones[7] and gatillo==0)
 			gatillo=1;
 			if(pausa==0)
 				pausa=1;
@@ -1809,24 +1840,24 @@ if(nivel==5)
 			end
 		end
 
-		if(not key(opciones.teclado.pausa) and not key(opciones.teclado.salir) and not key(opciones.teclado.arriba) and not key(opciones.teclado.abajo) and gatillo==1) gatillo=0; end
+		if(not p[0].botones[7] and not p[0].botones[2] and not p[0].botones[3] and gatillo==1) gatillo=0; end
 
 		if(pausa==1)
 				
 			if(direccion==1) graph++; else graph--; end
 			if(graph==20) direccion=1; end
 			if(graph==44) direccion=0; end
-			if(key(opciones.teclado.arriba) and gatillo==0 and opcion>1)
+			if(p[0].botones[2] and gatillo==0 and opcion>1)
 				gatillo=1;
 				opcion--;
 			end
-			if(key(opciones.teclado.abajo) and gatillo==0 and opcion<2)
+			if(p[0].botones[3] and gatillo==0 and opcion<2)
 				gatillo=1;
 				opcion++;
 			end
-			if(key(opciones.teclado.disparar1) or key(opciones.teclado.pausa))
+			if(p[0].botones[4])
 				if(opcion==1) opcion=0; pausa=0; graph=0; delete_text(id_texto); delete_text(id_texto1); delete_text(id_texto2); signal(type boton,s_kill); end
-				if(opcion==2) opcion=0; while(key(opciones.teclado.disparar1) or key(opciones.teclado.pausa)) frame; end menu(0); break; end
+				if(opcion==2) opcion=0; while(p[0].botones[4]) frame; end menu(0); break; end
 			end
 
 		end
@@ -1980,7 +2011,6 @@ Private
 	string directorio_actual="";
 	string rutas_parciales[10];     // Sólo acepta la creación de un máximo de 10 directorios
 	int i_max=0;
-	int i;
 Begin
     directorio_actual = cd();                        // Recuperamos el directorio actual de trabajo, para volver luego a él
     if(chdir(nuevo_directorio) == 0)    // El directorio ya existe!
@@ -2068,3 +2098,5 @@ include "nave.pr-"
 include "bombas.pr-"
 include "bosses.pr-"
 include "enemigos.pr-"
+
+include "../../common-src/controles.pr-";
