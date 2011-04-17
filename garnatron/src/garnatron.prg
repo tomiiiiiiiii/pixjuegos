@@ -20,6 +20,7 @@ fuerza=1;
 energia=20;
 habil=1;
 
+arcade_mode=0;
 
 struct opciones;
 	struct teclado;	//controles teclado
@@ -60,8 +61,8 @@ end
 //------ fin controles.pr-
 
 struct save;
-		nivel1;
-		vidas1;
+		nivel;
+		vidas;
 	end
 	
 vida_boss;
@@ -117,58 +118,61 @@ Local
 
 
 BEGIN
-set_fps(40,0);
+	set_fps(40,0);
 
-if(!mode_is_ok(800,600,32,MODE_FULLSCREEN))
-	scale_resolution=06400480; //compatible con Wii
-	if(!mode_is_ok(640,480,32,MODE_FULLSCREEN))
-		scale_resolution=03200240; //compatible con GP2X
+	if(!mode_is_ok(800,600,32,MODE_FULLSCREEN))
+		scale_resolution=06400480; //compatible con Wii
+		if(!mode_is_ok(640,480,32,MODE_FULLSCREEN))
+			scale_resolution=03200240; //compatible con GP2X
+		end
 	end
-end
-set_mode(800,600,32,WAITVSYNC);
+	
+	if(arcade_mode==1) full_screen=true; end
+	
+	set_mode(800,600,32,WAITVSYNC);
 
-dump_type=-1;
-restore_type=-1;
-ALPHA_STEPS=128;
+	dump_type=-1;
+	restore_type=-1;
+	ALPHA_STEPS=128;
 
-file=fpg_menu;
-graph=1;
-x=400;
-y=300;
-z=10;
+	file=fpg_menu;
+	graph=1;
+	x=400;
+	y=300;
+	z=10;
 
-frame;
-fpg_menu=load_fpg("./fpg/menu.fpg"); frame;
-fpg_nave=load_fpg("./fpg/nave.fpg"); frame;
-fpg_bombas=load_fpg("./fpg/bombas.fpg"); frame;
-fpg_enemigos=load_fpg("./fpg/enemigos.fpg"); frame;
-fpg_bosses=load_fpg("./fpg/bosses.fpg"); frame;
-fpg_explosiones=load_fpg("./fpg/explosiones.fpg"); frame;
+	frame;
+	fpg_menu=load_fpg("./fpg/menu.fpg"); frame;
+	fpg_nave=load_fpg("./fpg/nave.fpg"); frame;
+	fpg_bombas=load_fpg("./fpg/bombas.fpg"); frame;
+	fpg_enemigos=load_fpg("./fpg/enemigos.fpg"); frame;
+	fpg_bosses=load_fpg("./fpg/bosses.fpg"); frame;
+	fpg_explosiones=load_fpg("./fpg/explosiones.fpg"); frame;
 
-s_disparo=load_wav("./wav/laser.wav"); frame;
-s_laser1=load_wav("./wav/laser9.wav"); frame;
-s_laser2=load_wav("./wav/onda01.wav"); frame;
-s_laser3=load_wav("./wav/laser6.wav"); frame;
-s_misil=load_wav("./wav/bomba5.wav"); frame;
-s_explosion=load_wav("./wav/explos.wav"); frame;
-s_explosion_grande=load_wav("./wav/explosg.wav"); frame;
+	s_disparo=load_wav("./wav/laser.wav"); frame;
+	s_laser1=load_wav("./wav/laser9.wav"); frame;
+	s_laser2=load_wav("./wav/onda01.wav"); frame;
+	s_laser3=load_wav("./wav/laser6.wav"); frame;
+	s_misil=load_wav("./wav/bomba5.wav"); frame;
+	s_explosion=load_wav("./wav/explos.wav"); frame;
+	s_explosion_grande=load_wav("./wav/explosg.wav"); frame;
 
-fuente1=load_fnt(".\fnt\fuente.fnt"); frame;
-
-
+	fuente1=load_fnt(".\fnt\fuente.fnt"); frame;
 
 
-	opciones.teclado.arriba=72;
-	opciones.teclado.derecha=77;
-	opciones.teclado.abajo=80;
-	opciones.teclado.izquierda=75;
-	opciones.teclado.disparar1=31;
-	opciones.teclado.disparar2=17;
-	opciones.teclado.cambiar_sig=32;
-	opciones.teclado.cambiar_ant=30;
-	opciones.teclado.pausa=28;
-	opciones.teclado.salir=1;
+	opciones.teclado.arriba=72;			//Arriba
+	opciones.teclado.derecha=77;		//Derecha
+	opciones.teclado.abajo=80;			//Abajo
+	opciones.teclado.izquierda=75;		//Izquierda
+	opciones.teclado.disparar1=31;		//S
+	opciones.teclado.disparar2=17;		//W
+	opciones.teclado.cambiar_sig=32;	//D
+	opciones.teclado.cambiar_ant=30;	//A
+	opciones.teclado.pausa=28;			//Intro
+	opciones.teclado.salir=1;			//Esc
 
+	
+	
 	if(os_id==0) //windows
 		savegamedir=getenv("APPDATA")+developerpath;
 		if(savegamedir==developerpath) //windows 9x/me
@@ -188,8 +192,8 @@ fuente1=load_fnt(".\fnt\fuente.fnt"); frame;
 		fclose(archivo);
 	end
 
-	save.nivel1=1;
-	save.vidas1=3;
+	save.nivel=1;
+	save.vidas=3;
 
 	if(file_exists(savegamedir+"save.dat"))
 		archivo=fopen(savegamedir+"save.dat",o_read);
@@ -197,31 +201,30 @@ fuente1=load_fnt(".\fnt\fuente.fnt"); frame;
 		fclose(archivo);
 	end
 
-frame;
-
-//select_joy(0);
-configurar_controles();
-
-start_scroll(0,fpg_menu,7,8,1,15); //numero,file,grafico,fondo,region,loop
-musica(1);
-graph=2;
-
-from alpha=0 to 255 step 10; frame; end
-timer[2]=0;
-
-while(timer[2]<200)
-	if(scan_code)
-		break;
-	end
 	frame;
-end
 
-from alpha=255 to 0 step -10; frame; end
+	configurar_controles();
 
-clear_screen();
-historia(1);
-//(juego(4);
-frame;
+	start_scroll(0,fpg_menu,7,8,1,15); //numero,file,grafico,fondo,region,loop
+	musica(1);
+	graph=2;
+
+	from alpha=0 to 255 step 10; frame; end
+	timer[2]=0;
+
+	while(timer[2]<200)
+		frame;
+	end
+
+	from alpha=255 to 0 step -10; frame; end
+
+	clear_screen();
+
+
+
+	historia(1);
+	//juego();
+	frame;
 
 end
 
@@ -437,7 +440,22 @@ begin
 	
 	
 	controlador(0);
-//	musica(1);
+
+	//modo arcade
+	if(arcade_mode==1)
+		write(fuente1,400,500,4,"Pulsa disparo para empezar");
+		while(not p[0].botones[4])
+			scroll.x0+=3;
+			if(p[0].botones[7]) exit(); end
+			frame;
+		end
+		while(p[0].botones[4]) scroll.x0+=3; frame; end
+		//ayuda();
+		juego(1);
+	end
+	
+	
+	
 
 	z=-20;
 	graph=6;
@@ -504,8 +522,8 @@ begin
 							juego(1);
 						end
 						case 2:
-							vidas=save.vidas1;
-							juego(save.nivel1);
+							vidas=save.vidas;
+							juego(save.nivel);
 						end
 						case 3:
 							menu(1);
@@ -999,8 +1017,8 @@ y=300;
 z=-100;
 
 
-	save.nivel1=nivel;
-	save.vidas1=vidas;
+	save.nivel=nivel;
+	save.vidas=vidas;
 
 
 archivo=fopen(savegamedir+"save.dat",o_write);
