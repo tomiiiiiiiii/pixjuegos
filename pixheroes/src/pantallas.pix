@@ -8,7 +8,6 @@ PRIVATE
 	pers_x;
 	pers_y;
 BEGIN
-	set_mode(320,240,16); 
 	x=0; y=0; ready=0;
 //	oscuridad();
 	ancho_mapa=GRAPHIC_INFO(fixe,mapa,G_WIDE);
@@ -95,12 +94,10 @@ BEGIN
 	if(mundo==4) start_scroll(0,0,mapa_scroll,load_png("fondo.png"),0,4); end
 
 	scroll.camera=id;
+	controlador(0);
 	if(personaje==0) id_jugador=mario(pers_x,pers_y); end
 	if(personaje==1) id_jugador=sonic(pers_x,pers_y); end
 	jugador_pasivo();
-	if(filtro) set_mode(320,240,16,mode_2xscale); else set_mode(320,240,16); end
-	if(hires) set_mode(640,480,16); end
-//	full_screen=false;
 //	frame(2000);
 	ready=1;
 	grav=000;
@@ -170,7 +167,7 @@ Begin
 	graph=4;
 	loop
 		if(exists(id_jugador)) 
-			if(collision(id_jugador) and id_jugador.y<y and saltando!=0) graph=5; frame(500); if(key(_control)) id_jugador.grav=-250; saltando=1; id_jugador.y-=4; else id_jugador.grav=-100; saltando=1; id_jugador.y-=4; end graph=6; sonido(8); frame(1000); graph=4; end
+			if(collision(id_jugador) and id_jugador.y<y and saltando!=0) graph=5; frame(500); if(p[0].botones[4]) id_jugador.grav=-250; saltando=1; id_jugador.y-=4; else id_jugador.grav=-100; saltando=1; id_jugador.y-=4; end graph=6; sonido(8); frame(1000); graph=4; end
 			while(id_jugador.x<x-320 or id_jugador.x>x+320) frame(2000); end 
 		end
 		frame;

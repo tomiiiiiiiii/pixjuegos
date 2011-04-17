@@ -72,7 +72,7 @@ Global
 	reloj; //paralizamos las bolas. aquí meteremos el tiempo en segs*60
 	ancla;
 	
-	struct p[4]; //players, jugadores
+	struct p[5]; //players, jugadores
 		id; //guardamos el id aquí también, nunca está de más
 		jugando; //si están jugando o no, esto lo dirá
 		botones[8]; //controladores y joysticks

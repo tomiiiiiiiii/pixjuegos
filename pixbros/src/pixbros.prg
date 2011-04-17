@@ -44,7 +44,7 @@ Global
 	njoys;
 	posibles_jugadores;
 	debuj;
-	struct p[4];
+	struct p[5];
 		botones[6];
 		vidas=5; puntos; velocidad=0; lejos=0; tocho=0; invencibilidad; muneco; control; juega; identificador;
 	end
