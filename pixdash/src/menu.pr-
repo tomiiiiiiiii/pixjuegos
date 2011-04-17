@@ -549,7 +549,7 @@ Private
 Begin
 	animacion_nomuerto();
 	chdir("bin");
-	argumentos='http://www.pixdash.com/'+nombre_paquete+'.pdn --output-document="'+savegamedir+nombre_paquete+'.pdn"';
+	argumentos='http://www.pixjuegos.com/pixdash/'+nombre_paquete+'.pdn --output-document="'+savegamedir+nombre_paquete+'.pdn"';
 	exec(1,"wget",1,&argumentos);
 	while(!fexists(savegamedir+nombre_paquete+".pdn")) frame; end
 	write(fuente,0,0,0,"Descargando paquete "+nombre_paquete+"...");
@@ -592,7 +592,7 @@ Begin
 	//scale_resolution=01000100;
 //	set_mode(300,100,16);
 	chdir("bin");
-	argumentos='http://www.pixdash.com/niveles.txt --output-document="'+savegamedir+'niveles.txt"';
+	argumentos='http://www.pixjuegos.com/pixdash/niveles.txt --output-document="'+savegamedir+'niveles.txt"';
 	exec(0,"wget",1,&argumentos);
 	fichero=fopen(savegamedir+"niveles.txt",O_READ);
 	i=1;
