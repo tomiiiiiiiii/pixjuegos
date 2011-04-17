@@ -20,7 +20,7 @@ fuerza=1;
 energia=20;
 habil=1;
 
-arcade_mode=0;
+arcade_mode=1;
 
 struct opciones;
 	struct teclado;	//controles teclado
@@ -450,8 +450,8 @@ begin
 			frame;
 		end
 		while(p[0].botones[4]) scroll.x0+=3; frame; end
-		//ayuda();
-		juego(1);
+		ayuda();
+		//juego(1);
 	end
 	
 	
@@ -491,8 +491,9 @@ begin
 		case 3: //control
 			write(fuente1,x,y+=60,3,"Teclado");
 			write(fuente1,x,y+=60,3,"Mando");
+			write(fuente1,x,y+=60,3,"Restablecer");
 			write(fuente1,x,y+=60,3,"Volver");
-			num_opciones=3;
+			num_opciones=4;
 			volver_a_menu=0;
 		end
 	end
@@ -529,7 +530,7 @@ begin
 							menu(1);
 						end
 						case 4: 
-							//ayuda();
+							ayuda();
 						end
 						case 5:
 							historia(2);
@@ -852,9 +853,24 @@ begin
 							fclose(archivo);
 						end
 						case 3:
+							opciones.teclado.arriba=72;			//Arriba
+							opciones.teclado.derecha=77;		//Derecha
+							opciones.teclado.abajo=80;			//Abajo
+							opciones.teclado.izquierda=75;		//Izquierda
+							opciones.teclado.disparar1=31;		//S
+							opciones.teclado.disparar2=17;		//W
+							opciones.teclado.cambiar_sig=32;	//D
+							opciones.teclado.cambiar_ant=30;	//A
+							opciones.teclado.pausa=28;			//Intro
+							opciones.teclado.salir=1;			//Esc
+
+							archivo=fopen(savegamedir+"opciones.dat", O_WRITE);
+							fwrite(archivo,opciones);
+							fclose(archivo);
+						end
+						case 4:
 							menu(1);
 						end
-						
 					end
 				end
 			end
@@ -864,7 +880,7 @@ begin
 			
 			suena(s_aceptar);
 			
-			while(p[0].botones[4]) frame; end
+			while(p[0].botones[4]) scroll.x0+=3; frame; end
 			menu(volver_a_menu);
 			
 		end
@@ -892,17 +908,6 @@ begin
 	end
 end
 
-process lista(graph);
-begin
-	file=fpg_menu;
-	x=-200;
-	y=300;
-	z=-10;
-	loop
-		x+=(x-200)/-10;
-		frame;
-	end
-end
 
 process logo(graph);
 begin
@@ -919,6 +924,37 @@ end
 function reinicio_variables();
 begin
 	delete_text(all_text);
+end
+
+
+//-----------------------------------------------------------------------
+// proceso ayuda
+//-----------------------------------------------------------------------
+
+process ayuda();
+
+begin
+	let_me_alone();
+	delete_text(all_text);
+	controlador(0);
+	file=fpg_menu;
+	graph=4;
+	x=400;
+	y=300;
+	while(not p[0].botones[4])
+		scroll.x0+=3;
+		frame;
+	end
+	while(p[0].botones[4])
+		scroll.x0+=3;
+		frame;
+	end
+	if(arcade_mode==1)
+		juego(1);
+	else
+		menu(0);
+	end
+	frame;
 end
 
 //-----------------------------------------------------------------------
