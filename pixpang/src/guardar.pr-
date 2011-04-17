@@ -3,7 +3,6 @@ Private
 	string directorio_actual="";
 	string rutas_parciales[10];     // Sólo acepta la creación de un máximo de 10 directorios
 	int i_max=0;
-	i;
 Begin
     directorio_actual = cd();                        // Recuperamos el directorio actual de trabajo, para volver luego a él
     if(chdir(nuevo_directorio) == 0)    // El directorio ya existe!

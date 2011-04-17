@@ -96,10 +96,10 @@ Begin
 		if(tiempo<300) alpha=128; tiempo++; else alpha=255; end	//es inbulnerable cuando es transparente
 
 		if(alpha==255)	//colisones
-			if(collision(type dispcab) or collision(type cachodisp)) p1_bonus+=100; p1_puntos+=500; contaor--; tiempo=0; v++; bola(id_partes[a].x,id_partes[a].y,7,1); signal(id_partes[a],s_kill); a--; signal(p1_disparos[1],s_kill); end
-			if(collision(type dispcab2) or collision(type cachodisp2)) p1_bonus+=100; p1_puntos+=500; contaor--; tiempo=0; v++; bola(id_partes[a].x,id_partes[a].y,7,1); signal(id_partes[a],s_kill); a--; signal(p1_disparos[2],s_kill); end
-			if(collision(type dispcab3) or collision(type cachodisp3)) p2_bonus+=100; p2_puntos+=500; contaor--; tiempo=0; v++; bola(id_partes[a].x,id_partes[a].y,7,1); signal(id_partes[a],s_kill); a--; signal(p2_disparos[1],s_kill); end
-			if(collision(type dispcab4) or collision(type cachodisp4)) p2_bonus+=100; p2_puntos+=500; contaor--; tiempo=0; v++; bola(id_partes[a].x,id_partes[a].y,7,1); signal(id_partes[a],s_kill); a--; signal(p2_disparos[2],s_kill); end
+			if(collision(type dispcab) or collision(type cachodisp)) p[1].bonus+=100; p[1].puntos+=500; contaor--; tiempo=0; v++; bola(id_partes[a].x,id_partes[a].y,7,1); signal(id_partes[a],s_kill); a--; signal(p[1].disparos[1],s_kill); end
+			if(collision(type dispcab2) or collision(type cachodisp2)) p[1].bonus+=100; p[1].puntos+=500; contaor--; tiempo=0; v++; bola(id_partes[a].x,id_partes[a].y,7,1); signal(id_partes[a],s_kill); a--; signal(p[1].disparos[2],s_kill); end
+			if(collision(type dispcab3) or collision(type cachodisp3)) p[2].bonus+=100; p[2].puntos+=500; contaor--; tiempo=0; v++; bola(id_partes[a].x,id_partes[a].y,7,1); signal(id_partes[a],s_kill); a--; signal(p[2].disparos[1],s_kill); end
+			if(collision(type dispcab4) or collision(type cachodisp4)) p[2].bonus+=100; p[2].puntos+=500; contaor--; tiempo=0; v++; bola(id_partes[a].x,id_partes[a].y,7,1); signal(id_partes[a],s_kill); a--; signal(p[2].disparos[2],s_kill); end
 					//quitamos vida, se hace invulnerable, se hace mas rapido, quitamos la cola y creamos una bola(mediana) en su lugar y pasamosal siguiente
 		End
 		frame;
@@ -192,10 +192,10 @@ Begin
 
 
 		//colisones no dan puntos
-		if(collision(type dispcab) or collision(type cachodisp)) signal(p1_disparos[1],s_kill); end
-		if(collision(type dispcab2) or collision(type cachodisp2)) signal(p1_disparos[2],s_kill); end
-		if(collision(type dispcab3) or collision(type cachodisp3)) signal(p2_disparos[1],s_kill); end
-		if(collision(type dispcab4) or collision(type cachodisp4)) signal(p2_disparos[2],s_kill); end
+		if(collision(type dispcab) or collision(type cachodisp)) signal(p[1].disparos[1],s_kill); end
+		if(collision(type dispcab2) or collision(type cachodisp2)) signal(p[1].disparos[2],s_kill); end
+		if(collision(type dispcab3) or collision(type cachodisp3)) signal(p[2].disparos[1],s_kill); end
+		if(collision(type dispcab4) or collision(type cachodisp4)) signal(p[2].disparos[2],s_kill); end
 
 	frame;
 	end

@@ -44,7 +44,7 @@ Begin
 //	players=1;
 	priority=1;
 	ganando=0;
-	p1_disparos[1]=0;
+	p[1].disparos[1]=0;
 	modo_juego=1;
 	x=400; y=300;
 	elegido=0;
@@ -115,12 +115,12 @@ Begin
 			while(!key(_n))
 				if(key(_y))
 					modo_juego=2;
-					p1_puntos=partidaguardada.pgpuntos[0];
-					p2_puntos=partidaguardada.pgpuntos[1];
+					p[1].puntos=partidaguardada.pgpuntos[0];
+					p[2].puntos=partidaguardada.pgpuntos[1];
 					players=partidaguardada.pgplayers;
 					mundo=partidaguardada.pgmundo;
-					p1_vidas=partidaguardada.pgvidas[0];
-					p2_vidas=partidaguardada.pgvidas[1];
+					p[1].vidas=partidaguardada.pgvidas[0];
+					p[2].vidas=partidaguardada.pgvidas[1];
 					let_me_alone();
 					inicio();
 					return;
@@ -203,8 +203,8 @@ Begin
 			inicio();
 			return;
 		end
-		p1_muere=0;
-		p2_muere=0;
+		p[1].muere=0;
+		p[2].muere=0;
 		ganando=0;
 		players=0;	
 		modo_juego=0;
@@ -225,8 +225,8 @@ Begin
 	size_y=100;
 	delete_text(all_text);
 	frame;
-	p1_muere=0;
-	p2_muere=0;
+	p[1].muere=0;
+	p[2].muere=0;
 //	players=1;
 	ganando=0;
 	modo_juego=1;
@@ -565,8 +565,8 @@ Begin
 	ganando=0;
 	if(ops.p1_personaje!=0 and ops.p2_personaje==0) players=1; end
 	if(ops.p1_personaje!=0 and ops.p2_personaje!=0) players=3; end
-	if(ops.p2_control==3 and players==3) cheto_ayudante=1; players=1; end
-	if(ops.p2_control!=3) cheto_ayudante=0; end
+	if(p[2].control==3 and players==3) cheto_ayudante=1; players=1; end
+	if(p[2].control!=3) cheto_ayudante=0; end
 	If(modo_juego==1 OR modo_juego==3) timer[8]=0; musica(0); End
 	If(modo_juego!=3) inicio(); Else let_me_alone(); modo_safari(); end
 End
@@ -810,10 +810,10 @@ End
 
 Process int3_cuadro15(); //jugador1
 Begin
-	if(ops.p1_control>2) ops.p1_control=0; end
-	if(ops.p1_control==0) graph=450; end
-	if(ops.p1_control==1) graph=451; end
-	if(ops.p1_control==2) graph=452; end
+	if(p[1].control>2) p[1].control=0; end
+	if(p[1].control==0) graph=450; end
+	if(p[1].control==1) graph=451; end
+	if(p[1].control==2) graph=452; end
 	x=200;
 	y=400;
 	if(ops.op_sombras) from size_x=0 to 130 step 5; frame; end else size_x=130; end
@@ -826,13 +826,13 @@ Begin
 		end
 		if(collision(type ratonera) and (mouse.left or key(_enter))) 
 			while(mouse.left or key(_enter)) frame; end 
-			ops.p1_control++;
-//			if(ops.p1_control==ops.p2_control) ops.p1_control++; end
-//			if(ops.p1_control>2) ops.p1_control=0; if(ops.p1_control==ops.p2_control) ops.p1_control++; end end
-			if(ops.p1_control>2) ops.p1_control=0; end
-			if(ops.p1_control==0) graph=450; end
-			if(ops.p1_control==1) graph=451; end
-			if(ops.p1_control==2) graph=452; end
+			p[1].control++;
+//			if(p[1].control==p[2].control) p[1].control++; end
+//			if(p[1].control>2) p[1].control=0; if(p[1].control==p[2].control) p[1].control++; end end
+			if(p[1].control>2) p[1].control=0; end
+			if(p[1].control==0) graph=450; end
+			if(p[1].control==1) graph=451; end
+			if(p[1].control==2) graph=452; end
 		end
 		frame;	
 	end
@@ -843,12 +843,12 @@ End
 
 Process int3_cuadro16(); //jugador2
 Begin
-	if(ops.p2_control==ops.p1_control) ops.p2_control++; end
-	if(ops.p2_control>3) ops.p2_control=0; end
-	if(ops.p2_control==0) graph=450; end
-	if(ops.p2_control==1) graph=451; end
-	if(ops.p2_control==2) graph=452; end
-	if(ops.p2_control==3) graph=453; end
+	if(p[2].control==p[1].control) p[2].control++; end
+	if(p[2].control>3) p[2].control=0; end
+	if(p[2].control==0) graph=450; end
+	if(p[2].control==1) graph=451; end
+	if(p[2].control==2) graph=452; end
+	if(p[2].control==3) graph=453; end
 	x=600;
 	y=400;
 	if(ops.op_sombras) from size_x=0 to 130 step 5; frame; end else size_x=130; end
@@ -862,21 +862,21 @@ Begin
 			end
 			if(collision(type ratonera) and (mouse.left or key(_enter))) 
 				while(mouse.left or key(_enter)) frame; end 
-				ops.p2_control++;
-//				if(ops.p2_control==ops.p1_control) ops.p2_control++; end
-//				if(ops.p2_control>3) ops.p2_control=0; if(ops.p2_control==ops.p1_control) ops.p2_control++; end end
-				if(ops.p2_control>3) ops.p2_control=0; end
-				if(ops.p2_control==0) players=3; graph=450; end
-				if(ops.p2_control==1) players=3; graph=451; end
-				if(ops.p2_control==2) players=3; graph=452; end
-				if(ops.p2_control==3) players=3; graph=453; end
+				p[2].control++;
+//				if(p[2].control==p[1].control) p[2].control++; end
+//				if(p[2].control>3) p[2].control=0; if(p[2].control==p[1].control) p[2].control++; end end
+				if(p[2].control>3) p[2].control=0; end
+				if(p[2].control==0) players=3; graph=450; end
+				if(p[2].control==1) players=3; graph=451; end
+				if(p[2].control==2) players=3; graph=452; end
+				if(p[2].control==3) players=3; graph=453; end
 			end
 			if(ancho==1)
 				ancho=0;
-				if(ops.p2_control==0) players=3; graph=450; end
-				if(ops.p2_control==1) players=3; graph=451; end
-				if(ops.p2_control==2) players=3; graph=452; end
-				if(ops.p2_control==3) players=3; graph=453; end
+				if(p[2].control==0) players=3; graph=450; end
+				if(p[2].control==1) players=3; graph=451; end
+				if(p[2].control==2) players=3; graph=452; end
+				if(p[2].control==3) players=3; graph=453; end
 			end
 		else
 			ancho=1;
@@ -1052,13 +1052,13 @@ Begin
 	players=1;
 	ops.p1_personaje=1;
 	ready=0;
-	p1_muere=0;
-	p1_arma=1;
+	p[1].muere=0;
+	p[1].arma=1;
 	ganando=0;
 	dinamita=0;
 	bola_estrella=0;
 	relojarena=0;
-	p1_proteccion=0;
+	p[1].proteccion=0;
 	prisa=0;
 	raton=0;
 	matabolas=0;
@@ -1066,12 +1066,12 @@ Begin
 	timer[9]=0;
 	faderaro(0);
 	While(timer[9]<150) Frame; End
-	p1_disparos[1]=0; p1_disparos[2]=0; // reinicia p1_disparos
+	p[1].disparos[1]=0; p[1].disparos[2]=0; // reinicia p[1].disparos
 	bolas=0; // indica q no hay bolas en pantalla
 	cheto_diox=1;
 	file_muneco1=load_fpg(".\fpg\chars1.fpg");
 	file_muneco2=load_fpg(".\fpg\chars1.fpg");
-	id_p1=muneco1();
+	p[1].id=muneco1();
 	anim_global();
 //	marcadores();
 	timer[9]=0;
@@ -1107,16 +1107,16 @@ Begin
 	write(fnt3,30,130,0,textos[75]);
 	write(fnt3,30,160,0,textos[76]);
 	while(!key(_enter)) frame; end
-	signal(id_p1,s_kill);
+	signal(p[1].id,s_kill);
 	delete_text(all_text);
 	while(key(_enter)) frame; end
 	write(fnt3,30,30,0,textos[77]);
 	write(fnt3,30,70,0,textos[78]);
 	write(fnt3,30,100,0,textos[76]);
-	p2_arma=1;
-	id_p2=muneco2();
+	p[2].arma=1;
+	p[2].id=muneco2();
 	while(!key(_enter)) frame; end
-	signal(id_p2,s_kill);
+	signal(p[2].id,s_kill);
 	delete_text(all_text);
 	while(key(_enter)) frame; end
 	write(fnt3,30,30,0,textos[79]);
@@ -1124,7 +1124,7 @@ Begin
 	write(fnt3,30,100,0,textos[81]);
 	write(fnt3,30,130,0,textos[82]);
 	write(fnt3,30,160,0,textos[71]);
-	id_p1=muneco1();
+	p[1].id=muneco1();
 	while(!key(_enter)) frame; end
 	delete_text(all_text);
 	while(key(_enter)) frame; end
@@ -1134,16 +1134,16 @@ Begin
 	bola(rand(30,770),200,1,0);
 	itemreloj(3);
 	while(bolas!=0) 
-		if(p1_muere==3) 
+		if(p[1].muere==3) 
 			delete_text(all_text); 
 			musica(8);
 			write(fnt3,30,30,0,textos[86]);
 			frame(30000);
 			write(fnt3,30,70,0,textos[87]);
 			write(fnt3,30,100,0,textos[85]);
-			p1_muere=0;
+			p[1].muere=0;
 			musica(10);
-			id_p1=muneco1(); 	
+			p[1].id=muneco1(); 	
 			ready=1;
 			itemreloj(3);
 		end
@@ -1161,31 +1161,31 @@ Begin
 	ganando=0;
 	armap1();
 	while(bolas!=0) 
-		if(p1_muere==3) 
+		if(p[1].muere==3) 
 			delete_text(all_text); 
 			write(fnt3,30,70,0,textos[91]);
 			frame(10000);
-			switch(p1_arma)
+			switch(p[1].arma)
 				case 4:
 					delete_text(all_text); 
 					write(fnt3,30,100,0,textos[92]);
 					frame(10000);
 					matabolas=1;
-					p1_arma=4;					
+					p[1].arma=4;					
 				end
 				case 2:
 					write(fnt3,30,100,0,textos[93]);
 					frame(10000);
-					p1_arma=4;					
+					p[1].arma=4;					
 				end
 				case 1:
 					write(fnt3,30,100,0,textos[94]);
 					frame(10000);
-					p1_arma=2;
+					p[1].arma=2;
 				end
 			end
-			p1_muere=0;
-			if(matabolas==0) write(fnt3,30,130,0,textos[90]); end			id_p1=muneco1(); 	
+			p[1].muere=0;
+			if(matabolas==0) write(fnt3,30,130,0,textos[90]); end			p[1].id=muneco1(); 	
 			ready=1;
 			itemreloj(5);
 		end
@@ -1199,7 +1199,7 @@ Begin
 	ready=0;
 	delete_text(all_text);
 	frame;
-	p1_arma=2;
+	p[1].arma=2;
 	write(fnt3,30,70,0,textos[96]);
 	write(fnt3,30,100,0,textos[97]);
 	write(fnt3,30,130,0,textos[71]);
@@ -1292,7 +1292,7 @@ Begin
 	items(520,350,9);
 	frame(20000);
 	delete_text(all_text);
-	p1_muere=0;
+	p[1].muere=0;
 	ganando=0;	
 	ready=1;
 	write(fnt3,30,70,0,textos[111]);
@@ -1306,13 +1306,13 @@ Begin
 	while(!key(_enter)) frame; end
 	delete_text(all_text);
 	write(fnt3,30,70,0,textos[114]);
-	p1_arma=0;
+	p[1].arma=0;
 	ready=1;
 	bola(200,200,5,0);
 	bola(600,200,16,1);
 	cheto_diox=1; 
 	while(bolas>0) 
-		if(p1_estrella==0) estrella(); end
+		if(p[1].estrella==0) estrella(); end
 		frame; 
 	end
 	ready=0;
@@ -1326,7 +1326,7 @@ Begin
 	write(fnt3,30,220,0,textos[71]);
 	while(!key(_enter)) frame; end
 	primerapartida=0;
-	p1_estrella=0;
+	p[1].estrella=0;
 	p2_estrella=0;
 	cheto_diox=0;
 	cheto_salto=0;

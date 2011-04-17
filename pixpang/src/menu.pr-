@@ -12,7 +12,6 @@ private
 	keytime;
 	tec2;
 	continuable;
-	i;
 begin
 	i=0;
 	while(i<400)
@@ -24,14 +23,14 @@ begin
 	End
 //	delete_text(all_text);
 //	clear_screen();
-	p1_vidas=10;
-	p1_bolas=0;
-	p1_bonus=0;
-	p1_puntos=0;
-	p2_vidas=10;
-	p2_bolas=0;
-	p2_bonus=0;
-	p2_puntos=0;
+	p[1].vidas=10;
+	p[1].bolas=0;
+	p[1].bonus=0;
+	p[1].puntos=0;
+	p[2].vidas=10;
+	p[2].bolas=0;
+	p[2].bonus=0;
+	p[2].puntos=0;
 	matabolas=0;
 	mundo=0;
 	reloj=0;
@@ -40,10 +39,7 @@ begin
 //	let_me_alone();
 //	frame;
 	frame;
-	controlador_player1();
-	if(njoys>0)
-		controlador_player2();
-	end
+	controlador(0);
 	ready=1;
 	if(!is_playing_song()) musica(5); end
 	elecc=0;
@@ -72,7 +68,7 @@ begin
 		end
 		//elige algo
 		if(key(_c)) chetos(); return; end
-		if((botones.p1[4] or botones.p2[4]) and keytime==0)
+		if(p[0].botones[4] and keytime==0)
 			if(ops.op_sonido==1)
 				suena(3);
 			end
@@ -115,7 +111,7 @@ begin
 				exit(0);
 			end
 		end
-		if((botones.p1[3] or botones.p2[3]))
+		if(p[0].botones[3])
 			if(tec==0)
 				elecc++;
 				if(elecc==1 and !continuable)
@@ -129,7 +125,7 @@ begin
 		else
 			tec=0;
 		end
-		if((botones.p1[2] or botones.p2[2]))
+		if(p[0].botones[2])
 			if(tec2==0)
 				elecc--;
 				if(elecc==1 and !continuable)
@@ -153,14 +149,10 @@ private
 	tec2;
 	tecenter;
 	idlogo;
-	i;
 begin
 	file=fpg_menu;
 	elecc=0;
-	controlador_player1();
-	if(njoys>0)
-		controlador_player2();
-	end
+	controlador(0);
 	back(1);
 	idlogo=logo(302);
 	lista(33);
@@ -168,7 +160,7 @@ begin
 	from i=0 to 20; elep(); end
 	tecenter=1;
 	loop
-		if((botones.p1[4] or botones.p2[4]))
+		if(p[0].botones[4])
 			if(tecenter==0)
 				if(elecc==0)
 					players=1;
@@ -185,7 +177,7 @@ begin
 			tecenter=0;
 		end //enter
 	
-		if((botones.p1[3] or botones.p2[3]))
+		if(p[0].botones[3])
 			if(tec==0)
 				if(ops.op_sonido==1)
 					suena(2);
@@ -196,7 +188,7 @@ begin
 		else
 			tec=0;
 		end
-		if((botones.p1[2] or botones.p2[2]))
+		if(p[0].botones[2])
 			if(tec2==0)
 				if(ops.op_sonido==1)
 					suena(2);
@@ -229,14 +221,10 @@ private
 	tec2;
 	tecenter;
 	idlogo;
-	i;
 begin
 	file=fpg_menu;
 	elecc=0;
-	controlador_player1();
-	if(njoys>0)
-		controlador_player2();
-	end
+	controlador(0);
 	back(1);
 	idlogo=logo(302);
 	lista(33);
@@ -244,7 +232,7 @@ begin
 	from i=0 to 20; elep(); end
 	tecenter=1;
 	loop
-		if((botones.p1[4] or botones.p2[4]))
+		if(p[0].botones[4])
 			if(tecenter==0)
 				if(elecc==0)
 					players=1;
@@ -261,7 +249,7 @@ begin
 			tecenter=0;
 		end //enter
 	
-		if((botones.p1[3] or botones.p2[3]))
+		if(p[0].botones[3])
 			if(tec==0)
 				if(ops.op_sonido==1)
 					suena(2);
@@ -272,7 +260,7 @@ begin
 		else
 			tec=0;
 		end
-		if((botones.p1[2] or botones.p2[2]))
+		if(p[0].botones[2])
 			if(tec2==0)
 				if(ops.op_sonido==1)
 					suena(2);
@@ -305,14 +293,10 @@ private
 	tec2;
 	tecenter;
 	idlogo;
-	i;
 begin
 	file=fpg_menu;
 	elecc=0;
-	controlador_player1();
-	if(njoys>0)
-		controlador_player2();
-	end
+	controlador(0);
 	back(1);
 	idlogo=logo(109);
 	lista(34);
@@ -320,7 +304,7 @@ begin
 	from i=0 to 20; elep(); end
 	tecenter=1;
 	loop
-		if((botones.p1[4] or botones.p2[4]))
+		if(p[0].botones[4])
 			if(tecenter==0)
 				if(elecc==0)
 					modo_juego=1;
@@ -340,7 +324,7 @@ begin
 			tecenter=0;
 		end //enter
 	
-		if((botones.p1[3] or botones.p2[3]))
+		if(p[0].botones[3])
 			if(tec==0)
 				if(ops.op_sonido==1)
 					suena(2);
@@ -351,7 +335,7 @@ begin
 		else
 			tec=0;
 		end
-		if((botones.p1[2] or botones.p2[2]))
+		if(p[0].botones[2])
 			if(tec2==0)
 				if(ops.op_sonido==1)
 					suena(2);
@@ -469,13 +453,10 @@ begin
 	y=300;
 	z=50;
 	keytime=10;
-	controlador_player1();	
-	if(njoys>0)
-		controlador_player2();
-	end
-	while((botones.p1[4] or botones.p2[4])) frame; end
+	controlador(0);	
+	while(p[0].botones[4]) frame; end
 	loop
-		if((botones.p1[5] or botones.p2[5]) or (graph==200 and (botones.p1[4] or botones.p2[4])))
+		if(p[0].botones[5] or (graph==200 and p[0].botones[4]))
 			suena(1);
 			let_me_alone();
 			menu();
@@ -493,7 +474,7 @@ begin
 				save(savegamedir+"opciones.dat",ops);
 				exit(0);
 			end
-			if((botones.p1[4] or botones.p2[4]) and keytime==0)
+			if(p[0].botones[4] and keytime==0)
 				graph++;
 				if(graph==22)
 					suena(1);
@@ -523,14 +504,10 @@ private
 	tec;
 	tec2;
 	tecenter;
-	i;
 begin
 	file=fpg_menu;
 	elecc=0;
-	controlador_player1();
-	if(njoys>0)
-		controlador_player2();
-	end
+	controlador(0);
 	back(1);
 	lista(30);
 	logo(105);
@@ -552,7 +529,7 @@ begin
 				ponimgn(240,360,100,253,fpg_menu);
 			end
 		end
-		if((botones.p1[4] or botones.p2[4]))
+		if(p[0].botones[4])
 			if(tecenter==0)
 				if(elecc==0)
 					if(full_screen==0)
@@ -594,7 +571,7 @@ begin
 			tecenter=0;
 		end //enter
 	
-		if((botones.p1[3] or botones.p2[3]))
+		if(p[0].botones[3])
 			if(tec==0)
 				if(ops.op_sonido==1)
 					suena(2);
@@ -605,7 +582,7 @@ begin
 		else
 			tec=0;
 		end
-		if((botones.p1[2] or botones.p2[2]))
+		if(p[0].botones[2])
 			if(tec2==0)
 				if(ops.op_sonido==1)
 					suena(2);
@@ -631,21 +608,17 @@ private
 	tec;
 	tec2;
 	tecenter;
-	i;
 begin
 	ready=1;
 	file=fpg_menu;
 	elecc=0;
-	controlador_player1();
-	if(njoys>0)
-		controlador_player2();
-	end
+	controlador(0);
 	lista(35);
 	machango();
 	from i=0 to 20; elep(); end
 	tecenter=1;
 	loop
-		if((botones.p1[4] or botones.p2[4]))
+		if(p[0].botones[4])
 			if(tecenter==0)
 				if(elecc==0)
 					ops.op_lang=0;
@@ -662,7 +635,7 @@ begin
 			tecenter=0;
 		end //enter
 	
-		if((botones.p1[3] or botones.p2[3]))
+		if(p[0].botones[3])
 			if(tec==0)
 				if(ops.op_sonido==1)
 					suena(2);
@@ -673,7 +646,7 @@ begin
 		else
 			tec=0;
 		end
-		if((botones.p1[2] or botones.p2[2]))
+		if(p[0].botones[2])
 			if(tec2==0)
 				if(ops.op_sonido==1)
 					suena(2);
@@ -700,15 +673,11 @@ private
 	keytime;
 	tec2;
 	continuable;
-	i;
 begin
 	file=fpg_menu;
 	delete_text(all_text);
 	let_me_alone();
-	controlador_player1();
-	if(njoys>0)
-		controlador_player2();
-	end
+	controlador(0);
 	ready=1;
 	stop_song();
 	elecc=0;
@@ -739,7 +708,7 @@ begin
 			keytime--;
 		end
 		//elige algo
-		if((botones.p1[4] or botones.p2[4]) and keytime==0)
+		if(p[0].botones[4] and keytime==0)
 			keytime=10;
 			if(ops.op_sonido==1)
 				suena(3);
@@ -767,7 +736,7 @@ begin
 				return;
 			end
 		end
-		if((botones.p1[3] or botones.p2[3]))
+		if(p[0].botones[3])
 			if(tec==0)
 				elecc++;
 				if(ops.op_sonido==1)
@@ -778,7 +747,7 @@ begin
 		else
 			tec=0;
 		end
-		if((botones.p1[2] or botones.p2[2]))
+		if(p[0].botones[2])
 			if(tec2==0)
 				elecc--;
 				if(ops.op_sonido==1)

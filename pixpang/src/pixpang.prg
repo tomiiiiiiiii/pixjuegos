@@ -4,8 +4,6 @@ Global
 	cancionsonando;
 
 	max_grav=-250;
-	njoys;
-	posibles_jugadores;
 	turbo;
 	salto;
 	fondotemporal;
@@ -16,8 +14,6 @@ Global
 		int op_music=1;
 		int op_sombras=1;
 		int op_sonido=1;
-		int p1_control; 
-		int p2_control; 
 		int ventana=0;
 		int dificultad=1; //la normal
 	End
@@ -28,34 +24,26 @@ Global
 		Int br[200];
 		Int btime;
 	End
-	Struct botones;
-		int p1[5];
-		Int p2[5];
-	End
-	String nombrep1;
-	String nombrep2;
-	int id_p1;
-	int p1_vidas=10;
-	int p1_arma;
-	int p1_bolas; //ganando
-	int p1_bonus; //ganando
-	int p1_puntos; //ganando
-	int p1_proteccion;
-	int p1_estrella;
-	int p1_disparos[2];
-	int p1_muere;
-	int p1_invocacion;
-	int id_p2;
-	int p2_vidas=10;
-	int p2_arma;
-	int p2_bolas; //ganando
-	int p2_bonus;
-	int p2_puntos;
-	int p2_proteccion;
-	int p2_disparos[2];
-	int p2_estrella;
-	int p2_muere;
-	int p2_invocacion;
+	
+	njoys;
+	posibles_jugadores;
+	debuj;
+	struct p[5];
+		botones[6];
+		vidas=10;
+		arma;
+		bolas;
+		bonus;
+		puntos;
+		proteccion;
+		estrella;
+		disparos[2];
+		muere;
+		control;
+		id;
+	end
+	joysticks[10];
+	
 	int players;
 	int ganando;
 	int animglobal;
@@ -134,6 +122,8 @@ Global
 	string developerpath="/.PiXJuegos/PiXPang/";
 
 Local
+	int i;
+	int j;
 	int ancho;
 	int alto;
 Private
@@ -186,26 +176,7 @@ Begin
 	fnt3=load_fnt("./fnt/textos2.fnt");
 
 // joysticks
-	njoys=number_joy();
-	posibles_jugadores=njoys+1;
-	
-	if(posibles_jugadores>3) posibles_jugadores=3; end //2 joysticks
-	switch(posibles_jugadores)
-		case 1:
-			ops.p1_control=0;
-			ops.p2_control=-1;
-		end
-		case 2:
-			ops.p1_control=1;
-			ops.p2_control=0;
-		end
-		case 3:
-			ops.p1_control=1;
-			ops.p2_control=2;
-		end
-	end
-	
-	if(os_id==9) ops.p1_control=9; posibles_jugadores=1; end
+	configurar_controles();
 //
 
 // caca
@@ -229,7 +200,6 @@ Private
 	subiendo;
 	parpadeas=120;
 	pulsando_control;
-	controller;
 	cont_1;
 	y_statico;
 	l;
@@ -237,9 +207,8 @@ Private
 	inercia;
 	saltando;
 Begin
-	If(p1_vidas<0) Return; End
-	botones.p1[0]=0; botones.p1[1]=0; botones.p1[2]=0; botones.p1[3]=0; botones.p1[4]=0;
-	controller=controlador_player1();
+	If(p[1].vidas<0) Return; End
+	controlador(1);
 	file=file_muneco1;
 	x=370;
 	graph=501;
@@ -251,8 +220,8 @@ Begin
 	Loop
 		ancho=graphic_info(file,graph,g_wide);
 		alto=graphic_info(file,graph,g_height);
-		If(cheto_borracho==1) If(rand(0,2338)==1) p1_muere=1; End End
-		While(ready==0 AND ganando==0 AND p1_muere==0)
+		If(cheto_borracho==1) If(rand(0,2338)==1) p[1].muere=1; End End
+		While(ready==0 AND ganando==0 AND p[1].muere==0)
 			graph=501;
 			Frame;
 			End
@@ -296,10 +265,10 @@ Begin
 		End
 		If(y>y_statico)	if(saltando==1)	saltando=0; end y=y_statico; grav=0; End
 		if(saltando==1) angle+=15000; else angle=0; end
-		if(botones.p1[5]==1 and saltando==0 and (cheto_salto==1 or salto==1)) saltando=1; grav=-20; end
+		if(p[1].botones[5]==1 and saltando==0 and (cheto_salto==1 or salto==1)) saltando=1; grav=-20; end
 		If(escaleras=collision(Type escaleras))
 			If(escaleras.graph!=429) subiendo=0; End
-			If(escaleras.graph==429 AND botones.p1[2]==1 AND botones.p1[0]==0 AND botones.p1[1]==0)
+			If(escaleras.graph==429 AND p[1].botones[2]==1 AND p[1].botones[0]==0 AND p[1].botones[1]==0)
 				x=escaleras.x;
 				subiendo=1; y-=4;
 				If(anim<11)
@@ -315,7 +284,7 @@ Begin
 					graph=510;
 				End
 			End
-			If(escaleras.graph==429 AND botones.p1[3]==1 AND botones.p1[0]==0 AND botones.p1[1]==0)
+			If(escaleras.graph==429 AND p[1].botones[3]==1 AND p[1].botones[0]==0 AND p[1].botones[1]==0)
 				x=escaleras.x;
 				subiendo=1; y+=4;
 				If(anim<11)
@@ -332,12 +301,12 @@ Begin
 				End
 			End
 		Else
-//			If(botones.p1[2]==1 OR botones.p1[3]==1)
+//			If(p[1].botones[2]==1 OR p[1].botones[3]==1)
 //				graph=501;
 //			End
 		End
-//		If(botones.p1[1]==1 AND (botones.p1[2]==0 AND botones.p1[3]==0))
-		If(botones.p1[1]==1)
+//		If(p[1].botones[1]==1 AND (p[1].botones[2]==0 AND p[1].botones[3]==0))
+		If(p[1].botones[1]==1)
 			If(graph==501 OR graph==506 OR graph>510)
 				graph=502;
 				End
@@ -363,8 +332,8 @@ Begin
 				End
 			flags=0;  
 			End
-//		If(botones.p1[0]==1 AND (botones.p1[2]==0 AND botones.p1[3]==0))
-		If(botones.p1[0]==1)
+//		If(p[1].botones[0]==1 AND (p[1].botones[2]==0 AND p[1].botones[3]==0))
+		If(p[1].botones[0]==1)
 			If(graph==501 OR graph==506 OR graph>510)
 				graph=502;
 				End
@@ -390,8 +359,8 @@ Begin
 			End
 			flags=1; 
 		End
-		If(botones.p1[4]==0) pulsando_control=0; End
-		If(pulsando_control==0 AND botones.p1[4]==1 AND ((p1_arma==1 AND !exists(type dispcab)) OR (p1_arma==2 AND (!exists(type dispcab) OR !exists(type dispcab2))) OR (p1_arma==3 AND !exists(type dispcab)) OR (p1_arma==4 AND (!exists(type dispcab) OR !exists(type dispcab2)))))
+		If(p[1].botones[4]==0) pulsando_control=0; End
+		If(pulsando_control==0 AND p[1].botones[4]==1 AND ((p[1].arma==1 AND !exists(type dispcab)) OR (p[1].arma==2 AND (!exists(type dispcab) OR !exists(type dispcab2))) OR (p[1].arma==3 AND !exists(type dispcab)) OR (p[1].arma==4 AND (!exists(type dispcab) OR !exists(type dispcab2)))))
 			graph=506;
 			angle=0;
 			If(parpadeas<120) flags+=4; End Frame; If(parpadeas<120) parpadeas++; flags-=4; End 
@@ -400,23 +369,23 @@ Begin
 			If(cheto_borracho==1) Frame(rand(100,1000)); End
 			pulsando_control=1; 
 
-			If(flags==1) If(exists(type dispcab)) If(!exists(type dispcab2)) p1_disparos[2]=dispcab2(p1_arma,x-3,y,2); End End If(!exists(type dispcab)) p1_disparos[1]=dispcab(p1_arma,x-3,y,1); End End 
-			If(flags==0) If(exists(type dispcab)) If(!exists(type dispcab2)) p1_disparos[2]=dispcab2(p1_arma,x+5,y,2); End End If(!exists(type dispcab)) p1_disparos[1]=dispcab(p1_arma,x+5,y,1); End End
+			If(flags==1) If(exists(type dispcab)) If(!exists(type dispcab2)) p[1].disparos[2]=dispcab2(p[1].arma,x-3,y,2); End End If(!exists(type dispcab)) p[1].disparos[1]=dispcab(p[1].arma,x-3,y,1); End End 
+			If(flags==0) If(exists(type dispcab)) If(!exists(type dispcab2)) p[1].disparos[2]=dispcab2(p[1].arma,x+5,y,2); End End If(!exists(type dispcab)) p[1].disparos[1]=dispcab(p[1].arma,x+5,y,1); End End
 		End
 		If(!collision(type col_hielo) and inercia!=0) inercia=0; end
-		If(botones.p1[0]==0 AND botones.p1[1]==0 AND botones.p1[2]==0 AND botones.p1[3]==0) 
+		If(p[1].botones[0]==0 AND p[1].botones[1]==0 AND p[1].botones[2]==0 AND p[1].botones[3]==0) 
 			graph=501;
 			if(inercia>4 or inercia<-4) x+=inercia/3; end
 			If(subiendo==1) graph=511; Else anim=0; End
 		End
-		If(botones.p1[1]==1 AND botones.p1[0]==1)
+		If(p[1].botones[1]==1 AND p[1].botones[0]==1)
 			graph=501; 
 			if(inercia>4 or inercia<-4) x+=inercia/3; end
 			If(subiendo==1) graph=511; Else anim=0; End
 		End
-		If(p1_muere==1)
-			If(p1_proteccion==1) 
-				p1_proteccion=0;
+		If(p[1].muere==1)
+			If(p[1].proteccion==1) 
+				p[1].proteccion=0;
 //				suena(12);
 					l=(x*255)/800;
 					snd_muere=play_wav(s[12],0); 
@@ -447,12 +416,12 @@ Begin
 					ready=1;
 					grav=0;
 					itemreloj(3);
-					p1_muere=0;
+					p[1].muere=0;
 				Else
 					Break;
 				End
 				Else
-					p1_muere=0;
+					p[1].muere=0;
 				End
 			End
 		End
@@ -483,10 +452,9 @@ Begin
 		Frame;
 	End
 	suena(5);
-	p1_vidas--;
-	p1_muere=3;
-	If(players==3 AND p2_muere==0) ready=1; itemreloj(3); End
-	signal(controller,s_kill_tree);
+	p[1].vidas--;
+	p[1].muere=3;
+	If(players==3 AND p[2].muere==0) ready=1; itemreloj(3); End
 End
 
 Process muneco2();
@@ -501,7 +469,6 @@ Private
 	subiendo;
 	parpadeas=120;
 	pulsando_control;
-	controller;
 	cont_1;
 	y_statico;
 	saltando;
@@ -509,9 +476,8 @@ Private
 	snd_muere;
 	inercia;
 Begin
-	If(p2_vidas<0) Return; End
-	botones.p2[0]=0; botones.p2[1]=0; botones.p2[2]=0; botones.p2[3]=0; botones.p2[4]=0;
-	controller=controlador_player2();
+	If(p[2].vidas<0) Return; End
+	controlador(2);
 	file=file_muneco2;
 	graph=551;
 	x=430;
@@ -520,7 +486,7 @@ Begin
 	y=y_statico;
 	z=1;
 	Loop
-		While(ready==0 AND ganando==0 AND p2_muere==0)
+		While(ready==0 AND ganando==0 AND p[2].muere==0)
 			graph=551;
 			Frame;
 			End
@@ -564,10 +530,10 @@ Begin
 		End
 		If(y>y_statico)	if(saltando==1)	saltando=0; end y=y_statico; grav=0; End
 		if(saltando==1) angle+=15000; else angle=0; end
-		if(botones.p2[5]==1 and saltando==0 and (cheto_salto==1 or salto==1)) saltando=1; grav=-20; end
+		if(p[2].botones[5]==1 and saltando==0 and (cheto_salto==1 or salto==1)) saltando=1; grav=-20; end
 		If(escaleras=collision(Type escaleras))
 			If(escaleras.graph!=429) subiendo=0; End
-			If(escaleras.graph==429 AND botones.p2[2]==1 AND botones.p2[0]==0 AND botones.p2[1]==0)
+			If(escaleras.graph==429 AND p[2].botones[2]==1 AND p[2].botones[0]==0 AND p[2].botones[1]==0)
 				x=escaleras.x;
 				subiendo=1; y-=4;
 				If(anim<11)
@@ -583,7 +549,7 @@ Begin
 					graph=560;
 				End
 			End
-			If(escaleras.graph==429 AND botones.p2[3]==1 AND botones.p2[0]==0 AND botones.p2[1]==0)
+			If(escaleras.graph==429 AND p[2].botones[3]==1 AND p[2].botones[0]==0 AND p[2].botones[1]==0)
 				x=escaleras.x;
 				subiendo=1; y+=4; 
 				If(anim<11)
@@ -600,12 +566,12 @@ Begin
 				End
 			End
 		Else
-//			If(botones.p2[2]==1 OR botones.p2[3]==1)
+//			If(p[2].botones[2]==1 OR p[2].botones[3]==1)
 //				graph=551;
 //			End
 		End
-//		If(botones.p2[1]==1 AND (botones.p2[2]==0 AND botones.p2[3]==0))
-		If(botones.p2[1]==1)
+//		If(p[2].botones[1]==1 AND (p[2].botones[2]==0 AND p[2].botones[3]==0))
+		If(p[2].botones[1]==1)
 			If(graph==551 OR graph==556 OR graph>560)
 				graph=552;
 				End
@@ -631,7 +597,7 @@ Begin
 				End
 			flags=0;  
 			End
-		If(botones.p2[0]==1 AND (botones.p2[2]==0 AND botones.p2[3]==0))
+		If(p[2].botones[0]==1 AND (p[2].botones[2]==0 AND p[2].botones[3]==0))
 			If(graph==551 OR graph==556 OR graph>560)
 				graph=552;
 				End
@@ -657,8 +623,8 @@ Begin
 				End
 			flags=1; 
 			End
-		If(botones.p2[4]==0) pulsando_control=0; End
-		If(pulsando_control==0 AND botones.p2[4]==1 AND ((p2_arma==1 AND !exists(type dispcab3)) OR (p2_arma==2 AND (!exists(type dispcab3) OR !exists(type dispcab4))) OR (p2_arma==3 AND !exists(type dispcab3)) OR (p2_arma==4 AND (!exists(type dispcab3) OR !exists(type dispcab4)))))
+		If(p[2].botones[4]==0) pulsando_control=0; End
+		If(pulsando_control==0 AND p[2].botones[4]==1 AND ((p[2].arma==1 AND !exists(type dispcab3)) OR (p[2].arma==2 AND (!exists(type dispcab3) OR !exists(type dispcab4))) OR (p[2].arma==3 AND !exists(type dispcab3)) OR (p[2].arma==4 AND (!exists(type dispcab3) OR !exists(type dispcab4)))))
 			graph=556;
 			angle=0;
 			If(parpadeas<120) flags+=4; End Frame; If(parpadeas<120) parpadeas++; flags-=4; End 
@@ -666,25 +632,25 @@ Begin
 			If(parpadeas<120) flags+=4; End Frame; If(parpadeas<120) parpadeas++; flags-=4; End
 			If(cheto_borracho==1) Frame(rand(100,1000)); End
 			pulsando_control=1; 
-			If(flags==1) If(exists(type dispcab3)) If(!exists(type dispcab4)) p2_disparos[2]=dispcab4(p2_arma,x-3,y,2); End End If(!exists(type dispcab3)) p2_disparos[1]=dispcab3(p2_arma,x-3,y,1); End End 
-			If(flags==0) If(exists(type dispcab3)) If(!exists(type dispcab4)) p2_disparos[2]=dispcab4(p2_arma,x+5,y,2); End End If(!exists(type dispcab3)) p2_disparos[1]=dispcab3(p2_arma,x+5,y,1); End End
+			If(flags==1) If(exists(type dispcab3)) If(!exists(type dispcab4)) p[2].disparos[2]=dispcab4(p[2].arma,x-3,y,2); End End If(!exists(type dispcab3)) p[2].disparos[1]=dispcab3(p[2].arma,x-3,y,1); End End 
+			If(flags==0) If(exists(type dispcab3)) If(!exists(type dispcab4)) p[2].disparos[2]=dispcab4(p[2].arma,x+5,y,2); End End If(!exists(type dispcab3)) p[2].disparos[1]=dispcab3(p[2].arma,x+5,y,1); End End
 		End
 		If(!collision(type col_hielo) and inercia!=0) inercia=0; end
-		If(botones.p2[0]==0 AND botones.p2[1]==0 AND botones.p2[2]==0 AND botones.p2[3]==0) 
+		If(p[2].botones[0]==0 AND p[2].botones[1]==0 AND p[2].botones[2]==0 AND p[2].botones[3]==0) 
 			graph=551; 
 			if(inercia>4 or inercia<-4) x+=inercia/3; end
 			If(subiendo==1) graph=551; End
 			anim=0;
 			End
-		If(botones.p2[1]==1 AND botones.p2[0]==1)
+		If(p[2].botones[1]==1 AND p[2].botones[0]==1)
 			graph=551; 
 			if(inercia>4 or inercia<-4) x+=inercia/3; end
 			If(subiendo==1) graph=551; End
 			anim=0;
 			End
-		If(p2_muere==1)
-			If(p2_proteccion==1) 
-				p2_proteccion=0;
+		If(p[2].muere==1)
+			If(p[2].proteccion==1) 
+				p[2].proteccion=0;
 				parpadeas=0;
 //				suena(12);
 					l=(x*255)/800;
@@ -715,12 +681,12 @@ Begin
 					ready=1;
 					grav=0;
 					itemreloj(3);
-					p2_muere=0;
+					p[2].muere=0;
 				Else
 					Break;
 				End	
 				Else
-					p2_muere=0;
+					p[2].muere=0;
 				End
 			End
 		End
@@ -751,10 +717,9 @@ Begin
 		Frame;
 	End
 	suena(5);
-	p2_vidas--;
-	p2_muere=3;
-	If(players==3 AND p1_muere==0) ready=1; itemreloj(3); End
-	signal(controller,s_kill_tree); raton=0;
+	p[2].vidas--;
+	p[2].muere=3;
+	If(players==3 AND p[1].muere==0) ready=1; itemreloj(3); End
 End
 
 Process dispcab(arma,x,y,num_disp);
@@ -775,7 +740,7 @@ Begin
 	y=y_keko-graphic_info(father.file,father.graph,g_height);
 	graph=601;
 	define_region(2,1,1,800,y_keko);
-	If(p1_arma==1)
+	If(p[1].arma==1)
 		suena(1);
 		While(!collision (Type grafico))
 			If(ready==1) 
@@ -795,7 +760,7 @@ Begin
 			Frame;
 		End
 	End
-	If(p1_arma==2)
+	If(p[1].arma==2)
 		suena(1);
 		While(!collision (Type grafico) and y>0)
 			If(ready==1) 
@@ -816,7 +781,7 @@ Begin
 			Frame;
 		End
 	End
-	If(p1_arma==3)
+	If(p[1].arma==3)
 		suena(1);
 		While(!collision (Type grafico) AND !collision(Type bloques) and y>0)
 			If(ready==1) y-=5; 
@@ -834,7 +799,7 @@ Begin
 		suena(7);
 		While(cont_ganxo<3*60)
 			if(ready==1)
-				If(botones.p1[4]==0) cont_ganxo++; Else cont_ganxo+=3; End
+				If(p[1].botones[4]==0) cont_ganxo++; Else cont_ganxo+=3; End
 			end
 			graph=609;
 			cachos=(y_keko-y)/5;
@@ -848,7 +813,7 @@ Begin
 			Frame;
 		End
 	End
-	If(p1_arma==4)
+	If(p[1].arma==4)
 		graph=borrar;
 		y+=50;
 		While(y>18)
@@ -861,7 +826,7 @@ Begin
 			Frame;
 		End
 	End
-	p1_disparos[1]=0;
+	p[1].disparos[1]=0;
 End
 
 Process dispcab2(arma,x,y,num_disp);
@@ -879,7 +844,7 @@ Begin
 	y=y_keko-graphic_info(father.file,father.graph,g_height);
 	define_region(3,1,1,800,y_keko);
 	graph=601;       
-	If(p1_arma==2)
+	If(p[1].arma==2)
 		suena(1);
 		While(!collision (Type grafico) and y>0)
 			If(ready==1) 
@@ -900,7 +865,7 @@ Begin
 			Frame;
 		End
 	End
-	If(p1_arma==4)
+	If(p[1].arma==4)
 		graph=borrar;
 		y+=50;
 		While(y>18)
@@ -913,7 +878,7 @@ Begin
 			Frame;
 		End
 	End
-	p1_disparos[2]=0;
+	p[1].disparos[2]=0;
 End
 
 Process cachodisp(x,y,graph);
@@ -948,7 +913,7 @@ Begin
 	y=y_keko-graphic_info(father.file,father.graph,g_height);
 	define_region(4,1,1,800,y_keko);
 	graph=612;
-	If(p2_arma==1)
+	If(p[2].arma==1)
 		suena(1);
 		While(!collision (Type grafico) and y>0)
 			If(ready==1) 
@@ -968,7 +933,7 @@ Begin
 			Frame;
 		End
 	End
-	If(p2_arma==2)
+	If(p[2].arma==2)
 		suena(1);
 		While(!collision (Type grafico) and y>0)
 			If(ready==1) 
@@ -989,7 +954,7 @@ Begin
 			Frame;
 		End
 	End
-	If(p2_arma==3)
+	If(p[2].arma==3)
 		suena(1);
 		While(!collision (Type grafico) AND !collision(Type bloques) and y>0)
 			If(ready==1) y-=5; End
@@ -1005,7 +970,7 @@ Begin
 		suena(7);
 		While(cont_ganxo<3*60)
 			if(ready==1)
-				If(botones.p2[4]==0) cont_ganxo++; Else cont_ganxo+=3; End
+				If(p[2].botones[4]==0) cont_ganxo++; Else cont_ganxo+=3; End
 			end
 			graph=620;
 			If(cont_ganxo<2*60) graphcacho=619; Else graph=622; graphcacho=621; End
@@ -1019,7 +984,7 @@ Begin
 			Frame;
 		End
 	End
-	If(p2_arma==4)
+	If(p[2].arma==4)
 		graph=borrar;
 		y+=50;
 		While(y>18)
@@ -1032,7 +997,7 @@ Begin
 			Frame;
 		End
 	End
-	p2_disparos[1]=0;
+	p[2].disparos[1]=0;
 End
 
 Process dispcab4(arma,x,y,num_disp);
@@ -1050,7 +1015,7 @@ Begin
 	y=y_keko-graphic_info(father.file,father.graph,g_height);
 	define_region(5,1,1,800,y_keko);
 	graph=612;
-	If(p2_arma==2)
+	If(p[2].arma==2)
 		suena(1);
 		While(!collision (Type grafico) and y>0)
 			If(ready==1) 
@@ -1071,7 +1036,7 @@ Begin
 			Frame;
 		End
 	End
-	If(p2_arma==4)
+	If(p[2].arma==4)
 		graph=borrar;
 		y+=50;
 		While(y>18 and y>0)
@@ -1084,7 +1049,7 @@ Begin
 			Frame;
 		End
 	End
-	p2_disparos[2]=0;
+	p[2].disparos[2]=0;
 End
 
 Process cachodisp3(x,y,graph);
@@ -1252,18 +1217,18 @@ Begin
 							if(varibiliosa==0) varibiliosa=1; else varibiliosa=0; end
 						end
 						if(tamano==19)
-							if(exists(id_p1) and exists(id_p2))
-								if(get_dist(id_p1)>get_dist(id_p2))
-									if(id_p1.x<x) lao=1; else lao=0; end
+							if(exists(p[1].id) and exists(p[2].id))
+								if(get_dist(p[1].id)>get_dist(p[2].id))
+									if(p[1].id.x<x) lao=1; else lao=0; end
 								else
-									if(id_p2.x<x) lao=1; else lao=0; end
+									if(p[2].id.x<x) lao=1; else lao=0; end
 								end
 							end
-							if(exists(id_p1) and !exists(id_p2))
-								if(id_p1.x<x) lao=1; else lao=0; end
+							if(exists(p[1].id) and !exists(p[2].id))
+								if(p[1].id.x<x) lao=1; else lao=0; end
 							end
-							if(exists(id_p2) and !exists(id_p1))
-								if(id_p2.x<x) lao=1; else lao=0; end
+							if(exists(p[2].id) and !exists(p[1].id))
+								if(p[2].id.x<x) lao=1; else lao=0; end
 							end
 						end
 					End
@@ -1301,18 +1266,18 @@ Begin
 				if(tamano==17) tamano=18; graph=722; else if(tamano==18) tamano=17; graph=721; end end 
 				grav=grav_org; 
 				if(tamano==19)
-					if(exists(id_p1) and exists(id_p2))
-						if(get_dist(id_p1)>get_dist(id_p2))
-							if(id_p1.x<x) lao=1; else lao=0; end
+					if(exists(p[1].id) and exists(p[2].id))
+						if(get_dist(p[1].id)>get_dist(p[2].id))
+							if(p[1].id.x<x) lao=1; else lao=0; end
 						else
-							if(id_p2.x<x) lao=1; else lao=0; end
+							if(p[2].id.x<x) lao=1; else lao=0; end
 						end
 					end
-					if(exists(id_p1) and !exists(id_p2))
-						if(id_p1.x<x) lao=1; else lao=0; end
+					if(exists(p[1].id) and !exists(p[2].id))
+						if(p[1].id.x<x) lao=1; else lao=0; end
 					end
-					if(exists(id_p2) and !exists(id_p1))
-					if(id_p2.x<x) lao=1; else lao=0; end
+					if(exists(p[2].id) and !exists(p[1].id))
+					if(p[2].id.x<x) lao=1; else lao=0; end
 					end
 				end
 				if(tamano==21)
@@ -1372,19 +1337,19 @@ Begin
 		end
 		if(y<20) grav=-grav_org; end
 		if(grav<max_grav) grav=max_grav; end //está too mal xd
-			if(collision(type dispcab) or collision(type cachodisp)) p1_bonus+=100; p1_puntos+=500; p1_bolas++; if(tamano==17) p1_bolas+=20; end signal(p1_disparos[1],s_kill); break; end
-			if(collision(type dispcab2) or collision(type cachodisp2)) p1_bonus+=100; p1_puntos+=500; p1_bolas++; if(tamano==17) p1_bolas+=20; end signal(p1_disparos[2],s_kill); break; end
-			if(collision(type dispcab3) or collision(type cachodisp3)) p2_bonus+=100; p2_puntos+=500; p2_bolas++; if(tamano==17) p2_bolas+=20; end signal(p2_disparos[1],s_kill); break; end
-			if(collision(type dispcab4) or collision(type cachodisp4)) p2_bonus+=100; p2_puntos+=500; p2_bolas++; if(tamano==17) p2_bolas+=20; end signal(p2_disparos[2],s_kill); break; end
+			if(collision(type dispcab) or collision(type cachodisp)) p[1].bonus+=100; p[1].puntos+=500; p[1].bolas++; if(tamano==17) p[1].bolas+=20; end signal(p[1].disparos[1],s_kill); break; end
+			if(collision(type dispcab2) or collision(type cachodisp2)) p[1].bonus+=100; p[1].puntos+=500; p[1].bolas++; if(tamano==17) p[1].bolas+=20; end signal(p[1].disparos[2],s_kill); break; end
+			if(collision(type dispcab3) or collision(type cachodisp3)) p[2].bonus+=100; p[2].puntos+=500; p[2].bolas++; if(tamano==17) p[2].bolas+=20; end signal(p[2].disparos[1],s_kill); break; end
+			if(collision(type dispcab4) or collision(type cachodisp4)) p[2].bonus+=100; p[2].puntos+=500; p[2].bolas++; if(tamano==17) p[2].bolas+=20; end signal(p[2].disparos[2],s_kill); break; end
 			if(matabolas==1 OR rota==1) break; end
 
 			if(reloj==0)
-				If(p1_estrella==0 and collision(id_p1)) if(matando==10) p1_muere=1; If(p1_proteccion==1) Break; End matando=0; else matando++; end End
-				If(p2_estrella==0 and collision(id_p2)) if(matando==10) p2_muere=1; If(p2_proteccion==1) Break; End matando=0; else matando++; end End
+				If(p[1].estrella==0 and collision(p[1].id)) if(matando==10) p[1].muere=1; If(p[1].proteccion==1) Break; End matando=0; else matando++; end End
+				If(p[2].estrella==0 and collision(p[2].id)) if(matando==10) p[2].muere=1; If(p[2].proteccion==1) Break; End matando=0; else matando++; end End
 			end
-			If((!collision(id_p1)) and (!collision(id_p2))) matando=0; End
-			If((p1_estrella==1) and (collision(id_p1)==1)) p1_bolas++; break; end
-			If((p2_estrella==1) and (collision(id_p2)==1)) p2_bolas++; break; end
+			If((!collision(p[1].id)) and (!collision(p[2].id))) matando=0; End
+			If((p[1].estrella==1) and (collision(p[1].id)==1)) p[1].bolas++; break; end
+			If((p[2].estrella==1) and (collision(p[2].id)==1)) p[2].bolas++; break; end
 			If(collision(Type cocodrilo) OR collision(Type volador)) Break; End
 			If(peq_izq==1 and jefe==0) If(flags==4) flags=0; Else flags=4; End End
 			
@@ -1411,17 +1376,17 @@ Begin
 	If(players==1) vidasp1();
 	    If(modo_juego==2) armap1(); grafico(234,560,402,-1,0,0); End
 	    If(modo_juego!=3) grafico(666,560,404,-1,1,fpg_lang); End 
-		write_int(fnt1,190,540,5,&p1_puntos); 
+		write_int(fnt1,190,540,5,&p[1].puntos); 
 	end
 	If(players==2) vidasp2();
 	    If(modo_juego==2) armap2(); grafico(566,560,402,-1,0,0); End
 	    grafico(134,560,404,-1,1,fpg_lang); 
-		write_int(fnt1,615,540,3,&p2_puntos);
+		write_int(fnt1,615,540,3,&p[2].puntos);
 	End
 	If(players==3) vidasp1(); vidasp2();
 	    If(modo_juego==2) armap1(); armap2(); grafico(234,560,402,-1,0,0); grafico(566,560,402,-1,0,0); End
-		write_int(fnt1,190,540,5,&p1_puntos); 
-		write_int(fnt1,615,540,3,&p2_puntos);
+		write_int(fnt1,190,540,5,&p[1].puntos); 
+		write_int(fnt1,615,540,3,&p[2].puntos);
 	End
 	escenario();
 End
@@ -1476,7 +1441,7 @@ Begin
    grafico(400,540,442,0,0,fpg_lang);
    grafico(400,575,443,-1,0,0);
    Loop
-      energia=((p1_bolas+p2_bolas)-((cont-1)*50));
+      energia=((p[1].bolas+p[2].bolas)-((cont-1)*50));
       size_x=energia*2;
 	  if(size_x>100) size_x=100; end
       Frame;
@@ -1545,10 +1510,10 @@ Private
 Begin
     vidap1(921);
 	Loop
-		If(p1_vidas>99) p1_vidas=99; End
-		If(p1_muere=>3) p1_muere++; End
-		If(p1_muere=>35) p1_muere=2; Break; End
-		If(escrito==0) escrito=1;  write(fnt2,106,548,0,"x"); write_int(fnt2,136,548,0,OFFSET p1_vidas); End
+		If(p[1].vidas>99) p[1].vidas=99; End
+		If(p[1].muere=>3) p[1].muere++; End
+		If(p[1].muere=>35) p[1].muere=2; Break; End
+		If(escrito==0) escrito=1;  write(fnt2,106,548,0,"x"); write_int(fnt2,136,548,0,OFFSET p[1].vidas); End
 		z=-1;
 		Frame;
 	End
@@ -1578,11 +1543,11 @@ Begin
     If(modo_juego==2) vidap2(922); End
     If(modo_juego==3) vidap2(924); End
     Loop
-	    If(p2_vidas>99) p2_vidas=99; End
-	    If(p2_muere=>3) p2_muere++; End
-	    If(p2_muere=>35) p2_muere=2; Break; End
+	    If(p[2].vidas>99) p[2].vidas=99; End
+	    If(p[2].muere=>3) p[2].muere++; End
+	    If(p[2].muere=>35) p[2].muere=2; Break; End
 	    If(escrito==0) escrito=1;  write(fnt2,694,548,2,"x");
-	        If(modo_juego!=3)  write_int(fnt2,664,548,2,OFFSET p2_vidas); Else  write_int(fnt2,664,548,2,OFFSET contaor); End
+	        If(modo_juego!=3)  write_int(fnt2,664,548,2,OFFSET p[2].vidas); Else  write_int(fnt2,664,548,2,OFFSET contaor); End
 	    End
 	    z=-1;
 	    Frame;
@@ -1679,7 +1644,7 @@ Begin
 		If(ready==1 AND reloj==0) segs--; End
 		segundos=segs/60;
 		If(segundos<21 AND prisa==0) prisa=1; hayprisa(); End
-		If(segs<10 AND (p1_muere==0 OR p2_muere==0)) p1_muere=1; p2_muere=1; ready=0; End
+		If(segs<10 AND (p[1].muere==0 OR p[2].muere==0)) p[1].muere=1; p[2].muere=1; ready=0; End
 		Frame;
 	End
 End
@@ -1697,16 +1662,16 @@ Begin
 	y=560;
 	z=-2;
 	Loop
-		If(p1_arma==1) 
+		If(p[1].arma==1) 
 			graph=borrar;
 		End
-		If(p1_arma==2)
+		If(p[1].arma==2)
 			graph=411;
 		End
-		If(p1_arma==3)
+		If(p[1].arma==3)
 			graph=412;
 		End
-		If(p1_arma==4)
+		If(p[1].arma==4)
 			graph=413;
 		End
 		Frame;
@@ -1719,16 +1684,16 @@ Begin
 	y=560;
 	z=-2;
 	Loop
-		If(p2_arma==1) 
+		If(p[2].arma==1) 
 			graph=borrar;
 		End
-		If(p2_arma==2)
+		If(p[2].arma==2)
 			graph=411;
 		End
-		If(p2_arma==3)
+		If(p[2].arma==3)
 			graph=412;
 		End
-		If(p2_arma==4)
+		If(p[2].arma==4)
 			graph=413;
 		End
 		Frame;
@@ -1740,14 +1705,14 @@ Private
 	segundox;
 	rolex;
 Begin
-	if(p1_estrella or p2_estrella) return; end
+	if(p[1].estrella or p[2].estrella) return; end
 	secs=eltiempo;
 	suena(9);
 	secs=secs*60;
 	rolex=write_int(fnt2,400,200,4,&segundox);
 	While(secs=>1)
 		reloj=1;
-		if(p1_estrella or p2_estrella) secs=1; parpadea=0; end
+		if(p[1].estrella or p[2].estrella) secs=1; parpadea=0; end
 		
 		If(ready==1) 
 			secs--;
@@ -1769,15 +1734,15 @@ Private
 	algo;
 Begin
 	if(num_muneco==1) graph=514; else graph=515; end
-	while((p1_proteccion and num_muneco==1) or (p2_proteccion and num_muneco==2))
+	while((p[1].proteccion and num_muneco==1) or (p[2].proteccion and num_muneco==2))
 		if(num_muneco==1)
-			x=id_p1.x;
-			y=id_p1.y+10;
-			z=id_p1.z-1;
+			x=p[1].id.x;
+			y=p[1].id.y+10;
+			z=p[1].id.z-1;
 		else
-			x=id_p2.x;
-			y=id_p2.y+10;
-			z=id_p2.z-1;
+			x=p[2].id.x;
+			y=p[2].id.y+10;
+			z=p[2].id.z-1;
 		end
 		alpha=100+rolling;
 		size_x=100+(rolling/6);
@@ -1801,18 +1766,18 @@ Private
 	rolex;
 	tenia_protec[1];
 Begin
-	if(p1_estrella) return; end
-	p1_estrella=1;
-	p2_estrella=1;
+	if(p[1].estrella) return; end
+	p[1].estrella=1;
+	p[2].estrella=1;
 	suena(9);
 	 
 	tiempo_estrella=5*60;
 	turbo=1;
 	salto=1;
-	tenia_protec[0]=p1_proteccion;
-	tenia_protec[1]=p2_proteccion;
-	p1_proteccion=0;
-	p2_proteccion=0;
+	tenia_protec[0]=p[1].proteccion;
+	tenia_protec[1]=p[2].proteccion;
+	p[1].proteccion=0;
+	p[2].proteccion=0;
 	switch(players)
 		case 1:
 			sub_estrella(1);
@@ -1821,8 +1786,8 @@ Begin
 			sub_estrella(2);
 		end
 		case 3:
-			if(exists(id_p1)) sub_estrella(1); end
-			if(exists(id_p2)) sub_estrella(2); end
+			if(exists(p[1].id)) sub_estrella(1); end
+			if(exists(p[2].id)) sub_estrella(2); end
 		end
 	end
 	rolex=write_int(fnt2,400,200,4,&segundox);
@@ -1837,10 +1802,10 @@ Begin
 	end
 	delete_text(rolex);
 	suena(12);
-	if(tenia_protec[0]) suena(11); p1_proteccion=1; proteccion(1); end
-	if(tenia_protec[1]) suena(11); p2_proteccion=1; proteccion(2); end
-	p1_estrella=0;
-	p2_estrella=0;
+	if(tenia_protec[0]) suena(11); p[1].proteccion=1; proteccion(1); end
+	if(tenia_protec[1]) suena(11); p[2].proteccion=1; proteccion(2); end
+	p[1].estrella=0;
+	p[2].estrella=0;
 	turbo=0;
 	salto=0;
 End
@@ -1851,15 +1816,15 @@ Private
 	algo;
 Begin
 	graph=519;
-	while((num_muneco==1 and p1_estrella==1) or (num_muneco==2 and p2_estrella==1))
+	while((num_muneco==1 and p[1].estrella==1) or (num_muneco==2 and p[2].estrella==1))
 		if(num_muneco==1)
-			x=id_p1.x;
-			y=id_p1.y;
-			z=id_p1.z-1;
+			x=p[1].id.x;
+			y=p[1].id.y;
+			z=p[1].id.z-1;
 		else
-			x=id_p2.x;
-			y=id_p2.y;
-			z=id_p2.z-1;
+			x=p[2].id.x;
+			y=p[2].id.y;
+			z=p[2].id.z-1;
 		end
 		alpha=100+rolling;
 		size_x=100+(rolling/6);
@@ -1903,32 +1868,32 @@ Begin
 	y=345;
 	 
 	If(num==1) 
-		if(p1_muere) p1_bonus=0; return; end
+		if(p[1].muere) p[1].bonus=0; return; end
 		x=210; 
-		If(p1_bolas>p2_bolas and p1_muere==0) 
+		If(p[1].bolas>p[2].bolas and p[1].muere==0) 
 			grafico(310,323,408,-2,0,fpg_lang); 
 			grafico(120,363,410,-2,0,fpg_lang); 
-			write_int(fnt1,250,363,4,OFFSET p1_bonus); 
+			write_int(fnt1,250,363,4,OFFSET p[1].bonus); 
 		Else
 			grafico(310,323,407,-2,0,fpg_lang);
-			p1_bonus=0;
+			p[1].bonus=0;
 			grafico(200,363,409,-2,0,fpg_lang);
 		End
-		write_int(fnt1,140,323,4,OFFSET p1_bolas); 
+		write_int(fnt1,140,323,4,OFFSET p[1].bolas); 
 	End
 	If(num==2) 
-		if(p2_muere) p2_bonus=0; return; end
+		if(p[2].muere) p[2].bonus=0; return; end
 		x=590; 
-		If(p2_bolas>p1_bolas and p2_muere==0) 
+		If(p[2].bolas>p[1].bolas and p[2].muere==0) 
 			grafico(680,363,410,-2,0,fpg_lang); 
-			write_int(fnt1,550,363,4,OFFSET p2_bonus); 
+			write_int(fnt1,550,363,4,OFFSET p[2].bonus); 
 			grafico(490,323,408,-2,0,fpg_lang);
 		Else
-			p2_bonus=0;
+			p[2].bonus=0;
 			grafico(600,363,409,-2,0,fpg_lang); 
 			grafico(490,323,407,-2,0,fpg_lang);
 		End
-		write_int(fnt1,660,323,4,OFFSET p2_bolas); 
+		write_int(fnt1,660,323,4,OFFSET p[2].bolas); 
 	End
 	While(ganando==1) Frame; End
 End
@@ -1998,18 +1963,18 @@ Begin
 	y=260;
 	z=512;
 	Loop
-		If(p1_bolas+p2_bolas=>0 AND cont==0) texto_fondos("1.Ashura"); png_fondo=load_image(".\fondos\3.jpg"); cont=1; End
-		If(p1_bolas+p2_bolas=>50 AND cont==1) If(p1_bolas+p2_bolas<100) texto_fondos("2.Alejandro"); png_fondo=load_image(".\fondos\1.jpg"); End  cambiado=0; cont=2; End // alejo
-		If(p1_bolas+p2_bolas=>100 AND cont==2) If(p1_bolas+p2_bolas<150) texto_fondos("3.HH Sigmar MC"); png_fondo=load_image(".\fondos\2.jpg"); End cambiado=0; cont=3; End // carlos
-		If(p1_bolas+p2_bolas=>150 AND cont==3) If(p1_bolas+p2_bolas<200) texto_fondos("4.Donan"); png_fondo=load_image(".\fondos\10.jpg"); End cambiado=0; cont=4; End // carlos
-		If(p1_bolas+p2_bolas=>200 AND cont==4) If(p1_bolas+p2_bolas<250) texto_fondos("5.Donan 2"); png_fondo=load_image(".\fondos\4.jpg"); End cambiado=0; cont=5; End // donan
-		If(p1_bolas+p2_bolas=>250 AND cont==5) If(p1_bolas+p2_bolas<300) texto_fondos("6.Donan 3"); png_fondo=load_image(".\fondos\5.jpg"); End cambiado=0; cont=6; End // donan
-		If(p1_bolas+p2_bolas=>300 AND cont==6) If(p1_bolas+p2_bolas<350) texto_fondos("7.SiNk!"); png_fondo=load_image(".\fondos\6.jpg"); End cambiado=0; cont=7; End // carlos166
-		If(p1_bolas+p2_bolas=>350 AND cont==7) If(p1_bolas+p2_bolas<400) texto_fondos("8.Wakroo"); png_fondo=load_image(".\fondos\7.jpg"); End cambiado=0; cont=8; End // carlos166
-		If(p1_bolas+p2_bolas=>400 AND cont==8) If(p1_bolas+p2_bolas<450) texto_fondos("9.Wakroo 2"); png_fondo=load_image(".\fondos\8.jpg"); End cambiado=0; cont=9; End // santi
-		If(p1_bolas+p2_bolas=>450 AND cont==9) If(p1_bolas+p2_bolas<500) texto_fondos("10.Wakroo 3"); png_fondo=load_image(".\fondos\9.jpg"); End cambiado=0; cont=10; End // dani el negro
-		If(p1_bolas+p2_bolas=>500 AND cont==10) If(p1_bolas+p2_bolas<550) texto_fondos("11.Aryadna y Emilio"); png_fondo=load_image(".\fondos\30.jpg"); End cambiado=0; cont=11; End // donan 3
-		If(p1_bolas+p2_bolas=>550 AND cont==11) If(p1_bolas+p2_bolas<600) texto_fondos("12.???????"); png_fondo=load_image(".\fondos\11.jpg"); End cambiado=0; cont=12; End // ???
+		If(p[1].bolas+p[2].bolas=>0 AND cont==0) texto_fondos("1.Ashura"); png_fondo=load_image(".\fondos\3.jpg"); cont=1; End
+		If(p[1].bolas+p[2].bolas=>50 AND cont==1) If(p[1].bolas+p[2].bolas<100) texto_fondos("2.Alejandro"); png_fondo=load_image(".\fondos\1.jpg"); End  cambiado=0; cont=2; End // alejo
+		If(p[1].bolas+p[2].bolas=>100 AND cont==2) If(p[1].bolas+p[2].bolas<150) texto_fondos("3.HH Sigmar MC"); png_fondo=load_image(".\fondos\2.jpg"); End cambiado=0; cont=3; End // carlos
+		If(p[1].bolas+p[2].bolas=>150 AND cont==3) If(p[1].bolas+p[2].bolas<200) texto_fondos("4.Donan"); png_fondo=load_image(".\fondos\10.jpg"); End cambiado=0; cont=4; End // carlos
+		If(p[1].bolas+p[2].bolas=>200 AND cont==4) If(p[1].bolas+p[2].bolas<250) texto_fondos("5.Donan 2"); png_fondo=load_image(".\fondos\4.jpg"); End cambiado=0; cont=5; End // donan
+		If(p[1].bolas+p[2].bolas=>250 AND cont==5) If(p[1].bolas+p[2].bolas<300) texto_fondos("6.Donan 3"); png_fondo=load_image(".\fondos\5.jpg"); End cambiado=0; cont=6; End // donan
+		If(p[1].bolas+p[2].bolas=>300 AND cont==6) If(p[1].bolas+p[2].bolas<350) texto_fondos("7.SiNk!"); png_fondo=load_image(".\fondos\6.jpg"); End cambiado=0; cont=7; End // carlos166
+		If(p[1].bolas+p[2].bolas=>350 AND cont==7) If(p[1].bolas+p[2].bolas<400) texto_fondos("8.Wakroo"); png_fondo=load_image(".\fondos\7.jpg"); End cambiado=0; cont=8; End // carlos166
+		If(p[1].bolas+p[2].bolas=>400 AND cont==8) If(p[1].bolas+p[2].bolas<450) texto_fondos("9.Wakroo 2"); png_fondo=load_image(".\fondos\8.jpg"); End cambiado=0; cont=9; End // santi
+		If(p[1].bolas+p[2].bolas=>450 AND cont==9) If(p[1].bolas+p[2].bolas<500) texto_fondos("10.Wakroo 3"); png_fondo=load_image(".\fondos\9.jpg"); End cambiado=0; cont=10; End // dani el negro
+		If(p[1].bolas+p[2].bolas=>500 AND cont==10) If(p[1].bolas+p[2].bolas<550) texto_fondos("11.Aryadna y Emilio"); png_fondo=load_image(".\fondos\30.jpg"); End cambiado=0; cont=11; End // donan 3
+		If(p[1].bolas+p[2].bolas=>550 AND cont==11) If(p[1].bolas+p[2].bolas<600) texto_fondos("12.???????"); png_fondo=load_image(".\fondos\11.jpg"); End cambiado=0; cont=12; End // ???
 		if(jefe!=0)
 			If(exists(id_fondo)) signal(id_fondo,s_kill); End
 			return;
@@ -2037,7 +2002,7 @@ process fondos_panic();
 begin
 	pon_fondo(fondotemporal);
 	loop
-		cont=((p1_bolas+p2_bolas)/50)+1;
+		cont=((p[1].bolas+p[2].bolas)/50)+1;
 		frame;
 	end
 end
@@ -2104,27 +2069,27 @@ End
 
 Process inicio();
 Begin
-	p1_puntos+=p1_bonus;
-	p1_bonus=0;
-	p2_puntos+=p2_bonus;
-	p2_bonus=0;
+	p[1].puntos+=p[1].bonus;
+	p[1].bonus=0;
+	p[2].puntos+=p[2].bonus;
+	p[2].bonus=0;
 	//frame;
 	let_me_alone();
 	//faderaro(0);
 	if(modo_juego==2 and mundo!=0) faderaro(-1); else faderaro(0); end
 	iniciando=1;
 	ready=0;
-	p1_muere=0;
-	p2_muere=0;
-	p1_arma=1;
-	p2_arma=1;
+	p[1].muere=0;
+	p[2].muere=0;
+	p[1].arma=1;
+	p[2].arma=1;
 	ganando=0;
 	dinamita=0;
 	bola_estrella=0;
 	If(modo_juego==2) prisa=0; End
 	relojarena=0;
-	p1_proteccion=0;
-	p2_proteccion=0;
+	p[1].proteccion=0;
+	p[2].proteccion=0;
 	raton=0;
 	matabolas=0;
 	if(posibles_jugadores==1)
@@ -2136,25 +2101,25 @@ Begin
 	cont=0; // contador fondos
 	timer[9]=0;
 	While(timer[9]<150) Frame; End
-	p1_disparos[1]=0; p1_disparos[2]=0; // reinicia p1_disparos
-	p2_disparos[1]=0; p2_disparos[2]=0; // reinicia p2_disparos
+	p[1].disparos[1]=0; p[1].disparos[2]=0; // reinicia p[1].disparos
+	p[2].disparos[1]=0; p[2].disparos[2]=0; // reinicia p[2].disparos
 	bolas=0; // indica q no hay bolas en pantalla
 	If(modo_juego==1) panic_mode(); End
 	
 	If(modo_juego==2) musica(-1); tour_mode(); End
 	
-	If(p1_vidas=>0 AND p2_vidas<0 AND players==3) players=1; End
-	If(p2_vidas=>0 AND p1_vidas<0 AND players==3) players=2; End
+	If(p[1].vidas=>0 AND p[2].vidas<0 AND players==3) players=1; End
+	If(p[2].vidas=>0 AND p[1].vidas<0 AND players==3) players=2; End
 	switch(players)
-		case 1:	id_p1=muneco1(); end
-		case 2:	id_p2=muneco2(); end
-		case 3:	id_p1=muneco1(); id_p2=muneco2(); end
+		case 1:	p[1].id=muneco1(); end
+		case 2:	p[2].id=muneco2(); end
+		case 3:	p[1].id=muneco1(); p[2].id=muneco2(); end
 	end
 	if(jefe!=0 and ops.dificultad<2) 
-		p1_proteccion=1;
-		p2_proteccion=1;
-		p1_arma=2;
-		p2_arma=2;
+		p[1].proteccion=1;
+		p[2].proteccion=1;
+		p[1].arma=2;
+		p[2].arma=2;
 	End
 	If(modo_juego==1 and jefe==0) fondos_panic(); End
 	If(modo_juego==2) pon_pantalla(mundo); End
@@ -2175,10 +2140,10 @@ Begin
 			case 6: maskara(); musica(7); end
 		end
 	end
-	p1_muere=0;
-	p2_muere=0;
-	p1_disparos[1]=0; p1_disparos[2]=0; // reinicia p1_disparos
-	p2_disparos[1]=0; p2_disparos[2]=0; // reinicia p2_disparos
+	p[1].muere=0;
+	p[2].muere=0;
+	p[1].disparos[1]=0; p[1].disparos[2]=0; // reinicia p[1].disparos
+	p[2].disparos[1]=0; p[2].disparos[2]=0; // reinicia p[2].disparos
 	ganando=0; 
 	iniciando=0;
 	reloj=0;
@@ -2197,15 +2162,15 @@ Begin
 	delete_text(all_text);
 	let_me_alone();
 	timer[9]=0;
-	p1_vidas=10;
-	p2_vidas=10;
-	p1_puntos=0;
-	p2_puntos=0;
+	p[1].vidas=10;
+	p[2].vidas=10;
+	p[1].puntos=0;
+	p[2].puntos=0;
 	guardar_partida();
 	While(timer[9]<100) Frame; End
 	transicion=0;
-	p1_muere=0;
-	p2_muere=0;
+	p[1].muere=0;
+	p[2].muere=0;
 	timer[9]=0;
 	put_screen(fpg_menu2,4);
 	musica(8);
@@ -2223,8 +2188,8 @@ Private
 Begin
 	dump_type=0;
 	restore_type=0;
-	p1_arma=2;
-	p2_arma=2;
+	p[1].arma=2;
+	p[2].arma=2;
 	modo_juego=1;    
 	If(cont==12) cont=11; End
 	Loop
@@ -2236,15 +2201,15 @@ Begin
 			If(key(_n)) nube(); End
 		End
 		If((key(_esc) or os_id==os_caanoo and get_joy_button(0,8))  and !exists(type opciones) and ready==1) opciones(); ready=0; End
-		If((p1_bolas+p2_bolas)>100 AND rand(0,200)==0) nube(); End
+		If((p[1].bolas+p[2].bolas)>100 AND rand(0,200)==0) nube(); End
 		If(bolas=>13 AND prisa==0) prisa=1; hayprisa(); End
 		If(bolas<8 AND prisa==1) prisa=0; timer[8]=0; musica(0); End
 		If(key(_d) AND key(_b) AND key(_g)) pixel_mola=1; End
 		If(cont==12 AND ganando==0 AND bolas==0 AND ready==1) ganar(); Return; End
-		If((timer[7]>1500 OR bolas<1) and jefe==0 AND (ganando==0 AND ready==1 AND p1_bolas+p2_bolas<550 and bola_estrella==0 and matabolas==0)) 
+		If((timer[7]>1500 OR bolas<1) and jefe==0 AND (ganando==0 AND ready==1 AND p[1].bolas+p[2].bolas<550 and bola_estrella==0 and matabolas==0)) 
 			timer[7]=0; 
 			If(prisa==1) prisa=0; timer[8]=0; musica(0); End 
-			if(p1_bolas+p2_bolas<200) kindabolas=rand(0,2); else kindabolas=rand(0,4); end 
+			if(p[1].bolas+p[2].bolas<200) kindabolas=rand(0,2); else kindabolas=rand(0,4); end 
 			If(kindabolas==0) bola(rand(60,740),150,5,rand(0,1)); end 
 			If(kindabolas==1) bola(rand(60,740),150,12,rand(0,1)); End 
 			If(kindabolas==2) bola(rand(60,740),150,9,rand(0,1)); End 
@@ -2254,32 +2219,32 @@ Begin
 		If(key(_alt) AND key(_x)) exit(0,0); End
 		If(zbolas<-200) zbolas=-1; End
 		If(players==3)
-			If(p1_muere==2 AND p2_muere==0) p1_muere=0; If(p1_vidas<0) inicio(); Else vidasp1(); id_p1=muneco1(); End End
-			If(p2_muere==2 AND p1_muere==0) p2_muere=0; If(p2_vidas<0) inicio(); Else vidasp2(); id_p2=muneco2(); End End
-			If(p1_muere==2 AND p2_muere==2 AND (p1_vidas=>0 OR p2_vidas=>0)) inicio(); End
-			If(p1_muere==2 AND p1_vidas<0 AND p2_muere==2 AND p2_vidas<0) gameover(); End
+			If(p[1].muere==2 AND p[2].muere==0) p[1].muere=0; If(p[1].vidas<0) inicio(); Else vidasp1(); p[1].id=muneco1(); End End
+			If(p[2].muere==2 AND p[1].muere==0) p[2].muere=0; If(p[2].vidas<0) inicio(); Else vidasp2(); p[2].id=muneco2(); End End
+			If(p[1].muere==2 AND p[2].muere==2 AND (p[1].vidas=>0 OR p[2].vidas=>0)) inicio(); End
+			If(p[1].muere==2 AND p[1].vidas<0 AND p[2].muere==2 AND p[2].vidas<0) gameover(); End
 		End
 		If(players==2)
-			If(p2_muere==2 AND p2_vidas=>0 AND iniciando==0) inicio(); End
-			If(p2_muere==2 AND p2_vidas<0) gameover(); End
+			If(p[2].muere==2 AND p[2].vidas=>0 AND iniciando==0) inicio(); End
+			If(p[2].muere==2 AND p[2].vidas<0) gameover(); End
 		End
 		If(players==1)
-			If(p1_muere==2 AND p1_vidas=>0 AND iniciando==0) inicio(); End
-			If(p1_muere==2 AND p1_vidas<0) gameover(); End
+			If(p[1].muere==2 AND p[1].vidas=>0 AND iniciando==0) inicio(); End
+			If(p[1].muere==2 AND p[1].vidas<0) gameover(); End
 		End           
 		If(relojarena==0 and jefe==0) 
 			switch(ops.dificultad)			
 				case 0:
-					velocidad=600-(p1_bolas/3+p2_bolas/3); 
+					velocidad=600-(p[1].bolas/3+p[2].bolas/3); 
 				end
 				case 1:
-					velocidad=550-(p1_bolas/3+p2_bolas/3); 
+					velocidad=550-(p[1].bolas/3+p[2].bolas/3); 
 				end
 				case 2:
-					velocidad=500-(p1_bolas/3+p2_bolas/3); 
+					velocidad=500-(p[1].bolas/3+p[2].bolas/3); 
 				end
 				case 3:
-					velocidad=400-(p1_bolas/3+p2_bolas/3); 
+					velocidad=400-(p[1].bolas/3+p[2].bolas/3); 
 				end
 			end
 		End
@@ -2295,8 +2260,8 @@ Private
 Begin
 	dump_type=0;
 	restore_type=0;
-	p1_bolas=0;
-	p2_bolas=0;
+	p[1].bolas=0;
+	p[2].bolas=0;
 	modo_juego=2;
 	cocos=0;
 	Loop
@@ -2304,35 +2269,35 @@ Begin
 			If(key(_m) AND raton==0) coloca_raton(); End
 			If(key(_x)) matabolas=1; Else matabolas=0; End
 			If(key(_r) AND reloj==0) reloj=1; itemreloj(5); End
-			if(key(_e) and p1_estrella==0) while(key(_e)) frame; end estrella(); end
+			if(key(_e) and p[1].estrella==0) while(key(_e)) frame; end estrella(); end
 			If(key(_c)) cocodrilo(rand(0,1)); End
 			If(key(_v)) volador(); End
 			If(key(_f) AND txt_fps==0) txt_fps=write_int(fnt1,0,0,0,&fps); End
 		End
 		if(cheto_avaricioso) if(avaricioso<20) avaricioso++; else cocodrilo(rand(0,1)); avaricioso=0; end end
-		If(key(_g)) p1_arma=1; p2_arma=1; End
+		If(key(_g)) p[1].arma=1; p[2].arma=1; End
 		If((key(_esc) or os_id==os_caanoo and get_joy_button(0,8)) and !exists(type opciones) and ready==1) opciones(); ready=0; End
-		If(players==1 AND key(_2)) players=3; suena(6); p2_vidas=10; faderaro(-2); frame; inicio(); End
-		If(players==2 AND key(_1)) players=3; suena(6); p1_vidas=10; inicio(); End
+		If(players==1 AND key(_2)) players=3; suena(6); p[2].vidas=10; faderaro(-2); frame; inicio(); End
+		If(players==2 AND key(_1)) players=3; suena(6); p[1].vidas=10; inicio(); End
 		If(key(_d) AND key(_b) AND key(_g)) pixel_mola=1; End
 		If(bolas==0 AND ready==1 and jefe==0) ganar(); Break; End
 		If(key(_alt) AND key(_x)) exit(0,0); End
 		If(zbolas<-200) zbolas=-1; End
 		If(cocos<3 and rand(0,2000)==0 and jefe==0) If(rand(0,1)==0) cocodrilo(rand(0,1)); Else volador(); End End
 		If(players==3)
-			If(p1_muere==2 AND p2_muere==2 AND (p1_vidas=>0 OR p2_vidas=>0) AND iniciando==0) musica(-1); faderaro(-2); frame; inicio(); End
-			If(p1_muere==2 AND p1_vidas<0 AND p2_muere==2 AND p2_vidas<0) gameover(); End
+			If(p[1].muere==2 AND p[2].muere==2 AND (p[1].vidas=>0 OR p[2].vidas=>0) AND iniciando==0) musica(-1); faderaro(-2); frame; inicio(); End
+			If(p[1].muere==2 AND p[1].vidas<0 AND p[2].muere==2 AND p[2].vidas<0) gameover(); End
 		End
 		If(players==2)
-			If(p2_muere==2 AND p2_vidas=>0 AND iniciando==0) musica(-1); faderaro(-2); frame; inicio(); End
-			If(p2_muere==2 AND p2_vidas<0) gameover(); End
+			If(p[2].muere==2 AND p[2].vidas=>0 AND iniciando==0) musica(-1); faderaro(-2); frame; inicio(); End
+			If(p[2].muere==2 AND p[2].vidas<0) gameover(); End
 		End
 		If(players==1)
-			If(p1_muere==2 AND p1_vidas=>0 AND iniciando==0) musica(-1); faderaro(-2); frame; inicio(); End
-			If(p1_muere==2 AND p1_vidas<0) gameover(); End
+			If(p[1].muere==2 AND p[1].vidas=>0 AND iniciando==0) musica(-1); faderaro(-2); frame; inicio(); End
+			If(p[1].muere==2 AND p[1].vidas<0) gameover(); End
 		End
 		If(relojarena==0) 
-			if(p1_estrella)
+			if(p[1].estrella)
 				velocidad=100;
 			else
 				switch(ops.dificultad)			
@@ -2466,31 +2431,31 @@ Begin
 			y-=6; tuerestonto=0;
 		End
 		If((collision(Type dispcab) OR collision(Type dispcab2)) AND item==2)
-			p1_puntos+=2400; suena(10); Break; 
+			p[1].puntos+=2400; suena(10); Break; 
 		End
-		If(collision(id_p1) AND p1_muere==0)
+		If(collision(p[1].id) AND p[1].muere==0)
 			If(item==0) relojarena(); End // reloj arena
 			If(item==1 and jefe==0) If(reloj==0) itemreloj(rand(3,7)); else secs+=4*60; End End // reloj
-			If(item==2) p1_puntos+=2400; suena(10); End // piña
-			If(item==3) p1_arma=2; suena(3); signal(type dispcab,s_kill); signal(type dispcab2,s_kill); p1_disparos[1]=0; p1_disparos[2]=0; End // pistola doble
-			If(item==4) p1_arma=3; suena(3); signal(type dispcab,s_kill); signal(type dispcab2,s_kill); p1_disparos[1]=0; p1_disparos[2]=0; End // gancho
-			If(item==5) p1_arma=4; suena(3); signal(type dispcab,s_kill); signal(type dispcab2,s_kill); p1_disparos[1]=0; p1_disparos[2]=0; End // metralleta
-			If(item==6 and p1_proteccion==0) p1_proteccion=1; if(p1_estrella==0) proteccion(1); end suena(11); End // protector         
+			If(item==2) p[1].puntos+=2400; suena(10); End // piña
+			If(item==3) p[1].arma=2; suena(3); signal(type dispcab,s_kill); signal(type dispcab2,s_kill); p[1].disparos[1]=0; p[1].disparos[2]=0; End // pistola doble
+			If(item==4) p[1].arma=3; suena(3); signal(type dispcab,s_kill); signal(type dispcab2,s_kill); p[1].disparos[1]=0; p[1].disparos[2]=0; End // gancho
+			If(item==5) p[1].arma=4; suena(3); signal(type dispcab,s_kill); signal(type dispcab2,s_kill); p[1].disparos[1]=0; p[1].disparos[2]=0; End // metralleta
+			If(item==6 and p[1].proteccion==0) p[1].proteccion=1; if(p[1].estrella==0) proteccion(1); end suena(11); End // protector         
 			If(item==9) estrella(); End // estrella!!
-			If(item==7) p1_vidas++; suena(6); End // vida
+			If(item==7) p[1].vidas++; suena(6); End // vida
 			If(item==8 AND dinamita==0) dinamita=1; suena(15); graph=borrar; Frame(4000); dinamita=0; End // dinamita
 			Break;
 		End
-		If(collision(id_p2) AND p2_muere==0)
+		If(collision(p[2].id) AND p[2].muere==0)
 			If(item==0) relojarena(); End // reloj arena
 			If(item==1 and jefe==0) If(reloj==0) itemreloj(rand(3,7)); else secs+=4*60; End End // reloj
-			If(item==2) p2_puntos+=2400; suena(10); End // piña
-			If(item==3) p2_arma=2; suena(3); signal(type dispcab3,s_kill); signal(type dispcab4,s_kill); p2_disparos[1]=0; p2_disparos[2]=0; End // pistola doble
-			If(item==4) p2_arma=3; suena(3); signal(type dispcab3,s_kill); signal(type dispcab4,s_kill); p2_disparos[1]=0; p2_disparos[2]=0; End // gancho
-			If(item==5) p2_arma=4; suena(3); signal(type dispcab3,s_kill); signal(type dispcab4,s_kill); p2_disparos[1]=0; p2_disparos[2]=0; End // metralleta
-			If(item==6 and p2_proteccion==0) p2_proteccion=1; if(p2_estrella==0) proteccion(2); end suena(11); End // protector         
+			If(item==2) p[2].puntos+=2400; suena(10); End // piña
+			If(item==3) p[2].arma=2; suena(3); signal(type dispcab3,s_kill); signal(type dispcab4,s_kill); p[2].disparos[1]=0; p[2].disparos[2]=0; End // pistola doble
+			If(item==4) p[2].arma=3; suena(3); signal(type dispcab3,s_kill); signal(type dispcab4,s_kill); p[2].disparos[1]=0; p[2].disparos[2]=0; End // gancho
+			If(item==5) p[2].arma=4; suena(3); signal(type dispcab3,s_kill); signal(type dispcab4,s_kill); p[2].disparos[1]=0; p[2].disparos[2]=0; End // metralleta
+			If(item==6 and p[2].proteccion==0) p[2].proteccion=1; if(p[2].estrella==0) proteccion(2); end suena(11); End // protector         
 			If(item==9) estrella(); End // estrella!!
-			If(item==7) p2_vidas++; suena(6); End // vida
+			If(item==7) p[2].vidas++; suena(6); End // vida
 			If(item==8 AND dinamita==0) dinamita=1; graph=borrar; Frame(4000); dinamita=0; End // dinamita
 			Break;
 		End
@@ -2543,29 +2508,29 @@ Begin
 	map_xput(fpg_bloquesmask,mapadurezas,graph,x,y,angle,size,0);
 	Loop
 		If(x==0 OR y==0) Break; End
-/*		if(rompible==1 and p1_arma==4 and ((iddisp[0]=collision(Type cachodisp)) OR (iddisp[2]=collision(Type cachodisp2))))
-			If(collision(iddisp[0])) signal(p1_disparos[1],s_kill); End
-			If(collision(iddisp[2])) signal(p1_disparos[2],s_kill); End
+/*		if(rompible==1 and p[1].arma==4 and ((iddisp[0]=collision(Type cachodisp)) OR (iddisp[2]=collision(Type cachodisp2))))
+			If(collision(iddisp[0])) signal(p[1].disparos[1],s_kill); End
+			If(collision(iddisp[2])) signal(p[1].disparos[2],s_kill); End
 		End
 */
-		If(rompible==0 AND graph!=429 AND p1_arma!=3 AND (((iddisp[0]=collision(Type cachodisp)) OR (iddisp[1]=collision(Type dispcab))) OR ((iddisp[2]=collision(Type cachodisp2)) OR (iddisp[3]=collision(Type dispcab2)))))
-			If(((collision(iddisp[0]) AND p1_arma==4) OR collision(iddisp[1])) and exists(p1_disparos[1])) if(p1_disparos[1].y>y) signal(p1_disparos[1],s_kill); end End
-			If(((collision(iddisp[2]) AND p1_arma==4) OR collision(iddisp[3])) and exists(p1_disparos[2])) if(p1_disparos[2].y>y) signal(p1_disparos[2],s_kill); end End
+		If(rompible==0 AND graph!=429 AND p[1].arma!=3 AND (((iddisp[0]=collision(Type cachodisp)) OR (iddisp[1]=collision(Type dispcab))) OR ((iddisp[2]=collision(Type cachodisp2)) OR (iddisp[3]=collision(Type dispcab2)))))
+			If(((collision(iddisp[0]) AND p[1].arma==4) OR collision(iddisp[1])) and exists(p[1].disparos[1])) if(p[1].disparos[1].y>y) signal(p[1].disparos[1],s_kill); end End
+			If(((collision(iddisp[2]) AND p[1].arma==4) OR collision(iddisp[3])) and exists(p[1].disparos[2])) if(p[1].disparos[2].y>y) signal(p[1].disparos[2],s_kill); end End
 		End
-/*		if(rompible==1 and p2_arma==4 and ((iddisp[4]=collision(Type cachodisp3)) OR (iddisp[6]=collision(Type cachodisp4))))
-			If(collision(iddisp[4])) signal(p2_disparos[1],s_kill); End
-			If(collision(iddisp[6])) signal(p2_disparos[2],s_kill); End
+/*		if(rompible==1 and p[2].arma==4 and ((iddisp[4]=collision(Type cachodisp3)) OR (iddisp[6]=collision(Type cachodisp4))))
+			If(collision(iddisp[4])) signal(p[2].disparos[1],s_kill); End
+			If(collision(iddisp[6])) signal(p[2].disparos[2],s_kill); End
 		End*/
 
-		If(rompible==0 AND graph!=429 AND p2_arma!=3 AND (((iddisp[4]=collision(Type cachodisp3)) OR (iddisp[5]=collision(Type dispcab3))) OR ((iddisp[6]=collision(Type cachodisp4)) OR (iddisp[7]=collision(Type dispcab4)))))
-			If(((collision(iddisp[4]) AND p2_arma==4) OR collision(iddisp[5])) and exists(p2_disparos[1])) if(p2_disparos[1].y>y) signal(p2_disparos[1],s_kill); end End
-			If(((collision(iddisp[6]) AND p2_arma==4) OR collision(iddisp[7])) and exists(p2_disparos[2])) if(p2_disparos[2].y>y) signal(p2_disparos[2],s_kill); end End
+		If(rompible==0 AND graph!=429 AND p[2].arma!=3 AND (((iddisp[4]=collision(Type cachodisp3)) OR (iddisp[5]=collision(Type dispcab3))) OR ((iddisp[6]=collision(Type cachodisp4)) OR (iddisp[7]=collision(Type dispcab4)))))
+			If(((collision(iddisp[4]) AND p[2].arma==4) OR collision(iddisp[5])) and exists(p[2].disparos[1])) if(p[2].disparos[1].y>y) signal(p[2].disparos[1],s_kill); end End
+			If(((collision(iddisp[6]) AND p[2].arma==4) OR collision(iddisp[7])) and exists(p[2].disparos[2])) if(p[2].disparos[2].y>y) signal(p[2].disparos[2],s_kill); end End
 		End
 		If(rompible==1)
-			if(exists(p1_disparos[1])) if(collision(p1_disparos[1]) and p1_arma!=4) signal(p1_disparos[1],s_kill); break; End end
-			if(exists(p1_disparos[2])) if(collision(p1_disparos[2]) and p1_arma!=4) signal(p1_disparos[2],s_kill); break; End end
-			if(exists(p2_disparos[1])) if(collision(p2_disparos[1]) and p2_arma!=4) signal(p2_disparos[1],s_kill); break; End end
-			if(exists(p2_disparos[2])) if(collision(p2_disparos[2]) and p2_arma!=4) signal(p2_disparos[2],s_kill); break; End end
+			if(exists(p[1].disparos[1])) if(collision(p[1].disparos[1]) and p[1].arma!=4) signal(p[1].disparos[1],s_kill); break; End end
+			if(exists(p[1].disparos[2])) if(collision(p[1].disparos[2]) and p[1].arma!=4) signal(p[1].disparos[2],s_kill); break; End end
+			if(exists(p[2].disparos[1])) if(collision(p[2].disparos[1]) and p[2].arma!=4) signal(p[2].disparos[1],s_kill); break; End end
+			if(exists(p[2].disparos[2])) if(collision(p[2].disparos[2]) and p[2].arma!=4) signal(p[2].disparos[2],s_kill); break; End end
 		end
 		if(regalo==10 and rompible==1 and !exists(type bola) and ready==1) if(ops.dificultad==3) items(x,y,regalo); return; else bolas--; return; end end
 		Frame;
@@ -2724,8 +2689,8 @@ Begin
 	frame;
 	//save_png(0,mapadurezas,"c:\nivel.png");
 	time_puesto=pantalla.btime;
-	p1_muere=0; 
-	p2_muere=0;
+	p[1].muere=0; 
+	p[2].muere=0;
 End
 
 Process cocodrilo(lado); // a quien no le guste que no explote que se joda xD
@@ -2751,10 +2716,10 @@ Begin
 		If(x=<30 AND lado==1 AND cont_giros<3) cont_giros++; lado=0; If(cheto_borracho==1) flags=0; Else flags=1; End End
 		If(x>850 OR x<-50) Return; End
 
-		if(collision(type dispcab) or collision(type cachodisp)) signal(p1_disparos[1],s_kill); break; end
-		if(collision(type dispcab2) or collision(type cachodisp2)) signal(p1_disparos[2],s_kill); break; end
-		if(collision(type dispcab3) or collision(type cachodisp3)) signal(p2_disparos[1],s_kill); break; end
-		if(collision(type dispcab4) or collision(type cachodisp4)) signal(p2_disparos[2],s_kill); break; end
+		if(collision(type dispcab) or collision(type cachodisp)) signal(p[1].disparos[1],s_kill); break; end
+		if(collision(type dispcab2) or collision(type cachodisp2)) signal(p[1].disparos[2],s_kill); break; end
+		if(collision(type dispcab3) or collision(type cachodisp3)) signal(p[2].disparos[1],s_kill); break; end
+		if(collision(type dispcab4) or collision(type cachodisp4)) signal(p[2].disparos[2],s_kill); break; end
 
 		Frame;
 	End
@@ -2855,10 +2820,10 @@ Begin
 		If(lado==1 AND (animglobal==60 OR y<y_destino_final)) lado=0; 
 			ElseIf(lado==0 AND (animglobal==60 OR y<y_destino_final)) lado=1; 
 		End
-		if(collision(type dispcab) or collision(type cachodisp)) signal(p1_disparos[1],s_kill); break; end
-		if(collision(type dispcab2) or collision(type cachodisp2)) signal(p1_disparos[2],s_kill); break; end
-		if(collision(type dispcab3) or collision(type cachodisp3)) signal(p2_disparos[1],s_kill); break; end
-		if(collision(type dispcab4) or collision(type cachodisp4)) signal(p2_disparos[2],s_kill); break; end
+		if(collision(type dispcab) or collision(type cachodisp)) signal(p[1].disparos[1],s_kill); break; end
+		if(collision(type dispcab2) or collision(type cachodisp2)) signal(p[1].disparos[2],s_kill); break; end
+		if(collision(type dispcab3) or collision(type cachodisp3)) signal(p[2].disparos[1],s_kill); break; end
+		if(collision(type dispcab4) or collision(type cachodisp4)) signal(p[2].disparos[2],s_kill); break; end
 
 		Frame;
 	End
@@ -2867,70 +2832,6 @@ Begin
 		size-=5;
 		alpha-=10;
 		angle+=25000;
-		Frame;
-	End
-End
-
-Process controlador_player1();
-Begin
-	Loop
-		While(ready==0) Frame; End
-		If(ops.p1_control==0)  // teclado
-			If(key(_left)) botones.p1[0]=1; Else botones.p1[0]=0; End
-			If(key(_right)) botones.p1[1]=1; Else botones.p1[1]=0; End
-			If(key(_up)) botones.p1[2]=1; Else botones.p1[2]=0; End
-			If(key(_down)) botones.p1[3]=1; Else botones.p1[3]=0; End
-			If(key(_control) OR key(_space) or key(_enter)) botones.p1[4]=1; Else botones.p1[4]=0; End
-			If(key(_z) or key(_esc)) botones.p1[5]=1; Else botones.p1[5]=0; End
-		End
-		If(ops.p1_control==1)  // joystick		
-			If(get_joy_position(0,0)<-10000) botones.p1[0]=1; Else botones.p1[0]=0; End
-			If(get_joy_position(0,0)>10000) botones.p1[1]=1; Else botones.p1[1]=0; End
-			If(get_joy_position(0,1)<-7500) botones.p1[2]=1; Else botones.p1[2]=0; End
-			If(get_joy_position(0,1)>7500) botones.p1[3]=1; Else botones.p1[3]=0; End
-			If(get_joy_button(0,0) OR get_joy_button(0,1)) botones.p1[4]=1; Else botones.p1[4]=0; End
-			If(get_joy_button(0,2) OR get_joy_button(0,3)) botones.p1[5]=1; Else botones.p1[5]=0; End
-		End
-		If(ops.p1_control==9)  // joystick		
-			If(get_joy_position(1,0)<-10000) botones.p1[0]=1; Else botones.p1[0]=0; End
-			If(get_joy_position(1,0)>10000) botones.p1[1]=1; Else botones.p1[1]=0; End
-			If(get_joy_position(1,1)<-7500) botones.p1[2]=1; Else botones.p1[2]=0; End
-			If(get_joy_position(1,1)>7500) botones.p1[3]=1; Else botones.p1[3]=0; End
-			If(get_joy_button(1,0) OR get_joy_button(0,1)) botones.p1[4]=1; Else botones.p1[4]=0; End
-			If(get_joy_button(1,2) OR get_joy_button(0,3)) botones.p1[5]=1; Else botones.p1[5]=0; End
-		End
-		Frame;
-	End
-End
-
-Process controlador_player2();
-Begin
-	Loop
-		While(ready==0) Frame; End
-		If(ops.p2_control==0)  // teclado
-			If(key(_left)) botones.p2[0]=1; Else botones.p2[0]=0; End
-			If(key(_right)) botones.p2[1]=1; Else botones.p2[1]=0; End
-			If(key(_up)) botones.p2[2]=1; Else botones.p2[2]=0; End
-			If(key(_down)) botones.p2[3]=1; Else botones.p2[3]=0; End
-			If(key(_control) OR key(_space) or key(_enter))  botones.p2[4]=1; Else botones.p2[4]=0; End
-			If(key(_z) or key(_esc)) botones.p2[5]=1; Else botones.p2[5]=0; End
-		End
-		If(ops.p2_control==1)  // joystick
-            If(get_joy_position(0,0)<-10000) botones.p2[0]=1; Else botones.p2[0]=0; End
-   		    If(get_joy_position(0,0)>10000) botones.p2[1]=1; Else botones.p2[1]=0; End
-            If(get_joy_position(0,1)<-7500) botones.p2[2]=1; Else botones.p2[2]=0; End                        
-			If(get_joy_position(0,1)>7500) botones.p2[3]=1; Else botones.p2[3]=0; End
-			If(get_joy_button(0,0) OR get_joy_button(0,1)) botones.p2[4]=1; Else botones.p2[4]=0; End
-			If(get_joy_button(0,2) OR get_joy_button(0,3)) botones.p2[5]=1; Else botones.p2[5]=0; End
-		End
-		If(ops.p2_control==2)  // joystick
-            If(get_joy_position(1,0)<-10000) botones.p2[0]=1; Else botones.p2[0]=0; End
-   		    If(get_joy_position(1,0)>10000) botones.p2[1]=1; Else botones.p2[1]=0; End
-            If(get_joy_position(1,1)<-7500) botones.p2[2]=1; Else botones.p2[2]=0; End                        
-			If(get_joy_position(1,1)>7500) botones.p2[3]=1; Else botones.p2[3]=0; End
-			If(get_joy_button(1,0) OR get_joy_button(1,1)) botones.p2[4]=1; Else botones.p2[4]=0; End
-			If(get_joy_button(1,2) OR get_joy_button(1,3)) botones.p2[5]=1; Else botones.p2[5]=0; End
-		End
 		Frame;
 	End
 End
@@ -3143,3 +3044,5 @@ Begin
 		unload_map(0,graph);
 	end
 end
+
+include "../../common-src/controles.pr-";
