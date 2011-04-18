@@ -112,9 +112,6 @@ Local
 
 
 BEGIN
-
-	if(argc>0) if(argv[1]=="arcade") arcade_mode=1; end end
-
 	set_fps(40,0);
 
 	if(!mode_is_ok(800,600,32,MODE_FULLSCREEN))
@@ -2056,8 +2053,11 @@ Begin
 	end
 	a=c;
 	size=200;
+	graph=new_map(ancho*8,alto*8,32);
 	while(tiempo<frames)
-		graph=new_map(ancho*8,alto*8,32);
+		drawing_color(0);
+		drawing_map(file,graph);
+		draw_box(0,0,ancho*8,alto*8);
 		from c=0 to a step 4;
 			map_put_pixel(0,graph,particula[c].pos_x+(ancho*8/2),particula[c].pos_y+(alto*8/2),particula[c].pixell);
 			
@@ -2067,8 +2067,8 @@ Begin
 		end
 		tiempo++;
 		frame;
-		unload_map(0,graph);
 	end
+	unload_map(0,graph);
 end
 
 
