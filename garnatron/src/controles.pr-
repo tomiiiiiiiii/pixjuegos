@@ -1,0 +1,169 @@
+Process controlador(jugador);
+Private
+	pov;
+	povy;
+	povx;
+	axis_x;
+	axis_y;
+Begin
+	from i=0 to 5;
+		p[jugador].botones[i]=0;
+	end
+	Loop
+		if(!exists(father)) return; end
+		if(p[jugador].control==-2) //GLOBAL: Para menús y tal
+			from i=1 to posibles_jugadores+1;
+				controlador(i);
+			end
+			loop
+				from j=0 to 7;
+					p[0].botones[j]=0;
+				end
+				from i=1 to posibles_jugadores;
+					from j=0 to 7;
+						if(p[i].botones[j]) p[0].botones[j]=1; end
+					end
+				end
+				frame;
+			end
+		end		
+		if(p[jugador].control==-1) return; end
+		If(p[jugador].control==0)  // teclado
+			If(key(_left)) p[jugador].botones[0]=1; Else p[jugador].botones[0]=0; End
+			If(key(_right)) p[jugador].botones[1]=1; Else p[jugador].botones[1]=0; End
+			If(key(_up)) p[jugador].botones[2]=1; Else p[jugador].botones[2]=0; End
+			If(key(_down)) p[jugador].botones[3]=1; Else p[jugador].botones[3]=0; End
+			If(key(opciones.teclado.disparar) or mouse.left) p[jugador].botones[4]=1; Else p[jugador].botones[4]=0; End
+			If(key(opciones.teclado.bomba) or mouse.right) p[jugador].botones[5]=1; Else p[jugador].botones[5]=0; End
+			If(key(opciones.teclado.cambiar) or mouse.wheelup or mouse.wheeldown) p[jugador].botones[6]=1; Else p[jugador].botones[6]=0; End
+			If(key(_esc)) p[jugador].botones[7]=1; Else p[jugador].botones[7]=0; End
+		End
+		
+		
+		If(p[jugador].control>0)  // joysticks
+			POV=joy_gethat(joysticks[p[jugador].control],0); POVx=0; POVy=0;
+			
+			if(os_id==os_caanoo)
+				axis_x = joy_getaxis(2,0);
+				axis_y = joy_getaxis(2,1);
+	
+				// EJES (en teoría debería ser lo mismo que analógico :P)
+				if(axis_x<-16384) POVx=1; end
+				if(axis_x>16384) POVx=2; end
+				if(axis_y<-16384) POVy=1; end
+				if(axis_y>16384) POVy=2; end
+			end
+ 
+			// ANALOGICO
+			IF (get_joy_position(joysticks[p[jugador].control],0)<-10000) POVx=1; END // izquierda
+			IF (get_joy_position(joysticks[p[jugador].control],0)>10000) POVx=2; END // derecha
+			IF (get_joy_position(joysticks[p[jugador].control],1)<-7500) POVy=1; END // arriba
+			IF (get_joy_position(joysticks[p[jugador].control],1)>7500) POVy=2; END // abajo
+ 
+			// DIGITAL
+			IF (POV==1) POVy=1; END // arriba
+			IF (POV==3) POVy=1; POVx=2; END // der
+			IF (POV==9) POVy=1; POVx=1; END // izq
+			IF (POV==4) POVy=2; END // abajo
+			IF (POV==6) POVy=2; POVx=2; END // der
+			IF (POV==12) POVy=2; POVx=1; END // izq
+			IF (POV==2) POVx=2; END // der
+			IF (POV==8) POVx=1; END // izq
+		
+			If(povx==1) p[jugador].botones[0]=1; Else p[jugador].botones[0]=0; End
+			If(povx==2) p[jugador].botones[1]=1; Else p[jugador].botones[1]=0; End
+			If(povy==1) p[jugador].botones[2]=1; Else p[jugador].botones[2]=0; End
+			If(povy==2) p[jugador].botones[3]=1; Else p[jugador].botones[3]=0; End
+		
+			if(os_id==os_wii)
+				If(get_joy_button(joysticks[p[jugador].control],2)) p[jugador].botones[4]=1; Else p[jugador].botones[4]=0; End
+				If(get_joy_button(joysticks[p[jugador].control],3)) p[jugador].botones[5]=1; Else p[jugador].botones[5]=0; End
+				If(get_joy_button(joysticks[p[jugador].control],4)) p[jugador].botones[6]=1; Else p[jugador].botones[6]=0; End
+				If(get_joy_button(joysticks[p[jugador].control],6)) p[jugador].botones[7]=1; End
+			elseif(os_id==os_caanoo)
+				If(joy_getbutton(1,0)) p[jugador].botones[4]=1; Else p[jugador].botones[4]=0; End
+				If(joy_getbutton(1,1)) p[jugador].botones[5]=1; Else p[jugador].botones[5]=0; End
+				If(joy_getbutton(1,2)) p[jugador].botones[6]=1; Else p[jugador].botones[6]=0; End
+				If(joy_getbutton(1,8)) p[jugador].botones[7]=1; Else p[jugador].botones[7]=0; End
+			else
+				If(get_joy_button(joysticks[p[jugador].control],opciones.gamepad.disparar)) p[jugador].botones[4]=1; Else p[jugador].botones[4]=0; End
+				If(get_joy_button(joysticks[p[jugador].control],opciones.gamepad.bomba)) p[jugador].botones[5]=1; Else p[jugador].botones[5]=0; End
+				If(get_joy_button(joysticks[p[jugador].control],opciones.gamepad.cambiar)) p[jugador].botones[6]=1; Else p[jugador].botones[6]=0; End
+				If(get_joy_button(joysticks[p[jugador].control],8)) p[jugador].botones[7]=1; Else p[jugador].botones[7]=0; End
+			end
+		End
+		Frame;
+	End
+End
+
+Function configurar_controles();
+Begin
+	//1. Averiguamos cuantos joysticks tenemos
+	njoys=number_joy();
+
+	//2. ¿Cuántos de ellos son utilizables/tienen al menos dos ejes y dos botones?
+	from i=0 to (njoys-1);
+		if(joy_numbuttons(i)=>2)
+			posibles_jugadores++;
+			joysticks[posibles_jugadores]=i;
+		end
+	end
+	
+	posibles_jugadores++; //+1 por el jugador en teclado
+	//3. Si tenemos X joysticks, X jugadores jugarán con joystick y el siguiente jugará con teclado
+	
+	//por defecto no tendrán ningún control asignado
+	from i=1 to 5; p[i].control=-1; end
+	
+	if(posibles_jugadores==1) //no hay joysticks
+		p[1].control=0;
+	end
+	if(posibles_jugadores==2) //hay 1 joysticks
+		p[1].control=1;
+		p[2].control=0;
+	end
+	if(posibles_jugadores==3) //hay 2 joysticks
+		p[1].control=1;
+		p[2].control=2;
+		p[3].control=0;
+	end
+	if(posibles_jugadores==4) //hay 3 joysticks
+		p[1].control=1;
+		p[2].control=2;
+		p[3].control=3;
+		p[4].control=0;
+	end
+	if(posibles_jugadores=>4) //hay 4 joysticks
+		p[1].control=1;
+		p[2].control=2;
+		p[3].control=3;
+		p[4].control=4;
+		p[5].control=0;
+	end
+	
+	p[0].control=-2; //Esto son los menus :)
+	
+	//controladores especiales!
+	if(os_id==os_caanoo) //caanoo
+		joysticks[0]=1;
+		p[1].control=1;
+		p[0].control=-2;
+		posibles_jugadores=1;
+	end
+	
+	if(os_id==os_wii) //wii
+		joysticks[0]=0;
+//		joysticks[1]=1; //por ahora no funciona más de un jugador :(
+//		joysticks[2]=2;
+//		joysticks[3]=3;
+		p[0].control=1;
+		p[1].control=1;
+		p[2].control=2;
+		p[3].control=3;
+		p[4].control=4;
+//		posibles_jugadores=4;
+		posibles_jugadores=1;
+	end
+	
+	//Y creo que ya estamos :)
+End

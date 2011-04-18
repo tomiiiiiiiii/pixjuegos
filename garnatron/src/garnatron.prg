@@ -4,7 +4,7 @@
 // FECHA:  19/02/05
 //-----------------------------------------------------------------------
 
-PROGRAM space2;
+PROGRAM Garnatron;
 
 Global
 
@@ -28,24 +28,18 @@ struct opciones;
 		derecha;
 		abajo;
 		izquierda;
-		disparar1;
-		disparar2;
-		cambiar_sig;
-		cambiar_ant;
-		pausa;
-		salir;
+		disparar;
+		bomba;
+		cambiar;
 	end
 	struct gamepad	//controles gamepad
 		arriba;		
 		derecha;
 		abajo;
 		izquierda;
-		disparar1;
-		disparar2;
-		cambiar_sig;
-		cambiar_ant;
-		pausa;
-		salir;
+		disparar;
+		bomba;
+		cambiar;
 	end
 end
 
@@ -167,13 +161,13 @@ BEGIN
 	opciones.teclado.derecha=77;		//Derecha
 	opciones.teclado.abajo=80;			//Abajo
 	opciones.teclado.izquierda=75;		//Izquierda
-	opciones.teclado.disparar1=31;		//S
-	opciones.teclado.disparar2=17;		//W
-	opciones.teclado.cambiar_sig=32;	//D
-	opciones.teclado.cambiar_ant=30;	//A
-	opciones.teclado.pausa=28;			//Intro
-	opciones.teclado.salir=1;			//Esc
-
+	opciones.teclado.disparar=30;		//A
+	opciones.teclado.bomba=31;			//S
+	opciones.teclado.cambiar=32;		//D
+	
+	opciones.gamepad.disparar=0;		//0
+	opciones.gamepad.bomba=1;			//1
+	opciones.gamepad.cambiar=2;			//2
 	
 	
 	if(os_id==0) //windows
@@ -612,51 +606,28 @@ begin
 	
 							id_texto=write(fuente1,400,400,4,"Pulse una tecla para diparar");
 							Repeat
-								opciones.teclado.disparar1=scan_code;
+								opciones.teclado.disparar=scan_code;
 								frame;
-							until(opciones.teclado.disparar1<>0);
+							until(opciones.teclado.disparar<>0);
 							while(scan_code<>0) frame; end
 							delete_text(id_texto);
 
 							id_texto=write(fuente1,400,400,4,"Pulse una tecla para disparar una bomba");
 							Repeat
-								opciones.teclado.disparar2=scan_code;
+								opciones.teclado.bomba=scan_code;
 								frame;
-							until(opciones.teclado.disparar2<>0);
+							until(opciones.teclado.bomba<>0);
 							while(scan_code<>0) frame; end
 							delete_text(id_texto);
 
 							id_texto=write(fuente1,400,400,4,"Pulse una tecla para cambiar arma siguiente");
 							Repeat
-								opciones.teclado.cambiar_sig=scan_code;
+								opciones.teclado.cambiar=scan_code;
 								frame;
-							until(opciones.teclado.cambiar_sig<>0);
+							until(opciones.teclado.cambiar<>0);
 							while(scan_code<>0) frame; end
 							delete_text(id_texto);
 
-							id_texto=write(fuente1,400,400,4,"Pulse una tecla para cambiar arma anterior");
-							Repeat
-								opciones.teclado.cambiar_ant=scan_code;
-								frame;
-							until(opciones.teclado.cambiar_ant<>0);
-							while(scan_code<>0) frame; end
-							delete_text(id_texto);
-
-							id_texto=write(fuente1,400,400,4,"Pulse una tecla para pausa");
-							Repeat
-								opciones.teclado.pausa=scan_code;
-								frame;
-							until(opciones.teclado.pausa<>0);
-							while(scan_code<>0) frame; end
-							delete_text(id_texto);
-
-							id_texto=write(fuente1,400,400,4,"Pulse una tecla para salir");
-							Repeat
-								opciones.teclado.salir=scan_code;
-								frame;
-							until(opciones.teclado.salir<>0);
-							while(scan_code<>0) frame; end
-							delete_text(id_texto);
 
 							frame;
 							
@@ -666,7 +637,7 @@ begin
 							
 						end
 						case 2: 
-							select_joy(0);
+/*							select_joy(0);
 							frame;
 							id_texto=write(fuente1,400,400,4,"Presiona arriba y luego pulsa un boton");
 
@@ -752,103 +723,53 @@ begin
 								frame;
 							end
 							delete_text(id_texto);
-
+*/
 							id_texto=write(fuente1,400,400,4,"Pulsa un boton para disparar");
-							opciones.gamepad.disparar1=0;
 							repeat
 								from a=0 to 11;
-									if(get_joy_button(a))
-										opciones.gamepad.disparar1=a;
+									if(get_joy_button(0,a))
+										opciones.gamepad.disparar=a;
 										break;
 									end
 								end
 								frame;
-							until(get_joy_button(opciones.gamepad.disparar1));
-							while(get_joy_button(opciones.gamepad.disparar1))
+							until(get_joy_button(0,opciones.gamepad.disparar));
+							while(get_joy_button(0,opciones.gamepad.disparar))
 								frame;
 							end
 							delete_text(id_texto);
 
 							id_texto=write(fuente1,400,400,4,"Pulsa un boton para disparar una bomba");
-							opciones.gamepad.disparar2=0;
 							repeat
 								from a=0 to 11;
-									if(get_joy_button(a))
-										opciones.gamepad.disparar2=a;
+									if(get_joy_button(0,a))
+										opciones.gamepad.bomba=a;
 										break;
 									end
 								end
 								frame;
-							until(get_joy_button(opciones.gamepad.disparar2));
-							while(get_joy_button(opciones.gamepad.disparar2))
+							until(get_joy_button(0,opciones.gamepad.bomba));
+							while(get_joy_button(0,opciones.gamepad.bomba))
 								frame;
 							end
 							delete_text(id_texto);
 
 							id_texto=write(fuente1,400,400,4,"Pulsa un boton para cambiar arma siguiente");
-							opciones.gamepad.cambiar_sig=0;
 							repeat
 								from a=0 to 11;
-									if(get_joy_button(a))
-										opciones.gamepad.cambiar_sig=a;
+									if(get_joy_button(0,a))
+										opciones.gamepad.cambiar=a;
 										break;
 									end
 								end
 								frame;
-							until(get_joy_button(opciones.gamepad.cambiar_sig));
-							while(get_joy_button(opciones.gamepad.cambiar_sig))
+							until(get_joy_button(0,opciones.gamepad.cambiar));
+							while(get_joy_button(0,opciones.gamepad.cambiar))
 								frame;
 							end
 							delete_text(id_texto);
 
-							id_texto=write(fuente1,400,400,4,"Pulsa un boton para cambiar arma anterior");
-							opciones.gamepad.cambiar_ant=0;
-							repeat
-								from a=0 to 11;
-									if(get_joy_button(a))
-										opciones.gamepad.cambiar_ant=a;
-										break;
-									end
-								end
-								frame;
-							until(get_joy_button(opciones.gamepad.cambiar_ant));
-							while(get_joy_button(opciones.gamepad.cambiar_ant))
-								frame;
-							end
-							delete_text(id_texto);
-
-							id_texto=write(fuente1,400,400,4,"Pulsa un boton para pausa");
-							opciones.gamepad.pausa=0;
-							repeat
-								from a=0 to 11;
-									if(get_joy_button(a))
-										opciones.gamepad.pausa=a;
-										break;
-									end
-								end
-								frame;
-							until(get_joy_button(opciones.gamepad.pausa));
-							while(get_joy_button(opciones.gamepad.pausa))
-								frame;
-							end
-							delete_text(id_texto);
-
-							id_texto=write(fuente1,400,400,4,"Pulsa un boton para salir");
-							opciones.gamepad.salir=0;
-							repeat
-								from a=0 to 11;
-									if(get_joy_button(a))
-										opciones.gamepad.salir=a;
-										break;
-									end
-								end
-								frame;
-							until(get_joy_button(opciones.gamepad.salir));
-							while(get_joy_button(opciones.gamepad.salir))
-								frame;
-							end
-							delete_text(id_texto);
-
+							
 							frame;
 							
 							archivo=fopen(savegamedir+"opciones.dat", O_WRITE);
@@ -860,13 +781,14 @@ begin
 							opciones.teclado.derecha=77;		//Derecha
 							opciones.teclado.abajo=80;			//Abajo
 							opciones.teclado.izquierda=75;		//Izquierda
-							opciones.teclado.disparar1=31;		//S
-							opciones.teclado.disparar2=17;		//W
-							opciones.teclado.cambiar_sig=32;	//D
-							opciones.teclado.cambiar_ant=30;	//A
-							opciones.teclado.pausa=28;			//Intro
-							opciones.teclado.salir=1;			//Esc
+							opciones.teclado.disparar=30;		//A
+							opciones.teclado.bomba=31;			//S
+							opciones.teclado.cambiar=32;		//D
 
+							opciones.gamepad.disparar=0;		//0
+							opciones.gamepad.bomba=1;			//1
+							opciones.gamepad.cambiar=2;			//2
+							
 							archivo=fopen(savegamedir+"opciones.dat", O_WRITE);
 							fwrite(archivo,opciones);
 							fclose(archivo);
@@ -2156,4 +2078,5 @@ include "bombas.pr-"
 include "bosses.pr-"
 include "enemigos.pr-"
 
-include "../../common-src/controles.pr-";
+include "controles.pr-"
+//include "../../common-src/controles.pr-";

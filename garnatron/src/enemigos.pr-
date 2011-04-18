@@ -236,7 +236,7 @@ loop
 		if(graph>20) graph=1; end
 	end
 	id2=(collision(type disparo01));
-	if(id2) vida--; signal(id2,s_kill); explotalo(x,y,z,alpha,angle,file,graph,20); end
+	if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,75); end
 	id2=(collision(type laser));
 	if(id2) explosion(x,y,1,200); explotalo(x,y,z,alpha,angle,file,graph,20); break; end
 	id2=(collision(type bomba));

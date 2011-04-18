@@ -8,114 +8,121 @@ PROCESS nave01(x,y)
 private acelx; acely; disparando; inmunidad=75; retardo=5;
 
 BEGIN
-graph=1;
-file=fpg_nave;
-controlador(0);
-loop
-LOOP
-	if(pausa==0)
-		if(inmunidad<75) inmunidad++; estado=0; flags=4; else flags=0; end
-		if(retardo<5) retardo++; end
-		if(estado==-1 and inmunidad==75) 
-			if(escudo>0) 
-				escudo--; 
-				inmunidad=0; 
-			else 
-				explosion(x,y,3,200);
-				explotalo(x,y,z,alpha,angle,file,graph,20);
-				break; 
-			end 
-		end
-		if(p[0].botones[1] and acelx<10) graph=3; acelx+=2;end
-		if(p[0].botones[0] and acelx>-10) graph=2; acelx-=2;end
-		if(p[0].botones[2] and acely>-10) acely-=2;end
-		if(p[0].botones[3] and acely<10) acely+=2;end
+	graph=1;
+	file=fpg_nave;
+	controlador(0);
+	loop
+		LOOP
+			if(pausa==0)
+				if(inmunidad<75) inmunidad++; estado=0; flags=4; else flags=0; end
+				if(retardo<5) retardo++; end
+				if(estado==-1 and inmunidad==75) 
+					if(escudo>0) 
+						escudo--; 
+						inmunidad=0; 
+					else 
+						explosion(x,y,3,200);
+						explotalo(x,y,z,alpha,angle,file,graph,20);
+						break; 
+					end 
+				end
+				if(p[0].botones[1] and acelx<10) graph=3; acelx+=2; end
+				if(p[0].botones[0] and acelx>-10) graph=2; acelx-=2; end
+				if(p[0].botones[2] and acely>-10) acely-=2; end
+				if(p[0].botones[3] and acely<10) acely+=2; end
 
-		if(x>740) x=740; end
-		if(x<60) x=60; end
-		if(y<140) y=140; end
-		if(y>540) y=540; end
+				if(mouse.left)
+					if(mouse.x<x and acelx>-10) graph=2; acelx-=3; end 
+					if(mouse.x>x and acelx<10) graph=3; acelx+=3; end
+					if(mouse.y<y and acely>-10) acely-=3; end
+					if(mouse.y>y and acely<10) acely+=3; end
+				end
+				
+				if(x>740) x=740; end
+				if(x<60) x=60; end
+				if(y<140) y=140; end
+				if(y>540) y=540; end
 
-		if(acelx>0 and not p[0].botones[1] and x<730) acelx--; end
-		if(acelx<0 and not p[0].botones[0] and x>70) acelx++; end
-		if(acely<0 and not p[0].botones[2] and y>150) acely++; end
-		if(acely>0 and not p[0].botones[3] and y<530) acely--; end
+				if(acelx>0 and not p[0].botones[1] and x<730) acelx--; end
+				if(acelx<0 and not p[0].botones[0] and x>70) acelx++; end
+				if(acely<0 and not p[0].botones[2] and y>150) acely++; end
+				if(acely>0 and not p[0].botones[3] and y<530) acely--; end
 
-		x+=acelx; y+=acely;
-    		if(acelx==0) graph=1; end
-		IF (p[0].botones[4] and disparando==0 and retardo==5)
-			retardo=0;
-			if(poder==1)
-				disparo01(x-15,y-10,angle+pi/2);
-				disparo01(x+15,y-10,angle+pi/2);
-					suena(s_disparo);
-			END
-			if(poder==2)
-				disparo01(x,y-15,angle+pi/2);
-				disparo01(x-20,y+10,angle+pi/2);
-				disparo01(x+20,y+10,angle+pi/2);
-				suena(s_disparo);
-			END
-			if(poder==3)
-				disparo01(x-30,y+15,angle+pi/2);
-				disparo01(x-10,y-10,angle+pi/2);
-				disparo01(x+10,y-10,angle+pi/2);
-				disparo01(x+30,y+15,angle+pi/2);
-				suena(s_disparo);
-			END
-			if(poder==4)
-				disparo01(x-30,y+15,angle+pi*2/3);
-				disparo01(x-30,y+15,angle+pi/2);
-				disparo01(x-10,y-10,angle+pi/2);
-				disparo01(x+10,y-10,angle+pi/2);
-				disparo01(x+30,y+15,angle+pi/2);
-				disparo01(x+30,y+15,angle+pi*1/3);
-				suena(s_disparo);
-			END
-		end
-		if(disparando==0 and p[0].botones[5])
-			if(habil==1)
-				if(energia>4)
-					bomba(habil); energia-=5; disparando=1;
+				x+=acelx; y+=acely;
+				if(acelx==0) graph=1; end
+				IF (p[0].botones[4] and disparando==0 and retardo==5)
+					retardo=0;
+					if(poder==1)
+						disparo01(x-15,y-10,angle+pi/2);
+						disparo01(x+15,y-10,angle+pi/2);
+							suena(s_disparo);
+					END
+					if(poder==2)
+						disparo01(x,y-15,angle+pi/2);
+						disparo01(x-20,y+10,angle+pi/2);
+						disparo01(x+20,y+10,angle+pi/2);
+						suena(s_disparo);
+					END
+					if(poder==3)
+						disparo01(x-30,y+15,angle+pi/2);
+						disparo01(x-10,y-10,angle+pi/2);
+						disparo01(x+10,y-10,angle+pi/2);
+						disparo01(x+30,y+15,angle+pi/2);
+						suena(s_disparo);
+					END
+					if(poder==4)
+						disparo01(x-30,y+15,angle+pi*2/3);
+						disparo01(x-30,y+15,angle+pi/2);
+						disparo01(x-10,y-10,angle+pi/2);
+						disparo01(x+10,y-10,angle+pi/2);
+						disparo01(x+30,y+15,angle+pi/2);
+						disparo01(x+30,y+15,angle+pi*1/3);
+						suena(s_disparo);
+					END
+				end
+				if(disparando==0 and p[0].botones[5])
+					if(habil==1)
+						if(energia>4)
+							bomba(habil); energia-=5; disparando=1;
+						end
+					end
+					if(habil==2)
+						if(energia>9)
+							bomba(habil); energia-=10; disparando=1;
+						end
+					end
+					if(habil==3)
+						if(energia>9)
+							bomba(habil); energia-=10; disparando=1;
+						end
+					end
+					if(habil==4)
+						if(energia>1)
+							bomba(habil); energia-=1; disparando=1;
+						end
+					end
+					if(habil==5)
+						if(energia>6)
+							bomba(habil); energia-=7; disparando=1;
+						end
+					end
+				end
+				if(not exists(type bomba))
+					disparando=0;
 				end
 			end
-			if(habil==2)
-				if(energia>9)
-					bomba(habil); energia-=10; disparando=1;
-				end
-			end
-			if(habil==3)
-				if(energia>9)
-					bomba(habil); energia-=10; disparando=1;
-				end
-			end
-			if(habil==4)
-				if(energia>1)
-					bomba(habil); energia-=1; disparando=1;
-				end
-			end
-			if(habil==5)
-				if(energia>6)
-					bomba(habil); energia-=7; disparando=1;
-				end
-			end
-		end
-		if(not exists(type bomba))
-			disparando=0;
-		end
+			FRAME;
+		END
+		if(poder>1) poder--; end
+		escudo=5;
+		inmunidad=0;
+		estado=0;
+		if(vidas>-1) vidas--; else break; end
+		x=400;
+		y=650;
+		while(y>550) y-=5; frame; end
+		frame;
 	end
-	FRAME;
-END
-if(poder>1) poder--; end
-escudo=5;
-inmunidad=0;
-estado=0;
-if(vidas>-1) vidas--; else break; end
-x=400;
-y=650;
-while(y>550) y-=5; frame; end
-frame;
-end
 END
 
 //-----------------------------------------------------------------------
