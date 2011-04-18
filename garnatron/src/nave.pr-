@@ -32,10 +32,10 @@ BEGIN
 				if(p[0].botones[3] and acely<10) acely+=2; end
 
 				if(mouse.left)
-					if(mouse.x<x and acelx>-10) graph=2; acelx-=3; end 
-					if(mouse.x>x and acelx<10) graph=3; acelx+=3; end
-					if(mouse.y<y and acely>-10) acely-=3; end
-					if(mouse.y>y and acely<10) acely+=3; end
+					if(mouse.x-x<-12 and acelx>-10) graph=2; acelx-=3; end 
+					if(mouse.x-x>12 and acelx<10) graph=3; acelx+=3; end
+					if(mouse.y-y<-12 and acely>-10) acely-=3; end
+					if(mouse.y-y>12 and acely<10) acely+=3; end
 				end
 				
 				if(x>740) x=740; end
