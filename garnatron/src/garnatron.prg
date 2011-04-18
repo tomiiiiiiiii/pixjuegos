@@ -118,6 +118,9 @@ Local
 
 
 BEGIN
+
+	if(argc>0) if(argv[1]=="arcade") arcade_mode=1; end end
+
 	set_fps(40,0);
 
 	if(!mode_is_ok(800,600,32,MODE_FULLSCREEN))
