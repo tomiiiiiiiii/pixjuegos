@@ -40,6 +40,8 @@ Const
 End
 
 Global
+	arcade_mode=0;
+	
 	bitscolor=32;
 	njoys;
 	posibles_jugadores;
@@ -137,6 +139,8 @@ Private
 	string cadena_lenguaje_bien;
 	int primera_letra_lenguaje;
 Begin
+	if(argc>0) if(argv[1]=="arcade") arcade_mode=1; end end
+
 	if(os_id==0) //windows
 		savegamedir=getenv("APPDATA")+developerpath;
 		if(savegamedir==developerpath) //windows 9x/me
@@ -218,6 +222,7 @@ Begin
 	end	
 	if(os_id==os_caanoo or os_id==os_wii) bitscolor=16; end
 	if(os_id==os_caanoo) scale_resolution=03200240; end
+	if(arcade_mode) full_screen=true; end
 	set_mode(640,480,bitscolor);
 	set_fps(40,9);
 	frame;
@@ -443,6 +448,7 @@ begin
 			game_over();
 		end
       	if(p[0].botones[7])
+			while(p[0].botones[7]) frame; end
 			let_me_alone();
 			clear_screen();
 			menu();

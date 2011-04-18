@@ -38,6 +38,25 @@ begin
 	let_me_alone();
 	controlador(0);
 	if(ops.musica and !is_playing_song()) play_song(load_song("menu.ogg"),-1); end
+	graph=1;
+	x=120;
+	y=65;
+	
+	if(arcade_mode)
+		x=400;
+		y=300;
+		write(fuente_peq,400,300,4,"Pulsa disparo para jugar");
+		while(!p[0].botones[4]) 
+			if(p[0].botones[7]) exit(); end
+			frame; 
+		end
+		while(p[0].botones[4]) frame; end
+		//ayuda?
+		delete_text(all_text);
+		elegir_num_jugadores();
+		return;
+	end
+	
 	elecc=0;
 	//lista(3);
 	frame;
@@ -47,9 +66,7 @@ begin
 		elep();
 	end
 	frame;
-	graph=1;
-	x=120;
-	y=65;
+
 	keytime=10;
 
 	write(fuente_peq,x,y+=60,3,"Jugar");

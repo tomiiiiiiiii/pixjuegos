@@ -21,7 +21,7 @@ begin
 	While(file_exists("./tour/"+itoa(tour_levels+1)+".pang"))
 		tour_levels++;
 	End
-//	delete_text(all_text);
+	delete_text(all_text);
 //	clear_screen();
 	p[1].vidas=10;
 	p[1].bolas=0;
@@ -36,16 +36,33 @@ begin
 	reloj=0;
 	jefe=0;
 	file=fpg_menu;
-//	let_me_alone();
-//	frame;
+	let_me_alone();
 	frame;
 	controlador(0);
 	ready=1;
 	if(!is_playing_song()) musica(5); end
+	graph=1;
+	x=400;
+	y=300;
+	
+	if(arcade_mode)
+		write(fnt2,400,300,4,"Pulsa disparo para jugar");
+		while(!p[0].botones[4]) 
+			if(p[0].botones[7]) exit(); end
+			frame; 
+		end
+		while(p[0].botones[4]) frame; end
+		//ayuda?
+		delete_text(all_text);
+		menu_jugadores();
+		return;
+	end
+	
+	logo(2);
 	elecc=0;
 	lista(3);
 	frame;
-	logo(2);
+	
 	machango();
 	from i=0 to 20;
 		elep();

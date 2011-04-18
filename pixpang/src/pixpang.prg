@@ -1,6 +1,8 @@
 Program pixpang;
 //import "exec";
 Global
+	arcade_mode=0;
+
 	cancionsonando;
 
 	max_grav=-250;
@@ -133,6 +135,8 @@ Private
     num;
     pit;
 Begin  
+	if(argc>0) if(argv[1]=="arcade") arcade_mode=1; end end
+	
 	if(os_id==0) //windows
 		savegamedir=getenv("APPDATA")+developerpath;
 		if(savegamedir==developerpath) //windows 9x/me
@@ -153,7 +157,7 @@ Begin
 	borrar=new_map(1,1,8);
 	Alpha_steps=64;
 	set_title("PiX Pang");
-	if(ops.ventana==0) Full_screen=true; else full_screen=false; end
+	if(ops.ventana==0 or arcade_mode==1) Full_screen=true; else full_screen=false; end
 	if(os_id==9) 
 		ops.op_sombras=0;
 		scale_resolution=03200240; set_mode(800,600,16); 
@@ -2075,7 +2079,7 @@ Begin
 	//frame;
 	let_me_alone();
 	//faderaro(0);
-	if(modo_juego==2 and mundo!=0) faderaro(-1); else faderaro(0); end
+	if(modo_juego==2) faderaro(-1); end
 	iniciando=1;
 	ready=0;
 	p[1].muere=0;
@@ -2198,7 +2202,7 @@ Begin
 			If(key(_f) AND txt_fps==0) txt_fps=write_int(fnt1,0,0,0,&fps); End
 			If(key(_n)) nube(); End
 		End
-		If(p[0].botones[7]) let_me_alone(); menu(); End
+		If(p[0].botones[7]) while(p[0].botones[7]) frame; end menu(); End
 		If((p[1].bolas+p[2].bolas)>100 AND rand(0,200)==0) nube(); End
 		If(bolas=>13 AND prisa==0) prisa=1; hayprisa(); End
 		If(bolas<8 AND prisa==1) prisa=0; timer[8]=0; musica(0); End
@@ -2275,9 +2279,9 @@ Begin
 		End
 		if(cheto_avaricioso) if(avaricioso<20) avaricioso++; else cocodrilo(rand(0,1)); avaricioso=0; end end
 		If(key(_g)) p[1].arma=1; p[2].arma=1; End
-		If(p[0].botones[7]) let_me_alone(); menu(); end
-		If(players==1 AND key(_2)) players=3; suena(6); p[2].vidas=10; faderaro(-2); frame; inicio(); End
-		If(players==2 AND key(_1)) players=3; suena(6); p[1].vidas=10; inicio(); End
+		If(p[0].botones[7]) while(p[0].botones[7]) frame; end menu(); end
+		If(players==1 AND p[2].botones[4]) players=3; suena(6); p[2].vidas=10; faderaro(-2); frame; inicio(); End
+		If(players==2 AND p[1].botones[4]) players=3; suena(6); p[1].vidas=10; faderaro(-2); frame; inicio(); End
 		If(key(_d) AND key(_b) AND key(_g)) pixel_mola=1; End
 		If(bolas==0 AND ready==1 and jefe==0) ganar(); Break; End
 		If(key(_alt) AND key(_x)) exit(0,0); End
@@ -2820,7 +2824,6 @@ Begin
 	y=300;
 	z=-512;
 	if(graphh>0) graph=graphh; else
-
 		If(graphh==0) graph=920; End
 		if(graphh==-2) screenshot=get_screen(); nosubida=1; end
 		if(graphh!=-1 and graph!=2) transicion=1; else graph=screenshot; nosubida=1; end
@@ -2842,9 +2845,9 @@ Begin
 		set_center(0,graph,800,0); x=800; y=0; loop grav++; angle+=grav*1000; if(angle>90000) break; end frame;	end
 	end
 	
-	if(graph==screenshot)
+	if(graph==screenshot and graph!=0)
 		graph=0;
-		//unload_map(0,screenshot);
+		unload_map(0,screenshot);
 	end
 End
 
@@ -2925,7 +2928,7 @@ begin
 	z=-10;
 	controlador(0);
 	from alpha=50 to 255 step 5; 
-		if(p[0].botones[7]) break; end
+		if(p[0].botones[7]) while(p[0].botones[7]) frame; end break; end
 		frame; 
 	end
 	timer[0]=0;

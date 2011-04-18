@@ -20,6 +20,24 @@ begin
 	jugador=1;
 	controlador(0);
 	musica("2");
+	graph=1;
+	x=320;
+	y=240;
+	
+	if(arcade_mode)
+		put_screen(file,graph);
+		write(fnt_intro,320,240,4,"Pulsa disparo para jugar");
+		while(!p[0].botones[4]) 
+			if(p[0].botones[7]) exit(); end
+			frame; 
+		end
+		while(p[0].botones[4]) frame; end
+		//ayuda?
+		delete_text(all_text);
+		elecpersonaje();
+		return;
+	end
+	
 	elecc=0;
 	lista(3);
 	logo(2);
@@ -28,9 +46,7 @@ begin
 		elep();
 	end
 	if(file_exists(savegamedir+"partida.dat")); continuable=1; end
-	graph=1;
-	x=320;
-	y=240;
+
 	keytime=10;
 	loop
 		if(elecc==7)

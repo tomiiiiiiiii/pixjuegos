@@ -1,5 +1,7 @@
 program pixfrogger;
 global
+	arcade_mode=0;
+
 	jue;
 	ran1;
 	ran2;
@@ -33,6 +35,8 @@ global
 Local
 	i; // la variable maestra
 begin
+	if(argc>0) if(argv[1]=="arcade") arcade_mode=1; end end
+
 	njoys=number_joy();
 	if(njoys>0)
 		from i=0 to njoys-1;
@@ -62,6 +66,7 @@ begin
 	full_screen=ops.pantalla_completa;
 	carga_sonidos();
 	alpha_steps=255;	
+	if(arcade_mode) full_screen=true; end
 	set_mode(640,480,32);
 	set_fps(30,0);
 	ler=load_fnt("fnt/puntos.fnt");
@@ -84,7 +89,7 @@ begin
 	y=240;
 	z=-10;
 	from alpha=50 to 255 step 5; 
-		if(key(_enter) or key(_esc)) break; end
+		if(get_joy_button(0,8) or key(_esc)) break; end
 		frame; 
 	end
 	timer[0]=0;
@@ -108,10 +113,23 @@ begin
 	delete_text(all_text);
 	from i=1 to 4; ranviva[i]=0; ranpuntos[i]=0; end
 	elecc=0;
+	put_screen(0,3);
+	
+	if(arcade_mode)
+		write(0,320,240,4,"Pulsa disparo para jugar");
+		while(!get_joy_button(0,0)) 
+			if(get_joy_button(0,8) or key(_esc)) exit(); end
+			frame; 
+		end
+		while(get_joy_button(0,0)) frame; end
+		delete_text(all_text);
+		elecpersonaje();
+		return;
+	end
+	
 	lista(4);
 	logo(2);
 	machango();
-	put_screen(0,3);
 	x=320;
 	y=240;
 	keytime=10;
@@ -267,7 +285,8 @@ begin
 	keytime=10;
 	if(graph==5 and ops.lenguaje==1) graph=912; end
 	loop
-		if(key(_esc))
+		if((arcade_mode and get_joy_button(0,8)) or key(_esc))
+			while(get_joy_button(0,8) or key(_esc)) frame; end
 			let_me_alone();
 			sonido(1);
 			menu();
@@ -413,35 +432,35 @@ begin
 			unload_map(0,graph);
 			break;
 		end
-		if((key(_up) and buzz==0) or (get_joy_button(buzz_joy,0) and buzz))
+		if((key(_up) and buzz==0) or (get_joy_button(buzz_joy,0) and buzz) or (get_joy_button(0,0) and arcade_mode))
 			if(ran1==0)
 				sonido(4);
 				rana_elec(138,380,501,1);
 				ran1=1;
 			end
 		end
-		if((key(_z) and buzz==0) or (get_joy_button(buzz_joy,5) and buzz))
+		if((key(_z) and buzz==0) or (get_joy_button(buzz_joy,5) and buzz) or (get_joy_button(0,2) and arcade_mode))
 			if(ran2==0)
 				sonido(4);
 				rana_elec(258,380,502,1);
 				ran2=1;
 			end
 		end
-		if((key(_p) and buzz==0) or (get_joy_button(buzz_joy,10) and buzz))
+		if((key(_p) and buzz==0) or (get_joy_button(buzz_joy,10) and buzz) or (get_joy_button(1,0) and arcade_mode))
 			if(ran3==0)
 				sonido(4);
 				rana_elec(378,380,503,1);
 				ran3=1;
 			end
 		end
-		if((key(_q) and buzz==0) or (get_joy_button(buzz_joy,15) and buzz))
+		if((key(_q) and buzz==0) or (get_joy_button(buzz_joy,15) and buzz) or (get_joy_button(1,2) and arcade_mode))
 			if(ran4==0)
 				sonido(4);
 				rana_elec(498,380,504,1);
 				ran4=1;
 			end
 		end
-		if(key(_esc))
+		if((arcade_mode and get_joy_button(0,8)) or key(_esc))
 			let_me_alone();
 			while(key(_esc)) frame; end
 			menu();
@@ -533,9 +552,9 @@ begin
 			unload_map(0,graph);
 			signal(id,s_kill);
 		end
-		if(key(_esc))
+		if((get_joy_button(0,8) and arcade_mode) or key(_esc))
 			let_me_alone();
-			while(key(_esc)) frame; end
+			while((get_joy_button(0,8) and arcade_mode) or key(_esc)) frame; end
 			graph=get_screen();
 			x=320; y=240; z=-100;
 			menu();
@@ -664,13 +683,13 @@ begin
 
 
 		if((
-			(jugador==1 and ((key(_up) and buzz==0) or (get_joy_button(buzz_joy,0) and buzz)))
+			(jugador==1 and ((key(_up) and buzz==0) or (get_joy_button(buzz_joy,0) and buzz) or (get_joy_button(0,0) and arcade_mode)))
 			or 
-			(jugador==2 and ((key(_z) and buzz==0) or (get_joy_button(buzz_joy,5) and buzz)))
+			(jugador==2 and ((key(_z) and buzz==0) or (get_joy_button(buzz_joy,5) and buzz) or (get_joy_button(0,2) and arcade_mode)))
 			or 
-			(jugador==3 and ((key(_p) and buzz==0) or (get_joy_button(buzz_joy,10) and buzz)))
+			(jugador==3 and ((key(_p) and buzz==0) or (get_joy_button(buzz_joy,10) and buzz) or (get_joy_button(1,0) and arcade_mode)))
 			or 
-			(jugador==4 and ((key(_q) and buzz==0) or (get_joy_button(buzz_joy,15) and buzz)))
+			(jugador==4 and ((key(_q) and buzz==0) or (get_joy_button(buzz_joy,15) and buzz) or (get_joy_button(1,2) and arcade_mode)))
 		   )
 				and up==0)
 			graph=gr+1;

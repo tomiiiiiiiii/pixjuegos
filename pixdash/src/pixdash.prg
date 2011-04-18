@@ -7,6 +7,8 @@ Program plataformas;
 #endif
 
 Global     
+	arcade_mode=0;
+
 	app_data=1;
 	suelo;
 	dur_pinchos;
@@ -777,7 +779,7 @@ end //FIN IF WII
 	controlador(0);
 	loop
 		if(key(_n)) while(key(_n)) frame; end num_nivel++; carga_nivel(); end
-		if(p[0].botones[7]) menu(); end
+		if(p[0].botones[7]) while(p[0].botones[7]) frame; end menu(); end
 		if(timer>300 and texto!=0) delete_text(texto); texto=0; end
 //		if(jugadores==3 and ((!exists(scroll[3].camera)) or scroll[3].camera==0 or rand(0,500)==333)) scroll[3].camera=get_id(type enemigo); end
 //		if(jugadores==1 and ((!exists(scroll[1].camera)) or scroll[1].camera==0 or rand(0,500)==333)) scroll[1].camera=get_id(type enemigo); end
@@ -898,6 +900,7 @@ include "explosion.pr-";
 
 //PROCESS MAIN
 Begin
+	if(argc>0) if(argv[1]=="arcade") arcade_mode=1; end end
 	set_title("PiX Dash");
 	
 	if(os_id!=1000) app_data=1; end
@@ -933,6 +936,7 @@ Begin
 
 	set_fps(0,0); //imágenes por segundo
 	probar_pantalla();
+	if(arcade_mode) full_screen=true; end
 	set_mode(800,600,16); //resolución y colores	    
 	fpg_enemigos=load_fpg("fpg/enemigos.fpg"); //cargar el mapa de tiles
 	fpg_powerups=load_fpg("fpg/powerups.fpg"); //cargar el mapa de tiles
