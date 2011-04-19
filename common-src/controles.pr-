@@ -41,7 +41,7 @@ Begin
 		If(p[jugador].control>0)  // joysticks
 			POV=joy_gethat(joysticks[p[jugador].control],0); POVx=0; POVy=0;
 			
-			if(os_id==os_caanoo)
+			if(os_id==os_caanoo or os_id==os_linux)
 				axis_x = joy_getaxis(2,0);
 				axis_y = joy_getaxis(2,1);
 	
