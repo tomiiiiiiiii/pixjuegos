@@ -41,7 +41,7 @@ Begin
 		If(p[jugador].control>0)  // joysticks
 			POV=joy_gethat(joysticks[p[jugador].control],0); POVx=0; POVy=0;
 			
-			if(os_id==os_caanoo or os_id==os_linux)
+			if(os_id==os_caanoo)
 				axis_x = joy_getaxis(2,0);
 				axis_y = joy_getaxis(2,1);
 	
@@ -51,12 +51,18 @@ Begin
 				if(axis_y<-16384) POVy=1; end
 				if(axis_y>16384) POVy=2; end
 			end
- 
+
 			// ANALOGICO
 			IF (get_joy_position(joysticks[p[jugador].control],0)<-10000) POVx=1; END // izquierda
 			IF (get_joy_position(joysticks[p[jugador].control],0)>10000) POVx=2; END // derecha
 			IF (get_joy_position(joysticks[p[jugador].control],1)<-7500) POVy=1; END // arriba
 			IF (get_joy_position(joysticks[p[jugador].control],1)>7500) POVy=2; END // abajo
+
+                        // DIGITAL (LINUX?)
+                        IF (get_joy_position(joysticks[p[jugador].control],3)<-10000) POVx=1; END // izquierda
+                        IF (get_joy_position(joysticks[p[jugador].control],3)>10000) POVx=2; END // derecha
+                        IF (get_joy_position(joysticks[p[jugador].control],4)<-7500) POVy=1; END // arriba
+                        IF (get_joy_position(joysticks[p[jugador].control],4)>7500) POVy=2; END // abajo
  
 			// DIGITAL
 			IF (POV==1) POVy=1; END // arriba

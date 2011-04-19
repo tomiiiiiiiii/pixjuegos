@@ -59,6 +59,12 @@ Begin
 			IF (get_joy_position(joysticks[p[jugador].control],0)>10000) POVx=2; END // derecha
 			IF (get_joy_position(joysticks[p[jugador].control],1)<-7500) POVy=1; END // arriba
 			IF (get_joy_position(joysticks[p[jugador].control],1)>7500) POVy=2; END // abajo
+
+                        // DIGITAL (LINUX?)
+                        IF (get_joy_position(joysticks[p[jugador].control],3)<-10000) POVx=1; END // izquierda
+                        IF (get_joy_position(joysticks[p[jugador].control],3)>10000) POVx=2; END // derecha
+                        IF (get_joy_position(joysticks[p[jugador].control],4)<-7500) POVy=1; END // arriba
+                        IF (get_joy_position(joysticks[p[jugador].control],4)>7500) POVy=2; END // abajo
  
 			// DIGITAL
 			IF (POV==1) POVy=1; END // arriba
