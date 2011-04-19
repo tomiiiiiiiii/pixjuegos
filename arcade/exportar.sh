@@ -4,13 +4,13 @@ echo Generando FPGS
 mkdir fpg
 cd fpg-sources
 ../../bennu-linux/bgdc pxlfpg.prg
-../../bennu-linux/bgdi pxlfpg pixfrogger
+../../bennu-linux/bgdi pxlfpg arcade
 cd ..
 
 cd src
 echo Compilando...
-../../bennu-linux/bgdc pixfrogger.prg
-mv pixfrogger.dcb ..
+../../bennu-linux/bgdc arcade.prg
+mv arcade.dcb ..
 cd ..
 echo Exportando...
 mkdir export
@@ -23,7 +23,7 @@ cp ogg/*.ogg export/ogg
 cp wav/*.wav export/wav
 cp fnt/*.fnt export/fnt
 cp ../bennu-linux/*.so export
-cp ../bennu-linux/bgdi export/pixfrogger
-cp pixfrogger.dcb export
-chmod +x export/*.so export/pixfrogger
+cp ../bennu-linux/bgdi export/arcade
+cp arcade.dcb export
+chmod +x export/*.so export/arcade
 echo LISTO!!

@@ -40,7 +40,6 @@ mkdir export/wav
 mkdir export/niveles
 cp fpg/*.fpg export/fpg
 cp ogg/*.ogg export/ogg
-cp ogg/monstruos/*.* export/ogg/monstruos
 cp wav/*.wav export/wav
 cp fnt/*.fnt export/fnt
 cp niveles/*.lvl export/niveles
