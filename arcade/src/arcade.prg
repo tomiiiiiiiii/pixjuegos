@@ -41,7 +41,7 @@ Begin
 		if(p[0].botones[0]) enmovimiento(0); enmovimiento(1); opcion--; break; end
 		if(p[0].botones[1]) enmovimiento(2); enmovimiento(3); opcion++; break; end
 		if(p[0].botones[4]) from size=100 to 120; alpha-=10; frame; end ejecutar(); end
-		if(key(_esc)) exit(); end
+		if(key(_esc)) say("salir"); exit(); end
 		frame;
 	end
 End
