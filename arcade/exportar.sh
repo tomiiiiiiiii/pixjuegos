@@ -25,5 +25,6 @@ cp fnt/*.fnt export/fnt
 cp ../bennu-linux/*.so export
 cp ../bennu-linux/bgdi export/arcade
 cp arcade.dcb export
+cp arcade.sh export
 chmod +x export/*.so export/arcade
 echo LISTO!!

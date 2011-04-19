@@ -41,6 +41,7 @@ Begin
 		if(p[0].botones[0]) enmovimiento(0); enmovimiento(1); opcion--; break; end
 		if(p[0].botones[1]) enmovimiento(2); enmovimiento(3); opcion++; break; end
 		if(p[0].botones[4]) from size=100 to 120; alpha-=10; frame; end ejecutar(); end
+		if(key(_esc)) exit(); end
 		frame;
 	end
 End
@@ -59,8 +60,12 @@ Begin
 		case 4: juego="pixfrogger"; end
 		case 5: juego="pixdash"; end
 	end
-	exec(_P_WAIT,"../"+juego+"/"+juego,1,&argumentos);
-	exec(_P_NOWAIT,"./arcade",1,&argumentos);
+	say(juego);
+	exit();
+	//chdir("../"+juego);
+	//exec(_P_WAIT,"./"+juego,1,&argumentos);
+	//chdir("../arcade");
+	//exec(_P_NOWAIT,"./arcade",1,&argumentos);
 End
 
 Process flecha(flags);
