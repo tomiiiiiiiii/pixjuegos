@@ -17,7 +17,7 @@ cd ..
 
 cd src
 echo Compilando...
-../../bennu-linux/bgdc pixdash.prg
+../../bennu-linux/bgdc pixdash.prg -D LINUX
 mv pixdash.dcb ..
 cd ..
 echo Exportando...
