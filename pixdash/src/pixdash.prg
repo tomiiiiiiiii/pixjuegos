@@ -2,9 +2,11 @@ Program plataformas;
 
 //comentar las dos siguientes líneas para Wii
 #ifndef WII
- import "mod_image";
+ import "image";
  import "mod_sys"; 
 #endif
+
+
 
 Global     
 	arcade_mode=0;
@@ -745,7 +747,7 @@ end //FIN IF WII
 	end
 	x=ancho_pantalla/2; 
 	y=alto_pantalla/2;
-	timer=0;
+	timer[0]=0;
 	stop_song();
 	transicion();
 	//TEXTO PRESENTACION NIVEL:
@@ -753,10 +755,10 @@ end //FIN IF WII
 	write(fuente_peq,ancho_pantalla/2,(alto_pantalla/4)+50,4,nivel_descripcion[num_nivel]);
 	//3 2 1 YA!:
 	from i=3 to 1 step -1;
-		timer=0;
+		timer[0]=0;
 		texto=write(fuente,ancho_pantalla/2,alto_pantalla/2,4,i);
 		sonido(1);
-		while(timer<100) frame;	end
+		while(timer[0]<100) frame; end
 		delete_text(texto);
 	end
 	sonido(3);
@@ -764,7 +766,7 @@ end //FIN IF WII
 	if(modo_juego==0) marcadores(); end //marcadores de puntos en modo competición
 	texto=write(fuente,ancho_pantalla/2,alto_pantalla/2,4,"¡YA!");
 	ready=1;
-	timer=0;
+	timer[0]=0;
 	timer[1]=0; //para contrarreloj
 	//if(ops.musica) play_song(load_song(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".ogg"),-1); end
 	if(ops.musica)
@@ -780,7 +782,7 @@ end //FIN IF WII
 	loop
 		if(key(_n)) while(key(_n)) frame; end num_nivel++; carga_nivel(); end
 		if(p[0].botones[7]) while(p[0].botones[7]) frame; end menu(); end
-		if(timer>300 and texto!=0) delete_text(texto); texto=0; end
+		if(timer[0]>300 and texto!=0) delete_text(texto); texto=0; end
 //		if(jugadores==3 and ((!exists(scroll[3].camera)) or scroll[3].camera==0 or rand(0,500)==333)) scroll[3].camera=get_id(type enemigo); end
 //		if(jugadores==1 and ((!exists(scroll[1].camera)) or scroll[1].camera==0 or rand(0,500)==333)) scroll[1].camera=get_id(type enemigo); end
 		frame;

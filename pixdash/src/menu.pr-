@@ -781,7 +781,7 @@ Begin
 		mensaje("No es un paquete de niveles valido");
 	end
 	timer[0]=0;
-	while(timer<300) frame; end
+	while(timer[0]<300) frame; end
 End
 
 Process mensaje(string texto);
