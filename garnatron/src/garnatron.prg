@@ -2055,13 +2055,13 @@ Begin
 	end
 	a=c;
 	size=200;
-	graph=new_map(ancho*8,alto*8,32);
+	graph=new_map(ancho*4,alto*4,32);
 	while(tiempo<frames)
 		drawing_color(0);
 		drawing_map(file,graph);
-		draw_box(0,0,ancho*8,alto*8);
+		draw_box(0,0,ancho*4,alto*4);
 		from c=0 to a step 4;
-			map_put_pixel(0,graph,particula[c].pos_x+(ancho*8/2),particula[c].pos_y+(alto*8/2),particula[c].pixell);
+			map_put_pixel(file,graph,particula[c].pos_x+(ancho*4/2),particula[c].pos_y+(alto*4/2),particula[c].pixell);
 			
 			particula[c].pos_x+=particula[c].vel_x;
 			particula[c].pos_y+=particula[c].vel_y;
@@ -2070,7 +2070,7 @@ Begin
 		tiempo++;
 		frame;
 	end
-	unload_map(0,graph);
+	unload_map(file,graph);
 end
 
 
@@ -2079,6 +2079,6 @@ include "nave.pr-"
 include "bombas.pr-"
 include "bosses.pr-"
 include "enemigos.pr-"
-
 include "controles.pr-"
+
 //include "../../common-src/controles.pr-";
