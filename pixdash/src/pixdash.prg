@@ -951,7 +951,7 @@ Begin
 
 	set_fps(0,0); //imágenes por segundo
 	probar_pantalla();
-	if(arcade_mode) full_screen=true; end
+	if(arcade_mode) full_screen=true; scale_resolution=08000600;end
 	set_mode(800,600,16); //resolución y colores	    
 	fpg_enemigos=load_fpg("fpg/enemigos.fpg"); //cargar el mapa de tiles
 	fpg_powerups=load_fpg("fpg/powerups.fpg"); //cargar el mapa de tiles

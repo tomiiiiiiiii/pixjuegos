@@ -222,7 +222,7 @@ Begin
 	end	
 	if(os_id==os_caanoo or os_id==os_wii) bitscolor=16; end
 	if(os_id==os_caanoo) scale_resolution=03200240; end
-	if(arcade_mode) full_screen=true; end
+	if(arcade_mode) full_screen=true; scale_resolution=08000600; end
 	set_mode(640,480,bitscolor);
 	set_fps(40,9);
 	frame;

@@ -66,7 +66,7 @@ begin
 	full_screen=ops.pantalla_completa;
 	carga_sonidos();
 	alpha_steps=255;	
-	if(arcade_mode) full_screen=true; end
+	if(arcade_mode) full_screen=true; scale_resolution=08000600; end
 	set_mode(640,480,32);
 	set_fps(30,0);
 	ler=load_fnt("fnt/puntos.fnt");
