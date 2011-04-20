@@ -2,7 +2,12 @@ Program plataformas;
 
 //comentar las dos siguientes líneas para Wii
 #ifndef WII
- import "image";
+ #ifdef LINUX
+  import "image";
+ #endif
+ #ifndef LINUX
+  import "mod_image";
+ #endif
  import "mod_sys"; 
 #endif
 
@@ -10,7 +15,9 @@ Program plataformas;
 
 Global     
 	arcade_mode=0;
-
+	editor_de_niveles=0;
+	descarga_niveles=0;
+	
 	app_data=1;
 	suelo;
 	dur_pinchos;
@@ -559,27 +566,28 @@ BEGIN
 
 	mapa=load_png(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".png"); 
 
-#ifndef WII
-	if(fexists(savegamedir+"niveles\"+paqueteniveles+"\fondo"+num_nivel+".jpg"))
-		fondo=load_image(savegamedir+"niveles\"+paqueteniveles+"\fondo"+num_nivel+".jpg"); //cargar el fondo
+	if(os_id==os_wii)
+		if(fexists(savegamedir+"niveles\"+paqueteniveles+"\fondo"+num_nivel+".jpg.png"))
+			fondo=load_png(savegamedir+"niveles\"+paqueteniveles+"\fondo"+num_nivel+".jpg.png"); //cargar el fondo. ponemos .jpg.png para saber que viene de un jpg
+		else
+			fondo=load_png("fondos\fondo"+rand(1,5)+".jpg.png"); //cargar el fondo
+		end
 	else
-		fondo=load_image("fondos\fondo"+rand(1,5)+".jpg"); //cargar el fondo
+		if(fexists(savegamedir+"niveles\"+paqueteniveles+"\fondo"+num_nivel+".jpg"))
+			fondo=load_image(savegamedir+"niveles\"+paqueteniveles+"\fondo"+num_nivel+".jpg"); //cargar el fondo
+		else
+			fondo=load_image("fondos\fondo"+rand(1,5)+".jpg"); //cargar el fondo
+		end
 	end
-#endif
 
-#ifdef WII
-	if(fexists(savegamedir+"niveles\"+paqueteniveles+"\fondo"+num_nivel+".jpg.png"))
-		fondo=load_png(savegamedir+"niveles\"+paqueteniveles+"\fondo"+num_nivel+".jpg.png"); //cargar el fondo. ponemos .jpg.png para saber que viene de un jpg
-	else
-		fondo=load_png("fondos\fondo"+rand(1,5)+".jpg.png"); //cargar el fondo
-	end
-#endif
+
 	if(fexists(savegamedir+"niveles\"+paqueteniveles+"\tiles.fpg"))
 		fpg_tiles=load_fpg(savegamedir+"niveles\"+paqueteniveles+"\tiles.fpg");
 	else
 		fpg_tiles=load_fpg("fpg\tiles.fpg");
 	end
 	num_enemigos=0;
+
 	//ancho del gráfico pequeñito
 	ancho=GRAPHIC_INFO(0,mapa,G_WIDE);
 	alto=GRAPHIC_INFO(0,mapa,G_HEIGHT);
@@ -592,30 +600,31 @@ BEGIN
 	ancho_nivel=ancho*tilesize;
 	
 	max_num_enemigos=(alto_nivel*ancho_nivel)/100000;
-//BURRADA TEMPORAL PARA PRUEBAS CON MEMORIA DE LA WII
-if(os_id!=1000)
-	mapa_scroll=new_map(ancho*tilesize,(alto-3)*tilesize,16);
-	//LO VISIBLE:
-	repeat
-		pos_x=x*tilesize;
-		pos_y=y*tilesize;
-		tile=map_get_pixel(0,mapa,x,y);
-		if(tile==tiles[0]) MAP_PUT(fpg_tiles,mapa_scroll,1,pos_x+(tilesize/2),pos_y+(tilesize/2)); end
-		if(tile==tiles[1]) MAP_PUT(fpg_tiles,mapa_scroll,2,pos_x+(tilesize/2),pos_y+(tilesize/2)); end
-		if(tile==tiles[2]) MAP_PUT(fpg_tiles,mapa_scroll,3,pos_x+(tilesize/2),pos_y+(tilesize/2)); end
-		if(tile==tiles[3]) MAP_PUT(fpg_tiles,mapa_scroll,4,pos_x+(tilesize/2),pos_y+(tilesize/2)); end
-		if(x<ancho)
-			x++;
-		else
-			y++; x=0;
-		end
-	until(y=>alto-3)
-END
+	//BURRADA TEMPORAL PARA PRUEBAS CON MEMORIA DE LA WII
+	if(os_id!=os_wii)
+		mapa_scroll=new_map(ancho*tilesize,(alto-3)*tilesize,16);
+		//LO VISIBLE:
+		repeat
+			pos_x=x*tilesize;
+			pos_y=y*tilesize;
+			tile=map_get_pixel(0,mapa,x,y);
+			if(tile==tiles[0]) MAP_PUT(fpg_tiles,mapa_scroll,1,pos_x+(tilesize/2),pos_y+(tilesize/2)); end
+			if(tile==tiles[1]) MAP_PUT(fpg_tiles,mapa_scroll,2,pos_x+(tilesize/2),pos_y+(tilesize/2)); end
+			if(tile==tiles[2]) MAP_PUT(fpg_tiles,mapa_scroll,3,pos_x+(tilesize/2),pos_y+(tilesize/2)); end
+			if(tile==tiles[3]) MAP_PUT(fpg_tiles,mapa_scroll,4,pos_x+(tilesize/2),pos_y+(tilesize/2)); end
+			if(x<ancho)
+				x++;
+			else
+				y++; x=0;
+			end
+		until(y=>alto-3)
+	END
 
 	x=0; y=0;
 	durezas=new_map(ancho*tilesize,(alto-3)*tilesize,8);
-//BURRADA TEMPORAL PARA PRUEBAS CON MEMORIA DE LA WII
-if(os_id==1000) mapa_scroll=durezas; end
+
+	//BURRADA TEMPORAL PARA PRUEBAS CON MEMORIA DE LA WII
+	if(os_id==os_wii) mapa_scroll=durezas; end
 
 	suelo=map_get_pixel(fpg_durezas,501,0,0);
 	dur_pinchos=map_get_pixel(fpg_durezas,502,0,0);
@@ -645,7 +654,7 @@ if(os_id==1000) mapa_scroll=durezas; end
 	until(y=>alto-3)
 
 //BURRADA TEMPORAL PARA PRUEBAS CON MEMORIA DE LA WII
-if(os_id!=1000)
+if(os_id!=os_wii)
 	//EMPEZAMOS A PINTAR COSAS WACHIS!!!
 	from y=0 to alto;
 		from x=0 to ancho;
@@ -903,9 +912,14 @@ include "explosion.pr-";
 //PROCESS MAIN
 Begin
 	if(argc>0) if(argv[1]=="arcade") arcade_mode=1; end end
+	if(os_id==os_win32)
+		editor_de_niveles=1;
+		descarga_niveles=1;
+	end
+
 	set_title("PiX Dash");
 	
-	if(os_id!=1000) app_data=1; end
+	if(os_id!=os_wii) app_data=1; end
 	
 	// Código aportado por Devilish Games / Josebita
 	if(app_data)

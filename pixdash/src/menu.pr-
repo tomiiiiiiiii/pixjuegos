@@ -74,7 +74,7 @@ begin
 	write(fuente_peq,x,y+=60,3,"Ayuda");
 	write(fuente_peq,x,y+=60,3,"Creditos");
 	write(fuente_peq,x,y+=60,3,"PiXJuegos.com");
-	if(os_id!=1000)
+	if(editor_de_niveles)
 		write(fuente_peq,x,y+=60,3,"Editor de niveles");
 	end
 	write(fuente_peq,x,y+=60,3,"Salir");
@@ -82,11 +82,11 @@ begin
 	x=400;
 	y=300;
 	loop
-		if(elecc==7 or (elecc==6 and os_id==1000))
+		if(elecc==7 or (elecc==6 and !editor_de_niveles))
 			elecc=0;
 		end
 		if(elecc==-1)
-			if(os_id==1000) elecc=5; else elecc=6; end
+			if(!editor_de_niveles) elecc=5; else elecc=6; end
 		end
 		if(keytime>0)
 			keytime--;
@@ -127,7 +127,7 @@ begin
 				exit(0);
 			end
 			if(elecc==5)
-				if(os_id!=1000)
+				if(editor_de_niveles)
 					editor_de_niveles(); 
 					return;
 				else
@@ -496,7 +496,7 @@ begin
 	x=100;
 	y=125;
 	from i=1 to num_paquetes; write(fuente_peq,x,y,3,nombres_paquetes[i]); y+=30; end
-	write(fuente_peq,x,y,3,"Descargar nuevos niveles");
+	if(descarga_niveles) write(fuente_peq,x,y,3,"Descargar nuevos niveles"); end
 	file=fpg_menu;
 	elecc=0;
 	controlador(0);
@@ -546,11 +546,15 @@ begin
 		else
 			tec2=0;
 		end
-		if(elecc==num_paquetes+1)
+		if((elecc==num_paquetes+1 and descarga_niveles) or (elecc==num_paquetes and !descarga_niveles))
 			elecc=0;
 		end
 		if(elecc==-1)
-			elecc=num_paquetes;
+			if(descarga_niveles)
+				elecc=num_paquetes;
+			else
+				elecc=num_paquetes-1;
+			end
 		end
 		frame;
 	end
