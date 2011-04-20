@@ -336,8 +336,8 @@ REPEAT
 			estela(x,y,angle,fpg_explosiones,42);
 		end
 
-		if(collision(id_nave)) id_nave.estado=-1; explotalo(x,y,z,alpha,angle,file,graph,10); end
-		if(collision(type disparo01)) break; end
+		if(collision(id_nave)) id_nave.estado=-1; explosion(x,y,2,75); end
+		if(collision(type disparo01)) explosion(x,y,2,75); break; end
 	end
 	FRAME;
 UNTIL (out_region(id,1) or collision(id_nave))

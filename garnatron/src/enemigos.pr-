@@ -243,15 +243,15 @@ loop
 	if(id2) explosion(x,y,1,200); explotalo(x,y,z,alpha,angle,file,graph,20); break; end
 	if(vida<1)
 		if(size>99)
-			explosion(x,y,1,200);
 			asteroide(x,y,30,rand(0,120000),rand(6,12));
 			asteroide(x,y,30,rand(120000,240000),rand(6,12));
 			asteroide(x,y,30,rand(240000,360000),rand(6,12));
 			break;
 		else
-			explosion(x,y,1,200);
 			break;
 		end
+		explosion(x,y,1,200);
+		explotalo(x,y,z,alpha,angle,file,graph,20);
 	end
 	if(y>650 or x<-30 or x>850 or y<-200) break; end
 	if(collision(type nave01))

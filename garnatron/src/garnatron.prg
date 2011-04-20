@@ -426,14 +426,15 @@ begin
 	let_me_alone();
 	clear_screen();
 	delete_text(all_text);
-	reinicio_variables();
+//	reinicio_variables();
 	file=fpg_menu;
 
 	define_region(1,0,0,800,600);
 
+	if(not exists(type objeto))
+		sombra(9,400,75,file,2);
+	end
 	objeto(400,75,9,file,100,16);
-	sombra(9,400,75,file,2);
-	
 	
 	controlador(0);
 
@@ -844,12 +845,12 @@ begin
 		frame;
 	end
 end
-
+/*
 function reinicio_variables();
 begin
 	delete_text(all_text);
 end
-
+*/
 
 //-----------------------------------------------------------------------
 // proceso ayuda
@@ -2039,8 +2040,8 @@ Private
 Begin
 	ancho=graphic_info(file,grafico,g_width);
 	alto=graphic_info(file,grafico,g_height);
-		from b=0 to alto-1 step 3;
-		from a=0 to ancho-1 step 3;
+		from b=0 to alto-1 step 5;
+		from a=0 to ancho-1 step 5;
 			if(map_get_pixel(file,grafico,a,b)!=0)
 				particula[c].pixell=map_get_pixel(file,grafico,a,b);
 				
@@ -2060,7 +2061,8 @@ Begin
 		drawing_color(0);
 		drawing_map(file,graph);
 		draw_box(0,0,ancho*4,alto*4);
-		from c=0 to a step 4;
+//		from c=0 to a step 4;
+		from c=0 to a;
 			map_put_pixel(file,graph,particula[c].pos_x+(ancho*4/2),particula[c].pos_y+(alto*4/2),particula[c].pixell);
 			
 			particula[c].pos_x+=particula[c].vel_x;
