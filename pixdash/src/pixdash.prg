@@ -548,7 +548,7 @@ BEGIN
 	if(!file_exists(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".png")) menu(); return; end // FIN DE LA COMPETICION
 	frame;
 	if(num_nivel!=1) foto=get_screen(); end
-	set_mode(ancho_pantalla,alto_pantalla,16);
+	set_mode(ancho_pantalla,alto_pantalla,16,WAITVSYNC);
 	delete_text(all_text);
 	
 	rand_seed(num_nivel);
@@ -920,8 +920,6 @@ Begin
 
 	set_title("PiX Dash");
 	
-	if(os_id!=os_wii) app_data=1; end
-	
 	// Código aportado por Devilish Games / Josebita
 	if(app_data)
 		dir_juego=cd();
@@ -1107,13 +1105,15 @@ begin
 		return;
 	end
 
+    if(arcade_mode) ancho_pantalla=1024; alto_pantalla=768; scale_resolution=0; return; end
+
     if(mode_is_ok(1920,1080,16,MODE_WAITVSYNC+MODE_FULLSCREEN)) //Si soporta 1360x760 nativamente...
         ancho_pantalla=1920; alto_pantalla=1080; scale_resolution=0;
     elseif(mode_is_ok(1360,768,16,MODE_WAITVSYNC+MODE_FULLSCREEN)) //Si soporta 1360x760 nativamente...
         ancho_pantalla=1360; alto_pantalla=768; scale_resolution=0;
-    elseif(mode_is_ok(1280,720,16,MODE_WAITVSYNC+MODE_FULLSCREEN)) //Si soporta 1280x720 nativamente...
+    elseif(mode_is_ok(1280,1024,16,MODE_WAITVSYNC+MODE_FULLSCREEN)) //Si soporta 1280x720 nativamente...
         ancho_pantalla=1280; alto_pantalla=720; scale_resolution=0;
-    elseif(mode_is_ok(1280,1024,16,MODE_WAITVSYNC+MODE_FULLSCREEN)) //Si soporta 1280x1024 nativamente...
+    elseif(mode_is_ok(1280,720,16,MODE_WAITVSYNC+MODE_FULLSCREEN)) //Si soporta 1280x1024 nativamente...
         ancho_pantalla=1280; alto_pantalla=1024; scale_resolution=0;
     elseif(mode_is_ok(1024,768,16,MODE_WAITVSYNC+MODE_FULLSCREEN)) //Si soporta 1024x768 nativamente...
         ancho_pantalla=1280; alto_pantalla=1024; scale_resolution=0;

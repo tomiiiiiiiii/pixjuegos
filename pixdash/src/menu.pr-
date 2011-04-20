@@ -14,7 +14,7 @@ private
 	continuable;
 	//i;
 begin
-	set_fps(50,9);
+	set_fps(50,3);
 	chdir(dir_juego);
 	ready=0;
 	slowmotion=0;
@@ -482,10 +482,14 @@ begin
 	//chdir(savegamedir+"niveles");
 	say(cd());
 	i=1;
-	dir_handle=diropen(savegamedir+"niveles\*.");
+	if(os_id==os_win32)
+		dir_handle=diropen(savegamedir+"niveles/*.");
+	else
+		dir_handle=diropen(savegamedir+"niveles/*");
+	end
 	//while((carpeta=glob("*")) != "")
 	while((carpeta=dirread(dir_handle)) != "")
-		if((carpeta!=".") and (carpeta!="..") and fexists(savegamedir+"niveles\"+carpeta+"\nivel1.png") and fileinfo.directory)
+		if((carpeta!=".") and (carpeta!="..") and fexists(savegamedir+"niveles/"+carpeta+"/nivel1.png") and fileinfo.directory)
 			nombres_paquetes[i++]=carpeta;
 		end
     End
