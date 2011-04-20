@@ -1,0 +1,543 @@
+
+//-----------------------------------------------------------------------
+// Maneja la barra del boss
+//-----------------------------------------------------------------------
+process barra_boss();
+
+private
+
+vida_boss_max;
+begin
+x=400; y=594; z=-110; graph=13; region=4; vida_boss_max=vida_boss; file=fpg_nave;
+loop
+define_region(4,0,500,vida_boss*800/vida_boss_max,600);
+frame;
+end
+end
+
+//-----------------------------------------------------------------------
+// jefes finales
+//-----------------------------------------------------------------------
+
+process boss(tipo);
+
+private id2; vida; x1; angulo; id_col;
+
+begin
+z-=50;
+region=1;
+file=fpg_bosses;
+if(tipo==1)	//nivel 1
+	graph=1; x=400; y=-100; vida_boss=750; patron=1;
+	barra_boss();
+	id_boss02=canon(0,0);
+	while(y<150) y+=5; frame; end
+	loop
+	if(pausa==0)
+		if(patron==1) x++; end
+		if(patron==-1) x--; end
+		if(x>740) patron=-1; end
+		if(x<60) patron=1; end
+
+		id2=(collision(type disparo01));
+		if(id2) vida_boss--; signal(id2,s_kill); explosion(id2.x,id2.y,2,100); end
+
+		id2=(collision(type laser));
+		if(id2) vida_boss-=2; explosion(id2.x,id2.y,2,100); end
+
+		if(id_col=collision(type nave01))
+			if(id_col.flags<>4)
+				explosion(p[1].id.x,p[1].id.y,3,200);
+			end
+			p[1].id.estado=-1;
+		end
+
+		if(vida_boss<1) signal(id_boss02,s_kill); explosion(x,y,4,200); explotalo(x,y,z,alpha,angle,file,graph,40); break; end
+	end
+	frame;
+	end
+end
+if(tipo==2)	//nivel 2
+	graph=10; x=400; y=-100; vida_boss=1500; patron=400; x1=x; angulo=pi/2;
+	barra_boss();
+	while(y<150) y+=5; frame; end
+	loop
+	if(pausa==0)
+		patron++;
+		x=x1+get_distx(angulo,200);
+		angulo+=600;
+
+		if(patron==25 or patron==50 or patron==75 or patron==100 or patron==125 or patron==150 or patron==175 or patron==200 or patron==225 or patron==250 or patron==275 or patron==300 or patron==325 or patron==350 or patron==375 or patron==400 or patron==425 or patron==450 or patron==475)
+			disparo02(x-50,y+5,235000,2);
+			disparo02(x-40,y+5,240000,2);
+			disparo02(x-30,y+5,245000,2);
+			disparo02(x-20,y+5,250000,2);
+			disparo02(x+20,y+5,290000,2);
+			disparo02(x+30,y+5,295000,2);
+			disparo02(x+40,y+5,300000,2);
+			disparo02(x+50,y+5,305000,2);
+			suena(s_laser3);
+		end
+
+
+		if(patron==500) bomba02(0,60,3*pi/2,100); end
+		if(patron>625) patron=0; end
+
+		id2=(collision(type disparo01));
+		if(id2) vida_boss--; signal(id2,s_kill); explosion(id2.x,id2.y,2,100); end
+
+		id2=(collision(type laser));
+		if(id2) vida_boss-=2; explosion(id2.x,id2.y,2,100); end
+
+		if(id_col=collision(type nave01))
+			if(id_col.flags<>4)
+				explosion(p[1].id.x,p[1].id.y,3,200);
+			end
+			id_col.estado=-1;
+		end
+
+		if(vida_boss<1) explosion(x,y,4,100); explotalo(x,y,z,alpha,angle,file,graph,40); break; end
+	end
+	frame;
+	end
+end
+if(tipo==3)	//nivel 3
+	graph=20; x=400; y=-100; vida_boss=1000; x1=x; angulo=pi/2;
+	barra_boss();
+	id_boss02=boss(4);
+	id_boss03=boss(5);
+	while(y<150) y+=5; frame; end
+	loop
+	if(pausa==0)
+		x=x1+get_distx(angulo,200);
+		angulo+=600;
+
+		if(!exists(id_boss02) and !exists(id_boss03))
+			patron++;
+		end
+
+		if(patron>25) 
+			disparo02(x-7,y,3*pi/2,4);
+			disparo02(x-2,y,3*pi/2,4);
+			disparo02(x+7,y,3*pi/2,4);
+			disparo02(x+2,y,3*pi/2,4);
+			suena(s_misil);
+			patron=0;
+		end
+
+		id2=(collision(type disparo01));
+		if(id2) vida_boss--; signal(id2,s_kill); explosion(id2.x,id2.y,2,100); end
+
+		id2=(collision(type laser));
+		if(id2) vida_boss-=2; explosion(id2.x,id2.y,2,100); end
+
+		if(id_col=collision(type nave01))
+			if(id_col.flags<>4)
+				explosion(p[1].id.x,p[1].id.y,3,200);
+			end
+			id_col.estado=-1;
+		end
+
+		if(vida_boss<1) explosion(x,y,4,100); explotalo(x,y,z,alpha,angle,file,graph,40); break; end
+	end
+	frame;
+	end
+end
+if(tipo==4) //nivel 3 escudo
+	graph=22; vida=200; z-=5;
+	loop
+	if(pausa==0)
+		y=father.y;
+		x=father.x-20;
+		angulo=get_angle(p[1].id);
+		patron++;
+		if(patron>50)
+			patron=0;
+			disparo02(x,y,angulo+3000,2);
+			disparo02(x,y,angulo-3000,2);
+			suena(s_laser3);
+		end
+
+		id2=(collision(type disparo01));
+		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,100); end
+
+		id2=(collision(type laser));
+		if(id2) vida-=2; explosion(id2.x,id2.y,2,100); end
+
+		if(id_col=collision(type nave01))
+			if(id_col.flags<>4)
+				explosion(p[1].id.x,p[1].id.y,3,200);
+			end
+			id_col.estado=-1;
+		end
+
+		if(vida<1) explosion(x,y,3,100); explotalo(x,y,z,alpha,angle,file,graph,40); break; end
+		if(vida_boss<250) explosion(x,y,3,100); break; explotalo(x,y,z,alpha,angle,file,graph,40); end
+	end
+	frame;
+	end
+end
+if(tipo==5)	//nivel 3 escudo
+	graph=21; vida=200; z-=5;
+	loop
+	if(pausa==0)
+		y=father.y;
+		x=father.x+20;
+		angulo=get_angle(p[1].id);
+		patron++;
+		if(patron>50)
+			patron=0;
+			disparo02(x,y,angulo+3000,2);
+			disparo02(x,y,angulo-3000,2);
+			suena(s_laser3);
+		end
+
+		id2=(collision(type disparo01));
+		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,100); end
+
+		id2=(collision(type laser));
+		if(id2) vida-=2; explosion(id2.x,id2.y,2,100); end
+
+		if(id_col=collision(type nave01))
+			if(id_col.flags<>4)
+				explosion(p[1].id.x,p[1].id.y,3,200);
+			end
+			id_col.estado=-1;
+		end
+
+		if(vida<1) explosion(x,y,3,100); explotalo(x,y,z,alpha,angle,file,graph,40); break; end
+		if(vida_boss<250) explosion(x,y,3,100); explotalo(x,y,z,alpha,angle,file,graph,40); break; end
+	end
+	frame;
+	end
+end
+if(tipo==6)	//nivel 4 
+	graph=30; x=400; y=-100; vida_boss=1500; patron=1; x1=x; angulo=pi/2;
+	barra_boss();
+	id_boss02=boss(7);
+	id_boss03=boss(8);
+	id_boss04=canon(-20,0);
+	id_boss05=canon(20,0);
+	while(y<150) y+=5; frame; end
+	loop
+	if(pausa==0)
+
+		if(exists(id_boss02) and exists(id_boss03))
+			x=x1+get_distx(angulo,100);
+			angulo+=600;
+		end
+
+		if(not exists(id_boss02) and not exists(id_boss03))
+
+			if(patron<200)
+				x=x1+get_distx(angulo,100);
+				angulo+=600;
+				patron++;
+			end
+			if(patron==200)
+				y+=5; 
+				if(y>500) patron=300; end
+			end
+			if(patron==300)
+				bomba02(70,-70,45000,100);
+				bomba02(-70,-70,135000,100);
+				suena(s_laser2);
+			end
+			if(patron<435 and patron>299) patron++; end
+			if(patron==435)
+				y-=5; 
+				if(y<151) patron=0; end
+			end
+
+		end
+
+		id2=(collision(type disparo01));
+		if(id2) vida_boss--; signal(id2,s_kill); explosion(id2.x,id2.y,2,100); end
+
+		id2=(collision(type laser));
+		if(id2) vida_boss-=2; explosion(id2.x,id2.y,2,100); end
+
+		if(id_col=collision(type nave01))
+			if(id_col.flags<>4)
+				explosion(p[1].id.x,p[1].id.y,3,200);
+			end
+			id_col.estado=-1;
+		end
+
+		if(vida_boss<1) signal(id_boss04,s_kill); signal(id_boss05,s_kill); explosion(x,y,4,200); explotalo(x,y,z,alpha,angle,file,graph,40); break; end
+	end
+	frame;
+	end
+end
+if(tipo==7)	//nivel 4 ala
+	graph=31; vida=500;
+	loop
+	if(pausa==0)
+		y=father.y;
+		x=father.x;
+	
+		patron++;
+		if(patron>40)
+			patron=0;
+			mina(x+200,y+50,1);
+			suena(s_misil);
+		end
+
+		id2=(collision(type disparo01));
+		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,100); end
+		id2=(collision(type laser));
+
+		if(id_col=collision(type nave01))
+			if(id_col.flags<>4)
+				explosion(p[1].id.x,p[1].id.y,3,200);
+			end
+			id_col.estado=-1;
+		end
+
+		if(id2) vida-=2; explosion(id2.x,id2.y,2,100); end
+		if(vida<1) explosion(x+150,y,3,100); break; explotalo(x,y,z,alpha,angle,file,graph,40); end
+		if(vida_boss<500) explosion(x+150,y,3,100); explotalo(x,y,z,alpha,angle,file,graph,40); break; end
+	end
+	frame;
+	end
+end
+if(tipo==8)	//nivel 4 ala
+	graph=32; vida=500;
+	loop
+	if(pausa==0)
+
+		y=father.y;
+		x=father.x;
+
+		patron++;
+		if(patron>40)
+			patron=0;
+			mina(x-200,y+50,1);
+			suena(s_misil);
+		end
+
+		id2=(collision(type disparo01));
+		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,100); end
+		id2=(collision(type laser));
+		if(id2) vida-=2; explosion(id2.x,id2.y,2,100); end
+
+		if(id_col=collision(type nave01))
+			if(id_col.flags<>4)
+				explosion(p[1].id.x,p[1].id.y,3,200);
+			end
+			id_col.estado=-1;
+		end
+
+		if(vida<1) explosion(x-150,y,3,100); break; explotalo(x,y,z,alpha,angle,file,graph,40); end
+		if(vida_boss<500) explosion(x-150,y,3,100); explotalo(x,y,z,alpha,angle,file,graph,40); break; end
+	end
+	frame;
+	end
+end
+if(tipo==9)	//nivel 5
+	graph=40; x=400; y=-500; patron=0; vida_boss=2000; x1=x; angulo=pi/2;
+
+	barra_boss();
+	id_boss02=boss(10);
+	id_boss03=boss(11);
+	id_boss04=boss(12);
+	id_boss05=boss(13);
+	while(y<100) y+=5; frame; end
+	loop
+	if(pausa==0)
+		patron++;
+		x=x1+get_distx(angulo,100);
+		angulo+=600;
+
+		if(patron>135 and patron<600 and angle<pi) angle+=3000; end
+
+		if(patron==300) bomba02(0,100,3*pi/2,300); end
+
+		if(patron>600 and angle>0 and exists(id_boss04) and exists(id_boss05))
+			angle-=3000;
+		end
+		if(not exists(id_boss02) and not exists(id_boss03))
+			if(patron==200 or patron==225 or patron==250 or patron==275 or patron==475 or patron==500 or patron==525 or patron==550 or patron==575)
+				disparo02(x-100,y+100,255000,3);
+				disparo02(x-100,y+100,260000,3);
+				disparo02(x-100,y+100,265000,3);
+				disparo02(x-100,y+100,270000,3);
+				disparo02(x+100,y+100,270000,3);
+				disparo02(x+100,y+100,275000,3);
+				disparo02(x+100,y+100,280000,3);
+				disparo02(x+100,y+100,285000,3);
+				suena(s_laser3);
+			end
+		end
+		if(not exists(id_boss04) and not exists(id_boss05))
+			if(patron==25 or patron==50 or patron==75 or patron==100 or patron==125 or patron==150 or patron==175 or patron==600 or patron==625 or patron==650)
+				disparo02(x-100,y+100,255000,3);
+				disparo02(x-100,y+100,260000,3);
+				disparo02(x-100,y+100,265000,3);
+				disparo02(x-100,y+100,270000,3);
+				disparo02(x+100,y+100,270000,3);
+				disparo02(x+100,y+100,275000,3);
+				disparo02(x+100,y+100,280000,3);
+				disparo02(x+100,y+100,285000,3);
+				suena(s_laser3);
+			end
+		end
+
+
+
+		if(patron>670) patron=0; end
+
+		id2=(collision(type disparo01));
+		if(id2) vida_boss--; signal(id2,s_kill); explosion(id2.x,id2.y,2,100); end
+
+		id2=(collision(type laser));
+		if(id2) vida_boss-=2; explosion(id2.x,id2.y,2,100); end
+
+		if(id_col=collision(type nave01))
+			if(id_col.flags<>4)
+				explosion(p[1].id.x,p[1].id.y,3,200);
+			end
+			id_col.estado=-1;
+		end
+
+		if(vida_boss<1 and vida_boss>-100)
+			vida_boss--;
+			explosion(x+rand(-100,100),+rand(-100,100),3,100);
+		end
+
+		if(vida_boss<-99)
+			
+			explosion(x,y,4,1000);
+			break;
+		end
+	end
+	frame;
+	end
+end
+if(tipo==10)	//nivel 5 escudo
+	graph=41; vida=500; patron=0; x1=0; z-=1;
+
+	loop
+	if(pausa==0)
+		y=father.y;
+		x=father.x+x1;
+		angle=father.angle;
+
+		patron=father.patron;
+		if(patron>200 and x1<80 and patron<500) x1+=2; end
+
+		if(patron>500 and x1>0) x1-=2; end
+
+		id2=(collision(type disparo01));
+		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,100); end
+
+		id2=(collision(type laser));
+		if(id2) vida-=2; explosion(id2.x,id2.y,2,100); end
+
+		if(id_col=collision(type nave01))
+			if(id_col.flags<>4)
+				explosion(p[1].id.x,p[1].id.y,3,200);
+			end
+			id_col.estado=-1;
+		end
+
+		if(vida_boss<500) explosion(x,y,3,100); break; end
+		if(vida<1) explosion(x,y,3,100); break; end
+	end
+	frame;
+	end
+end
+if(tipo==11)	//nivel 5 escudo
+	graph=42; vida=500; patron=0; x1=0; z-=1;
+
+	loop
+	if(pausa==0)
+		y=father.y;
+		x=father.x-x1;
+		angle=father.angle;
+
+		patron=father.patron;
+		if(patron>200 and x1<80 and patron<500) x1+=2; end
+
+		if(patron>500 and x1>0) x1-=2; end
+
+		id2=(collision(type disparo01));
+		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,100); end
+
+		id2=(collision(type laser));
+		if(id2) vida-=2; explosion(id2.x,id2.y,2,100); end
+
+		if(id_col=collision(type nave01))
+			if(id_col.flags<>4)
+				explosion(p[1].id.x,p[1].id.y,3,200);
+			end
+			id_col.estado=-1;
+		end
+
+		if(vida_boss<500) explosion(x,y,3,100); break; end
+		if(vida<1) explosion(x,y,3,100); break; end
+	end
+	frame;
+	end
+end
+if(tipo==12)	//nivel 5 motor
+	graph=43; vida=500; patron=0;
+	loop
+	if(pausa==0)
+		y=father.y;
+		x=father.x;
+		angle=father.angle;
+
+		patron=father.patron;
+		if(patron==1) bomba02(-150,250,270000,150); end
+
+		id2=(collision(type disparo01));
+		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,100); end
+
+		id2=(collision(type laser));
+		if(id2) vida-=2; explosion(id2.x,id2.y,2,100); end
+
+		if(id_col=collision(type nave01))
+			if(id_col.flags<>4)
+				explosion(p[1].id.x,p[1].id.y,3,200);
+			end
+			id_col.estado=-1;
+		end
+
+		if(vida<1) explosion(x-150,y+200,3,100);break; end
+		if(vida_boss<1000) explosion(x-150,y+200,3,100);  break; end
+	end
+	frame;
+	end
+end
+if(tipo==13)	//nivel 5 motor
+	graph=44; vida=500; patron=0;
+	loop
+	if(pausa==0)
+		y=father.y;
+		x=father.x;
+		angle=father.angle;
+
+		patron=father.patron;
+		if(patron==1) bomba02(150,250,270000,150); end
+
+		id2=(collision(type disparo01));
+		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,100); end
+
+		id2=(collision(type laser));
+		if(id2) vida-=2; explosion(id2.x,id2.y,2,100); end
+
+		if(id_col=collision(type nave01))
+			if(id_col.flags<>4)
+				explosion(p[1].id.x,p[1].id.y,3,200);
+			end
+			id_col.estado=-1;
+		end
+
+		if(vida_boss<1000) explosion(x+150,y+200,3,100);break; end
+		if(vida<1) explosion(x+150,y+200,3,100); break; end
+	end
+	frame;
+	end
+end
+end
