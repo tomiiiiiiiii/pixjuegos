@@ -18,7 +18,7 @@ Global
 	editor_de_niveles=0;
 	descarga_niveles=0;
 	
-	app_data=1;
+	app_data=0; //temporal, hasta que se puedan descargar niveles desde linux
 	suelo;
 	dur_pinchos;
 	dur_muelle;
@@ -86,7 +86,7 @@ Global
 	posibles_jugadores;
 	// COMPATIBILIDAD CON XP/VISTA/LINUX (usuarios)
 	string savegamedir;
-	string developerpath="\PiXJuegos\PiXDash\";
+	string developerpath="\.PiXJuegos\PiXDash\";
 	
 	string paqueteniveles="";
 	string nivel_titulo[50];
@@ -915,6 +915,7 @@ Begin
 	if(os_id==os_win32)
 		editor_de_niveles=1;
 		descarga_niveles=1;
+		app_data=1;
 	end
 
 	set_title("PiX Dash");
