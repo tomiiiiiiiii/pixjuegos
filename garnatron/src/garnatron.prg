@@ -41,6 +41,7 @@ struct opciones;
 		bomba;
 		cambiar;
 	end
+	particulas;
 end
 
 //------ inicio controles.pr-
@@ -168,6 +169,7 @@ BEGIN
 	opciones.gamepad.bomba=1;			//1
 	opciones.gamepad.cambiar=2;			//2
 	
+	opciones.particulas=1;				//sistema de patículas activado
 	
 	if(os_id==0) //windows
 		savegamedir=getenv("APPDATA")+developerpath;
@@ -419,23 +421,16 @@ private
 	num_opciones;
 	pulsando;
 	volver_a_menu;
-		
 	a;
 	
 begin
 	let_me_alone();
 	clear_screen();
 	delete_text(all_text);
-//	reinicio_variables();
 	file=fpg_menu;
-
 	define_region(1,0,0,800,600);
-
-	if(not exists(type objeto))
-		sombra(9,400,75,file,2);
-	end
+	sombra(9,400,75,file,2);
 	objeto(400,75,9,file,100,16);
-	
 	controlador(0);
 
 	//modo arcade
@@ -448,7 +443,6 @@ begin
 		end
 		while(p[0].botones[4]) scroll.x0+=3; frame; end
 		ayuda();
-		//juego(1);
 	end
 	
 	
@@ -457,7 +451,7 @@ begin
 	z=-20;
 	graph=6;
 	x=120;
-	y=100;
+	y=200;
 	
 	//ponemos el menú actual
 	switch(num_menu)
@@ -466,16 +460,16 @@ begin
 			write(fuente1,x,y+=60,3,"Continuar");
 			write(fuente1,x,y+=60,3,"Opciones");
 			write(fuente1,x,y+=60,3,"Ayuda");
-			write(fuente1,x,y+=60,3,"Creditos");
 			write(fuente1,x,y+=60,3,"Salir");
-			num_opciones=6;
+			num_opciones=5;
 			volver_a_menu=0;
 		end
 		case 1: //opciones
 			write(fuente1,x,y+=60,3,"Video");
 			write(fuente1,x,y+=60,3,"Control");
+			write(fuente1,x,y+=60,3,"Particulas");
 			write(fuente1,x,y+=60,3,"Volver");
-			num_opciones=3;
+			num_opciones=4;
 			volver_a_menu=0;
 		end
 		case 2: //video
@@ -504,7 +498,7 @@ begin
 		
 		scroll.x0+=3;
 		
-		y_objetivo=100+(opcion_actual*60);
+		y_objetivo=200+(opcion_actual*60);
 		if(y!=y_objetivo) y+=(y_objetivo-y)/2; end
 
 		if(p[0].botones[4])
@@ -530,9 +524,6 @@ begin
 							ayuda();
 						end
 						case 5:
-							historia(2);
-						end
-						case 6:
 							archivo=fopen(savegamedir+"opciones.dat", O_WRITE);
 							fwrite(archivo,opciones);
 							fclose(archivo);
@@ -549,6 +540,13 @@ begin
 							menu(3);
 						end
 						case 3:
+							if(opciones.particulas==0)
+								opciones.particulas=1;
+							else
+								opciones.particulas=0;
+							end
+						end
+						case 4:
 							menu(0);
 						end
 					end
@@ -805,7 +803,7 @@ begin
 			
 			suena(s_aceptar);
 			
-			while(p[0].botones[4]) scroll.x0+=3; frame; end
+			while(p[0].botones[4]) frame; end
 			menu(volver_a_menu);
 			
 		end
@@ -845,12 +843,6 @@ begin
 		frame;
 	end
 end
-/*
-function reinicio_variables();
-begin
-	delete_text(all_text);
-end
-*/
 
 //-----------------------------------------------------------------------
 // proceso ayuda

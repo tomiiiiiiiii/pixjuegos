@@ -86,7 +86,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -232,7 +232,7 @@
          x="491.56564"
          y="304.07477"
          style="font-size:22px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#00ff00;font-family:ISOCPEUR;-inkscape-font-specification:ISOCPEUR"
-         id="tspan3241">Dambiar armas:  Boton 3 / d</tspan><tspan
+         id="tspan3241">Cambiar armas:  Boton 3 / d</tspan><tspan
          sodipodi:role="line"
          x="491.56564"
          y="326.07477"
