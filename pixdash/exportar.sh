@@ -35,6 +35,8 @@ cp fondos/*.png export/fondos
 cp fondos/*.jpg export/fondos
 cp ../bennu-linux/*.so export
 cp ../bennu-linux/bgdi export/pixdash
+#esta linea siguiente es temporal!
+cp -r niveles export/
 cp pixdash.dcb export
 chmod +x export/*.so export/pixdash
 echo LISTO!!
