@@ -25,7 +25,8 @@ begin
 	y=240;
 	
 	if(arcade_mode)
-		put_screen(file,graph);
+		put_screen(fpg_menu,1);
+		graph=0;
 		write(fnt_intro,320,240,4,"Pulsa disparo para jugar");
 		while(p[0].botones[4] or p[0].botones[5] or p[0].botones[6]) frame; end
 		while(!(p[0].botones[4] or p[0].botones[5] or p[0].botones[6])) 
@@ -33,7 +34,18 @@ begin
 			frame; 
 		end
 		while(p[0].botones[4] or p[0].botones[5] or p[0].botones[6]) frame; end
-		//ayuda?
+		
+		delete_text(all_text);
+		put_screen(fpg_menu2,21);
+		while(p[0].botones[4] or p[0].botones[5] or p[0].botones[6]) frame; end
+		while(!(p[0].botones[4] or p[0].botones[5] or p[0].botones[6])) 
+			if(p[0].botones[7]) exit(); end
+			frame; 
+		end
+		while(p[0].botones[4] or p[0].botones[5] or p[0].botones[6]) frame; end
+		
+		put_screen(fpg_menu,1);
+
 		delete_text(all_text);
 		elecpersonaje();
 		return;

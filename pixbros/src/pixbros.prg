@@ -202,26 +202,43 @@ begin
 	y=240;
 	z=-10;
 	controlador(0);
-	from i=0 to 2;
-		if(!(os_id!=os_wii and i==1))
-			graph=30+i;
-			while(p[0].botones[4] or p[0].botones[5]) frame; end
-			from alpha=50 to 255 step 5;
-				if(p[0].botones[4] or p[0].botones[5]) break; end 
-				frame;
-			end
-			timer[0]=0;
-			while(timer[0]<300) 
-				if(p[0].botones[4] or p[0].botones[5]) break; end 
-				frame; 
-			end
-			while(p[0].botones[4] or p[0].botones[5]) frame; end
-			from alpha=alpha to 0 step -20;
-				frame;
+	if(os_id==os_wii)
+		from i=0 to 2;
+			if(!(os_id!=os_wii and i==1))
+				graph=30+i;
+				while(p[0].botones[4] or p[0].botones[5]) frame; end
+				from alpha=50 to 255 step 5;
+					if(p[0].botones[4] or p[0].botones[5]) break; end 
+					frame;
+				end
+				timer[0]=0;
+				while(timer[0]<300) 
+					if(p[0].botones[4] or p[0].botones[5]) break; end 
+					frame; 
+				end
+				while(p[0].botones[4] or p[0].botones[5]) frame; end
+				from alpha=alpha to 0 step -20;
+					frame;
+				end
 			end
 		end
+	else
+		graph=32;
+		while(p[0].botones[4] or p[0].botones[5]) frame; end
+		from alpha=50 to 255 step 5;
+			if(p[0].botones[4] or p[0].botones[5]) break; end 
+			frame;
+		end
+		timer[0]=0;
+		while(timer[0]<300) 
+			if(p[0].botones[4] or p[0].botones[5]) break; end 
+			frame; 
+		end
+		while(p[0].botones[4] or p[0].botones[5]) frame; end
+		from alpha=alpha to 0 step -20;
+			frame;
+		end
 	end
-	
 	intro();
 end
 
