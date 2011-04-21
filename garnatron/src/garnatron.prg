@@ -115,7 +115,7 @@ Local
 BEGIN
 	if(argc>0) if(argv[1]=="arcade") arcade_mode=1; end end
 
-	set_fps(40,0);
+	set_fps(40,10);
 
 	if(!mode_is_ok(800,600,32,MODE_FULLSCREEN))
 		scale_resolution=06400480; //compatible con Wii
@@ -221,7 +221,7 @@ BEGIN
 
 
 	historia(1);
-	//juego();
+	//juego(3);
 	frame;
 
 end
@@ -286,34 +286,34 @@ begin
 			frame;
 		end
 	
-		letra("Autores",160,120,1);
+		letra("Autores",200,200,1);
 		timer[2]=0;
 		while(timer[2]<600)
-			if(id_nave.x<320) id_nave.x+=1; end
+			if(id_nave.x<400) id_nave.x+=2; end
 			scroll.x0+=3;
 			frame;
 		end
 	
-		letra("Programado por",480,120,3);
-		letra("Carles Vicent",480,150,3);
+		letra("Programado por",600,200,3);
+		letra("Carles Vicent",600,230,3);
 		timer[2]=0;
 		while(timer[2]<400)
-			if(id_nave.x<320) id_nave.x+=1; end
+			if(id_nave.x<400) id_nave.x+=2; end
 			scroll.x0+=3;
 			frame;
 		end
 	
-		letra("Ayudante",480,360,0);
-		letra("PiXeL",480,390,0);
+		letra("Ayudante",600,400,0);
+		letra("PiXeL",600,430,0);
 		timer[2]=0;
 		while(timer[2]<400)
 			scroll.x0+=3;
 			frame;
 		end
 	
-		letra("Graficos",160,360,2);
-		letra("Carles Vicent",160,390,2);
-		letra("DaniGM",160,420,2);
+		letra("Graficos",200,400,2);
+		letra("Carles Vicent",200,430,2);
+		letra("DaniGM",200,460,2);
 	
 		timer[2]=0;
 		while(timer[2]<400)
@@ -321,43 +321,43 @@ begin
 			frame;
 		end
 
-		letra("Sonido",480,120,3);
-		letra("no me acuerdo",480,150,3);
+		letra("Sonido",600,200,3);
+		letra("no me acuerdo",600,230,3);
 		timer[2]=0;
 		while(timer[2]<400)
 			scroll.x0+=3;
 			frame;
 		end
 	
-		letra("Musica",480,360,0);
-		letra("Danner",480,390,0);
+		letra("Musica",600,400,0);
+		letra("Danner",600,430,0);
 		timer[2]=0;
 		while(timer[2]<400)
 			scroll.x0+=3;
 			frame;
 		end
 		
-		letra("Gracias a:",160,120,1);
-		letra("Nicolas",160,150,1);
-		letra("Gnomwer",160,180,1);
-		letra("Ana",160,210,1);	
+		letra("Gracias a:",200,200,1);
+		letra("Nicolas",200,230,1);
+		letra("Gnomwer",200,260,1);
+		letra("Ana",200,290,1);	
 		timer[2]=0;
 		while(timer[2]<400)
 			scroll.x0+=3;
 			frame;
 		end
 
-		letra("Hecho en Bennu",480,120,3);
+		letra("Hecho en Bennu",600,200,3);
 		timer[2]=0;
 		while(timer[2]<400)
 			scroll.x0+=3;
 			frame;
 		end
 
-		letra("Creado por PiX Juegos",480,360,0);
+		letra("Creado por PiX Juegos",600,400,0);
 		timer[2]=0;
 		while(timer[2]<600)
-			if(id_nave.x<850) id_nave.x+=1; end
+			if(id_nave.x<850) id_nave.x+=2; end
 			scroll.x0+=3;
 			frame;
 		end
@@ -365,7 +365,7 @@ begin
 		letra("Gracias por jugar",400,300,4);
 		timer[2]=0;
 		while(timer[2]<600)
-			if(id_nave.x<850) id_nave.x+=2; end
+			if(id_nave.x<850) id_nave.x+=3; end
 			scroll.x0+=3;
 			frame;
 		end
@@ -912,14 +912,9 @@ if(cosa==1)	//alarma
 	end
 end
 if(cosa==2)	//titulo
-	angle=father.angle;
 	from alpha=255 to 0 step -20;
-	//	if(exists(father))
-	//		x=father.x;
-	//		y=father.y;
-			size+=3;
-	//	end
-    		frame;
+		size+=3;
+		frame;
 	end
 end
 if(cosa==3) //destello

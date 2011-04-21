@@ -219,7 +219,7 @@ if(tipo==30)
 		y=father.y;
 		if(angle<pi) angle+=6000; end
 		if(angle=>pi) break; end
-		sombra(graph,x,y,file,2);
+		
 	end
 	frame;
 	end

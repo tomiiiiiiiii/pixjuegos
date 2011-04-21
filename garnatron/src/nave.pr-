@@ -223,11 +223,41 @@ loop
 	if(pausa==0)
 
 		if(escudo_ant>escudo)
-			if(escudo==4) explotalo(635,y,z,alpha,angle,file,20,10); end
-			if(escudo==3) explotalo(670,y,z,alpha,angle,file,20,10); end
-			if(escudo==2) explotalo(705,y,z,alpha,angle,file,20,10); end
-			if(escudo==1) explotalo(735,y,z,alpha,angle,file,20,10); end
-			if(escudo==0) explotalo(765,y,z,alpha,angle,file,20,10); end		
+			if(escudo==4)
+				if(opciones.particulas==1)
+					explotalo(635,y,z,alpha,angle,file,20,10);
+				else
+					sombra(graph,635,y,file,1);
+				end
+			end
+			if(escudo==3)
+				if(opciones.particulas==1)
+					explotalo(670,y,z,alpha,angle,file,20,10);
+				else
+					sombra(graph,670,y,file,1);
+				end
+			end
+			if(escudo==2)
+				if(opciones.particulas==1)
+					explotalo(705,y,z,alpha,angle,file,20,10);
+				else
+					sombra(graph,705,y,file,1);
+				end
+			end
+			if(escudo==1)
+				if(opciones.particulas==1)
+					explotalo(735,y,z,alpha,angle,file,20,10);
+				else
+					sombra(graph,735,y,file,1);
+				end
+			end
+			if(escudo==0)
+				if(opciones.particulas==1)
+					explotalo(765,y,z,alpha,angle,file,20,10);
+				else
+					sombra(graph,765,y,file,1);
+				end
+			end		
 		end
 
 		if(escudo==5) escudo2=620; end
@@ -262,7 +292,11 @@ loop
 			if(tipo==1) escudo+=1; end
 			if(tipo==2) energia=20; end
 			if(tipo==3) poder+=1; end
-			explotalo(x,y,z,alpha,angle,file,graph,20);
+				if(opciones.particulas==1)
+					explotalo(x,y,z,alpha,angle,file,graph,20);
+				else
+					sombra(graph,735,y,file,1);
+				end
 			break;
 		end
 		if(y>650) break; end
