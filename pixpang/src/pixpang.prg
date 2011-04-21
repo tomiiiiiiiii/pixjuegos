@@ -374,7 +374,12 @@ Begin
 			If(cheto_borracho==1) Frame(rand(100,1000)); End
 			pulsando_control=1; 
 
-			If(flags==1) If(exists(type dispcab)) If(!exists(type dispcab2)) p[1].disparos[2]=dispcab2(p[1].arma,x-3,y,2); End End If(!exists(type dispcab)) p[1].disparos[1]=dispcab(p[1].arma,x-3,y,1); End End 
+			If(flags==1) 
+				If(exists(type dispcab)) 
+					If(!exists(type dispcab2)) p[1].disparos[2]=dispcab2(p[1].arma,x-3,y,2); End 
+				else 
+					p[1].disparos[1]=dispcab(p[1].arma,x-3,y,1); End 
+				End 
 			If(flags==0) If(exists(type dispcab)) If(!exists(type dispcab2)) p[1].disparos[2]=dispcab2(p[1].arma,x+5,y,2); End End If(!exists(type dispcab)) p[1].disparos[1]=dispcab(p[1].arma,x+5,y,1); End End
 		End
 		If(!collision(type col_hielo) and inercia!=0) inercia=0; end
