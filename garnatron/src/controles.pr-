@@ -29,10 +29,10 @@ Begin
 		end		
 		if(p[jugador].control==-1) return; end
 		If(p[jugador].control==0)  // teclado
-			If(key(_left)) p[jugador].botones[0]=1; Else p[jugador].botones[0]=0; End
-			If(key(_right)) p[jugador].botones[1]=1; Else p[jugador].botones[1]=0; End
-			If(key(_up)) p[jugador].botones[2]=1; Else p[jugador].botones[2]=0; End
-			If(key(_down)) p[jugador].botones[3]=1; Else p[jugador].botones[3]=0; End
+			If(key(opciones.teclado.izquierda)) p[jugador].botones[0]=1; Else p[jugador].botones[0]=0; End
+			If(key(opciones.teclado.derecha)) p[jugador].botones[1]=1; Else p[jugador].botones[1]=0; End
+			If(key(opciones.teclado.arriba)) p[jugador].botones[2]=1; Else p[jugador].botones[2]=0; End
+			If(key(opciones.teclado.abajo)) p[jugador].botones[3]=1; Else p[jugador].botones[3]=0; End
 			If(key(opciones.teclado.disparar) or mouse.left) p[jugador].botones[4]=1; Else p[jugador].botones[4]=0; End
 			If(key(opciones.teclado.bomba) or mouse.right) p[jugador].botones[5]=1; Else p[jugador].botones[5]=0; End
 			If(key(opciones.teclado.cambiar) or mouse.wheelup or mouse.wheeldown) p[jugador].botones[6]=1; Else p[jugador].botones[6]=0; End
