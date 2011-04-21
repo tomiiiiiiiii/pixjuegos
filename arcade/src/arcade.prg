@@ -1,4 +1,6 @@
 Global
+	arcade_mode=0;
+	
 	opcion=1;
 	
 	njoys;
@@ -9,12 +11,39 @@ Global
 		control;
 	end
 	joysticks[10];
+	sonidos[1];
+	
+	cancion;
 Local
 	i;j;
 Begin
 	configurar_controles();
 	controlador(0);
 	inicio();
+	sonidos[0]=load_wav("1.wav"); //mover
+	sonidos[1]=load_wav("2.wav"); //elegir
+	musica(1);
+	loop
+		timer[0]=0;
+		while(timer[0]<6000)
+			frame;
+		end
+		cambiar_opcion(1);
+	end
+End
+
+Function suena(id_sonido);
+Begin
+	play_wav(sonidos[id_sonido],0);
+End
+
+Function musica(id_musica);
+Begin
+	if(is_playing_song()) stop_song(); end
+	frame;
+	if(cancion!=0) unload_song(cancion); end
+	cancion=load_song(id_musica+".ogg");
+	play_song(cancion,-1);
 End
 
 Process inicio();
@@ -33,17 +62,31 @@ Begin
 	x=400;
 	y=300;
 	z=1;
-	if(opcion>5) opcion=1; end
-	if(opcion<1) opcion=5; end
 	//flecha(0); flecha(1);
 	graph=opcion;
 	loop
-		if(p[0].botones[0]) enmovimiento(0); enmovimiento(1); opcion--; break; end
-		if(p[0].botones[1]) enmovimiento(2); enmovimiento(3); opcion++; break; end
-		if(p[0].botones[4]) from size=100 to 120; alpha-=10; frame; end ejecutar(); end
+		if(p[0].botones[0]) cambiar_opcion(0); break; end
+		if(p[0].botones[1]) cambiar_opcion(1); break; end
+		if(p[0].botones[4]) suena(1); from size=100 to 120; alpha-=10; frame; end ejecutar(); end
 		if(key(_esc)) say("salir"); exit(); end
 		frame;
 	end
+End
+
+Function cambiar_opcion(tipo);
+Begin
+	timer[0]=0;
+	suena(0); 
+	if(tipo==1) 
+		enmovimiento(2); enmovimiento(3);	
+		opcion++; 
+	else
+		enmovimiento(0); enmovimiento(1);
+		opcion--; 
+	end
+	if(opcion>5) opcion=1; end
+	if(opcion<1) opcion=5; end
+	musica(opcion);
 End
 
 Process ejecutar();
