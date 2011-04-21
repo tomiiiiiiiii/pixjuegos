@@ -964,7 +964,7 @@ Begin
 	
 	if(os_id!=1000) 
 		//editor_de_niveles();
-		if(argc>1) importar_paquete_offline(); end
+		if(argc>1 and argv[1]!="arcade") importar_paquete_offline(); end
 		menu();
 		//carga_nivel(); //cargar el nivel
 	else
