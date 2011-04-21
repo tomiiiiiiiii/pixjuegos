@@ -113,6 +113,8 @@ Global
 	gravedad=3; //STANDARD 3, 5 NIVEL MARIO
 	//modos especiales
 	modo_fraticidio;
+End
+
 Local
 	caca084a;
 	caca084b;
@@ -131,6 +133,11 @@ Local
 	j;
 	duracion;
 	tipo;
+End
+
+include "../../common-src/lenguaje.pr-";
+include "../../common-src/savepath.pr-";
+
 Private
 	string env_lang;
 	string argumentos[10];
@@ -138,88 +145,22 @@ Private
 	string cadena_lenguaje;
 	string cadena_lenguaje_bien;
 	int primera_letra_lenguaje;
+End
 Begin
 	if(argc>0) if(argv[1]=="arcade") arcade_mode=1; end end
 
-	if(os_id==0) //windows
-		savegamedir=getenv("APPDATA")+developerpath;
-		if(savegamedir==developerpath) //windows 9x/me
-			savegamedir=cd();
-		else
-			crear_jerarquia(savegamedir);
-		end
-	end
-	if(os_id==1) //linux
-		savegamedir=getenv("HOME")+developerpath;
-		crear_jerarquia(savegamedir);
-	end
-	if(file_exists(savegamedir+"opciones.dat"))
-		load(savegamedir+"opciones.dat",ops);
-		full_screen=!ops.ventana;
-	end
-
-//	if(ops.lenguaje==100)
-		//PODEMOS ADIVINAR EL LENGUAJE! :D
-		if(os_id==0) //windows
-			//qué lenguaje lleva este windows?
-			if(!fexists(getenv("TEMP")+"\lang.txt")) exec(1,"language.bat",0,0); end
-			fp=fopen(getenv("TEMP")+"\lang.txt",O_READ);
-			if(fp) 
-				cadena_lenguaje=fgets(fp);
-				fclose(fp);
-			end
-			primera_letra_lenguaje=find(cadena_lenguaje,"0",0);
-			cadena_lenguaje_bien=""+cadena_lenguaje[primera_letra_lenguaje]+cadena_lenguaje[primera_letra_lenguaje+1]+cadena_lenguaje[primera_letra_lenguaje+2]+cadena_lenguaje[primera_letra_lenguaje+3];
-			ops.lenguaje=0;
-			switch(cadena_lenguaje_bien)
-				case "0c0a": ops.lenguaje=1; end
-				case "040a": ops.lenguaje=1; end
-				case "0410": ops.lenguaje=2; end
-				case "0407": ops.lenguaje=3; end
-				case "040c": ops.lenguaje=4; end
-			end
-		end
-		if(os_id==1) //linux
-			// Aportado por Miry: Se pone aquí para evitar que use el lenguaje ya asignado en una versión anterior
-			env_lang=getenv("LANG");
-			env_lang=""+env_lang[0]+env_lang[1];
-			ops.lenguaje=0;
-			switch(env_lang)
-				case "es": ops.lenguaje=1; end
-				case "it": ops.lenguaje=2; end
-				case "de": ops.lenguaje=3; end
-				case "fr": ops.lenguaje=4; end
-			end
-			//-------------------
-		end
-		if(os_id==os_caanoo)
-			fp=fopen("/mnt/ubifs/usr/gp2x/common.ini",O_READ);
-			if(fp)
-				while(!feof(fp))
-					cadena_lenguaje=fgets(fp);
-					if(find(cadena_lenguaje,"language")>-1)
-						env_lang=""+cadena_lenguaje[11]+cadena_lenguaje[12];
-						break;
-					end
-				end
-				fclose(fp);
-			end
-			ops.lenguaje=0;
-			switch(env_lang)
-				case "es": ops.lenguaje=1; end
-				case "it": ops.lenguaje=2; end
-				case "de": ops.lenguaje=3; end
-				case "fr": ops.lenguaje=4; end
-			end
-		end
-//	end
-	switch(ops.lenguaje)
-		case 0:	lang_suffix="en"; end
-		case 1:	lang_suffix="es"; end
-		case 2:	lang_suffix="it"; end
-		case 3:	lang_suffix="de"; end
-		case 4:	lang_suffix="fr"; end
+	savepath();
+	carga_opciones();
+	full_screen=!ops.ventana;
+	
+	switch(lenguaje_sistema())
+		case "es": ops.lenguaje=1; lang_suffix="es"; end
+		case "it": ops.lenguaje=2; lang_suffix="it"; end
+		case "de": ops.lenguaje=3; lang_suffix="de"; end
+		case "fr": ops.lenguaje=4; lang_suffix="fr"; end
+		default: ops.lenguaje=0; lang_suffix="en"; end
 	end	
+	
 	if(os_id==os_caanoo or os_id==os_wii) bitscolor=16; end
 	if(os_id==os_caanoo) scale_resolution=03200240; end
 	if(arcade_mode) full_screen=true; scale_resolution=08000600; end
@@ -1933,39 +1874,6 @@ Private
 Begin
 	partida.mundo_actual=mundo;
 	save(savegamedir+fichero,partida);
-End
-
-Function crear_jerarquia(string nuevo_directorio)                // Mejor Function que Process aquí
-Private
-	string directorio_actual="";
-	string rutas_parciales[10];     // Sólo acepta la creación de un máximo de 10 directorios
-	int i_max=0;
-Begin
-    directorio_actual = cd();                        // Recuperamos el directorio actual de trabajo, para volver luego a él
-    if(chdir(nuevo_directorio) == 0)    // El directorio ya existe!
-		cd(directorio_actual);
-        return 0;
-    end
-    i_max = split("[\\/]", nuevo_directorio, &rutas_parciales, 10);
-    chdir("/");
-    while (i<i_max)
-        while(rutas_parciales[i] == "")         // Se salta partes en blanco
-                if(i++ >=i_max)
-                       cd(directorio_actual);
-                       return 0;
-                end
-        end
-        if(chdir(rutas_parciales[i]) == -1)
-                if(mkdir(rutas_parciales[i]) == -1)        // Error al intentar crear el directorio
-                        cd(directorio_actual);
-                        return -1;
-                end
-                chdir(rutas_parciales[i]);
-        end;
-        i++;
-    end
-    chdir(directorio_actual);
-    return 0;
 End
 
 Process reinicia_variables();

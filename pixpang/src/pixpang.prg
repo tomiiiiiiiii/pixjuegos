@@ -12,7 +12,7 @@ Global
 	
 	string fichero_lng[30];
 	Struct ops;
-		int op_lang=-1; 	// 0 = castellano, 1 = inglés
+		int lenguaje; 	// 0 = castellano, 1 = inglés
 		int op_music=1;
 		int op_sombras=1;
 		int op_sonido=1;
@@ -122,12 +122,17 @@ Global
 	// COMPATIBILIDAD CON XP/VISTA/LINUX (usuarios)
 	string savegamedir;
 	string developerpath="/.PiXJuegos/PiXPang/";
-
+End
 Local
 	int i;
 	int j;
 	int ancho;
 	int alto;
+End
+
+include "../../common-src/lenguaje.pr-";
+include "../../common-src/savepath.pr-";
+	
 Private
     lee_archivo;
     guarda_archivo;
@@ -136,37 +141,34 @@ Private
     pit;
 Begin  
 	if(argc>0) if(argv[1]=="arcade") arcade_mode=1; end end
-	
-	if(os_id==0) //windows
-		savegamedir=getenv("APPDATA")+developerpath;
-		if(savegamedir==developerpath) //windows 9x/me
-			savegamedir=cd();
-		else
-			crear_jerarquia(savegamedir);
-		end
-	end
-	if(os_id==1) //linux
-		savegamedir=getenv("HOME")+developerpath;
-		crear_jerarquia(savegamedir);
-	end
-
-	if(file_exists(savegamedir+"opciones.dat"))
-		load(savegamedir+"opciones.dat",ops);
-	end
 
 	borrar=new_map(1,1,8);
 	Alpha_steps=64;
+	
 	set_title("PiX Pang");
+	
+	savepath();
+	carga_opciones();
+	full_screen=!ops.ventana;
+	
+	switch(lenguaje_sistema())
+		case "es": ops.lenguaje=0; end
+		default: ops.lenguaje=1; end
+	end
+	
 	if(ops.ventana==0 or arcade_mode==1) Full_screen=true; else full_screen=false; end
+	
 	if(os_id==9) 
 		ops.op_sombras=0;
 		scale_resolution=03200240; set_mode(800,600,16); 
 	else
 		set_mode(800,600,32);
 	end
+	
 	load_fpg("./fpg/pixpang.fpg");
 	fpg_menu=load_fpg("fpg/menu.fpg");
 	fpg_bloquesmask=load_fpg("fpg/bloquesmask.fpg");
+	
 	if((atoi(ftime("%d",time()))>23 and atoi(ftime("%m",time()))==12) or (atoi(ftime("%d",time()))<8 and atoi(ftime("%m",time()))==1)) 
 		file_muneco1=load_fpg("./fpg/charsxmas.fpg"); 
 		file_muneco2=file_muneco1; 
@@ -2910,16 +2912,12 @@ End
 
 process logo_pixjuegos();
 begin
-	if(ops.op_lang==-1) 
-		let_me_alone(); frame; menu_lenguaje(); return; 
+	if(ops.lenguaje==0)
+		fpg_menu2=load_fpg("fpg/menu-es.fpg");
+		fpg_lang=load_fpg("fpg/eng.fpg");
 	else
-		if(ops.op_lang==0)
-			fpg_menu2=load_fpg("fpg/menu-es.fpg");
-			fpg_lang=load_fpg("fpg/eng.fpg");
-		else
-			fpg_menu2=load_fpg("fpg/menu-en.fpg");
-			fpg_lang=load_fpg("fpg/eng.fpg");
-		end
+		fpg_menu2=load_fpg("fpg/menu-en.fpg");
+		fpg_lang=load_fpg("fpg/eng.fpg");
 	end
 	delete_text(0);
 	graph=951;
@@ -2958,7 +2956,6 @@ Begin
 End
 
 include "menu.pr-";
-include "guardar.pr-";
 
 // MONSTRUOS
 include "monstruos/ultraball.pr-";

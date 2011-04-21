@@ -12,7 +12,7 @@ global
 		pantalla_completa=1;
 		sonido=1;
 		musica=1;
-		lenguaje=-1;
+		lenguaje;
 	End
 	elecc;
 	elecy;
@@ -34,6 +34,11 @@ global
 	string developerpath="/.PiXJuegos/PiXFrogger/";
 Local
 	i; // la variable maestra
+End
+
+include "../../common-src/lenguaje.pr-";
+include "../../common-src/savepath.pr-";
+
 begin
 	if(argc>0) if(argv[1]=="arcade") arcade_mode=1; end end
 
@@ -47,22 +52,16 @@ begin
 			end
 		end
 	end
-	// Código aportado por Devilish Games / Josebita
-	if(os_id==0) //windows
-		savegamedir=getenv("APPDATA")+developerpath;
-		if(savegamedir==developerpath) //windows 9x/me
-			savegamedir=cd();
-		else
-			crear_jerarquia(savegamedir);
-		end
-	end
-	if(os_id==1) //linux
-		savegamedir=getenv("HOME")+developerpath;
-		crear_jerarquia(savegamedir);
-	end
-	if(file_exists(savegamedir+"opciones"))
-		load(savegamedir+"opciones",ops);
-	end
+
+	savepath();
+	
+	carga_opciones();
+	
+	switch(lenguaje_sistema())
+		case "es": ops.lenguaje=0; end
+		default: ops.lenguaje=1; end
+	end	
+	
 	full_screen=ops.pantalla_completa;
 	carga_sonidos();
 	alpha_steps=255;	
@@ -75,7 +74,8 @@ begin
 	set_title("PiX Frogger");
 	sound_freq=44100;
 	ops.sonido=1;
-	if(ops.lenguaje==-1) elige_lenguaje(); else logo_pixjuegos(); end
+	 
+	logo_pixjuegos(); 
 	loop
 		frame;
 	end
@@ -917,7 +917,6 @@ begin
 end
 
 include "sonido.inc";
-include "guardar.inc";
 
 Process explotalo(x,y,z,alpha,angle,file,grafico,frames);
 Private

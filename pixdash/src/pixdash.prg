@@ -902,12 +902,14 @@ Begin
 End
 
 include "menu.pr-";
-include "guardar.pr-";
 include "navegador.pr-";
 #ifndef WII
 include "editorniveles.pr-";
 #endif
 include "explosion.pr-";
+
+include "../../common-src/savepath.pr-";
+include "../../common-src/lenguaje.pr-";
 
 //PROCESS MAIN
 Begin
@@ -922,31 +924,23 @@ Begin
 	
 	// Código aportado por Devilish Games / Josebita
 	if(app_data)
-		dir_juego=cd();
-		if(os_id==0) //windows	
-			savegamedir=getenv("APPDATA")+developerpath;
-			if(savegamedir==developerpath) //windows 9x/me
-				savegamedir=cd();
-			else
-				crear_jerarquia(savegamedir);
-			end
-		end
-		if(os_id==1) //linux
-			savegamedir=getenv("HOME")+developerpath;
-			crear_jerarquia(savegamedir);
-		end
-		mkdir(savegamedir+"niveles");
-		if(file_exists(savegamedir+"opciones.dat"))
-			load(savegamedir+"opciones.dat",ops);
-			full_screen=ops.pantalla_completa;
-			scale_resolution=ops.resolucion;
-		end
+		savepath();
 	else
 		//lo tenemos justo delante!
 		savegamedir="";
 		developerpath="";
 	end
 
+	/* pal futuro
+	switch(lenguaje_sistema())
+		case "es": ops.lenguaje=1; lang_suffix="es"; end
+		case "it": ops.lenguaje=2; lang_suffix="it"; end
+		case "de": ops.lenguaje=3; lang_suffix="de"; end
+		case "fr": ops.lenguaje=4; lang_suffix="fr"; end
+		default: ops.lenguaje=0; lang_suffix="en"; end
+	end	
+	*/
+	
 	configurar_controles();
 
 	set_fps(0,0); //imágenes por segundo

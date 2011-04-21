@@ -120,11 +120,11 @@ begin
  				else
 					shell("x-www-browser http://pixjuegos.com &");
  				end
-				save(savegamedir+"opciones.dat",ops);
+				guarda_opciones();
 				exit(0);
 			end
 			if(elecc==5)
-				save(savegamedir+"opciones.dat",ops);
+				guarda_opciones();
 				exit(0);
 			end
 		end
@@ -488,7 +488,7 @@ begin
  				else
 					shell("x-www-browser http://foro.pixjuegos.com &");
  				end
-				save(savegamedir+"opciones.dat",ops);
+				guarda_opciones();
 				exit(0);
 			end
 			if(p[0].botones[4] and keytime==0)
@@ -638,10 +638,10 @@ begin
 		if(p[0].botones[4])
 			if(tecenter==0)
 				if(elecc==0)
-					ops.op_lang=0;
+					ops.lenguaje=0;
 				end
 				if(elecc==1)
-					ops.op_lang=1;
+					ops.lenguaje=1;
 				end
 				let_me_alone();
 				logo_pixjuegos();

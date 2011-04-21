@@ -96,12 +96,11 @@ begin
  				else
 					shell("x-www-browser http://pixjuegos.com &");
  				end
-				save(savegamedir+"opciones.dat",ops);
+				guarda_opciones();
 				exit(0);
 			end
 			if(elecc==6)
-				save(savegamedir+"opciones.dat",ops);
-
+				guarda_opciones();
 				frame(300);
 				exit(0);
 			end

@@ -1,3 +1,21 @@
+Function savepath();
+Begin
+	if(os_id==os_win32) //windows
+		savegamedir=getenv("APPDATA")+developerpath;
+		if(savegamedir==developerpath) //windows 9x/me
+			savegamedir=cd();
+		else
+			crear_jerarquia(savegamedir);
+		end
+	elseif(os_id==os_linux) //linux
+		savegamedir=getenv("HOME")+developerpath;
+		crear_jerarquia(savegamedir);
+	else
+		savegamedir="";
+		developerpath="";
+	end
+End
+
 Function crear_jerarquia(string nuevo_directorio)                // Mejor Function que Process aquí
 Private
 	string directorio_actual="";
@@ -13,7 +31,7 @@ Begin
     chdir("/");
     while (i<i_max)
         while(rutas_parciales[i] == "")         // Se salta partes en blanco
-                if(++i >=i_max)
+                if(i++ >=i_max)
                        cd(directorio_actual);
                        return 0;
                 end
@@ -34,4 +52,11 @@ End
 Function guarda_opciones();
 Begin
 	save(savegamedir+"opciones",ops);
+End
+
+Function carga_opciones();
+Begin
+	if(file_exists(savegamedir+"opciones"))
+		load(savegamedir+"opciones",ops);
+	end
 End
