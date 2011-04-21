@@ -46,11 +46,12 @@ begin
 		x=400;
 		y=300;
 		write(fuente_peq,400,300,4,"Pulsa disparo para jugar");
-		while(!p[0].botones[4]) 
+		while(p[0].botones[4] or p[0].botones[5] or p[0].botones[6]) frame; end
+		while(!(p[0].botones[4] or p[0].botones[5] or p[0].botones[6])) 
 			if(p[0].botones[7]) exit(); end
 			frame; 
 		end
-		while(p[0].botones[4]) frame; end
+		while(p[0].botones[4] or p[0].botones[5] or p[0].botones[6]) frame; end
 		//ayuda?
 		delete_text(all_text);
 		elegir_num_jugadores();

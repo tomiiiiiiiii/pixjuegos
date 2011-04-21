@@ -117,6 +117,7 @@ begin
 	
 	if(arcade_mode)
 		write(0,320,240,4,"Pulsa disparo para jugar");
+		while(get_joy_button(0,0)) frame; end
 		while(!get_joy_button(0,0)) 
 			if(get_joy_button(0,8) or key(_esc)) exit(); end
 			frame; 
@@ -439,7 +440,7 @@ begin
 				ran1=1;
 			end
 		end
-		if((key(_z) and buzz==0) or (get_joy_button(buzz_joy,5) and buzz) or (get_joy_button(0,2) and arcade_mode))
+		if((key(_z) and buzz==0) or (get_joy_button(buzz_joy,5) and buzz) or (get_joy_button(0,3) and arcade_mode))
 			if(ran2==0)
 				sonido(4);
 				rana_elec(258,380,502,1);
@@ -453,7 +454,7 @@ begin
 				ran3=1;
 			end
 		end
-		if((key(_up) and buzz==0) or (get_joy_button(buzz_joy,15) and buzz) or (get_joy_button(1,2) and arcade_mode))
+		if((key(_up) and buzz==0) or (get_joy_button(buzz_joy,15) and buzz) or (get_joy_button(1,3) and arcade_mode))
 			if(ran4==0)
 				sonido(4);
 				rana_elec(498,380,504,1);
@@ -685,11 +686,11 @@ begin
 		if((
 			(jugador==1 and ((key(_q) and buzz==0) or (get_joy_button(buzz_joy,0) and buzz) or (get_joy_button(0,0) and arcade_mode)))
 			or 
-			(jugador==2 and ((key(_z) and buzz==0) or (get_joy_button(buzz_joy,5) and buzz) or (get_joy_button(0,2) and arcade_mode)))
+			(jugador==2 and ((key(_z) and buzz==0) or (get_joy_button(buzz_joy,5) and buzz) or (get_joy_button(0,3) and arcade_mode)))
 			or 
 			(jugador==3 and ((key(_p) and buzz==0) or (get_joy_button(buzz_joy,10) and buzz) or (get_joy_button(1,0) and arcade_mode)))
 			or 
-			(jugador==4 and ((key(_up) and buzz==0) or (get_joy_button(buzz_joy,15) and buzz) or (get_joy_button(1,2) and arcade_mode)))
+			(jugador==4 and ((key(_up) and buzz==0) or (get_joy_button(buzz_joy,15) and buzz) or (get_joy_button(1,3) and arcade_mode)))
 		   )
 				and up==0)
 			graph=gr+1;

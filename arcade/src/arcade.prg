@@ -67,7 +67,7 @@ Begin
 	loop
 		if(p[0].botones[0]) cambiar_opcion(0); break; end
 		if(p[0].botones[1]) cambiar_opcion(1); break; end
-		if(p[0].botones[4]) suena(1); from size=100 to 120; alpha-=10; frame; end ejecutar(); end
+		if(p[0].botones[4] or p[0].botones[5] or p[0].botones[6]) suena(1); from size=100 to 120; alpha-=10; frame; end ejecutar(); end
 		if(key(_esc)) say("salir"); exit(); end
 		frame;
 	end
