@@ -30,6 +30,7 @@ process bomba(tipo);
 
 private time=0; id2;
 begin
+priority=-1;
 z+=15;
 region=1;
 file=fpg_bombas;
@@ -56,7 +57,7 @@ if(tipo==2)
 		x=father.x;
 		y=father.y-30;
 		time++;
-		if(time<20) size+=5; end
+		if(time<20) size+=6; end
 		if(time==20) laser(x,y,20,id); end
 		if(time>20) laser(x,y,21,id); end
 		if(time==25) suena(s_laser2); end
@@ -117,6 +118,7 @@ process laser(x,y,tipo,id2);
 private angulo; x1; avance;
 
 begin
+priority=-2;
 z-=15;
 region=1;
 file=fpg_bombas;
@@ -174,18 +176,18 @@ if(tipo==20)
 	graph=21;
 	angle=pi/2;
 	z=16;
-	avance=30;
+	avance=-40;
 	loop
+	
 	if(pausa==0)
 		if(exists(id2))
 			x=id2.x;
-			y=id2.y+get_distx(angulo,avance);
+			y=id2.y+avance;
 		else
 			size_y-=5;
-			y=-30;
+			y-=70;
 		end
-				y=id2.y+get_distx(angulo,avance);
-		avance-=30;
+		avance-=70;
 		if(out_region(id,1)) break; end
 	end
 	frame;
@@ -195,17 +197,18 @@ if(tipo==21)
 	graph=22;
 	angle=pi/2;
 	z=16;
-	avance=10;
+	avance=-40;
 	loop
+	
 	if(pausa==0)
 		if(exists(id2))
 			x=id2.x;
-			y=id2.y+get_distx(angulo,avance);
+			y=id2.y+avance;
 		else
 			size_y-=5;
-			y-=50;
+			y-=70;
 		end
-		avance-=40;
+		avance-=70;
 		if(out_region(id,1)) break; end
 	end
 	frame;
