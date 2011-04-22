@@ -66,7 +66,7 @@ begin
 	carga_sonidos();
 	alpha_steps=255;	
 	if(arcade_mode) full_screen=true; scale_resolution=08000600; end
-	set_mode(640,480,32);
+	set_mode(640,480,32,WAITVSYNC);
 	set_fps(30,0);
 	ler=load_fnt("fnt/puntos.fnt");
 	load_fpg("fpg/pixfrogger.fpg");
@@ -343,11 +343,11 @@ begin
 					if(ops.pantalla_completa==0)
 						ops.pantalla_completa=1;
 						full_screen=1;
-						set_mode(640,480,32);
+						set_mode(640,480,32,WAITVSYNC);
 					else
 						ops.pantalla_completa=0;
 						full_screen=0;
-						set_mode(640,480,32);
+						set_mode(640,480,32,WAITVSYNC);
 					end
 				end
 				if(elecc==1)

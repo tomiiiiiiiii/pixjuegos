@@ -161,7 +161,7 @@ Begin
 		ops.op_sombras=0;
 		scale_resolution=03200240; set_mode(800,600,16); 
 	else
-		set_mode(800,600,32);
+		set_mode(800,600,32,WAITVSYNC);
 	end
 	
 	load_fpg("./fpg/pixpang.fpg");

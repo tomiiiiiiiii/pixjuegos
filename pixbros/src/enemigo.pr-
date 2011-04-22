@@ -39,6 +39,7 @@ Private
 	bucle_caida;
 	ancho_flags;
 	pendientes_y;
+	retraso_especial;
 Begin
 	if(tipo_nivel==1) ctype=c_scroll; end	
 	file=fpg_enemigos;
@@ -187,9 +188,9 @@ Begin
 						end
 					end
 
-					if(puede.especializar>0)
+					if(puede.especializar>0 and retraso_especial==0)
 						if(puede.especializar==1)
-							if(rand(-1,2)<ops.dificultad and !exists(id_disparo))
+							if(rand(-1,2)<ops.dificultad)
 								if(exists(id_muneco1_col) and id_muneco1_col.x<x+50 and id_muneco1_col.x>x-50 and id_muneco1_col.y>y)
 									accion=especial;
 								end
@@ -399,6 +400,7 @@ Begin
 			case especial:
 				switch(puede.especializar)
 					case 1:	//mano-chan: laser
+						retraso_especial=200;
 						if(graph<animacion[especial][0] or graph>animacion[especial][1])
 							anim=0;
 							graph=animacion[especial][0];
@@ -425,6 +427,7 @@ Begin
 		antigua_accion=accion;
 		while(ready==0) frame; end
 		if(grav>30) accion=muere; end //bucles infinitos :S
+		if(retraso_especial>0) retraso_especial--; end
 		frame;
 	end
 end
@@ -455,11 +458,7 @@ begin
 	end
 	if(tipo==2)
 		graph=17;
-		if(flags==0)
-			angle-=90000;
-		else
-			angle+=90000;
-		end
+		angle=-90000;
 	end
 	if(tipo==3)
 		graph=72;

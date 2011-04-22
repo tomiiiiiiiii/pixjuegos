@@ -33,7 +33,7 @@ Global
 		resolucion;
 	End
 
-	modo_juego=1; //0: COMPETITIVO, 1: COOPERATIVO
+	modo_juego=0; //0: COMPETITIVO, 1: COOPERATIVO
 	id_cam;
 	id_carganivel;
 	separados[8]; //en modo cooperativo para saber cuántas sub-regiones necesitamos
@@ -86,7 +86,7 @@ Global
 	posibles_jugadores;
 	// COMPATIBILIDAD CON XP/VISTA/LINUX (usuarios)
 	string savegamedir;
-	string developerpath="\.PiXJuegos\PiXDash\";
+	string developerpath="/.PiXJuegos/PiXDash/";
 	
 	string paqueteniveles="";
 	string nivel_titulo[50];
@@ -547,8 +547,11 @@ BEGIN
 	end
 	if(!file_exists(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".png")) menu(); return; end // FIN DE LA COMPETICION
 	frame;
-	if(num_nivel!=1) foto=get_screen(); end
-	set_mode(ancho_pantalla,alto_pantalla,16,WAITVSYNC);
+	if(num_nivel!=1) 
+		foto=get_screen(); 
+		put_screen(0,foto);
+	end
+	//set_mode(ancho_pantalla,alto_pantalla,16,WAITVSYNC);
 	delete_text(all_text);
 	
 	rand_seed(num_nivel);
@@ -758,6 +761,7 @@ end //FIN IF WII
 	y=alto_pantalla/2;
 	timer[0]=0;
 	stop_song();
+	clear_screen();
 	transicion();
 	//TEXTO PRESENTACION NIVEL:
 	write(fuente,ancho_pantalla/2,(alto_pantalla/4),4,nivel_titulo[num_nivel]);
@@ -786,7 +790,6 @@ end //FIN IF WII
         end
     end
 	pon_tiempo(-1,0,(ancho_pantalla/4)*3,70);
-	save_png(0,mapa_scroll,"c:\algo.png");
 	controlador(0);
 	loop
 		if(key(_n)) while(key(_n)) frame; end num_nivel++; carga_nivel(); end
@@ -946,7 +949,7 @@ Begin
 	set_fps(0,0); //imágenes por segundo
 	probar_pantalla();
 	if(arcade_mode) full_screen=true; scale_resolution=08000600;end
-	set_mode(800,600,16); //resolución y colores	    
+	set_mode(800,600,16,WAITVSYNC); //resolución y colores	    
 	fpg_enemigos=load_fpg("fpg/enemigos.fpg"); //cargar el mapa de tiles
 	fpg_powerups=load_fpg("fpg/powerups.fpg"); //cargar el mapa de tiles
 	fpg_menu=load_fpg("fpg/menu.fpg"); //cargar el mapa de tiles

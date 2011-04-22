@@ -49,7 +49,7 @@ End
 Process inicio();
 Begin
 	full_screen=1;
-	set_mode(800,600,32);
+	set_mode(800,600,32,WAITVSYNC);
 	set_fps(50,9);
 	load_fpg("fpg/arcade.fpg");
 	

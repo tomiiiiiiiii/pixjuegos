@@ -564,11 +564,11 @@ begin
 					if(full_screen==0)
 						full_screen=1;
 						ops.ventana=0;
-						set_mode(800,600,32);
+						set_mode(800,600,32,WAITVSYNC);
 					else
 						full_screen=0;
 						ops.ventana=1;
-						set_mode(800,600,32);
+						set_mode(800,600,32,WAITVSYNC);
 					end
 				end
 				if(elecc==1)
