@@ -10,6 +10,7 @@ Private
 	toques=50;
 	x_inc;
 	id_song;
+	id_col;
 Begin
 	parpadea=15;
 	jefe=1;
@@ -42,8 +43,7 @@ Begin
 		grav-=5;
 		y-=3+(grav/20);
 		if(parpadea==15)
-			If(collision(Type muneco1)) p[1].muere=1; End
-			If(collision(Type muneco2)) p[2].muere=1; End
+			If(id_col=collision(Type muneco)) p[id_col.jugador].muere=1; End
 		end
 		if(x<20) x=20; end
 		if(x>780) x=780; end
@@ -59,10 +59,12 @@ Begin
 		if(contaor>30) contaor=30; toques=contaor+20; end
 		Frame(velocidad/5+toques*3);
 		if(parpadea==15)
-			if(collision(type dispcab) or collision(type cachodisp)) toques--; parpadea=0; grav+=200-toques*2;signal(p[1].disparos[1],s_kill); end
-			if(collision(type dispcab2) or collision(type cachodisp2)) toques--; parpadea=0; grav+=200-toques*2;signal(p[1].disparos[2],s_kill); end
-			if(collision(type dispcab3) or collision(type cachodisp3)) toques--; parpadea=0; grav+=200-toques*2;signal(p[2].disparos[1],s_kill); end
-			if(collision(type dispcab4) or collision(type cachodisp4)) toques--; parpadea=0; grav+=200-toques*2;signal(p[2].disparos[2],s_kill); end
+			if(id_col=collision(type disparos))
+				id_col.accion=-1;
+				toques--;
+				parpadea=0;
+				grav+=200-toques*2;
+			end
 		end
 	eND
 	

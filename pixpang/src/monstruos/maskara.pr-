@@ -14,6 +14,7 @@ Private
 	x1;
 	y1;
 	id_vidajefe;
+	id_col;
 Begin
 	contaor=5;	//vida del jefe
 	vidajefefuera=0;
@@ -64,10 +65,20 @@ Begin
 		if(contaor==2 and a>65) bola(x-20,y-10,6,1); bola(x+20,y-10,6,1); a=2; end		
 
 		if(alpha==255)	//colisones
-			if(collision(type dispcab) or collision(type cachodisp)) p[1].bonus+=100; p[1].puntos+=500; contaor--; tiempo=0; trozo(graph,x,y,rand(1,4)); signal(p[1].disparos[1],s_kill); end
-			if(collision(type dispcab2) or collision(type cachodisp2)) p[1].bonus+=100; p[1].puntos+=500; contaor--; tiempo=0; trozo(graph,x,y,rand(1,4)); signal(p[1].disparos[2],s_kill); end
-			if(collision(type dispcab3) or collision(type cachodisp3)) p[2].bonus+=100; p[2].puntos+=500; contaor--; tiempo=0; trozo(graph,x,y,rand(1,4)); signal(p[2].disparos[1],s_kill); end
-			if(collision(type dispcab4) or collision(type cachodisp4)) p[2].bonus+=100; p[2].puntos+=500; contaor--; tiempo=0; trozo(graph,x,y,rand(1,4)); signal(p[2].disparos[2],s_kill); end
+			id_col=0;
+			id_col=collision(type disparos);
+			
+			if(id_col==0)
+				id_col=collision(type cachodisparo);
+			end
+			if(id_col!=0)
+				id_col.accion=-1;
+				p[id_col.jugador].bonus+=100; 
+				p[id_col.jugador].puntos+=500; 
+				contaor--; 
+				tiempo=0; 
+				trozo(graph,x,y,rand(1,4)); 
+			end
 		end
 		while(tiempo<250 and contaor>0)
 
@@ -149,6 +160,7 @@ private
 	x1;
 	y1;
 	id_bloque;
+	id_col;
 begin
 	file=fpg_jefe;
 	graph=11;
@@ -206,19 +218,22 @@ begin
 			end
 		end	
 
-		if(collision(type dispcab) or collision(type cachodisp)) if(contaor<4) tiempo=0; end signal(p[1].disparos[1],s_kill); end
-		if(collision(type dispcab2) or collision(type cachodisp2)) if(contaor<4) tiempo=0; end signal(p[1].disparos[2],s_kill); end
-		if(collision(type dispcab3) or collision(type cachodisp3)) if(contaor<4) tiempo=0; end signal(p[2].disparos[1],s_kill); end
-		if(collision(type dispcab4) or collision(type cachodisp4)) if(contaor<4) tiempo=0; end signal(p[2].disparos[2],s_kill); end
-
+		id_col=0;
+		id_col=collision(type disparos);
+		
+		if(id_col==0)
+			id_col=collision(type cachodisparo);
+		end
+		if(id_col!=0)
+			if(contaor<4) tiempo=0; end
+			id_col.accion=-1;
+		end
+		
 		x1=x;
 		y1=y;
 
-		if(collision(type muneco1))
-			if(x>p[1].id.x) p[1].id.x-=5; else p[1].id.x+=5; end
-		end
-		if(collision(type muneco2))
-			if(x>p[2].id.x) p[2].id.x-=5; else p[2].id.x+=5; end
+		if(id_col=collision(type muneco))
+			if(x>id_col.x) id_col.x-=5; else id_col.x+=5; end
 		end
 
 		while(tiempo<120)
@@ -226,11 +241,17 @@ begin
 			tiempo++;
 			x=x1+rand(-5,+5);
 			y=y1+rand(-5,+5);
-			if(collision(type dispcab) or collision(type cachodisp)) signal(p[1].disparos[1],s_kill); end
-			if(collision(type dispcab2) or collision(type cachodisp2)) signal(p[1].disparos[2],s_kill); end
-			if(collision(type dispcab3) or collision(type cachodisp3)) signal(p[2].disparos[1],s_kill); end
-			if(collision(type dispcab4) or collision(type cachodisp4)) signal(p[2].disparos[2],s_kill); end
 
+			id_col=0;
+			id_col=collision(type disparos);
+			
+			if(id_col==0)
+				id_col=collision(type cachodisparo);
+			end
+			if(id_col!=0)
+				id_col.accion=-1;
+			end
+			
 			if(father.alpha==128) tiempo=120; break; end
 			id_bloque.x=x;
 			id_bloque.y=y;
@@ -244,10 +265,15 @@ begin
 		
 		while(father.alpha==128 and contaor>0)
 			while(ready==0) frame; end
-			if(collision(type dispcab) or collision(type cachodisp)) signal(p[1].disparos[1],s_kill); end
-			if(collision(type dispcab2) or collision(type cachodisp2)) signal(p[1].disparos[2],s_kill); end
-			if(collision(type dispcab3) or collision(type cachodisp3)) signal(p[2].disparos[1],s_kill); end
-			if(collision(type dispcab4) or collision(type cachodisp4)) signal(p[2].disparos[2],s_kill); end
+			id_col=0;
+			id_col=collision(type disparos);
+			
+			if(id_col==0)
+				id_col=collision(type cachodisparo);
+			end
+			if(id_col!=0)
+				id_col.accion=-1;
+			end
 			if(y<250) y++; end
 			if(y>250) y--; end
 			if(angle<0) angle+=1000; end
@@ -277,7 +303,7 @@ end
 process crea_bola()
 private
 	id_disp;
-
+	id_col;
 begin
 	y=250;
 	x=400;
@@ -285,10 +311,15 @@ begin
 		graph=715;
 			from alpha=0 to 255;
 				while(ready==0) frame; end
-				if(collision(type dispcab) or collision(type cachodisp)) signal(p[1].disparos[1],s_kill); end
-				if(collision(type dispcab2) or collision(type cachodisp2)) signal(p[1].disparos[2],s_kill); end
-				if(collision(type dispcab3) or collision(type cachodisp3)) signal(p[2].disparos[1],s_kill); end
-				if(collision(type dispcab4) or collision(type cachodisp4)) signal(p[2].disparos[2],s_kill); end
+				id_col=0;
+				id_col=collision(type disparos);
+				
+				if(id_col==0)
+					id_col=collision(type cachodisparo);
+				end
+				if(id_col!=0)
+					id_col.accion=-1;
+				end
 				x=father.x;
 				if(contaor==3)
 					signal(id,s_kill);
@@ -301,10 +332,15 @@ begin
 		graph=801;
 			from alpha=0 to 255;
 			while(ready==0) frame; end
-				if(collision(type dispcab) or collision(type cachodisp)) signal(p[1].disparos[1],s_kill); end
-				if(collision(type dispcab2) or collision(type cachodisp2)) signal(p[1].disparos[2],s_kill); end
-				if(collision(type dispcab3) or collision(type cachodisp3)) signal(p[2].disparos[1],s_kill); end
-				if(collision(type dispcab4) or collision(type cachodisp4)) signal(p[2].disparos[2],s_kill); end
+				id_col=0;
+				id_col=collision(type disparos);
+				
+				if(id_col==0)
+					id_col=collision(type cachodisparo);
+				end
+				if(id_col!=0)
+					id_col.accion=-1;
+				end
 				frame;
 			end
 		bola(400,250,12,1); end
@@ -312,10 +348,15 @@ begin
 		graph=703;
 			from alpha=0 to 255;
 				while(ready==0) frame; end
-					if(collision(type dispcab) or collision(type cachodisp)) signal(p[1].disparos[1],s_kill); end
-					if(collision(type dispcab2) or collision(type cachodisp2)) signal(p[1].disparos[2],s_kill); end
-					if(collision(type dispcab3) or collision(type cachodisp3)) signal(p[2].disparos[1],s_kill); end
-					if(collision(type dispcab4) or collision(type cachodisp4)) signal(p[2].disparos[2],s_kill); end
+				id_col=0;
+				id_col=collision(type disparos);
+				
+				if(id_col==0)
+					id_col=collision(type cachodisparo);
+				end
+				if(id_col!=0)
+					id_col.accion=-1;
+				end
 				frame;
 			end	
 		bola(400,250,3,1); end
@@ -323,10 +364,15 @@ begin
 		graph=704;
 			from alpha=0 to 255;
 				while(ready==0) frame; end
-					if(collision(type dispcab) or collision(type cachodisp)) signal(p[1].disparos[1],s_kill); end
-					if(collision(type dispcab2) or collision(type cachodisp2)) signal(p[1].disparos[2],s_kill); end
-					if(collision(type dispcab3) or collision(type cachodisp3)) signal(p[2].disparos[1],s_kill); end
-					if(collision(type dispcab4) or collision(type cachodisp4)) signal(p[2].disparos[2],s_kill); end
+				id_col=0;
+				id_col=collision(type disparos);
+				
+				if(id_col==0)
+					id_col=collision(type cachodisparo);
+				end
+				if(id_col!=0)
+					id_col.accion=-1;
+				end
 				frame;
 			end	
 		bola(400,250,4,1); end

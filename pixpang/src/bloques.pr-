@@ -1,0 +1,58 @@
+Process bloques(x,y,regalo,tipo);
+Private
+	id_disp;
+	rompible;
+	iddisp[7];
+	id_col;
+Begin
+	z=2;
+	If(tipo==1) graph=427; rompible=1; End
+	If(tipo==2) graph=428; rompible=1; End
+	If(tipo==3) escaleras(x,y); Return; End
+	If(tipo==4) graph=430; rompible=0; End
+	If(tipo==5) graph=431; rompible=0; End
+	If(tipo==6) graph=432; rompible=1; End
+	If(tipo==7) graph=433; rompible=1; End
+	If(tipo==8) graph=434; rompible=1; End
+	If(tipo==9) graph=435; rompible=0; End
+	If(tipo==10) graph=436; rompible=0; End
+	If(tipo==11) graph=437; rompible=1; End
+	If(tipo==12) graph=438; z=-1; col_hielo(x,y-10); rompible=0; End
+	if(regalo==10 and rompible==1) bolas++; end
+	ancho=graphic_info(0,graph,g_wide);
+	alto=graphic_info(0,graph,g_height);
+	if(cheto_borracho==1) angle=rand(0,360)*1000; end
+	map_xput(fpg_bloquesmask,mapadurezas,graph,x,y,angle,size,0);
+	Loop
+		If(x==0 OR y==0) Break; End
+
+		if(graph!=429) //si no es una escalera, comprobamos colisiones con disparos
+			id_col=0;
+			id_col=collision(type disparos);
+			
+			if(id_col==0)
+				id_col=collision(type cachodisparo);
+			end
+			if(id_col!=0)
+				if(y-20<id_col.y)
+					if(rompible)
+						id_col.accion=-1;
+						if(p[id_col.jugador].arma<4) accion=-1; p[id_col.jugador].puntos+=100; end
+					else
+						if(p[id_col.jugador].arma!=3) id_col.accion=-1; end
+					end
+				end
+			end
+		end
+
+		if(regalo==10 and rompible==1 and !exists(type bola) and ready==1) 
+			if(ops.dificultad==3) items(x,y,regalo); return; else bolas--; return; end 
+		end
+		
+		if(accion==-1) break; end
+		Frame;
+	End
+	if(y>10) items(x,y,regalo); end
+	if(os_id!=9) explotalo(x,y,z,alpha,0,file,graph,60); end
+	//from alpha=255 to 0 step -10; frame; end
+End

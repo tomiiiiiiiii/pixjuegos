@@ -1,0 +1,98 @@
+Process disparos(disparo);
+Private
+	cachos;
+	cachos_y;
+	y_keko;
+	metralleta_x;
+	graphcacho;
+	distancia;
+	cont_ganxo;
+	toca;
+	arma;
+Begin
+	jugador=father.jugador;
+	arma=p[jugador].arma;
+	file=p[jugador].fpg;
+	y=father.y;
+	if(father.flags==1)
+		x=father.x-3;
+	else
+		x=father.x+3;
+	end
+	z=2;
+	
+	//y_keko: linea más baja, para la región
+	y_keko=y+(graphic_info(father.file,father.graph,g_height)/2);
+	
+	//y: desde la cabeza del personaje!
+	y=y_keko-graphic_info(father.file,father.graph,g_height);
+	
+	if(p[jugador].arma!=4)
+		define_region((jugador-1)*2+disparo,1,1,800,y_keko);
+		region=(jugador-1)*2+disparo;
+	end
+	
+	If(p[jugador].arma<3)
+		graph=601;
+		suena(1);
+		While(y>18)
+			If(ready==1) 
+				y-=5; 
+				If(animglobal<=15) graph=601; End
+				If(animglobal<=30 AND animglobal>15) graph=602; End
+				If(animglobal<45 and animglobal>30) graph=601; End
+				If(animglobal=>45) graph=602; end
+				if(y<0) break; end
+			End
+			if(accion==-1) break; end
+			Frame;
+		End
+	End
+	If(p[jugador].arma==3)
+		graph=603;
+		suena(1);
+		While(y>24 AND !collision(Type bloques))
+			If(ready==1) y-=5; 
+				if(y<0) break; end
+			End
+			if(accion==-1) break; end
+			Frame;
+		End
+		if(y<24) y=24; end
+		suena(7);
+		graph=604;
+		While(cont_ganxo<240)
+			if(ready==1)
+				If(p[jugador].botones[4]==0) cont_ganxo++; Else cont_ganxo+=3; End
+			end
+			if(cont_ganxo>120) graph=605; end
+			if(y<0) break; end
+			if(accion==-1) break; end
+			Frame;
+		End
+	End
+	If(p[jugador].arma==4)
+		graph=borrar;
+		y+=50;
+		While(y>18)
+			If(ready==1) y-=10; metralleta_x+=2; End
+			if(accion==-1) break; end
+			cachos_y=y;
+			cachodisparo(x-(metralleta_x),cachos_y-43,606,0);
+			cachodisparo(x-(metralleta_x/2),cachos_y-43,607,0); 
+			cachodisparo(x+(metralleta_x/2),cachos_y-43,607,0); 
+			cachodisparo(x+(metralleta_x),cachos_y-43,606,1);
+			if(accion==-1) break; end
+			Frame;
+		End
+	End
+	p[jugador].disparos[disparo]=0;
+End
+
+Process cachodisparo(x,y,graph,flags);
+Begin
+	file=father.file;
+	z=2;  
+	Frame;
+	if(accion==-1 and exists(father)) father.accion=-1; end
+End

@@ -8,6 +8,7 @@ Private
 	id_sombra;
 	id_disp;
 	id_fondo;
+	id_col;
 Begin
 	contaor=5;
 	vidajefefuera=0;
@@ -34,10 +35,11 @@ Begin
 		if(temporizador<41) temporizador++; end
 		if(bolasmax>0 and temporizador>30 and bolas<12) bolasmax--; temporizador=0; fantasma_bola(rand(1,16)); end
 		if(bolasmax==0)
-			if(collision(type dispcab) or collision(type cachodisp)) contaor--; signal(p[1].disparos[1],s_kill); frame(400); end
-			if(collision(type dispcab2) or collision(type cachodisp2)) contaor--; signal(p[1].disparos[2],s_kill); frame(400); end
-			if(collision(type dispcab3) or collision(type cachodisp3)) contaor--; signal(p[2].disparos[1],s_kill); frame(400); end
-			if(collision(type dispcab4) or collision(type cachodisp4)) contaor--; signal(p[2].disparos[2],s_kill); frame(400); end
+			if(id_col=collision(type disparos))
+				id_col.accion=-1;
+				contaor--;
+				frame(400);
+			end
 		end
 		frame;
 	end
@@ -47,7 +49,7 @@ Begin
 	matabolas=0;
 	jefe=0;
 	vidajefefuera=1;
-	signal(id_fondo,s_kill);
+	//signal(id_fondo,s_kill);
 	if(modo_juego==1) fondos_panic(); end
 	if(modo_juego==2) fondos_tour(); end
 End
@@ -61,6 +63,7 @@ Private
 	rompida;
 	lao;
 	id_sombra;
+	id_col;
 Begin
 	z=-1;
 	lao=rand(0,1);
@@ -78,10 +81,10 @@ Begin
 	id_sombra=fantasma_bola_sombra();
 	while(temporizador<400)
 		while(ready==0) frame; end
-		if(collision(type dispcab) or collision(type cachodisp)) rompida=1; signal(p[1].disparos[1],s_kill); end
-		if(collision(type dispcab2) or collision(type cachodisp2)) rompida=1; signal(p[1].disparos[2],s_kill); end
-		if(collision(type dispcab3) or collision(type cachodisp3)) rompida=1; signal(p[2].disparos[1],s_kill); end
-		if(collision(type dispcab4) or collision(type cachodisp4)) rompida=1; signal(p[2].disparos[2],s_kill); end
+		if(id_col=collision(type disparos))
+			id_col.accion=-1;
+			rompida=1;
+		end
 		if(matabolas or rompida) break; end
 		if(reloj==0) 
 			if(radio<240) radio++; end

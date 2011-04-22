@@ -1,0 +1,311 @@
+Process bola(x,y,tamano,lao); //tamano 1:pekeña 2:medio-pekeña 3:medio-grande 4:grande
+Private
+	grav;
+	grav_org;
+	ancho_bola;
+	altura_bola;
+	ancho_bloque;
+	alto_bloque;
+	id_disp;
+	iddisp[7];
+	rota;
+	toca;                    
+	peq_izq;       
+	contator;
+	asdrugol;
+	varibiliosa;
+	mutante;
+	viejunidad;
+	matando;
+	id_col;
+Begin        
+    While(exists(id_bolas[contator]))
+        contator++;
+    End
+    id_bolas[contator]=id;
+	zbolas--;
+	z=zbolas;
+	bolas++;
+	If(tamano==1) If(lao==1 AND modo_juego==1) if(rand(0,3)==3) peq_izq=1; end End graph=701; grav_org=100; End //normal
+	If(tamano==2) graph=702; grav_org=120; End
+	If(tamano==3) graph=703; grav_org=140; End
+	If(tamano==4) graph=704; grav_org=160; End 
+	If(tamano==5) graph=705; grav_org=180; End
+	If(tamano==6) If(lao==1 AND modo_juego==1) if(rand(0,3)==3) peq_izq=1; end End graph=711; grav_org=160; End //verde
+	If(tamano==7) graph=713; grav_org=180; End
+	If(tamano==8) graph=715; grav_org=200; End
+	If(tamano==9) graph=716; grav_org=220; End
+	If(tamano==10) If(lao==1 AND modo_juego==1) if(rand(0,3)==3) peq_izq=1; end End graph=801; size=33; grav_org=0; grav=1; End //rotativa
+	If(tamano==11) graph=801; size=66; grav_org=0; grav=1; End
+	If(tamano==12) graph=801; size=100; grav_org=0; grav=1; End
+	If(tamano==13) If(lao==1 AND modo_juego==1) if(rand(0,3)==3) peq_izq=1; end End graph=717; grav_org=255; End //bota al revés
+	If(tamano==14) graph=718; grav_org=220; End
+	If(tamano==15) graph=719; grav_org=210; End
+	If(tamano==16) graph=720; grav_org=200; End
+	If(tamano==17) graph=721; bola_estrella=1; grav_org=180; End //bola estrella
+	//tamano 18 reservado para bola estrella!
+	If(tamano==19) graph=723; grav_org=180; End //bola perseguidora
+	if(tamano==20) graph=724; grav_org=120; end //bola estática verticalmente
+	if(tamano==21) graph=725; grav_org=120; end //bota estática y bota normal...
+	if(tamano==22) mutante=1; tamano=1; If(lao==1 AND modo_juego==1) if(rand(0,3)==3) peq_izq=1; end End graph=701; grav_org=100; end
+	if(cheto_borracho==1) size=rand(20,200); end
+	ancho_bola=graphic_info(0,graph,g_wide);
+	altura_bola=graphic_info(0,graph,g_height);
+	If((tamano==5 OR tamano==9 OR tamano==12 OR tamano==16 or tamano==17 or tamano==19 or tamano==20 or tamano==21) AND (modo_juego==1 OR modo_juego==-1)) 
+		y=(0-altura_bola);
+		While(y<0+(altura_bola/2) AND matabolas==0)
+			if(ready) y+=1; end
+			Frame;
+		End
+	End
+	if(modo_juego==2 and ops.op_sombras==1 and ready==0)
+		from alpha=0 to 255 step 2; frame; end
+	end
+	alpha=255;
+	Loop
+		if(cheto_viejuno and modo_juego==1)
+			if(viejunidad<200) viejunidad++; else
+				viejunidad=0;
+				if(tamano!=5 and tamano!=9 and tamano!=12 and tamano!=16 and tamano!=18 and tamano!=21 and tamano!=22) 
+					tamano++;
+					suena(3);
+					If(tamano==1) If(lao==1 AND modo_juego==1) peq_izq=1; End graph=701; grav_org=100; End //normal
+					If(tamano==2) graph=702; grav_org=120; End
+					If(tamano==3) graph=703; grav_org=140; End
+					If(tamano==4) graph=704; grav_org=160; End 
+					If(tamano==5) graph=705; grav_org=180; End
+					If(tamano==6) If(lao==1 AND modo_juego==1) peq_izq=1; End graph=711; grav_org=160; End //verde
+					If(tamano==7) graph=713; grav_org=180; End
+					If(tamano==8) graph=715; grav_org=200; End
+					If(tamano==9) graph=716; grav_org=220; End
+					If(tamano==10) If(lao==1 AND modo_juego==1) peq_izq=1; End graph=801; size=33; grav_org=0; grav=1; End //rotativa
+					If(tamano==11) graph=801; size=66; grav_org=0; grav=1; End
+					If(tamano==12) graph=801; size=100; grav_org=0; grav=1; End
+					If(tamano==13) If(lao==1 AND modo_juego==1) peq_izq=1; End graph=717; grav_org=255; End //bota al revés
+					If(tamano==14) graph=718; grav_org=220; End
+					If(tamano==15) graph=719; grav_org=210; End
+					If(tamano==16) graph=720; grav_org=200; End
+					If(tamano==17) graph=721; bola_estrella=1; grav_org=180; End //bola estrella
+					//tamano 18 reservado para bola estrella!
+					If(tamano==19) graph=723; grav_org=180; End //bola perseguidora
+					if(tamano==20) graph=724; grav_org=120; end //bola estática verticalmente
+					if(tamano==21) graph=725; grav_org=120; end //bota estática y bota normal...
+					if(tamano==22) mutante=1; tamano=1; If(lao==1 AND modo_juego==1) peq_izq=1; End graph=701; grav_org=100; end
+				end
+			end
+		end
+		If(ops.op_sombras==1 AND grav_org>0) sombra(graph,x,y,flags,1); End
+		While(ready==0) 
+			Frame;
+		End
+		If(parpadea==1) If(flags==0) flags=4; Else flags=0; End End
+		If(dinamita==1 AND tamano>1 AND tamano!=6 AND tamano!=10 and tamano!=13 and tamano!=17and tamano!=18 and tamano!=19 and tamano!=20 and tamano!=21) Frame(velocidad); Break; End
+		If(reloj==0 AND grav_org==0)
+			flags=0;
+			angle+=1000;
+			If(toca=collision(Type bloques))
+				If(toca.graph!=429)
+					ancho_bloque=graphic_info(0,toca.graph,g_wide);
+					alto_bloque=graphic_info(0,toca.graph,g_height);
+					If((toca.x+(ancho_bloque/100*size/2))<x) lao=0; End
+					If((toca.x-(ancho_bloque/100*size/2))>x) lao=1; End
+					If((toca.y-(alto_bloque/100*size/2))>y) grav=1; End
+					If((toca.y+alto_bloque/100*size/2)<y) grav=0; End
+					if(mutante==1) mutante=2; end
+				End
+			End        
+			If(lao==0) x+=3; End
+			If(lao==1) x-=3; End
+			If(grav==1) y-=3; End
+			If(grav==0) y+=3; End
+			If(animglobal<60) graph=802; End
+			If(animglobal<45) graph=801; End
+			If(animglobal<30) graph=802; End
+			If(animglobal<15) graph=801; End
+			If(x=>800-18-(ancho_bola/2)) lao=1; End
+			If(x=<(((ancho_bola)/2))+18) lao=0; End
+			If(y>(500-(altura_bola/2))) grav=1; if(mutante==1) mutante=2; end End
+			If(y<(18+(altura_bola/2))) grav=0; End
+		End
+		If(reloj==0 AND grav_org>0 and tamano<13 or tamano==17 or tamano==18 or tamano==19 or tamano==20 or tamano==21)
+			flags=0;
+			If(toca=collision(Type bloques))
+				If(toca.graph!=429)
+					if(mutante==1) mutante=2; end
+					ancho_bloque=graphic_info(0,toca.graph,g_wide);
+					alto_bloque=graphic_info(0,toca.graph,g_height);
+					If((toca.x+(ancho_bloque/2))<x) lao=0; End
+					If((toca.x-(ancho_bloque/2))>x) lao=1; End
+					If((toca.y-(alto_bloque/2))>y) 
+						if(((500-y)/80)!=0) 
+							grav=grav_org/((500-y)/80);
+						else 
+							grav=grav_org; 
+						end 
+					End
+					If((toca.y+alto_bloque/2)<y) 
+						grav=0-grav_org;
+						if(tamano==21)
+							if(varibiliosa==0) varibiliosa=1; else varibiliosa=0; end
+						end
+						if(tamano==19)
+							if(exists(p[1].id) and exists(p[2].id))
+								if(get_dist(p[1].id)>get_dist(p[2].id))
+									if(p[1].id.x<x) lao=1; else lao=0; end
+								else
+									if(p[2].id.x<x) lao=1; else lao=0; end
+								end
+							end
+							if(exists(p[1].id) and !exists(p[2].id))
+								if(p[1].id.x<x) lao=1; else lao=0; end
+							end
+							if(exists(p[2].id) and !exists(p[1].id))
+								if(p[2].id.x<x) lao=1; else lao=0; end
+							end
+						end
+					End
+				End
+			End        
+			if(cheto_choca) If(toca=collision(Type bola))
+				ancho_bloque=graphic_info(0,toca.graph,g_wide);
+				alto_bloque=graphic_info(0,toca.graph,g_height);
+				If((toca.x+(ancho_bloque/2))<x) lao=0; End
+				If((toca.x-(ancho_bloque/2))>x) lao=1; End
+				If((toca.y-(alto_bloque/2))>y) 
+					if(((500-y)/80)!=0) 
+						grav=grav_org/((500-y)/80);
+					else 
+						grav=grav_org; 
+					end 
+				End
+				If((toca.y+alto_bloque/2)<y) 
+					grav=0-grav_org;
+					if(tamano==21)
+						if(varibiliosa==0) varibiliosa=1; else varibiliosa=0; end
+					end
+				End
+			End        
+			End //cheto choca
+
+			If(lao==0 and tamano!=20 and varibiliosa==0) x+=3; End
+			If(lao==1 and tamano!=20 and varibiliosa==0) x-=3; End
+			If(x=>800-18-(ancho_bola/2)) x=800-18-(ancho_bola/2); lao=1; End
+			If(x=<(((ancho_bola)/2))+18) x=(((ancho_bola)/2))+18; lao=0; End
+			if(asdrugol<10) asdrugol++; end
+			If(y>(500-(altura_bola/2)) and asdrugol==10) 
+				if(mutante==1) mutante=2; end
+				asdrugol=0; 
+				if(tamano==17) tamano=18; graph=722; else if(tamano==18) tamano=17; graph=721; end end 
+				grav=grav_org; 
+				if(tamano==19)
+					if(exists(p[1].id) and exists(p[2].id))
+						if(get_dist(p[1].id)>get_dist(p[2].id))
+							if(p[1].id.x<x) lao=1; else lao=0; end
+						else
+							if(p[2].id.x<x) lao=1; else lao=0; end
+						end
+					end
+					if(exists(p[1].id) and !exists(p[2].id))
+						if(p[1].id.x<x) lao=1; else lao=0; end
+					end
+					if(exists(p[2].id) and !exists(p[1].id))
+					if(p[2].id.x<x) lao=1; else lao=0; end
+					end
+				end
+				if(tamano==21)
+					if(varibiliosa==0) varibiliosa=1; else varibiliosa=0; end
+				end
+			End
+			grav-=5;
+			y-=3+(grav/20);
+		End      
+		If(reloj==0 AND grav_org>0 and tamano>12 and tamano<17)
+			flags=0;
+			If(toca=collision(Type bloques))
+				If(toca.graph!=429)
+					if(mutante==1) mutante=2; end
+					ancho_bloque=graphic_info(0,toca.graph,g_wide);
+					alto_bloque=graphic_info(0,toca.graph,g_height);
+					If((toca.x+(ancho_bloque/2))<x) lao=0; End
+					If((toca.x-(ancho_bloque/2))>x) lao=1; End
+					If((toca.y-(alto_bloque/2))>y) if(((16+y)/80)!=0) grav=-(grav_org/((16+y)/80)); else grav=-grav_org; end End
+					If((toca.y+alto_bloque/2)<y) grav=0+grav_org; End
+				End
+			End        
+			If(lao==0) x+=3; End
+			If(lao==1) x-=3; End
+			If(x=>800-18-(ancho_bola/2)) lao=1; End
+			If(x=<(((ancho_bola)/2))+18) lao=0; End
+			If(y<(16+(altura_bola/2))) grav=grav_org; if(mutante==1) mutante=2; end End
+			grav-=5;
+			y+=3+(grav/20);
+			angle+=6000;
+		End
+		if(mutante==2)
+			if(tamano<20) tamano++; else tamano=1; end
+			grav=0;
+			grav_org=0;
+			ancho_bola=0;
+			altura_bola=0;
+			ancho_bloque=0;
+			alto_bloque=0;
+			id_disp=0;
+			rota=0;
+			toca=0;                    
+			peq_izq=0;       
+			contator=0;
+			varibiliosa=0;
+			If(tamano==1) If(lao==1 AND modo_juego==1) peq_izq=1; End graph=701; grav_org=100; End //normal
+			If(tamano>1 and tamano<6) tamano=6; End
+			If(tamano==6) If(lao==1 AND modo_juego==1) peq_izq=1; End graph=711; grav_org=160; End //verde
+			If(tamano>6 and tamano<19) tamano=19; End
+			If(tamano==19) graph=723; grav_org=180; End //bola perseguidora
+			if(tamano==20) graph=724; grav_org=120; end //bola estática verticalmente
+			grav=grav_org;
+			if(cheto_borracho==1) size=rand(20,200); end
+			ancho_bola=graphic_info(0,graph,g_wide);
+			altura_bola=graphic_info(0,graph,g_height);
+			mutante=1;
+		end
+		if(y<20) grav=-grav_org; end
+		if(grav<max_grav) grav=max_grav; end //está too mal xd
+			id_col=0;
+			id_col=collision(type disparos);
+			
+			if(id_col==0)
+				id_col=collision(type cachodisparo);
+			end
+			if(id_col!=0)
+				p[id_col.jugador].bonus+=100; 
+				p[id_col.jugador].puntos+=500; 
+				p[id_col.jugador].bolas++; 
+				if(tamano==17) p[id_col.jugador].bolas+=20; end 
+				id_col.accion=-1;
+				break; 
+			end
+
+			if(matabolas==1 OR rota==1) break; end
+
+			if(reloj==0)
+				If(p[1].estrella==0 and collision(p[1].id)) if(matando==10) p[1].muere=1; If(p[1].proteccion==1) Break; End matando=0; else matando++; end End
+				If(p[2].estrella==0 and collision(p[2].id)) if(matando==10) p[2].muere=1; If(p[2].proteccion==1) Break; End matando=0; else matando++; end End
+			end
+			If((!collision(p[1].id)) and (!collision(p[2].id))) matando=0; End
+			If((p[1].estrella==1) and (collision(p[1].id)==1)) p[1].bolas++; break; end
+			If((p[2].estrella==1) and (collision(p[2].id)==1)) p[2].bolas++; break; end
+			If(collision(Type cocodrilo) OR collision(Type volador)) Break; End
+			If(peq_izq==1 and jefe==0) If(flags==4) flags=0; Else flags=4; End End
+			
+			if(tamano!=19) Frame(velocidad/2); else frame(velocidad/3); end
+		End
+	frame;		
+	If(peq_izq==1 and matabolas==0 and jefe==0) if(reloj==0) itemreloj(1); else secs+=60; end End
+	If(tamano!=1 AND tamano!=6 AND tamano!=10 and tamano!=13 and tamano!=17 and tamano!=18 and tamano!=19 and tamano!=20 and tamano!=21 and tamano!=22) if(cheto_borracho==0 or matabolas==1 or dinamita==1) bola(x-(ancho_bola/4),y,tamano-1,1); bola(x+(ancho_bola/4),y,tamano-1,0); else if(rand(0,3)==0 and tamano<17) bola(x-(ancho_bola/4),y,tamano,1); bola(x+(ancho_bola/4),y,tamano,0); else bola(x-(ancho_bola/4),y,tamano-1,1); bola(x+(ancho_bola/4),y,tamano-1,0); End End End
+	If(tamano==1 OR tamano==6 OR tamano==10 or tamano==13) size=0; End
+	if(os_id!=9) explotalo(x,y,z,alpha,0,file,graph,60); end
+	suena(2);
+	bolas--;
+	if(tamano==17) bola_estrella=0; matabolas=1; graph=0; frame(6000); matabolas=0; end
+	if(tamano==18) bola_estrella=0; itemreloj(10); end
+	If(tamano!=1 AND tamano!=6 and tamano!=10 and tamano!=13 AND modo_juego==2) If(rand(0,10)<3) items(x,y,rand(0,9)); End End
+End

@@ -53,6 +53,7 @@ private
 	int graphbase;
 	int id_disp;
 	int vez;
+	id_col;
 begin
 	file=father.file;
 	bolas++;
@@ -120,12 +121,15 @@ begin
 				fmars_dire=1;
 			end
 		end
-		if(collision(type muneco1)) p[1].muere=1; break; end
-		if(collision(type muneco2)) p[2].muere=1; break; end
-		if(collision(type dispcab) or collision(type cachodisp)) p[1].bonus+=500; p[1].puntos+=1000; p[1].bolas++; signal(p[1].disparos[1],s_kill); break; end
-		if(collision(type dispcab2) or collision(type cachodisp2)) p[1].bonus+=500; p[1].puntos+=1000; p[1].bolas++; signal(p[1].disparos[2],s_kill); break; end
-		if(collision(type dispcab3) or collision(type cachodisp3)) p[2].bonus+=500; p[2].puntos+=1000; p[2].bolas++; signal(p[2].disparos[1],s_kill); break; end
-		if(collision(type dispcab4) or collision(type cachodisp4)) p[2].bonus+=500; p[2].puntos+=1000; p[2].bolas++; signal(p[2].disparos[2],s_kill); break; end
+		if(id_col=collision(type muneco)) p[id_col.jugador].muere=1; break; end
+		
+		if(id_col=collision(type disparos))
+			id_col.accion=-1;
+			p[id_col.jugador].bonus+=500; 
+			p[id_col.jugador].puntos+=1000; 
+			p[id_col.jugador].bolas++;
+			break;
+		end
 	End
 	fmars_explosion(x,y);
 	bolas--;
@@ -146,6 +150,8 @@ begin
 end
 
 process fmars_lanzabola();
+private
+	id_col;
 begin
 	alto=rand(1,4);
 	x=father.x;
@@ -170,8 +176,7 @@ begin
 		while(ready==0) frame; end
 		y+=4;
 		angle+=20000;
-		if(collision(type muneco1)) p[1].muere=1; end
-		if(collision(type muneco2)) p[1].muere=2; end
+		if(id_col=collision(type muneco)) p[id_col.jugador].muere=1; end
 		frame;
 	end
 	switch(alto)

@@ -1,0 +1,277 @@
+Process muneco(jugador);
+Private
+	anim;
+	grav;
+	if_id_disp;
+	hexo;
+	id_colisionado;
+	toca;
+	escaleras;
+	subiendo;
+	parpadeas=120;
+	disparando;
+	cont_1;
+	y_statico;
+	l;
+	snd_muere;
+	inercia;
+	saltando;
+Begin
+	If(p[jugador].vidas<0) Return; End
+	file=p[jugador].fpg;
+	x=370;
+	graph=501;
+	alto=graphic_info(file,graph,g_height);
+	y_statico=510-(alto/2);
+	y=y_statico;
+	z=0;
+	Frame;
+	Loop
+		ancho=graphic_info(file,graph,g_wide);
+		alto=graphic_info(file,graph,g_height);
+		If(cheto_borracho==1) If(rand(0,2338)==1) p[jugador].muere=1; End End
+		While(ready==0 AND ganando==0 AND p[jugador].muere==0)
+			graph=501;
+			Frame;
+			End
+		While(ganando==1)
+			graph=507;
+			Frame;
+		End
+		If(!collision(Type escaleras))
+			If(toca=collision(Type bloques))
+				If(toca.y<y)
+					grav++;
+					cont_1=grav;
+					While(cont_1>0 AND toca.y<y)
+						y+=1;
+						cont_1--;
+					End
+				Else
+					y=(toca.y-(toca.alto/2)-(id.alto/2))+1;
+					if(saltando==1)	saltando=0; end
+					grav=0;
+				End
+			Else	
+				grav++;
+				cont_1=grav;
+				While(cont_1>0)
+					y+=1;
+					cont_1--;
+				End
+				While(cont_1<0)
+					y-=1;
+					cont_1++;
+				End
+			End
+		Else
+			If(y>y_statico) y=y_statico; End
+			if(saltando==1)	saltando=0; end
+			grav=0;
+		End
+		If(!collision(Type bloques) AND !p[jugador].botones[2])
+			subiendo=0;
+		End
+		If(y>y_statico)	if(saltando==1)	saltando=0; end y=y_statico; grav=0; End
+		if(saltando==1) angle+=15000; else angle=0; end
+		if(p[jugador].botones[5]==1 and saltando==0 and (cheto_salto==1 or salto==1)) saltando=1; grav=-20; end
+		If(escaleras=collision(Type escaleras))
+			If(escaleras.graph!=429) subiendo=0; End
+			If(escaleras.graph==429 AND p[jugador].botones[2]==1 AND p[jugador].botones[0]==0 AND p[jugador].botones[1]==0)
+				x=escaleras.x;
+				subiendo=1; y-=4;
+				If(anim<11)
+					anim++;
+				Else
+					anim=0;
+				End
+				If(graph<510 OR graph>513) graph=510; End
+				If(graph<513 AND anim>10)
+					graph++;
+				End
+				If(graph==513)
+					graph=510;
+				End
+			End
+			If(escaleras.graph==429 AND p[jugador].botones[3]==1 AND p[jugador].botones[0]==0 AND p[jugador].botones[1]==0)
+				x=escaleras.x;
+				subiendo=1; y+=4;
+				If(anim<11)
+					anim++;
+				Else
+					anim=0;
+				End
+				If(graph<513 AND anim>10) 
+					graph++; 
+				End
+				If(graph<510 OR graph>513) graph=510; End
+				If(graph==513) 
+					graph=510; 
+				End
+			End
+		Else
+//			If(p[jugador].botones[2]==1 OR p[jugador].botones[3]==1)
+//				graph=501;
+//			End
+		End
+//		If(p[jugador].botones[1]==1 AND (p[jugador].botones[2]==0 AND p[jugador].botones[3]==0))
+		If(p[jugador].botones[1]==1)
+			If(graph==501 OR graph==506 OR graph>510)
+				graph=502;
+				End
+			If(x<755)
+				If(collision(type col_hielo)) inercia++; if(inercia>4 or inercia<-4) x+=inercia/5; end end
+				If(toca=collision(Type bloques))
+					If((toca.x=<x AND toca.y=<y) OR toca.y=>y) x+=4; End
+				Else
+					x+=4;
+				subiendo=0;
+				End
+			End
+			If(anim<11)
+				anim++;
+			Else
+				anim=0;
+			End
+			If(graph<506 AND anim>10) 
+				graph++; 
+				End
+			If(graph==506) 
+				graph=502; 
+				End
+			flags=0;  
+			End
+//		If(p[jugador].botones[0]==1 AND (p[jugador].botones[2]==0 AND p[jugador].botones[3]==0))
+		If(p[jugador].botones[0]==1)
+			If(graph==501 OR graph==506 OR graph>510)
+				graph=502;
+				End
+			If(x>45) 
+				If(collision(type col_hielo)) inercia--; if(inercia>4 or inercia<-4) x+=inercia/5; end end
+				If(toca=collision(Type bloques))
+					If((toca.x=>x AND toca.y=<y) OR toca.y=>y) x-=4; End
+				Else
+					x-=4;
+					subiendo=0;
+				End
+		End
+		If(anim<11)
+				anim++;
+			Else
+				anim=0;
+			End
+			If(graph<506 AND anim>10)
+				graph++;
+				End
+			If(graph==506)
+				graph=502; 
+			End
+			flags=1; 
+		End
+		If(p[jugador].botones[4]==0) disparando=0; End
+
+		If(disparando==0 AND p[jugador].botones[4]==1 AND
+		((p[jugador].arma%2==1 AND !p[jugador].disparos[1]) OR 
+		(p[jugador].arma%2==0 AND (!p[jugador].disparos[1] or !p[jugador].disparos[2]))))
+			graph=506;
+			angle=0;
+			/* QUÉ COJONES HACE ESTO?
+			If(parpadeas<120) flags+=4; End Frame; 
+			If(parpadeas<120) parpadeas++; flags-=4; End 
+			If(parpadeas<120) flags+=4; End Frame; 
+			If(parpadeas<120) parpadeas++; flags-=4; End
+			If(parpadeas<120) flags+=4; End Frame; 
+			If(parpadeas<120) parpadeas++; flags-=4; End
+			*/
+			If(cheto_borracho==1) Frame(rand(100,1000)); End
+			disparando=1; 
+			if(!p[jugador].disparos[1])
+				p[jugador].disparos[1]=disparos(1);
+			elseif(!p[jugador].disparos[2])
+				p[jugador].disparos[2]=disparos(2);
+			end
+		End
+		If(!collision(type col_hielo) and inercia!=0) inercia=0; end
+		If(p[jugador].botones[0]==0 AND p[jugador].botones[1]==0 AND p[jugador].botones[2]==0 AND p[jugador].botones[3]==0) 
+			graph=501;
+			if(inercia>4 or inercia<-4) x+=inercia/3; end
+			If(subiendo==1) graph=511; Else anim=0; End
+		End
+		If(p[jugador].botones[1]==1 AND p[jugador].botones[0]==1)
+			graph=501; 
+			if(inercia>4 or inercia<-4) x+=inercia/3; end
+			If(subiendo==1) graph=511; Else anim=0; End
+		End
+		If(p[jugador].muere==1)
+			If(p[jugador].proteccion==1) 
+				p[jugador].proteccion=0;
+//				suena(12);
+				l=(x*255)/800;
+				snd_muere=play_wav(s[12],0); 
+				set_panning(snd_muere,255-l,l);
+				parpadeas=0;
+			Else
+				If(parpadeas==120)
+					If((cheto_diox==1 OR cheto_borracho==1) AND ((segundos>0 and modo_juego==2) or modo_juego==1))
+					ready=0;
+					parpadeo();
+					suena(4);
+					grav=rand(50,250);
+					While(y<464)
+						If(ops.op_sombras==1) sombra(graph,x,y,flags,1); End
+						If(flags==0) x+=12; End
+						If(flags==1) x-=12; End
+						If(x=>755) flags=1; End
+						If(x=<45) flags=0; End
+						If(grav>0) graph=508; End
+						If(grav<0) graph=509; End
+						grav-=5;
+						y-=grav/10;
+						l=(x*255)/800;
+						set_panning(snd_muere,255-l,l);
+						Frame;
+					End
+					y=y_statico;
+					ready=1;
+					grav=0;
+					itemreloj(3);
+					p[jugador].muere=0;
+				Else
+					Break;
+				End
+				Else
+					p[jugador].muere=0;
+				End
+			End
+		End
+		hexo=0;
+		If(parpadeas<120) flags+=4; End
+		If(x>755) x=755; end
+		If(x<45) x=45; end
+		If(cheto_epilepsia==0 and turbo==0) Frame; Else Frame(50); If(ops.op_sombras==1) sombra(graph,x,y,flags,1); End End
+		If(parpadeas<120) parpadeas++; flags-=4; End
+	End
+	ready=0;
+	p[jugador].vidafuera=1;
+	parpadeo();
+	timer[2]=0;
+	While(timer[2]<50) Frame; End
+	suena(4);
+	grav=rand(50,250);
+	While(y<480)
+		If(ops.op_sombras==1) sombra(graph,x,y,flags,1); End
+		If(flags==0) x+=12; End
+		If(flags==1) x-=12; End
+		If(x=>755) flags=1; End
+		If(x=<45) flags=0; End
+		If(grav>0) graph=508; End 
+		If(grav<0) graph=509; End 
+		grav-=5;
+		y-=grav/10;
+		Frame;
+	End
+	suena(5);
+	p[jugador].vidas--;
+	p[jugador].muere=3;
+	If(players==3) ready=1; itemreloj(3); End
+End
