@@ -122,8 +122,17 @@ begin
 			if(get_joy_button(0,8) or key(_esc)) exit(); end
 			frame; 
 		end
-		while(get_joy_button(0,0)) frame; end
 		delete_text(all_text);
+		
+		put_screen(0,6);
+		while(get_joy_button(0,0)) frame; end
+		while(!get_joy_button(0,0)) 
+			if(get_joy_button(0,8) or key(_esc)) exit(); end
+			frame; 
+		end
+		while(get_joy_button(0,0)) frame; end
+		
+		put_screen(0,3);
 		elecpersonaje();
 		return;
 	end
