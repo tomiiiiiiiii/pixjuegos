@@ -64,7 +64,7 @@ Begin
 	z=1;
 	//flecha(0); flecha(1);
 	graph=opcion;
-	loop
+	while(timer[0]<6000)
 		if(p[0].botones[0]) cambiar_opcion(0); break; end
 		if(p[0].botones[1]) cambiar_opcion(1); break; end
 		if(p[0].botones[4] or p[0].botones[5] or p[0].botones[6]) suena(1); from size=100 to 120; alpha-=10; frame; end ejecutar(); end
