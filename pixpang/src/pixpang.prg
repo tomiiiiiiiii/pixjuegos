@@ -355,7 +355,7 @@ Begin
 	if(players==1 or players==3)
 		caravida(1);
 		write(fnt2,106,548,0,"x"); 
-		write_int(fnt2,136,548,0,&p[i].vidas); 
+		write_int(fnt2,136,548,0,&p[1].vidas); 
 	end
 	if(players==2 or players==3)
 		caravida(2);
