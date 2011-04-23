@@ -891,9 +891,9 @@ Private
 	segundos;
 Begin
 	if(modo_juego==0) 
-		contador=60*50; //60 segs, 50 fps
+		contador=20*50; //20 segs, 50 fps
 	else
-		contador=5*50; //60 segs, 50 fps
+		contador=5*50; //5 segs, 50 fps
 	end
 	segundos=contador/50;
 	write_int(fuente,ancho_pantalla/2,alto_pantalla/2,4,&segundos);
@@ -952,7 +952,7 @@ Begin
 
 	set_fps(0,0); //imágenes por segundo
 	probar_pantalla();
-	if(arcade_mode) full_screen=true; scale_resolution=08000600;end
+	if(arcade_mode) full_screen=true; ancho_pantalla=1280; alto_pantalla=1024; scale_resolution=08000600;end
 	set_mode(800,600,16,WAITVSYNC); //resolución y colores	    
 	fpg_enemigos=load_fpg("fpg/enemigos.fpg"); //cargar el mapa de tiles
 	fpg_powerups=load_fpg("fpg/powerups.fpg"); //cargar el mapa de tiles
