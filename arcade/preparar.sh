@@ -1,4 +1,5 @@
 #!/bin/sh
+rm -rf ../release
 mkdir ../release
 
 sh exportar.sh

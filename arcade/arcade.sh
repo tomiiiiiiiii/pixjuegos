@@ -1,5 +1,6 @@
 #!/bin/bash
 xrandr -s 800x600
+/usr/lib/vino/vino-server &
 
 cd /pixjuegos/release/arcade
 juego=`./arcade`
