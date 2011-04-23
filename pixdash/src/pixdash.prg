@@ -250,7 +250,8 @@ Begin
 				gravedad=-20;
 				flash_muerte(jugador);
 				sonido(6);
-				if(ready==1) ready=0; frame(3000); end
+				//if(ready==1) ready=0; frame(3000); end
+				frame(3000);
 				if(y<alto_nivel)
 					while(y<alto_nivel+150)
 						gravedad++;
@@ -271,7 +272,7 @@ Begin
 				accion="";
 				gravedad=0;
 				inercia=0;
-				ready=1;
+				//ready=1;
 			else 
 				accion=""; 
 			end 
@@ -712,14 +713,17 @@ end //FIN IF WII
 	drawing_map(0,flash);
 	draw_box(0,0,ancho_pantalla,alto_pantalla);
 
+	//si solo hay un jugador, no podrá ser modo competitivo
+	if(jugadores==1) modo_juego=1; else modo_juego=0; end
+	
 	if(modo_juego==0) //competitivo: 4 pantallas
 		if(jugadores<=2) //definir la pantalla partida y la división al ser 2 jugadores
 			define_region(1,0,0,ancho_pantalla,alto_pantalla/2);
 			define_region(2,0,alto_pantalla/2,ancho_pantalla,alto_pantalla);
 	
-			start_scroll(0,0,mapa_scroll,fondo,1,0);
+			start_scroll(0,0,mapa_scroll,fondo,1,4);
 			scroll[0].camera=prota(1);
-			start_scroll(1,0,mapa_scroll,fondo,2,0);
+			start_scroll(1,0,mapa_scroll,fondo,2,4);
 			if(jugadores==2) scroll[1].camera=prota(2); end
 	
 			graph=new_map(ancho_pantalla,alto_pantalla,16);
@@ -734,13 +738,13 @@ end //FIN IF WII
 			define_region(3,0,alto_pantalla/2,ancho_pantalla/2,alto_pantalla);
 			define_region(4,ancho_pantalla/2,alto_pantalla/2,ancho_pantalla,alto_pantalla);
 	
-			start_scroll(0,0,mapa_scroll,fondo,1,0);
+			start_scroll(0,0,mapa_scroll,fondo,1,4);
 			scroll[0].camera=prota(1);
-			start_scroll(1,0,mapa_scroll,fondo,2,0);
+			start_scroll(1,0,mapa_scroll,fondo,2,4);
 			scroll[1].camera=prota(2);
-			start_scroll(2,0,mapa_scroll,fondo,3,0);
+			start_scroll(2,0,mapa_scroll,fondo,3,4);
 			scroll[2].camera=prota(3);
-			start_scroll(3,0,mapa_scroll,fondo,4,0);
+			start_scroll(3,0,mapa_scroll,fondo,4,4);
 			if(jugadores==4) 
 				scroll[3].camera=prota(4);
 			end
@@ -1032,7 +1036,7 @@ Begin
 			define_region(3,0,0,ancho_pantalla,alto_pantalla); 
 			define_region(4,0,0,ancho_pantalla,alto_pantalla); 
 		end
-		start_scroll(1,0,mapa_scroll,fondo,1,0);
+		start_scroll(1,0,mapa_scroll,fondo,1,4);
 		//scroll[1].camera=id_cam;
 		scroll[1].camera=father.id;
 
@@ -1040,11 +1044,11 @@ Begin
 	  end
 	  case 1:
 		define_region(1,0,0,ancho_pantalla,alto_pantalla/2);
-		start_scroll(1,0,mapa_scroll,fondo,1,0);
+		start_scroll(1,0,mapa_scroll,fondo,1,4);
 		scroll[1].camera=id_cam;
 		
 		define_region(2,0,alto_pantalla/2,ancho_pantalla,alto_pantalla);
-		start_scroll(2,0,mapa_scroll,fondo,2,0);
+		start_scroll(2,0,mapa_scroll,fondo,2,4);
 		scroll[2].camera=p[separados[1]].identificador;
 		
 		id_carganivel.graph=new_map(ancho_pantalla,alto_pantalla,16);
@@ -1058,14 +1062,14 @@ Begin
 			define_region(3,0,alto_pantalla/2,ancho_pantalla/2,alto_pantalla);
 			define_region(4,ancho_pantalla/2,alto_pantalla/2,ancho_pantalla,alto_pantalla);
 	
-			start_scroll(1,0,mapa_scroll,fondo,1,0);
+			start_scroll(1,0,mapa_scroll,fondo,1,4);
 			scroll[1].camera=p[1].identificador;
-			start_scroll(2,0,mapa_scroll,fondo,2,0);
+			start_scroll(2,0,mapa_scroll,fondo,2,4);
 			scroll[2].camera=p[2].identificador;
-			start_scroll(3,0,mapa_scroll,fondo,3,0);
+			start_scroll(3,0,mapa_scroll,fondo,3,4);
 			scroll[3].camera=p[3].identificador;
 			if(jugadores==4) 
-				start_scroll(4,0,mapa_scroll,fondo,4,0);
+				start_scroll(4,0,mapa_scroll,fondo,4,4);
 				scroll[4].camera=p[4].identificador;
 			end
 
