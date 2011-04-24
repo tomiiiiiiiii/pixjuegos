@@ -3,6 +3,7 @@ Global
 	fmars_dire;
 	fmars_timerbajar;
 	fmars_xmoverse;
+	fmars_ybase;
 	fmars_bichos;
 	fmars_song;
 End
@@ -29,9 +30,6 @@ Begin
 		if(fmars_dire==1);
 			fmars_xmoverse=2;
 		end
-		if(fmars_ybajar>0 && fmars_timerbajar>=fmars_bichos)
-			fmars_ybajar--;
-		end
 	end
 	stop_song();
 	unload_fpg(file);
@@ -49,6 +47,7 @@ private
 	int id_disp;
 	int vez;
 	id_col;
+	y_base;
 begin
 	file=father.file;
 	bolas++;
@@ -64,13 +63,11 @@ begin
 	graph=graphbase;
 	z=-2;
 	size=130;
+	y_base=y;
 	Loop
 		while(ready==0) frame; end
-		if(fmars_ybajar>0);
-			fmars_timerbajar++;
-			y+=20;
-		end
 		frame(20+(fmars_bichos*5));
+		y=y_base+fmars_ybase;
 		if(vez==2) vez=1; end
 		if(vez==3) vez=0; end
 		if(vez==0)
@@ -112,7 +109,7 @@ begin
 				fmars_dire=0;
 			end
 			if(x<60 && fmars_dire==0);
-				fmars_ybajar=1;
+				fmars_ybase+=20;
 				fmars_dire=1;
 			end
 		end
