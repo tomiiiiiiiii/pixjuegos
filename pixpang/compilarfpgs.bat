@@ -8,7 +8,8 @@ cd fpg-sources
 ..\..\bennu-win\bgdi pxlfpg menu
 ..\..\bennu-win\bgdi pxlfpg menu-en
 ..\..\bennu-win\bgdi pxlfpg menu-es
-..\..\bennu-win\bgdi pxlfpg chars1
+..\..\bennu-win\bgdi pxlfpg pix
+..\..\bennu-win\bgdi pxlfpg pux
 ..\..\bennu-win\bgdi pxlfpg chars2
 ..\..\bennu-win\bgdi pxlfpg chars3
 ..\..\bennu-win\bgdi pxlfpg chars4

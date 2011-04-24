@@ -172,11 +172,11 @@ Begin
 	fpg_bloquesmask=load_fpg("fpg/bloquesmask.fpg");
 	
 	if((atoi(ftime("%d",time()))>23 and atoi(ftime("%m",time()))==12) or (atoi(ftime("%d",time()))<8 and atoi(ftime("%m",time()))==1)) 
-		p[1].fpg=load_fpg("./fpg/charsxmas1.fpg"); 
-		p[2].fpg=load_fpg("./fpg/charsxmas2.fpg");
+		p[1].fpg=load_fpg("./fpg/pixxmas.fpg"); 
+		p[2].fpg=load_fpg("./fpg/puxxmas.fpg");
 	else 
-		p[1].fpg=load_fpg("./fpg/chars1.fpg"); 
-		p[2].fpg=load_fpg("./fpg/chars2.fpg"); 
+		p[1].fpg=load_fpg("./fpg/pix.fpg"); 
+		p[2].fpg=load_fpg("./fpg/pux.fpg"); 
 	end
 	set_center(p[1].fpg,601,10,0);
 	set_center(p[1].fpg,602,10,0);
