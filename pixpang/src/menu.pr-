@@ -40,7 +40,7 @@ begin
 	frame;
 	controlador(0);
 	ready=1;
-	if(!is_playing_song()) musica(5); end
+	if(!is_playing_song()) musica(4); end
 	graph=1;
 	x=400;
 	y=300;
@@ -343,7 +343,7 @@ begin
 				end
 				faderaro(-2);
 				frame(500);
-				if(modo_juego==1) musica(0); end
+				if(modo_juego==1) musica(5); end
 				let_me_alone();
 				inicio();
 				return;
@@ -582,10 +582,10 @@ begin
 				if(elecc==2)
 					if(ops.op_music==1)
 						ops.op_music=0;
-						musica("2");
+						musica(4);
 					else
 						ops.op_music=1;
-						musica("2");
+						musica(4);
 					end
 				end
 				if(elecc==3)

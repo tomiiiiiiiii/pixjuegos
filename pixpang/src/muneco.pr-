@@ -38,6 +38,7 @@ Begin
 			graph=507;
 			Frame;
 		End
+		if(p[jugador].botones[6] and p[jugador].arma!=1 and modo_juego==2) p[jugador].arma=1; suena(3); end
 		If(!collision(Type escaleras))
 			If(toca=collision(Type bloques))
 				If(toca.y<y)

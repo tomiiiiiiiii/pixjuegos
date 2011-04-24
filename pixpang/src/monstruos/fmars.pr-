@@ -13,12 +13,7 @@ Private
 Begin
 	file=load_fpg("fpg/monstruos/fmars.fpg");
 	id_fondo=pon_fondo(load_png("fondos/monstruos/fmars.png"));
-	if(ops.op_music)
-		if(fmars_song==0)
-			fmars_song=load_song("cd-ogg/monstruos/fmars.xm");
-		end
-		play_song(fmars_song,99);
-	end
+	musica(101);
 	from x=1 to 8;
 		fmars_malo(79*x,40+60,0);
 		fmars_malo(79*x,40+120,1);

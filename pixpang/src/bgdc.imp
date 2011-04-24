@@ -19,3 +19,4 @@ mod_time
 mod_timers
 mod_video
 mod_wm
+mod_say

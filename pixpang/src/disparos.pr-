@@ -9,6 +9,7 @@ Private
 	cont_ganxo;
 	toca;
 	arma;
+	id_col;
 Begin
 	jugador=father.jugador;
 	arma=p[jugador].arma;
@@ -22,17 +23,17 @@ Begin
 	z=2;
 	
 	//y_keko: linea más baja, para la región
-	y_keko=y+(graphic_info(father.file,father.graph,g_height)/2);
+	j=y_keko=y+(graphic_info(father.file,father.graph,g_height)/2);
 	
 	//y: desde la cabeza del personaje!
 	y=y_keko-graphic_info(father.file,father.graph,g_height);
 	
-	if(p[jugador].arma!=4)
+	if(arma!=4)
 		define_region((jugador-1)*2+disparo,1,1,800,y_keko);
 		region=(jugador-1)*2+disparo;
 	end
 	
-	If(p[jugador].arma<3)
+	If(arma<3)
 		graph=601;
 		suena(1);
 		While(y>18)
@@ -48,30 +49,36 @@ Begin
 			Frame;
 		End
 	End
-	If(p[jugador].arma==3)
+	If(arma==3)
 		graph=603;
 		suena(1);
-		While(y>24 AND !collision(Type bloques))
-			If(ready==1) y-=5; 
-				if(y<0) break; end
+		While(y>24)
+			If(ready==1) 
+				y-=5; 
+				if(id_col=collision(Type bloques))
+					if(id_col.y-10<y) break; end
+				end
+				if(accion==-1) break; end
 			End
-			if(accion==-1) break; end
+			
 			Frame;
 		End
-		if(y<24) y=24; end
-		suena(7);
-		graph=604;
-		While(cont_ganxo<240)
-			if(ready==1)
-				If(p[jugador].botones[4]==0) cont_ganxo++; Else cont_ganxo+=3; End
-			end
-			if(cont_ganxo>120) graph=605; end
-			if(y<0) break; end
-			if(accion==-1) break; end
-			Frame;
-		End
+		if(accion!=-1)
+			if(y<24) y=24; end
+			suena(7);
+			graph=604;
+			While(cont_ganxo<240)
+				if(ready==1)
+					If(p[jugador].botones[4]==0) cont_ganxo++; Else cont_ganxo+=3; End
+				end
+				if(cont_ganxo>120) graph=605; end
+				if(y<0) break; end
+				if(accion==-1) break; end
+				Frame;
+			End
+		end
 	End
-	If(p[jugador].arma==4)
+	If(arma==4)
 		graph=borrar;
 		y+=50;
 		While(y>18)

@@ -18,10 +18,15 @@ Private
 	viejunidad;
 	matando;
 	id_col;
-Begin        
-    While(exists(id_bolas[contator]))
+Begin
+	//esto pasa por cargarte el editor de niveles
+	if(mundo==55 and tamano==17) return; end
+
+    //While(exists(id_bolas[contator]))
+	While(id_bolas[contator]>0 and contator<400)
         contator++;
     End
+	if(contator==400) return; end //400 bolas en pantalla? :|
     id_bolas[contator]=id;
 	zbolas--;
 	z=zbolas;
@@ -63,6 +68,7 @@ Begin
 	end
 	alpha=255;
 	Loop
+		//cheto_viejuno->modo evolución: las bolas van creciendo
 		if(cheto_viejuno and modo_juego==1)
 			if(viejunidad<200) viejunidad++; else
 				viejunidad=0;
@@ -99,7 +105,9 @@ Begin
 			Frame;
 		End
 		If(parpadea==1) If(flags==0) flags=4; Else flags=0; End End
-		If(dinamita==1 AND tamano>1 AND tamano!=6 AND tamano!=10 and tamano!=13 and tamano!=17and tamano!=18 and tamano!=19 and tamano!=20 and tamano!=21) Frame(velocidad); Break; End
+		If(dinamita==1 AND tamano>1 AND tamano!=6 AND tamano!=10 and tamano!=13 and tamano!=17 and tamano!=18 and tamano!=19 and tamano!=20 and tamano!=21) Frame(velocidad); Break; End
+		
+		//bolas que van en diagonal
 		If(reloj==0 AND grav_org==0)
 			flags=0;
 			angle+=1000;
@@ -127,7 +135,9 @@ Begin
 			If(y>(500-(altura_bola/2))) grav=1; if(mutante==1) mutante=2; end End
 			If(y<(18+(altura_bola/2))) grav=0; End
 		End
-		If(reloj==0 AND grav_org>0 and tamano<13 or tamano==17 or tamano==18 or tamano==19 or tamano==20 or tamano==21)
+		
+		//rebote general de las bolas
+		If(reloj==0 AND grav_org>0 and (tamano<13 or tamano==17 or tamano==18 or tamano==19 or tamano==20 or tamano==21))
 			flags=0;
 			If(toca=collision(Type bloques))
 				If(toca.graph!=429)
@@ -218,7 +228,9 @@ Begin
 			End
 			grav-=5;
 			y-=3+(grav/20);
-		End      
+		End
+		
+		//bolas que rebotan al revés
 		If(reloj==0 AND grav_org>0 and tamano>12 and tamano<17)
 			flags=0;
 			If(toca=collision(Type bloques))
@@ -228,8 +240,18 @@ Begin
 					alto_bloque=graphic_info(0,toca.graph,g_height);
 					If((toca.x+(ancho_bloque/2))<x) lao=0; End
 					If((toca.x-(ancho_bloque/2))>x) lao=1; End
-					If((toca.y-(alto_bloque/2))>y) if(((16+y)/80)!=0) grav=-(grav_org/((16+y)/80)); else grav=-grav_org; end End
-					If((toca.y+alto_bloque/2)<y) grav=0+grav_org; End
+					If((toca.y-(alto_bloque/2))>y) //rebote: bloque abajo, bola arriba
+/*						if(((16+y)/80)!=0) 
+							grav=-(grav_org/((16+y)/80)); 
+						else 
+							grav=-grav_org; 
+						end 
+*/
+						grav=-grav_org; 
+					End
+					If(toca.y+((alto_bloque/2)-10)<y)
+						grav=grav_org; 
+					End //rebote: bloque arriba, bola abajo
 				End
 			End        
 			If(lao==0) x+=3; End
@@ -237,10 +259,13 @@ Begin
 			If(x=>800-18-(ancho_bola/2)) lao=1; End
 			If(x=<(((ancho_bola)/2))+18) lao=0; End
 			If(y<(16+(altura_bola/2))) grav=grav_org; if(mutante==1) mutante=2; end End
+			if(y>485) grav=-grav_org; end
 			grav-=5;
 			y+=3+(grav/20);
 			angle+=6000;
 		End
+		
+		//bola mutante mutando!
 		if(mutante==2)
 			if(tamano<20) tamano++; else tamano=1; end
 			grav=0;
@@ -271,7 +296,9 @@ Begin
 		if(grav<max_grav) grav=max_grav; end //está too mal xd
 			id_col=0;
 			id_col=collision(type disparos);
-			
+			if(id_col!=0)
+				if(id_col.j<y-(altura_bola/2)) id_col=0; end
+			end
 			if(id_col==0)
 				id_col=collision(type cachodisparo);
 			end
@@ -287,24 +314,26 @@ Begin
 			if(matabolas==1 OR rota==1) break; end
 
 			if(reloj==0)
-				If(p[1].estrella==0 and collision(p[1].id)) if(matando==10) p[1].muere=1; If(p[1].proteccion==1) Break; End matando=0; else matando++; end End
-				If(p[2].estrella==0 and collision(p[2].id)) if(matando==10) p[2].muere=1; If(p[2].proteccion==1) Break; End matando=0; else matando++; end End
+				If(p[1].estrella==0 and p[1].id>0 and collision(p[1].id)) if(matando==10) p[1].muere=1; If(p[1].proteccion==1) Break; End matando=0; else matando++; end End
+				If(p[2].estrella==0 and p[2].id>0 and collision(p[2].id)) if(matando==10) p[2].muere=1; If(p[2].proteccion==1) Break; End matando=0; else matando++; end End
 			end
 			If((!collision(p[1].id)) and (!collision(p[2].id))) matando=0; End
-			If((p[1].estrella==1) and (collision(p[1].id)==1)) p[1].bolas++; break; end
-			If((p[2].estrella==1) and (collision(p[2].id)==1)) p[2].bolas++; break; end
+			If((p[1].estrella==1) and p[1].id>0 and (collision(p[1].id)==1)) p[1].bolas++; break; end
+			If((p[2].estrella==1) and p[1].id>0 and (collision(p[2].id)==1)) p[2].bolas++; break; end
 			If(collision(Type cocodrilo) OR collision(Type volador)) Break; End
 			If(peq_izq==1 and jefe==0) If(flags==4) flags=0; Else flags=4; End End
 			
 			if(tamano!=19) Frame(velocidad/2); else frame(velocidad/3); end
 		End
+		if(y>(520-(altura_bola/2))) y=500-(altura_bola/2); grav=0; end
 	frame;		
 	If(peq_izq==1 and matabolas==0 and jefe==0) if(reloj==0) itemreloj(1); else secs+=60; end End
 	If(tamano!=1 AND tamano!=6 AND tamano!=10 and tamano!=13 and tamano!=17 and tamano!=18 and tamano!=19 and tamano!=20 and tamano!=21 and tamano!=22) if(cheto_borracho==0 or matabolas==1 or dinamita==1) bola(x-(ancho_bola/4),y,tamano-1,1); bola(x+(ancho_bola/4),y,tamano-1,0); else if(rand(0,3)==0 and tamano<17) bola(x-(ancho_bola/4),y,tamano,1); bola(x+(ancho_bola/4),y,tamano,0); else bola(x-(ancho_bola/4),y,tamano-1,1); bola(x+(ancho_bola/4),y,tamano-1,0); End End End
 	If(tamano==1 OR tamano==6 OR tamano==10 or tamano==13) size=0; End
-	if(os_id!=9) explotalo(x,y,z,alpha,0,file,graph,60); end
+	//if(os_id!=9) explotalo(x,y,z,alpha,0,file,graph,60); end
 	suena(2);
 	bolas--;
+	id_bolas[contator]=0;
 	if(tamano==17) bola_estrella=0; matabolas=1; graph=0; frame(6000); matabolas=0; end
 	if(tamano==18) bola_estrella=0; itemreloj(10); end
 	If(tamano!=1 AND tamano!=6 and tamano!=10 and tamano!=13 AND modo_juego==2) If(rand(0,10)<3) items(x,y,rand(0,9)); End End

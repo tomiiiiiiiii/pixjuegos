@@ -6,6 +6,11 @@ Private
 	id_col;
 Begin
 	z=2;
+	
+	//esto es lo que pasa cuando te cargas el editor de niveles
+	if(mundo==32 or mundo==78) tipo=11; end 
+	if(mundo==67) tipo=1; end
+	
 	If(tipo==1) graph=427; rompible=1; End
 	If(tipo==2) graph=428; rompible=1; End
 	If(tipo==3) escaleras(x,y); Return; End
@@ -22,7 +27,8 @@ Begin
 	ancho=graphic_info(0,graph,g_wide);
 	alto=graphic_info(0,graph,g_height);
 	if(cheto_borracho==1) angle=rand(0,360)*1000; end
-	map_xput(fpg_bloquesmask,mapadurezas,graph,x,y,angle,size,0);
+	//map_xput(fpg_bloquesmask,mapadurezas,graph,x,y,angle,size,0);
+	
 	Loop
 		If(x==0 OR y==0) Break; End
 
@@ -54,5 +60,4 @@ Begin
 	End
 	if(y>10) items(x,y,regalo); end
 	if(os_id!=9) explotalo(x,y,z,alpha,0,file,graph,60); end
-	//from alpha=255 to 0 step -10; frame; end
 End

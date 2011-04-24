@@ -119,6 +119,9 @@ Global
 	// COMPATIBILIDAD CON XP/VISTA/LINUX (usuarios)
 	string savegamedir;
 	string developerpath="/.PiXJuegos/PiXPang/";
+	
+	int cancion_cargada;
+
 End
 Local
 	int i;
@@ -219,7 +222,7 @@ Begin
 	vidas();
 	If(players==1)
 	    If(modo_juego==2) armap1(); grafico(234,560,402,-1,0,0); End
-	    If(modo_juego!=3) grafico(666,560,404,-1,1,fpg_lang); End 
+	    If(modo_juego==2) grafico(666,560,404,-1,1,fpg_lang); End 
 		write_int(fnt1,190,540,5,&p[1].puntos); 
 	end
 	If(players==2)
@@ -266,10 +269,6 @@ Begin
 	If(modo_juego==2) 
 		grafico(400,300,1,2,0,0);
 	End
-	If(modo_juego==3)
-		grafico(401,15,4,2,0,0);
-		grafico(401,502,6,2,0,0);
-	End		
 	Loop
 		Frame;
 	End
@@ -293,59 +292,43 @@ Begin
    End
 End
 
-Process musica(cancion);
+Process musica(cancion); //
 Private
-    cargada;
-    String numerito;
-	int numerete;
 	string formato="ogg";
 Begin
-	if(os_id==9) formato="mp3"; end
-	If(is_playing_song()) stop_song(); End
-// nota para el señor programador, osea yop: esto es un **** lío
-// cuando puedas bórralo todo y hazlo tal como se usa ahora!
-	If(cancion>-1) stop_song();  unload_song(cargada); End
-	numerete=mundo+1;
-	if(numerete==1 and modo_juego==1) numerete=rand(1,13); end
-	while(numerete>13) numerete-=13; end
-	numerito=itoa(numerete);
-	If(cancion==0) cargada=load_song("./ogg/23."+formato); End
-	numerete=mundo;
-	while(numerete>2) numerete-=3; end
-	If(cancion=>1 AND cancion=<4) 
-		switch(numerete) 
-			case 0:
-				cargada=load_song("./ogg/23."+formato); 
-			end
-			case 1: 
-				cargada=load_song("./ogg/pang2."+formato); 
-			end 
-			case 2: 
-				cargada=load_song("./ogg/pang3."+formato); 
-			end 
-		End
-	end
-	// no hay mucha música oficial por ahora...
+	if(os_id!=os_win32 and os_id!=os_linux) formato="mp3"; end
+
+	/*If(cancion==-1)
+		if(is_playing_song()) 
+			fade_music_off(250);
+			while(is_playing_song()) frame; end
+		end
+		if(cancion_cargada>0) unload_song(cancion_cargada); end
+		cancion_cargada=0;
+		return;
+	end*/
+	If(cancion_cargada>0) 
+		If(is_playing_song()) stop_song(); End
+		unload_song(cancion_cargada); 
+		cancion_cargada=0;
+	End
+	if(cancion==-1) return; end
 	
-	If(cancion==5) cargada=load_song("./ogg/menu."+formato); End
-	If(cancion==6) cargada=load_song("./ogg/20."+formato); End
-    If(cancion==7) //prisa!
-			cargada=load_song("./ogg/24."+formato);
-    End
-    If(cancion==8) cargada=load_song("./ogg/18."+formato); End
-	If(cancion==9) cargada=load_song("./ogg/19."+formato); End
-	If(cancion==10) cargada=load_song("./ogg/intro."+formato); End
-	If(cancion==-1)
-		fade_music_off(250);
-		Return;
-	End
+	if(modo_juego==2 and cancion==0) 
+		cancion=mundo+1;
+		while(cancion>6) cancion-=6; end
+	end
+	
+	cancion_cargada=load_song("./ogg/"+cancion+"."+formato);
+	
 	If(ops.op_music==1)
-		If(cancion!=6 AND cancion!=8)
-			play_song(cargada,999);
+		If(cancion!=20 AND cancion!=18)
+			play_song(cancion_cargada,-1);
 		Else
-			play_song(cargada,0);
+			play_song(cancion_cargada,0);
 		End
 	End
+	
 	//pSounds.musica = cancion;
 End
 
@@ -477,7 +460,7 @@ End
 
 Process hayprisa();
 Begin
-	if(jefe==0) musica(7); end
+	if(jefe==0) musica(24); end
 	if(modo_juego==1 and jefe==0 and bola_estrella==0) bola(rand(60,740),0,17,rand(0,1)); end
 	If(modo_juego==2) grafico(350,539,103,-2,0,fpg_lang); End
 End
@@ -670,7 +653,7 @@ Begin
 		If(players==2 OR players==3) cuadro_ganar(2); End
 		mundo++;
 	End
-	musica(6);
+	musica(20);
 	stage_clear();
 	timer[5]=0;
 	if(modo_juego==2) frame(15000); faderaro(-2); end
@@ -950,12 +933,12 @@ Begin
 	if(modo_juego==2) tiempo_nivel(pantalla.btime); end
 	if(jefe==0) readyando(); else
 		switch(jefe)
-			case 1: fantasma();  musica(7); end
-			case 2: fantasma(); musica(7);  end
+			case 1: fantasma(); musica(24); end
+			case 2: fantasma(); musica(24);  end
 			case 3: fmars(); end
-			case 4: jefe_gusano(); musica(7); end
-			case 5: ultraball(); fondos_tour(); musica(7); end
-			case 6: maskara(); musica(7); end
+			case 4: jefe_gusano(); musica(24); end
+			case 5: ultraball(); fondos_tour(); musica(24); end
+			case 6: maskara(); musica(24); end
 		end
 	end
 	p[1].muere=0;
@@ -991,7 +974,7 @@ Begin
 	p[2].muere=0;
 	timer[9]=0;
 	put_screen(fpg_menu2,4);
-	musica(8);
+	musica(18);
 	timer[9]=0;
 	While(timer[9]<500 AND !p[0].botones[4]) Frame; end
 	modo_juego=0;
@@ -1022,12 +1005,12 @@ Begin
 		If(p[0].botones[7]) while(p[0].botones[7]) frame; end menu(); End
 		If((p[1].bolas+p[2].bolas)>100 AND rand(0,200)==0) nube(); End
 		If(bolas=>13 AND prisa==0) prisa=1; hayprisa(); End
-		If(bolas<8 AND prisa==1) prisa=0; timer[8]=0; musica(0); End
+		If(bolas<8 AND prisa==1) prisa=0; timer[8]=0; musica(5); End
 		If(key(_d) AND key(_b) AND key(_g)) pixel_mola=1; End
 		If(cont==12 AND ganando==0 AND bolas==0 AND ready==1) ganar(); Return; End
 		If((timer[7]>1500 OR bolas<1) and jefe==0 AND (ganando==0 AND ready==1 AND p[1].bolas+p[2].bolas<550 and bola_estrella==0 and matabolas==0)) 
 			timer[7]=0; 
-			If(prisa==1) prisa=0; timer[8]=0; musica(0); End 
+			If(prisa==1) prisa=0; timer[8]=0; musica(5); End 
 			if(p[1].bolas+p[2].bolas<200) kindabolas=rand(0,2); else kindabolas=rand(0,4); end 
 			If(kindabolas==0) bola(rand(60,740),150,5,rand(0,1)); end 
 			If(kindabolas==1) bola(rand(60,740),150,12,rand(0,1)); End 
@@ -1095,7 +1078,6 @@ Begin
 			If(key(_f) AND txt_fps==0) txt_fps=write_int(fnt1,0,0,0,&fps); End
 		End
 		if(cheto_avaricioso) if(avaricioso<20) avaricioso++; else cocodrilo(rand(0,1)); avaricioso=0; end end
-		If(key(_g)) p[1].arma=1; p[2].arma=1; End
 		If(p[0].botones[7]) while(p[0].botones[7]) frame; end menu(); end
 		If(players==1 AND p[2].botones[4]) players=3; suena(6); p[2].vidas=10; faderaro(-2); frame; inicio(); End
 		If(players==2 AND p[1].botones[4]) players=3; suena(6); p[1].vidas=10; faderaro(-2); frame; inicio(); End
@@ -1168,28 +1150,27 @@ Begin
 		    if(animglobal<30 AND timer[9]>100) graph=borrar; End
 		    Frame;
 		End
+		If(modo_juego==2 and jefe==0)
+			musica(0);
+		end
+		ready=1;
 	else
-			// way to 2.0!!
-		    file=fpg_lang;
-		    graph=415;
-		    ready=0;
-		    from alpha=0 to 255 step 7; frame; end
-		    from alpha=255 to 0 step -7; frame; end
-		    from alpha=0 to 255 step 7; frame; end
-		    from alpha=255 to 0 step -7; frame; end
-		    from alpha=0 to 255 step 10; frame; end
-		    Frame(2000);
-	    	    If(modo_juego==2 and jefe==0)
-			    musica(1);
-		    end
-		    ready=1;
-		    from alpha=255 to 0 step -10; size++; frame; end
-		    return;
+		// way to 2.0!!
+		file=fpg_lang;
+		graph=415;
+		ready=0;
+		from alpha=0 to 255 step 7; frame; end
+		from alpha=255 to 0 step -7; frame; end
+		from alpha=0 to 255 step 7; frame; end
+		from alpha=255 to 0 step -7; frame; end
+		from alpha=0 to 255 step 10; frame; end
+		Frame(2000);
+		If(modo_juego==2 and jefe==0)
+			musica(0);
+		end
+		ready=1;
+		from alpha=255 to 0 step -10; size++; frame; end
 	End
-	If(modo_juego==2 and jefe==0)
-		musica(1);
-	End
-	ready=1;
 End
 
 Process items(x,y,item);
@@ -1239,7 +1220,7 @@ Begin
 		If(aleatorio==0 AND item==6) size-=3; If(size=<50) aleatorio=1; End End
 		If(aleatorio==1 AND item==9) size++; angle+=15000; If(size=>70) aleatorio=0; End End
 		If(aleatorio==0 AND item==9) size--; angle+=15000; If(size=<40) aleatorio=1; End End
-		If(!collision(Type grafico) AND ready==1 and cheto_borracho==0)
+		If(y<485 AND ready==1 and cheto_borracho==0)
 			If(toca=collision(Type bloques))
 				If(toca.y<y)
 					y+=6; tuerestonto=0;
@@ -1248,7 +1229,7 @@ Begin
 					y+=6; tuerestonto=0;
 			End
 		End
-		If(!collision(Type grafico) AND ready==1 and cheto_borracho==1)
+		If(y>20 AND ready==1 and cheto_borracho==1)
 			y-=6; tuerestonto=0;
 		End
 		if(item==2) //fruta recibe disparo
@@ -1437,7 +1418,7 @@ Private
 	id_bola;
 	cont_giros;
 	grav;
-	id_disp;
+	id_col;
 Begin
 	cocos++;
 	If(lado==0) x=0; flags=1; Else x=800; flags=0; End
@@ -1455,7 +1436,14 @@ Begin
 		If(x=<30 AND lado==1 AND cont_giros<3) cont_giros++; lado=0; If(cheto_borracho==1) flags=0; Else flags=1; End End
 		If(x>850 OR x<-50) Return; End
 
-		if(id_disp=collision(type disparos)) id_disp.accion=-1; break; end
+		if(id_col=collision(type disparos)) 
+			if(id_col!=0)
+				if(id_col.j<y-20) id_col=0; end
+			end
+
+			id_col.accion=-1; 
+			break; 
+		end
 		Frame;
 	End
 	grav=rand(100,200);
@@ -1478,7 +1466,7 @@ Private
 	y_destino;
 	y_destino_final;
 	lado;
-	id_disp;
+	id_col;
 Begin
 	graph=300;
 	x=rand(100,500);
@@ -1555,7 +1543,7 @@ Begin
 		If(lado==1 AND (animglobal==60 OR y<y_destino_final)) lado=0; 
 			ElseIf(lado==0 AND (animglobal==60 OR y<y_destino_final)) lado=1; 
 		End
-		if(id_disp=collision(type disparos)) id_disp.accion=-1; break; end
+		if(id_col=collision(type disparos)) id_col.accion=-1; break; end
 
 		Frame;
 	End

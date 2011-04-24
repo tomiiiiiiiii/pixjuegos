@@ -107,7 +107,6 @@ Begin
 				bola(id_partes[a].x,id_partes[a].y,7,1);
 				signal(id_partes[a],s_kill);
 				a--;
-				break;
 			end
 		//quitamos vida, se hace invulnerable, se hace mas rapido, 
 		//quitamos la cola y creamos una bola(mediana) en su lugar y pasamosal siguiente
