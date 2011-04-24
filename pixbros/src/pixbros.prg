@@ -186,8 +186,8 @@ Begin
 	carga_sonidos();
 	frame;
 	set_center(fpg_pix,8,26,33);
-	set_center(fpg_pux,8,26,33);
-	set_center(fpg_pax,8,26,33);
+	//set_center(fpg_pux,8,26,33);
+	//set_center(fpg_pax,8,26,33);
 	if(ops.lenguaje==100)
 		elige_lenguaje(); 
 	end
