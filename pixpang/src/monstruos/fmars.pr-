@@ -12,6 +12,7 @@ Process fmars();
 Private
 	id_fondo;
 Begin
+	fmars_ybase=0;
 	file=load_fpg("fpg/monstruos/fmars.fpg");
 	id_fondo=pon_fondo(load_png("fondos/monstruos/fmars.png"));
 	musica(101);
