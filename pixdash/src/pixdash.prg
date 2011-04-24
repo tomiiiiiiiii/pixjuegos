@@ -98,6 +98,7 @@ End
 Local
 	jugador;
 	powerup;
+	powerup_id;
 	gravedad;
 	inercia;
 	ancho;
@@ -458,13 +459,14 @@ Begin
 				end
 				if(modo_juego==1)
 					from i=1 to jugadores;
+						p[i].identificador.powerup_id=id;
 						p[i].identificador.powerup=tipo; //se activa el power-up
 						p[i].identificador.tiempo_powerup=10*50; //se ajusta el tiempo del power-up
 					end
 				end
 				tiempo_powerup=10*50;
-					
-				while(alpha>0 and id_colision.powerup==tipo) //la animación en la que aparece detrás del prota
+				
+				while(alpha>0 and id_colision.powerup==tipo and id_colision.powerup_id==id) //la animación en la que aparece detrás del prota
 					x=id_colision.x;
 					y=id_colision.y;
 					alpha=tiempo_powerup/2;
