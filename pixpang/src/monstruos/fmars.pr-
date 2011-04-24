@@ -101,7 +101,7 @@ begin
 			if(animglobal==59) vez=3; end
 		end
 		if(ready==1)
-			if(y>500) p[1].muere=p[2].muere=1;
+			if(y>500) p[1].muere=p[2].muere=1; end
 			if(rand(0,1000)==5);
 				fmars_lanzabola();
 			end
