@@ -16,7 +16,7 @@ Begin
 			z=-10;
 			varsjefe[0]=170;
 			varsjefe[1]=330;
-			vidajefe=5*(ops.dificultad+1);
+			vidajefe=3*(ops.dificultad+1);
 		end
 		case 2: //araña gigante
 			graph=12;
@@ -25,7 +25,7 @@ Begin
 			z=-10;
 			varsjefe[0]=300;
 			varsjefe[1]=450;
-			vidajefe=5*(ops.dificultad+1);
+			vidajefe=3*(ops.dificultad+1);
 			pon_graph(fpg_jefes,11,320,280,5);
 		end
 	End
@@ -54,14 +54,18 @@ Begin
 					end
 				end
 				if(id_col=collision(type burbujarayo))
-					id_col.accion=muere;
-					vidajefe--;
-					sonido(9);
+					if(id_col.accion!=muere)
+						id_col.accion=muere;
+						vidajefe--;
+						sonido(9);
+					end
 				end
 				if(id_col=collision(type boladeenemigos))
-					id_col.accion=muere;
-					vidajefe--;
-					sonido(9);
+					if(id_col.accion!=muere)
+						id_col.accion=muere;
+						vidajefe--;
+						sonido(9);
+					end
 				end
 
 				if(vidajefe==0) patron=-1; end

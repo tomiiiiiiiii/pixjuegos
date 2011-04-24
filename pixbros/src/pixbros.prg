@@ -653,10 +653,10 @@ Begin
 							id_muneco1.grav=0;
 							id_muneco1.saltando=0;
 						elseif(id_muneco1.x<x)
-							id_muneco1.x=x-(ancho/5)*4;
+							id_muneco1.x-=ancho/5;
 							incx=4;
 						elseif(id_muneco1.x>x)
-							id_muneco1.x=x+(ancho/5)*4;
+							id_muneco1.x+=ancho/5;
 							incx=-4;
 						end
 						if(id_muneco1.y>y and id_muneco1.saltando==1 and id_muneco1.grav<0)
