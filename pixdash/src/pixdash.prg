@@ -17,7 +17,7 @@ Global
 	arcade_mode=0;
 	editor_de_niveles=0;
 	descarga_niveles=0;
-	
+	cancion_mundo=0;
 	app_data=0; //temporal, hasta que se puedan descargar niveles desde linux
 	suelo;
 	dur_pinchos;
@@ -804,7 +804,7 @@ end //FIN IF WII
 	x=ancho_pantalla/2; 
 	y=alto_pantalla/2;
 	timer[0]=0;
-	stop_song();
+	if(!cancion_mundo) stop_song(); end
 	clear_screen();
 	transicion();
 	//TEXTO PRESENTACION NIVEL:
@@ -825,14 +825,20 @@ end //FIN IF WII
 	ready=1;
 	timer[0]=0;
 	timer[1]=0; //para contrarreloj
-	//if(ops.musica) play_song(load_song(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".ogg"),-1); end
 	if(ops.musica)
-        if(fexists(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".ogg"))
-            play_song(load_song(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".ogg"),-1);
-        else
-            play_song(load_song("ogg\"+rand(1,5)+".ogg"),-1);
-        end
-    end
+		if(fexists(savegamedir+"niveles\"+paqueteniveles+"\mundo.ogg")) //si existe cancion de mundo
+			if(!is_playing_song())
+				cancion_mundo=1;
+				play_song(load_song(savegamedir+"niveles\"+paqueteniveles+"\mundo.ogg"),-1);
+			end
+		else
+			if(fexists(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".ogg")) //si existe 
+				play_song(load_song(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".ogg"),-1);
+			else
+				play_song(load_song("ogg\"+rand(1,5)+".ogg"),-1);
+			end
+		end
+	end
 	pon_tiempo(-1,0,(ancho_pantalla/4)*3,alto_pantalla/2,1);
 	controlador(0);
 	loop
