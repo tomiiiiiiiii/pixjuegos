@@ -1438,10 +1438,12 @@ Begin
 
 		if(id_col=collision(type disparos)) 
 			if(id_col!=0)
-				if(id_col.j<y-20) id_col=0; end
+				if(id_col.j<y-20) 
+					id_col=0; 
+				else 
+					id_col.accion=-1; 
+				end
 			end
-
-			id_col.accion=-1; 
 			break; 
 		end
 		Frame;

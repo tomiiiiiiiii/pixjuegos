@@ -176,6 +176,7 @@ Begin
 		(p[jugador].arma%2==0 AND (!p[jugador].disparos[1] or !p[jugador].disparos[2]))))
 			graph=506;
 			angle=0;
+			frame(300);
 			/* QUÉ COJONES HACE ESTO?
 			If(parpadeas<120) flags+=4; End Frame; 
 			If(parpadeas<120) parpadeas++; flags-=4; End 
@@ -224,8 +225,7 @@ Begin
 						If(flags==1) x-=12; End
 						If(x=>755) flags=1; End
 						If(x=<45) flags=0; End
-						If(grav>0) graph=508; End
-						If(grav<0) graph=509; End
+						graph=508;
 						grav-=5;
 						y-=grav/10;
 						l=(x*255)/800;
@@ -249,7 +249,15 @@ Begin
 		If(parpadeas<120) flags+=4; End
 		If(x>755) x=755; end
 		If(x<45) x=45; end
-		If(cheto_epilepsia==0 and turbo==0) Frame; Else Frame(50); If(ops.op_sombras==1) sombra(graph,x,y,flags,1); End End
+		if(grav!=0) graph=509; end
+		If(cheto_epilepsia==0 and turbo==0) 
+			Frame; 
+		Else 
+			Frame(50); 
+			If(ops.op_sombras==1) 
+				sombra(graph,x,y,flags,1); 
+			End 
+		End
 		If(parpadeas<120) parpadeas++; flags-=4; End
 	End
 	ready=0;
@@ -265,8 +273,7 @@ Begin
 		If(flags==1) x-=12; End
 		If(x=>755) flags=1; End
 		If(x=<45) flags=0; End
-		If(grav>0) graph=508; End 
-		If(grav<0) graph=509; End 
+		graph=508;
 		grav-=5;
 		y-=grav/10;
 		Frame;
