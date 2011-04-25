@@ -33,6 +33,11 @@ begin
 	i=0;
 	from i=1 to 4;
 		p[i].puntos=0;
+		p[i].total_monedas=0;
+		p[i].total_powerups=0;
+		p[i].total_enemigos=0;
+		p[i].total_muertes=0;
+		p[i].total_mayorcombo=0;
 	end
 	file=fpg_menu;
 	let_me_alone();

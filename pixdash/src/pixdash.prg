@@ -48,12 +48,16 @@ Global
 		tiempos[10];
 		combo;
 		mejorcombo;
-		tiempocombo;
 		monedas;
 		powerupscogidos;
 		enemigosmatados;
 		pixismatados;
 		muertes;
+		total_monedas;
+		total_powerups;
+		total_enemigos;
+		total_muertes;
+		total_mayorcombo;
 		premios[5];
 	end
 	
@@ -80,6 +84,7 @@ Global
 	flash;
 	fuente;
 	fuente_peq;
+	fuente_grande;
 	num_enemigos;
 	max_num_enemigos;
 	num_nivel=1;
@@ -482,6 +487,7 @@ Begin
 				if(modo_juego==0)
 					id_colision.powerup=tipo; //se activa el power-up
 					id_colision.tiempo_powerup=10*50; //se ajusta el tiempo del power-up
+					id_colision.powerup_id=id;
 				end
 				if(modo_juego==1)
 					from i=1 to jugadores;
@@ -804,10 +810,10 @@ end //FIN IF WII
 	//TEXTO PRESENTACION NIVEL:
 	write(fuente,ancho_pantalla/2,(alto_pantalla/4),4,nivel_titulo[num_nivel]);
 	write(fuente_peq,ancho_pantalla/2,(alto_pantalla/4)+50,4,nivel_descripcion[num_nivel]);
-	//3 2 1 YA!:
+	//3 2 1 YA:
 	from i=3 to 1 step -1;
 		timer[0]=0;
-		texto=write(fuente,ancho_pantalla/2,alto_pantalla/2,4,i);
+		texto=write(fuente_grande,ancho_pantalla/2,alto_pantalla/2,4,i);
 		sonido(1);
 		while(timer[0]<100) frame; end
 		delete_text(texto);
@@ -815,7 +821,7 @@ end //FIN IF WII
 	sonido(3);
 	delete_text(all_text);
 	if(modo_juego==0) marcadores(); end //marcadores de puntos en modo competición
-	texto=write(fuente,ancho_pantalla/2,alto_pantalla/2,4,"¡YA!");
+	texto=write(fuente_grande,ancho_pantalla/2,alto_pantalla/2,4,"YA");
 	ready=1;
 	timer[0]=0;
 	timer[1]=0; //para contrarreloj
@@ -1163,8 +1169,11 @@ Begin
 
 	set_fps(0,0); //imágenes por segundo
 	probar_pantalla();
-	if(arcade_mode) full_screen=true; ancho_pantalla=1280; alto_pantalla=1024; scale_resolution=08000600;end
-	set_mode(800,600,16,WAITVSYNC); //resolución y colores	    
+	if(arcade_mode) full_screen=true; ancho_pantalla=1280; alto_pantalla=1024; scale_resolution=0; end
+	full_screen=1; //TEMP
+	//set_mode(800,600,16,WAITVSYNC); //resolución y colores	    
+	scale_resolution=0; //prueba
+	set_mode(ancho_pantalla,alto_pantalla,16,WAITVSYNC); //resolución y colores	    
 	fpg_premios=load_fpg("fpg/premios.fpg"); //cargar el mapa de tiles
 	fpg_enemigos=load_fpg("fpg/enemigos.fpg"); //cargar el mapa de tiles
 	fpg_powerups=load_fpg("fpg/powerups.fpg"); //cargar el mapa de tiles
@@ -1175,6 +1184,7 @@ Begin
 
 	fuente=load_fnt("fnt/fuente_peq.fnt");
 	fuente_peq=load_fnt("fnt/fuente_peq.fnt");
+	fuente_grande=load_fnt("fnt/fuente_grande.fnt");
 
 	i=1;
 	while(fexists("wav\"+i+".wav"));
@@ -1321,18 +1331,14 @@ begin
 
     if(arcade_mode) ancho_pantalla=1024; alto_pantalla=768; scale_resolution=0; return; end
 
-    if(mode_is_ok(1920,1080,16,MODE_WAITVSYNC+MODE_FULLSCREEN)) //Si soporta 1360x760 nativamente...
-        ancho_pantalla=1920; alto_pantalla=1080; scale_resolution=0;
-    elseif(mode_is_ok(1360,768,16,MODE_WAITVSYNC+MODE_FULLSCREEN)) //Si soporta 1360x760 nativamente...
-        ancho_pantalla=1360; alto_pantalla=768; scale_resolution=0;
-    elseif(mode_is_ok(1280,1024,16,MODE_WAITVSYNC+MODE_FULLSCREEN)) //Si soporta 1280x720 nativamente...
-        ancho_pantalla=1280; alto_pantalla=720; scale_resolution=0;
+	if(mode_is_ok(1280,1024,16,MODE_WAITVSYNC+MODE_FULLSCREEN)) //Si soporta 1280x720 nativamente...
+        ancho_pantalla=1280; alto_pantalla=1024; scale_resolution=12801024;
     elseif(mode_is_ok(1280,720,16,MODE_WAITVSYNC+MODE_FULLSCREEN)) //Si soporta 1280x1024 nativamente...
-        ancho_pantalla=1280; alto_pantalla=1024; scale_resolution=0;
+        ancho_pantalla=1280; alto_pantalla=720; scale_resolution=12800720;
     elseif(mode_is_ok(1024,768,16,MODE_WAITVSYNC+MODE_FULLSCREEN)) //Si soporta 1024x768 nativamente...
-        ancho_pantalla=1280; alto_pantalla=1024; scale_resolution=0;
+        ancho_pantalla=1280; alto_pantalla=1024; scale_resolution=10240768;
     elseif(mode_is_ok(800,600,16,MODE_WAITVSYNC+MODE_FULLSCREEN)) //Si soporta 800x600 nativamente...
-        ancho_pantalla=1280; alto_pantalla=1024; scale_resolution=0;
+        ancho_pantalla=1280; alto_pantalla=1024; scale_resolution=08000600;
     elseif(mode_is_ok(640,480,16,MODE_WAITVSYNC+MODE_FULLSCREEN)) //Si soporta 640x480 nativamente... lo escalamos desde 1280x1024.
         ancho_pantalla=1280; alto_pantalla=1024; scale_resolution=06400480;
     else //WIZ!!?!???
