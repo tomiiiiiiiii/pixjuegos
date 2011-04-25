@@ -144,13 +144,13 @@ Begin
 		while(ready==0) frame; end
 		if(p[jugador].botones[1]) flags=0; inercia+=2; end //la inercia sube al ir hacia la derecha
 		if(p[jugador].botones[0]) flags=1; inercia-=2; end //la inercia baja al ir hacia la izquierda
-		if(p[jugador].botones[4] and pulsando==0 and saltando==0) saltando=1; sonido(5); saltogradual=1; gravedad=-15; pulsando=1; y--; end 
+		if(p[jugador].botones[5] and pulsando==0 and saltando==0) saltando=1; sonido(5); saltogradual=1; gravedad=-15; pulsando=1; y--; end 
 		//al saltar suena el sonido correspondiente y se aplica la gravedad, y el salto gradual si saltamos poco 
-		if(p[jugador].botones[4] and pulsando==0 and powerup==3 and tiempo_powerup>0 and doble_salto==0) saltogradual=1; doble_salto=1; gravedad=-15; pulsando=1; y--; end
+		if(p[jugador].botones[5] and pulsando==0 and powerup==3 and tiempo_powerup>0 and doble_salto==0) saltogradual=1; doble_salto=1; gravedad=-15; pulsando=1; y--; end
 		//e l doblesalto si disponemos del power-up 3
-		if(p[jugador].botones[4] and saltogradual<5 and saltogradual!=0) gravedad-=4; saltogradual++; end
-		if(saltogradual>0 and p[jugador].botones[4]==0 and gravedad<-10) saltogradual=0; gravedad=-10; end
-		if(!p[jugador].botones[4] and pulsando==1) pulsando=0; saltogradual=0; end
+		if(p[jugador].botones[5] and saltogradual<5 and saltogradual!=0) gravedad-=4; saltogradual++; end
+		if(saltogradual>0 and p[jugador].botones[5]==0 and gravedad<-10) saltogradual=0; gravedad=-10; end
+		if(!p[jugador].botones[5] and pulsando==1) pulsando=0; saltogradual=0; end
 		if(map_get_pixel(0,durezas,x,y+alto)==suelo or map_get_pixel(0,durezas,x-(ancho/3),y+alto)==suelo or map_get_pixel(0,durezas,x+(ancho/3),y+alto)==suelo and gravedad>0) gravedad=0; saltando=0; doble_salto=0; else saltando=1; gravedad++; end //al tocar el suelo, gravedad es 0
 		if(x>ancho_nivel) 
 			p[i].tiempos[num_nivel]=timer[1];
@@ -177,16 +177,16 @@ Begin
 				case 4: p[jugador].puntos++; end
 			end
 			if(jugadores>1 and modo_juego==0) miposicion(jugador,posicion); end
-	/*			if(jugadores<=2)
-				if(jugador==1) write(fuente,ancho_pantalla/2,alto_pantalla/4,4,posicion); pon_tiempo(p[i].tiempos[num_nivel],1,ancho_pantalla/2,(alto_pantalla/4)+50); end
-				if(jugador==2) write(fuente,ancho_pantalla/2,(alto_pantalla/4)*3,4,posicion); pon_tiempo(p[i].tiempos[num_nivel],1,ancho_pantalla/2,((alto_pantalla/4)*3)+50); end
-				end
+			if(jugadores<=2)
+				if(jugador==1) pon_tiempo(p[i].tiempos[num_nivel],1,(ancho_pantalla/4)*3,(alto_pantalla/4)-100,jugador); end
+				if(jugador==2) pon_tiempo(p[i].tiempos[num_nivel],1,(ancho_pantalla/4)*3,((alto_pantalla/4)*3)-100,jugador); end
+			end
 			if(jugadores>2)
-				if(jugador==1) write(fuente,ancho_pantalla/4,alto_pantalla/4,4,posicion); pon_tiempo(p[i].tiempos[num_nivel],1,ancho_pantalla/4,(alto_pantalla/4)+50); end
-				if(jugador==2) write(fuente,(ancho_pantalla/4)*3,alto_pantalla/4,4,posicion); pon_tiempo(p[i].tiempos[num_nivel],1,(ancho_pantalla/4)*3,(alto_pantalla/4)+50); end
-				if(jugador==3) write(fuente,ancho_pantalla/4,(alto_pantalla/4)*3,4,posicion); pon_tiempo(p[i].tiempos[num_nivel],1,ancho_pantalla/4,((alto_pantalla/4)*3)+50); end
-				if(jugador==4) write(fuente,(ancho_pantalla/4)*3,(alto_pantalla/4)*3,4,posicion); pon_tiempo(p[i].tiempos[num_nivel],1,(ancho_pantalla/4)*3,((alto_pantalla/4)*3)+50); end
-			end*/
+				if(jugador==1) pon_tiempo(p[i].tiempos[num_nivel],1,(ancho_pantalla/8)*3,(alto_pantalla/4)-100,jugador); end
+				if(jugador==2) pon_tiempo(p[i].tiempos[num_nivel],1,(ancho_pantalla/8)*7,(alto_pantalla/4)-100,jugador); end
+				if(jugador==3) pon_tiempo(p[i].tiempos[num_nivel],1,(ancho_pantalla/8)*3,((alto_pantalla/4)*3)-100,jugador); end
+				if(jugador==4) pon_tiempo(p[i].tiempos[num_nivel],1,(ancho_pantalla/8)*7,((alto_pantalla/4)*3)-100,jugador); end
+			end
 			
 			graph=0;
 			loop
@@ -196,7 +196,7 @@ Begin
 		end //al ganar mike canta y nos damos la vuelta xD
 		if(inercia>0 and gravedad==0) inercia--; end
 		if(inercia<0 and gravedad==0) inercia++; end
-		if(p[jugador].botones[5])
+		if(p[jugador].botones[4])
 			if(inercia>20) inercia=20; end
 			if(inercia<-20) inercia=-20; end
 		else
@@ -827,7 +827,7 @@ end //FIN IF WII
             play_song(load_song("ogg\"+rand(1,5)+".ogg"),-1);
         end
     end
-	pon_tiempo(-1,0,(ancho_pantalla/4)*3,70);
+	pon_tiempo(-1,0,(ancho_pantalla/4)*3,alto_pantalla/2,1);
 	controlador(0);
 	loop
 		if(key(_n)) while(key(_n)) frame; end num_nivel++; carga_nivel(); end
@@ -846,7 +846,7 @@ Begin
 	if(ops.sonido) play_wav(wavs[numsonido],0); end
 End
 
-Process pon_tiempo(tiempo,permanecer,x,y);
+Process pon_tiempo(tiempo,permanecer,x,y,jugador);
 Private
 	decimas;
 	segundos;
@@ -877,16 +877,23 @@ End
 
 Process marcadores();
 Begin
-	if(jugadores>1) from i=1 to 5; premio(i); end end
+	from i=1 to 5; premio(i); end
 	if(jugadores==2)
-		write_int(fuente,ancho_pantalla/2,20,1,&p[1].puntos);
-		write_int(fuente,ancho_pantalla/2,(alto_pantalla/2)+20,1,&p[2].puntos);
+		write(fuente,20,20,0,"Puntos:");
+		write(fuente,20,(alto_pantalla/2)+20,0,"Puntos:");
+		write_int(fuente,190,20,0,&p[1].puntos);
+		write_int(fuente,190,(alto_pantalla/2)+20,0,&p[2].puntos);
 	end
 	if(jugadores=>3)
-		write_int(fuente,ancho_pantalla/4,20,1,&p[1].puntos);
-		write_int(fuente,(ancho_pantalla/4)*3,20,1,&p[2].puntos);
-		write_int(fuente,ancho_pantalla/4,(alto_pantalla/2)+20,1,&p[3].puntos);
-		if(jugadores==4) write_int(fuente,(ancho_pantalla/4)*3,(alto_pantalla/2)+20,1,&p[4].puntos); end
+		write(fuente,20,20,0,"Puntos:");
+		write(fuente,(ancho_pantalla/2)+20,20,0,"Puntos:");
+		write(fuente,20,(alto_pantalla/2)+20,0,"Puntos:");
+		if(jugadores==4) write(fuente,(ancho_pantalla/2)+20,(alto_pantalla/2)+20,0,"Puntos:"); end
+		
+		write_int(fuente,190,20,0,&p[1].puntos);
+		write_int(fuente,(ancho_pantalla/2)+190,20,0,&p[2].puntos);
+		write_int(fuente,190,(alto_pantalla/2)+20,0,&p[3].puntos);
+		if(jugadores==4) write_int(fuente,(ancho_pantalla/2)+190,(alto_pantalla/2)+20,0,&p[4].puntos); end
 	end
 	from i=1 to jugadores; cabeza(i); end
 End
@@ -1048,7 +1055,7 @@ Begin
 						end
 					end
 					write(fuente,x_texto,y_texto+(30*j),4,texto_premio);
-					p[jugador].puntos++;
+					p[jugador].puntos+=2;
 					break;
 				end
 			end
