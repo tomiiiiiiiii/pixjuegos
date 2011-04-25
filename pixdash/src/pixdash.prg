@@ -48,11 +48,13 @@ Global
 		tiempos[10];
 		combo;
 		mejorcombo;
+		tiempocombo;
 		monedas;
 		powerupscogidos;
 		enemigosmatados;
 		pixismatados;
 		muertes;
+		premios[5];
 	end
 	
 	joysticks[4];
@@ -70,6 +72,8 @@ Global
 	fpg_menu;
 	fpg_moneda;
 	fpg_durezas;
+	fpg_premios;
+	fpg_general;
 	wavs[20];
 	tilesize=40;
 	fondo;
@@ -166,8 +170,14 @@ Begin
 				elseif(posiciones[3]==0) posicion=3; posiciones[3]=jugador;
 				elseif(posiciones[4]==0) posicion=4; posiciones[4]=jugador; end
 			end
-			
-/*			if(jugadores<=2)
+			switch(posicion)
+				case 1: p[jugador].puntos+=6; end
+				case 2: p[jugador].puntos+=4; end
+				case 3: p[jugador].puntos+=2; end
+				case 4: p[jugador].puntos++; end
+			end
+			if(jugadores>1 and modo_juego==0) miposicion(jugador,posicion); end
+	/*			if(jugadores<=2)
 				if(jugador==1) write(fuente,ancho_pantalla/2,alto_pantalla/4,4,posicion); pon_tiempo(p[i].tiempos[num_nivel],1,ancho_pantalla/2,(alto_pantalla/4)+50); end
 				if(jugador==2) write(fuente,ancho_pantalla/2,(alto_pantalla/4)*3,4,posicion); pon_tiempo(p[i].tiempos[num_nivel],1,ancho_pantalla/2,((alto_pantalla/4)*3)+50); end
 				end
@@ -239,6 +249,12 @@ Begin
 		while(map_get_pixel(0,durezas,x-ancho/3,y+alto-1)==suelo) y--; end
 		while(map_get_pixel(0,durezas,x+ancho/3,y+alto-1)==suelo) y--; end
 		if(saltando==0 and gravedad==0) //animaciones al andar o estar quieto
+			if(p[jugador].combo!=0) 
+				if(p[jugador].combo>p[jugador].mejorcombo)
+					p[jugador].mejorcombo=p[jugador].combo;
+				end
+				p[jugador].combo=0;
+			end
 			if(inercia!=0) animacion="andar"; else animacion="quieto"; end
 		else
 			animacion="salto"; //animación al saltar
@@ -269,7 +285,7 @@ Begin
 				end
 				alpha=255;
 				x=100; y=100; 
-				//p[jugador].puntos=p[jugador].puntos*0.90;
+				p[jugador].muertes++;
 				accion="";
 				gravedad=0;
 				inercia=0;
@@ -388,8 +404,13 @@ Begin
 
 		if(alpha==255 and (id_colision=collision(type prota))) //chocamos con el prota
 			if(id_colision.y<y-(alto/2) and id_colision.saltando==1 and tipo!=5 and tipo!=6 and tipo!=9 and tipo!=10 and id_colision.accion!="muerte") //si el prota está más arriba, el malo muere. a menos que sean spikis o sus huevos! y que no esté muriendo el prota xD
-				//p[id_colision.jugador].puntos++;
-				id_colision.gravedad=-20; //rebota el prota
+				p[id_colision.jugador].enemigosmatados++;
+				p[id_colision.jugador].combo++;
+				if(p[id_colision.jugador].botones[5])
+					id_colision.gravedad=-30; //rebota mucho el prota
+				else
+					id_colision.gravedad=-20; //rebota el prota
+				end
 				if(tipo!=2 and tipo!=4)  //animacion de la muerte, salvo que sean para-algo
 					explotalo(x,y,z,255,0,file,graph,60);
 				end
@@ -398,8 +419,13 @@ Begin
 				break; //suicidamos al malo
 			else //el prota chocó por debajo de la altura del enemigo
 				if(id_colision.powerup==1) 
-					//p[id_colision.jugador].puntos++;
-					id_colision.gravedad=-20; //rebota el prota
+					p[id_colision.jugador].enemigosmatados++;
+					p[id_colision.jugador].combo++;
+					if(p[id_colision.jugador].botones[5])
+						id_colision.gravedad=-30; //rebota mucho el prota
+					else
+						id_colision.gravedad=-20; //rebota el prota
+					end
 					while(size>0 and tipo!=2 and tipo!=4)  //animacion de la muerte, salvo que sean para-algo
 						size=size-5; 
 						angle+=7000;
@@ -452,7 +478,7 @@ Begin
 		if(y>alto_nivel) break; end //al caer poir un bujero los power-ups desaparecen
 		if(id_colision=collision(type prota)) //al tocarlos el prota
 			if(id_colision.accion!="muerte")
-				//p[id_colision.jugador].puntos++; //gana puntos
+				p[id_colision.jugador].powerupscogidos++;
 				if(modo_juego==0)
 					id_colision.powerup=tipo; //se activa el power-up
 					id_colision.tiempo_powerup=10*50; //se ajusta el tiempo del power-up
@@ -531,11 +557,17 @@ PRIVATE
 BEGIN
 	id_carganivel=id;
 	if(num_nivel!=1)
-		p[posiciones[1]].puntos+=6;
-		p[posiciones[2]].puntos+=4;
-		p[posiciones[3]].puntos+=2;
-		p[posiciones[4]].puntos++;
-		from i=1 to 4; posiciones[i]=0; end
+		from i=1 to 4; 
+			posiciones[i]=0; 
+			p[i].mejorcombo=0;
+			p[i].monedas=0;
+			p[i].powerupscogidos=0;
+			p[i].enemigosmatados=0;
+			p[i].muertes=0;
+			from j=1 to 5;
+				p[i].premios[j]=0;
+			end
+		end
 	else
 		if(os_id!=1000 and fexists(savegamedir+"niveles\"+paqueteniveles+"\descripciones.txt")) //la WII falla con fgets actualmente
 			i=1;
@@ -801,7 +833,7 @@ end //FIN IF WII
 		if(key(_n)) while(key(_n)) frame; end num_nivel++; carga_nivel(); end
 		if(p[0].botones[7]) while(p[0].botones[7]) frame; end menu(); end
 		if(timer[0]>300 and texto!=0) delete_text(texto); texto=0; end
-//		if(jugadores==3 and ((!exists(scroll[3].camera)) or scroll[3].camera==0 or rand(0,500)==333)) scroll[3].camera=get_id(type enemigo); end
+		if(jugadores==3 and ((!exists(scroll[3].camera)) or scroll[3].camera==0 or rand(0,500)==333)) scroll[3].camera=get_id(type enemigo); end
 //		if(jugadores==1 and ((!exists(scroll[1].camera)) or scroll[1].camera==0 or rand(0,500)==333)) scroll[1].camera=get_id(type enemigo); end
 		frame;
 	end 
@@ -845,6 +877,7 @@ End
 
 Process marcadores();
 Begin
+	if(jugadores>1) from i=1 to 5; premio(i); end end
 	if(jugadores==2)
 		write_int(fuente,ancho_pantalla/2,20,1,&p[1].puntos);
 		write_int(fuente,ancho_pantalla/2,(alto_pantalla/2)+20,1,&p[2].puntos);
@@ -856,6 +889,175 @@ Begin
 		if(jugadores==4) write_int(fuente,(ancho_pantalla/4)*3,(alto_pantalla/2)+20,1,&p[4].puntos); end
 	end
 	from i=1 to jugadores; cabeza(i); end
+End
+
+//1: >combo, 2: >monedas, 3: <powerups, 4: >enemigosmatados, 5: <muertes
+Process premio(tipo);
+Private
+	jugador_anterior;
+	id_col;
+	x_destino;
+	y_destino;
+	contador;
+	h;
+	string texto_premio;
+	x_texto;
+	y_texto;
+Begin
+	file=fpg_premios;
+	graph=tipo;
+	i=tipo; //esto lo utilizaremos para ordenar los premios de un jugador
+	z=-tipo;
+	size=50;
+	x=-100; y=-100;
+	loop
+		contador=0;
+		jugador=0;
+		switch(tipo)
+			case 1:
+				if(p[1].mejorcombo>p[2].mejorcombo and p[1].mejorcombo>p[3].mejorcombo and p[1].mejorcombo>p[4].mejorcombo) jugador=1; end
+				if(p[2].mejorcombo>p[1].mejorcombo and p[2].mejorcombo>p[3].mejorcombo and p[2].mejorcombo>p[4].mejorcombo) jugador=2; end
+				if(p[3].mejorcombo>p[1].mejorcombo and p[3].mejorcombo>p[2].mejorcombo and p[3].mejorcombo>p[4].mejorcombo) jugador=3; end
+				if(p[4].mejorcombo>p[1].mejorcombo and p[4].mejorcombo>p[2].mejorcombo and p[4].mejorcombo>p[3].mejorcombo) jugador=4; end
+			end
+			case 2:
+				if(p[1].monedas>p[2].monedas and p[1].monedas>p[3].monedas and p[1].monedas>p[4].monedas) jugador=1; end
+				if(p[2].monedas>p[1].monedas and p[2].monedas>p[3].monedas and p[2].monedas>p[4].monedas) jugador=2; end
+				if(p[3].monedas>p[1].monedas and p[3].monedas>p[2].monedas and p[3].monedas>p[4].monedas) jugador=3; end
+				if(p[4].monedas>p[1].monedas and p[4].monedas>p[2].monedas and p[4].monedas>p[3].monedas) jugador=4; end
+			end
+			case 3:
+				if(p[1].powerupscogidos<p[2].powerupscogidos and (p[1].powerupscogidos<p[3].powerupscogidos xor jugadores<3) and (p[1].powerupscogidos<p[4].powerupscogidos xor jugadores<4)) jugador=1; end
+				if(p[2].powerupscogidos<p[1].powerupscogidos and (p[2].powerupscogidos<p[3].powerupscogidos xor jugadores<3) and (p[2].powerupscogidos<p[4].powerupscogidos xor jugadores<4)) jugador=2; end
+				if(jugadores>2 and p[3].powerupscogidos<p[1].powerupscogidos and p[3].powerupscogidos<p[2].powerupscogidos and (p[3].powerupscogidos<p[4].powerupscogidos xor jugadores<4)) jugador=3; end
+				if(jugadores==4 and p[4].powerupscogidos<p[1].powerupscogidos and p[4].powerupscogidos<p[2].powerupscogidos and p[4].powerupscogidos<p[3].powerupscogidos) jugador=4; end
+			end
+			case 4:
+				if(p[1].enemigosmatados>p[2].enemigosmatados and p[1].enemigosmatados>p[3].enemigosmatados and p[1].enemigosmatados>p[4].enemigosmatados) jugador=1; end
+				if(p[2].enemigosmatados>p[1].enemigosmatados and p[2].enemigosmatados>p[3].enemigosmatados and p[2].enemigosmatados>p[4].enemigosmatados) jugador=2; end
+				if(p[3].enemigosmatados>p[1].enemigosmatados and p[3].enemigosmatados>p[2].enemigosmatados and p[3].enemigosmatados>p[4].enemigosmatados) jugador=3; end
+				if(p[4].enemigosmatados>p[1].enemigosmatados and p[4].enemigosmatados>p[2].enemigosmatados and p[4].enemigosmatados>p[3].enemigosmatados) jugador=4; end
+			end
+			case 5:
+				if(p[1].muertes<p[2].muertes and (p[1].muertes<p[3].muertes xor jugadores<3) and (p[1].muertes<p[4].muertes xor jugadores<4)) jugador=1; end
+				if(p[2].muertes<p[1].muertes and (p[2].muertes<p[3].muertes xor jugadores<3) and (p[2].muertes<p[4].muertes xor jugadores<4)) jugador=2; end
+				if(jugadores>2 and p[3].muertes<p[1].muertes and p[3].muertes<p[2].muertes and (p[3].muertes<p[4].muertes xor jugadores<4)) jugador=3; end
+				if(jugadores==4 and p[4].muertes<p[1].muertes and p[4].muertes<p[2].muertes and p[4].muertes<p[3].muertes) jugador=4; end
+			end
+		end
+	
+		if(jugador!=jugador_anterior)
+			if(jugadores==2)
+				x_destino=ancho_pantalla-40;
+				if(jugador==1)
+					y_destino=(alto_pantalla/2)-30;
+				else
+					y_destino=alto_pantalla-30;
+				end
+			else
+				if(jugador==1 or jugador==3)
+					x_destino=(ancho_pantalla/2)-25;
+				end
+				if(jugador==2 or jugador==4)
+					x_destino=ancho_pantalla-25;
+				end
+				if(jugador==1 or jugador==2)
+					y_destino=(alto_pantalla/2)-25;
+				end
+				if(jugador==3 or jugador==4)
+					y_destino=alto_pantalla-25;
+				end
+			end
+			if(jugador==0)
+				from alpha=255 to 50 step -10; alpha-=10; frame; end 
+				x=-100; y=-100; alpha=255;
+			else
+				if(jugador_anterior!=0)
+					while(x!=x_destino or y!=y_destino)
+						if(x_destino<x)
+							x-=5+((x-x_destino)/10);
+							if(x_destino>x) x=x_destino; end
+						else
+							x+=5+((x_destino-x)/10);
+							if(x_destino<x) x=x_destino; end
+						end
+						if(y_destino<y)
+							y-=5+((y-y_destino)/10);
+							if(y_destino>y) y=y_destino; end
+						else
+							y+=5+((y_destino-y)/10);
+							if(y_destino<y) y=y_destino; end
+						end
+						frame;
+					end
+				else
+					x=x_destino;
+					y=y_destino;
+					alpha=155;
+					from size=70 to 50 step -2; alpha+=10; frame; end
+				end
+			end
+		end
+		jugador_anterior=jugador;
+		if(x_destino==x and (id_col=collision(type premio)))
+			if(id_col.i>tipo)
+				if(jugadores==2) 
+					x_destino=x-40; 
+				else
+					x_destino=x-35; 
+				end
+			end 
+		end
+		if(x_destino<x)
+			x-=5+((x-x_destino)/10);
+			if(x_destino>x) x=x_destino; end
+		else
+			x+=5+((x_destino-x)/10);
+			if(x_destino<x) x=x_destino; end
+		end
+		if(jugador!=0 and p[jugador].identificador.accion=="ganando")
+			from size=50 to 60 step 5; frame; end
+			size=60;
+			from j=1 to 5;
+				if(p[jugador].premios[j]==0)
+					p[jugador].premios[j]=tipo;
+					switch(tipo)   //1: >combo, 2: >monedas, 3: <powerups, 4: >enemigosmatados, 5: <muertes
+						case 1: texto_premio="Mayor combo realizado +2pts"; end
+						case 2: texto_premio="Mas monedas recogidas +2pts"; end
+						case 3: texto_premio="Menos powerups recogidos +2pts"; end
+						case 4: texto_premio="Mas enemigos aniquilados +2pts"; end
+						case 5: texto_premio="Menos muertes +2pts"; end
+					end
+					if(jugadores==2)
+						x_texto=ancho_pantalla/2;
+						if(jugador==1)
+							y_texto=alto_pantalla/4;
+						else
+							y_texto=(alto_pantalla/4)*3;
+						end
+					else
+						if(jugador==1 or jugador==3)
+							x_texto=ancho_pantalla/4;
+						else
+							x_texto=(ancho_pantalla/4)*3;
+						end
+						if(jugador==1 or jugador==2)
+							y_texto=alto_pantalla/4;
+						else
+							y_texto=(alto_pantalla/4)*3;
+						end
+					end
+					write(fuente,x_texto,y_texto+(30*j),4,texto_premio);
+					p[jugador].puntos++;
+					break;
+				end
+			end
+			loop
+				frame;
+			end
+		end
+		frame;
+	end
 End
 
 Process cabeza(jugador);
@@ -956,11 +1158,13 @@ Begin
 	probar_pantalla();
 	if(arcade_mode) full_screen=true; ancho_pantalla=1280; alto_pantalla=1024; scale_resolution=08000600;end
 	set_mode(800,600,16,WAITVSYNC); //resolución y colores	    
+	fpg_premios=load_fpg("fpg/premios.fpg"); //cargar el mapa de tiles
 	fpg_enemigos=load_fpg("fpg/enemigos.fpg"); //cargar el mapa de tiles
 	fpg_powerups=load_fpg("fpg/powerups.fpg"); //cargar el mapa de tiles
 	fpg_menu=load_fpg("fpg/menu.fpg"); //cargar el mapa de tiles
 	fpg_moneda=load_fpg("fpg/moneda.fpg");
 	fpg_durezas=load_fpg("fpg/durezas.fpg");
+	fpg_general=load_fpg("fpg/general.fpg");
 
 	fuente=load_fnt("fnt/fuente_peq.fnt");
 	fuente_peq=load_fnt("fnt/fuente_peq.fnt");
@@ -1128,6 +1332,36 @@ begin
         ancho_pantalla=1280; alto_pantalla=1024; scale_resolution=03200240; //Si soporta 320x240... puf, ¿cómo hemos llegado a esto?
     end
 end
+
+Process miposicion(jugador,graph);
+Begin
+	file=fpg_general;
+	z=-5;
+	if(jugadores==2)
+		x=ancho_pantalla/2;
+		if(jugador==1)
+			y=alto_pantalla/4;
+		else
+			y=(alto_pantalla/4)*3;
+		end
+	else
+		if(jugador==1 or jugador==3)
+			x=ancho_pantalla/4;
+		else
+			x=(ancho_pantalla/4)*3;
+		end
+		if(jugador==1 or jugador==2)
+			y=alto_pantalla/4;
+		else
+			y=(alto_pantalla/4)*3;
+		end
+	end
+	y-=60;
+	from alpha=0 to 255 step 20; frame; end
+	loop
+		frame;
+	end
+End
 
 include "../../common-src/controles.pr-";
 

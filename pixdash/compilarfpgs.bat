@@ -12,3 +12,5 @@ cd fpg-sources
 ..\..\bennu-win\bgdi pxlfpg pex
 ..\..\bennu-win\bgdi pxlfpg moneda
 ..\..\bennu-win\bgdi pxlfpg tiles
+..\..\bennu-win\bgdi pxlfpg premios
+..\..\bennu-win\bgdi pxlfpg general
