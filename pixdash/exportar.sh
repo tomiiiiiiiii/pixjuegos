@@ -13,6 +13,8 @@ cd fpg-sources
 ../../bennu-linux/bgdi pxlfpg pex
 ../../bennu-linux/bgdi pxlfpg moneda
 ../../bennu-linux/bgdi pxlfpg tiles
+../../bennu-linux/bgdi pxlfpg premios
+../../bennu-linux/bgdi pxlfpg general
 cd ..
 
 cd src
