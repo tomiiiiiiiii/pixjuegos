@@ -1175,10 +1175,10 @@ Begin
 
 	set_fps(0,0); //imágenes por segundo
 	probar_pantalla();
-	if(arcade_mode) full_screen=true; ancho_pantalla=1280; alto_pantalla=1024; scale_resolution=0; end
+	//if(arcade_mode) full_screen=true; ancho_pantalla=1280; alto_pantalla=1024; end
 	full_screen=1; //TEMP
+	//if(scale_resolution>10000000) scale_resolution=0; end //TEMP
 	//set_mode(800,600,16,WAITVSYNC); //resolución y colores	    
-	scale_resolution=0; //prueba
 	set_mode(ancho_pantalla,alto_pantalla,16,WAITVSYNC); //resolución y colores	    
 	fpg_premios=load_fpg("fpg/premios.fpg"); //cargar el mapa de tiles
 	fpg_enemigos=load_fpg("fpg/enemigos.fpg"); //cargar el mapa de tiles
@@ -1338,9 +1338,9 @@ begin
     if(arcade_mode) ancho_pantalla=1024; alto_pantalla=768; scale_resolution=0; return; end
 
 	if(mode_is_ok(1280,1024,16,MODE_WAITVSYNC+MODE_FULLSCREEN)) //Si soporta 1280x720 nativamente...
-        ancho_pantalla=1280; alto_pantalla=1024; scale_resolution=12801024;
+        ancho_pantalla=1280; alto_pantalla=1024; scale_resolution=0;
     elseif(mode_is_ok(1280,720,16,MODE_WAITVSYNC+MODE_FULLSCREEN)) //Si soporta 1280x1024 nativamente...
-        ancho_pantalla=1280; alto_pantalla=720; scale_resolution=12800720;
+        ancho_pantalla=1280; alto_pantalla=720; scale_resolution=0;
     elseif(mode_is_ok(1024,768,16,MODE_WAITVSYNC+MODE_FULLSCREEN)) //Si soporta 1024x768 nativamente...
         ancho_pantalla=1280; alto_pantalla=1024; scale_resolution=10240768;
     elseif(mode_is_ok(800,600,16,MODE_WAITVSYNC+MODE_FULLSCREEN)) //Si soporta 800x600 nativamente...

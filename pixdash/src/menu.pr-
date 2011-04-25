@@ -30,7 +30,7 @@ begin
 	unload_map(0,durezas);
 	num_enemigos=0;
 	delete_text(all_text);
-	set_mode(800,600,16,WAITVSYNC); //resolución y colores	    
+	//set_mode(800,600,16,WAITVSYNC); //resolución y colores	    
 	i=0;
 	from i=1 to 4;
 		p[i].puntos=0;
