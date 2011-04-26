@@ -563,9 +563,15 @@ PRIVATE
 BEGIN
 	id_carganivel=id;
 	if(num_nivel!=1)
-		from i=1 to 4; 
-			posiciones[i]=0; 
+		from i=1 to 4;
+			posiciones[i]=0;
+			if(p[i].total_mayorcombo<p[i].mejorcombo) p[i].total_mayorcombo=p[i].mejorcombo; end
+			p[i].total_monedas+=p[i].monedas;
+			p[i].total_powerups+=p[i].powerupscogidos;
+			p[i].total_enemigos+=p[i].enemigosmatados;
+			p[i].total_muertes+=p[i].muertes;
 			p[i].mejorcombo=0;
+			p[i].combo=0;
 			p[i].monedas=0;
 			p[i].powerupscogidos=0;
 			p[i].enemigosmatados=0;
@@ -586,7 +592,11 @@ BEGIN
 			i=0;
 		end
 	end
-	if(!file_exists(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".png")) menu(); return; end // FIN DE LA COMPETICION
+	if(!file_exists(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".png"))  // FIN DE LA COMPETICION
+		//resultados();
+		menu(); 
+		return; 
+	end
 	frame;
 	if(num_nivel!=1) 
 		foto=get_screen(); 
@@ -839,7 +849,11 @@ end //FIN IF WII
 			end
 		end
 	end
-	pon_tiempo(-1,0,(ancho_pantalla/4)*3,alto_pantalla/2,1);
+	if(jugadores>1) 
+		pon_tiempo(-1,0,(ancho_pantalla/4)*3,alto_pantalla/2,1);
+	else
+		pon_tiempo(-1,0,(ancho_pantalla/4)*3,60,1);
+	end
 	controlador(0);
 	loop
 		if(key(_n)) while(key(_n)) frame; end num_nivel++; carga_nivel(); end
