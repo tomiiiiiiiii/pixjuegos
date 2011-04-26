@@ -146,7 +146,8 @@ Begin
 	end
 
 	//si estamos con la recreativa, no dejaremos jugar con el teclado
-	if(arcade_mode) posibles_jugadores--; end
+	//if(arcade_mode) posibles_jugadores--; end
+	//o si, por si acaso
 	
 	p[0].control=-2; //Esto son los menus :)
 	
