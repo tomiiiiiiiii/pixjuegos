@@ -20,6 +20,8 @@ fuerza=1;
 energia=20;
 habil=1;
 
+puntos;
+
 arcade_mode=0;
 
 struct opciones;
@@ -58,6 +60,10 @@ end
 struct save;
 		nivel;
 		vidas;
+		poder;
+		string nombres[9];
+		puntuacion[9];
+		puntos;
 	end
 	
 vida_boss;
@@ -170,6 +176,7 @@ BEGIN
 	opciones.gamepad.cambiar=2;			//2
 	
 	opciones.particulas=1;				//sistema de patículas activado
+
 	
 	if(os_id==0) //windows
 		savegamedir=getenv("APPDATA")+developerpath;
@@ -192,7 +199,18 @@ BEGIN
 
 	save.nivel=1;
 	save.vidas=3;
-
+	save.poder=1;
+	save.puntuacion[0]=10000;
+	save.puntuacion[1]=10000;
+	save.puntuacion[2]=10000;
+	save.puntuacion[3]=10000;
+	save.puntuacion[4]=10000;
+	save.puntuacion[5]=10000;
+	save.puntuacion[6]=10000;
+	save.puntuacion[7]=10000;
+	save.puntuacion[8]=10000;
+	save.puntuacion[9]=10000;
+	
 	if(file_exists(savegamedir+"save.dat"))
 		archivo=fopen(savegamedir+"save.dat",o_read);
 		fread(archivo,save);
@@ -444,9 +462,6 @@ begin
 		while(p[0].botones[4]) scroll.x0+=3; frame; end
 		ayuda();
 	end
-	
-	
-	
 
 	z=-20;
 	graph=6;
@@ -459,9 +474,10 @@ begin
 			write(fuente1,x,y+=60,3,"Jugar");
 			write(fuente1,x,y+=60,3,"Continuar");
 			write(fuente1,x,y+=60,3,"Opciones");
+			write(fuente1,x,y+=60,3,"Clasificacion");
 			write(fuente1,x,y+=60,3,"Ayuda");
 			write(fuente1,x,y+=60,3,"Salir");
-			num_opciones=5;
+			num_opciones=6;
 			volver_a_menu=0;
 		end
 		case 1: //opciones
@@ -515,15 +531,20 @@ begin
 						end
 						case 2:
 							vidas=save.vidas;
+							puntos=save.puntos;
+							poder=save.poder;
 							juego(save.nivel);
 						end
 						case 3:
 							menu(1);
 						end
 						case 4: 
-							ayuda();
+							clasificacion(0);
 						end
 						case 5:
+							ayuda();
+						end
+						case 6:
 							archivo=fopen(savegamedir+"opciones.dat", O_WRITE);
 							fwrite(archivo,opciones);
 							fclose(archivo);
@@ -803,7 +824,7 @@ begin
 			
 			suena(s_aceptar);
 			
-			while(p[0].botones[4]) frame; end
+			while(p[0].botones[4]) scroll.x0+=3; frame; end
 			menu(volver_a_menu);
 			
 		end
@@ -845,6 +866,29 @@ begin
 end
 
 //-----------------------------------------------------------------------
+// proceso que crea un boton
+//-----------------------------------------------------------------------
+
+process boton(x,y,string texto,int a);
+
+begin
+	file=fpg_menu;
+	size_x=300;
+	z=-100;
+	loop
+		if(opcion==a)
+			graph=20;
+			id_texto=write(fuente1,x,y,4,texto);
+		else
+			graph=44;
+			id_texto=write(fuente1,x,y,4,texto);
+		end
+		frame;
+		delete_text(id_texto);
+	end
+end
+
+//-----------------------------------------------------------------------
 // proceso ayuda
 //-----------------------------------------------------------------------
 
@@ -875,28 +919,44 @@ begin
 end
 
 //-----------------------------------------------------------------------
-// proceso que crea un boton
+// proceso clasificacion
 //-----------------------------------------------------------------------
 
-process boton(x,y,string texto,int a);
+process clasificacion(nuevo);
+
+private
+a;
+aux;
 
 begin
-	file=fpg_menu;
-	size_x=300;
-	z=-100;
-	loop
-		if(opcion==a)
-			graph=20;
-			id_texto=write(fuente1,x,y,4,texto);
-		else
-			graph=44;
-			id_texto=write(fuente1,x,y,4,texto);
+	let_me_alone();
+	delete_text(all_text);
+	controlador(0);
+	
+	from a=0 to 9;
+		if(nuevo>save.puntuacion[a])
+			aux=save.puntuacion[a];
+			save.puntuacion[a]=nuevo;
+			nuevo=aux;
 		end
-		frame;
-		delete_text(id_texto);
 	end
+	
+	x=400;
+	y=150;
+	write(fuente1,x,y,4,"Clasificacion");
+	from a=0 to 9;
+		write_var(fuente1,x,y+=30,4,save.puntuacion[a]);
+	end
+	while(not p[0].botones[4])
+		scroll.x0+=3;
+		frame;
+	end
+	while(p[0].botones[4])
+		scroll.x0+=3;
+		frame;
+	end
+	menu(0);
 end
-
 //-----------------------------------------------------------------------
 // proceso que crea un efecto
 //-----------------------------------------------------------------------
@@ -939,941 +999,6 @@ Begin
 		end
 end
 
-
-//-----------------------------------------------------------------------
-// controla el juego
-//-----------------------------------------------------------------------
-
-process juego(nivel);
-
-private
-
-gatillo;
-id_texto1;
-id_texto2;
-direccion=1;
-jefe;
-n;
-
-Begin
-file=fpg_menu;
-fade_off();
-delete_text(all_text);
-let_me_alone();
-x=400;
-y=300;
-z=-100;
-
-
-	save.nivel=nivel;
-	save.vidas=vidas;
-
-
-archivo=fopen(savegamedir+"save.dat",o_write);
-fwrite(archivo,save);
-fclose(archivo);
-
-ctype=c_screen;
-define_region(1,0,0,800,600);
-pausa=1;
-n=1;
-energia=20;
-escudo=5;
-opcion=0;
-distancia=0;
-
-if(nivel==1)
-	musica(1);
-	graph=20;
-	direccion=1;
-	size=200;
-	id_texto=write(fuente1,x,y,4,"AREA: 1");
-	fade_on();
-	timer[2]=0;
-	while(timer[2]<300)
-		if(direccion==1) graph++; else graph--; end
-		if(graph==20) direccion=1; end
-		if(graph==44) direccion=0; end
-		scroll.y0-=5;
-		frame;
-	end
-	delete_text(id_texto);
-	graph=0;
-	id_nave=nave01(400,700);
-	poder=1;
-	fuerza=1;
-	marcador();
-	while(id_nave.y>300)
-		id_nave.y-=10;
-		scroll.y0-=5;
-		frame;
-	end
-	while(id_nave.y<550)
-		id_nave.y+=10;
-		scroll.y0-=5;
-		frame;
-	end
-	pausa=0;
-	LOOP
-
-
-
-		if(p[0].botones[7] and gatillo==0)
-			gatillo=1;
-			if(pausa==0)
-				pausa=1;
-				graph=20;
-				size=300;
-				direccion=1;
-				id_texto=write(fuente1,x,y,4,"¿Salir de la partida?");
-				boton(400,500,"",1);
-				id_texto1=write(fuente1,400,500,4,"No");
-				boton(400,550,"",2);
-				id_texto2=write(fuente1,400,550,4,"Si");
-				opcion=1;
-			else
-				pausa=0;
-				graph=0;;
-				delete_text(id_texto);
-				signal(type boton,s_kill);
-				delete_text(0);
-			end
-		end
-
-		if(not p[0].botones[7] and not p[0].botones[2] and not p[0].botones[3] and gatillo==1) gatillo=0; end
-
-		if(pausa==1)
-				
-			if(direccion==1) graph++; else graph--; end
-			if(graph==20) direccion=1; end
-			if(graph==44) direccion=0; end
-			if(p[0].botones[2] and gatillo==0 and opcion>1)
-				gatillo=1;
-				opcion--;
-			end
-			if(p[0].botones[3] and gatillo==0 and opcion<2)
-				gatillo=1;
-				opcion++;
-			end
-			if(p[0].botones[4])
-				if(opcion==1) opcion=0; pausa=0; graph=0; delete_text(id_texto); delete_text(id_texto1); delete_text(id_texto2); signal(type boton,s_kill); end
-				if(opcion==2) opcion=0; while(p[0].botones[4]) frame; end menu(0); break; end
-			end
-
-		end
-		if(pausa==0)
-			scroll.y0-=5;
-			if(distancia<4000) distancia++; end
-			if(distancia==100*n)
-				if(n==1 or n==19)
-					enemigo(50,-50,1,0);
-					enemigo(110,-60,1,0);
-					enemigo(50,-150,1,0);
-					enemigo(110,-160,1,0);
-				end
-				if(n==2 or n==20)
-					enemigo(750,-50,1,0);
-					enemigo(690,-60,1,0);
-					enemigo(750,-150,1,0);
-					enemigo(690,-160,1,0);
-				end
-				if(n==3 or n==21)
-					enemigo(50,-50,2,8);
-					enemigo(750,-50,2,1);
-				end
-				if(n==4 or n==22)
-					enemigo(360,-50,2,1);
-					enemigo(440,-50,2,8);
-				end
-				if(n==5 or n==23)
-					enemigo(70,-50,1,1);
-					enemigo(130,-60,1,1);
-					enemigo(70,-150,1,0);
-					enemigo(130,-160,1,0);
-				end
-				if(n==6 or n==24)
-					enemigo(730,-50,1,1);
-					enemigo(670,-60,1,1);
-					enemigo(730,-150,1,0);
-					enemigo(670,-160,1,0);
-				end
-				if(n==7 or n==25)
-					enemigo(360,-50,2,1);
-					enemigo(440,-50,2,8);
-				end
-				if(n==8 or n==26)
-					enemigo(50,-50,2,8);
-					enemigo(750,-50,2,1);
-				end
-				if(n==9 or n==27)
-					enemigo(70,-100,1,1);
-					enemigo(130,-40,1,1);
-					enemigo(190,-100,1,1);
-				end
-				if(n==10 or n==28)
-					enemigo(730,-100,1,1);
-					enemigo(670,-40,1,1);
-					enemigo(610,-100,1,1);
-				end
-				if(n==11 or n==29)
-					enemigo(70,-50,2,12);
-					enemigo(130,-50,2,12);
-				end
-				if(n==12 or n==30)
-					enemigo(730,-50,2,5);
-					enemigo(670,-50,2,5);
-				end
-				if(n==13 or n==31)
-					enemigo(70,-50,2,12);
-					enemigo(130,-50,2,12);
-				end
-				if(n==14 or n==32)
-					enemigo(730,-50,2,5);
-					enemigo(670,-50,2,5);
-				end
-				if(n==15 or n==33)
-					enemigo(70,-80,1,1);
-					enemigo(130,-60,1,0);
-					enemigo(190,-40,1,1);
-					enemigo(610,-40,1,1);
-					enemigo(670,-60,1,0);
-					enemigo(730,-80,1,1);
-				end
-				if(n==16 or n==34)
-					mina(120,-50,2);
-					mina(240,-50,2);
-					mina(360,-50,2);
-					mina(480,-50,2);
-					mina(600,-50,2);
-				end
-				if(n==18 or n==36)
-					mina(100,-50,2);
-					mina(250,-50,2);
-					mina(400,-50,2);
-					mina(550,-50,2);
-					mina(700,-50,2);
-				end
-				if(n==7) bono(400,-50,3); end
-				if(n==17) bono(400,-50,2); end
-				if(n==27) bono(400,-50,1); end
-				if(n==37) bono(400,-50,2); end
-				if(n==38 and jefe==0) jefe=1; musica(2); id_boss01=boss(1); end
-			n++;
-			end
-			if(jefe==1 and vida_boss<1) 
-				graph=20;
-				direccion=1;
-				size=200;
-				id_texto=write(fuente1,x,y,4,"AREA: 1");
-				id_texto1=write(fuente1,x-5,y+15,4,"completada");
-				timer[2]=0;
-				while(timer[2]<500)
-					if(direccion==1) graph++; else graph--; end
-					if(graph==20) direccion=1; end
-					if(graph==44) direccion=0; end
-					scroll.y0-=5;
-					frame;
-				end
-				juego(2);
-				break;
-			end
-			if(vidas<0)
-				delete_text(all_text);
-				signal(id_nave,s_kill);
-				graph=20;
-				direccion=1;
-				size=200;
-				id_texto=write(fuente1,x,y,4,"Fin de");
-				id_texto1=write(fuente1,x-5,y+15,4,"la partida");
-				timer[2]=0;
-				while(timer[2]<500)
-					if(direccion==1) graph++; else graph--; end
-					if(graph==20) direccion=1; end
-					if(graph==44) direccion=0; end
-					scroll.y0-=5;
-					frame;
-				end
-			menu(0);
-			break;
-			end
-		end
-	FRAME;
-END
-end
-
-if(nivel==2)
-	musica(1);
-	graph=20;
-	direccion=1;
-	size=200;
-	id_texto=write(fuente1,x,y,4,"AREA: 2");
-	fade_on();
-	timer[2]=0;
-	while(timer[2]<300)
-		if(direccion==1) graph++; else graph--; end
-		if(graph==20) direccion=1; end
-		if(graph==44) direccion=0; end
-		scroll.y0-=5;
-		frame;
-	end
-	delete_text(id_texto);
-	graph=0;
-	id_nave=nave01(400,700);
-	fuerza=2;
-	marcador();
-	while(id_nave.y>300)
-		id_nave.y-=10;
-		scroll.y0-=5;
-		frame;
-	end
-	while(id_nave.y<550)
-		id_nave.y+=10;
-		scroll.y0-=5;
-		frame;
-	end
-	pausa=0;
-	LOOP
-
-
-
-		if(p[0].botones[7] and gatillo==0)
-			gatillo=1;
-			if(pausa==0)
-				pausa=1;
-				graph=20;
-				size=300;
-				direccion=1;
-				id_texto=write(fuente1,x,y,4,"¿Salir de la partida?");
-				boton(400,500,"",1);
-				id_texto1=write(fuente1,400,500,4,"No");
-				boton(400,550,"",2);
-				id_texto2=write(fuente1,400,550,4,"Si");
-				opcion=1;
-			else
-				pausa=0;
-				graph=0;;
-				delete_text(id_texto);
-				signal(type boton,s_kill);
-				delete_text(0);
-			end
-		end
-
-		if(not p[0].botones[7] and not p[0].botones[2] and not p[0].botones[3] and gatillo==1) gatillo=0; end
-
-		if(pausa==1)
-				
-			if(direccion==1) graph++; else graph--; end
-			if(graph==20) direccion=1; end
-			if(graph==44) direccion=0; end
-			if(p[0].botones[2] and gatillo==0 and opcion>1)
-				gatillo=1;
-				opcion--;
-			end
-			if(p[0].botones[3] and gatillo==0 and opcion<2)
-				gatillo=1;
-				opcion++;
-			end
-			if(p[0].botones[4])
-				if(opcion==1) opcion=0; pausa=0; graph=0; delete_text(id_texto); delete_text(id_texto1); delete_text(id_texto2); signal(type boton,s_kill); end
-				if(opcion==2) opcion=0; while(p[0].botones[4]) frame; end menu(0); break; end
-			end
-
-		end
-		if(pausa==0)
-			scroll.y0-=5;
-			if(distancia<4000) distancia++; end
-			if(distancia==100*n)
-				if(n==1 or n==19)
-					enemigo(50,-50,2,8);
-					enemigo(750,-50,2,1);
-				end
-				if(n==2 or n==20)
-					enemigo(360,-50,2,1);
-					enemigo(440,-50,2,8);
-				end
-				if(n==3 or n==21)
-					enemigo(200,-50,3,0);
-				end
-				if(n==4 or n==22)
-					enemigo(600,-50,3,0);
-				end
-				if(n==5 or n==23)
-					enemigo(70,-50,2,12);
-					enemigo(130,-50,2,12);
-				end
-				if(n==6 or n==24)
-					enemigo(730,-50,2,5);
-					enemigo(670,-50,2,5);
-				end
-				if(n==7 or n==25)
-					enemigo(70,-50,2,12);
-					enemigo(130,-50,2,12);
-				end
-				if(n==8 or n==26)
-					enemigo(730,-50,2,5);
-					enemigo(670,-50,2,5);
-				end
-				if(n==10 or n==28)
-					enemigo(70,-80,1,1);
-					enemigo(130,-60,1,1);
-					enemigo(190,-40,1,1);
-					enemigo(610,-40,1,1);
-					enemigo(670,-60,1,1);
-					enemigo(730,-80,1,1);
-				end
-				if(n==11 or n==29)
-					enemigo(50,-50,2,7);
-					enemigo(750,-50,2,14);
-				end
-				if(n==12 or n==30)
-					enemigo(360,-50,2,14);
-					enemigo(440,-50,2,7);
-				end
-				if(n==13 or n==31)
-					enemigo(50,-50,2,7);
-					enemigo(750,-50,2,14);
-				end
-				if(n==15 or n==33)
-					enemigo(200,-50,3,0);
-				end
-				if(n==16 or n==34)
-					enemigo(600,-50,3,0);
-				end
-				if(n==17 or n==35)
-					enemigo(200,-50,3,0);
-				end
-				if(n==18 or n==36)
-					enemigo(600,-50,3,0);
-				end
-				if(n==7) bono(400,-50,3); end
-				if(n==17) bono(400,-50,2); end
-				if(n==27) bono(400,-50,1); end
-				if(n==37) bono(400,-50,2); end
-				if(n==38 and jefe==0) jefe=1; musica(2); id_boss01=boss(2); end
-			n++;
-			end
-			if(jefe==1 and vida_boss<1) 
-				graph=20;
-				direccion=1;
-				size=200;
-				id_texto=write(fuente1,x,y,4,"AREA: 2");
-				id_texto1=write(fuente1,x-5,y+15,4,"completada");
-				timer[2]=0;
-				while(timer[2]<500)
-					if(direccion==1) graph++; else graph--; end
-					if(graph==20) direccion=1; end
-					if(graph==44) direccion=0; end
-					scroll.y0-=5;
-					frame;
-				end
-				juego(3);
-				break;
-			end	
-			if(vidas<0)
-				delete_text(all_text);
-				signal(id_nave,s_kill);
-				graph=20;
-				direccion=1;
-				size=200;
-				id_texto=write(fuente1,x,y,4,"Fin de");
-				id_texto1=write(fuente1,x-5,y+15,4,"la partida");
-				timer[2]=0;
-				while(timer[2]<500)
-					if(direccion==1) graph++; else graph--; end
-					if(graph==20) direccion=1; end
-					if(graph==44) direccion=0; end
-					scroll.y0-=5;
-					frame;
-				end
-			menu(0);
-			break;
-			end
-		end
-	FRAME;
-END
-end
-
-if(nivel==3)
-	musica(1);
-	graph=20;
-	direccion=1;
-	size=200;
-	id_texto=write(fuente1,x,y,4,"AREA: 3");
-	fade_on();
-	timer[2]=0;
-	while(timer[2]<300)
-		if(direccion==1) graph++; else graph--; end
-		if(graph==20) direccion=1; end
-		if(graph==44) direccion=0; end
-		scroll.y0-=5;
-		frame;
-	end
-	delete_text(id_texto);
-	graph=0;
-	id_nave=nave01(400,700);
-	fuerza=3;
-	marcador();
-	while(id_nave.y>300)
-		id_nave.y-=10;
-		scroll.y0-=5;
-		frame;
-	end
-	while(id_nave.y<550)
-		id_nave.y+=10;
-		scroll.y0-=5;
-		frame;
-	end
-	pausa=0;
-	LOOP
-
-
-
-		if(p[0].botones[7] and gatillo==0)
-			gatillo=1;
-			if(pausa==0)
-				pausa=1;
-				graph=20;
-				size=300;
-				direccion=1;
-				id_texto=write(fuente1,x,y,4,"¿Salir de la partida?");
-				boton(400,500,"",1);
-				id_texto1=write(fuente1,400,500,4,"No");
-				boton(400,550,"",2);
-				id_texto2=write(fuente1,400,550,4,"Si");
-				opcion=1;
-			else
-				pausa=0;
-				graph=0;;
-				delete_text(id_texto);
-				signal(type boton,s_kill);
-				delete_text(0);
-			end
-		end
-
-		if(not p[0].botones[7] and not p[0].botones[2] and not p[0].botones[3] and gatillo==1) gatillo=0; end
-
-		if(pausa==1)
-				
-			if(direccion==1) graph++; else graph--; end
-			if(graph==20) direccion=1; end
-			if(graph==44) direccion=0; end
-			if(p[0].botones[2] and gatillo==0 and opcion>1)
-				gatillo=1;
-				opcion--;
-			end
-			if(p[0].botones[3] and gatillo==0 and opcion<2)
-				gatillo=1;
-				opcion++;
-			end
-			if(p[0].botones[4])
-				if(opcion==1) opcion=0; pausa=0; graph=0; delete_text(id_texto); delete_text(id_texto1); delete_text(id_texto2); signal(type boton,s_kill); end
-				if(opcion==2) opcion=0; while(p[0].botones[4]) frame; end menu(0); break; end
-			end
-
-		end
-		if(pausa==0)
-			scroll.y0-=5;
-			if(distancia<4000) distancia++; end
-			if(distancia==50*n)
-
-				if(n>1 and n<7)
-
-					asteroide(300,-100,50,290000,6);
-					asteroide(400,-100,50,270000,7);
-					asteroide(500,-100,50,250000,6);
-					asteroide(600,-100,50,240000,5);
-				end
-				if(n>6 and n<12)
-					asteroide(200,-100,100,300000,4);
-					asteroide(300,-100,100,270000,5);
-					asteroide(500,-100,100,250000,5);
-
-				end
-				if(n>11 and n<17)
-
-					asteroide(500,-100,150,270000,5);
-					asteroide(600,-100,150,240000,4);
-				end
-				if(n>16 and n<22)
-					asteroide(200,-100,100,270000,6);
-					asteroide(500,-100,100,290000,5);
-					asteroide(600,-100,100,250000,6);
-				end
-				if(n>21 and n<37)
-
-					asteroide(300,-100,50,290000,6);
-					asteroide(400,-100,50,240000,5);
-					asteroide(500,-100,50,250000,6);
-					asteroide(600,-100,50,270000,7);
-				end
-				if(n==7) bono(400,-50,3); end
-				if(n==17) bono(400,-50,2); end
-				if(n==27) bono(400,-50,1); end
-				if(n==37) bono(400,-50,2); end
-				if(n==38 and jefe==0) jefe=1; musica(2); id_boss01=boss(3); end
-			n++;
-			end
-			if(jefe==1 and vida_boss<1)
-				timer[2]=0;
-				while(timer[2]<100) frame; end 
-				graph=20;
-				direccion=1;
-				size=200;
-				id_texto=write(fuente1,x,y,4,"AREA: 3");
-				id_texto1=write(fuente1,x-5,y+15,4,"completada");
-				timer[2]=0;
-				while(timer[2]<500)
-					if(direccion==1) graph++; else graph--; end
-					if(graph==20) direccion=1; end
-					if(graph==44) direccion=0; end
-					scroll.y0-=5;
-					frame;
-				end
-				juego(4);
-				break;
-			end	
-			if(vidas<0)
-				delete_text(all_text);
-				signal(id_nave,s_kill);
-				graph=20;
-				direccion=1;
-				size=200;
-				id_texto=write(fuente1,x,y,4,"Fin de");
-				id_texto1=write(fuente1,x-5,y+15,4,"la partida");
-				timer[2]=0;
-				while(timer[2]<500)
-					if(direccion==1) graph++; else graph--; end
-					if(graph==20) direccion=1; end
-					if(graph==44) direccion=0; end
-					scroll.y0-=5;
-					frame;
-				end
-			menu(0);
-			break;
-			end
-		end
-	FRAME;
-END
-end
-
-if(nivel==4)
-	musica(1);
-	graph=20;
-	direccion=1;
-	size=200;
-	id_texto=write(fuente1,x,y,4,"AREA: 4");
-	fade_on();
-	timer[2]=0;
-	while(timer[2]<300)
-		if(direccion==1) graph++; else graph--; end
-		if(graph==20) direccion=1; end
-		if(graph==44) direccion=0; end
-		scroll.y0-=5;
-		frame;
-	end
-	delete_text(id_texto);
-	graph=0;
-	id_nave=nave01(400,700);
-	fuerza=4;
-	marcador();
-	while(id_nave.y>300)
-		id_nave.y-=10;
-		scroll.y0-=5;
-		frame;
-	end
-	while(id_nave.y<550)
-		id_nave.y+=10;
-		scroll.y0-=5;
-		frame;
-	end
-	pausa=0;
-	LOOP
-
-
-
-		if(p[0].botones[7] and gatillo==0)
-			gatillo=1;
-			if(pausa==0)
-				pausa=1;
-				graph=20;
-				size=300;
-				direccion=1;
-				id_texto=write(fuente1,x,y,4,"¿Salir de la partida?");
-				boton(400,500,"",1);
-				id_texto1=write(fuente1,400,500,4,"No");
-				boton(400,550,"",2);
-				id_texto2=write(fuente1,400,550,4,"Si");
-				opcion=1;
-			else
-				pausa=0;
-				graph=0;;
-				delete_text(id_texto);
-				signal(type boton,s_kill);
-				delete_text(0);
-			end
-		end
-
-		if(not p[0].botones[7] and not p[0].botones[2] and not p[0].botones[3] and gatillo==1) gatillo=0; end
-
-		if(pausa==1)
-				
-			if(direccion==1) graph++; else graph--; end
-			if(graph==20) direccion=1; end
-			if(graph==44) direccion=0; end
-			if(p[0].botones[2] and gatillo==0 and opcion>1)
-				gatillo=1;
-				opcion--;
-			end
-			if(p[0].botones[3] and gatillo==0 and opcion<2)
-				gatillo=1;
-				opcion++;
-			end
-			if(p[0].botones[4])
-				if(opcion==1) opcion=0; pausa=0; graph=0; delete_text(id_texto); delete_text(id_texto1); delete_text(id_texto2); signal(type boton,s_kill); end
-				if(opcion==2) opcion=0; while(p[0].botones[4]) frame; end menu(0); break; end
-			end
-
-		end
-		if(pausa==0)
-			scroll.y0-=5;
-			if(distancia<4000) distancia++; end
-			if(distancia==25*n)
-				if(n==4 or n==57)
-					enemigo(70,-50,2,8);
-					enemigo(730,-50,2,1);
-				end
-				if(n==7 or n==60)
-					enemigo(360,-50,2,1);
-					enemigo(440,-50,2,8);
-				end
-				if(n==10 or n==63)
-					enemigo(250,-50,3,0);
-				end
-				if(n==13 or n==66)
-					enemigo(250,-50,3,0);
-				end
-				if(n==16 or n==69)
-					enemigo(550,-50,3,0);
-				end
-				if(n==19 or n==72)
-					enemigo(550,-50,3,0);
-				end
-				if(n==21 or n==75)
-					enemigo(100,-50,4,0);
-					enemigo(200,-50,4,0);
-				end
-				if(n==24 or n==78)
-					enemigo(700,-50,4,0);
-					enemigo(600,-50,4,0);
-				end
-				if(n==30 or n==84)
-					enemigo(50,-50,2,12);
-					enemigo(130,-50,2,12);
-				end
-				if(n==33 or n==87)
-					enemigo(750,-50,2,5);
-					enemigo(670,-50,2,5);
-				end
-				if(n==36 or n==90)
-					enemigo(50,-50,2,12);
-					enemigo(130,-50,2,12);
-				end
-				if(n==39 or n==93)
-					enemigo(750,-50,2,5);
-					enemigo(670,-50,2,5);
-				end
-				if(n==45 or n==99)
-					enemigo(100,-50,4,0);
-					enemigo(200,-50,4,0);
-				end
-				if(n==48 or n==102)
-					enemigo(600,-50,4,0);
-					enemigo(700,-50,4,0);
-				end
-				if(n==51 or n==105)
-					enemigo(100,-50,4,0);
-					enemigo(200,-50,4,0);
-				end
-				if(n==54 or n==108)
-					enemigo(600,-50,4,0);
-					enemigo(700,-50,4,0);
-				end
-				if(n==28) bono(400,-50,3); end
-				if(n==56) bono(400,-50,2); end
-				if(n==83) bono(400,-50,1); end
-				if(n==111) bono(400,-50,2); end
-				if(jefe==0) mina(30,5,1); mina(770,5,1); end
-				if(n==114 and jefe==0) jefe=1; musica(2); id_boss01=boss(6); end
-			n++;
-			end
-			if(jefe==1 and vida_boss<1) 
-				timer[2]=0;
-				while(timer[2]<100) frame; end
-				graph=20;
-				direccion=1;
-				size=200;
-				id_texto=write(fuente1,x,y,4,"AREA: 4");
-				id_texto1=write(fuente1,x-5,y+15,4,"completada");
-				timer[2]=0;
-				while(timer[2]<500)
-					if(direccion==1) graph++; else graph--; end
-					if(graph==20) direccion=1; end
-					if(graph==44) direccion=0; end
-					scroll.y0-=5;
-					frame;
-				end
-				juego(5);
-				break;
-			end	
-			if(vidas<0)
-				delete_text(all_text);
-				signal(id_nave,s_kill);
-				graph=20;
-				direccion=1;
-				size=200;
-				id_texto=write(fuente1,x,y,4,"Fin de");
-				id_texto1=write(fuente1,x-5,y+15,4,"la partida");
-				timer[2]=0;
-				while(timer[2]<500)
-					if(direccion==1) graph++; else graph--; end
-					if(graph==20) direccion=1; end
-					if(graph==44) direccion=0; end
-					scroll.y0-=5;
-					frame;
-				end
-			menu(0);
-			break;
-			end
-		end
-	FRAME;
-END
-end
-
-if(nivel==5)
-	musica(2);
-	graph=20;
-	direccion=1;
-	size=200;
-	id_texto=write(fuente1,x,y,4,"AREA: Final");
-	fade_on();
-	timer[2]=0;
-	while(timer[2]<300)
-		if(direccion==1) graph++; else graph--; end
-		if(graph==20) direccion=1; end
-		if(graph==44) direccion=0; end
-		scroll.y0-=5;
-		frame;
-	end
-	delete_text(id_texto);
-	graph=0;
-	id_nave=nave01(400,700);
-	fuerza=4;
-	marcador();
-	while(id_nave.y>300)
-		id_nave.y-=10;
-		scroll.y0-=5;
-		frame;
-	end
-	while(id_nave.y<550)
-		id_nave.y+=10;
-		scroll.y0-=5;
-		frame;
-	end
-	pausa=0;
-	LOOP
-
-
-
-		if(p[0].botones[7] and gatillo==0)
-			gatillo=1;
-			if(pausa==0)
-				pausa=1;
-				graph=20;
-				size=300;
-				direccion=1;
-				id_texto=write(fuente1,x,y,4,"¿Salir de la partida?");
-				boton(400,500,"",1);
-				id_texto1=write(fuente1,400,500,4,"No");
-				boton(400,550,"",2);
-				id_texto2=write(fuente1,400,550,4,"Si");
-				opcion=1;
-			else
-				pausa=0;
-				graph=0;;
-				delete_text(id_texto);
-				signal(type boton,s_kill);
-				delete_text(0);
-			end
-		end
-
-		if(not p[0].botones[7] and not p[0].botones[2] and not p[0].botones[3] and gatillo==1) gatillo=0; end
-
-		if(pausa==1)
-				
-			if(direccion==1) graph++; else graph--; end
-			if(graph==20) direccion=1; end
-			if(graph==44) direccion=0; end
-			if(p[0].botones[2] and gatillo==0 and opcion>1)
-				gatillo=1;
-				opcion--;
-			end
-			if(p[0].botones[3] and gatillo==0 and opcion<2)
-				gatillo=1;
-				opcion++;
-			end
-			if(p[0].botones[4])
-				if(opcion==1) opcion=0; pausa=0; graph=0; delete_text(id_texto); delete_text(id_texto1); delete_text(id_texto2); signal(type boton,s_kill); end
-				if(opcion==2) opcion=0; while(p[0].botones[4]) frame; end menu(0); break; end
-			end
-
-		end
-		if(pausa==0)
-			scroll.y0-=5;
-			if(jefe==0) jefe=1; id_boss01=boss(9); end
-			if(jefe==1 and vida_boss<-99) 
-				timer[2]=0;
-				while(timer[2]<100) frame; end
-				graph=20;
-				direccion=1;
-				size=200;
-				id_texto=write(fuente1,x,y,4,"AREA: FINAL");
-				id_texto1=write(fuente1,x-5,y+15,4,"completada");
-				timer[2]=0;
-				while(timer[2]<500)
-					if(direccion==1) graph++; else graph--; end
-					if(graph==20) direccion=1; end
-					if(graph==44) direccion=0; end
-					scroll.y0-=5;
-					frame;
-				end
-				historia(2);
-				break;
-			end	
-			if(vidas<0)
-				delete_text(all_text);
-				signal(id_nave,s_kill);
-				graph=20;
-				direccion=1;
-				size=200;
-				id_texto=write(fuente1,x,y,4,"Fin de");
-				id_texto1=write(fuente1,x-5,y+15,4,"la partida");
-				timer[2]=0;
-				while(timer[2]<500)
-					if(direccion==1) graph++; else graph--; end
-					if(graph==20) direccion=1; end
-					if(graph==44) direccion=0; end
-					scroll.y0-=5;
-					frame;
-				end
-			menu(0);
-			break;
-			end
-		end
-	FRAME;
-END
-end
-
-END
 
 //-----------------------------------------------------------------------
 // procesos auxiliares
@@ -2048,7 +1173,6 @@ Begin
 		drawing_color(0);
 		drawing_map(file,graph);
 		draw_box(0,0,ancho*4,alto*4);
-//		from c=0 to a step 4;
 		from c=0 to a;
 			map_put_pixel(file,graph,particula[c].pos_x+(ancho*4/2),particula[c].pos_y+(alto*4/2),particula[c].pixell);
 			
@@ -2062,8 +1186,11 @@ Begin
 	unload_map(file,graph);
 end
 
+//-----------------------------------------------------------------------
+// includes
+//-----------------------------------------------------------------------
 
-
+include "niveles.pr-"
 include "nave.pr-"
 include "bombas.pr-"
 include "bosses.pr-"

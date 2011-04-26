@@ -131,7 +131,7 @@ END
 
 process marcador();
 
-private gatillo; direccion=1; time;
+private gatillo; direccion=1; time; puntos2;
 
 begin
 x=400; y=50; z=-100; file=fpg_menu;
@@ -144,7 +144,8 @@ habilidad();
 objeto(100,50,12,fpg_nave,100,0);
 objeto(300,50,1,fpg_nave,20,0);
 write_var(fuente1,320,50,4,vidas);
-
+write_var(fuente1,600,50,5,puntos2);
+puntos2=puntos;
 loop
 	if(pausa==0)
 
@@ -163,6 +164,7 @@ loop
 		if(escudo>5) escudo=5; end
 		if(poder>4) poder=4; end
 		if(energia>20) energia=20; end
+		if(puntos>puntos2) puntos2+=(puntos-puntos2)/10; end
 	end
 	frame;
 end
