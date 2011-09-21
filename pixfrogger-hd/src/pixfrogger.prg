@@ -549,44 +549,44 @@ process bac();
 begin
 	z=father.z+5;
 	flags=father.flags;
-//	LOOP
-		if(!exists(father))
-			//break;
-			return;
-		else
-			x=father.x+(father.x/30)-10;
-			y=father.y+5;
+	if(!exists(father))
+		//break;
+		return;
+	else
+		x=father.x+(father.x/30)-10;
+		y=father.y+5;
 
-			if(father.graph==50 or father.graph==52 or father.graph==54 or father.graph==56)
-				graph=900;
-			end
-	
-			if(father.graph==51 or father.graph==53 or father.graph==55 or father.graph==57)
-				graph=901;
-			end
-		
-			if(father.graph==100 or father.graph==101)
-				graph=904;
-			end
-		
-			if(father.graph==102)
-				graph=906;
-			end
-		
-			if(father.graph==103 or father.graph==104)
-				graph=905;
-			end
-		
-			if(father.graph==106)
-				graph=903;
-			end
-	
-			if(father.graph==105)
-				graph=902;
-			end
-			FRAME;
+		if(father.graph==50 or father.graph==52 or father.graph==54 or father.graph==56 or
+		father.graph==58 or father.graph==60 or father.graph==62 or father.graph==64)
+			graph=900;
 		end
-//	END
+
+		if(father.graph==51 or father.graph==53 or father.graph==55 or father.graph==57 or
+		father.graph==59 or father.graph==61 or father.graph==63 or father.graph==65)
+			graph=901;
+		end
+	
+		if(father.graph==100 or father.graph==101)
+			graph=904;
+		end
+	
+		if(father.graph==102)
+			graph=906;
+		end
+	
+		if(father.graph==103 or father.graph==104)
+			graph=905;
+		end
+	
+		if(father.graph==106)
+			graph=903;
+		end
+
+		if(father.graph==105)
+			graph=902;
+		end
+		FRAME;
+	end
 END
 
 process rana(jugador);
