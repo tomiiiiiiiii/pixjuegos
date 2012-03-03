@@ -11,16 +11,16 @@ Global
 pausa;
 distancia;
 
-id_nave;
+jugadores=1;
+id_nave[2];
 
-vidas=3;
-escudo=5;
-poder=1;
-fuerza=1;
-energia=20;
-habil=1;
-
-puntos;
+vida[2]=3,3;
+escudo[2]=5,5;
+poder[2]=1,1;
+fuerza[2]=1,1;
+energia[2]=20,20;
+habil[2]=1,1;
+puntos[2];
 
 arcade_mode=0;
 
@@ -59,11 +59,11 @@ end
 
 struct save;
 		nivel;
-		vidas;
-		poder;
+		vidas[2];
+		poder[2];
 		string nombres[9];
 		puntuacion[9];
-		puntos;
+		puntos[2];
 	end
 	
 vida_boss;
@@ -123,7 +123,7 @@ BEGIN
 
 	set_fps(40,10);
 
-	if(!mode_is_ok(800,600,32,MODE_FULLSCREEN))
+	if(!mode_is_ok(1024,768,32,MODE_FULLSCREEN))
 		scale_resolution=06400480; //compatible con Wii
 		if(!mode_is_ok(640,480,32,MODE_FULLSCREEN))
 			scale_resolution=03200240; //compatible con GP2X
@@ -132,12 +132,13 @@ BEGIN
 	
 	if(arcade_mode==1) full_screen=true; end
 	
-	set_mode(800,600,32,WAITVSYNC);
+	set_mode(1024,768,32,WAITVSYNC);
 
 	dump_type=-1;
 	restore_type=-1;
 	ALPHA_STEPS=128;
 
+	//imagen cargando
 	file=fpg_menu;
 	graph=1;
 	x=400;
@@ -198,8 +199,10 @@ BEGIN
 	end
 
 	save.nivel=1;
-	save.vidas=3;
-	save.poder=1;
+	save.vidas[0]=3;
+	save.vidas[1]=3;	
+	save.poder[0]=1;
+	save.poder[1]=1;
 	save.puntuacion[0]=10000;
 	save.puntuacion[1]=10000;
 	save.puntuacion[2]=10000;
@@ -296,10 +299,10 @@ begin
 	if(cosa==2) //creditos
 		
 		pausa=1;
-		id_nave=nave01(-100,300);
-		id_nave.angle=-90000;
+		id_nave[0]=nave01(-100,300);
+		id_nave[0].angle=-90000;
 		while(id_nave.x<100)
-			id_nave.x+=2;
+			id_nave[0].x+=2;
 			scroll.x0+=3;
 			frame;
 		end
@@ -307,7 +310,7 @@ begin
 		letra("Autores",200,200,1);
 		timer[2]=0;
 		while(timer[2]<600)
-			if(id_nave.x<400) id_nave.x+=2; end
+			if(id_nave[0].x<400) id_nave.x+=2; end
 			scroll.x0+=3;
 			frame;
 		end
@@ -316,7 +319,7 @@ begin
 		letra("Carles Vicent",600,230,3);
 		timer[2]=0;
 		while(timer[2]<400)
-			if(id_nave.x<400) id_nave.x+=2; end
+			if(id_nave[0].x<400) id_nave.x+=2; end
 			scroll.x0+=3;
 			frame;
 		end
@@ -356,9 +359,10 @@ begin
 		end
 		
 		letra("Gracias a:",200,200,1);
-		letra("Nicolas",200,230,1);
-		letra("Gnomwer",200,260,1);
-		letra("Ana",200,290,1);	
+		letra("Pablo",200,230,1);
+		letra("Nerea",200,260,1);
+		letra("Nicolas",200,290,1);
+		letra("Ana",200,320,1);
 		timer[2]=0;
 		while(timer[2]<400)
 			scroll.x0+=3;
@@ -375,7 +379,7 @@ begin
 		letra("Creado por PiX Juegos",600,400,0);
 		timer[2]=0;
 		while(timer[2]<600)
-			if(id_nave.x<850) id_nave.x+=2; end
+			if(id_nave[0].x<850) id_nave.x+=2; end
 			scroll.x0+=3;
 			frame;
 		end
@@ -383,7 +387,7 @@ begin
 		letra("Gracias por jugar",400,300,4);
 		timer[2]=0;
 		while(timer[2]<600)
-			if(id_nave.x<850) id_nave.x+=3; end
+			if(id_nave[0].x<850) id_nave.x+=3; end
 			scroll.x0+=3;
 			frame;
 		end
@@ -394,11 +398,19 @@ begin
 
 end
 
+//-----------------------------------------------------------------------
+// proceso escapable por PiXeL, pulsa escape i va al menu
+//-----------------------------------------------------------------------
+
 process escapable();
 Begin
 	controlador(0);
+	if(Jugadores==2)
+		controlador(1);
+	end
 	loop
 		if(p[0].botones[7]) while(p[0].botones[7]) frame; end menu(0); end
+		if(p[1].botones[7]) while(p[1].botones[7]) frame; end menu(0); end
 		frame;
 	end
 End
@@ -450,16 +462,17 @@ begin
 	sombra(9,400,75,file,2);
 	objeto(400,75,9,file,100,16);
 	controlador(0);
-
+	controlador(1);
+	
 	//modo arcade
 	if(arcade_mode==1)
-		write(fuente1,400,500,4,"Pulsa disparo para empezar");
-		while(not p[0].botones[4])
+		write(fuente1,512,500,4,"Pulsa disparo para empezar");
+		while(not p[0].botones[4] or not p[1].botones[4])
 			scroll.x0+=3;
-			if(p[0].botones[7]) exit(); end
+			if(p[0].botones[7] or not p[1].botones[4]) exit(); end
 			frame;
 		end
-		while(p[0].botones[4]) scroll.x0+=3; frame; end
+		while(p[0].botones[4] or p[1].botones[4]) scroll.x0+=3; frame; end
 		ayuda();
 	end
 
@@ -911,6 +924,7 @@ begin
 		frame;
 	end
 	if(arcade_mode==1)
+		vidas=3;
 		juego(1);
 	else
 		menu(0);
