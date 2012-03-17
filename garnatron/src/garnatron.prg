@@ -539,13 +539,17 @@ begin
 				case 0: //general
 					switch(opcion_actual)
 						case 1:
-							vidas=3;
+							vidas[0]=3;
+							vidas[1]=3;
 							juego(1);
 						end
 						case 2:
-							vidas=save.vidas;
-							puntos=save.puntos;
-							poder=save.poder;
+							vidas[0]=save.vidas[0];
+							vidas[1]=save.vidas[1];
+							puntos[0]=save.puntos[0];
+							puntos[1]=save.puntos[1];
+							poder[0]=save.poder[0];
+							poder[1]=save.poder[1];
 							juego(save.nivel);
 						end
 						case 3:
@@ -589,11 +593,11 @@ begin
 					switch(opcion_actual)
 						case 1: 
 							full_screen=true;
-							set_mode(800,600,32);
+							set_mode(1024,768,32,WAITVSYNC);
 						end
 						case 2: 
 							full_screen=false;
-							set_mode(800,600,32);
+							set_mode(1024,768,32,WAITVSYNC);
 						end
 						case 3:
 							menu(1);
@@ -652,7 +656,7 @@ begin
 							while(scan_code<>0) frame; end
 							delete_text(id_texto);
 
-							id_texto=write(fuente1,400,400,4,"Pulse una tecla para cambiar arma siguiente");
+							id_texto=write(fuente1,400,400,4,"Pulse una tecla para cambiar arma");
 							Repeat
 								opciones.teclado.cambiar=scan_code;
 								frame;
@@ -786,7 +790,7 @@ begin
 							end
 							delete_text(id_texto);
 
-							id_texto=write(fuente1,400,400,4,"Pulsa un boton para cambiar arma siguiente");
+							id_texto=write(fuente1,400,400,4,"Pulsa un boton para cambiar arma");
 							repeat
 								from a=0 to 11;
 									if(get_joy_button(0,a))
@@ -924,7 +928,8 @@ begin
 		frame;
 	end
 	if(arcade_mode==1)
-		vidas=3;
+		vidas[0]=3;
+		vidas[1]=3;
 		juego(1);
 	else
 		menu(0);
