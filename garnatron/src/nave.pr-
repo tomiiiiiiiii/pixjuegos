@@ -142,8 +142,10 @@ process marcador(jugador);
 private gatillo; direccion=1; time; puntos2;
 
 begin
-x=400; y=50; z=-100; file=fpg_menu;
-
+z=-100; file=fpg_menu;
+if(jugador==1)
+	x=400; y=50;
+end
 graph=20;
 
 barra_energia(jugador);
@@ -184,7 +186,10 @@ end
 process habilidad(jugador);
 
 begin
-x=400; y=50; z=-110; file=fpg_nave;
+z=-110; file=fpg_nave;
+if(jugador==1)
+	x=400; y=50;
+end
 loop
 	if(habil[jugador]==1) graph=30; end
 	if(habil[jugador]==2) graph=31; end
@@ -199,13 +204,16 @@ end
 //-----------------------------------------------------------------------
 // Maneja la barra de energia
 //-----------------------------------------------------------------------
-process barra_energia();
+process barra_energia(jugador);
 
 private
 energia2;
 
 begin
-x=100; y=50; z=-110; graph=11; region=2; file=fpg_nave;
+z=-110; graph=11; region=2; file=fpg_nave;
+if(jugador==1)
+	x=100; y=50; 
+end
 loop
 	if(pausa==0)
 		if(energia[jugador]>energia2) energia2++; end
@@ -220,14 +228,17 @@ end
 // Maneja la barra de escudo
 //-----------------------------------------------------------------------
 
-process barra_escudo();
+process barra_escudo(jugador);
 
 private
 escudo2;
 escudo_ant;
 
 begin
-x=700; y=50; z=-110; graph=10; region=3; file=fpg_nave;
+z=-110; graph=10; region=3; file=fpg_nave;
+if(jugador==1)
+	x=700; y=50; 
+end
 loop
 	if(pausa==0)
 
@@ -288,6 +299,9 @@ end
 
 process bono(x,y,tipo);
 
+private
+	nave;
+
 begin
 file=fpg_nave;
 if(tipo==1) graph=20; end
@@ -297,28 +311,21 @@ if(tipo==3) graph=22; end
 loop
 	if(pausa==0)
 		y+=3; angle+=3000;
-		if(collision(id_nave[0]))
-			if(tipo==1) escudo[1]+=1; end
-			if(tipo==2) energia[1]=20; end
-			if(tipo==3) poder[1]+=1; end
-				if(opciones.particulas==1)
-					explotalo(x,y,z,alpha,angle,file,graph,20);
-				else
-					sombra(graph,735,y,file,1);
-				end
-			break;
+		
+		from nave=0 to 3;
+			if(collision(id_nave[nave]))
+				if(tipo==1) escudo[nave]+=1; end
+				if(tipo==2) energia[nave]=20; end
+				if(tipo==3) poder[nave]+=1; end
+					if(opciones.particulas==1)
+						explotalo(x,y,z,alpha,angle,file,graph,20);
+					else
+						sombra(graph,735,y,file,1);
+					end
+				return;
+			end
 		end
-		if(collision(id_nave[1]))
-			if(tipo==1) escudo[2]+=1; end
-			if(tipo==2) energia[2]=20; end
-			if(tipo==3) poder[2]+=1; end
-				if(opciones.particulas==1)
-					explotalo(x,y,z,alpha,angle,file,graph,20);
-				else
-					sombra(graph,735,y,file,1);
-				end
-			break;
-		end
+
 		if(y>800) break; end
 	end
 	frame;

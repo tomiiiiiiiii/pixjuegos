@@ -12,15 +12,15 @@ pausa;
 distancia;
 
 jugadores=1;
-id_nave[2];
+id_nave[4];
 
-vida[2]=3,3;
-escudo[2]=5,5;
-poder[2]=1,1;
-fuerza[2]=1,1;
-energia[2]=20,20;
-habil[2]=1,1;
-puntos[2];
+vidas[4]=3,3,3,3;
+escudo[4]=5,5,5,5;
+poder[4]=1,1,1,1;
+fuerza[4]=1,1,1,1;
+energia[4]=20,20,20,20;
+habil[4]=1,1;
+puntos[4];
 
 arcade_mode=0;
 
@@ -59,11 +59,11 @@ end
 
 struct save;
 		nivel;
-		vidas[2];
-		poder[2];
+		vidas[4];
+		poder[4];
 		string nombres[9];
 		puntuacion[9];
-		puntos[2];
+		puntos[4];
 	end
 	
 vida_boss;
@@ -261,7 +261,7 @@ begin
 	clear_screen();
 	delete_text(all_text);
 	fade_off();
-	define_region(1,0,75,800,450);
+	define_region(1,0,75,1024,700);
 	fade_on();
 	timer[2]=0;
 	
@@ -299,7 +299,7 @@ begin
 	if(cosa==2) //creditos
 		
 		pausa=1;
-		id_nave[0]=nave01(-100,300);
+		id_nave[0]=nave01(-100,300,0);
 		id_nave[0].angle=-90000;
 		while(id_nave.x<100)
 			id_nave[0].x+=2;
@@ -458,7 +458,7 @@ begin
 	clear_screen();
 	delete_text(all_text);
 	file=fpg_menu;
-	define_region(1,0,0,800,600);
+	define_region(1,0,0,1024,768);
 	sombra(9,400,75,file,2);
 	objeto(400,75,9,file,100,16);
 	controlador(0);

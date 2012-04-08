@@ -5,7 +5,13 @@
 
 process enemigo(x,y,tipo,patron);
 
-private id2; vida; x1; angulo; patron2;
+private
+	id2;
+	vida;
+	x1;
+	angulo;
+	patron2;
+	nave;
 
 begin
 
@@ -15,24 +21,62 @@ begin
 		graph=43; vida=3;
 
 		loop
-		if(pausa==0)
-			y+=5;
-			if(patron==1 and y==100) disparo02(x,y,3*pi/2,4); suena(s_misil); end
+			if(pausa==0)
+				y+=5;
+				if(patron==1 and y==100)
+					disparo02(x,y,3*pi/2,4);
+					suena(s_misil);
+				end
 
-			id2=(collision(type disparo01));
-			if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,75); puntos+=1; end
-			if(vida<1) explosion(x,y,1,100); if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end break; end
-			id2=(collision(id_nave)); 
-			if(id2) id_nave.estado=-1; explosion(x,y,3,100); if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end break; end
-			id2=(collision(type laser));
-			if(id2) explosion(x,y,1,100); if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end break; end
-			id2=(collision(type bomba));
-			if(id2) explosion(x,y,1,100); if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end break; end
-			if(y>650) break; end
+				id2=(collision(type disparo01));
+				if(id2) vida--;
+					signal(id2,s_kill);
+					explosion(id2.x,id2.y,2,75);
+					puntos+=1;
+				end
+				if(vida<1) 
+					explosion(x,y,1,100);
+					if(opciones.particulas==1)
+						explotalo(x,y,z,alpha,angle,file,graph,40);
+					end
+					break;
+				end
+				from nave=0 to 3;
+					if(exists(id_nave[nave]))
+						id2=(collision(id_nave[nave])); 
+						if(id2) id_nave[nave].estado=-1; explosion(x,y,3,100);
+							if(opciones.particulas==1)
+								explotalo(x,y,z,alpha,angle,file,graph,40);
+							end
+							return;
+						end
+					end
+				end
+				id2=(collision(type laser));
+				if(id2)
+					explosion(x,y,1,100);
+					if(opciones.particulas==1)
+						explotalo(x,y,z,alpha,angle,file,graph,40);
+					end
+					break;
+				end
+				id2=(collision(type bomba));
+				if(id2)
+					explosion(x,y,1,100);
+					if(opciones.particulas==1)
+						explotalo(x,y,z,alpha,angle,file,graph,40);
+					end
+					break;
+				end
+				if(y>800)
+					break;
+				end
+			end
+			frame;
 		end
-		frame;
+		if(y<800)
+			puntos+=10;
 		end
-		if(y<650) puntos+=10; end
 	end
 	if(tipo==2)
 		graph=40; vida=5;
@@ -73,8 +117,12 @@ begin
 			id2=(collision(type disparo01));
 			if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,75); puntos+=1; end
 			if(vida<1) explosion(x,y,1,150); if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end break; end
-			id2=(collision(id_nave)); 
-			if(id2) id_nave.estado=-1; explosion(x,y,3,100); if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end break; end
+			from nave=0 to 3;
+				if(exists(id_nave[nave]))
+					id2=(collision(id_nave[nave])); 
+					if(id2) id_nave[nave].estado=-1; explosion(x,y,3,100); if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end return; end
+				end
+			end
 			id2=(collision(type laser));
 			if(id2) explosion(x,y,1,150); if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end break; end
 			id2=(collision(type bomba));
@@ -105,8 +153,12 @@ begin
 			id2=(collision(type disparo01));
 			if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,75); puntos+=1; end
 			if(vida<1) explosion(x,y,1,150); if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end break; end
-			id2=(collision(id_nave)); 
-			if(id2) id_nave.estado=-1; explosion(x,y,3,100); if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end break; end
+			from nave=0 to 3;
+				if(exists(id_nave[nave]))
+					id2=(collision(id_nave[nave]));
+					if(id2) id_nave[nave].estado=-1; explosion(x,y,3,100); if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end return; end
+				end
+			end
 			id2=(collision(type laser));
 			if(id2) explosion(x,y,1,150); if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end break; end
 			id2=(collision(type bomba));
@@ -136,8 +188,12 @@ begin
 			id2=(collision(type disparo01));
 			if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,75); puntos+=1; end
 			if(vida<1) explosion(x,y,1,150); if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end break; end
-			id2=(collision(id_nave)); 
-			if(id2) id_nave.estado=-1; explosion(x,y,3,100); if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end break; end
+			from nave=0 to 3;
+				if(exists(id_nave[nave]))
+					id2=(collision(id_nave[nave])); 
+					if(id2) id_nave[nave].estado=-1; explosion(x,y,3,100); if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end return; end
+				end
+			end
 			id2=(collision(type laser));
 			if(id2) explosion(x,y,1,150); if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end break; end
 			id2=(collision(type bomba));
@@ -157,7 +213,14 @@ end
 
 process mina(x,y,tipo);
 
-private vida; angulo; x1; id2; anima; direccion=1;
+private 
+	vida;
+	angulo;
+	x1;
+	id2;
+	anima;
+	direccion=1;
+	nave;
 
 begin
 z-=15;
@@ -180,8 +243,12 @@ if(tipo==1)
 		y+=3;
 		x=+x1+get_distx(angulo,15);	
 		angulo+=3000;
-		id2=(collision(id_nave));
-		if(id2) id_nave.estado=-1; explosion(x,y,3,100); if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end puntos+=10; break; end
+		from nave=0 to 3;
+			if(exists(id_nave[nave]))
+				id2=(collision(id_nave[nave]));
+				if(id2) id_nave[nave].estado=-1; explosion(x,y,3,100); if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end puntos+=10; return; end
+			end
+		end
 		id2=(collision(type laser));
 		if(id2) explosion(x,y,1,100); if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end puntos+=10; break; end
 		id2=(collision(type bomba));
@@ -196,15 +263,19 @@ if(tipo==2)
 	loop
 	if(pausa==0)
 		angle+=pi/8;
-		if(id_nave.x>x) x+=4; end
-		if(id_nave.x<x) x-=4; end	
-		if(id_nave.y>y) y+=4; end
-		if(id_nave.y<y) y-=4; end
+		if(id_nave[0].x>x) x+=4; end
+		if(id_nave[0].x<x) x-=4; end	
+		if(id_nave[0].y>y) y+=4; end
+		if(id_nave[0].y<y) y-=4; end
 		id2=(collision(type disparo01));
 		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,75);  puntos+=1; end
 		if(vida<1) explosion(x,y,1,100); if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end puntos+=10; break; end
-		id2=(collision(id_nave));
-		if(id2) id_nave.estado=-1; explosion(x,y,3,100); if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end puntos+=10; break; end
+		from nave=0 to 3;
+			if(exists(id_nave[nave]))
+				id2=(collision(id_nave[nave]));
+				if(id2) id_nave[nave].estado=-1; explosion(x,y,3,100); if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end puntos+=10; return; end
+			end
+		end
 		id2=(collision(type laser));
 		if(id2) explosion(x,y,1,100); if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end puntos+=10; break; end
 		id2=(collision(type bomba));
@@ -224,6 +295,7 @@ PROCESS asteroide(x,y,size,angle,velocidad)
 private
 vida;
 id2;
+nave;
 
 BEGIN
 	z-=15;
@@ -264,12 +336,16 @@ BEGIN
 
 		end
 		if(y>650 or x<-30 or x>850 or y<-200) break; end
-		if(collision(type nave01))
-			id_nave.estado=-1;
-			explosion(x,y,3,200);
-			if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end
-			if(size>99) puntos+=30; else  puntos+=10; end
-			break;
+		from nave=0 to 3;
+			if(exists(id_nave[nave]))
+				if(collision(id_nave[nave]))
+					id_nave[nave].estado=-1;
+					explosion(x,y,3,200);
+					if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end
+					if(size>99) puntos[nave]+=30; else  puntos[nave]+=10; end
+					return;
+				end
+			end
 		end
 		FRAME;
 	end	
@@ -289,7 +365,7 @@ begin
 		if(pausa==0)
 			x=father.x+x1;
 			y=father.y+y1;
-			angulo=get_angle(id_nave);
+			angulo=get_angle(id_nave[0]);
 			angle=angulo;
 			patron++;
 			if(patron==125)
