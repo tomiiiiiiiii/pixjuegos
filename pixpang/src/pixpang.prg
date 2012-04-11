@@ -462,7 +462,7 @@ Process hayprisa();
 Begin
 	if(jefe==0) musica(24); end
 	if(modo_juego==1 and jefe==0 and bola_estrella==0) bola(rand(60,740),0,17,rand(0,1)); end
-	If(modo_juego==2) grafico(350,539,103,-2,0,fpg_lang); End
+	If(modo_juego==2) grafico(348,538,103,-2,0,fpg_lang); End
 End
 
 Process armap1(); //1=normal, 2=2 tiros, 3=gancho, 4=metralleta
@@ -1008,6 +1008,18 @@ Begin
 		If(bolas<8 AND prisa==1) prisa=0; timer[8]=0; musica(5); End
 		If(key(_d) AND key(_b) AND key(_g)) pixel_mola=1; End
 		If(cont==12 AND ganando==0 AND bolas==0 AND ready==1) ganar(); Return; End
+		if(key(_p) and ready==1)
+			txt_pausa=write(fnt1,400,300,4,"PAUSA");
+			suena(8);
+			ready=0;
+			frame(3000);
+			while(key(_p)) frame; end
+			while(!key(_p)) frame; end
+			while(key(_p)) frame; end
+			delete_text(txt_pausa);
+			ready=1;
+			suena(2);
+		end
 		If((timer[7]>1500 OR bolas<1) and jefe==0 AND (ganando==0 AND ready==1 AND p[1].bolas+p[2].bolas<550 and bola_estrella==0 and matabolas==0)) 
 			timer[7]=0; 
 			If(prisa==1) prisa=0; timer[8]=0; musica(5); End 
@@ -1082,6 +1094,18 @@ Begin
 		If(players==1 AND p[2].botones[4]) players=3; suena(6); p[2].vidas=10; faderaro(-2); frame; inicio(); End
 		If(players==2 AND p[1].botones[4]) players=3; suena(6); p[1].vidas=10; faderaro(-2); frame; inicio(); End
 		If(key(_d) AND key(_b) AND key(_g)) pixel_mola=1; End
+		if(key(_p) and ready==1) 
+			txt_pausa=write(fnt1,400,300,4,"PAUSA");
+			suena(8);
+			ready=0;
+			frame(3000);
+			while(key(_p)) frame; end
+			while(!key(_p)) frame; end
+			while(key(_p)) frame; end
+			delete_text(txt_pausa);
+			ready=1;
+			suena(2);
+		end
 		If(bolas==0 AND ready==1 and jefe==0) ganar(); Break; End
 		If(key(_alt) AND key(_x)) exit(0,0); End
 		If(zbolas<-200) zbolas=-1; End
