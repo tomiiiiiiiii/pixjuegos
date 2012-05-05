@@ -990,9 +990,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.125"
-     inkscape:cx="550.62113"
-     inkscape:cy="288.38849"
+     inkscape:zoom="0.044194174"
+     inkscape:cx="1001.6174"
+     inkscape:cy="-2921.3467"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showguides="true"
@@ -1002,16 +1002,7 @@
      inkscape:window-x="0"
      inkscape:window-y="0"
      showgrid="false"
-     inkscape:window-maximized="0">
-    <sodipodi:guide
-       orientation="vertical"
-       position="404.56609"
-       id="guide3023" />
-    <sodipodi:guide
-       orientation="vertical"
-       position="457.09403"
-       id="guide3025" />
-  </sodipodi:namedview>
+     inkscape:window-maximized="0" />
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -1387,9 +1378,10 @@
        inkscape:export-ydpi="89.56617" />
     <path
        style="fill:#b3b3b3;fill-rule:evenodd;stroke:#000000;stroke-width:0.66497254px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 501.60558,314.73868 C 504.56564,343.3869 510.9887,358.78119 517.4732,364.68692 C 526.75498,310.50418 542.96538,304.78052 553.18431,365.98798 C 559.50807,363.65185 567.53269,333.8108 572.65488,316.10091 L 559.23998,323.3661 C 549.79765,306.28221 542.99374,287.07071 555.76205,252.07634 L 541.35345,266.15267 L 537.37866,249.3519 L 531.41648,267.5149 L 518.00157,252.53042 C 526.6444,277.61389 528.02475,301.45285 515.51732,322.91203 L 501.60558,314.73868 z"
+       d="m 621.60558,399.23868 c 2.96006,28.64822 10.88312,58.54251 17.36762,64.44824 10.27491,-56.66555 27.13118,-64.0039 35.71111,1.30106 7.82376,-7.33613 15.84838,-48.67718 20.97057,-66.38707 -6.79276,6.02337 -10.35689,16.8897 -21.9149,15.76519 -9.44233,-17.08389 -3.24624,-24.29539 9.52207,-59.28976 l -18.9086,12.57633 -6.47479,-10.30077 -4.96218,9.163 -16.91491,-12.48448 c 8.64283,25.08347 18.52318,39.92243 6.01575,61.38161 -8.52386,0.62868 -14.49608,-7.67334 -20.41174,-16.17335 z"
        id="path3068"
-       sodipodi:nodetypes="cccccccccccc" />
+       sodipodi:nodetypes="cccccccccccc"
+       inkscape:connector-curvature="0" />
     <path
        sodipodi:type="arc"
        style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -3710,5 +3702,211 @@
        height="246"
        x="-830"
        y="240.36218" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:#ff0000;fill-rule:evenodd;stroke:#000000;stroke-width:0.53470498000000000;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;fill-opacity:1"
+       d="m 234.05644,504.23567 c -0.13604,7.88167 17.54454,10.02391 24.03575,9.94931 6.29897,-0.0724 24.76041,-2.85226 24.98139,-9.81427 4.48249,7.44032 6.65868,25.8449 2.83569,34.70358 -6.99328,-28.3359 -19.38009,-15.73369 -22.55058,13.50334 4.80393,-2.32421 9.10949,-5.84283 11.88295,-9.18227 -9.78928,41.64981 -23.4766,41.13066 -34.16346,0.4051 2.87372,3.05574 8.23487,7.31974 11.74791,8.77717 -3.13996,-28.163 -15.19481,-43.0555 -23.09071,-13.50334 -3.38955,-8.57816 -1.19647,-26.67397 4.32106,-34.83862 z"
+       id="path2273-1"
+       sodipodi:nodetypes="cscccccccc"
+       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\enemigo.png"
+       inkscape:export-xdpi="89.56617"
+       inkscape:export-ydpi="89.56617" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="path2275-7"
+       sodipodi:cx="274.00388"
+       sodipodi:cy="244.24016"
+       sodipodi:rx="8.3337584"
+       sodipodi:ry="18.687822"
+       d="m 282.33763,244.24016 a 8.3337584,18.687822 0 1 1 -16.66751,0 8.3337584,18.687822 0 1 1 16.66751,0 z"
+       transform="matrix(0.534705,0,0,0.534705,111.58112,432.24376)"
+       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\enemigo.png"
+       inkscape:export-xdpi="89.56617"
+       inkscape:export-ydpi="89.56617" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:#000000;fill-opacity:0.41899444;fill-rule:evenodd;stroke:none"
+       d="M 258.19993,574.16694 257.987,514.52408 c 11.85111,-1.31913 22.32991,-2.6889 25.25255,-9.85206 6.19376,15.32932 5.05716,25.73867 2.62627,34.43364 -11.71121,-38.73673 -21.63808,4.18763 -22.73153,13.52131 4.3918,-1.61368 8.13068,-5.18611 11.8647,-8.77312 -6.61214,26.30354 -11.85386,30.68053 -16.79906,30.31309 z"
+       id="path2277-4"
+       sodipodi:nodetypes="ccccccc"
+       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\enemigo.png"
+       inkscape:export-xdpi="89.56617"
+       inkscape:export-ydpi="89.56617" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:#4d4d4d;fill-rule:evenodd;stroke:#000000;stroke-width:0.53470498;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 249.80055,504.74003 c 3.52172,6.08529 5.26055,6.36312 8.42687,0 3.73613,5.93616 4.29191,5.88993 8.42686,-0.17556 -8.76963,29.42561 -8.59786,28.43229 -16.85373,0.17556 z"
+       id="path2279-0"
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\enemigo.png"
+       inkscape:export-xdpi="89.56617"
+       inkscape:export-ydpi="89.56617" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:#000000;fill-opacity:0.49019608;fill-rule:evenodd;stroke:none"
+       d="m 274.97838,543.97336 c -4.0592,8.16298 -8.78401,12.17356 -11.49607,14.35878 -0.46835,-1.38612 -0.51959,-1.51402 -0.3757,-5.4624 6.40659,-3.61971 8.85982,-6.16055 11.87177,-8.89638 z"
+       id="path2281-9"
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\enemigo.png"
+       inkscape:export-xdpi="89.56617"
+       inkscape:export-ydpi="89.56617" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:#ffffff;fill-opacity:0.50279332;fill-rule:evenodd;stroke:none"
+       d="m 261.26533,556.88075 c 0.14584,9.95523 -1.93728,13.69354 -4.79403,15.27408 2.16742,2.60626 8.12176,-3.94597 4.79403,-15.27408 z"
+       id="path2283-4"
+       sodipodi:nodetypes="ccc"
+       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\enemigo.png"
+       inkscape:export-xdpi="89.56617"
+       inkscape:export-ydpi="89.56617" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:#ffffff;fill-opacity:0.50279332;fill-rule:evenodd;stroke:none"
+       d="m 257.9658,553.08871 c -1.66886,2.22003 -3.42145,5.99686 -3.83041,9.56526 -0.24017,-4.4386 1.61086,-9.16889 3.83041,-9.56526 z"
+       id="path2285-8"
+       sodipodi:nodetypes="ccc"
+       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\enemigo.png"
+       inkscape:export-xdpi="89.56617"
+       inkscape:export-ydpi="89.56617" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:#000000;fill-opacity:0.49019608;fill-rule:evenodd;stroke:none"
+       d="m 283.05959,504.57741 c 5.55897,9.47115 6.15095,25.06297 2.84106,34.78713 -1.84775,-6.71235 -2.54616,-9.38872 -5.55584,-13.63706 3.61885,-3.76231 3.60223,-11.99326 2.71478,-21.15007 z"
+       id="path2287-8"
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\enemigo.png"
+       inkscape:export-xdpi="89.56617"
+       inkscape:export-ydpi="89.56617" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:#000000;fill-opacity:0.49019608;fill-rule:evenodd;stroke:none"
+       d="m 234.06135,504.13546 c -5.55897,9.47115 -7.53991,24.99984 -4.23002,34.724 1.84775,-6.71235 2.60929,-9.19933 6.25032,-14.20528 -3.61885,-3.76231 -2.90775,-11.36191 -2.0203,-20.51872 z"
+       id="path2289-2"
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\enemigo.png"
+       inkscape:export-xdpi="89.56617"
+       inkscape:export-ydpi="89.56617" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:#000000;fill-opacity:0.49019608;fill-rule:evenodd;stroke:none"
+       d="m 240.94421,544.04112 c 4.0592,8.16298 8.78401,12.17356 11.49607,14.35878 0.46835,-1.38612 0.51959,-1.51402 0.3757,-5.4624 -6.40659,-3.61971 -8.85982,-6.16055 -11.87177,-8.89638 z"
+       id="path2291-4"
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\enemigo.png"
+       inkscape:export-xdpi="89.56617"
+       inkscape:export-ydpi="89.56617" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:#000000;fill-opacity:0.38547489;fill-rule:evenodd;stroke:none"
+       d="m 258.24772,504.89308 c 0.1417,8.54384 0.69865,14.0123 -1.76777,20.4556 2.95131,5.48353 7.20012,-12.35909 9.84899,-20.32933 -4.45174,7.31041 -5.88702,2.56099 -8.08122,-0.12627 z"
+       id="path2293-5"
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\enemigo.png"
+       inkscape:export-xdpi="89.56617"
+       inkscape:export-ydpi="89.56617" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:#999999;fill-rule:evenodd;stroke:#000000;stroke-width:0.58845598;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 256.77844,425.07998 c -7.5628,-0.27747 -11.68329,-8.41225 -16.64404,-15.75241 0.74603,13.1685 4.86375,22.13611 9.9567,30.16734 l 6.68734,-14.41493 z"
+       id="path2207-5"
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Enemigos\enemigo11.png"
+       inkscape:export-xdpi="70.4618"
+       inkscape:export-ydpi="70.4618" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:#999999;fill-rule:evenodd;stroke:#000000;stroke-width:0.58845598;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 273.71971,424.63415 c 6.35901,-0.0692 10.68668,-7.22463 15.90101,-15.30658 -2.08765,14.45359 -4.30632,23.62474 -8.76784,28.97847 l -7.13317,-13.67189 z"
+       id="path2209-1"
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Enemigos\enemigo11.png"
+       inkscape:export-xdpi="70.4618"
+       inkscape:export-ydpi="70.4618" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:#000000;fill-opacity:0.49162011;fill-rule:evenodd;stroke:none"
+       d="m 289.53776,409.47513 c -3.07303,17.72445 -6.73607,35.89363 -15.71429,25.40496 4.39996,-5.85243 8.18101,-3.42999 15.71429,-25.40496 z"
+       id="path2211-7"
+       sodipodi:nodetypes="ccc"
+       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Enemigos\enemigo11.png"
+       inkscape:export-xdpi="70.4618"
+       inkscape:export-ydpi="70.4618" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:#000000;fill-opacity:0.49162011;fill-rule:evenodd;stroke:none"
+       d="m 239.93953,408.89241 c 2.76053,17.72445 6.60214,34.37577 15.84822,25.71746 -4.39996,-5.85243 -8.31494,-3.74249 -15.84822,-25.71746 z"
+       id="path2213-1"
+       sodipodi:nodetypes="ccc"
+       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Enemigos\enemigo11.png"
+       inkscape:export-xdpi="70.4618"
+       inkscape:export-ydpi="70.4618" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:#00ff00;fill-rule:evenodd;stroke:#000000;stroke-width:0.58845597999999999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;fill-opacity:1"
+       d="m 235.52756,487.64376 c 5.00985,-13.54061 11.55628,-25.77453 21.25088,-28.38405 5.9139,7.40834 11.95655,4.90068 16.19823,0 9.12328,5.00805 17.52704,17.36561 22.14253,28.38406 9.30928,-34.12649 -22.66842,-60.07691 -30.31594,-86.78683 -6.09894,26.48979 -39.7307,50.69454 -29.2757,86.78682 z"
+       id="path2215-1"
+       sodipodi:nodetypes="cccccc"
+       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Enemigos\enemigo11.png"
+       inkscape:export-xdpi="70.4618"
+       inkscape:export-ydpi="70.4618" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:#000000;fill-opacity:0.39106146;fill-rule:evenodd;stroke:none"
+       d="m 264.79434,401.48359 c 10.60148,28.64452 37.64884,51.26172 30.55711,86.1155 -4.83921,-9.2364 -7.73179,-17.17787 -22.34962,-28.53681 -2.42796,3.29154 -5.20012,4.17361 -7.95495,5.17703 2.12252,-13.11817 15.41558,-2.73943 -0.25254,-62.75572 z"
+       id="path2217-5"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Enemigos\enemigo11.png"
+       inkscape:export-xdpi="70.4618"
+       inkscape:export-ydpi="70.4618" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.76419848;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="path2219-2"
+       sodipodi:cx="110.10663"
+       sodipodi:cy="208.88481"
+       sodipodi:rx="9.0913725"
+       sodipodi:ry="23.233509"
+       d="m 119.198,208.88481 a 9.0913725,23.233509 0 1 1 -18.18274,0 9.0913725,23.233509 0 1 1 18.18274,0 z"
+       transform="matrix(0.90539,0,0,0.654907,165.11376,310.4223)"
+       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Enemigos\enemigo11.png"
+       inkscape:export-xdpi="70.4618"
+       inkscape:export-ydpi="70.4618" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:#ffffff;fill-opacity:0.50279332;fill-rule:evenodd;stroke:none"
+       d="m 270.78776,438.27295 c 0.27025,14.6358 -3.59001,20.13174 -8.88392,22.45536 4.01649,3.83165 15.0506,-5.80122 8.88392,-22.45536 z"
+       id="path2221-7"
+       sodipodi:nodetypes="ccc"
+       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Enemigos\enemigo11.png"
+       inkscape:export-xdpi="70.4618"
+       inkscape:export-ydpi="70.4618" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:#ffffff;fill-opacity:0.50279332;fill-rule:evenodd;stroke:none"
+       d="m 264.67334,432.69801 c -3.0926,3.26383 -6.34037,8.81637 -7.09823,14.0625 -0.44506,-6.52549 2.98512,-13.47979 7.09823,-14.0625 z"
+       id="path2223-6"
+       sodipodi:nodetypes="ccc"
+       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Enemigos\enemigo11.png"
+       inkscape:export-xdpi="70.4618"
+       inkscape:export-ydpi="70.4618" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:#000000;fill-opacity:0.39106146;fill-rule:evenodd;stroke:none"
+       d="m 235.49992,487.09402 c 3.77229,-8.91445 4.70349,-11.3014 9.09137,-17.93022 -4.39319,-7.8418 -2.75379,-18.25794 1.26268,-31.06219 -10.3215,14.07578 -15.31125,35.44791 -10.35405,48.99241 z"
+       id="path2225-1"
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Enemigos\enemigo11.png"
+       inkscape:export-xdpi="70.4618"
+       inkscape:export-ydpi="70.4618" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:#000000;fill-opacity:0.27374297;fill-rule:evenodd;stroke:none"
+       d="m 295.26699,487.85844 c -3.77229,-8.91445 -5.32849,-10.31926 -9.71637,-16.94808 4.39319,-7.8418 3.2895,-18.79365 -0.72697,-31.5979 10.3215,14.07578 14.59696,35.00148 10.44334,48.54598 z"
+       id="path2227-4"
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Enemigos\enemigo11.png"
+       inkscape:export-xdpi="70.4618"
+       inkscape:export-ydpi="70.4618" />
   </g>
 </svg>
