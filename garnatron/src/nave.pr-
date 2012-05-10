@@ -38,8 +38,8 @@ BEGIN
 					if(mouse.y-y>12 and acely<10) acely+=3; end
 				end
 				
-				if(x>952) x=952; end
-				if(x<60) x=60; end
+				if(x>874) x=874; end
+				if(x<150) x=150; end
 				if(y<140) y=140; end
 				if(y>700) y=700; end
 
@@ -97,7 +97,7 @@ BEGIN
 						end
 					end
 					if(habil[jugador]==4)
-						if(energia>1)
+						if(energia>=1)
 							bomba(habil[jugador]); energia[jugador]-=1; disparando=1;
 						end
 					end
@@ -118,7 +118,7 @@ BEGIN
 		inmunidad=0;
 		estado=0;
 		if(vidas[jugador]>-1) vidas[jugador]--; else break; end
-		if(jugadores==2)
+		if(jugadores==1)
 			if(jugador==1)
 				x=350;
 			else
@@ -143,18 +143,15 @@ private gatillo; direccion=1; time; puntos2;
 
 begin
 z=-100; file=fpg_menu;
-if(jugador==1)
-	x=400; y=50;
+if(jugador==0)
+	x=50; y=50;
 end
 graph=20;
 
 barra_energia(jugador);
 barra_escudo(jugador);
 habilidad(jugador);
-objeto(100,50,12,fpg_nave,100,0);
-objeto(300,50,1,fpg_nave,20,0);
-write_var(fuente1,320,50,4,vidas);
-write_var(fuente1,600,50,5,puntos2);
+write_var(fuente1,300,50,5,puntos2);
 puntos2=puntos[jugador];
 loop
 	if(pausa==0)
@@ -172,6 +169,7 @@ loop
 		if(habil[jugador]<1) habil[jugador]=5; end
 		if(escudo[jugador]>5) escudo[jugador]=5; end
 		if(poder[jugador]>4) poder[jugador]=4; end
+		if(fuerza[jugador]>4) fuerza[jugador]=4; end
 		if(energia[jugador]>20) energia[jugador]=20; end
 		if(puntos[jugador]>puntos2) puntos2+=(puntos[jugador]-puntos2)/10; end
 	end
@@ -186,19 +184,19 @@ end
 process habilidad(jugador);
 
 begin
-z=-110; file=fpg_nave;
-if(jugador==1)
-	x=400; y=50;
-end
-loop
-	if(habil[jugador]==1) graph=30; end
-	if(habil[jugador]==2) graph=31; end
-	if(habil[jugador]==3) graph=32; end
-	if(habil[jugador]==4) graph=33; end
-	if(habil[jugador]==5) graph=34; end
-	if(habil[jugador]==6) graph=0; end
- 	frame;
-end
+	z=-110; file=fpg_nave;
+	if(jugador==0)
+		x=50; y=50;
+	end
+	loop
+		if(habil[jugador]==1) graph=30; end
+		if(habil[jugador]==2) graph=31; end
+		if(habil[jugador]==3) graph=32; end
+		if(habil[jugador]==4) graph=33; end
+		if(habil[jugador]==5) graph=34; end
+		if(habil[jugador]==6) graph=0; end
+		frame;
+	end
 end
 
 //-----------------------------------------------------------------------
@@ -210,18 +208,18 @@ private
 energia2;
 
 begin
-z=-110; graph=11; region=2; file=fpg_nave;
-if(jugador==1)
-	x=100; y=50; 
-end
-loop
-	if(pausa==0)
-		if(energia[jugador]>energia2) energia2++; end
-		if(energia[jugador]<energia2) energia2--; end
-		define_region(2,25,30,energia2*150/20,60);
+	z=-110; graph=40; file=fpg_nave;
+	if(jugador==0)
+		x=50; y=200; 
 	end
-	frame;
-end
+	loop
+		if(pausa==0)
+			if(energia[jugador]>energia2) energia2++; end
+			if(energia[jugador]<energia2) energia2--; end
+			graph=energia2+40;
+		end
+		frame;
+	end
 end
 
 //-----------------------------------------------------------------------
@@ -235,9 +233,9 @@ escudo2;
 escudo_ant;
 
 begin
-z=-110; graph=10; region=3; file=fpg_nave;
-if(jugador==1)
-	x=700; y=50; 
+z=-110; graph=25; file=fpg_nave;
+if(jugador==0)
+	x=50; y=200; 
 end
 loop
 	if(pausa==0)
@@ -245,48 +243,42 @@ loop
 		if(escudo_ant>escudo[jugador])
 			if(escudo[jugador]==4)
 				if(opciones.particulas==1)
-					explotalo(635,y,z,alpha,angle,file,20,10);
+					explotalo(78,187,z-1,alpha,angle,file,15,10);
 				else
-					sombra(graph,635,y,file,1);
+					sombra(graph,78,187,file,1);
 				end
 			end
 			if(escudo[jugador]==3)
 				if(opciones.particulas==1)
-					explotalo(670,y,z,alpha,angle,file,20,10);
+					explotalo(78,213,z-1,alpha,angle,file,15,10);
 				else
-					sombra(graph,670,y,file,1);
+					sombra(graph,78,213,file,1);
 				end
 			end
 			if(escudo[jugador]==2)
 				if(opciones.particulas==1)
-					explotalo(705,y,z,alpha,angle,file,20,10);
+					explotalo(78,239,z-1,alpha,angle,file,15,10);
 				else
-					sombra(graph,705,y,file,1);
+					sombra(graph,78,239,file,1);
 				end
 			end
 			if(escudo[jugador]==1)
 				if(opciones.particulas==1)
-					explotalo(735,y,z,alpha,angle,file,20,10);
+					explotalo(78,264,z-1,alpha,angle,file,15,10);
 				else
-					sombra(graph,735,y,file,1);
+					sombra(graph,78,264,file,1);
 				end
 			end
 			if(escudo[jugador]==0)
 				if(opciones.particulas==1)
-					explotalo(765,y,z,alpha,angle,file,20,10);
+					explotalo(78,290,z-1,alpha,angle,file,15,10);
 				else
-					sombra(graph,765,y,file,1);
+					sombra(graph,78,290,file,1);
 				end
 			end		
 		end
 
-		if(escudo[jugador]==5) escudo2=620; end
-		if(escudo[jugador]==4) escudo2=650; end
-		if(escudo[jugador]==3) escudo2=690; end
-		if(escudo[jugador]==2) escudo2=720; end
-		if(escudo[jugador]==1) escudo2=750; end
-		if(escudo[jugador]==0) escudo2=780; end
-		define_region(3,escudo2,30,800,60);
+		graph=escudo[jugador]+20;
 		escudo_ant=escudo[jugador];
 	end
 	frame;
@@ -304,25 +296,27 @@ private
 
 begin
 file=fpg_nave;
-if(tipo==1) graph=20; end
-if(tipo==2) graph=21; end
-if(tipo==3) graph=22; end
+if(tipo==1) graph=15; end
+if(tipo==2) graph=16; end
+if(tipo==3) graph=17; end
 
 loop
 	if(pausa==0)
 		y+=3; angle+=3000;
 		
 		from nave=0 to 3;
-			if(collision(id_nave[nave]))
-				if(tipo==1) escudo[nave]+=1; end
-				if(tipo==2) energia[nave]=20; end
-				if(tipo==3) poder[nave]+=1; end
+			if(exists(id_nave[nave]))
+				if(collision(id_nave[nave]))
+					if(tipo==1) escudo[nave]+=1; end
+					if(tipo==2) energia[nave]=20; end
+					if(tipo==3) poder[nave]+=1; end
 					if(opciones.particulas==1)
 						explotalo(x,y,z,alpha,angle,file,graph,20);
 					else
 						sombra(graph,735,y,file,1);
 					end
-				return;
+					return;
+				end
 			end
 		end
 

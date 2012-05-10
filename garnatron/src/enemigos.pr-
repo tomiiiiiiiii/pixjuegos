@@ -127,12 +127,12 @@ begin
 			if(id2) explosion(x,y,1,150); if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end break; end
 			id2=(collision(type bomba));
 			if(id2) explosion(x,y,1,150); if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end break; end
-			if(y>650) break; end
+			if(y>800) break; end
 
 		end
 		frame;
 		end
-		if(y<650) puntos+=20; end
+		if(y<800) puntos+=20; end
 	end
 	if(tipo==3)
 		graph=42; vida=5; x1=x;
@@ -164,11 +164,11 @@ begin
 			id2=(collision(type bomba));
 			if(id2) explosion(x,y,1,150); if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end break; end
 
-			if(y>650) break; end
+			if(y>800) break; end
 		end
 		frame;
 		end
-		if(y<650) puntos+=30; end
+		if(y<800) puntos+=30; end
 	end
 	if(tipo==4)
 		graph=41; vida=10;
@@ -199,11 +199,11 @@ begin
 			id2=(collision(type bomba));
 			if(id2) explosion(x,y,1,150); if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end break; end
 
-			if(y>650) break; end
+			if(y>800) break; end
 		end
 		frame;
 		end
-		if(y<650) puntos+=40; end
+		if(y<800) puntos+=40; end
 	end
 end
 
@@ -335,7 +335,7 @@ BEGIN
 			end
 
 		end
-		if(y>650 or x<-30 or x>850 or y<-200) break; end
+		if(y>800 or x<-30 or x>850 or y<-200) break; end
 		from nave=0 to 3;
 			if(exists(id_nave[nave]))
 				if(collision(id_nave[nave]))

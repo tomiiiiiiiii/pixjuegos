@@ -34,7 +34,7 @@ priority=-1;
 z+=15;
 region=1;
 file=fpg_bombas;
-if(tipo==1)
+if(tipo==1)	//verde
 	graph=10;
 	size=0;
 	loop
@@ -49,7 +49,7 @@ if(tipo==1)
 		frame;
 	end
 end
-if(tipo==2)
+if(tipo==2)	//azul continuo
 	graph=20;
 	size=0;
 	loop
@@ -67,7 +67,7 @@ if(tipo==2)
 	end
 end
 
-if(tipo==3)
+if(tipo==3)	//amarillo arco
 	graph=30;
 	loop
 	if(pausa==0)
@@ -82,7 +82,7 @@ if(tipo==3)
 	end
 end
 
-if(tipo==4)
+if(tipo==4)	//misiles
 	x=id_nave.x;
 	y=id_nave.y;
 	if(exists(type enemigo))
@@ -99,7 +99,7 @@ if(tipo==4)
 	frame(700);
 end
 
-if(tipo==5)
+if(tipo==5)	//escudo
 	laser(x,y,50,id_nave);
 	while(time<140)
 		time++;

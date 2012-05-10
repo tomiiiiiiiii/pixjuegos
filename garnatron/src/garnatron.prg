@@ -141,8 +141,8 @@ BEGIN
 	//imagen cargando
 	file=fpg_menu;
 	graph=1;
-	x=400;
-	y=300;
+	x=512;
+	y=384;
 	z=10;
 
 	frame;
@@ -280,7 +280,7 @@ begin
 			frame;
 		end
 
-		letra("PiX Juegos  presenta",400,300,4);
+		letra("PiX Juegos  presenta",512,384,4);
 		timer[2]=0;
 		while(timer[2]<600)
 			if(scan_code) 
@@ -917,8 +917,8 @@ begin
 	controlador(0);
 	file=fpg_menu;
 	graph=4;
-	x=400;
-	y=300;
+	x=512;
+	y=384;
 	while(not p[0].botones[4])
 		scroll.x0+=3;
 		frame;
@@ -960,7 +960,7 @@ begin
 		end
 	end
 	
-	x=400;
+	x=512;
 	y=150;
 	write(fuente1,x,y,4,"Clasificacion");
 	from a=0 to 9;
@@ -1063,7 +1063,7 @@ Private
 	l;
 	id_sonido;
 Begin
-	l=(father.x*255)/800;
+	l=(father.x*255)/1024;
 	id_sonido=play_wav(sonido,0); 
 	set_panning(id_sonido,255-l,l);
 	Frame;
@@ -1104,7 +1104,7 @@ if(tipo==4)
 	graph=1;
 	suena(s_explosion_grande);
 	sombra(41,x,y,file,4);
-	sombra(40,400,300,file,3);
+	sombra(40,512,384,file,3);
 	repeat
 		if(pausa==0) graph++; size+=20; end
 	frame;

@@ -8,9 +8,9 @@ private
 
 vida_boss_max;
 begin
-x=400; y=594; z=-110; graph=13; region=4; vida_boss_max=vida_boss; file=fpg_nave;
+x=400; y=778; z=-110; graph=99; region=4; vida_boss_max=vida_boss; file=fpg_nave;
 loop
-define_region(4,0,500,vida_boss*800/vida_boss_max,600);
+define_region(4,0,700,vida_boss*800/vida_boss_max,800);
 frame;
 end
 end
@@ -28,7 +28,7 @@ z-=50;
 region=1;
 file=fpg_bosses;
 if(tipo==1)	//nivel 1
-	graph=1; x=400; y=-100; vida_boss=750; patron=1;
+	graph=1; x=512; y=-100; vida_boss=750; patron=1;
 	barra_boss();
 	id_boss02=canon(0,0);
 	while(y<150) y+=5; frame; end
@@ -36,7 +36,7 @@ if(tipo==1)	//nivel 1
 	if(pausa==0)
 		if(patron==1) x++; end
 		if(patron==-1) x--; end
-		if(x>740) patron=-1; end
+		if(x>960) patron=-1; end
 		if(x<60) patron=1; end
 
 		id2=(collision(type disparo01));

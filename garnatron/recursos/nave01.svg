@@ -25,9 +25,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.3872776"
-     inkscape:cx="1451.5122"
-     inkscape:cy="-209.5282"
+     inkscape:zoom="0.1936388"
+     inkscape:cx="1331.9689"
+     inkscape:cy="287.66025"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      inkscape:window-width="1366"
@@ -46,6 +46,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -486,92 +487,134 @@
        style="fill:#00d400;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27304267999999880;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        d="m 991.9844,1520.4071 -254.49749,77.1205 35.26789,105.9222 284.782,1.928 -65.5524,-184.9707 z"
        id="path1952-9"
-       sodipodi:nodetypes="ccccc" />
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\4.png"
+       inkscape:export-xdpi="11.179192"
+       inkscape:export-ydpi="11.179192" />
     <path
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccc"
        id="path1960-3"
        d="m 1136.4385,1520.4071 254.4975,77.1205 -35.2678,105.9222 -284.782,1.928 65.5523,-184.9707 z"
-       style="fill:#008400;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27304267999999880;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+       style="fill:#008400;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27304267999999880;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\4.png"
+       inkscape:export-xdpi="11.179192"
+       inkscape:export-ydpi="11.179192" />
     <path
        inkscape:connector-curvature="0"
        style="fill:#cccccc;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27304268;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        d="m 988.1284,1463.1305 c -75.1925,50.1283 -84.8325,318.1221 -84.8325,318.1221 173.6247,-32.8165 341.2579,9.6399 341.2579,9.6399 -28.4522,-303.8674 -102.1845,-333.546 -102.1845,-333.546 l -154.2409,5.784 z"
        id="path1964-0"
-       sodipodi:nodetypes="ccccc" />
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\4.png"
+       inkscape:export-xdpi="11.179192"
+       inkscape:export-ydpi="11.179192" />
     <path
        inkscape:connector-curvature="0"
        style="fill:#00d400;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27304267999999880;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        d="m 1069.1048,1254.9053 c -150.3848,273.7776 -59.7683,514.779 -59.7683,514.779 55.9123,53.9843 127.8135,4.1868 127.8135,4.1868 63.6243,-316.1938 -62.2611,-517.0378 -68.0452,-518.9658 z"
        id="path1948-5"
-       sodipodi:nodetypes="cccc" />
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\4.png"
+       inkscape:export-xdpi="11.179192"
+       inkscape:export-ydpi="11.179192" />
     <path
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cccc"
        id="path3746-0"
        d="m 1069.1046,1254.9052 c 6.3958,388.2955 -10.6892,540.6818 -10.6892,540.6818 58.639,-1.9114 78.7344,-21.716 78.7344,-21.716 63.6244,-316.1939 -62.2611,-517.0378 -68.0452,-518.9658 z"
-       style="fill:#000000;fill-opacity:0.37837842;fill-rule:nonzero;stroke:none" />
+       style="fill:#000000;fill-opacity:0.37837842;fill-rule:nonzero;stroke:none"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\4.png"
+       inkscape:export-xdpi="11.179192"
+       inkscape:export-ydpi="11.179192" />
     <path
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cccc"
        id="path1950-1"
        d="m 1067.479,1498.0573 c -112.9673,99.8339 -47.3241,235.8909 -47.3241,235.8909 44.271,24.7375 93.1217,5.3008 93.1217,5.3008 64.1167,-151.0761 -41.2178,-240.3082 -45.7976,-241.1917 z"
-       style="fill:#0000ff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27305079;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+       style="fill:#0000ff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27305079;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\4.png"
+       inkscape:export-xdpi="11.179192"
+       inkscape:export-ydpi="11.179192" />
     <path
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cccc"
        id="path1956-0"
        d="m 788.1069,1790.9062 c -95.3844,-149.6095 -37.90917,-281.308 -37.90917,-281.308 35.46347,-29.5005 81.93277,-5.268 81.93277,-5.268 40.3549,172.7885 -40.3549,285.5225 -44.0236,286.576 z"
-       style="fill:#cccccc;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27304554;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+       style="fill:#cccccc;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27304554;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\4.png"
+       inkscape:export-xdpi="11.179192"
+       inkscape:export-ydpi="11.179192" />
     <path
        inkscape:connector-curvature="0"
        style="fill:#7f7f7f;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27304792;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        d="m 1354.8857,1794.763 c -95.3844,-151.5591 -37.9092,-284.9737 -37.9092,-284.9737 35.4635,-29.8849 81.9329,-5.3366 81.9329,-5.3366 40.3549,175.04 -40.355,289.2428 -44.0237,290.3103 z"
        id="path1962-5"
-       sodipodi:nodetypes="cccc" />
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\4.png"
+       inkscape:export-xdpi="11.179192"
+       inkscape:export-ydpi="11.179192" />
     <path
        style="fill:#ffffff;fill-opacity:0.51351348;fill-rule:nonzero;stroke:none"
        d="m 788.5632,1784.8577 c -91.20098,-149.6093 -34.58167,-272.9774 -35.39861,-272.9774 35.92191,-27.4371 75.98601,-4.4697 75.88471,-4.9256 -109.60916,-8.5317 -36.8174,276.8496 -40.4861,277.903 z"
        id="path3748-7"
        sodipodi:nodetypes="cccc"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\4.png"
+       inkscape:export-xdpi="11.179192"
+       inkscape:export-ydpi="11.179192" />
     <path
        sodipodi:nodetypes="cccc"
        id="path3750-8"
        d="m 1355.2082,1788.6464 c -91.92,-149.3206 -33.4697,-276.6612 -35.0043,-276.7891 36.0997,-27.5916 75.3186,-4.4538 75.1548,-4.9452 -109.6092,-8.5316 -36.4817,280.6809 -40.1505,281.7343 z"
        style="fill:#ffffff;fill-opacity:0.51351348;fill-rule:nonzero;stroke:none"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\4.png"
+       inkscape:export-xdpi="11.179192"
+       inkscape:export-ydpi="11.179192" />
     <path
        inkscape:connector-curvature="0"
        style="fill:#ffffff;fill-opacity:0.32882888;fill-rule:nonzero;stroke:none"
        d="m 1067.3555,1518.5239 c -82.2738,78.0546 -39.9375,173.7492 -39.9375,173.7492 5.1693,-98.1701 43.4292,-173.1779 39.9375,-173.7492 z"
        id="path3752-6"
-       sodipodi:nodetypes="ccc" />
+       sodipodi:nodetypes="ccc"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\4.png"
+       inkscape:export-xdpi="11.179192"
+       inkscape:export-ydpi="11.179192" />
     <path
        inkscape:connector-curvature="0"
        style="fill:#ffffff;fill-opacity:0.32882888;fill-rule:nonzero;stroke:none"
        d="m 1062.3566,1733.0518 c 38.5602,-14.4601 60.7323,-70.3724 60.7323,-70.3724 -7.712,66.5164 -18.316,67.4805 -18.316,67.4805 -17.3522,5.784 -41.4523,4.82 -42.4163,2.8919 z"
        id="path3756-6"
-       sodipodi:nodetypes="cccc" />
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\4.png"
+       inkscape:export-xdpi="11.179192"
+       inkscape:export-ydpi="11.179192" />
     <path
        style="fill:#ffffff;fill-opacity:0.47297297;fill-rule:nonzero;stroke:none"
        d="m 987.0446,1467.0872 c -76.3454,85.8885 -79.5163,309.8913 -79.5163,309.8913 l 38.617,-5.9038 c -21.813,-175.8667 40.8993,-301.2608 40.8993,-303.9875 z"
        id="path3758-9"
        sodipodi:nodetypes="cccc"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\4.png"
+       inkscape:export-xdpi="11.179192"
+       inkscape:export-ydpi="11.179192" />
     <path
        inkscape:connector-curvature="0"
        id="path3760-3"
        d="m 1145.5028,1460.7089 c 92.705,103.6116 94.3786,328.8679 94.3786,328.8679 l -42.2626,-12.2698 c 21.8129,-175.8669 -52.116,-313.8714 -52.116,-316.5981 z"
        style="fill:#000000;fill-opacity:0.32882888;fill-rule:nonzero;stroke:none"
-       sodipodi:nodetypes="cccc" />
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\4.png"
+       inkscape:export-xdpi="11.179192"
+       inkscape:export-ydpi="11.179192" />
     <path
        inkscape:connector-curvature="0"
        style="fill:#cccccc;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27304935;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        d="m 126.60325,1768.0057 c 64.9047,-123.762 25.7954,-232.7074 25.7954,-232.7074 -24.1311,-24.4037 -55.751398,-4.3578 -55.751398,-4.3578 -27.4597,142.9364 27.459498,236.1934 29.955998,237.0652 z"
        id="path3250-8"
        sodipodi:nodetypes="cccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave10.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\5.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -579,7 +622,7 @@
        d="m 100.27447,1533.4462 c 1.09055,0.4362 -30.205438,106.5522 25.75519,228.7499 30.3793,-81.1115 19.06231,-151.8562 3.12037,-234.5328 -8.33975,-0.7282 -16.8045,-0.4504 -28.87556,5.7829 z"
        style="fill:#ffffff;fill-opacity:0.37647059;fill-rule:nonzero;stroke:none"
        sodipodi:nodetypes="cccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave10.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\5.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18"
        inkscape:connector-curvature="0" />
@@ -589,7 +632,7 @@
        id="path3254-1"
        d="m 279.5668,1520.4071 -155.57135,62.5908 1.3153,99.6952 199.13905,22.6847 -44.883,-184.9707 z"
        style="fill:#00d400;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27304267999999880;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave10.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\5.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -598,7 +641,7 @@
        d="m 257.19335,1434.804 c 56.04295,45.6647 95.48065,338.3335 95.48065,338.3335 -85.10235,-18.681 -128.69135,8.3026 -128.69135,8.3026 -35.2863,-176.4315 31.135,-344.5604 33.2107,-346.6361 z"
        id="path3258-0"
        sodipodi:nodetypes="cccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave10.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\5.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -606,7 +649,7 @@
        d="m 275.76033,1764.3755 c -35.63705,2.9716 -48.67237,11.8185 -48.67237,11.8185 -29.82728,-158.946 19.5675,-303.5908 31.25314,-333.7168 z"
        style="fill:#ffffff;fill-opacity:0.37647059;fill-rule:nonzero;stroke:none"
        sodipodi:nodetypes="cccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave10.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\5.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18"
        inkscape:connector-curvature="0" />
@@ -616,7 +659,7 @@
        d="m 326.2312,1254.9053 c 150.3848,273.7776 59.7683,514.779 59.7683,514.779 -55.9123,53.9843 -127.81355,4.1868 -127.81355,4.1868 -63.6243,-316.1938 62.26115,-517.0378 68.04525,-518.9658 z"
        id="path3262-0"
        sodipodi:nodetypes="cccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave10.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\5.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -625,7 +668,7 @@
        d="m 328.96218,1258.1005 c 4.52136,2.2792 0.36388,1.3533 -2.86938,2.7188 -49.14049,217.1738 -85.67065,479.6527 -38.61694,525.1852 17.34459,13.1841 70.82491,7.4813 73.45734,-3.0012 96.61232,-247.7089 15.15602,-445.0686 -31.97102,-524.9028 z"
        style="fill:#000000;fill-opacity:0.37647059;fill-rule:nonzero;stroke:none"
        sodipodi:nodetypes="ccccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave10.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\5.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -634,7 +677,7 @@
        id="path3266-6"
        d="m 286.3437,1493.906 c 90.135,124.7419 30.7188,240.0422 30.7188,240.0422 -9.41233,7.9536 -45.53093,8.2504 -45.53093,8.2504 -85.74329,-110.8326 13.16046,-249.0836 14.81213,-248.2926 z"
        style="fill:#0000ff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27305079;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave10.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\5.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -643,7 +686,7 @@
        id="path3268-0"
        d="m 397.2691,1443.1067 c 74.7238,83.0266 97.5562,361.1657 97.5562,361.1657 -83.0266,-41.5133 -132.8426,-18.681 -132.8426,-18.681 -33.2106,-168.1288 33.2107,-340.409 35.2864,-342.4847 z"
        style="fill:#b3b3b3;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27299976;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave10.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\5.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -651,7 +694,7 @@
        id="path3270-5"
        d="m 403.9091,1451.1241 c 69.458,91.5224 90.9063,353.1562 90.9063,353.1563 -18.1116,-9.0558 -34.6278,-15.0694 -49.4063,-18.9063 1.8552,-23.3258 8.1323,-145.92 -44,-333.9688 l 2.5,-0.2812 z"
        style="fill:#000000;fill-opacity:0.37647059;fill-rule:nonzero;stroke:none"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave10.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\5.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -660,7 +703,7 @@
        d="m 418.8785,1524.4071 155.5713,62.5908 -1.3153,99.6952 -157.6257,22.6847 c -11.3308,-65.8082 -6.0562,-127.4651 3.3697,-184.9707 z"
        id="path3272-0"
        sodipodi:nodetypes="ccccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave10.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\5.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -669,7 +712,7 @@
        d="m 419.58636,1527.728 c -7.00511,60.2655 -13.04864,120.5309 -3.16345,180.7964 l 94.42258,-14.0732 -3.85175,-132.6097 -87.40738,-34.1135 z"
        style="fill:#000000;fill-opacity:0.37647059;fill-rule:nonzero;stroke:none"
        sodipodi:nodetypes="ccccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave10.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\5.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -678,7 +721,7 @@
        id="path3274-0"
        d="m 563.2777,1819.0164 c 109.247,-171.3528 43.4187,-322.1915 43.4187,-322.1915 -40.6176,-33.7878 -93.8405,-6.0336 -93.8405,-6.0336 -46.2198,197.9005 46.2199,327.0186 50.4218,328.2251 z"
        style="fill:#cccccc;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27299976;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave10.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\5.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -687,7 +730,7 @@
        d="m 280.3588,1516.4482 c 73.9712,84.2816 29.5592,175.8249 29.5592,175.8249 -5.1693,-98.1701 -33.0509,-175.2536 -29.5592,-175.8249 z"
        id="path3276-3"
        sodipodi:nodetypes="ccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave10.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\5.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -696,7 +739,7 @@
        d="m 310.34536,1728.1031 c -35.92445,-12.3718 -67.46588,-91.1163 -67.46588,-91.1163 7.1849,56.9105 34.40414,94.4519 34.40414,94.4519 16.1661,4.9486 32.16364,-1.6859 33.06174,-3.3356 z"
        id="path3278-6"
        sodipodi:nodetypes="cccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave10.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\5.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -704,7 +747,7 @@
        id="path3280-0"
        d="m 555.32693,1477.7009 c 15.3054,0.071 32.2997,4.0796 47.5313,16.75 0,0 64.9662,148.9099 -41.3125,318.875 l -8.2813,-5.1875 c 0,0 -59.7992,-154.6722 -0.5625,-330.4062 0.8733,-0.021 1.7396,-0.035 2.625,-0.031 z"
        style="fill:#000000;fill-opacity:0.37647059;fill-rule:nonzero;stroke:none"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave10.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\5.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -713,7 +756,7 @@
        d="m 2011.398,1769.6882 c -64.9047,-123.7619 -25.7954,-232.7073 -25.7954,-232.7073 24.1311,-24.4038 55.7514,-4.3578 55.7514,-4.3578 27.4597,142.9364 -27.4595,236.1933 -29.956,237.0651 z"
        id="path1951-8"
        sodipodi:nodetypes="cccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\6.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -721,14 +764,14 @@
        id="path1953-6"
        d="m 2013.8422,1524.8691 c -9.0931,0.051 -19.2009,2.9736 -28.25,12.125 0,0 -39.0923,108.9256 25.8124,232.6875 2.4966,-0.8718 57.3973,-94.126 29.9376,-237.0625 0,0 -12.3449,-7.8351 -27.5,-7.75 z"
        style="fill:#000000;fill-opacity:0.37647059;fill-rule:nonzero;stroke:none"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\6.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
        id="path1983-7"
        d="m 2002.921,1530.2162 c -34.0485,115.7575 11.7201,226.6445 11.7201,226.6445 l -2.5531,5.7849 c -12.5878,-22.5425 -53.6525,-103.7014 -24.126,-222.9256 0,0 5.398,-7.2953 14.959,-9.5038 z"
        style="fill:#ffffff;fill-opacity:0.37647059;fill-rule:nonzero;stroke:none"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\6.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18"
        inkscape:connector-curvature="0"
@@ -739,7 +782,7 @@
        id="path1955-6"
        d="m 1858.4344,1522.0897 155.5714,62.5908 -1.3153,99.6952 -199.1391,22.6846 44.883,-184.9706 z"
        style="fill:#00d400;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27304267999999880;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\6.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -747,7 +790,7 @@
        id="path1957-1"
        d="m 1879.4672,1530.5566 3.9374,168.5313 129.2813,-14.7188 1.3125,-99.6875 -134.5312,-54.125 z"
        style="fill:#000000;fill-opacity:0.37647059;fill-rule:nonzero;stroke:none"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\6.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -756,7 +799,7 @@
        d="m 1880.8079,1436.4866 c -56.043,45.6646 -95.4807,338.3334 -95.4807,338.3334 85.1024,-18.681 128.6914,8.3026 128.6914,8.3026 35.2863,-176.4315 -31.135,-344.5603 -33.2107,-346.636 z"
        id="path1959-9"
        sodipodi:nodetypes="cccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\6.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -764,7 +807,7 @@
        id="path1961-4"
        d="m 1877.5922,1439.4004 c -0.6899,0.6845 -1.378,1.3993 -2.0626,2.1562 l -15.2813,327.4063 c 35.6371,2.9716 53.7813,14.1562 53.7813,14.1562 31.7893,-158.946 -18.9841,-311.0927 -30.875,-341.2187 l -0.4687,-0.2188 -5.0937,-2.2812 z"
        style="fill:#000000;fill-opacity:0.37647059;fill-rule:nonzero;stroke:none"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\6.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -773,7 +816,7 @@
        d="m 1811.77,1256.5879 c -150.3848,273.7776 -59.7683,514.7789 -59.7683,514.7789 55.9123,53.9843 127.8136,4.1868 127.8136,4.1868 63.6243,-316.1938 -62.2612,-517.0377 -68.0453,-518.9657 z"
        id="path1963-4"
        sodipodi:nodetypes="cccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\6.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -782,7 +825,7 @@
        d="m 1811.7795,1256.5879 c -0.4997,0.9098 -1.0055,1.8097 -1.5,2.7187 43.7585,211.5484 90.7382,508.8742 28.3126,533.9687 24.0549,-5.866 41.2188,-17.7187 41.2188,-17.7187 63.6243,-316.1938 -62.2472,-517.0407 -68.0314,-518.9687 z"
        style="fill:#000000;fill-opacity:0.37647059;fill-rule:nonzero;stroke:none"
        sodipodi:nodetypes="ccccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\6.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -791,7 +834,7 @@
        id="path1967-3"
        d="m 1851.6575,1495.5885 c -90.135,124.7419 -30.7188,240.0422 -30.7188,240.0422 9.4124,7.9537 45.531,8.2504 45.531,8.2504 85.7433,-110.8326 -13.1605,-249.0835 -14.8122,-248.2926 z"
        style="fill:#0000ff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27305079;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\6.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -800,14 +843,14 @@
        id="path1969-6"
        d="m 1740.7321,1444.7893 c -74.7238,83.0266 -97.5562,361.1656 -97.5562,361.1656 83.0266,-41.5133 132.8426,-18.681 132.8426,-18.681 33.2106,-168.1288 -33.2107,-340.409 -35.2864,-342.4846 z"
        style="fill:#b3b3b3;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27299976;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\6.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
        id="path1971-3"
        d="m 1737.3198,1453.1294 c -69.458,91.5225 -88.0015,345.4097 -89.9381,347.0237 18.1116,-9.0558 33.3368,-12.81 48.1153,-16.6469 -1.8552,-23.3258 -7.8095,-142.0468 44.3228,-330.0956 z"
        style="fill:#ffffff;fill-opacity:0.37647059;fill-rule:nonzero;stroke:none"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\6.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18"
        inkscape:connector-curvature="0"
@@ -818,7 +861,7 @@
        d="m 1719.1227,1526.0897 -155.5713,62.5908 1.3153,99.6952 157.6257,22.6846 c 11.3308,-65.8082 6.0562,-127.4651 -3.3697,-184.9706 z"
        id="path1973-4"
        sodipodi:nodetypes="ccccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\6.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -827,7 +870,7 @@
        id="path1975-5"
        d="m 1574.7235,1820.6989 c -109.247,-171.3527 -43.4187,-322.1914 -43.4187,-322.1914 40.6176,-33.7879 93.8405,-6.0336 93.8405,-6.0336 46.2198,197.9005 -46.2199,327.0185 -50.4218,328.225 z"
        style="fill:#cccccc;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27299976;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\6.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -836,7 +879,7 @@
        d="m 1857.6424,1518.1307 c -73.9712,84.2817 -29.5592,175.8249 -29.5592,175.8249 5.1693,-98.1701 33.0509,-175.2535 29.5592,-175.8249 z"
        id="path1977-7"
        sodipodi:nodetypes="ccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\6.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -845,14 +888,14 @@
        d="m 1827.6559,1729.7857 c 35.9244,-12.3719 67.4659,-91.1163 67.4659,-91.1163 -7.1849,56.9105 -34.4042,94.4518 -34.4042,94.4518 -16.1661,4.9487 -32.1636,-1.6859 -33.0617,-3.3355 z"
        id="path1979-0"
        sodipodi:nodetypes="cccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\6.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
        id="path1981-7"
        d="m 1535.184,1500.4307 c -2.121,0.5303 -70.1783,145.21 40.667,314.0335 l 0.8577,-1.9598 c 0,0 67.5455,-150.4763 8.3088,-326.2103 -11.4481,-5.8108 -41.4879,7.3733 -49.8335,14.1366 z"
        style="fill:#ffffff;fill-opacity:0.37647059;fill-rule:nonzero;stroke:none"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\6.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18"
        inkscape:connector-curvature="0"
@@ -862,92 +905,134 @@
        style="fill:#ffff00;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27304267999999960;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        d="m 3183.9333,1520.6405 -254.4975,77.1205 35.2679,105.9222 284.782,1.928 -65.5524,-184.9707 z"
        id="path1952-9-5"
-       sodipodi:nodetypes="ccccc" />
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\7.png"
+       inkscape:export-xdpi="11.185001"
+       inkscape:export-ydpi="11.185001" />
     <path
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccc"
        id="path1960-3-4"
        d="m 3328.3874,1520.6405 254.4975,77.1205 -35.2678,105.9222 -284.782,1.928 65.5523,-184.9707 z"
-       style="fill:#9f9f00;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27304267999999960;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+       style="fill:#9f9f00;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27304267999999960;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\7.png"
+       inkscape:export-xdpi="11.185001"
+       inkscape:export-ydpi="11.185001" />
     <path
        inkscape:connector-curvature="0"
        style="fill:#cccccc;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27304268;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        d="m 3180.0773,1463.3639 c -75.1925,50.1283 -84.8325,318.1221 -84.8325,318.1221 173.6247,-32.8165 341.2579,9.6399 341.2579,9.6399 -28.4522,-303.8674 -102.1845,-333.546 -102.1845,-333.546 l -154.2409,5.784 z"
        id="path1964-0-6"
-       sodipodi:nodetypes="ccccc" />
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\7.png"
+       inkscape:export-xdpi="11.185001"
+       inkscape:export-ydpi="11.185001" />
     <path
        inkscape:connector-curvature="0"
        style="fill:#ffff00;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27304267999999960;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        d="m 3261.0537,1255.1387 c -150.3848,273.7776 -59.7683,514.779 -59.7683,514.779 55.9123,53.9843 127.8135,4.1868 127.8135,4.1868 63.6243,-316.1938 -62.2611,-517.0378 -68.0452,-518.9658 z"
        id="path1948-5-1"
-       sodipodi:nodetypes="cccc" />
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\7.png"
+       inkscape:export-xdpi="11.185001"
+       inkscape:export-ydpi="11.185001" />
     <path
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cccc"
        id="path3746-0-1"
        d="m 3261.0535,1255.1386 c 6.3958,388.2955 -10.6892,540.6818 -10.6892,540.6818 58.639,-1.9114 78.7344,-21.716 78.7344,-21.716 63.6244,-316.1939 -62.2611,-517.0378 -68.0452,-518.9658 z"
-       style="fill:#000000;fill-opacity:0.37837842;fill-rule:nonzero;stroke:none" />
+       style="fill:#000000;fill-opacity:0.37837842;fill-rule:nonzero;stroke:none"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\7.png"
+       inkscape:export-xdpi="11.185001"
+       inkscape:export-ydpi="11.185001" />
     <path
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cccc"
        id="path1950-1-1"
        d="m 3259.4279,1498.2907 c -112.9673,99.8339 -47.3241,235.8909 -47.3241,235.8909 44.271,24.7375 93.1217,5.3008 93.1217,5.3008 64.1167,-151.0761 -41.2178,-240.3082 -45.7976,-241.1917 z"
-       style="fill:#0000ff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27305079;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+       style="fill:#0000ff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27305079;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\7.png"
+       inkscape:export-xdpi="11.185001"
+       inkscape:export-ydpi="11.185001" />
     <path
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cccc"
        id="path1956-0-5"
        d="m 2980.0558,1791.1396 c -95.3844,-149.6095 -37.9092,-281.308 -37.9092,-281.308 35.4635,-29.5005 81.9328,-5.268 81.9328,-5.268 40.3549,172.7885 -40.3549,285.5225 -44.0236,286.576 z"
-       style="fill:#cccccc;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27304554;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+       style="fill:#cccccc;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27304554;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\7.png"
+       inkscape:export-xdpi="11.185001"
+       inkscape:export-ydpi="11.185001" />
     <path
        inkscape:connector-curvature="0"
        style="fill:#7f7f7f;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27304792;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        d="m 3546.8346,1794.9964 c -95.3844,-151.5591 -37.9092,-284.9737 -37.9092,-284.9737 35.4635,-29.8849 81.9329,-5.3366 81.9329,-5.3366 40.3549,175.04 -40.355,289.2428 -44.0237,290.3103 z"
        id="path1962-5-7"
-       sodipodi:nodetypes="cccc" />
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\7.png"
+       inkscape:export-xdpi="11.185001"
+       inkscape:export-ydpi="11.185001" />
     <path
        style="fill:#ffffff;fill-opacity:0.51351348;fill-rule:nonzero;stroke:none"
        d="m 2980.5121,1785.0911 c -91.201,-149.6093 -34.5817,-272.9774 -35.3986,-272.9774 35.9219,-27.4371 75.986,-4.4697 75.8847,-4.9256 -109.6092,-8.5317 -36.8174,276.8496 -40.4861,277.903 z"
        id="path3748-7-0"
        sodipodi:nodetypes="cccc"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\7.png"
+       inkscape:export-xdpi="11.185001"
+       inkscape:export-ydpi="11.185001" />
     <path
        sodipodi:nodetypes="cccc"
        id="path3750-8-1"
        d="m 3547.1571,1788.8798 c -91.92,-149.3206 -33.4697,-276.6612 -35.0043,-276.7891 36.0997,-27.5916 75.3186,-4.4538 75.1548,-4.9452 -109.6092,-8.5316 -36.4817,280.6809 -40.1505,281.7343 z"
        style="fill:#ffffff;fill-opacity:0.51351348;fill-rule:nonzero;stroke:none"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\7.png"
+       inkscape:export-xdpi="11.185001"
+       inkscape:export-ydpi="11.185001" />
     <path
        inkscape:connector-curvature="0"
        style="fill:#ffffff;fill-opacity:0.32882888;fill-rule:nonzero;stroke:none"
        d="m 3259.3044,1518.7573 c -82.2738,78.0546 -39.9375,173.7492 -39.9375,173.7492 5.1693,-98.1701 43.4292,-173.1779 39.9375,-173.7492 z"
        id="path3752-6-0"
-       sodipodi:nodetypes="ccc" />
+       sodipodi:nodetypes="ccc"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\7.png"
+       inkscape:export-xdpi="11.185001"
+       inkscape:export-ydpi="11.185001" />
     <path
        inkscape:connector-curvature="0"
        style="fill:#ffffff;fill-opacity:0.32882888;fill-rule:nonzero;stroke:none"
        d="m 3254.3055,1733.2852 c 38.5602,-14.4601 60.7323,-70.3724 60.7323,-70.3724 -7.712,66.5164 -18.316,67.4805 -18.316,67.4805 -17.3522,5.784 -41.4523,4.82 -42.4163,2.8919 z"
        id="path3756-6-2"
-       sodipodi:nodetypes="cccc" />
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\7.png"
+       inkscape:export-xdpi="11.185001"
+       inkscape:export-ydpi="11.185001" />
     <path
        style="fill:#ffffff;fill-opacity:0.47297297;fill-rule:nonzero;stroke:none"
        d="m 3178.9935,1467.3206 c -76.3454,85.8885 -79.5163,309.8913 -79.5163,309.8913 l 38.617,-5.9038 c -21.813,-175.8667 40.8993,-301.2608 40.8993,-303.9875 z"
        id="path3758-9-1"
        sodipodi:nodetypes="cccc"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\7.png"
+       inkscape:export-xdpi="11.185001"
+       inkscape:export-ydpi="11.185001" />
     <path
        inkscape:connector-curvature="0"
        id="path3760-3-0"
        d="m 3337.4517,1460.9423 c 92.705,103.6116 94.3786,328.8679 94.3786,328.8679 l -42.2626,-12.2698 c 21.8129,-175.8669 -52.116,-313.8714 -52.116,-316.5981 z"
        style="fill:#000000;fill-opacity:0.32882888;fill-rule:nonzero;stroke:none"
-       sodipodi:nodetypes="cccc" />
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\7.png"
+       inkscape:export-xdpi="11.185001"
+       inkscape:export-ydpi="11.185001" />
     <path
        inkscape:connector-curvature="0"
        style="fill:#cccccc;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27304935;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        d="m 2318.5521,1768.2391 c 64.9047,-123.762 25.7954,-232.7074 25.7954,-232.7074 -24.1311,-24.4037 -55.7514,-4.3578 -55.7514,-4.3578 -27.4597,142.9364 27.4595,236.1934 29.956,237.0652 z"
        id="path3250-8-8"
        sodipodi:nodetypes="cccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave10.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\8.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -955,7 +1040,7 @@
        d="m 2292.2233,1533.6796 c 1.0906,0.4362 -30.2054,106.5522 25.7552,228.7499 30.3793,-81.1115 19.0623,-151.8562 3.1204,-234.5328 -8.3397,-0.7282 -16.8045,-0.4504 -28.8756,5.7829 z"
        style="fill:#ffffff;fill-opacity:0.37647059;fill-rule:nonzero;stroke:none"
        sodipodi:nodetypes="cccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave10.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\8.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18"
        inkscape:connector-curvature="0" />
@@ -965,7 +1050,7 @@
        id="path3254-1-1"
        d="m 2471.5157,1520.6405 -155.5714,62.5908 1.3153,99.6952 199.1391,22.6847 -44.883,-184.9707 z"
        style="fill:#ffff00;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27304267999999880;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave10.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\8.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -974,7 +1059,7 @@
        d="m 2449.1422,1435.0374 c 56.043,45.6647 95.4807,338.3335 95.4807,338.3335 -85.1024,-18.681 -128.6914,8.3026 -128.6914,8.3026 -35.2863,-176.4315 31.135,-344.5604 33.2107,-346.6361 z"
        id="path3258-0-0"
        sodipodi:nodetypes="cccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave10.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\8.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -982,7 +1067,7 @@
        d="m 2467.7092,1764.6089 c -35.637,2.9716 -48.6724,11.8185 -48.6724,11.8185 -29.8272,-158.946 19.5675,-303.5908 31.2532,-333.7168 z"
        style="fill:#ffffff;fill-opacity:0.37647059;fill-rule:nonzero;stroke:none"
        sodipodi:nodetypes="cccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave10.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\8.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18"
        inkscape:connector-curvature="0" />
@@ -992,7 +1077,7 @@
        d="m 2518.1801,1255.1387 c 150.3848,273.7776 59.7683,514.779 59.7683,514.779 -55.9123,53.9843 -127.8136,4.1868 -127.8136,4.1868 -63.6243,-316.1938 62.2612,-517.0378 68.0453,-518.9658 z"
        id="path3262-0-0"
        sodipodi:nodetypes="cccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave10.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\8.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -1001,7 +1086,7 @@
        d="m 2520.9111,1258.3339 c 4.5213,2.2792 0.3638,1.3533 -2.8694,2.7188 -49.1405,217.1738 -85.6707,479.6527 -38.617,525.1852 17.3446,13.1841 70.8249,7.4813 73.4574,-3.0012 96.6123,-247.7089 15.156,-445.0686 -31.971,-524.9028 z"
        style="fill:#000000;fill-opacity:0.37647059;fill-rule:nonzero;stroke:none"
        sodipodi:nodetypes="ccccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave10.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\8.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -1010,7 +1095,7 @@
        id="path3266-6-0"
        d="m 2478.2926,1494.1394 c 90.135,124.7419 30.7188,240.0422 30.7188,240.0422 -9.4124,7.9536 -45.531,8.2504 -45.531,8.2504 -85.7432,-110.8326 13.1605,-249.0836 14.8122,-248.2926 z"
        style="fill:#0000ff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27305079;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave10.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\8.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -1019,7 +1104,7 @@
        id="path3268-0-1"
        d="m 2589.218,1443.3401 c 74.7238,83.0266 97.5562,361.1657 97.5562,361.1657 -83.0266,-41.5133 -132.8426,-18.681 -132.8426,-18.681 -33.2106,-168.1288 33.2107,-340.409 35.2864,-342.4847 z"
        style="fill:#b3b3b3;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27299976;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave10.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\8.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -1027,7 +1112,7 @@
        id="path3270-5-8"
        d="m 2595.858,1451.3575 c 69.458,91.5224 90.9063,353.1562 90.9063,353.1563 -18.1116,-9.0558 -34.6278,-15.0694 -49.4063,-18.9063 1.8552,-23.3258 8.1323,-145.92 -44,-333.9688 l 2.5,-0.2812 z"
        style="fill:#000000;fill-opacity:0.37647059;fill-rule:nonzero;stroke:none"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave10.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\8.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -1036,7 +1121,7 @@
        d="m 2610.8274,1524.6405 155.5713,62.5908 -1.3153,99.6952 -157.6257,22.6847 c -11.3308,-65.8082 -6.0562,-127.4651 3.3697,-184.9707 z"
        id="path3272-0-7"
        sodipodi:nodetypes="ccccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave10.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\8.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -1045,7 +1130,7 @@
        d="m 2611.5352,1527.9614 c -7.0051,60.2655 -13.0486,120.5309 -3.1634,180.7964 l 94.4226,-14.0732 -3.8518,-132.6097 -87.4074,-34.1135 z"
        style="fill:#000000;fill-opacity:0.37647059;fill-rule:nonzero;stroke:none"
        sodipodi:nodetypes="ccccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave10.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\8.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -1054,7 +1139,7 @@
        id="path3274-0-5"
        d="m 2755.2266,1819.2498 c 109.247,-171.3528 43.4187,-322.1915 43.4187,-322.1915 -40.6176,-33.7878 -93.8405,-6.0336 -93.8405,-6.0336 -46.2198,197.9005 46.2199,327.0186 50.4218,328.2251 z"
        style="fill:#cccccc;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27299976;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave10.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\8.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -1063,7 +1148,7 @@
        d="m 2472.3077,1516.6816 c 73.9712,84.2816 29.5592,175.8249 29.5592,175.8249 -5.1693,-98.1701 -33.0509,-175.2536 -29.5592,-175.8249 z"
        id="path3276-3-0"
        sodipodi:nodetypes="ccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave10.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\8.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -1072,7 +1157,7 @@
        d="m 2502.2942,1728.3365 c -35.9244,-12.3718 -67.4658,-91.1163 -67.4658,-91.1163 7.1849,56.9105 34.4041,94.4519 34.4041,94.4519 16.1661,4.9486 32.1636,-1.6859 33.0617,-3.3356 z"
        id="path3278-6-2"
        sodipodi:nodetypes="cccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave10.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\8.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -1080,7 +1165,7 @@
        id="path3280-0-8"
        d="m 2747.2758,1477.9343 c 15.3054,0.071 32.2997,4.0796 47.5313,16.75 0,0 64.9662,148.9099 -41.3125,318.875 l -8.2813,-5.1875 c 0,0 -59.7992,-154.6722 -0.5625,-330.4062 0.8733,-0.021 1.7396,-0.035 2.625,-0.031 z"
        style="fill:#000000;fill-opacity:0.37647059;fill-rule:nonzero;stroke:none"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave10.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\8.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -1089,7 +1174,7 @@
        d="m 4203.3469,1769.9216 c -64.9047,-123.7619 -25.7954,-232.7073 -25.7954,-232.7073 24.1311,-24.4038 55.7514,-4.3578 55.7514,-4.3578 27.4597,142.9364 -27.4595,236.1933 -29.956,237.0651 z"
        id="path1951-8-9"
        sodipodi:nodetypes="cccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\9.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -1097,14 +1182,14 @@
        id="path1953-6-0"
        d="m 4205.7911,1525.1025 c -9.0931,0.051 -19.2009,2.9736 -28.25,12.125 0,0 -39.0923,108.9256 25.8124,232.6875 2.4966,-0.8718 57.3973,-94.126 29.9376,-237.0625 0,0 -12.3449,-7.8351 -27.5,-7.75 z"
        style="fill:#000000;fill-opacity:0.37647059;fill-rule:nonzero;stroke:none"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\9.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
        id="path1983-7-5"
        d="m 4194.8699,1530.4496 c -34.0485,115.7575 11.7201,226.6445 11.7201,226.6445 l -2.5531,5.7849 c -12.5878,-22.5425 -53.6525,-103.7014 -24.126,-222.9256 0,0 5.398,-7.2953 14.959,-9.5038 z"
        style="fill:#ffffff;fill-opacity:0.37647059;fill-rule:nonzero;stroke:none"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\9.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18"
        inkscape:connector-curvature="0"
@@ -1115,7 +1200,7 @@
        id="path1955-6-2"
        d="m 4050.3833,1522.3231 155.5714,62.5908 -1.3153,99.6952 -199.1391,22.6846 44.883,-184.9706 z"
        style="fill:#ffff00;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27304267999999960;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\9.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -1123,7 +1208,7 @@
        id="path1957-1-1"
        d="m 4071.4161,1530.79 3.9374,168.5313 129.2813,-14.7188 1.3125,-99.6875 -134.5312,-54.125 z"
        style="fill:#000000;fill-opacity:0.37647059;fill-rule:nonzero;stroke:none"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\9.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -1132,7 +1217,7 @@
        d="m 4072.7568,1436.72 c -56.043,45.6646 -95.4807,338.3334 -95.4807,338.3334 85.1024,-18.681 128.6914,8.3026 128.6914,8.3026 35.2863,-176.4315 -31.135,-344.5603 -33.2107,-346.636 z"
        id="path1959-9-3"
        sodipodi:nodetypes="cccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\9.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -1140,7 +1225,7 @@
        id="path1961-4-7"
        d="m 4069.5411,1439.6338 c -0.6899,0.6845 -1.378,1.3993 -2.0626,2.1562 l -15.2813,327.4063 c 35.6371,2.9716 53.7813,14.1562 53.7813,14.1562 31.7893,-158.946 -18.9841,-311.0927 -30.875,-341.2187 l -0.4687,-0.2188 -5.0937,-2.2812 z"
        style="fill:#000000;fill-opacity:0.37647059;fill-rule:nonzero;stroke:none"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\9.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -1149,7 +1234,7 @@
        d="m 4003.7189,1256.8213 c -150.3848,273.7776 -59.7683,514.7789 -59.7683,514.7789 55.9123,53.9843 127.8136,4.1868 127.8136,4.1868 63.6243,-316.1938 -62.2612,-517.0377 -68.0453,-518.9657 z"
        id="path1963-4-5"
        sodipodi:nodetypes="cccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\9.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -1158,7 +1243,7 @@
        d="m 4003.7284,1256.8213 c -0.4997,0.9098 -1.0055,1.8097 -1.5,2.7187 43.7585,211.5484 90.7382,508.8742 28.3126,533.9687 24.0549,-5.866 41.2188,-17.7187 41.2188,-17.7187 63.6243,-316.1938 -62.2472,-517.0407 -68.0314,-518.9687 z"
        style="fill:#000000;fill-opacity:0.37647059;fill-rule:nonzero;stroke:none"
        sodipodi:nodetypes="ccccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\9.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -1167,7 +1252,7 @@
        id="path1967-3-7"
        d="m 4043.6064,1495.8219 c -90.135,124.7419 -30.7188,240.0422 -30.7188,240.0422 9.4124,7.9537 45.531,8.2504 45.531,8.2504 85.7433,-110.8326 -13.1605,-249.0835 -14.8122,-248.2926 z"
        style="fill:#0000ff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27305079;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\9.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -1176,14 +1261,14 @@
        id="path1969-6-2"
        d="m 3932.681,1445.0227 c -74.7238,83.0266 -97.5562,361.1656 -97.5562,361.1656 83.0266,-41.5133 132.8426,-18.681 132.8426,-18.681 33.2106,-168.1288 -33.2107,-340.409 -35.2864,-342.4846 z"
        style="fill:#b3b3b3;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27299976;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\9.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
        id="path1971-3-2"
        d="m 3929.2687,1453.3628 c -69.458,91.5225 -88.0015,345.4097 -89.9381,347.0237 18.1116,-9.0558 33.3368,-12.81 48.1153,-16.6469 -1.8552,-23.3258 -7.8095,-142.0468 44.3228,-330.0956 z"
        style="fill:#ffffff;fill-opacity:0.37647059;fill-rule:nonzero;stroke:none"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\9.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18"
        inkscape:connector-curvature="0"
@@ -1194,7 +1279,7 @@
        d="m 3911.0716,1526.3231 -155.5713,62.5908 1.3153,99.6952 157.6257,22.6846 c 11.3308,-65.8082 6.0562,-127.4651 -3.3697,-184.9706 z"
        id="path1973-4-2"
        sodipodi:nodetypes="ccccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\9.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -1203,7 +1288,7 @@
        id="path1975-5-8"
        d="m 3766.6724,1820.9323 c -109.247,-171.3527 -43.4187,-322.1914 -43.4187,-322.1914 40.6176,-33.7879 93.8405,-6.0336 93.8405,-6.0336 46.2198,197.9005 -46.2199,327.0185 -50.4218,328.225 z"
        style="fill:#cccccc;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27299976;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\9.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -1212,7 +1297,7 @@
        d="m 4049.5913,1518.3641 c -73.9712,84.2817 -29.5592,175.8249 -29.5592,175.8249 5.1693,-98.1701 33.0509,-175.2535 29.5592,-175.8249 z"
        id="path1977-7-5"
        sodipodi:nodetypes="ccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\9.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -1221,14 +1306,14 @@
        d="m 4019.6048,1730.0191 c 35.9244,-12.3719 67.4659,-91.1163 67.4659,-91.1163 -7.1849,56.9105 -34.4042,94.4518 -34.4042,94.4518 -16.1661,4.9487 -32.1636,-1.6859 -33.0617,-3.3355 z"
        id="path1979-0-6"
        sodipodi:nodetypes="cccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\9.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
        id="path1981-7-9"
        d="m 3727.1329,1500.6641 c -2.121,0.5303 -70.1783,145.21 40.667,314.0335 l 0.8577,-1.9598 c 0,0 67.5455,-150.4763 8.3088,-326.2103 -11.4481,-5.8108 -41.4879,7.3733 -49.8335,14.1366 z"
        style="fill:#ffffff;fill-opacity:0.37647059;fill-rule:nonzero;stroke:none"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\9.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18"
        inkscape:connector-curvature="0"
@@ -1238,92 +1323,134 @@
        style="fill:#0000aa;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27304267999999880;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        d="m 3150.6427,838.72553 -254.4975,77.1205 35.2679,105.92217 284.782,1.928 -65.5524,-184.97067 z"
        id="path1952-9-1"
-       sodipodi:nodetypes="ccccc" />
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\10.png"
+       inkscape:export-xdpi="11"
+       inkscape:export-ydpi="11" />
     <path
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccc"
        id="path1960-3-5"
        d="m 3295.0968,838.72553 254.4975,77.1205 -35.2678,105.92217 -284.782,1.928 65.5523,-184.97067 z"
-       style="fill:#00006a;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27304267999999880;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+       style="fill:#00006a;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27304267999999880;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\10.png"
+       inkscape:export-xdpi="11"
+       inkscape:export-ydpi="11" />
     <path
        inkscape:connector-curvature="0"
        style="fill:#cccccc;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27304268;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        d="m 3146.7867,781.44893 c -75.1925,50.1283 -84.8325,318.12207 -84.8325,318.12207 173.6247,-32.8165 341.2579,9.6399 341.2579,9.6399 -28.4522,-303.86737 -102.1845,-333.54597 -102.1845,-333.54597 l -154.2409,5.784 z"
        id="path1964-0-9"
-       sodipodi:nodetypes="ccccc" />
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\10.png"
+       inkscape:export-xdpi="11"
+       inkscape:export-ydpi="11" />
     <path
        inkscape:connector-curvature="0"
        style="fill:#0000aa;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27304267999999960;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        d="m 3227.7631,573.22373 c -150.3848,273.7776 -59.7683,514.77897 -59.7683,514.77897 55.9123,53.9843 127.8135,4.1868 127.8135,4.1868 63.6243,-316.19377 -62.2611,-517.03777 -68.0452,-518.96577 z"
        id="path1948-5-13"
-       sodipodi:nodetypes="cccc" />
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\10.png"
+       inkscape:export-xdpi="11"
+       inkscape:export-ydpi="11" />
     <path
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cccc"
        id="path3746-0-5"
        d="m 3227.7629,573.22363 c 6.3958,388.2955 -10.6892,540.68177 -10.6892,540.68177 58.639,-1.9114 78.7344,-21.716 78.7344,-21.716 63.6244,-316.19387 -62.2611,-517.03777 -68.0452,-518.96577 z"
-       style="fill:#000000;fill-opacity:0.37837842;fill-rule:nonzero;stroke:none" />
+       style="fill:#000000;fill-opacity:0.37837842;fill-rule:nonzero;stroke:none"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\10.png"
+       inkscape:export-xdpi="11"
+       inkscape:export-ydpi="11" />
     <path
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cccc"
        id="path1950-1-3"
        d="m 3226.1373,816.37573 c -112.9673,99.8339 -47.3241,235.89087 -47.3241,235.89087 44.271,24.7375 93.1217,5.3008 93.1217,5.3008 64.1167,-151.07607 -41.2178,-240.30817 -45.7976,-241.19167 z"
-       style="fill:#0000ff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27305079;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+       style="fill:#0000ff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27305079;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\10.png"
+       inkscape:export-xdpi="11"
+       inkscape:export-ydpi="11" />
     <path
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cccc"
        id="path1956-0-6"
        d="m 2946.7652,1109.2246 c -95.3844,-149.60947 -37.9092,-281.30797 -37.9092,-281.30797 35.4635,-29.5005 81.9328,-5.268 81.9328,-5.268 40.3549,172.7885 -40.3549,285.52247 -44.0236,286.57597 z"
-       style="fill:#cccccc;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27304554;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+       style="fill:#cccccc;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27304554;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\10.png"
+       inkscape:export-xdpi="11"
+       inkscape:export-ydpi="11" />
     <path
        inkscape:connector-curvature="0"
        style="fill:#7f7f7f;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27304792;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        d="m 3513.544,1113.0814 c -95.3844,-151.55907 -37.9092,-284.97367 -37.9092,-284.97367 35.4635,-29.8849 81.9329,-5.3366 81.9329,-5.3366 40.3549,175.04 -40.355,289.24277 -44.0237,290.31027 z"
        id="path1962-5-4"
-       sodipodi:nodetypes="cccc" />
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\10.png"
+       inkscape:export-xdpi="11"
+       inkscape:export-ydpi="11" />
     <path
        style="fill:#ffffff;fill-opacity:0.51351348;fill-rule:nonzero;stroke:none"
        d="m 2947.2215,1103.1761 c -91.201,-149.60927 -34.5817,-272.97737 -35.3986,-272.97737 35.9219,-27.4371 75.986,-4.4697 75.8847,-4.9256 -109.6092,-8.5317 -36.8174,276.84957 -40.4861,277.90297 z"
        id="path3748-7-1"
        sodipodi:nodetypes="cccc"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\10.png"
+       inkscape:export-xdpi="11"
+       inkscape:export-ydpi="11" />
     <path
        sodipodi:nodetypes="cccc"
        id="path3750-8-6"
        d="m 3513.8665,1106.9648 c -91.92,-149.32057 -33.4697,-276.66117 -35.0043,-276.78907 36.0997,-27.5916 75.3186,-4.4538 75.1548,-4.9452 -109.6092,-8.5316 -36.4817,280.68087 -40.1505,281.73427 z"
        style="fill:#ffffff;fill-opacity:0.51351348;fill-rule:nonzero;stroke:none"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\10.png"
+       inkscape:export-xdpi="11"
+       inkscape:export-ydpi="11" />
     <path
        inkscape:connector-curvature="0"
        style="fill:#ffffff;fill-opacity:0.32882888;fill-rule:nonzero;stroke:none"
        d="m 3226.0138,836.84233 c -82.2738,78.0546 -39.9375,173.74917 -39.9375,173.74917 5.1693,-98.17007 43.4292,-173.17787 39.9375,-173.74917 z"
        id="path3752-6-01"
-       sodipodi:nodetypes="ccc" />
+       sodipodi:nodetypes="ccc"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\10.png"
+       inkscape:export-xdpi="11"
+       inkscape:export-ydpi="11" />
     <path
        inkscape:connector-curvature="0"
        style="fill:#ffffff;fill-opacity:0.32882888;fill-rule:nonzero;stroke:none"
        d="m 3221.0149,1051.3702 c 38.5602,-14.4601 60.7323,-70.37237 60.7323,-70.37237 -7.712,66.51637 -18.316,67.48047 -18.316,67.48047 -17.3522,5.784 -41.4523,4.82 -42.4163,2.8919 z"
        id="path3756-6-9"
-       sodipodi:nodetypes="cccc" />
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\10.png"
+       inkscape:export-xdpi="11"
+       inkscape:export-ydpi="11" />
     <path
        style="fill:#ffffff;fill-opacity:0.47297297;fill-rule:nonzero;stroke:none"
        d="m 3145.7029,785.40563 c -76.3454,85.8885 -79.5163,309.89127 -79.5163,309.89127 l 38.617,-5.9038 c -21.813,-175.86667 40.8993,-301.26077 40.8993,-303.98747 z"
        id="path3758-9-13"
        sodipodi:nodetypes="cccc"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\10.png"
+       inkscape:export-xdpi="11"
+       inkscape:export-ydpi="11" />
     <path
        inkscape:connector-curvature="0"
        id="path3760-3-5"
        d="m 3304.1611,779.02733 c 92.705,103.6116 94.3786,328.86787 94.3786,328.86787 l -42.2626,-12.2698 c 21.8129,-175.86687 -52.116,-313.87137 -52.116,-316.59807 z"
        style="fill:#000000;fill-opacity:0.32882888;fill-rule:nonzero;stroke:none"
-       sodipodi:nodetypes="cccc" />
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\10.png"
+       inkscape:export-xdpi="11"
+       inkscape:export-ydpi="11" />
     <path
        inkscape:connector-curvature="0"
        style="fill:#cccccc;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27304935;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        d="m 2285.2616,1086.3241 c 64.9047,-123.76197 25.7954,-232.70737 25.7954,-232.70737 -24.1311,-24.4037 -55.7514,-4.3578 -55.7514,-4.3578 -27.4597,142.9364 27.4595,236.19337 29.956,237.06517 z"
        id="path3250-8-5"
        sodipodi:nodetypes="cccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave10.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\11.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -1331,7 +1458,7 @@
        d="m 2258.9328,851.76463 c 1.0905,0.4362 -30.2055,106.5522 25.7552,228.74987 30.3793,-81.11147 19.0623,-151.85617 3.1203,-234.53277 -8.3397,-0.7282 -16.8045,-0.4504 -28.8755,5.7829 z"
        style="fill:#ffffff;fill-opacity:0.37647059;fill-rule:nonzero;stroke:none"
        sodipodi:nodetypes="cccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave10.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\11.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18"
        inkscape:connector-curvature="0" />
@@ -1341,7 +1468,7 @@
        id="path3254-1-9"
        d="m 2438.2251,838.72553 -155.5713,62.5908 1.3153,99.69517 199.139,22.6847 -44.883,-184.97067 z"
        style="fill:#0000aa;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27304267999999880;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave10.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\11.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -1350,7 +1477,7 @@
        d="m 2415.8517,753.12243 c 56.0429,45.6647 95.4806,338.33347 95.4806,338.33347 -85.1023,-18.681 -128.6913,8.3026 -128.6913,8.3026 -35.2863,-176.43147 31.135,-344.56037 33.2107,-346.63607 z"
        id="path3258-0-9"
        sodipodi:nodetypes="cccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave10.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\11.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -1358,7 +1485,7 @@
        d="m 2434.4186,1082.6939 c -35.637,2.9716 -48.6723,11.8185 -48.6723,11.8185 -29.8273,-158.94597 19.5675,-303.59077 31.2531,-333.71677 z"
        style="fill:#ffffff;fill-opacity:0.37647059;fill-rule:nonzero;stroke:none"
        sodipodi:nodetypes="cccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave10.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\11.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18"
        inkscape:connector-curvature="0" />
@@ -1368,7 +1495,7 @@
        d="m 2484.8895,573.22373 c 150.3848,273.7776 59.7683,514.77897 59.7683,514.77897 -55.9123,53.9843 -127.8135,4.1868 -127.8135,4.1868 -63.6243,-316.19377 62.2611,-517.03777 68.0452,-518.96577 z"
        id="path3262-0-5"
        sodipodi:nodetypes="cccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave10.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\11.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -1377,7 +1504,7 @@
        d="m 2487.6205,576.41893 c 4.5213,2.2792 0.3639,1.3533 -2.8694,2.7188 -49.1405,217.1738 -85.6706,479.65267 -38.6169,525.18517 17.3446,13.1841 70.8249,7.4813 73.4573,-3.0012 96.6123,-247.70887 15.156,-445.06857 -31.971,-524.90277 z"
        style="fill:#000000;fill-opacity:0.37647059;fill-rule:nonzero;stroke:none"
        sodipodi:nodetypes="ccccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave10.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\11.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -1386,7 +1513,7 @@
        id="path3266-6-9"
        d="m 2445.002,812.22443 c 90.135,124.7419 30.7188,240.04217 30.7188,240.04217 -9.4123,7.9536 -45.5309,8.2504 -45.5309,8.2504 -85.7433,-110.83257 13.1604,-249.08357 14.8121,-248.29257 z"
        style="fill:#0000ff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27305079;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave10.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\11.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -1395,7 +1522,7 @@
        id="path3268-0-3"
        d="m 2555.9274,761.42513 c 74.7238,83.0266 97.5562,361.16567 97.5562,361.16567 -83.0266,-41.5133 -132.8426,-18.681 -132.8426,-18.681 -33.2106,-168.12877 33.2107,-340.40897 35.2864,-342.48467 z"
        style="fill:#b3b3b3;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27299976;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave10.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\11.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -1403,7 +1530,7 @@
        id="path3270-5-3"
        d="m 2562.5674,769.44253 c 69.458,91.5224 90.9063,353.15617 90.9063,353.15627 -18.1116,-9.0558 -34.6278,-15.0694 -49.4063,-18.9063 1.8552,-23.3258 8.1323,-145.91997 -44,-333.96877 l 2.5,-0.2812 z"
        style="fill:#000000;fill-opacity:0.37647059;fill-rule:nonzero;stroke:none"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave10.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\11.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -1412,7 +1539,7 @@
        d="m 2577.5368,842.72553 155.5713,62.5908 -1.3153,99.69517 -157.6257,22.6847 c -11.3308,-65.80817 -6.0562,-127.46507 3.3697,-184.97067 z"
        id="path3272-0-6"
        sodipodi:nodetypes="ccccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave10.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\11.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -1421,7 +1548,7 @@
        d="m 2578.2447,846.04643 c -7.0051,60.2655 -13.0487,120.5309 -3.1635,180.79637 l 94.4226,-14.0732 -3.8518,-132.60967 -87.4073,-34.1135 z"
        style="fill:#000000;fill-opacity:0.37647059;fill-rule:nonzero;stroke:none"
        sodipodi:nodetypes="ccccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave10.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\11.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -1430,7 +1557,7 @@
        id="path3274-0-54"
        d="m 2721.936,1137.3348 c 109.247,-171.35277 43.4187,-322.19147 43.4187,-322.19147 -40.6176,-33.7878 -93.8405,-6.0336 -93.8405,-6.0336 -46.2198,197.90047 46.2199,327.01857 50.4218,328.22507 z"
        style="fill:#cccccc;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27299976;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave10.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\11.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -1439,7 +1566,7 @@
        d="m 2439.0171,834.76663 c 73.9712,84.2816 29.5592,175.82487 29.5592,175.82487 -5.1693,-98.17007 -33.0509,-175.25357 -29.5592,-175.82487 z"
        id="path3276-3-7"
        sodipodi:nodetypes="ccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave10.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\11.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -1448,7 +1575,7 @@
        d="m 2469.0037,1046.4215 c -35.9245,-12.3718 -67.4659,-91.11627 -67.4659,-91.11627 7.1849,56.91047 34.4041,94.45187 34.4041,94.45187 16.1661,4.9486 32.1637,-1.6859 33.0618,-3.3356 z"
        id="path3278-6-6"
        sodipodi:nodetypes="cccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave10.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\11.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -1456,7 +1583,7 @@
        id="path3280-0-89"
        d="m 2713.9852,796.01933 c 15.3054,0.071 32.2997,4.0796 47.5313,16.75 0,0 64.9662,148.9099 -41.3125,318.87497 l -8.2813,-5.1875 c 0,0 -59.7992,-154.67217 -0.5625,-330.40617 0.8733,-0.021 1.7396,-0.035 2.625,-0.031 z"
        style="fill:#000000;fill-opacity:0.37647059;fill-rule:nonzero;stroke:none"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave10.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\11.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -1465,7 +1592,7 @@
        d="m 4170.0563,1088.0066 c -64.9047,-123.76187 -25.7954,-232.70727 -25.7954,-232.70727 24.1311,-24.4038 55.7514,-4.3578 55.7514,-4.3578 27.4597,142.9364 -27.4595,236.19327 -29.956,237.06507 z"
        id="path1951-8-0"
        sodipodi:nodetypes="cccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\12.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -1473,14 +1600,14 @@
        id="path1953-6-4"
        d="m 4172.5005,843.18753 c -9.0931,0.051 -19.2009,2.9736 -28.25,12.125 0,0 -39.0923,108.9256 25.8124,232.68747 2.4966,-0.8718 57.3973,-94.12597 29.9376,-237.06247 0,0 -12.3449,-7.8351 -27.5,-7.75 z"
        style="fill:#000000;fill-opacity:0.37647059;fill-rule:nonzero;stroke:none"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\12.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
        id="path1983-7-7"
        d="m 4161.5793,848.53463 c -34.0485,115.7575 11.7201,226.64447 11.7201,226.64447 l -2.5531,5.7849 c -12.5878,-22.5425 -53.6525,-103.70137 -24.126,-222.92557 0,0 5.398,-7.2953 14.959,-9.5038 z"
        style="fill:#ffffff;fill-opacity:0.37647059;fill-rule:nonzero;stroke:none"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\12.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18"
        inkscape:connector-curvature="0"
@@ -1491,7 +1618,7 @@
        id="path1955-6-7"
        d="m 4017.0927,840.40813 155.5714,62.5908 -1.3153,99.69517 -199.1391,22.6846 44.883,-184.97057 z"
        style="fill:#0000aa;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27304267999999880;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\12.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -1499,7 +1626,7 @@
        id="path1957-1-6"
        d="m 4038.1255,848.87503 3.9374,168.53127 129.2813,-14.7188 1.3125,-99.68747 -134.5312,-54.125 z"
        style="fill:#000000;fill-opacity:0.37647059;fill-rule:nonzero;stroke:none"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\12.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -1508,7 +1635,7 @@
        d="m 4039.4662,754.80503 c -56.043,45.6646 -95.4807,338.33337 -95.4807,338.33337 85.1024,-18.681 128.6914,8.3026 128.6914,8.3026 35.2863,-176.43147 -31.135,-344.56027 -33.2107,-346.63597 z"
        id="path1959-9-6"
        sodipodi:nodetypes="cccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\12.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -1516,7 +1643,7 @@
        id="path1961-4-9"
        d="m 4036.2505,757.71883 c -0.6899,0.6845 -1.378,1.3993 -2.0626,2.1562 l -15.2813,327.40627 c 35.6371,2.9716 53.7813,14.1562 53.7813,14.1562 31.7893,-158.94597 -18.9841,-311.09267 -30.875,-341.21867 l -0.4687,-0.2188 -5.0937,-2.2812 z"
        style="fill:#000000;fill-opacity:0.37647059;fill-rule:nonzero;stroke:none"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\12.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -1525,7 +1652,7 @@
        d="m 3970.4283,574.90633 c -150.3848,273.7776 -59.7683,514.77887 -59.7683,514.77887 55.9123,53.9843 127.8136,4.1868 127.8136,4.1868 63.6243,-316.19377 -62.2612,-517.03767 -68.0453,-518.96567 z"
        id="path1963-4-4"
        sodipodi:nodetypes="cccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\12.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -1534,7 +1661,7 @@
        d="m 3970.4378,574.90633 c -0.4997,0.9098 -1.0055,1.8097 -1.5,2.7187 43.7585,211.5484 90.7382,508.87417 28.3126,533.96867 24.0549,-5.866 41.2188,-17.7187 41.2188,-17.7187 63.6243,-316.19377 -62.2472,-517.04067 -68.0314,-518.96867 z"
        style="fill:#000000;fill-opacity:0.37647059;fill-rule:nonzero;stroke:none"
        sodipodi:nodetypes="ccccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\12.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -1543,7 +1670,7 @@
        id="path1967-3-3"
        d="m 4010.3158,813.90693 c -90.135,124.7419 -30.7188,240.04217 -30.7188,240.04217 9.4124,7.9537 45.531,8.2504 45.531,8.2504 85.7433,-110.83257 -13.1605,-249.08347 -14.8122,-248.29257 z"
        style="fill:#0000ff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27305079;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\12.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -1552,14 +1679,14 @@
        id="path1969-6-1"
        d="m 3899.3904,763.10773 c -74.7238,83.0266 -97.5562,361.16557 -97.5562,361.16557 83.0266,-41.5133 132.8426,-18.681 132.8426,-18.681 33.2106,-168.12877 -33.2107,-340.40897 -35.2864,-342.48457 z"
        style="fill:#b3b3b3;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27299976;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\12.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
        id="path1971-3-3"
        d="m 3895.9781,771.44783 c -69.458,91.5225 -88.0015,345.40967 -89.9381,347.02367 18.1116,-9.0558 33.3368,-12.81 48.1153,-16.6469 -1.8552,-23.3258 -7.8095,-142.04677 44.3228,-330.09557 z"
        style="fill:#ffffff;fill-opacity:0.37647059;fill-rule:nonzero;stroke:none"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\12.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18"
        inkscape:connector-curvature="0"
@@ -1570,7 +1697,7 @@
        d="m 3877.781,844.40813 -155.5713,62.5908 1.3153,99.69517 157.6257,22.6846 c 11.3308,-65.80817 6.0562,-127.46507 -3.3697,-184.97057 z"
        id="path1973-4-4"
        sodipodi:nodetypes="ccccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\12.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -1579,7 +1706,7 @@
        id="path1975-5-2"
        d="m 3733.3818,1139.0173 c -109.247,-171.35267 -43.4187,-322.19137 -43.4187,-322.19137 40.6176,-33.7879 93.8405,-6.0336 93.8405,-6.0336 46.2198,197.90047 -46.2199,327.01847 -50.4218,328.22497 z"
        style="fill:#cccccc;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.27299976;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\12.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -1588,7 +1715,7 @@
        d="m 4016.3007,836.44913 c -73.9712,84.2817 -29.5592,175.82487 -29.5592,175.82487 5.1693,-98.17007 33.0509,-175.25347 29.5592,-175.82487 z"
        id="path1977-7-9"
        sodipodi:nodetypes="ccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\12.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
@@ -1597,14 +1724,14 @@
        d="m 3986.3142,1048.1041 c 35.9244,-12.3719 67.4659,-91.11627 67.4659,-91.11627 -7.1849,56.91047 -34.4042,94.45177 -34.4042,94.45177 -16.1661,4.9487 -32.1636,-1.6859 -33.0617,-3.3355 z"
        id="path1979-0-2"
        sodipodi:nodetypes="cccc"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\12.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18" />
     <path
        id="path1981-7-7"
        d="m 3693.8423,818.74913 c -2.121,0.5303 -70.1783,145.21 40.667,314.03347 l 0.8577,-1.9598 c 0,0 67.5455,-150.47627 8.3088,-326.21027 -11.4481,-5.8108 -41.4879,7.3733 -49.8335,14.1366 z"
        style="fill:#ffffff;fill-opacity:0.37647059;fill-rule:nonzero;stroke:none"
-       inkscape:export-filename="D:\fenix\garnatron1.7\fpg\Nave\nave20.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\nave\12.png"
        inkscape:export-xdpi="11.18"
        inkscape:export-ydpi="11.18"
        inkscape:connector-curvature="0"
