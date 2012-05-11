@@ -11,7 +11,7 @@ private
 	x1;
 	angulo;
 	patron2;
-	nave;
+	jugador;
 
 begin
 
@@ -41,10 +41,10 @@ begin
 					end
 					break;
 				end
-				from nave=0 to 3;
-					if(exists(id_nave[nave]))
-						id2=(collision(id_nave[nave])); 
-						if(id2) id_nave[nave].estado=-1; explosion(x,y,3,100);
+				from jugador=1 to 4;
+					if(exists(id_nave[jugador]))
+						id2=(collision(id_nave[jugador])); 
+						if(id2) id_nave[jugador].estado=-1; explosion(x,y,3,100);
 							if(opciones.particulas==1)
 								explotalo(x,y,z,alpha,angle,file,graph,40);
 							end
@@ -117,10 +117,10 @@ begin
 			id2=(collision(type disparo01));
 			if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,75); puntos+=1; end
 			if(vida<1) explosion(x,y,1,150); if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end break; end
-			from nave=0 to 3;
-				if(exists(id_nave[nave]))
-					id2=(collision(id_nave[nave])); 
-					if(id2) id_nave[nave].estado=-1; explosion(x,y,3,100); if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end return; end
+			from jugador=1 to 4;
+				if(exists(id_nave[jugador]))
+					id2=(collision(id_nave[jugador])); 
+					if(id2) id_nave[jugador].estado=-1; explosion(x,y,3,100); if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end return; end
 				end
 			end
 			id2=(collision(type laser));
@@ -153,10 +153,10 @@ begin
 			id2=(collision(type disparo01));
 			if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,75); puntos+=1; end
 			if(vida<1) explosion(x,y,1,150); if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end break; end
-			from nave=0 to 3;
-				if(exists(id_nave[nave]))
-					id2=(collision(id_nave[nave]));
-					if(id2) id_nave[nave].estado=-1; explosion(x,y,3,100); if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end return; end
+			from jugador=1 to 4;
+				if(exists(id_nave[jugador]))
+					id2=(collision(id_nave[jugador]));
+					if(id2) id_nave[jugador].estado=-1; explosion(x,y,3,100); if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end return; end
 				end
 			end
 			id2=(collision(type laser));
@@ -188,10 +188,10 @@ begin
 			id2=(collision(type disparo01));
 			if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,75); puntos+=1; end
 			if(vida<1) explosion(x,y,1,150); if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end break; end
-			from nave=0 to 3;
-				if(exists(id_nave[nave]))
-					id2=(collision(id_nave[nave])); 
-					if(id2) id_nave[nave].estado=-1; explosion(x,y,3,100); if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end return; end
+			from jugador=1 to 4;
+				if(exists(id_nave[jugador]))
+					id2=(collision(id_nave[jugador])); 
+					if(id2) id_nave[jugador].estado=-1; explosion(x,y,3,100); if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end return; end
 				end
 			end
 			id2=(collision(type laser));
@@ -220,7 +220,7 @@ private
 	id2;
 	anima;
 	direccion=1;
-	nave;
+	jugador;
 
 begin
 z-=15;
@@ -243,10 +243,10 @@ if(tipo==1)
 		y+=3;
 		x=+x1+get_distx(angulo,15);	
 		angulo+=3000;
-		from nave=0 to 3;
-			if(exists(id_nave[nave]))
-				id2=(collision(id_nave[nave]));
-				if(id2) id_nave[nave].estado=-1; explosion(x,y,3,100); if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end puntos+=10; return; end
+		from jugador=1 to 4;
+			if(exists(id_nave[jugador]))
+				id2=(collision(id_nave[jugador]));
+				if(id2) id_nave[jugador].estado=-1; explosion(x,y,3,100); if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end puntos+=10; return; end
 			end
 		end
 		id2=(collision(type laser));
@@ -263,17 +263,17 @@ if(tipo==2)
 	loop
 	if(pausa==0)
 		angle+=pi/8;
-		if(id_nave[0].x>x) x+=4; end
-		if(id_nave[0].x<x) x-=4; end	
-		if(id_nave[0].y>y) y+=4; end
-		if(id_nave[0].y<y) y-=4; end
+		if(id_nave[1].x>x) x+=4; end
+		if(id_nave[1].x<x) x-=4; end	
+		if(id_nave[1].y>y) y+=4; end
+		if(id_nave[1].y<y) y-=4; end
 		id2=(collision(type disparo01));
 		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,75);  puntos+=1; end
 		if(vida<1) explosion(x,y,1,100); if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end puntos+=10; break; end
-		from nave=0 to 3;
-			if(exists(id_nave[nave]))
-				id2=(collision(id_nave[nave]));
-				if(id2) id_nave[nave].estado=-1; explosion(x,y,3,100); if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end puntos+=10; return; end
+		from jugador=1 to 4;
+			if(exists(id_nave[jugador]))
+				id2=(collision(id_nave[jugador]));
+				if(id2) id_nave[jugador].estado=-1; explosion(x,y,3,100); if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end puntos+=10; return; end
 			end
 		end
 		id2=(collision(type laser));
@@ -295,7 +295,7 @@ PROCESS asteroide(x,y,size,angle,velocidad)
 private
 vida;
 id2;
-nave;
+jugador;
 
 BEGIN
 	z-=15;
@@ -335,14 +335,14 @@ BEGIN
 			end
 
 		end
-		if(y>800 or x<-30 or x>850 or y<-200) break; end
-		from nave=0 to 3;
-			if(exists(id_nave[nave]))
-				if(collision(id_nave[nave]))
-					id_nave[nave].estado=-1;
+		if(y>800 or x<-30 or x>1100 or y<-200) break; end
+		from jugador=1 to 4;
+			if(exists(id_nave[jugador]))
+				if(collision(id_nave[jugador]))
+					id_nave[jugador].estado=-1;
 					explosion(x,y,3,200);
 					if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end
-					if(size>99) puntos[nave]+=30; else  puntos[nave]+=10; end
+					if(size>99) puntos[jugador]+=30; else  puntos[jugador]+=10; end
 					return;
 				end
 			end
@@ -365,7 +365,7 @@ begin
 		if(pausa==0)
 			x=father.x+x1;
 			y=father.y+y1;
-			angulo=get_angle(id_nave[0]);
+			angulo=get_angle(id_nave[1]);
 			angle=angulo;
 			patron++;
 			if(patron==125)

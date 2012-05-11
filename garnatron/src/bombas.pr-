@@ -310,7 +310,7 @@ end
 
 PROCESS disparo02(x,y,angle,tipo);
 
-private id2;
+private id2; jugador;
 
 BEGIN
 
@@ -339,7 +339,20 @@ REPEAT
 			estela(x,y,angle,fpg_explosiones,42);
 		end
 
-		if(collision(id_nave)) id_nave.estado=-1; explosion(x,y,2,75); end
+
+		
+		from jugador=1 to 4;
+			if(exists(id_nave[jugador]))
+				id2=(collision(id_nave[jugador])); 
+				if(id2)
+					id_nave[jugador].estado=-1;
+					explosion(x,y,2,75);
+					return;
+				end
+			end
+		end
+		
+		
 		if(collision(type disparo01)) explosion(x,y,2,75); break; end
 	end
 	FRAME;
@@ -383,7 +396,7 @@ end
 
 process laser02(x1,y1,angle,size_y);
 
-private id2; avance;
+private id2; avance; jugador;
 
 begin
 z-=14;
@@ -394,7 +407,17 @@ id2=father;
 avance=30;
 loop
 	if(pausa==0)
-		if(collision(id_nave)) id_nave.estado=-1; explosion(x,y,2,200); end
+		
+		from jugador=1 to 4;
+			if(exists(id_nave[jugador]))
+				id2=(collision(id_nave[jugador])); 
+				if(id2)
+					id_nave[jugador].estado=-1;
+					explosion(x,y,2,200);
+				end
+			end
+		end
+		
 		if(exists(id2))
 			x1=id2.x;
 			y1=id2.y;

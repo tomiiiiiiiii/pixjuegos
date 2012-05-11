@@ -12,7 +12,7 @@ pausa;
 distancia;
 
 jugadores=1;
-id_nave[4];
+id_nave[5];
 
 vidas[4]=3,3,3,3;
 escudo[4]=5,5,5,5;
@@ -299,7 +299,7 @@ begin
 	if(cosa==2) //creditos
 		
 		pausa=1;
-		id_nave[0]=nave01(-100,300,0);
+		id_nave[0]=nave01(-100,384,0);
 		id_nave[0].angle=-90000;
 		while(id_nave.x<100)
 			id_nave[0].x+=2;
@@ -310,7 +310,7 @@ begin
 		letra("Autores",200,200,1);
 		timer[2]=0;
 		while(timer[2]<600)
-			if(id_nave[0].x<400) id_nave.x+=2; end
+			if(id_nave[0].x<512) id_nave.x+=2; end
 			scroll.x0+=3;
 			frame;
 		end
@@ -319,7 +319,7 @@ begin
 		letra("Carles Vicent",600,230,3);
 		timer[2]=0;
 		while(timer[2]<400)
-			if(id_nave[0].x<400) id_nave.x+=2; end
+			if(id_nave[0].x<512) id_nave.x+=2; end
 			scroll.x0+=3;
 			frame;
 		end
@@ -379,7 +379,7 @@ begin
 		letra("Creado por PiX Juegos",600,400,0);
 		timer[2]=0;
 		while(timer[2]<600)
-			if(id_nave[0].x<850) id_nave.x+=2; end
+			if(id_nave[0].x<1100) id_nave.x+=2; end
 			scroll.x0+=3;
 			frame;
 		end
@@ -387,7 +387,7 @@ begin
 		letra("Gracias por jugar",400,300,4);
 		timer[2]=0;
 		while(timer[2]<600)
-			if(id_nave[0].x<850) id_nave.x+=3; end
+			if(id_nave[0].x<1100) id_nave.x+=3; end
 			scroll.x0+=3;
 			frame;
 		end
@@ -516,6 +516,20 @@ begin
 			num_opciones=4;
 			volver_a_menu=0;
 		end
+		case 4: //jugadores, juego nuevo
+			write(fuente1,x,y+=60,3,"1 Jugador");
+			write(fuente1,x,y+=60,3,"2 Jugadores");
+			write(fuente1,x,y+=60,3,"Volver");
+			num_opciones=3;
+			volver_a_menu=0;
+		end
+		case 4: //jugadores, continuar
+			write(fuente1,x,y+=60,3,"1 Jugador");
+			write(fuente1,x,y+=60,3,"2 Jugadores");
+			write(fuente1,x,y+=60,3,"Volver");
+			num_opciones=3;
+			volver_a_menu=0;
+		end
 	end
 	
 	x=70;
@@ -539,9 +553,9 @@ begin
 				case 0: //general
 					switch(opcion_actual)
 						case 1:
-							vidas[0]=3;
-							vidas[1]=3;
-							juego(1);
+							vidas[0]=0;
+							vidas[1]=0;
+							menu(4);
 						end
 						case 2:
 							vidas[0]=save.vidas[0];
@@ -830,6 +844,36 @@ begin
 							fclose(archivo);
 						end
 						case 4:
+							menu(1);
+						end
+					end
+				end
+				case 4: //numero jugadores, juego nuevo
+					switch(opcion_actual)
+						case 1: 
+							jugadores=1;
+							juego(1);
+						end
+						case 2: 
+							jugadores=2;
+							juego(1);
+						end
+						case 3:
+							menu(1);
+						end
+					end
+				end
+				case 5: //numero jugadores, continuar
+					switch(opcion_actual)
+						case 1: 
+							jugadores=1;
+							juego(1);
+						end
+						case 2: 
+							jugadores=2;
+							juego(1);
+						end
+						case 3:
 							menu(1);
 						end
 					end
