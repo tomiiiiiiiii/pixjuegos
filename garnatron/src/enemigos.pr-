@@ -11,8 +11,7 @@ private
 	x1;
 	angulo;
 	patron2;
-	jugador;
-
+	
 begin
 
 	z=-10; region=1; file=fpg_enemigos;
@@ -220,7 +219,6 @@ private
 	id2;
 	anima;
 	direccion=1;
-	jugador;
 
 begin
 z-=15;
@@ -295,7 +293,6 @@ PROCESS asteroide(x,y,size,angle,velocidad)
 private
 vida;
 id2;
-jugador;
 
 BEGIN
 	z-=15;
@@ -342,7 +339,7 @@ BEGIN
 					id_nave[jugador].estado=-1;
 					explosion(x,y,3,200);
 					if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end
-					if(size>99) puntos[jugador]+=30; else  puntos[jugador]+=10; end
+					if(size>99) puntos[jugador]+=30; else puntos[jugador]+=10; end
 					return;
 				end
 			end

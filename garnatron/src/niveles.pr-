@@ -13,7 +13,6 @@ id_texto2;
 direccion=1;
 jefe;
 n;
-jugador;
 
 struct datos_nivel[100];
 	n;
@@ -29,6 +28,7 @@ Begin
 	fade_off();
 	delete_text(all_text);
 	let_me_alone();
+	controlador(0);
 	x=512;
 	y=384;
 	z=-100;
@@ -83,8 +83,7 @@ end
 		energia[jugador]=20;
 		escudo[jugador]=5;
 		puntos[jugador]=0;
-		poder[jugador]=1;
-		fuerza[jugador]=1;
+		poder[jugador]=save.poder[jugador];
 	end
 	opcion=0;
 	distancia=0;

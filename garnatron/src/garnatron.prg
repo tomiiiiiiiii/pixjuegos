@@ -14,12 +14,12 @@ distancia;
 jugadores=1;
 id_nave[5];
 
-vidas[4]=3,3,3,3;
-escudo[4]=5,5,5,5;
-poder[4]=1,1,1,1;
-fuerza[4]=1,1,1,1;
-energia[4]=20,20,20,20;
-habil[4]=1,1;
+vidas[4]=0,3,3,3,3;
+escudo[4]=0,5,5,5,5;
+poder[4]=0,1,1,1,1;
+fuerza[4]=0,1,1,1,1;
+energia[4]=0,20,20,20,20;
+habil[4]=0,1,1,1,1;
 puntos[4];
 
 arcade_mode=0;
@@ -44,6 +44,7 @@ struct opciones;
 		cambiar;
 	end
 	particulas;
+	p_completa;
 end
 
 //------ inicio controles.pr-
@@ -108,6 +109,7 @@ string developerpath="/.PiXJuegos/Garnatron/";
 
 
 Local
+	jugador;
 	estado;
 	patron;
 	id_texto;
@@ -197,6 +199,11 @@ BEGIN
 		fread(archivo,opciones);
 		fclose(archivo);
 	end
+	
+	if(opciones.p_completa) 
+		full_screen=true; 
+		set_mode(1024,768,32,WAITVSYNC);
+	end
 
 	save.nivel=1;
 	save.vidas[0]=3;
@@ -261,7 +268,7 @@ begin
 	clear_screen();
 	delete_text(all_text);
 	fade_off();
-	define_region(1,0,75,1024,700);
+	define_region(1,0,75,1024,600);
 	fade_on();
 	timer[2]=0;
 	
@@ -519,15 +526,19 @@ begin
 		case 4: //jugadores, juego nuevo
 			write(fuente1,x,y+=60,3,"1 Jugador");
 			write(fuente1,x,y+=60,3,"2 Jugadores");
-			write(fuente1,x,y+=60,3,"Volver");
 			num_opciones=3;
+			if(posibles_jugadores>2) num_opciones++; write(fuente1,x,y+=60,3,"3 Jugadores"); end
+			if(posibles_jugadores>3) num_opciones++; write(fuente1,x,y+=60,3,"4 Jugadores"); end
+			write(fuente1,x,y+=60,3,"Volver");
 			volver_a_menu=0;
 		end
-		case 4: //jugadores, continuar
+		case 5: //jugadores, continuar
 			write(fuente1,x,y+=60,3,"1 Jugador");
 			write(fuente1,x,y+=60,3,"2 Jugadores");
-			write(fuente1,x,y+=60,3,"Volver");
 			num_opciones=3;
+			if(posibles_jugadores>2) num_opciones++; write(fuente1,x,y+=60,3,"3 Jugadores"); end
+			if(posibles_jugadores>3) num_opciones++; write(fuente1,x,y+=60,3,"4 Jugadores"); end
+			write(fuente1,x,y+=60,3,"Volver");
 			volver_a_menu=0;
 		end
 	end
@@ -548,23 +559,32 @@ begin
 			
 			suena(s_aceptar);
 			
-			while(p[0].botones[4]) frame; end
+			while(p[0].botones[4]) scroll.x0+=3; frame; end
 			switch(num_menu)
 				case 0: //general
 					switch(opcion_actual)
 						case 1:
-							vidas[0]=0;
 							vidas[1]=0;
-							menu(4);
+							vidas[2]=0;
+							vidas[3]=0;
+							vidas[4]=0;
+							if(posibles_jugadores>1)
+								menu(4);
+							else
+								jugadores=1;
+								juego(1);
+							end
 						end
 						case 2:
-							vidas[0]=save.vidas[0];
-							vidas[1]=save.vidas[1];
-							puntos[0]=save.puntos[0];
-							puntos[1]=save.puntos[1];
-							poder[0]=save.poder[0];
-							poder[1]=save.poder[1];
-							juego(save.nivel);
+							if(posibles_jugadores>1)
+								menu(5);
+							else
+								jugadores=1;
+								vidas[1]=save.vidas[1];
+								puntos[1]=save.puntos[1];
+								poder[1]=save.poder[1];
+								juego(save.nivel);
+							end
 						end
 						case 3:
 							menu(1);
@@ -607,10 +627,12 @@ begin
 					switch(opcion_actual)
 						case 1: 
 							full_screen=true;
+							opciones.p_completa=1;
 							set_mode(1024,768,32,WAITVSYNC);
 						end
 						case 2: 
 							full_screen=false;
+							opciones.p_completa=0;
 							set_mode(1024,768,32,WAITVSYNC);
 						end
 						case 3:
@@ -849,33 +871,34 @@ begin
 					end
 				end
 				case 4: //numero jugadores, juego nuevo
-					switch(opcion_actual)
-						case 1: 
-							jugadores=1;
-							juego(1);
-						end
-						case 2: 
-							jugadores=2;
-							juego(1);
-						end
-						case 3:
-							menu(1);
-						end
+					jugadores=opcion_actual;
+					if(jugadores>num_opciones-1) jugadores=num_opciones-1; end
+					from jugador=1 to jugadores;
+						vidas[jugador]=0;
+						puntos[jugador]=0;
+						poder[jugador]=1;
+					end
+					if(num_opciones==opcion_actual)
+						menu(0);
+						return;
+					else
+						juego(1);
 					end
 				end
 				case 5: //numero jugadores, continuar
-					switch(opcion_actual)
-						case 1: 
-							jugadores=1;
-							juego(1);
-						end
-						case 2: 
-							jugadores=2;
-							juego(1);
-						end
-						case 3:
-							menu(1);
-						end
+					jugadores=opcion_actual;
+					if(jugadores>num_opciones-1) jugadores=num_opciones-1; end
+					from jugador=1 to jugadores;
+						//vidas[jugador]=save.vidas[1];
+						vidas[jugador]=0;
+						puntos[jugador]=save.puntos[1];
+						poder[jugador]=save.poder[1];
+					end
+					if(num_opciones==opcion_actual)
+						menu(0);
+						return;
+					else
+						juego(save.nivel);
 					end
 				end
 			end

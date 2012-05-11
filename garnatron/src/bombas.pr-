@@ -5,14 +5,14 @@
 
 PROCESS disparo01(x,y,angle)
 BEGIN
-
+jugador=father.jugador;
 z-=10;
 region=1;
 file=fpg_bombas;
-if(fuerza==1) graph=5; end
-if(fuerza==2) graph=6; end
-if(fuerza==3) graph=7; end
-if(fuerza==4) graph=8; end
+if(fuerza[jugador]==1) graph=5; end
+if(fuerza[jugador]==2) graph=6; end
+if(fuerza[jugador]==3) graph=7; end
+if(fuerza[jugador]==4) graph=8; end
 
 REPEAT
 	if(pausa==0)
@@ -34,6 +34,7 @@ priority=-1;
 z+=15;
 region=1;
 file=fpg_bombas;
+jugador=father.jugador;
 if(tipo==1)	//verde
 	graph=10;
 	size=0;
@@ -83,8 +84,8 @@ if(tipo==3)	//amarillo arco
 end
 
 if(tipo==4)	//misiles
-	x=id_nave.x;
-	y=id_nave.y;
+	x=id_nave[jugador].x;
+	y=id_nave[jugador].y;
 	if(exists(type enemigo))
 		id2=get_id(type enemigo);
 	elseif(exists(type mina))
@@ -100,7 +101,7 @@ if(tipo==4)	//misiles
 end
 
 if(tipo==5)	//escudo
-	laser(x,y,50,id_nave);
+	laser(x,y,50,id_nave[jugador]);
 	while(time<140)
 		time++;
 		frame;
@@ -122,7 +123,7 @@ priority=-2;
 z-=15;
 region=1;
 file=fpg_bombas;
-
+jugador=father.jugador;
 if(tipo==10)
 	laser(x,y+70,11,id);
 	laser(x,y+70,12,id); 
@@ -273,8 +274,8 @@ if(tipo==50)
 	size=0;
 	loop
 		if(pausa==0)
-			x=id_nave.x;
-			y=id_nave.y;
+			x=id_nave[jugador].x;
+			y=id_nave[jugador].y;
 			x1++;
 			if(size<150) size+=10; end
 			if(x1>120) break; end
@@ -310,7 +311,7 @@ end
 
 PROCESS disparo02(x,y,angle,tipo);
 
-private id2; jugador;
+private id2;
 
 BEGIN
 
@@ -347,7 +348,6 @@ REPEAT
 				if(id2)
 					id_nave[jugador].estado=-1;
 					explosion(x,y,2,75);
-					return;
 				end
 			end
 		end
@@ -356,7 +356,7 @@ REPEAT
 		if(collision(type disparo01)) explosion(x,y,2,75); break; end
 	end
 	FRAME;
-UNTIL (out_region(id,1) or collision(id_nave))
+UNTIL (out_region(id,1))
 END
 
 //-----------------------------------------------------------------------
@@ -396,7 +396,7 @@ end
 
 process laser02(x1,y1,angle,size_y);
 
-private id2; avance; jugador;
+private id2; avance;
 
 begin
 z-=14;
@@ -405,6 +405,7 @@ region=1;
 graph=41;
 id2=father;
 avance=30;
+jugador=father.jugador;
 loop
 	if(pausa==0)
 		
