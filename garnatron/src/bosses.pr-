@@ -8,11 +8,18 @@ private
 
 vida_boss_max;
 begin
-x=400; y=778; z=-110; graph=99; region=4; vida_boss_max=vida_boss; file=fpg_nave;
-loop
-define_region(4,0,700,vida_boss*800/vida_boss_max,800);
-frame;
-end
+	x=512;
+	y=738;
+	z=-110;
+	graph=99;
+	region=4;
+	vida_boss_max=vida_boss;
+	file=fpg_nave;
+	objeto(x,y,98,file,size,flags);
+	loop
+		define_region(4,262,700,vida_boss*500/vida_boss_max,100);
+		frame;
+	end
 end
 
 //-----------------------------------------------------------------------
@@ -45,11 +52,15 @@ if(tipo==1)	//nivel 1
 		id2=(collision(type laser));
 		if(id2) vida_boss-=2; explosion(id2.x,id2.y,2,100); puntos+=1; end
 
-		if(collision(type nave01))
-			if(id_nave.flags<>4)
-				explosion(id_nave.x,id_nave.y,3,200);
+		from jugador=1 to 4;
+			if(exists(id_nave[jugador]))
+				if(collision(id_nave[jugador]))
+					if(id_nave[jugador].flags<>4)
+						explosion(id_nave[jugador].x,id_nave[jugador].y,3,200);
+					end
+					id_nave[jugador].estado=-1;
+				end
 			end
-			id_nave.estado=-1;
 		end
 
 		if(vida_boss<1) signal(id_boss02,s_kill); explosion(x,y,4,200); explotalo(x,y,z,alpha,angle,file,graph,40); puntos+=1000; break; end
@@ -89,11 +100,15 @@ if(tipo==2)	//nivel 2
 		id2=(collision(type laser));
 		if(id2) vida_boss-=2; explosion(id2.x,id2.y,2,100); puntos+=1; end
 
-		if(collision(type nave01))
-			if(id_nave.flags<>4)
-				explosion(id_nave.x,id_nave.y,3,200);
+		from jugador=1 to 4;
+			if(exists(id_nave[jugador]))
+				if(collision(id_nave[jugador]))
+					if(id_nave[jugador].flags<>4)
+						explosion(id_nave[jugador].x,id_nave[jugador].y,3,200);
+					end
+					id_nave[jugador].estado=-1;
+				end
 			end
-			id_nave.estado=-1;
 		end
 
 		if(vida_boss<1) explosion(x,y,4,100); explotalo(x,y,z,alpha,angle,file,graph,40); puntos+=2000; break; end
@@ -131,11 +146,15 @@ if(tipo==3)	//nivel 3
 		id2=(collision(type laser));
 		if(id2) vida_boss-=2; explosion(id2.x,id2.y,2,100); puntos+=1; end
 
-		if(collision(type nave01))
-			if(id_nave.flags<>4)
-				explosion(id_nave.x,id_nave.y,3,200);
+		from jugador=1 to 4;
+			if(exists(id_nave[jugador]))
+				if(collision(id_nave[jugador]))
+					if(id_nave[jugador].flags<>4)
+						explosion(id_nave[jugador].x,id_nave[jugador].y,3,200);
+					end
+					id_nave[jugador].estado=-1;
+				end
 			end
-			id_nave.estado=-1;
 		end
 
 		if(vida_boss<1) explosion(x,y,4,100); explotalo(x,y,z,alpha,angle,file,graph,40); puntos+=3000; break; end
@@ -149,7 +168,7 @@ if(tipo==4) //nivel 3 escudo
 	if(pausa==0)
 		y=father.y;
 		x=father.x-20;
-		angulo=get_angle(id_nave);
+		angulo=get_angle(id_nave[1]);
 		patron++;
 		if(patron>50)
 			patron=0;
@@ -164,11 +183,15 @@ if(tipo==4) //nivel 3 escudo
 		id2=(collision(type laser));
 		if(id2) vida-=2; explosion(id2.x,id2.y,2,100); puntos+=1; end
 
-		if(collision(type nave01))
-			if(id_nave.flags<>4)
-				explosion(id_nave.x,id_nave.y,3,200);
+		from jugador=1 to 4;
+			if(exists(id_nave[jugador]))
+				if(collision(id_nave[jugador]))
+					if(id_nave[jugador].flags<>4)
+						explosion(id_nave[jugador].x,id_nave[jugador].y,3,200);
+					end
+					id_nave[jugador].estado=-1;
+				end
 			end
-			id_nave.estado=-1;
 		end
 
 		if(vida<1) explosion(x,y,3,100); explotalo(x,y,z,alpha,angle,file,graph,40); puntos+=500; break; end
@@ -183,7 +206,7 @@ if(tipo==5)	//nivel 3 escudo
 	if(pausa==0)
 		y=father.y;
 		x=father.x+20;
-		angulo=get_angle(id_nave);
+		angulo=get_angle(id_nave[1]);
 		patron++;
 		if(patron>50)
 			patron=0;
@@ -198,11 +221,15 @@ if(tipo==5)	//nivel 3 escudo
 		id2=(collision(type laser));
 		if(id2) vida-=2; explosion(id2.x,id2.y,2,100); puntos+=1; end
 
-		if(collision(type nave01))
-			if(id_nave.flags<>4)
-				explosion(id_nave.x,id_nave.y,3,200);
+		from jugador=1 to 4;
+			if(exists(id_nave[jugador]))
+				if(collision(id_nave[jugador]))
+					if(id_nave[jugador].flags<>4)
+						explosion(id_nave[jugador].x,id_nave[jugador].y,3,200);
+					end
+					id_nave[jugador].estado=-1;
+				end
 			end
-			id_nave.estado=-1;
 		end
 
 		if(vida<1) explosion(x,y,3,100); explotalo(x,y,z,alpha,angle,file,graph,40); puntos+=500; break; end
@@ -257,11 +284,15 @@ if(tipo==6)	//nivel 4
 		id2=(collision(type laser));
 		if(id2) vida_boss-=2; explosion(id2.x,id2.y,2,100); puntos+=1; end
 
-		if(collision(type nave01))
-			if(id_nave.flags<>4)
-				explosion(id_nave.x,id_nave.y,3,200);
+		from jugador=1 to 4;
+			if(exists(id_nave[jugador]))
+				if(collision(id_nave[jugador]))
+					if(id_nave[jugador].flags<>4)
+						explosion(id_nave[jugador].x,id_nave[jugador].y,3,200);
+					end
+					id_nave[jugador].estado=-1;
+				end
 			end
-			id_nave.estado=-1;
 		end
 
 		if(vida_boss<1) signal(id_boss04,s_kill); signal(id_boss05,s_kill); explosion(x,y,4,200); explotalo(x,y,z,alpha,angle,file,graph,40); puntos+=4000; break; end
@@ -287,11 +318,16 @@ if(tipo==7)	//nivel 4 ala
 		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,100); puntos+=1; end
 		id2=(collision(type laser));
 		if(id2) vida-=2; explosion(id2.x,id2.y,2,100); puntos+=1; end
-		if(collision(type nave01))
-			if(id_nave.flags<>4)
-				explosion(id_nave.x,id_nave.y,3,200);
+		
+		from jugador=1 to 4;
+			if(exists(id_nave[jugador]))
+				if(collision(id_nave[jugador]))
+					if(id_nave[jugador].flags<>4)
+						explosion(id_nave[jugador].x,id_nave[jugador].y,3,200);
+					end
+					id_nave[jugador].estado=-1;
+				end
 			end
-			id_nave.estado=-1;
 		end
 
 		if(id2) vida-=2; explosion(id2.x,id2.y,2,100); end
@@ -321,11 +357,15 @@ if(tipo==8)	//nivel 4 ala
 		id2=(collision(type laser));
 		if(id2) vida-=2; explosion(id2.x,id2.y,2,100); puntos+=1; end
 
-		if(collision(type nave01))
-			if(id_nave.flags<>4)
-				explosion(id_nave.x,id_nave.y,3,200);
+		from jugador=1 to 4;
+			if(exists(id_nave[jugador]))
+				if(collision(id_nave[jugador]))
+					if(id_nave[jugador].flags<>4)
+						explosion(id_nave[jugador].x,id_nave[jugador].y,3,200);
+					end
+					id_nave[jugador].estado=-1;
+				end
 			end
-			id_nave.estado=-1;
 		end
 
 		if(vida<1) explosion(x-150,y,3,100); puntos+=500; explotalo(x,y,z,alpha,angle,file,graph,40); break; end
@@ -393,11 +433,15 @@ if(tipo==9)	//nivel 5
 		id2=(collision(type laser));
 		if(id2) vida_boss-=2; explosion(id2.x,id2.y,2,100); puntos+=1; end
 
-		if(collision(type nave01))
-			if(id_nave.flags<>4)
-				explosion(id_nave.x,id_nave.y,3,200);
+		from jugador=1 to 4;
+			if(exists(id_nave[jugador]))
+				if(collision(id_nave[jugador]))
+					if(id_nave[jugador].flags<>4)
+						explosion(id_nave[jugador].x,id_nave[jugador].y,3,200);
+					end
+					id_nave[jugador].estado=-1;
+				end
 			end
-			id_nave.estado=-1;
 		end
 
 		if(vida_boss<1 and vida_boss>-100)
@@ -436,11 +480,15 @@ if(tipo==10)	//nivel 5 escudo
 		id2=(collision(type laser));
 		if(id2) vida-=2; explosion(id2.x,id2.y,2,100); puntos+=1; end
 
-		if(collision(type nave01))
-			if(id_nave.flags<>4)
-				explosion(id_nave.x,id_nave.y,3,200);
+		from jugador=1 to 4;
+			if(exists(id_nave[jugador]))
+				if(collision(id_nave[jugador]))
+					if(id_nave[jugador].flags<>4)
+						explosion(id_nave[jugador].x,id_nave[jugador].y,3,200);
+					end
+					id_nave[jugador].estado=-1;
+				end
 			end
-			id_nave.estado=-1;
 		end
 
 		if(vida_boss<500) explosion(x,y,3,100); break; end
@@ -470,11 +518,15 @@ if(tipo==11)	//nivel 5 escudo
 		id2=(collision(type laser));
 		if(id2) vida-=2; explosion(id2.x,id2.y,2,100); puntos+=1; end
 
-		if(collision(type nave01))
-			if(id_nave.flags<>4)
-				explosion(id_nave.x,id_nave.y,3,200);
+		from jugador=1 to 4;
+			if(exists(id_nave[jugador]))
+				if(collision(id_nave[jugador]))
+					if(id_nave[jugador].flags<>4)
+						explosion(id_nave[jugador].x,id_nave[jugador].y,3,200);
+					end
+					id_nave[jugador].estado=-1;
+				end
 			end
-			id_nave.estado=-1;
 		end
 
 		if(vida_boss<500) explosion(x,y,3,100); break; end
@@ -501,11 +553,15 @@ if(tipo==12)	//nivel 5 motor
 		id2=(collision(type laser));
 		if(id2) vida-=2; explosion(id2.x,id2.y,2,100); puntos+=1; end
 
-		if(collision(type nave01))
-			if(id_nave.flags<>4)
-				explosion(id_nave.x,id_nave.y,3,200);
+		from jugador=1 to 4;
+			if(exists(id_nave[jugador]))
+				if(collision(id_nave[jugador]))
+					if(id_nave[jugador].flags<>4)
+						explosion(id_nave[jugador].x,id_nave[jugador].y,3,200);
+					end
+					id_nave[jugador].estado=-1;
+				end
 			end
-			id_nave.estado=-1;
 		end
 
 		if(vida<1) explosion(x-150,y+200,3,100); puntos+=500; break; end
@@ -532,11 +588,15 @@ if(tipo==13)	//nivel 5 motor
 		id2=(collision(type laser));
 		if(id2) vida-=2; explosion(id2.x,id2.y,2,100); puntos+=1; end
 
-		if(collision(type nave01))
-			if(id_nave.flags<>4)
-				explosion(id_nave.x,id_nave.y,3,200);
+		from jugador=1 to 4;
+			if(exists(id_nave[jugador]))
+				if(collision(id_nave[jugador]))
+					if(id_nave[jugador].flags<>4)
+						explosion(id_nave[jugador].x,id_nave[jugador].y,3,200);
+					end
+					id_nave[jugador].estado=-1;
+				end
 			end
-			id_nave.estado=-1;
 		end
 
 		if(vida_boss<1000) explosion(x+150,y+200,3,100); break; end

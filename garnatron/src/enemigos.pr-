@@ -357,7 +357,7 @@ process canon(x1,y1);
 private angulo;
 
 begin
-	graph=52; z=-85; file=fpg_enemigos;
+	graph=50; z=-85; file=fpg_enemigos;
 	loop
 		if(pausa==0)
 			x=father.x+x1;
@@ -366,8 +366,8 @@ begin
 			angle=angulo;
 			patron++;
 			if(patron==125)
-				disparo02(x+get_distx(angle+45000,5),y+get_disty(angle+45000,5),angle,2);
-				disparo02(x+get_distx(angle-45000,5),y+get_disty(angle-45000,5),angle,2);
+				disparo02(x+get_distx(angle+45000,10),y+get_disty(angle+45000,5),angle,10);
+				disparo02(x+get_distx(angle-45000,10),y+get_disty(angle-45000,5),angle,10);
 				suena(s_laser3);
 				patron=0;
 			end

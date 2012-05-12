@@ -14,7 +14,7 @@ distancia;
 jugadores=1;
 id_nave[5];
 
-vidas[4]=0,3,3,3,3;
+vidas[4]=0,0,0,0,0;
 escudo[4]=0,5,5,5,5;
 poder[4]=0,1,1,1,1;
 fuerza[4]=0,1,1,1,1;
@@ -85,8 +85,7 @@ fpg_enemigos;
 fpg_bosses;
 fpg_explosiones;
       
-fuente1;
-fuente2;
+fuente[5];
 
 s_disparo;
 s_laser1;
@@ -163,8 +162,11 @@ BEGIN
 	s_explosion=load_wav("./wav/explos.wav"); frame;
 	s_explosion_grande=load_wav("./wav/explosg.wav"); frame;
 
-	fuente1=load_fnt(".\fnt\fuente.fnt"); frame;
-
+	fuente[0]=load_fnt(".\fnt\fuente.fnt"); frame;
+	fuente[1]=load_fnt(".\fnt\garna1.fnt"); frame;
+	fuente[2]=load_fnt(".\fnt\garna2.fnt"); frame;
+	fuente[3]=load_fnt(".\fnt\garna3.fnt"); frame;
+	fuente[4]=load_fnt(".\fnt\garna4.fnt"); frame;
 
 	opciones.teclado.arriba=72;			//Arriba
 	opciones.teclado.derecha=77;		//Derecha
@@ -205,9 +207,7 @@ BEGIN
 		set_mode(1024,768,32,WAITVSYNC);
 	end
 
-	save.nivel=1;
-	save.vidas[0]=3;
-	save.vidas[1]=3;	
+	save.nivel=1;	
 	save.poder[0]=1;
 	save.poder[1]=1;
 	save.puntuacion[0]=10000;
@@ -249,7 +249,7 @@ BEGIN
 
 
 	historia(1);
-	//juego(3);
+	//juego(4);
 	frame;
 
 end
@@ -306,10 +306,10 @@ begin
 	if(cosa==2) //creditos
 		
 		pausa=1;
-		id_nave[0]=nave01(-100,384,0);
-		id_nave[0].angle=-90000;
-		while(id_nave.x<100)
-			id_nave[0].x+=2;
+		id_nave[1]=nave01(-100,384,1);
+		id_nave[1].angle=-90000;
+		while(id_nave[1].x<100)
+			id_nave[1].x+=2;
 			scroll.x0+=3;
 			frame;
 		end
@@ -317,7 +317,7 @@ begin
 		letra("Autores",200,200,1);
 		timer[2]=0;
 		while(timer[2]<600)
-			if(id_nave[0].x<512) id_nave.x+=2; end
+			if(id_nave[1].x<512) id_nave[1].x+=2; end
 			scroll.x0+=3;
 			frame;
 		end
@@ -326,7 +326,7 @@ begin
 		letra("Carles Vicent",600,230,3);
 		timer[2]=0;
 		while(timer[2]<400)
-			if(id_nave[0].x<512) id_nave.x+=2; end
+			if(id_nave[1].x<512) id_nave[1].x+=2; end
 			scroll.x0+=3;
 			frame;
 		end
@@ -386,7 +386,7 @@ begin
 		letra("Creado por PiX Juegos",600,400,0);
 		timer[2]=0;
 		while(timer[2]<600)
-			if(id_nave[0].x<1100) id_nave.x+=2; end
+			if(id_nave[1].x<1100) id_nave[1].x+=2; end
 			scroll.x0+=3;
 			frame;
 		end
@@ -394,7 +394,7 @@ begin
 		letra("Gracias por jugar",400,300,4);
 		timer[2]=0;
 		while(timer[2]<600)
-			if(id_nave[0].x<1100) id_nave.x+=3; end
+			if(id_nave[1].x<1100) id_nave[1].x+=3; end
 			scroll.x0+=3;
 			frame;
 		end
@@ -412,12 +412,8 @@ end
 process escapable();
 Begin
 	controlador(0);
-	if(Jugadores==2)
-		controlador(1);
-	end
 	loop
 		if(p[0].botones[7]) while(p[0].botones[7]) frame; end menu(0); end
-		if(p[1].botones[7]) while(p[1].botones[7]) frame; end menu(0); end
 		frame;
 	end
 End
@@ -433,7 +429,7 @@ Begin
 	
     Repeat
 	timercred++;
-	id_texto=write(fuente1,texto_x,texto_y,4,texto);
+	id_texto=write(fuente[0],texto_x,texto_y,4,texto);
 	Frame;        
 	If(lao==1) texto_x+=1; end
 	if(lao==0) texto_x-=1; End
@@ -473,7 +469,7 @@ begin
 	
 	//modo arcade
 	if(arcade_mode==1)
-		write(fuente1,512,500,4,"Pulsa disparo para empezar");
+		write(fuente[0],512,500,4,"Pulsa disparo para empezar");
 		while(not p[0].botones[4] or not p[1].botones[4])
 			scroll.x0+=3;
 			if(p[0].botones[7] or not p[1].botones[4]) exit(); end
@@ -491,54 +487,54 @@ begin
 	//ponemos el menú actual
 	switch(num_menu)
 		case 0: //general
-			write(fuente1,x,y+=60,3,"Jugar");
-			write(fuente1,x,y+=60,3,"Continuar");
-			write(fuente1,x,y+=60,3,"Opciones");
-			write(fuente1,x,y+=60,3,"Clasificacion");
-			write(fuente1,x,y+=60,3,"Ayuda");
-			write(fuente1,x,y+=60,3,"Salir");
+			write(fuente[0],x,y+=60,3,"Jugar");
+			write(fuente[0],x,y+=60,3,"Continuar");
+			write(fuente[0],x,y+=60,3,"Opciones");
+			write(fuente[0],x,y+=60,3,"Clasificacion");
+			write(fuente[0],x,y+=60,3,"Ayuda");
+			write(fuente[0],x,y+=60,3,"Salir");
 			num_opciones=6;
 			volver_a_menu=0;
 		end
 		case 1: //opciones
-			write(fuente1,x,y+=60,3,"Video");
-			write(fuente1,x,y+=60,3,"Control");
-			write(fuente1,x,y+=60,3,"Particulas");
-			write(fuente1,x,y+=60,3,"Volver");
+			write(fuente[0],x,y+=60,3,"Video");
+			write(fuente[0],x,y+=60,3,"Control");
+			write(fuente[0],x,y+=60,3,"Particulas");
+			write(fuente[0],x,y+=60,3,"Volver");
 			num_opciones=4;
 			volver_a_menu=0;
 		end
 		case 2: //video
-			write(fuente1,x,y+=60,3,"Pantalla completa");
-			write(fuente1,x,y+=60,3,"Ventana");
-			write(fuente1,x,y+=60,3,"Volver");
+			write(fuente[0],x,y+=60,3,"Pantalla completa");
+			write(fuente[0],x,y+=60,3,"Ventana");
+			write(fuente[0],x,y+=60,3,"Volver");
 			num_opciones=3;
 			volver_a_menu=0;
 		end
 		case 3: //control
-			write(fuente1,x,y+=60,3,"Teclado");
-			write(fuente1,x,y+=60,3,"Mando");
-			write(fuente1,x,y+=60,3,"Restablecer");
-			write(fuente1,x,y+=60,3,"Volver");
+			write(fuente[0],x,y+=60,3,"Teclado");
+			write(fuente[0],x,y+=60,3,"Mando");
+			write(fuente[0],x,y+=60,3,"Restablecer");
+			write(fuente[0],x,y+=60,3,"Volver");
 			num_opciones=4;
 			volver_a_menu=0;
 		end
 		case 4: //jugadores, juego nuevo
-			write(fuente1,x,y+=60,3,"1 Jugador");
-			write(fuente1,x,y+=60,3,"2 Jugadores");
+			write(fuente[0],x,y+=60,3,"1 Jugador");
+			write(fuente[0],x,y+=60,3,"2 Jugadores");
 			num_opciones=3;
-			if(posibles_jugadores>2) num_opciones++; write(fuente1,x,y+=60,3,"3 Jugadores"); end
-			if(posibles_jugadores>3) num_opciones++; write(fuente1,x,y+=60,3,"4 Jugadores"); end
-			write(fuente1,x,y+=60,3,"Volver");
+			if(posibles_jugadores>2) num_opciones++; write(fuente[0],x,y+=60,3,"3 Jugadores"); end
+			if(posibles_jugadores>3) num_opciones++; write(fuente[0],x,y+=60,3,"4 Jugadores"); end
+			write(fuente[0],x,y+=60,3,"Volver");
 			volver_a_menu=0;
 		end
 		case 5: //jugadores, continuar
-			write(fuente1,x,y+=60,3,"1 Jugador");
-			write(fuente1,x,y+=60,3,"2 Jugadores");
+			write(fuente[0],x,y+=60,3,"1 Jugador");
+			write(fuente[0],x,y+=60,3,"2 Jugadores");
 			num_opciones=3;
-			if(posibles_jugadores>2) num_opciones++; write(fuente1,x,y+=60,3,"3 Jugadores"); end
-			if(posibles_jugadores>3) num_opciones++; write(fuente1,x,y+=60,3,"4 Jugadores"); end
-			write(fuente1,x,y+=60,3,"Volver");
+			if(posibles_jugadores>2) num_opciones++; write(fuente[0],x,y+=60,3,"3 Jugadores"); end
+			if(posibles_jugadores>3) num_opciones++; write(fuente[0],x,y+=60,3,"4 Jugadores"); end
+			write(fuente[0],x,y+=60,3,"Volver");
 			volver_a_menu=0;
 		end
 	end
@@ -564,10 +560,6 @@ begin
 				case 0: //general
 					switch(opcion_actual)
 						case 1:
-							vidas[1]=0;
-							vidas[2]=0;
-							vidas[3]=0;
-							vidas[4]=0;
 							if(posibles_jugadores>1)
 								menu(4);
 							else
@@ -580,7 +572,6 @@ begin
 								menu(5);
 							else
 								jugadores=1;
-								vidas[1]=save.vidas[1];
 								puntos[1]=save.puntos[1];
 								poder[1]=save.poder[1];
 								juego(save.nivel);
@@ -644,7 +635,7 @@ begin
 					switch(opcion_actual)
 						case 1: 
 							
-							id_texto=write(fuente1,400,400,4,"Pulse tecla para arriba");
+							id_texto=write(fuente[0],400,400,4,"Pulse tecla para arriba");
 							repeat
 								opciones.teclado.arriba=scan_code;
 								frame;
@@ -652,7 +643,7 @@ begin
 							while(scan_code<>0) frame; end
 							delete_text(id_texto);
 	
-							id_texto=write(fuente1,400,400,4,"Pulse una tecla para derecha");
+							id_texto=write(fuente[0],400,400,4,"Pulse una tecla para derecha");
 							Repeat
 								opciones.teclado.derecha=scan_code;
 								frame;
@@ -660,7 +651,7 @@ begin
 							while(scan_code<>0) frame; end
 							delete_text(id_texto);
 
-							id_texto=write(fuente1,400,400,4,"Pulse una tecla para abajo");
+							id_texto=write(fuente[0],400,400,4,"Pulse una tecla para abajo");
 							Repeat
 								opciones.teclado.abajo=scan_code;
 								frame;
@@ -668,7 +659,7 @@ begin
 							while(scan_code<>0) frame; end
 							delete_text(id_texto);
 	
-							id_texto=write(fuente1,400,400,4,"Pulse una tecla para izquierda");
+							id_texto=write(fuente[0],400,400,4,"Pulse una tecla para izquierda");
 							Repeat
 								opciones.teclado.izquierda=scan_code;
 								frame;
@@ -676,7 +667,7 @@ begin
 							while(scan_code<>0) frame; end
 							delete_text(id_texto);
 	
-							id_texto=write(fuente1,400,400,4,"Pulse una tecla para diparar");
+							id_texto=write(fuente[0],400,400,4,"Pulse una tecla para diparar");
 							Repeat
 								opciones.teclado.disparar=scan_code;
 								frame;
@@ -684,7 +675,7 @@ begin
 							while(scan_code<>0) frame; end
 							delete_text(id_texto);
 
-							id_texto=write(fuente1,400,400,4,"Pulse una tecla para disparar una bomba");
+							id_texto=write(fuente[0],400,400,4,"Pulse una tecla para disparar una bomba");
 							Repeat
 								opciones.teclado.bomba=scan_code;
 								frame;
@@ -692,7 +683,7 @@ begin
 							while(scan_code<>0) frame; end
 							delete_text(id_texto);
 
-							id_texto=write(fuente1,400,400,4,"Pulse una tecla para cambiar arma");
+							id_texto=write(fuente[0],400,400,4,"Pulse una tecla para cambiar arma");
 							Repeat
 								opciones.teclado.cambiar=scan_code;
 								frame;
@@ -711,7 +702,7 @@ begin
 						case 2: 
 /*							select_joy(0);
 							frame;
-							id_texto=write(fuente1,400,400,4,"Presiona arriba y luego pulsa un boton");
+							id_texto=write(fuente[0],400,400,4,"Presiona arriba y luego pulsa un boton");
 
 							while(!get_joy_button(0) and !get_joy_button(1) 
 							and !get_joy_button(2) and !get_joy_button(3)
@@ -732,7 +723,7 @@ begin
 							end
 							delete_text(id_texto);
 
-							id_texto=write(fuente1,400,400,4,"Presiona derecha y luego pulsa un boton");
+							id_texto=write(fuente[0],400,400,4,"Presiona derecha y luego pulsa un boton");
 
 							while(!get_joy_button(0) and !get_joy_button(1) 
 							and !get_joy_button(2) and !get_joy_button(3)
@@ -754,7 +745,7 @@ begin
 							end
 							delete_text(id_texto);
 
-							id_texto=write(fuente1,400,400,4,"Presiona abajo y luego pulsa un boton");
+							id_texto=write(fuente[0],400,400,4,"Presiona abajo y luego pulsa un boton");
 
 							while(!get_joy_button(0) and !get_joy_button(1) 
 							and !get_joy_button(2) and !get_joy_button(3)
@@ -775,7 +766,7 @@ begin
 							end
 							delete_text(id_texto);
 
-							id_texto=write(fuente1,400,400,4,"Presiona izquierda y luego pulsa un boton");
+							id_texto=write(fuente[0],400,400,4,"Presiona izquierda y luego pulsa un boton");
 					
 							while(!get_joy_button(0) and !get_joy_button(1) 
 							and !get_joy_button(2) and !get_joy_button(3)
@@ -796,7 +787,7 @@ begin
 							end
 							delete_text(id_texto);
 */
-							id_texto=write(fuente1,400,400,4,"Pulsa un boton para disparar");
+							id_texto=write(fuente[0],400,400,4,"Pulsa un boton para disparar");
 							repeat
 								from a=0 to 11;
 									if(get_joy_button(0,a))
@@ -811,7 +802,7 @@ begin
 							end
 							delete_text(id_texto);
 
-							id_texto=write(fuente1,400,400,4,"Pulsa un boton para disparar una bomba");
+							id_texto=write(fuente[0],400,400,4,"Pulsa un boton para disparar una bomba");
 							repeat
 								from a=0 to 11;
 									if(get_joy_button(0,a))
@@ -826,7 +817,7 @@ begin
 							end
 							delete_text(id_texto);
 
-							id_texto=write(fuente1,400,400,4,"Pulsa un boton para cambiar arma");
+							id_texto=write(fuente[0],400,400,4,"Pulsa un boton para cambiar arma");
 							repeat
 								from a=0 to 11;
 									if(get_joy_button(0,a))
@@ -874,7 +865,6 @@ begin
 					jugadores=opcion_actual;
 					if(jugadores>num_opciones-1) jugadores=num_opciones-1; end
 					from jugador=1 to jugadores;
-						vidas[jugador]=0;
 						puntos[jugador]=0;
 						poder[jugador]=1;
 					end
@@ -889,8 +879,6 @@ begin
 					jugadores=opcion_actual;
 					if(jugadores>num_opciones-1) jugadores=num_opciones-1; end
 					from jugador=1 to jugadores;
-						//vidas[jugador]=save.vidas[1];
-						vidas[jugador]=0;
 						puntos[jugador]=save.puntos[1];
 						poder[jugador]=save.poder[1];
 					end
@@ -962,10 +950,10 @@ begin
 	loop
 		if(opcion==a)
 			graph=20;
-			id_texto=write(fuente1,x,y,4,texto);
+			id_texto=write(fuente[0],x,y,4,texto);
 		else
 			graph=44;
-			id_texto=write(fuente1,x,y,4,texto);
+			id_texto=write(fuente[0],x,y,4,texto);
 		end
 		frame;
 		delete_text(id_texto);
@@ -995,8 +983,6 @@ begin
 		frame;
 	end
 	if(arcade_mode==1)
-		vidas[0]=3;
-		vidas[1]=3;
 		juego(1);
 	else
 		menu(0);
@@ -1029,9 +1015,9 @@ begin
 	
 	x=512;
 	y=150;
-	write(fuente1,x,y,4,"Clasificacion");
+	write(fuente[0],x,y,4,"Clasificacion");
 	from a=0 to 9;
-		write_var(fuente1,x,y+=30,4,save.puntuacion[a]);
+		write_var(fuente[0],x,y+=30,4,save.puntuacion[a]);
 	end
 	while(not p[0].botones[4])
 		scroll.x0+=3;
@@ -1050,7 +1036,7 @@ end
 process sombra(graph,x,y,file,cosa);
 begin
 
-z=-10;
+z=-111;
 if(cosa==1)	//alarma
 	from size = 20 to 150 step 10;
 		angle+=30000;

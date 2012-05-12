@@ -108,6 +108,23 @@ if(tipo==5)	//escudo
 	end
 end
 
+if(tipo==6)	//lanzallamas
+	graph=60;
+	size=0;
+	loop
+	if(pausa==0)
+		x=father.x;
+		y=father.y-30;
+		time++;
+		if(time<20) size+=6; end
+		if(time>20) laser(x,y,60,id); end
+		if(time==25) suena(s_laser2); end
+		if(time>125) break; end
+	end
+	frame;
+	end
+end
+
 end
 
 //-----------------------------------------------------------------------
@@ -269,7 +286,7 @@ if(tipo==40)
 end
 
 if(tipo==50)
-	graph=60;
+	graph=50;
 	flags=0;
 	size=0;
 	loop
@@ -300,6 +317,23 @@ if(tipo==50)
 			size+=20;
 		end
 		frame;
+	end
+end
+
+if(tipo==60)
+	graph=61;
+	angle=pi/2;
+	z=16;
+	size=0;
+	loop
+	
+	if(pausa==0)
+		size+=10;
+		z-=1;
+		advance(30);
+		if(size>100) break; end
+	end
+	frame;
 	end
 end
 
@@ -403,9 +437,7 @@ z-=14;
 file=fpg_bombas;
 region=1;
 graph=41;
-id2=father;
 avance=30;
-jugador=father.jugador;
 loop
 	if(pausa==0)
 		
@@ -419,9 +451,9 @@ loop
 			end
 		end
 		
-		if(exists(id2))
-			x1=id2.x;
-			y1=id2.y;
+		if(exists(father))
+			x1=father.x;
+			y1=father.y;
 			x=x1+get_distx(angle,avance);
 			y=y1+get_disty(angle,avance);
 		else

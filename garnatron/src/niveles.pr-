@@ -34,7 +34,6 @@ Begin
 	z=-100;
 	save.nivel=nivel;
 	from jugador=1 to 4;
-		save.vidas[jugador]=vidas[jugador];
 		save.puntos[jugador]=puntos[jugador];
 		save.poder[jugador]=poder[jugador];
 	end
@@ -94,9 +93,9 @@ end
 	direccion=1;
 	size=200;
 	if(nivel<5)
-		id_texto=write(fuente1,x,y,4,"AREA: "+nivel);
+		id_texto=write(fuente[0],x,y,4,"AREA: "+nivel);
 	else
-		id_texto=write(fuente1,x,y,4,"AREA: Final");
+		id_texto=write(fuente[0],x,y,4,"AREA: Final");
 	end
 	fade_on();
 	timer[2]=0;
@@ -162,11 +161,11 @@ end
 				graph=20;
 				size=300;
 				direccion=1;
-				id_texto=write(fuente1,x,y,4,"¿Salir de la partida?");
+				id_texto=write(fuente[0],x,y,4,"¿Salir de la partida?");
 				boton(512,500,"",1);
-				id_texto1=write(fuente1,512,500,4,"No");
+				id_texto1=write(fuente[0],512,500,4,"No");
 				boton(512,550,"",2);
-				id_texto2=write(fuente1,512,550,4,"Si");
+				id_texto2=write(fuente[0],512,550,4,"Si");
 				opcion=1;
 			else
 				pausa=0;
@@ -305,8 +304,8 @@ end
 					graph=20;
 					direccion=1;
 					size=200;
-					id_texto=write(fuente1,x,y,4,"AREA: 1");
-					id_texto1=write(fuente1,x-5,y+15,4,"completada");
+					id_texto=write(fuente[0],x,y,4,"AREA: 1");
+					id_texto1=write(fuente[0],x-5,y+15,4,"completada");
 					timer[2]=0;
 					while(timer[2]<500)
 						if(direccion==1) graph++; else graph--; end
@@ -398,8 +397,8 @@ end
 					graph=20;
 					direccion=1;
 					size=200;
-					id_texto=write(fuente1,x,y,4,"AREA: 2");
-					id_texto1=write(fuente1,x-5,y+15,4,"completada");
+					id_texto=write(fuente[0],x,y,4,"AREA: 2");
+					id_texto1=write(fuente[0],x-5,y+15,4,"completada");
 					timer[2]=0;
 					while(timer[2]<500)
 						if(direccion==1) graph++; else graph--; end
@@ -462,8 +461,8 @@ end
 					graph=20;
 					direccion=1;
 					size=200;
-					id_texto=write(fuente1,x,y,4,"AREA: 3");
-					id_texto1=write(fuente1,x-5,y+15,4,"completada");
+					id_texto=write(fuente[0],x,y,4,"AREA: 3");
+					id_texto1=write(fuente[0],x-5,y+15,4,"completada");
 					timer[2]=0;
 					while(timer[2]<500)
 						if(direccion==1) graph++; else graph--; end
@@ -558,8 +557,8 @@ end
 					graph=20;
 					direccion=1;
 					size=200;
-					id_texto=write(fuente1,x,y,4,"AREA: 4");
-					id_texto1=write(fuente1,x-5,y+15,4,"completada");
+					id_texto=write(fuente[0],x,y,4,"AREA: 4");
+					id_texto1=write(fuente[0],x-5,y+15,4,"completada");
 					timer[2]=0;
 					while(timer[2]<500)
 						if(direccion==1) graph++; else graph--; end
@@ -586,8 +585,8 @@ end
 					graph=20;
 					direccion=1;
 					size=200;
-					id_texto=write(fuente1,x,y,4,"AREA: FINAL");
-					id_texto1=write(fuente1,x-5,y+15,4,"completada");
+					id_texto=write(fuente[0],x,y,4,"AREA: FINAL");
+					id_texto1=write(fuente[0],x-5,y+15,4,"completada");
 					timer[2]=0;
 					while(timer[2]<500)
 						if(direccion==1) graph++; else graph--; end
@@ -602,14 +601,14 @@ end
 			
 			end
 			
-			if(vidas[1]<0)
+			if(!exists(id_nave[1]) and !exists(id_nave[2]) and !exists(id_nave[3]) and !exists(id_nave[4]))
 				delete_text(all_text);
 				signal(id_nave[1],s_kill);
 				graph=20;
 				direccion=1;
 				size=200;
-				id_texto=write(fuente1,x,y,4,"Fin de");
-				id_texto1=write(fuente1,x-5,y+15,4,"la partida");
+				id_texto=write(fuente[0],x,y,4,"Fin de");
+				id_texto1=write(fuente[0],x-5,y+15,4,"la partida");
 				timer[2]=0;
 				while(timer[2]<500)
 					if(direccion==1) graph++; else graph--; end
@@ -618,8 +617,8 @@ end
 					scroll.y0-=5;
 					frame;
 				end
-			menu(0);
-			break;
+				menu(0);
+				break;
 			end
 		end
 	FRAME;
