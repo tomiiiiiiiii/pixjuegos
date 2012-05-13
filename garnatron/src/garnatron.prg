@@ -700,7 +700,8 @@ begin
 							
 						end
 						case 2: 
-/*							select_joy(0);
+/*	--------------------------------------------------------- Asignación de los botones de mobimiento
+							select_joy(0);
 							frame;
 							id_texto=write(fuente[0],400,400,4,"Presiona arriba y luego pulsa un boton");
 
@@ -786,7 +787,7 @@ begin
 								frame;
 							end
 							delete_text(id_texto);
-*/
+---------------------------------------------------------	*/
 							id_texto=write(fuente[0],400,400,4,"Pulsa un boton para disparar");
 							repeat
 								from a=0 to 11;
@@ -1040,6 +1041,7 @@ z=-111;
 if(cosa==1)	//alarma
 	from size = 20 to 150 step 10;
 		angle+=30000;
+		alpha-=10;
     	frame;
 	end
 end

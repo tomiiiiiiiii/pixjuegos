@@ -5,21 +5,31 @@
 
 PROCESS disparo01(x,y,angle)
 BEGIN
-jugador=father.jugador;
-z-=10;
-region=1;
-file=fpg_bombas;
-if(fuerza[jugador]==1) graph=5; end
-if(fuerza[jugador]==2) graph=6; end
-if(fuerza[jugador]==3) graph=7; end
-if(fuerza[jugador]==4) graph=8; end
-
-REPEAT
-	if(pausa==0)
-		advance(30);
+	jugador=father.jugador;
+	z-=10;
+	region=1;
+	file=fpg_bombas;
+	switch(fuerza[jugador])
+		case 1:
+			graph=5;
+		end
+		case 2:
+			 graph=6;
+		end
+		case 3:
+			graph=7;
+		end
+		case 4:
+			graph=8;
+		end
 	end
-	FRAME;
-UNTIL (out_region(id,1))
+
+	REPEAT
+		if(pausa==0)
+			advance(30);
+		end
+		FRAME;
+	UNTIL (out_region(id,1))
 END
 
 //-----------------------------------------------------------------------
