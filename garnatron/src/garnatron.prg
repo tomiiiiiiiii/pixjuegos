@@ -248,8 +248,9 @@ BEGIN
 
 
 
-	historia(1);
+	//historia(1);
 	//juego(4);
+	fase(1);
 	frame;
 
 end

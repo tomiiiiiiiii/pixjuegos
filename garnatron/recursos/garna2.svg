@@ -21,6 +21,66 @@
   <defs
      id="defs4">
     <linearGradient
+       id="linearGradient4733">
+      <stop
+         id="stop4735"
+         offset="0"
+         style="stop-color:#73ffff;stop-opacity:1;" />
+      <stop
+         style="stop-color:#00bcff;stop-opacity:1;"
+         offset="0.5"
+         id="stop4737" />
+      <stop
+         id="stop4739"
+         offset="1"
+         style="stop-color:#0000ff;stop-opacity:1;" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient4688">
+      <stop
+         style="stop-color:#ffffd1;stop-opacity:1;"
+         offset="0"
+         id="stop4690" />
+      <stop
+         id="stop4696"
+         offset="0.5"
+         style="stop-color:#ffff00;stop-opacity:1;" />
+      <stop
+         style="stop-color:#ffba00;stop-opacity:1;"
+         offset="1"
+         id="stop4692" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient4612">
+      <stop
+         style="stop-color:#b6ffff;stop-opacity:1;"
+         offset="0"
+         id="stop4614" />
+      <stop
+         id="stop4620"
+         offset="0.5"
+         style="stop-color:#00ff56;stop-opacity:1;" />
+      <stop
+         style="stop-color:#00ad00;stop-opacity:1;"
+         offset="1"
+         id="stop4616" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient4445">
+      <stop
+         style="stop-color:#ffff99;stop-opacity:1;"
+         offset="0"
+         id="stop4447" />
+      <stop
+         id="stop4453"
+         offset="0.5"
+         style="stop-color:#ffb600;stop-opacity:1;" />
+      <stop
+         style="stop-color:#ff0000;stop-opacity:1;"
+         offset="1"
+         id="stop4449" />
+    </linearGradient>
+    <linearGradient
        id="linearGradient6405">
       <stop
          style="stop-color:#ffff9b;stop-opacity:1;"
@@ -734,42 +794,6 @@
        fx="60.000111"
        fy="514.58459"
        r="17.22538" />
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient3961"
-       id="linearGradient4056"
-       gradientUnits="userSpaceOnUse"
-       x1="84.698463"
-       y1="746.54456"
-       x2="127.58189"
-       y2="746.54456" />
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient3961"
-       id="linearGradient4058"
-       gradientUnits="userSpaceOnUse"
-       x1="162.48958"
-       y1="746.76637"
-       x2="205.37301"
-       y2="746.76637" />
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient3977"
-       id="linearGradient4060"
-       gradientUnits="userSpaceOnUse"
-       x1="122.96467"
-       y1="727.5463"
-       x2="167.43041"
-       y2="727.5463" />
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient3851"
-       id="linearGradient4062"
-       gradientUnits="userSpaceOnUse"
-       x1="132.29617"
-       y1="704.86438"
-       x2="158.29617"
-       y2="704.86438" />
     <radialGradient
        inkscape:collect="always"
        xlink:href="#linearGradient3578"
@@ -1260,6 +1284,149 @@
        fx="264.65799"
        fy="621.02704"
        r="10.608416" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4733"
+       id="radialGradient4451-1"
+       cx="-72.245262"
+       cy="552.9668"
+       fx="-72.245262"
+       fy="552.9668"
+       r="18.061316"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       id="linearGradient4445-7">
+      <stop
+         style="stop-color:#ffff99;stop-opacity:1;"
+         offset="0"
+         id="stop4447-0" />
+      <stop
+         id="stop4453-1"
+         offset="0.5"
+         style="stop-color:#ff8900;stop-opacity:1;" />
+      <stop
+         style="stop-color:#ff0000;stop-opacity:1;"
+         offset="1"
+         id="stop4449-5" />
+    </linearGradient>
+    <filter
+       color-interpolation-filters="sRGB"
+       inkscape:collect="always"
+       id="filter4467-2">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="0.54183947"
+         id="feGaussianBlur4469-2" />
+    </filter>
+    <linearGradient
+       id="linearGradient4445-1">
+      <stop
+         style="stop-color:#ffff99;stop-opacity:1;"
+         offset="0"
+         id="stop4447-4" />
+      <stop
+         id="stop4453-7"
+         offset="0.5"
+         style="stop-color:#ff8900;stop-opacity:1;" />
+      <stop
+         style="stop-color:#ff0000;stop-opacity:1;"
+         offset="1"
+         id="stop4449-6" />
+    </linearGradient>
+    <filter
+       color-interpolation-filters="sRGB"
+       inkscape:collect="always"
+       id="filter4467-8">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="0.54183947"
+         id="feGaussianBlur4469-23" />
+    </filter>
+    <linearGradient
+       id="linearGradient4445-5">
+      <stop
+         style="stop-color:#ffff99;stop-opacity:1;"
+         offset="0"
+         id="stop4447-9" />
+      <stop
+         id="stop4453-2"
+         offset="0.5"
+         style="stop-color:#ff8900;stop-opacity:1;" />
+      <stop
+         style="stop-color:#ff0000;stop-opacity:1;"
+         offset="1"
+         id="stop4449-65" />
+    </linearGradient>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4612"
+       id="radialGradient4618"
+       cx="-72.245262"
+       cy="552.9668"
+       fx="-72.245262"
+       fy="552.9668"
+       r="18.941101"
+       gradientUnits="userSpaceOnUse" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4688"
+       id="radialGradient4694"
+       cx="-72.245262"
+       cy="552.9668"
+       fx="-72.245262"
+       fy="552.9668"
+       r="18.941101"
+       gradientUnits="userSpaceOnUse" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4445"
+       id="radialGradient4722"
+       gradientUnits="userSpaceOnUse"
+       cx="-72.245262"
+       cy="552.9668"
+       fx="-72.245262"
+       fy="552.9668"
+       r="18.061316" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3851"
+       id="linearGradient4853"
+       gradientUnits="userSpaceOnUse"
+       x1="132.29617"
+       y1="704.86438"
+       x2="158.29617"
+       y2="704.86438"
+       gradientTransform="translate(7.0710678,57.982756)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3977"
+       id="linearGradient4857"
+       gradientUnits="userSpaceOnUse"
+       x1="122.96467"
+       y1="727.5463"
+       x2="167.43041"
+       y2="727.5463"
+       gradientTransform="translate(7.0710678,57.982756)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3961"
+       id="linearGradient4860"
+       gradientUnits="userSpaceOnUse"
+       x1="162.48958"
+       y1="746.76637"
+       x2="205.37301"
+       y2="746.76637"
+       gradientTransform="translate(7.0710678,57.982756)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3961"
+       id="linearGradient4863"
+       gradientUnits="userSpaceOnUse"
+       x1="84.698463"
+       y1="746.54456"
+       x2="127.58189"
+       y2="746.54456"
+       gradientTransform="translate(7.0710678,57.982756)" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -1268,9 +1435,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.25"
-     inkscape:cx="389.13393"
-     inkscape:cy="952.52775"
+     inkscape:zoom="0.5"
+     inkscape:cx="72.217081"
+     inkscape:cy="660.84622"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showguides="true"
@@ -1427,7 +1594,7 @@
        inkscape:export-ydpi="70.4618"
        inkscape:connector-curvature="0" />
     <path
-       style="fill:#000000;fill-opacity:0.49162011;fill-rule:evenodd;stroke:none"
+       style="fill:#ffffff;fill-opacity:0.49162012;fill-rule:evenodd;stroke:none"
        d="m 215.29885,39.862941 c 2.76053,17.72445 6.60214,34.37577 15.84822,25.71746 -4.39996,-5.85243 -8.31494,-3.74249 -15.84822,-25.71746 z"
        id="path3029"
        sodipodi:nodetypes="ccc"
@@ -1594,8 +1761,8 @@
        inkscape:export-ydpi="70.4618"
        inkscape:connector-curvature="0" />
     <path
-       style="fill:#000000;fill-opacity:0.39106146;fill-rule:evenodd;stroke:none"
-       d="m 210.85924,118.06455 c 3.77229,-8.91445 4.70349,-11.3014 9.09137,-17.93022 -4.39319,-7.841799 -2.75379,-18.257939 1.26268,-31.062189 -10.3215,14.07578 -15.31125,35.447909 -10.35405,48.992409 z"
+       style="fill:#ffffff;fill-opacity:0.57211537;fill-rule:evenodd;stroke:none"
+       d="m 210.92174,117.62705 c 3.77229,-8.91445 4.32849,-10.9889 8.71637,-17.61772 -4.39319,-7.841799 -2.19129,-17.757939 1.82518,-30.562189 -10.3215,14.07578 -15.49875,34.635409 -10.54155,48.179909 z"
        id="path3922"
        sodipodi:nodetypes="cccc"
        inkscape:export-filename="D:\fenix\garnatron1.5\fpg\Enemigos\enemigo01.png"
@@ -1639,7 +1806,7 @@
        inkscape:export-ydpi="89.56617"
        inkscape:connector-curvature="0" />
     <path
-       style="fill:#000000;fill-opacity:0.49019608;fill-rule:evenodd;stroke:none"
+       style="fill:#ffffff;fill-opacity:0.49019608;fill-rule:evenodd;stroke:none"
        d="m 115.20458,44.702211 c -5.55897,9.47115 -7.53991,24.99984 -4.23002,34.724 1.84775,-6.71235 2.60929,-9.19933 6.25032,-14.20528 -3.61885,-3.76231 -2.90775,-11.36191 -2.0203,-20.51872 z"
        id="path11016"
        sodipodi:nodetypes="cccc"
@@ -1736,21 +1903,29 @@
        inkscape:export-ydpi="89.56617"
        inkscape:connector-curvature="0" />
     <path
-       style="fill:#b3b3b3;fill-rule:evenodd;stroke:#000000;stroke-width:0.66497254px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 601.79649,86.184856 c 2.96006,28.648224 10.88312,58.542514 17.36762,64.448244 10.27491,-56.665554 27.13118,-64.003904 35.71111,1.30106 7.82376,-7.33613 15.84838,-48.67718 20.97057,-66.387074 -6.79276,6.02337 -10.35689,16.889704 -21.9149,15.765194 -9.44233,-17.083894 -3.24624,-24.295394 9.52207,-59.289764 l -18.9086,12.57633 -6.47479,-10.30077 -4.96218,9.163 -16.91491,-12.48448 c 8.64283,25.08347 18.52318,39.92243 6.01575,61.381614 -8.52386,0.62868 -14.49608,-7.673344 -20.41174,-16.173354 z"
-       id="path3068"
-       sodipodi:nodetypes="cccccccccccc"
+       style="fill:#999999;fill-rule:evenodd;stroke:#000000;stroke-width:0.58845598;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 352.77142,48.93929 -6.03744,-17.166623 -6.30676,17.262641 z"
+       id="path11682-5"
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="D:\fenix\garnatron1.5\fpg\Enemigos\enemigo01.png"
+       inkscape:export-xdpi="70.4618"
+       inkscape:export-ydpi="70.4618"
        inkscape:connector-curvature="0" />
     <path
-       sodipodi:type="arc"
-       style="fill:#000000;fill-opacity:1;stroke:none"
-       id="path3070"
-       sodipodi:cx="289.64285"
-       sodipodi:cy="304.86218"
-       sodipodi:rx="5.3571429"
-       sodipodi:ry="12.5"
-       d="m 295,304.86218 a 5.3571429,12.5 0 1 1 -10.71429,0 5.3571429,12.5 0 1 1 10.71429,0 z"
-       transform="translate(349.30065,-223.95836)" />
+       style="fill:#000000;fill-opacity:0.49162011;fill-rule:evenodd;stroke:none"
+       d="m 346.33639,32.110151 c 3.82119,17.370897 0.0614,16.167771 8.77715,18.646392 -3.16252,-5.322099 -2.83486,-1.621169 -8.77715,-18.646392 z"
+       id="path3029-9"
+       sodipodi:nodetypes="ccc"
+       inkscape:export-filename="D:\fenix\garnatron1.5\fpg\Enemigos\enemigo01.png"
+       inkscape:export-xdpi="70.4618"
+       inkscape:export-ydpi="70.4618"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:#ffff00;fill-rule:evenodd;stroke:#000000;stroke-width:0.66497254px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 309.40784,55.441637 c 2.96006,28.64822 11.23667,59.843573 17.72117,65.749303 -3.7e-4,-9.76749 3.67265,-20.6625 8.47529,-25.398628 2.0985,-4.376264 3.12242,-7.287166 5.18707,-5.61432 3.94019,3.19248 7.59734,2.563369 10.37973,-0.10689 1.81587,-1.742685 3.34201,2.270515 4.83532,6.115033 2.28336,5.878525 4.74751,15.480005 6.48015,25.004805 7.82376,-7.33613 15.84838,-48.677183 20.97057,-66.387073 C 351.52697,89.360796 359.6439,52.56204 363.2218,32.87118 c -8.74604,14.819622 -24.12349,15.03262 -31.88611,-0.442364 4.59937,26.685529 4.43375,54.316394 -21.92785,23.012821 z"
+       id="path3068"
+       sodipodi:nodetypes="cccsssccccc"
+       inkscape:connector-curvature="0" />
     <path
        style="fill:#999999;fill-rule:evenodd;stroke:#000000;stroke-width:0.58845598;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        d="m 145.14648,179.10028 c -7.5628,-0.27747 -11.68329,-8.41225 -16.64404,-15.75241 0.74603,13.1685 4.86375,22.13611 9.9567,30.16734 l 6.68734,-14.41493 z"
@@ -2371,7 +2546,7 @@
        inkscape:connector-curvature="0" />
     <g
        id="g9236"
-       transform="translate(-1090.4161,-17.767893)">
+       transform="translate(-1282.7491,84.055484)">
       <path
          inkscape:export-ydpi="26.730728"
          inkscape:export-xdpi="26.730728"
@@ -2389,7 +2564,7 @@
          sodipodi:cx="-138.16907"
          sodipodi:sides="4"
          id="path6352"
-         style="fill:#4d4d4d;stroke:#000000;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         style="fill:#4d4d4d;stroke:#000000;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
          sodipodi:type="star" />
       <path
          inkscape:export-ydpi="26.730728"
@@ -2497,7 +2672,7 @@
          sodipodi:cy="552.9668"
          sodipodi:cx="-72.245262"
          id="path1950"
-         style="fill:#ff0000;stroke:#000000;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         style="fill:#ff0000;stroke:#000000;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
          sodipodi:type="arc" />
       <path
          inkscape:export-ydpi="26.730728"
@@ -2541,84 +2716,84 @@
     </g>
     <path
        sodipodi:type="arc"
-       style="fill:#4d4d4d;fill-opacity:1;stroke:#000000;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#4d4d4d;fill-opacity:1;stroke:#000000;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="path1914"
        sodipodi:cx="309.03989"
        sodipodi:cy="883.30554"
        sodipodi:rx="86.143524"
        sodipodi:ry="86.143524"
-       d="M 395.18341,883.30554 A 86.143524,86.143524 0 1 1 222.89636,883.30554 A 86.143524,86.143524 0 1 1 395.18341,883.30554 z"
-       transform="translate(-923.4597,44.949397)"
+       d="m 395.18341,883.30554 a 86.143524,86.143524 0 1 1 -172.28705,0 86.143524,86.143524 0 1 1 172.28705,0 z"
+       transform="translate(-895.17543,935.90394)"
        inkscape:export-filename="G:\garnatron1.5\fpg\Enemigos\canon04.png"
        inkscape:export-xdpi="6.9934263"
        inkscape:export-ydpi="6.9934263" />
     <rect
-       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect1924"
        width="110.08672"
        height="36.8899"
-       x="-667.35828"
-       y="878.84869"
+       x="-639.07397"
+       y="1769.8032"
        ry="17.637354"
        inkscape:export-filename="G:\garnatron1.5\fpg\Enemigos\canon04.png"
        inkscape:export-xdpi="6.9934263"
        inkscape:export-ydpi="6.9934263" />
     <rect
-       style="fill:#4d4d4d;fill-opacity:1;stroke:#000000;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#4d4d4d;fill-opacity:1;stroke:#000000;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect1916"
        width="201.31721"
        height="29.58515"
-       x="-626.83002"
-       y="882.52191"
+       x="-598.54572"
+       y="1773.4764"
        ry="14.792575"
        inkscape:export-filename="G:\garnatron1.5\fpg\Enemigos\canon04.png"
        inkscape:export-xdpi="6.9934263"
        inkscape:export-ydpi="6.9934263" />
     <rect
-       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect1932"
        width="110.08672"
        height="36.8899"
-       x="-667.39404"
-       y="939.24634"
+       x="-639.10974"
+       y="1830.2009"
        ry="17.637354"
        inkscape:export-filename="G:\garnatron1.5\fpg\Enemigos\canon04.png"
        inkscape:export-xdpi="6.9934263"
        inkscape:export-ydpi="6.9934263" />
     <rect
-       style="fill:#4d4d4d;fill-opacity:1;stroke:#000000;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#4d4d4d;fill-opacity:1;stroke:#000000;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect1934"
        width="201.31721"
        height="29.58515"
-       x="-626.86578"
-       y="942.91956"
+       x="-598.58148"
+       y="1833.8741"
        ry="14.792575"
        inkscape:export-filename="G:\garnatron1.5\fpg\Enemigos\canon04.png"
        inkscape:export-xdpi="6.9934263"
        inkscape:export-ydpi="6.9934263" />
     <path
        sodipodi:type="arc"
-       style="fill:#333333;fill-opacity:1;stroke:#000000;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#333333;fill-opacity:1;stroke:#000000;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="path1933"
        sodipodi:cx="398.41379"
        sodipodi:cy="575.07324"
        sodipodi:rx="16.690308"
        sodipodi:ry="16.690308"
-       d="M 415.1041,575.07324 A 16.690308,16.690308 0 1 1 381.72348,575.07324 A 16.690308,16.690308 0 1 1 415.1041,575.07324 z"
-       transform="matrix(0.610999,0,0,0.925515,-679.0211,365.06411)"
+       d="m 415.1041,575.07324 a 16.690308,16.690308 0 1 1 -33.38062,0 16.690308,16.690308 0 1 1 33.38062,0 z"
+       transform="matrix(0.610999,0,0,0.925515,-650.73683,1256.0187)"
        inkscape:export-filename="G:\garnatron1.5\fpg\Enemigos\canon04.png"
        inkscape:export-xdpi="6.9934263"
        inkscape:export-ydpi="6.9934263" />
     <path
        sodipodi:type="arc"
-       style="fill:#333333;fill-opacity:1;stroke:#000000;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#333333;fill-opacity:1;stroke:#000000;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="path2822"
        sodipodi:cx="398.41379"
        sodipodi:cy="575.07324"
        sodipodi:rx="16.690308"
        sodipodi:ry="16.690308"
-       d="M 415.1041,575.07324 A 16.690308,16.690308 0 1 1 381.72348,575.07324 A 16.690308,16.690308 0 1 1 415.1041,575.07324 z"
-       transform="matrix(0.610999,0,0,0.925515,-678.6174,425.63381)"
+       d="m 415.1041,575.07324 a 16.690308,16.690308 0 1 1 -33.38062,0 16.690308,16.690308 0 1 1 33.38062,0 z"
+       transform="matrix(0.610999,0,0,0.925515,-650.33313,1316.5884)"
        inkscape:export-filename="G:\garnatron1.5\fpg\Enemigos\canon04.png"
        inkscape:export-xdpi="6.9934263"
        inkscape:export-ydpi="6.9934263" />
@@ -2835,13 +3010,14 @@
        inkscape:export-xdpi="13.376713"
        inkscape:export-ydpi="13.376713" />
     <g
-       id="g4072">
+       id="g4072"
+       transform="translate(-87.681241,-316.78384)">
       <path
          inkscape:export-ydpi="40.068489"
          inkscape:export-xdpi="40.068489"
          inkscape:export-filename="G:\garnatron1.5\fpg\Enemigos\mina05.png"
          transform="matrix(0.437037,0,0,0.437037,-1290.2645,621.65213)"
-         d="M 309.5125,693.70029 L 148.96951,635.54494 L 206.76091,796.52896 L 264.91626,635.98597 L 103.93224,693.77737 L 264.47522,751.93273 L 206.68382,590.9487 L 148.52847,751.49169 L 309.5125,693.70029 z"
+         d="m 309.5125,693.70029 -160.54299,-58.15535 57.7914,160.98402 58.15535,-160.54299 -160.98402,57.7914 160.54298,58.15536 -57.7914,-160.98403 -58.15535,160.54299 z"
          inkscape:randomized="0"
          inkscape:rounded="0"
          inkscape:flatsided="false"
@@ -2853,14 +3029,14 @@
          sodipodi:cx="206.72237"
          sodipodi:sides="4"
          id="path9194"
-         style="fill:#333333;fill-opacity:1;stroke:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         style="fill:#333333;fill-opacity:1;stroke:none"
          sodipodi:type="star" />
       <path
          inkscape:export-ydpi="40.068489"
          inkscape:export-xdpi="40.068489"
          inkscape:export-filename="G:\garnatron1.5\fpg\Enemigos\mina05.png"
          sodipodi:type="star"
-         style="fill:#4d4d4d;fill-opacity:1;stroke:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         style="fill:#4d4d4d;fill-opacity:1;stroke:none"
          id="path9210"
          sodipodi:sides="4"
          sodipodi:cx="206.72237"
@@ -2872,14 +3048,14 @@
          inkscape:flatsided="false"
          inkscape:rounded="0"
          inkscape:randomized="0"
-         d="M 309.5125,693.70029 L 148.96951,635.54494 L 206.76091,796.52896 L 264.91626,635.98597 L 103.93224,693.77737 L 264.47522,751.93273 L 206.68382,590.9487 L 148.52847,751.49169 L 309.5125,693.70029 z"
+         d="m 309.5125,693.70029 -160.54299,-58.15535 57.7914,160.98402 58.15535,-160.54299 -160.98402,57.7914 160.54298,58.15536 -57.7914,-160.98403 -58.15535,160.54299 z"
          transform="matrix(0.392593,0,0,0.392593,-1281.0768,652.48493)" />
       <path
          inkscape:export-ydpi="40.068489"
          inkscape:export-xdpi="40.068489"
          inkscape:export-filename="G:\garnatron1.5\fpg\Enemigos\mina05.png"
          transform="matrix(0.340741,0,0,0.340741,-1270.3579,688.45653)"
-         d="M 309.5125,693.70029 L 148.96951,635.54494 L 206.76091,796.52896 L 264.91626,635.98597 L 103.93224,693.77737 L 264.47522,751.93273 L 206.68382,590.9487 L 148.52847,751.49169 L 309.5125,693.70029 z"
+         d="m 309.5125,693.70029 -160.54299,-58.15535 57.7914,160.98402 58.15535,-160.54299 -160.98402,57.7914 160.54298,58.15536 -57.7914,-160.98403 -58.15535,160.54299 z"
          inkscape:randomized="0"
          inkscape:rounded="0"
          inkscape:flatsided="false"
@@ -2891,14 +3067,14 @@
          sodipodi:cx="206.72237"
          sodipodi:sides="4"
          id="path9212"
-         style="fill:#666666;fill-opacity:1;stroke:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         style="fill:#666666;fill-opacity:1;stroke:none"
          sodipodi:type="star" />
       <path
          inkscape:export-ydpi="40.068489"
          inkscape:export-xdpi="40.068489"
          inkscape:export-filename="G:\garnatron1.5\fpg\Enemigos\mina05.png"
          sodipodi:type="star"
-         style="fill:#808080;fill-opacity:1;stroke:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         style="fill:#808080;fill-opacity:1;stroke:none"
          id="path9214"
          sodipodi:sides="4"
          sodipodi:cx="206.72237"
@@ -2910,14 +3086,14 @@
          inkscape:flatsided="false"
          inkscape:rounded="0"
          inkscape:randomized="0"
-         d="M 309.5125,693.70029 L 148.96951,635.54494 L 206.76091,796.52896 L 264.91626,635.98597 L 103.93224,693.77737 L 264.47522,751.93273 L 206.68382,590.9487 L 148.52847,751.49169 L 309.5125,693.70029 z"
+         d="m 309.5125,693.70029 -160.54299,-58.15535 57.7914,160.98402 58.15535,-160.54299 -160.98402,57.7914 160.54298,58.15536 -57.7914,-160.98403 -58.15535,160.54299 z"
          transform="matrix(0.290741,0,0,0.290741,-1260.0218,723.14343)" />
       <path
          inkscape:export-ydpi="40.068489"
          inkscape:export-xdpi="40.068489"
          inkscape:export-filename="G:\garnatron1.5\fpg\Enemigos\mina05.png"
          transform="matrix(0.240741,0,0,0.240741,-1249.6857,757.83033)"
-         d="M 309.5125,693.70029 L 148.96951,635.54494 L 206.76091,796.52896 L 264.91626,635.98597 L 103.93224,693.77737 L 264.47522,751.93273 L 206.68382,590.9487 L 148.52847,751.49169 L 309.5125,693.70029 z"
+         d="m 309.5125,693.70029 -160.54299,-58.15535 57.7914,160.98402 58.15535,-160.54299 -160.98402,57.7914 160.54298,58.15536 -57.7914,-160.98403 -58.15535,160.54299 z"
          inkscape:randomized="0"
          inkscape:rounded="0"
          inkscape:flatsided="false"
@@ -2929,14 +3105,14 @@
          sodipodi:cx="206.72237"
          sodipodi:sides="4"
          id="path9216"
-         style="fill:#999999;fill-opacity:1;stroke:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         style="fill:#999999;fill-opacity:1;stroke:none"
          sodipodi:type="star" />
       <path
          inkscape:export-ydpi="40.068489"
          inkscape:export-xdpi="40.068489"
          inkscape:export-filename="G:\garnatron1.5\fpg\Enemigos\mina05.png"
          sodipodi:type="star"
-         style="fill:#b3b3b3;fill-opacity:1;stroke:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         style="fill:#b3b3b3;fill-opacity:1;stroke:none"
          id="path9218"
          sodipodi:sides="4"
          sodipodi:cx="206.72237"
@@ -2948,14 +3124,14 @@
          inkscape:flatsided="false"
          inkscape:rounded="0"
          inkscape:randomized="0"
-         d="M 309.5125,693.70029 L 148.96951,635.54494 L 206.76091,796.52896 L 264.91626,635.98597 L 103.93224,693.77737 L 264.47522,751.93273 L 206.68382,590.9487 L 148.52847,751.49169 L 309.5125,693.70029 z"
+         d="m 309.5125,693.70029 -160.54299,-58.15535 57.7914,160.98402 58.15535,-160.54299 -160.98402,57.7914 160.54298,58.15536 -57.7914,-160.98403 -58.15535,160.54299 z"
          transform="matrix(0.196297,0,0,0.196297,-1240.498,788.66313)" />
       <path
          inkscape:export-ydpi="40.068489"
          inkscape:export-xdpi="40.068489"
          inkscape:export-filename="G:\garnatron1.5\fpg\Enemigos\mina05.png"
          transform="matrix(0.144445,0,0,0.144445,-1229.7791,824.63473)"
-         d="M 309.5125,693.70029 L 148.96951,635.54494 L 206.76091,796.52896 L 264.91626,635.98597 L 103.93224,693.77737 L 264.47522,751.93273 L 206.68382,590.9487 L 148.52847,751.49169 L 309.5125,693.70029 z"
+         d="m 309.5125,693.70029 -160.54299,-58.15535 57.7914,160.98402 58.15535,-160.54299 -160.98402,57.7914 160.54298,58.15536 -57.7914,-160.98403 -58.15535,160.54299 z"
          inkscape:randomized="0"
          inkscape:rounded="0"
          inkscape:flatsided="false"
@@ -2967,7 +3143,7 @@
          sodipodi:cx="206.72237"
          sodipodi:sides="4"
          id="path9220"
-         style="fill:#cccccc;fill-opacity:1;stroke:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         style="fill:#cccccc;fill-opacity:1;stroke:none"
          sodipodi:type="star" />
       <g
          inkscape:export-ydpi="40.068489"
@@ -2977,7 +3153,7 @@
          id="g9200">
         <path
            sodipodi:type="arc"
-           style="fill:#ff0000;stroke:#000000;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           style="fill:#ff0000;stroke:#000000;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
            id="path9202"
            sodipodi:cx="-72.245262"
            sodipodi:cy="552.9668"
@@ -3122,7 +3298,7 @@
        inkscape:export-ydpi="22.03232" />
     <g
        id="g4076"
-       transform="matrix(3.364716,0,0,1.603005,-1596.9168,-525.62689)"
+       transform="matrix(3.364716,0,0,1.603005,-1384.7848,-652.90611)"
        inkscape:export-filename="D:\fenix\garnatron1.5\fpg\Enemigos\mina11.png"
        inkscape:export-xdpi="22.03232"
        inkscape:export-ydpi="22.03232">
@@ -3137,7 +3313,7 @@
          sodipodi:cy="552.9668"
          sodipodi:cx="-72.245262"
          id="path4078"
-         style="fill:#ff0000;stroke:#000000;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         style="fill:#ff0000;stroke:#000000;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
          sodipodi:type="arc" />
       <path
          inkscape:export-ydpi="26.730728"
@@ -3180,37 +3356,41 @@
          sodipodi:type="arc" />
     </g>
     <path
-       style="fill:#4d4d4d;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="M -1000.1951,767.76725 C -1000.0418,779.29084 -975.63716,786.27967 -958.34964,786.38614 C -981.88388,798.91991 -1014.5433,801.022 -1044.1085,789.31608 C -1044.0803,777.30641 -1026.3226,768.81838 -1000.1951,767.76725 z"
+       style="fill:#4d4d4d;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m -788.06307,640.48803 c 0.1533,11.52359 24.55794,18.51242 41.84546,18.61889 -23.53424,12.53377 -56.19366,14.63586 -85.75886,2.92994 0.0282,-12.00967 17.7859,-20.4977 43.9134,-21.54883 z"
        id="path4086"
        sodipodi:nodetypes="cccc"
        inkscape:export-filename="D:\fenix\garnatron1.5\fpg\Enemigos\mina11.png"
        inkscape:export-xdpi="22.03232"
-       inkscape:export-ydpi="22.03232" />
+       inkscape:export-ydpi="22.03232"
+       inkscape:connector-curvature="0" />
     <path
-       style="fill:#4d4d4d;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="M -1003.7268,780.17476 C -1037.6781,764.45627 -1025.4314,747.19462 -1004.5209,738.17024 C -971.96097,739.78423 -963.52711,747.7612 -961.94708,759.4465 C -981.61001,759.47897 -1003.188,765.76868 -1003.7268,780.17476 z"
+       style="fill:#4d4d4d;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m -791.59477,652.89554 c -33.9513,-15.71849 -21.7046,-32.98014 -0.7941,-42.00452 32.55993,1.61399 40.99379,9.59096 42.57382,21.27626 -19.66293,0.0325 -41.24092,6.32218 -41.77972,20.72826 z"
        id="path4088"
        sodipodi:nodetypes="cccc"
        inkscape:export-filename="D:\fenix\garnatron1.5\fpg\Enemigos\mina11.png"
        inkscape:export-xdpi="22.03232"
-       inkscape:export-ydpi="22.03232" />
+       inkscape:export-ydpi="22.03232"
+       inkscape:connector-curvature="0" />
     <path
-       style="fill:#4d4d4d;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="M -992.00574,755.74609 C -972.50669,756.08843 -950.33082,762.50561 -950.62861,776.52387 C -929.2938,774.61712 -911.64344,769.23703 -908.14481,757.60599 C -936.79585,745.46538 -962.99464,744.50063 -992.00574,755.74609 z"
+       style="fill:#4d4d4d;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m -779.87371,628.46687 c 19.49905,0.34234 41.67492,6.75952 41.37713,20.77778 21.33481,-1.90675 38.98517,-7.28684 42.4838,-18.91788 -28.65104,-12.14061 -54.84983,-13.10536 -83.86093,-1.8599 z"
        id="path4090"
        sodipodi:nodetypes="cccc"
        inkscape:export-filename="D:\fenix\garnatron1.5\fpg\Enemigos\mina11.png"
        inkscape:export-xdpi="22.03232"
-       inkscape:export-ydpi="22.03232" />
+       inkscape:export-ydpi="22.03232"
+       inkscape:connector-curvature="0" />
     <path
-       style="fill:#4d4d4d;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="M -944.44421,766.24733 C -927.12334,774.85598 -918.71968,791.87726 -942.38721,804.69792 C -960.49678,802.93454 -982.28754,798.06044 -985.37872,785.00082 C -969.48667,784.77744 -944.72395,777.19943 -944.44421,766.24733 z"
+       style="fill:#4d4d4d;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m -732.31218,638.96811 c 17.32087,8.60865 25.72453,25.62993 2.057,38.45059 -18.10957,-1.76338 -39.90033,-6.63748 -42.99151,-19.6971 15.89205,-0.22338 40.65477,-7.80139 40.93451,-18.75349 z"
        id="path4092"
        sodipodi:nodetypes="cccc"
        inkscape:export-filename="D:\fenix\garnatron1.5\fpg\Enemigos\mina11.png"
        inkscape:export-xdpi="22.03232"
-       inkscape:export-ydpi="22.03232" />
+       inkscape:export-ydpi="22.03232"
+       inkscape:connector-curvature="0" />
     <g
        id="g4064"
        transform="matrix(0,1,-1,0,-573.78479,387.63592)"
@@ -3514,53 +3694,54 @@
          style="fill:url(#radialGradient3931);fill-opacity:1;fill-rule:evenodd;stroke:none;filter:url(#filter3909)"
          inkscape:connector-curvature="0" />
     </g>
-    <g
-       id="g4046"
-       inkscape:export-filename="D:\bennu\GARNATRON BENNU\garnatron\fpg-sources\bosses\1.png"
-       inkscape:export-xdpi="85.294342"
-       inkscape:export-ydpi="85.294342"
-       transform="translate(7.0710678,57.982756)">
-      <path
-         sodipodi:nodetypes="ccsc"
-         id="path7686"
-         d="M 66.724753,775.116 C 72.456273,766.68657 80.558263,759.51908 84.939033,757.616 C 85.001583,757.21483 85.360283,733.88884 85.347773,732.48801 C 85.233213,719.66183 70.504663,716.84743 66.724753,775.116 z"
-         style="fill:#666666;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         sodipodi:nodetypes="ccccc"
-         id="path7688"
-         d="M 85.126003,757.68846 C 99.135462,749.04694 113.1449,749.93498 127.15435,756.61002 L 127.15435,735.40069 C 112.21462,744.34767 98.974682,744.42322 85.402283,742.94978 L 85.126003,757.68846 z"
-         style="fill:url(#linearGradient4056);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.85508466px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         sodipodi:nodetypes="ccccc"
-         id="path7700"
-         d="M 204.94547,757.91026 C 190.93601,749.26874 176.92657,750.15678 162.91712,756.83182 L 162.91712,735.62249 C 177.85685,744.56947 191.09679,744.64502 204.66919,743.17158 L 204.94547,757.91026 z"
-         style="fill:url(#linearGradient4058);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.85508466px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         sodipodi:nodetypes="ccsccc"
-         id="path7690"
-         d="M 127.02197,756.27959 L 127.22559,731.48364 C 114.79618,712.3999 135.6398,682.46719 145.70424,682.41042 C 156.32224,682.35153 175.17727,712.03188 163.12124,732.10364 L 162.94826,756.45816 C 162.67147,777.87766 127.35222,778.36191 127.02197,756.27959 z"
-         style="fill:url(#linearGradient4060);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.83897305px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         sodipodi:nodetypes="ccsc"
-         id="path7698"
-         d="M 223.28358,775.40093 C 217.55206,766.9715 209.45007,759.80401 205.0693,757.90093 C 205.00675,757.49976 204.64805,734.17377 204.66056,732.77294 C 204.77512,719.94676 219.50367,717.13236 223.28358,775.40093 z"
-         style="fill:#666666;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         sodipodi:nodetypes="ccccc"
-         id="path7704"
-         d="M 132.79617,706.90172 C 140.6635,689.48123 150.99711,689.25848 157.79617,706.54457 L 156.30261,716.02155 C 149.82976,699.47315 140.8831,699.45232 134.89571,715.64274 L 132.79617,706.90172 z"
-         style="fill:url(#linearGradient4062);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         sodipodi:nodetypes="cccc"
-         id="path3957"
-         d="M 209.75,725.36218 C 219.90165,730.99086 222.82322,774.19797 222.82322,774.19797 C 219.21548,768.55178 217.55228,767.08466 213.94454,763.70317 C 214.53945,753.60502 212.56205,737.26987 209.75,725.36218 z"
-         style="fill:#ffffff;fill-opacity:0.34183673;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         sodipodi:nodetypes="cccc"
-         id="path3959"
-         d="M 81.233019,725.39097 C 86.299782,725.69736 84.656921,739.84818 84.671909,757.52137 C 81.223785,758.49858 82.37976,758.41313 77.472608,761.9642 C 78.421071,754.25253 81.923749,735.17734 81.233019,725.39097 z"
-         style="fill:#ffffff;fill-opacity:0.34183673;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-    </g>
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:#666666;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 73.795821,833.09876 c 5.73152,-8.42943 13.83351,-15.59692 18.21428,-17.5 0.06255,-0.40117 0.42125,-23.72716 0.40874,-25.12799 -0.11456,-12.82618 -14.84311,-15.64058 -18.62302,42.62799 z"
+       id="path7686"
+       sodipodi:nodetypes="ccsc" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:url(#linearGradient4863);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.85508466px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 92.197071,815.67122 c 14.009459,-8.64152 28.018899,-7.75348 42.028349,-1.07844 l 0,-21.20933 c -14.93973,8.94698 -28.17967,9.02253 -41.752069,7.54909 l -0.27628,14.73868 z"
+       id="path7688"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:url(#linearGradient4860);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.85508466px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 212.01654,815.89302 c -14.00946,-8.64152 -28.0189,-7.75348 -42.02835,-1.07844 l 0,-21.20933 c 14.93973,8.94698 28.17967,9.02253 41.75207,7.54909 l 0.27628,14.73868 z"
+       id="path7700"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:url(#linearGradient4857);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.83897305px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 134.09304,814.26235 0.20362,-24.79595 c -12.42941,-19.08374 8.41421,-49.01645 18.47865,-49.07322 10.618,-0.0589 29.47303,29.62146 17.417,49.69322 l -0.17298,24.35452 c -0.27679,21.4195 -35.59604,21.90375 -35.92629,-0.17857 z"
+       id="path7690"
+       sodipodi:nodetypes="ccsccc" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:#666666;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 230.35465,833.38369 c -5.73152,-8.42943 -13.83351,-15.59692 -18.21428,-17.5 -0.0625,-0.40117 -0.42125,-23.72716 -0.40874,-25.12799 0.11456,-12.82618 14.84311,-15.64058 18.62302,42.62799 z"
+       id="path7698"
+       sodipodi:nodetypes="ccsc" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:url(#linearGradient4853);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="m 139.86724,764.88448 c 7.86733,-17.42049 18.20094,-17.64324 25,-0.35715 l -1.49356,9.47698 c -6.47285,-16.5484 -15.41951,-16.56923 -21.4069,-0.37881 l -2.09954,-8.74102 z"
+       id="path7704"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:#ffffff;fill-opacity:0.34183673;fill-rule:evenodd;stroke:none"
+       d="m 216.82107,783.34494 c 10.15165,5.62868 13.07322,48.83579 13.07322,48.83579 -3.60774,-5.64619 -5.27094,-7.11331 -8.87868,-10.4948 0.59491,-10.09815 -1.38249,-26.4333 -4.19454,-38.34099 z"
+       id="path3957"
+       sodipodi:nodetypes="cccc" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:#ffffff;fill-opacity:0.34183673;fill-rule:evenodd;stroke:none"
+       d="m 88.304087,783.37373 c 5.066763,0.30639 3.423902,14.45721 3.43889,32.1304 -3.448124,0.97721 -2.292149,0.89176 -7.199301,4.44283 0.948463,-7.71167 4.451141,-26.78686 3.760411,-36.57323 z"
+       id="path3959"
+       sodipodi:nodetypes="cccc" />
     <g
        id="g4208"
        transform="translate(330.34314,-866.98066)"
@@ -3883,7 +4064,7 @@
     </g>
     <g
        id="g5942"
-       transform="matrix(11.357314,0,0,11.357314,-10963.971,-11978.208)"
+       transform="matrix(11.357314,0,0,11.357314,-10923.971,-11602.208)"
        inkscape:export-filename="D:\bennu\GARNATRON BENNU\garnatron\fpg-sources\bombas\1.png"
        inkscape:export-xdpi="3.2066803"
        inkscape:export-ydpi="3.2066803">
@@ -3898,7 +4079,7 @@
          sodipodi:cy="621.02704"
          sodipodi:cx="264.65997"
          id="path5944"
-         style="fill:#a0a0a0;fill-opacity:0;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         style="fill:#a0a0a0;fill-opacity:0;stroke:none"
          sodipodi:type="arc" />
       <path
          transform="translate(504.53544,516.43997)"
@@ -3911,14 +4092,15 @@
          sodipodi:cy="621.02704"
          sodipodi:cx="264.65997"
          id="path5946"
-         style="fill:url(#radialGradient5948);fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter3563)"
+         style="fill:url(#radialGradient5948);fill-opacity:1;stroke:none;filter:url(#filter3563)"
          sodipodi:type="arc" />
     </g>
     <g
        id="g6130"
        inkscape:export-filename="D:\bennu\GARNATRON BENNU\garnatron\fpg-sources\bombas\5.png"
        inkscape:export-xdpi="2.7849705"
-       inkscape:export-ydpi="2.7849705">
+       inkscape:export-ydpi="2.7849705"
+       transform="translate(40,376)">
       <rect
          ry="128"
          y="816.36218"
@@ -3926,7 +4108,7 @@
          height="256"
          width="646.32654"
          id="rect6110"
-         style="opacity:1;fill:#999999;fill-opacity:0;fill-rule:nonzero;stroke:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:5, 5;stroke-dashoffset:0;stroke-opacity:1" />
+         style="fill:#999999;fill-opacity:0;fill-rule:nonzero;stroke:none" />
       <rect
          ry="98"
          y="846.36218"
@@ -3934,11 +4116,11 @@
          height="196"
          width="576"
          id="rect5986"
-         style="opacity:1;fill:url(#radialGradient6010);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:5, 5;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter6048)" />
+         style="fill:url(#radialGradient6010);fill-opacity:1;fill-rule:nonzero;stroke:none;filter:url(#filter6048)" />
     </g>
     <g
        id="g6134"
-       transform="matrix(11.357314,0,0,11.357314,-10944.692,-11617.306)"
+       transform="matrix(11.357314,0,0,11.357314,-10936.692,-11873.306)"
        inkscape:export-filename="D:\bennu\GARNATRON BENNU\garnatron\fpg-sources\bombas\2.png"
        inkscape:export-xdpi="3.2066803"
        inkscape:export-ydpi="3.2066803">
@@ -3953,7 +4135,7 @@
          sodipodi:cy="621.02704"
          sodipodi:cx="264.65997"
          id="path6136"
-         style="fill:#a0a0a0;fill-opacity:0;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         style="fill:#a0a0a0;fill-opacity:0;stroke:none"
          sodipodi:type="arc" />
       <path
          transform="translate(504.53544,516.43997)"
@@ -3966,12 +4148,12 @@
          sodipodi:cy="621.02704"
          sodipodi:cx="264.65997"
          id="path6138"
-         style="fill:url(#radialGradient6146);fill-opacity:1.0;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter3563)"
+         style="fill:url(#radialGradient6146);fill-opacity:1;stroke:none;filter:url(#filter3563)"
          sodipodi:type="arc" />
     </g>
     <g
        id="g6140"
-       transform="translate(19.278795,360.90154)"
+       transform="translate(27.278795,104.90154)"
        inkscape:export-filename="D:\bennu\GARNATRON BENNU\garnatron\fpg-sources\bombas\6.png"
        inkscape:export-xdpi="2.7849705"
        inkscape:export-ydpi="2.7849705">
@@ -3982,7 +4164,7 @@
          height="256"
          width="646.32654"
          id="rect6142"
-         style="opacity:1;fill:#999999;fill-opacity:0;fill-rule:nonzero;stroke:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:5, 5;stroke-dashoffset:0;stroke-opacity:1" />
+         style="fill:#999999;fill-opacity:0;fill-rule:nonzero;stroke:none" />
       <rect
          ry="98"
          y="846.36218"
@@ -3990,7 +4172,7 @@
          height="196"
          width="576"
          id="rect6144"
-         style="opacity:1;fill:url(#radialGradient6148);fill-opacity:1.0;fill-rule:nonzero;stroke:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:5, 5;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter6048)" />
+         style="fill:url(#radialGradient6148);fill-opacity:1;fill-rule:nonzero;stroke:none;filter:url(#filter6048)" />
     </g>
     <g
        id="g6150"
@@ -4050,7 +4232,7 @@
     </g>
     <g
        id="g6166"
-       transform="matrix(11.357314,0,0,11.357314,-10916.408,-10927.17)"
+       transform="matrix(11.357314,0,0,11.357314,-10924.408,-10959.17)"
        inkscape:export-filename="D:\bennu\GARNATRON BENNU\garnatron\fpg-sources\bombas\4.png"
        inkscape:export-xdpi="3.2066803"
        inkscape:export-ydpi="3.2066803">
@@ -4065,7 +4247,7 @@
          sodipodi:cy="621.02704"
          sodipodi:cx="264.65997"
          id="path6168"
-         style="fill:#a0a0a0;fill-opacity:0;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         style="fill:#a0a0a0;fill-opacity:0;stroke:none"
          sodipodi:type="arc" />
       <path
          transform="translate(504.53544,516.43997)"
@@ -4078,12 +4260,12 @@
          sodipodi:cy="621.02704"
          sodipodi:cx="264.65997"
          id="path6170"
-         style="fill:url(#radialGradient6178);fill-opacity:1.0;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter3563)"
+         style="fill:url(#radialGradient6178);fill-opacity:1;stroke:none;filter:url(#filter3563)"
          sodipodi:type="arc" />
     </g>
     <g
        id="g6172"
-       transform="translate(47.56307,1051.0378)"
+       transform="translate(39.56307,1019.0378)"
        inkscape:export-filename="D:\bennu\GARNATRON BENNU\garnatron\fpg-sources\bombas\8.png"
        inkscape:export-xdpi="2.7849705"
        inkscape:export-ydpi="2.7849705">
@@ -4094,7 +4276,7 @@
          height="256"
          width="646.32654"
          id="rect6174"
-         style="opacity:1;fill:#999999;fill-opacity:0;fill-rule:nonzero;stroke:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:5, 5;stroke-dashoffset:0;stroke-opacity:1" />
+         style="fill:#999999;fill-opacity:0;fill-rule:nonzero;stroke:none" />
       <rect
          ry="98"
          y="846.36218"
@@ -4102,7 +4284,7 @@
          height="196"
          width="576"
          id="rect6176"
-         style="opacity:1;fill:url(#radialGradient6180);fill-opacity:1.0;fill-rule:nonzero;stroke:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:5, 5;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter6048)" />
+         style="fill:url(#radialGradient6180);fill-opacity:1;fill-rule:nonzero;stroke:none;filter:url(#filter6048)" />
     </g>
     <path
        inkscape:connector-curvature="0"
@@ -4398,7 +4580,7 @@
        inkscape:export-ydpi="62.927895" />
     <path
        style="fill:#999999;stroke:#000000;stroke-width:0.60000002;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 48.90186,380.72889 c 3.646652,4.60225 7.104635,4.36198 10.733644,0.0481 l 1.643605,35.69299 c -4.195771,-5.31243 -10.151777,-5.26202 -14.22654,0 z"
+       d="m 41.90186,61.72889 c 3.646652,4.60225 7.104635,4.36198 10.733644,0.0481 l 1.643605,35.69299 c -4.195771,-5.31243 -10.151777,-5.26202 -14.22654,0 z"
        id="path6101"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccc"
@@ -4407,7 +4589,7 @@
        inkscape:export-ydpi="59.123173" />
     <path
        style="fill:#ff0000;fill-opacity:1;stroke:#000000;stroke-width:0.60000002;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 50.925799,397.20852 -7.693741,41.86837 -12.634472,-22.27502 9.084741,-20.46236 0.363458,-9.73247 -12.01073,-36.27289 19.686039,18.65873 z"
+       d="M 43.925799,78.20852 36.232058,120.07689 23.597586,97.80187 32.682327,77.33951 33.045785,67.60704 21.035055,31.33415 40.721094,49.99288 z"
        id="path6063"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cccccccc"
@@ -4416,7 +4598,7 @@
        inkscape:export-ydpi="59.123173" />
     <path
        style="fill:#ffffff;fill-opacity:0.23557691;stroke:none"
-       d="m 28.858796,351.70775 10.164659,9.59013 7.292039,33.98533 -10.429825,30.36139 -4.949747,-8.83883 11.048543,-25.0139 z"
+       d="m 21.858796,32.70775 10.164659,9.59013 7.292039,33.98533 -10.429825,30.36139 -4.949747,-8.83883 11.048543,-25.0139 z"
        id="path6186"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccccc"
@@ -4425,7 +4607,7 @@
        inkscape:export-ydpi="59.123173" />
     <path
        style="fill:#ffff00;stroke:#000000;stroke-width:0.60000002;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 39.583371,385.22754 10.391473,6.52399 0.273457,13.3198 -10.801655,-7.9511 z"
+       d="m 32.583371,66.22754 10.391473,6.52399 0.273457,13.3198 -10.801655,-7.9511 z"
        id="path6103"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccc"
@@ -4434,7 +4616,7 @@
        inkscape:export-ydpi="59.123173" />
     <path
        style="fill:#000000;fill-opacity:0.24519228;stroke:none"
-       d="m 54.369624,384.09416 c 1.742448,-0.0624 3.483537,-1.19846 5.26588,-3.31717 l 1.643605,35.69299 c -1.855662,-2.34953 -4.055631,-3.65007 -6.284885,-3.91471 0.578003,-9.82332 1.160137,-18.4277 -0.6246,-28.46111 z"
+       d="m 47.369624,65.09416 c 1.742448,-0.0624 3.483537,-1.19846 5.26588,-3.31717 l 1.643605,35.69299 c -1.855662,-2.34953 -4.055631,-3.65007 -6.284885,-3.91471 0.578003,-9.82332 1.160137,-18.4277 -0.6246,-28.46111 z"
        id="path6101-0"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccc"
@@ -4443,7 +4625,7 @@
        inkscape:export-ydpi="59.123173" />
     <path
        style="fill:#9b0000;fill-opacity:1;stroke:#000000;stroke-width:0.60000002;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 57.603297,397.20852 7.693741,41.86837 12.634472,-22.27502 -9.084741,-20.46236 -0.363458,-9.73247 12.01073,-36.27289 -19.686039,18.65873 z"
+       d="M 50.603297,78.20852 58.297038,120.07689 70.93151,97.80187 61.846769,77.33951 61.483311,67.60704 73.494041,31.33415 53.808002,49.99288 z"
        id="path6063-5"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cccccccc"
@@ -4451,8 +4633,8 @@
        inkscape:export-xdpi="59.123173"
        inkscape:export-ydpi="59.123173" />
     <path
-       style="fill:#000000;fill-opacity:0.39215687;stroke:none"
-       d="m 79.612232,351.70182 -10.164659,9.59013 -7.292039,33.98533 10.429825,30.36139 4.949747,-8.83883 -11.048543,-25.0139 z"
+       style="fill:#000000;fill-opacity:0.39215686;stroke:none"
+       d="m 72.612232,32.70182 -10.164659,9.59013 -7.292039,33.98533 10.429825,30.36139 4.949747,-8.83883 -11.048543,-25.0139 z"
        id="path6186-1"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccccc"
@@ -4460,8 +4642,8 @@
        inkscape:export-xdpi="59.123173"
        inkscape:export-ydpi="59.123173" />
     <path
-       style="fill:#949400;stroke:#000000;stroke-width:0.60000001999999997;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;fill-opacity:1"
-       d="m 68.818096,385.33114 -10.391473,6.52399 -0.273457,13.3198 10.801655,-8.15498 z"
+       style="fill:#949400;fill-opacity:1;stroke:#000000;stroke-width:0.60000002;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 61.818096,66.33114 -10.391473,6.52399 -0.273457,13.3198 10.801655,-8.15498 z"
        id="path6103-6"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccc"
@@ -4477,13 +4659,13 @@
        sodipodi:rx="9.0913725"
        sodipodi:ry="23.233509"
        d="m 119.198,208.88481 a 9.0913725,23.233509 0 1 1 -18.18274,0 9.0913725,23.233509 0 1 1 18.18274,0 z"
-       transform="matrix(0.70028394,0,0,0.47037453,-22.755706,300.79177)"
+       transform="matrix(0.70028394,0,0,0.47037453,-29.755706,-18.20823)"
        inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\enemigos\43.png"
        inkscape:export-xdpi="59.123173"
        inkscape:export-ydpi="59.123173" />
     <path
        style="fill:#ffffff;fill-opacity:0.50279332;fill-rule:evenodd;stroke:none"
-       d="m 58.978991,392.61813 c 0.209027,10.51188 -2.776733,14.45924 -6.871367,16.12813 3.106599,2.75201 11.641054,-4.16661 6.871367,-16.12813 z"
+       d="m 51.978991,73.61813 c 0.209027,10.51188 -2.776733,14.45924 -6.871367,16.12813 3.106599,2.75201 11.641054,-4.16661 6.871367,-16.12813 z"
        id="path2265-8"
        sodipodi:nodetypes="ccc"
        inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\enemigos\43.png"
@@ -4492,7 +4674,7 @@
        inkscape:connector-curvature="0" />
     <path
        style="fill:#ffffff;fill-opacity:0.50279332;fill-rule:evenodd;stroke:none"
-       d="m 54.249725,388.61403 c -2.392006,2.34419 -4.90403,6.33219 -5.490205,10.10013 -0.344237,-4.68681 2.308874,-9.68161 5.490205,-10.10013 z"
+       d="m 47.249725,69.61403 c -2.392006,2.34419 -4.90403,6.33219 -5.490205,10.10013 -0.344237,-4.68681 2.308874,-9.68161 5.490205,-10.10013 z"
        id="path2267-4"
        sodipodi:nodetypes="ccc"
        inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\enemigos\43.png"
@@ -4549,8 +4731,8 @@
        inkscape:export-ydpi="62.927895"
        inkscape:connector-curvature="0" />
     <path
-       style="fill:#ffffff;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:0.39215687"
-       d="m 39.84375,385.79968 4.6875,2.9375 -0.0625,11.71875 -4.65625,-3.4375 z"
+       style="fill:#ffffff;fill-opacity:0.39215686;stroke:none"
+       d="m 32.84375,66.79968 4.6875,2.9375 -0.0625,11.71875 -4.65625,-3.4375 z"
        id="path6224"
        inkscape:connector-curvature="0"
        inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\enemigos\43.png"
@@ -4558,7 +4740,7 @@
        inkscape:export-ydpi="59.123173" />
     <path
        style="fill:#000000;fill-opacity:0.39215686;stroke:none"
-       d="m 68.578125,385.84656 -4.6875,2.9375 0.0625,11.71875 4.65625,-3.4375 z"
+       d="m 61.578125,66.84656 -4.6875,2.9375 0.0625,11.71875 4.65625,-3.4375 z"
        id="path6224-1"
        inkscape:connector-curvature="0"
        inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\enemigos\43.png"
@@ -4631,5 +4813,798 @@
          style="fill:url(#radialGradient6411);fill-opacity:1;stroke:none;filter:url(#filter3563-6)"
          sodipodi:type="arc" />
     </g>
+    <g
+       id="g4741"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\enemigos\35.png"
+       inkscape:export-xdpi="50.085602"
+       inkscape:export-ydpi="50.085602"
+       transform="translate(-87.681241,-316.78384)">
+      <g
+         transform="translate(-246.07316,32.526912)"
+         id="g4424">
+        <path
+           sodipodi:type="star"
+           style="fill:#333333;fill-opacity:1;stroke:none"
+           id="path9194-7"
+           sodipodi:sides="4"
+           sodipodi:cx="206.72237"
+           sodipodi:cy="693.73883"
+           sodipodi:r1="102.79014"
+           sodipodi:r2="81.987328"
+           sodipodi:arg1="-0.0003749649"
+           sodipodi:arg2="-2.3523907"
+           inkscape:flatsided="false"
+           inkscape:rounded="0"
+           inkscape:randomized="0"
+           d="m 309.5125,693.70029 -160.54299,-58.15535 57.7914,160.98402 58.15535,-160.54299 -160.98402,57.7914 160.54298,58.15536 -57.7914,-160.98403 -58.15535,160.54299 z"
+           transform="matrix(0.437037,0,0,0.437037,-1283.2345,743.51579)"
+           inkscape:export-filename="G:\garnatron1.5\fpg\Enemigos\mina05.png"
+           inkscape:export-xdpi="40.068489"
+           inkscape:export-ydpi="40.068489" />
+        <path
+           transform="matrix(0.392593,0,0,0.392593,-1274.0468,774.34859)"
+           d="m 309.5125,693.70029 -160.54299,-58.15535 57.7914,160.98402 58.15535,-160.54299 -160.98402,57.7914 160.54298,58.15536 -57.7914,-160.98403 -58.15535,160.54299 z"
+           inkscape:randomized="0"
+           inkscape:rounded="0"
+           inkscape:flatsided="false"
+           sodipodi:arg2="-2.3523907"
+           sodipodi:arg1="-0.0003749649"
+           sodipodi:r2="81.987328"
+           sodipodi:r1="102.79014"
+           sodipodi:cy="693.73883"
+           sodipodi:cx="206.72237"
+           sodipodi:sides="4"
+           id="path9210-4"
+           style="fill:#4d4d4d;fill-opacity:1;stroke:none"
+           sodipodi:type="star"
+           inkscape:export-filename="G:\garnatron1.5\fpg\Enemigos\mina05.png"
+           inkscape:export-xdpi="40.068489"
+           inkscape:export-ydpi="40.068489" />
+        <path
+           sodipodi:type="star"
+           style="fill:#666666;fill-opacity:1;stroke:none"
+           id="path9212-0"
+           sodipodi:sides="4"
+           sodipodi:cx="206.72237"
+           sodipodi:cy="693.73883"
+           sodipodi:r1="102.79014"
+           sodipodi:r2="81.987328"
+           sodipodi:arg1="-0.0003749649"
+           sodipodi:arg2="-2.3523907"
+           inkscape:flatsided="false"
+           inkscape:rounded="0"
+           inkscape:randomized="0"
+           d="m 309.5125,693.70029 -160.54299,-58.15535 57.7914,160.98402 58.15535,-160.54299 -160.98402,57.7914 160.54298,58.15536 -57.7914,-160.98403 -58.15535,160.54299 z"
+           transform="matrix(0.340741,0,0,0.340741,-1263.3279,810.32019)"
+           inkscape:export-filename="G:\garnatron1.5\fpg\Enemigos\mina05.png"
+           inkscape:export-xdpi="40.068489"
+           inkscape:export-ydpi="40.068489" />
+        <path
+           transform="matrix(0.290741,0,0,0.290741,-1252.9918,845.00709)"
+           d="m 309.5125,693.70029 -160.54299,-58.15535 57.7914,160.98402 58.15535,-160.54299 -160.98402,57.7914 160.54298,58.15536 -57.7914,-160.98403 -58.15535,160.54299 z"
+           inkscape:randomized="0"
+           inkscape:rounded="0"
+           inkscape:flatsided="false"
+           sodipodi:arg2="-2.3523907"
+           sodipodi:arg1="-0.0003749649"
+           sodipodi:r2="81.987328"
+           sodipodi:r1="102.79014"
+           sodipodi:cy="693.73883"
+           sodipodi:cx="206.72237"
+           sodipodi:sides="4"
+           id="path9214-9"
+           style="fill:#808080;fill-opacity:1;stroke:none"
+           sodipodi:type="star"
+           inkscape:export-filename="G:\garnatron1.5\fpg\Enemigos\mina05.png"
+           inkscape:export-xdpi="40.068489"
+           inkscape:export-ydpi="40.068489" />
+        <path
+           sodipodi:type="star"
+           style="fill:#999999;fill-opacity:1;stroke:none"
+           id="path9216-4"
+           sodipodi:sides="4"
+           sodipodi:cx="206.72237"
+           sodipodi:cy="693.73883"
+           sodipodi:r1="102.79014"
+           sodipodi:r2="81.987328"
+           sodipodi:arg1="-0.0003749649"
+           sodipodi:arg2="-2.3523907"
+           inkscape:flatsided="false"
+           inkscape:rounded="0"
+           inkscape:randomized="0"
+           d="m 309.5125,693.70029 -160.54299,-58.15535 57.7914,160.98402 58.15535,-160.54299 -160.98402,57.7914 160.54298,58.15536 -57.7914,-160.98403 -58.15535,160.54299 z"
+           transform="matrix(0.240741,0,0,0.240741,-1242.6557,879.69399)"
+           inkscape:export-filename="G:\garnatron1.5\fpg\Enemigos\mina05.png"
+           inkscape:export-xdpi="40.068489"
+           inkscape:export-ydpi="40.068489" />
+        <path
+           transform="matrix(0.196297,0,0,0.196297,-1233.468,910.52679)"
+           d="m 309.5125,693.70029 -160.54299,-58.15535 57.7914,160.98402 58.15535,-160.54299 -160.98402,57.7914 160.54298,58.15536 -57.7914,-160.98403 -58.15535,160.54299 z"
+           inkscape:randomized="0"
+           inkscape:rounded="0"
+           inkscape:flatsided="false"
+           sodipodi:arg2="-2.3523907"
+           sodipodi:arg1="-0.0003749649"
+           sodipodi:r2="81.987328"
+           sodipodi:r1="102.79014"
+           sodipodi:cy="693.73883"
+           sodipodi:cx="206.72237"
+           sodipodi:sides="4"
+           id="path9218-8"
+           style="fill:#b3b3b3;fill-opacity:1;stroke:none"
+           sodipodi:type="star"
+           inkscape:export-filename="G:\garnatron1.5\fpg\Enemigos\mina05.png"
+           inkscape:export-xdpi="40.068489"
+           inkscape:export-ydpi="40.068489" />
+        <path
+           sodipodi:type="star"
+           style="fill:#cccccc;fill-opacity:1;stroke:none"
+           id="path9220-8"
+           sodipodi:sides="4"
+           sodipodi:cx="206.72237"
+           sodipodi:cy="693.73883"
+           sodipodi:r1="102.79014"
+           sodipodi:r2="81.987328"
+           sodipodi:arg1="-0.0003749649"
+           sodipodi:arg2="-2.3523907"
+           inkscape:flatsided="false"
+           inkscape:rounded="0"
+           inkscape:randomized="0"
+           d="m 309.5125,693.70029 -160.54299,-58.15535 57.7914,160.98402 58.15535,-160.54299 -160.98402,57.7914 160.54298,58.15536 -57.7914,-160.98403 -58.15535,160.54299 z"
+           transform="matrix(0.144445,0,0,0.144445,-1222.7491,946.49839)"
+           inkscape:export-filename="G:\garnatron1.5\fpg\Enemigos\mina05.png"
+           inkscape:export-xdpi="40.068489"
+           inkscape:export-ydpi="40.068489" />
+      </g>
+      <path
+         inkscape:export-ydpi="26.730728"
+         inkscape:export-xdpi="26.730728"
+         inkscape:export-filename="G:\garnatron1.5\fpg\Enemigos\mina04.png"
+         transform="matrix(0.676542,0,0,0.676542,-1390.0854,705.127)"
+         d="m -54.183947,552.9668 c 0,9.97499 -8.086326,18.06131 -18.061315,18.06131 -9.974989,0 -18.061316,-8.08632 -18.061316,-18.06131 0,-9.97499 8.086327,-18.06132 18.061316,-18.06132 9.974989,0 18.061315,8.08633 18.061315,18.06132 z"
+         sodipodi:ry="18.061316"
+         sodipodi:rx="18.061316"
+         sodipodi:cy="552.9668"
+         sodipodi:cx="-72.245262"
+         id="path9202-4"
+         style="fill:url(#radialGradient4722);fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         sodipodi:type="arc" />
+    </g>
+    <g
+       id="g4775"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\enemigos\38.png"
+       inkscape:export-xdpi="50.085602"
+       inkscape:export-ydpi="50.085602"
+       transform="translate(-87.681241,-316.78384)">
+      <g
+         id="g4424-9"
+         transform="translate(76.367568,30.40559)">
+        <path
+           sodipodi:type="star"
+           style="fill:#333333;fill-opacity:1;stroke:none"
+           id="path9194-7-0"
+           sodipodi:sides="4"
+           sodipodi:cx="206.72237"
+           sodipodi:cy="693.73883"
+           sodipodi:r1="102.79014"
+           sodipodi:r2="81.987328"
+           sodipodi:arg1="-0.0003749649"
+           sodipodi:arg2="-2.3523907"
+           inkscape:flatsided="false"
+           inkscape:rounded="0"
+           inkscape:randomized="0"
+           d="m 309.5125,693.70029 -160.54299,-58.15535 57.7914,160.98402 58.15535,-160.54299 -160.98402,57.7914 160.54298,58.15536 -57.7914,-160.98403 -58.15535,160.54299 z"
+           transform="matrix(0.437037,0,0,0.437037,-1283.2345,743.51579)"
+           inkscape:export-filename="G:\garnatron1.5\fpg\Enemigos\mina05.png"
+           inkscape:export-xdpi="40.068489"
+           inkscape:export-ydpi="40.068489" />
+        <path
+           transform="matrix(0.392593,0,0,0.392593,-1274.0468,774.34859)"
+           d="m 309.5125,693.70029 -160.54299,-58.15535 57.7914,160.98402 58.15535,-160.54299 -160.98402,57.7914 160.54298,58.15536 -57.7914,-160.98403 -58.15535,160.54299 z"
+           inkscape:randomized="0"
+           inkscape:rounded="0"
+           inkscape:flatsided="false"
+           sodipodi:arg2="-2.3523907"
+           sodipodi:arg1="-0.0003749649"
+           sodipodi:r2="81.987328"
+           sodipodi:r1="102.79014"
+           sodipodi:cy="693.73883"
+           sodipodi:cx="206.72237"
+           sodipodi:sides="4"
+           id="path9210-4-5"
+           style="fill:#4d4d4d;fill-opacity:1;stroke:none"
+           sodipodi:type="star"
+           inkscape:export-filename="G:\garnatron1.5\fpg\Enemigos\mina05.png"
+           inkscape:export-xdpi="40.068489"
+           inkscape:export-ydpi="40.068489" />
+        <path
+           sodipodi:type="star"
+           style="fill:#666666;fill-opacity:1;stroke:none"
+           id="path9212-0-1"
+           sodipodi:sides="4"
+           sodipodi:cx="206.72237"
+           sodipodi:cy="693.73883"
+           sodipodi:r1="102.79014"
+           sodipodi:r2="81.987328"
+           sodipodi:arg1="-0.0003749649"
+           sodipodi:arg2="-2.3523907"
+           inkscape:flatsided="false"
+           inkscape:rounded="0"
+           inkscape:randomized="0"
+           d="m 309.5125,693.70029 -160.54299,-58.15535 57.7914,160.98402 58.15535,-160.54299 -160.98402,57.7914 160.54298,58.15536 -57.7914,-160.98403 -58.15535,160.54299 z"
+           transform="matrix(0.340741,0,0,0.340741,-1263.3279,810.32019)"
+           inkscape:export-filename="G:\garnatron1.5\fpg\Enemigos\mina05.png"
+           inkscape:export-xdpi="40.068489"
+           inkscape:export-ydpi="40.068489" />
+        <path
+           transform="matrix(0.290741,0,0,0.290741,-1252.9918,845.00709)"
+           d="m 309.5125,693.70029 -160.54299,-58.15535 57.7914,160.98402 58.15535,-160.54299 -160.98402,57.7914 160.54298,58.15536 -57.7914,-160.98403 -58.15535,160.54299 z"
+           inkscape:randomized="0"
+           inkscape:rounded="0"
+           inkscape:flatsided="false"
+           sodipodi:arg2="-2.3523907"
+           sodipodi:arg1="-0.0003749649"
+           sodipodi:r2="81.987328"
+           sodipodi:r1="102.79014"
+           sodipodi:cy="693.73883"
+           sodipodi:cx="206.72237"
+           sodipodi:sides="4"
+           id="path9214-9-8"
+           style="fill:#808080;fill-opacity:1;stroke:none"
+           sodipodi:type="star"
+           inkscape:export-filename="G:\garnatron1.5\fpg\Enemigos\mina05.png"
+           inkscape:export-xdpi="40.068489"
+           inkscape:export-ydpi="40.068489" />
+        <path
+           sodipodi:type="star"
+           style="fill:#999999;fill-opacity:1;stroke:none"
+           id="path9216-4-3"
+           sodipodi:sides="4"
+           sodipodi:cx="206.72237"
+           sodipodi:cy="693.73883"
+           sodipodi:r1="102.79014"
+           sodipodi:r2="81.987328"
+           sodipodi:arg1="-0.0003749649"
+           sodipodi:arg2="-2.3523907"
+           inkscape:flatsided="false"
+           inkscape:rounded="0"
+           inkscape:randomized="0"
+           d="m 309.5125,693.70029 -160.54299,-58.15535 57.7914,160.98402 58.15535,-160.54299 -160.98402,57.7914 160.54298,58.15536 -57.7914,-160.98403 -58.15535,160.54299 z"
+           transform="matrix(0.240741,0,0,0.240741,-1242.6557,879.69399)"
+           inkscape:export-filename="G:\garnatron1.5\fpg\Enemigos\mina05.png"
+           inkscape:export-xdpi="40.068489"
+           inkscape:export-ydpi="40.068489" />
+        <path
+           transform="matrix(0.196297,0,0,0.196297,-1233.468,910.52679)"
+           d="m 309.5125,693.70029 -160.54299,-58.15535 57.7914,160.98402 58.15535,-160.54299 -160.98402,57.7914 160.54298,58.15536 -57.7914,-160.98403 -58.15535,160.54299 z"
+           inkscape:randomized="0"
+           inkscape:rounded="0"
+           inkscape:flatsided="false"
+           sodipodi:arg2="-2.3523907"
+           sodipodi:arg1="-0.0003749649"
+           sodipodi:r2="81.987328"
+           sodipodi:r1="102.79014"
+           sodipodi:cy="693.73883"
+           sodipodi:cx="206.72237"
+           sodipodi:sides="4"
+           id="path9218-8-6"
+           style="fill:#b3b3b3;fill-opacity:1;stroke:none"
+           sodipodi:type="star"
+           inkscape:export-filename="G:\garnatron1.5\fpg\Enemigos\mina05.png"
+           inkscape:export-xdpi="40.068489"
+           inkscape:export-ydpi="40.068489" />
+        <path
+           sodipodi:type="star"
+           style="fill:#cccccc;fill-opacity:1;stroke:none"
+           id="path9220-8-8"
+           sodipodi:sides="4"
+           sodipodi:cx="206.72237"
+           sodipodi:cy="693.73883"
+           sodipodi:r1="102.79014"
+           sodipodi:r2="81.987328"
+           sodipodi:arg1="-0.0003749649"
+           sodipodi:arg2="-2.3523907"
+           inkscape:flatsided="false"
+           inkscape:rounded="0"
+           inkscape:randomized="0"
+           d="m 309.5125,693.70029 -160.54299,-58.15535 57.7914,160.98402 58.15535,-160.54299 -160.98402,57.7914 160.54298,58.15536 -57.7914,-160.98403 -58.15535,160.54299 z"
+           transform="matrix(0.144445,0,0,0.144445,-1222.7491,946.49839)"
+           inkscape:export-filename="G:\garnatron1.5\fpg\Enemigos\mina05.png"
+           inkscape:export-xdpi="40.068489"
+           inkscape:export-ydpi="40.068489" />
+      </g>
+      <path
+         inkscape:export-ydpi="26.730728"
+         inkscape:export-xdpi="26.730728"
+         inkscape:export-filename="G:\garnatron1.5\fpg\Enemigos\mina04.png"
+         transform="matrix(0.676542,0,0,0.676542,-1067.6448,703.00564)"
+         d="m -54.183947,552.9668 c 0,9.97499 -8.086326,18.06131 -18.061315,18.06131 -9.974989,0 -18.061316,-8.08632 -18.061316,-18.06131 0,-9.97499 8.086327,-18.06132 18.061316,-18.06132 9.974989,0 18.061315,8.08633 18.061315,18.06132 z"
+         sodipodi:ry="18.061316"
+         sodipodi:rx="18.061316"
+         sodipodi:cy="552.9668"
+         sodipodi:cx="-72.245262"
+         id="path9202-4-8"
+         style="fill:url(#radialGradient4451-1);fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;filter:url(#filter4467-2)"
+         sodipodi:type="arc" />
+    </g>
+    <g
+       id="g4764"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\enemigos\37.png"
+       inkscape:export-xdpi="50.085602"
+       inkscape:export-ydpi="50.085602"
+       transform="translate(-87.681241,-316.78384)">
+      <g
+         id="g4424-0"
+         transform="translate(-37.476622,31.112702)">
+        <path
+           sodipodi:type="star"
+           style="fill:#333333;fill-opacity:1;stroke:none"
+           id="path9194-7-2"
+           sodipodi:sides="4"
+           sodipodi:cx="206.72237"
+           sodipodi:cy="693.73883"
+           sodipodi:r1="102.79014"
+           sodipodi:r2="81.987328"
+           sodipodi:arg1="-0.0003749649"
+           sodipodi:arg2="-2.3523907"
+           inkscape:flatsided="false"
+           inkscape:rounded="0"
+           inkscape:randomized="0"
+           d="m 309.5125,693.70029 -160.54299,-58.15535 57.7914,160.98402 58.15535,-160.54299 -160.98402,57.7914 160.54298,58.15536 -57.7914,-160.98403 -58.15535,160.54299 z"
+           transform="matrix(0.437037,0,0,0.437037,-1283.2345,743.51579)"
+           inkscape:export-filename="G:\garnatron1.5\fpg\Enemigos\mina05.png"
+           inkscape:export-xdpi="40.068489"
+           inkscape:export-ydpi="40.068489" />
+        <path
+           transform="matrix(0.392593,0,0,0.392593,-1274.0468,774.34859)"
+           d="m 309.5125,693.70029 -160.54299,-58.15535 57.7914,160.98402 58.15535,-160.54299 -160.98402,57.7914 160.54298,58.15536 -57.7914,-160.98403 -58.15535,160.54299 z"
+           inkscape:randomized="0"
+           inkscape:rounded="0"
+           inkscape:flatsided="false"
+           sodipodi:arg2="-2.3523907"
+           sodipodi:arg1="-0.0003749649"
+           sodipodi:r2="81.987328"
+           sodipodi:r1="102.79014"
+           sodipodi:cy="693.73883"
+           sodipodi:cx="206.72237"
+           sodipodi:sides="4"
+           id="path9210-4-7"
+           style="fill:#4d4d4d;fill-opacity:1;stroke:none"
+           sodipodi:type="star"
+           inkscape:export-filename="G:\garnatron1.5\fpg\Enemigos\mina05.png"
+           inkscape:export-xdpi="40.068489"
+           inkscape:export-ydpi="40.068489" />
+        <path
+           sodipodi:type="star"
+           style="fill:#666666;fill-opacity:1;stroke:none"
+           id="path9212-0-8"
+           sodipodi:sides="4"
+           sodipodi:cx="206.72237"
+           sodipodi:cy="693.73883"
+           sodipodi:r1="102.79014"
+           sodipodi:r2="81.987328"
+           sodipodi:arg1="-0.0003749649"
+           sodipodi:arg2="-2.3523907"
+           inkscape:flatsided="false"
+           inkscape:rounded="0"
+           inkscape:randomized="0"
+           d="m 309.5125,693.70029 -160.54299,-58.15535 57.7914,160.98402 58.15535,-160.54299 -160.98402,57.7914 160.54298,58.15536 -57.7914,-160.98403 -58.15535,160.54299 z"
+           transform="matrix(0.340741,0,0,0.340741,-1263.3279,810.32019)"
+           inkscape:export-filename="G:\garnatron1.5\fpg\Enemigos\mina05.png"
+           inkscape:export-xdpi="40.068489"
+           inkscape:export-ydpi="40.068489" />
+        <path
+           transform="matrix(0.290741,0,0,0.290741,-1252.9918,845.00709)"
+           d="m 309.5125,693.70029 -160.54299,-58.15535 57.7914,160.98402 58.15535,-160.54299 -160.98402,57.7914 160.54298,58.15536 -57.7914,-160.98403 -58.15535,160.54299 z"
+           inkscape:randomized="0"
+           inkscape:rounded="0"
+           inkscape:flatsided="false"
+           sodipodi:arg2="-2.3523907"
+           sodipodi:arg1="-0.0003749649"
+           sodipodi:r2="81.987328"
+           sodipodi:r1="102.79014"
+           sodipodi:cy="693.73883"
+           sodipodi:cx="206.72237"
+           sodipodi:sides="4"
+           id="path9214-9-85"
+           style="fill:#808080;fill-opacity:1;stroke:none"
+           sodipodi:type="star"
+           inkscape:export-filename="G:\garnatron1.5\fpg\Enemigos\mina05.png"
+           inkscape:export-xdpi="40.068489"
+           inkscape:export-ydpi="40.068489" />
+        <path
+           sodipodi:type="star"
+           style="fill:#999999;fill-opacity:1;stroke:none"
+           id="path9216-4-9"
+           sodipodi:sides="4"
+           sodipodi:cx="206.72237"
+           sodipodi:cy="693.73883"
+           sodipodi:r1="102.79014"
+           sodipodi:r2="81.987328"
+           sodipodi:arg1="-0.0003749649"
+           sodipodi:arg2="-2.3523907"
+           inkscape:flatsided="false"
+           inkscape:rounded="0"
+           inkscape:randomized="0"
+           d="m 309.5125,693.70029 -160.54299,-58.15535 57.7914,160.98402 58.15535,-160.54299 -160.98402,57.7914 160.54298,58.15536 -57.7914,-160.98403 -58.15535,160.54299 z"
+           transform="matrix(0.240741,0,0,0.240741,-1242.6557,879.69399)"
+           inkscape:export-filename="G:\garnatron1.5\fpg\Enemigos\mina05.png"
+           inkscape:export-xdpi="40.068489"
+           inkscape:export-ydpi="40.068489" />
+        <path
+           transform="matrix(0.196297,0,0,0.196297,-1233.468,910.52679)"
+           d="m 309.5125,693.70029 -160.54299,-58.15535 57.7914,160.98402 58.15535,-160.54299 -160.98402,57.7914 160.54298,58.15536 -57.7914,-160.98403 -58.15535,160.54299 z"
+           inkscape:randomized="0"
+           inkscape:rounded="0"
+           inkscape:flatsided="false"
+           sodipodi:arg2="-2.3523907"
+           sodipodi:arg1="-0.0003749649"
+           sodipodi:r2="81.987328"
+           sodipodi:r1="102.79014"
+           sodipodi:cy="693.73883"
+           sodipodi:cx="206.72237"
+           sodipodi:sides="4"
+           id="path9218-8-7"
+           style="fill:#b3b3b3;fill-opacity:1;stroke:none"
+           sodipodi:type="star"
+           inkscape:export-filename="G:\garnatron1.5\fpg\Enemigos\mina05.png"
+           inkscape:export-xdpi="40.068489"
+           inkscape:export-ydpi="40.068489" />
+        <path
+           sodipodi:type="star"
+           style="fill:#cccccc;fill-opacity:1;stroke:none"
+           id="path9220-8-1"
+           sodipodi:sides="4"
+           sodipodi:cx="206.72237"
+           sodipodi:cy="693.73883"
+           sodipodi:r1="102.79014"
+           sodipodi:r2="81.987328"
+           sodipodi:arg1="-0.0003749649"
+           sodipodi:arg2="-2.3523907"
+           inkscape:flatsided="false"
+           inkscape:rounded="0"
+           inkscape:randomized="0"
+           d="m 309.5125,693.70029 -160.54299,-58.15535 57.7914,160.98402 58.15535,-160.54299 -160.98402,57.7914 160.54298,58.15536 -57.7914,-160.98403 -58.15535,160.54299 z"
+           transform="matrix(0.144445,0,0,0.144445,-1222.7491,946.49839)"
+           inkscape:export-filename="G:\garnatron1.5\fpg\Enemigos\mina05.png"
+           inkscape:export-xdpi="40.068489"
+           inkscape:export-ydpi="40.068489" />
+      </g>
+      <path
+         inkscape:export-ydpi="26.730728"
+         inkscape:export-xdpi="26.730728"
+         inkscape:export-filename="G:\garnatron1.5\fpg\Enemigos\mina04.png"
+         transform="matrix(0.676542,0,0,0.676542,-1181.4889,703.71275)"
+         d="m -54.183947,552.9668 c 0,9.97499 -8.086326,18.06131 -18.061315,18.06131 -9.974989,0 -18.061316,-8.08632 -18.061316,-18.06131 0,-9.97499 8.086327,-18.06132 18.061316,-18.06132 9.974989,0 18.061315,8.08633 18.061315,18.06132 z"
+         sodipodi:ry="18.061316"
+         sodipodi:rx="18.061316"
+         sodipodi:cy="552.9668"
+         sodipodi:cx="-72.245262"
+         id="path9202-4-3"
+         style="fill:url(#radialGradient4694);fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;filter:url(#filter4467-8)"
+         sodipodi:type="arc" />
+    </g>
+    <g
+       id="g4752"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\enemigos\36.png"
+       inkscape:export-xdpi="50.085602"
+       inkscape:export-ydpi="50.085602"
+       transform="translate(-87.681241,-316.78384)">
+      <g
+         id="g4677">
+        <g
+           transform="translate(-144.95685,31.112699)"
+           id="g4424-2">
+          <path
+             inkscape:export-ydpi="40.068489"
+             inkscape:export-xdpi="40.068489"
+             inkscape:export-filename="G:\garnatron1.5\fpg\Enemigos\mina05.png"
+             transform="matrix(0.437037,0,0,0.437037,-1283.2345,743.51579)"
+             d="m 309.5125,693.70029 -160.54299,-58.15535 57.7914,160.98402 58.15535,-160.54299 -160.98402,57.7914 160.54298,58.15536 -57.7914,-160.98403 -58.15535,160.54299 z"
+             inkscape:randomized="0"
+             inkscape:rounded="0"
+             inkscape:flatsided="false"
+             sodipodi:arg2="-2.3523907"
+             sodipodi:arg1="-0.0003749649"
+             sodipodi:r2="81.987328"
+             sodipodi:r1="102.79014"
+             sodipodi:cy="693.73883"
+             sodipodi:cx="206.72237"
+             sodipodi:sides="4"
+             id="path9194-7-28"
+             style="fill:#333333;fill-opacity:1;stroke:none"
+             sodipodi:type="star" />
+          <path
+             inkscape:export-ydpi="40.068489"
+             inkscape:export-xdpi="40.068489"
+             inkscape:export-filename="G:\garnatron1.5\fpg\Enemigos\mina05.png"
+             sodipodi:type="star"
+             style="fill:#4d4d4d;fill-opacity:1;stroke:none"
+             id="path9210-4-8"
+             sodipodi:sides="4"
+             sodipodi:cx="206.72237"
+             sodipodi:cy="693.73883"
+             sodipodi:r1="102.79014"
+             sodipodi:r2="81.987328"
+             sodipodi:arg1="-0.0003749649"
+             sodipodi:arg2="-2.3523907"
+             inkscape:flatsided="false"
+             inkscape:rounded="0"
+             inkscape:randomized="0"
+             d="m 309.5125,693.70029 -160.54299,-58.15535 57.7914,160.98402 58.15535,-160.54299 -160.98402,57.7914 160.54298,58.15536 -57.7914,-160.98403 -58.15535,160.54299 z"
+             transform="matrix(0.392593,0,0,0.392593,-1274.0468,774.34859)" />
+          <path
+             inkscape:export-ydpi="40.068489"
+             inkscape:export-xdpi="40.068489"
+             inkscape:export-filename="G:\garnatron1.5\fpg\Enemigos\mina05.png"
+             transform="matrix(0.340741,0,0,0.340741,-1263.3279,810.32019)"
+             d="m 309.5125,693.70029 -160.54299,-58.15535 57.7914,160.98402 58.15535,-160.54299 -160.98402,57.7914 160.54298,58.15536 -57.7914,-160.98403 -58.15535,160.54299 z"
+             inkscape:randomized="0"
+             inkscape:rounded="0"
+             inkscape:flatsided="false"
+             sodipodi:arg2="-2.3523907"
+             sodipodi:arg1="-0.0003749649"
+             sodipodi:r2="81.987328"
+             sodipodi:r1="102.79014"
+             sodipodi:cy="693.73883"
+             sodipodi:cx="206.72237"
+             sodipodi:sides="4"
+             id="path9212-0-87"
+             style="fill:#666666;fill-opacity:1;stroke:none"
+             sodipodi:type="star" />
+          <path
+             inkscape:export-ydpi="40.068489"
+             inkscape:export-xdpi="40.068489"
+             inkscape:export-filename="G:\garnatron1.5\fpg\Enemigos\mina05.png"
+             sodipodi:type="star"
+             style="fill:#808080;fill-opacity:1;stroke:none"
+             id="path9214-9-4"
+             sodipodi:sides="4"
+             sodipodi:cx="206.72237"
+             sodipodi:cy="693.73883"
+             sodipodi:r1="102.79014"
+             sodipodi:r2="81.987328"
+             sodipodi:arg1="-0.0003749649"
+             sodipodi:arg2="-2.3523907"
+             inkscape:flatsided="false"
+             inkscape:rounded="0"
+             inkscape:randomized="0"
+             d="m 309.5125,693.70029 -160.54299,-58.15535 57.7914,160.98402 58.15535,-160.54299 -160.98402,57.7914 160.54298,58.15536 -57.7914,-160.98403 -58.15535,160.54299 z"
+             transform="matrix(0.290741,0,0,0.290741,-1252.9918,845.00709)" />
+          <path
+             inkscape:export-ydpi="40.068489"
+             inkscape:export-xdpi="40.068489"
+             inkscape:export-filename="G:\garnatron1.5\fpg\Enemigos\mina05.png"
+             transform="matrix(0.240741,0,0,0.240741,-1242.6557,879.69399)"
+             d="m 309.5125,693.70029 -160.54299,-58.15535 57.7914,160.98402 58.15535,-160.54299 -160.98402,57.7914 160.54298,58.15536 -57.7914,-160.98403 -58.15535,160.54299 z"
+             inkscape:randomized="0"
+             inkscape:rounded="0"
+             inkscape:flatsided="false"
+             sodipodi:arg2="-2.3523907"
+             sodipodi:arg1="-0.0003749649"
+             sodipodi:r2="81.987328"
+             sodipodi:r1="102.79014"
+             sodipodi:cy="693.73883"
+             sodipodi:cx="206.72237"
+             sodipodi:sides="4"
+             id="path9216-4-0"
+             style="fill:#999999;fill-opacity:1;stroke:none"
+             sodipodi:type="star" />
+          <path
+             inkscape:export-ydpi="40.068489"
+             inkscape:export-xdpi="40.068489"
+             inkscape:export-filename="G:\garnatron1.5\fpg\Enemigos\mina05.png"
+             sodipodi:type="star"
+             style="fill:#b3b3b3;fill-opacity:1;stroke:none"
+             id="path9218-8-0"
+             sodipodi:sides="4"
+             sodipodi:cx="206.72237"
+             sodipodi:cy="693.73883"
+             sodipodi:r1="102.79014"
+             sodipodi:r2="81.987328"
+             sodipodi:arg1="-0.0003749649"
+             sodipodi:arg2="-2.3523907"
+             inkscape:flatsided="false"
+             inkscape:rounded="0"
+             inkscape:randomized="0"
+             d="m 309.5125,693.70029 -160.54299,-58.15535 57.7914,160.98402 58.15535,-160.54299 -160.98402,57.7914 160.54298,58.15536 -57.7914,-160.98403 -58.15535,160.54299 z"
+             transform="matrix(0.196297,0,0,0.196297,-1233.468,910.52679)" />
+          <path
+             inkscape:export-ydpi="40.068489"
+             inkscape:export-xdpi="40.068489"
+             inkscape:export-filename="G:\garnatron1.5\fpg\Enemigos\mina05.png"
+             transform="matrix(0.144445,0,0,0.144445,-1222.7491,946.49839)"
+             d="m 309.5125,693.70029 -160.54299,-58.15535 57.7914,160.98402 58.15535,-160.54299 -160.98402,57.7914 160.54298,58.15536 -57.7914,-160.98403 -58.15535,160.54299 z"
+             inkscape:randomized="0"
+             inkscape:rounded="0"
+             inkscape:flatsided="false"
+             sodipodi:arg2="-2.3523907"
+             sodipodi:arg1="-0.0003749649"
+             sodipodi:r2="81.987328"
+             sodipodi:r1="102.79014"
+             sodipodi:cy="693.73883"
+             sodipodi:cx="206.72237"
+             sodipodi:sides="4"
+             id="path9220-8-5"
+             style="fill:#cccccc;fill-opacity:1;stroke:none"
+             sodipodi:type="star" />
+        </g>
+        <path
+           sodipodi:type="arc"
+           style="fill:url(#radialGradient4618);fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+           id="path9202-4-9"
+           sodipodi:cx="-72.245262"
+           sodipodi:cy="552.9668"
+           sodipodi:rx="18.061316"
+           sodipodi:ry="18.061316"
+           d="m -54.183947,552.9668 c 0,9.97499 -8.086326,18.06131 -18.061315,18.06131 -9.974989,0 -18.061316,-8.08632 -18.061316,-18.06131 0,-9.97499 8.086327,-18.06132 18.061316,-18.06132 9.974989,0 18.061315,8.08633 18.061315,18.06132 z"
+           transform="matrix(0.676542,0,0,0.676542,-1288.9692,703.71275)"
+           inkscape:export-filename="G:\garnatron1.5\fpg\Enemigos\mina04.png"
+           inkscape:export-xdpi="26.730728"
+           inkscape:export-ydpi="26.730728" />
+      </g>
+    </g>
+    <path
+       sodipodi:type="arc"
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.77919036;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="path2263-0-5"
+       sodipodi:cx="110.10663"
+       sodipodi:cy="208.88481"
+       sodipodi:rx="9.0913725"
+       sodipodi:ry="23.233509"
+       d="m 119.198,208.88481 a 9.0913725,23.233509 0 1 1 -18.18274,0 9.0913725,23.233509 0 1 1 18.18274,0 z"
+       transform="matrix(0.90539,0,0,0.654907,246.29375,-72.651147)"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\enemigos\41.png"
+       inkscape:export-xdpi="62.927895"
+       inkscape:export-ydpi="62.927895" />
+    <path
+       style="fill:#ffffff;fill-opacity:0.50279332;fill-rule:evenodd;stroke:none"
+       d="m 351.96771,55.199587 c 0.27025,14.6358 -3.59001,20.13174 -8.88392,22.45536 4.01649,3.83165 15.0506,-5.80122 8.88392,-22.45536 z"
+       id="path2265-0-4"
+       sodipodi:nodetypes="ccc"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\enemigos\41.png"
+       inkscape:export-xdpi="62.927895"
+       inkscape:export-ydpi="62.927895"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:#ffffff;fill-opacity:0.50279332;fill-rule:evenodd;stroke:none"
+       d="m 345.85329,49.624647 c -3.0926,3.26383 -6.34037,8.81637 -7.09823,14.0625 -0.44506,-6.52549 2.98512,-13.47979 7.09823,-14.0625 z"
+       id="path2267-9-5"
+       sodipodi:nodetypes="ccc"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\enemigos\41.png"
+       inkscape:export-xdpi="62.927895"
+       inkscape:export-ydpi="62.927895"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:#ffffff;fill-opacity:0.7307692;stroke:none"
+       d="m 326.75,120.23718 c -4.999,-2.46553 -14.29353,-38.944829 -16.875,-63.374999 3.78246,4.259206 4.62699,5.706347 9.25,9.125 -5.68929,14.772078 5.125,36.499999 7.625,54.249999 z"
+       id="path4810"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccc" />
+    <path
+       style="fill:#999999;fill-rule:evenodd;stroke:#000000;stroke-width:0.58845598;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 351.15338,89.861044 c 3.76679,-6.297584 7.43785,-12.786635 8.89512,-23.703258 2.08826,0.425511 3.5971,1.575309 4.74372,3.177877 -0.84324,10.755141 -4.8232,18.821669 -8.89604,26.808586 -2.14971,-1.810012 -3.99646,-3.771509 -4.7428,-6.283205 z"
+       id="path11682-5-0-3"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="D:\fenix\garnatron1.5\fpg\Enemigos\enemigo01.png"
+       inkscape:export-xdpi="70.4618"
+       inkscape:export-ydpi="70.4618"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:#000000;fill-opacity:0.34615383;fill-rule:evenodd;stroke:none"
+       d="m 346.03203,92.10812 c 1.89895,1.107814 3.68023,-1.544837 5.20834,-1.806311 1.43672,2.29525 2.91085,4.699562 4.57577,5.320723 2.60551,5.716908 4.8102,15.342198 6.67043,25.568418 7.82376,-7.33613 15.84838,-48.677184 20.97057,-66.387074 -9.19859,9.955322 -15.07356,13.988637 -18.69093,14.215016 -0.92907,-2.121628 -2.70826,-2.113708 -4.08188,-2.694634 -2.82575,-6.357135 0.55361,-22.534961 2.53747,-33.453069 -3.50928,6.929547 -9.77451,11.34785 -16.23022,10.84358 6.94997,35.946923 1.50619,32.468268 -0.95955,48.393351 z"
+       id="path3068-0"
+       sodipodi:nodetypes="cccccccccc"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:#000000;fill-opacity:0.34615383;stroke:none"
+       d="m 362.90717,120.66396 c 3.499,-4.84053 15.1382,-40.867929 19.09987,-64.340993 -3.78246,4.259206 -6.89843,8.654571 -12.27144,11.323224 2.65776,19.726858 -4.55229,35.345179 -6.82843,53.017769 z"
+       id="path4810-7"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccc" />
+    <g
+       id="g4076-9"
+       transform="matrix(3.364716,0,0,1.603005,-1379.5158,-779.97859)"
+       inkscape:export-filename="D:\fenix\garnatron1.5\fpg\Enemigos\mina11.png"
+       inkscape:export-xdpi="22.03232"
+       inkscape:export-ydpi="22.03232">
+      <path
+         inkscape:export-ydpi="26.730728"
+         inkscape:export-xdpi="26.730728"
+         inkscape:export-filename="G:\garnatron1.5\fpg\Enemigos\mina04.png"
+         transform="matrix(0.676542,0,0,0.676542,233.8163,435.4399)"
+         d="m -54.183947,552.9668 c 0,9.97499 -8.086326,18.06131 -18.061315,18.06131 -9.974989,0 -18.061316,-8.08632 -18.061316,-18.06131 0,-9.97499 8.086327,-18.06132 18.061316,-18.06132 9.974989,0 18.061315,8.08633 18.061315,18.06132 z"
+         sodipodi:ry="18.061316"
+         sodipodi:rx="18.061316"
+         sodipodi:cy="552.9668"
+         sodipodi:cx="-72.245262"
+         id="path4078-7"
+         style="fill:#ff0000;stroke:#000000;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="26.730728"
+         inkscape:export-xdpi="26.730728"
+         inkscape:export-filename="G:\garnatron1.5\fpg\Enemigos\mina04.png"
+         transform="matrix(0.676542,0,0,0.676542,-94.33203,550.4458)"
+         d="m 428.95623,383.19046 c 0,8.97749 -7.27769,16.25518 -16.25518,16.25518 -8.97749,0 -16.25518,-7.27769 -16.25518,-16.25518 0,-8.97749 7.27769,-16.25518 16.25518,-16.25518 8.97749,0 16.25518,7.27769 16.25518,16.25518 z"
+         sodipodi:ry="16.255184"
+         sodipodi:rx="16.255184"
+         sodipodi:cy="383.19046"
+         sodipodi:cx="412.70105"
+         id="path4080-8"
+         style="fill:#ff6600"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="26.730728"
+         inkscape:export-xdpi="26.730728"
+         inkscape:export-filename="G:\garnatron1.5\fpg\Enemigos\mina04.png"
+         transform="matrix(0.676542,0,0,0.676542,-76.88333,539.7282)"
+         d="m 400.9612,398.99411 c 0,7.73062 -6.2669,13.99752 -13.99752,13.99752 -7.73061,0 -13.99751,-6.2669 -13.99751,-13.99752 0,-7.73062 6.2669,-13.99752 13.99751,-13.99752 7.73062,0 13.99752,6.2669 13.99752,13.99752 z"
+         sodipodi:ry="13.997519"
+         sodipodi:rx="13.997519"
+         sodipodi:cy="398.99411"
+         sodipodi:cx="386.96368"
+         id="path4082-5"
+         style="fill:#ffcc00"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="26.730728"
+         inkscape:export-xdpi="26.730728"
+         inkscape:export-filename="G:\garnatron1.5\fpg\Enemigos\mina04.png"
+         transform="matrix(0.260209,0,0,0.25773,21.15647,724.2329)"
+         d="m 647.49815,330.81265 c 0,10.47374 -7.88417,18.96438 -17.60978,18.96438 -9.72562,0 -17.60978,-8.49064 -17.60978,-18.96438 0,-10.47374 7.88416,-18.96438 17.60978,-18.96438 9.72561,0 17.60978,8.49064 17.60978,18.96438 z"
+         sodipodi:ry="18.96438"
+         sodipodi:rx="17.609781"
+         sodipodi:cy="330.81265"
+         sodipodi:cx="629.88837"
+         id="path4084-5"
+         style="fill:#ffffff"
+         sodipodi:type="arc" />
+    </g>
+    <path
+       style="fill:#4d4d4d;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m -798.17359,518.89559 c 0.1533,11.52359 24.55794,18.51242 41.84546,18.61889 -23.53424,12.53377 -56.19366,14.63586 -85.75886,2.92994 0.0282,-12.00967 17.7859,-20.4977 43.9134,-21.54883 z"
+       id="path4086-1"
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="D:\fenix\garnatron1.5\fpg\Enemigos\mina11.png"
+       inkscape:export-xdpi="22.03232"
+       inkscape:export-ydpi="22.03232"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:#4d4d4d;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m -798.52331,519.2823 c -33.9513,-15.71849 -21.7046,-32.98014 -0.7941,-42.00452 32.55993,1.61399 40.99379,9.59096 42.57382,21.27626 -19.66293,0.0325 -41.24092,6.32218 -41.77972,20.72826 z"
+       id="path4088-3"
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="D:\fenix\garnatron1.5\fpg\Enemigos\mina11.png"
+       inkscape:export-xdpi="22.03232"
+       inkscape:export-ydpi="22.03232"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:#4d4d4d;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m -758.3412,498.38915 c 19.49905,0.34234 41.67492,6.75952 41.37713,20.77778 21.33481,-1.90675 38.98517,-7.28684 42.4838,-18.91788 -28.65104,-12.14061 -54.84983,-13.10536 -83.86093,-1.8599 z"
+       id="path4090-0"
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="D:\fenix\garnatron1.5\fpg\Enemigos\mina11.png"
+       inkscape:export-xdpi="22.03232"
+       inkscape:export-ydpi="22.03232"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:#4d4d4d;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m -716.79008,518.96667 c 17.32087,8.60865 25.72453,25.62993 2.057,38.45059 -18.10957,-1.76338 -39.90033,-6.63748 -42.99151,-19.6971 15.89205,-0.22338 40.65477,-7.80139 40.93451,-18.75349 z"
+       id="path4092-7"
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="D:\fenix\garnatron1.5\fpg\Enemigos\mina11.png"
+       inkscape:export-xdpi="22.03232"
+       inkscape:export-ydpi="22.03232"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:#999999;fill-rule:evenodd;stroke:#000000;stroke-width:0.58845598;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 340.45683,89.686319 c -3.76679,-6.297584 -7.43785,-12.786635 -8.89512,-23.703258 -1.99585,0.230067 -3.45003,1.543482 -4.74372,3.177877 0.84324,10.755141 4.55803,18.733281 8.63087,26.720195 2.44016,-1.422578 3.97952,-3.595819 5.00797,-6.194814 z"
+       id="path11682-5-0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="D:\fenix\garnatron1.5\fpg\Enemigos\enemigo01.png"
+       inkscape:export-xdpi="70.4618"
+       inkscape:export-ydpi="70.4618"
+       inkscape:connector-curvature="0" />
   </g>
 </svg>

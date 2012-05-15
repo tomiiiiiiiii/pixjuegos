@@ -98,10 +98,10 @@ if(tipo==4)	//misiles
 	y=id_nave[jugador].y;
 	if(exists(type enemigo))
 		id2=get_id(type enemigo);
-	elseif(exists(type mina))
-		id2=get_id(type mina);
 	elseif(exists(type asteroide))
 		id2=get_id(type asteroide);
+	elseif(exists(type mina))
+		id2=get_id(type mina);
 	elseif(exists(type boss))
 		id2=get_id(type boss);
 	end
