@@ -37,7 +37,7 @@ file=fpg_bosses;
 if(tipo==1)	//nivel 1
 	graph=1; x=512; y=-100; vida_boss=750; patron=1;
 	barra_boss();
-	id_boss02=canon(0,10);
+	id_boss02=ametralladora(0,10);
 	while(y<200) y+=5; frame; end
 	loop
 	if(pausa==0)

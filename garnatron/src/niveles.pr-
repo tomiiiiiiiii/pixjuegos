@@ -642,7 +642,7 @@ direccion=1;
 jefe;
 n;
 
-linea;
+string linea;
 
 datos_nivel[500][6];
 /*------------------------------------------------------------------
@@ -688,7 +688,7 @@ Begin
 	ctype=c_screen;
 	define_region(1,0,0,1024,768);
 	pausa=1;
-	n=1;
+	n=0;
 	from jugador=1 to 4;
 		energia[jugador]=20;
 		escudo[jugador]=5;
@@ -817,8 +817,7 @@ Begin
 // empieza el nivel
 //-----------------------------------------------------------------------
 			while(distancia==datos_nivel[n][0])
-			
-				
+			/*
 					if(datos_nivel[n][1]==0)
 						enemigo(datos_nivel[n][2],datos_nivel[n][3],datos_nivel[n][4],datos_nivel[n][5]);
 					end
@@ -836,9 +835,9 @@ Begin
 						jefe=1;
 						musica(2);
 					end
-				
+				*/
 			
-			/*
+			
 				switch(datos_nivel[n][1])
 					case 0:
 						enemigo(datos_nivel[n][2],datos_nivel[n][3],datos_nivel[n][4],datos_nivel[n][5]);
@@ -857,7 +856,7 @@ Begin
 						jefe=1;
 						musica(2);
 					end
-				end*/
+				end
 				n++;
 			end
 			if(jefe==0) distancia++; end
