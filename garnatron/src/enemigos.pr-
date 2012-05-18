@@ -317,12 +317,11 @@ BEGIN
 	if(size<100) vida=5; end
 	loop
 		if(pausa==0)
-//			advance(velocidad);
-			x+=x+get_distx(angulo,10);
-			y+=y+get_disty(angulo,10);
 
-//			graph+=1;
-//			if(graph>20) graph=1; end
+			x+=get_distx(angulo,7);
+			y+=get_disty(angulo,7);
+			
+			angle+=pi/size;
 
 		end
 		id2=(collision(type disparo01));
@@ -434,17 +433,11 @@ begin
 			end
 			angle=angulo;
 			patron++;
-			if(patron==115)
+			if(patron==110 or patron==112 or patron==114 or patron==116 or patron==118 or patron==120 or patron==122 or patron==124)
 				disparo02(x+get_distx(angle+45000,10),y+get_disty(angle+45000,5),angle,2);
 				suena(s_laser3);
 			end
-			if(patron==120)
-				disparo02(x+get_distx(angle+45000,10),y+get_disty(angle+45000,5),angle,2);
-				suena(s_laser3);
-			end
-			if(patron==125)
-				disparo02(x+get_distx(angle+45000,10),y+get_disty(angle+45000,5),angle,2);
-				suena(s_laser3);
+			if(patron>124)
 				patron=0;
 				jugador++;
 			end

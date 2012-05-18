@@ -250,7 +250,7 @@ BEGIN
 
 	//historia(1);
 	//juego(4);
-	fase(1);
+	fase(5);
 	frame;
 
 end
