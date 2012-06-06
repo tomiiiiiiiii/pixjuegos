@@ -121,7 +121,7 @@ Local
 
 BEGIN
 	if(argc>0) if(argv[1]=="arcade") arcade_mode=1; end end
-
+	
 	set_fps(40,10);
 
 	if(!mode_is_ok(1024,768,32,MODE_FULLSCREEN))
@@ -247,10 +247,9 @@ BEGIN
 	clear_screen();
 
 
-
-	//historia(1);
+	historia(1);
 	//juego(4);
-	fase(5);
+	//fase(1);
 	frame;
 
 end
@@ -458,6 +457,7 @@ private
 	a;
 	
 begin
+	
 	let_me_alone();
 	clear_screen();
 	delete_text(all_text);
@@ -473,13 +473,14 @@ begin
 		write(fuente[0],512,500,4,"Pulsa disparo para empezar");
 		while(not p[0].botones[4] or not p[1].botones[4])
 			scroll.x0+=3;
-			if(p[0].botones[7] or not p[1].botones[4]) exit(); end
+			if(p[0].botones[7] or p[1].botones[7]) exit(); end
 			frame;
 		end
+		
 		while(p[0].botones[4] or p[1].botones[4]) scroll.x0+=3; frame; end
 		ayuda();
 	end
-
+	
 	z=-20;
 	graph=6;
 	x=120;
@@ -871,8 +872,12 @@ begin
 						poder[jugador]=1;
 					end
 					if(num_opciones==opcion_actual)
-						menu(0);
-						return;
+					//	if(arcade_mode==1)
+					//		ayuda();
+					//	else
+							menu(0);
+							return;
+					//	end
 					else
 						juego(1);
 					end
@@ -985,7 +990,9 @@ begin
 		frame;
 	end
 	if(arcade_mode==1)
+		jugadores=2;
 		juego(1);
+		//menu(4);
 	else
 		menu(0);
 	end
