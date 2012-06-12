@@ -274,24 +274,30 @@ if(tipo==40)
 			end	
 			if(x1<20) x1++; end
 			advance(x1);
-			if(collision (type enemigo)) break; end
-			if(collision (type mina)) break; end
-			if(collision (type boss)) break; end
-			if(collision (type disparo02)) break; end
-			if(collision (type bomba02)) break; end
-			if(collision (type laser02)) break; end
+	//		if(collision (type enemigo)) break; end
+	//		if(collision (type mina)) break; end
+	//		if(collision (type boss)) break; end
+	//		if(collision (type disparo02)) break; end
+	//		if(collision (type bomba02)) break; end
+	//		if(collision (type laser02)) break; end
 			if(out_region(id,0)) signal(id,s_kill); end 
 			estela(x,y,angle,fpg_explosiones,42);
 		end
 		frame;
 	end
-	file=fpg_explosiones;
-	graph=1;
-	suena(s_explosion);
-	repeat
-		if(pausa==0) graph++; end
-	frame;
-	until(graph==12)
+//	file=fpg_explosiones;
+//	graph=1;
+//	suena(s_explosion);
+//	repeat
+//		if(pausa==0) graph++; end
+//	frame;
+//	until(graph==12)
+	
+	explosion(x,y,1,200);
+	if(opciones.particulas==1)
+		explotalo(x,y,z,alpha,angle,file,graph,40);
+	end
+	
 	
 end
 
@@ -311,6 +317,11 @@ if(tipo==50)
 				disparo01(id2.x,id2.y,angulo);
 				signal(id2,s_kill);
 			end
+			if(id2=collision(type disparo01))
+				angulo=get_angle(id2)-id2.angle+270000+(get_angle(id2)-90000);
+				disparo01(id2.x,id2.y,angulo);
+				signal(id2,s_kill);
+			end
 		end
 		frame;
 	end
@@ -320,6 +331,11 @@ if(tipo==50)
 		if(pausa==0)
 			alpha-=20;
 			if(id2=collision(type disparo02))
+				angulo=get_angle(id2)-id2.angle+270000+(get_angle(id2)-90000);
+				disparo01(id2.x,id2.y,angulo);
+				signal(id2,s_kill);
+			end
+			if(id2=collision(type disparo01))
 				angulo=get_angle(id2)-id2.angle+270000+(get_angle(id2)-90000);
 				disparo01(id2.x,id2.y,angulo);
 				signal(id2,s_kill);

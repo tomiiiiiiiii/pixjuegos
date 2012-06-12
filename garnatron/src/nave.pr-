@@ -174,7 +174,7 @@ loop
 		if(graph==20) direccion=1; end
 		if(graph==44) direccion=0; end
 */
-		if(p[jugador].botones[6] and gatillo==0) habil[jugador]++; gatillo=1; end
+		if(p[jugador].botones[6] and gatillo==0) habil[jugador]++; gatillo=1; sombra(graph,x,y,file,2); end
 		if(not p[jugador].botones[6] and gatillo==1) gatillo=0; end
 		if(habil[jugador]>6) habil[jugador]=1; end
 		if(habil[jugador]<1) habil[jugador]=6; end
@@ -212,13 +212,13 @@ begin
 			x=50; y=50;
 		end
 		case 2:
-			x=974; y=50; flags=1;
+			x=974; y=50;
 		end
 		case 3:
-			x=50; y=736; flags=2;
+			x=50; y=736;
 		end
 		case 4:
-			x=974; y=736; flags=3;
+			x=974; y=736;
 		end
 	end
 	loop

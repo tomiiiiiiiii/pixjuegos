@@ -131,7 +131,7 @@ BEGIN
 		end
 	end
 	
-	if(arcade_mode==1) full_screen=true; end
+	if(arcade_mode==1) scale_resolution=08000600; full_screen=true; end
 	
 	set_mode(1024,768,32,WAITVSYNC);
 
@@ -566,7 +566,9 @@ begin
 								menu(4);
 							else
 								jugadores=1;
-								juego(1);
+								puntos[1]=0;
+								poder[1]=1;
+								fase(1);
 							end
 						end
 						case 2:
@@ -576,7 +578,7 @@ begin
 								jugadores=1;
 								puntos[1]=save.puntos[1];
 								poder[1]=save.poder[1];
-								juego(save.nivel);
+								fase(save.nivel);
 							end
 						end
 						case 3:
@@ -872,14 +874,10 @@ begin
 						poder[jugador]=1;
 					end
 					if(num_opciones==opcion_actual)
-					//	if(arcade_mode==1)
-					//		ayuda();
-					//	else
-							menu(0);
-							return;
-					//	end
+						menu(0);
+						return;
 					else
-						juego(1);
+						fase(1);
 					end
 				end
 				case 5: //numero jugadores, continuar
@@ -893,7 +891,7 @@ begin
 						menu(0);
 						return;
 					else
-						juego(save.nivel);
+						fase(save.nivel);
 					end
 				end
 			end
@@ -910,17 +908,13 @@ begin
 		if(p[0].botones[3])
 			if(!pulsando)
 				opcion_actual++;
-				
 				suena(s_mover);
-				
 				pulsando=1;
 			end
 		elseif(p[0].botones[2])
 			if(!pulsando)
 				opcion_actual--;
-				
 				suena(s_mover);
-				
 				pulsando=1;
 			end
 		else
@@ -991,8 +985,11 @@ begin
 	end
 	if(arcade_mode==1)
 		jugadores=2;
-		juego(1);
-		//menu(4);
+		poder[1]=0;
+		poder[2]=0;
+		puntos[1]=0;
+		puntos[2]=0;
+		fase(1);
 	else
 		menu(0);
 	end
@@ -1063,10 +1060,10 @@ if(cosa==3) //destello
 	z=-90;
     	frame(700);
 end
-if(cosa==4) //laser3
+if(cosa==4) //onda expasiva
 	flags=4;
 	from size = 100 to 500 step 20;
-	alpha--;
+		alpha--;
     	frame;
 	end
 end

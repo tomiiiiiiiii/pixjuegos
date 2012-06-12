@@ -659,10 +659,19 @@ if(tipo==13)	//nivel 5 motor
 		if(patron==1) bomba02(150,250,270000,150); end
 
 		id2=(collision(type disparo01));
-		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,100); puntos+=1; end
+		if(id2)
+			vida--;
+			signal(id2,s_kill);
+			explosion(id2.x,id2.y,2,100);
+			puntos+=1;
+		end
 
 		id2=(collision(type laser));
-		if(id2) vida-=2; explosion(id2.x,id2.y,2,100); puntos+=1; end
+		if(id2)
+			vida-=2;
+			explosion(id2.x,id2.y,2,100);
+			puntos+=1;
+		end
 
 		from jugador=1 to 4;
 			if(exists(id_nave[jugador]))
