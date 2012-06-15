@@ -182,6 +182,9 @@ BEGIN
 	
 	opciones.particulas=1;				//sistema de patículas activado
 
+	if(arcade_mode==1)
+		opciones.particulas=0;
+	end
 	
 	if(os_id==0) //windows
 		savegamedir=getenv("APPDATA")+developerpath;
