@@ -8,7 +8,7 @@ PROCESS nave01(x,y, jugador)
 private acelx; acely; disparando; inmunidad=75; retardo=5; id_bomba;
 
 BEGIN
-	graph=1;
+	graph=1+((jugador-1) * 3);
 	file=fpg_nave;
 	controlador(jugador);
 	fuerza[jugador]=jugador;
@@ -150,12 +150,12 @@ switch (jugador)
 			write_var(fuente[2],924,35,5,puntos2);
 		end
 		case 3:
-			x=50; y=736; flags=2; graph=28;
-			write_var(fuente[3],100,751,3,puntos2);
+			x=50; y=716; flags=2; graph=28;
+			write_var(fuente[3],100,731,3,puntos2);
 		end
 		case 4:
-			x=974; y=736; flags=3; graph=29;
-			write_var(fuente[4],924,751,5,puntos2);
+			x=974; y=716; flags=3; graph=29;
+			write_var(fuente[4],924,731,5,puntos2);
 		end
 	end
 
@@ -174,7 +174,7 @@ loop
 		if(graph==20) direccion=1; end
 		if(graph==44) direccion=0; end
 */
-		if(p[jugador].botones[6] and gatillo==0) habil[jugador]++; gatillo=1; sombra(graph,x,y,file,2); end
+		if(p[jugador].botones[6] and gatillo==0) habil[jugador]++; gatillo=1; sombra(graph,x,y,file,5); end
 		if(not p[jugador].botones[6] and gatillo==1) gatillo=0; end
 		if(habil[jugador]>6) habil[jugador]=1; end
 		if(habil[jugador]<1) habil[jugador]=6; end
@@ -215,10 +215,10 @@ begin
 			x=974; y=50;
 		end
 		case 3:
-			x=50; y=736;
+			x=50; y=716;
 		end
 		case 4:
-			x=974; y=736;
+			x=974; y=716;
 		end
 	end
 	loop
@@ -250,10 +250,10 @@ begin
 			x=974; y=200; flags=1;
 		end
 		case 3:
-			x=50; y=586; flags=2;
+			x=50; y=566; flags=2;
 		end
 		case 4:
-			x=974; y=586; flags=3;
+			x=974; y=566; flags=3;
 		end
 	end
 	loop
@@ -301,7 +301,7 @@ switch (jugador)
 		x1=-28;
 	end
 	case 3:
-		x=50; y=586; flags=2;
+		x=50; y=566; flags=2;
 		y1[4]=13;
 		y1[3]=-13;
 		y1[2]=-39;
@@ -310,7 +310,7 @@ switch (jugador)
 		x1=28;
 	end
 	case 4:
-		x=974; y=586; flags=3;
+		x=974; y=566; flags=3;
 		y1[4]=13;
 		y1[3]=-13;
 		y1[2]=-39;

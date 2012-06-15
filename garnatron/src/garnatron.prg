@@ -246,10 +246,11 @@ BEGIN
 
 	clear_screen();
 
-
-	historia(1);
+	
+	jugadores=4;
+	//historia(1);
 	//juego(4);
-	//fase(1);
+	fase(3);
 	frame;
 
 end
@@ -1065,6 +1066,13 @@ if(cosa==4) //onda expasiva
 	from size = 100 to 500 step 20;
 		alpha--;
     	frame;
+	end
+end
+if(cosa==5)	//marcadores
+	flags=father.flags+16;
+	from alpha=255 to 0 step -20;
+		size+=3;
+		frame;
 	end
 end
 end

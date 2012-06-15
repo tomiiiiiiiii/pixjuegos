@@ -751,15 +751,15 @@ Begin
 	end
 	
 	from jugador=1 to jugadores;
-		while(id_nave[jugador].y>300)
+		while(id_nave[jugador].y>500)
 			id_nave[jugador].y-=10;
 			scroll.y0-=3;
 			frame;
 		end
 	end
 	from jugador=1 to jugadores;
-		while(id_nave[1].y<550)
-			id_nave[1].y+=10;
+		while(id_nave[jugador].y<650)
+			id_nave[jugador].y+=7;
 			scroll.y0-=4;
 			frame;
 		end

@@ -9,7 +9,7 @@ private
 vida_boss_max;
 begin
 	x=512;
-	y=738;
+	y=755;
 	z=-110;
 	graph=99;
 	region=4;
@@ -102,7 +102,7 @@ if(tipo==2)	//nivel 2
 		end
 
 
-		if(patron==500) bomba02(0,60,3*pi/2,100); end
+		if(patron==500) bomba02(0,60,3*pi/2,100,2); end
 		if(patron>625) patron=0; end
 
 		id2=(collision(type disparo01));
@@ -335,8 +335,8 @@ if(tipo==6)	//nivel 4
 				if(y>500) patron=300; end
 			end
 			if(patron==300)
-				bomba02(70,-70,45000,100);
-				bomba02(-70,-70,135000,100);
+				bomba02(70,-70,45000,100,1);
+				bomba02(-70,-70,135000,100,1);
 				suena(s_laser2);
 			end
 			if(patron<435 and patron>299) patron++; end
@@ -460,7 +460,7 @@ if(tipo==9)	//nivel 5
 
 		if(patron>135 and patron<600 and angle<pi) angle+=3000; end
 
-		if(patron==300) bomba02(0,100,3*pi/2,300); end
+		if(patron==300) bomba02(0,100,3*pi/2,500,1); end
 
 		if(patron>600 and angle>0 and exists(id_boss04) and exists(id_boss05))
 			angle-=3000;
@@ -621,7 +621,7 @@ if(tipo==12)	//nivel 5 motor
 		angle=father.angle;
 
 		patron=father.patron;
-		if(patron==1) bomba02(-150,250,270000,150); end
+		if(patron==1) bomba02(-150,250,255000,100,2); end
 
 		id2=(collision(type disparo01));
 		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,100); puntos+=1; end
@@ -656,7 +656,7 @@ if(tipo==13)	//nivel 5 motor
 		angle=father.angle;
 
 		patron=father.patron;
-		if(patron==1) bomba02(150,250,270000,150); end
+		if(patron==1) bomba02(150,250,285000,100,2); end
 
 		id2=(collision(type disparo01));
 		if(id2)

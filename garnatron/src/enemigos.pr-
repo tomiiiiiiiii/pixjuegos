@@ -309,7 +309,7 @@ id2;
 
 BEGIN
 	z-=15;
-	graph=1;
+	graph=21;
 	region=1;
 	file=fpg_enemigos;
 	if(size>149) vida=20; end

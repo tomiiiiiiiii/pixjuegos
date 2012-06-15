@@ -49,14 +49,21 @@ if(tipo==1)	//verde
 	graph=10;
 	size=0;
 	loop
-	if(pausa==0)
-		x=father.x;
-		y=father.y-30;
-		time++;
-		size+=10;
-		if(time==10) laser(x,y,10,id); suena(s_laser1); break; end
-
-	end
+		if(pausa==0)
+			if(exists(father))
+				x=father.x;
+				y=father.y-30;
+				time++;
+				size+=10;
+				if(time==10)
+					laser(x,y,10,id);
+					suena(s_laser1);
+					break;
+				end
+			else
+				break;
+			end
+		end
 		frame;
 	end
 end
@@ -64,31 +71,38 @@ if(tipo==2)	//azul continuo
 	graph=20;
 	size=0;
 	loop
-	if(pausa==0)
-		x=father.x;
-		y=father.y-30;
-		time++;
-		if(time<20) size+=6; end
-		if(time==20) laser(x,y,20,id); end
-		if(time>20) laser(x,y,21,id); end
-		if(time==25) suena(s_laser2); end
-		if(time>125) break; end
-	end
-	frame;
+		if(pausa==0)
+			if(exists(father))
+				x=father.x;
+				y=father.y-30;
+				time++;
+				if(time<20) size+=6; end
+				if(time==20) laser(x,y,20,id); end
+				if(time>20) laser(x,y,21,id); end
+				if(time==25) suena(s_laser2); end
+				if(time>125) break; end
+			else
+				break;
+			end
+		end
+		frame;
 	end
 end
 
 if(tipo==3)	//amarillo arco
 	graph=30;
 	loop
-	if(pausa==0)
-		x=father.x;
-		y=father.y-30;
-		time++;
-		if(time==15) laser(x,y,30,id); suena(s_laser2); end
-		if(time>45) break; end
-
-	end
+		if(pausa==0)
+			if(exists(father))
+				x=father.x;
+				y=father.y-30;
+				time++;
+				if(time==15) laser(x,y,30,id); suena(s_laser2); end
+				if(time>45) break; end
+			else
+				break;
+			end
+		end
 		frame;
 	end
 end
@@ -122,16 +136,20 @@ if(tipo==6)	//lanzallamas
 	graph=60;
 	size=0;
 	loop
-	if(pausa==0)
-		x=father.x;
-		y=father.y-30;
-		time++;
-		if(time<20) size+=6; end
-		if(time>20) laser(x,y,60,id); end
-		if(time==25) suena(s_laser2); end
-		if(time>125) break; end
-	end
-	frame;
+		if(pausa==0)
+			if(exists(father))
+				x=father.x;
+				y=father.y-30;
+				time++;
+				if(time<20) size+=6; end
+				if(time>20) laser(x,y,60,id); end
+				if(time==25) suena(s_laser2); end
+				if(time>125) break; end
+			else
+				break;
+			end
+		end
+		frame;
 	end
 end
 
@@ -206,19 +224,18 @@ if(tipo==20)
 	z=16;
 	avance=-40;
 	loop
-	
-	if(pausa==0)
-		if(exists(id2))
-			x=id2.x;
-			y=id2.y+avance;
-		else
-			size_y-=5;
-			y-=70;
+		if(pausa==0)
+			if(exists(id2))
+				x=id2.x;
+				y=id2.y+avance;
+			else
+				size_y-=5;
+				y-=70;
+			end
+			avance-=70;
+			if(out_region(id,1)) break; end
 		end
-		avance-=70;
-		if(out_region(id,1)) break; end
-	end
-	frame;
+		frame;
 	end
 end
 if(tipo==21)
@@ -227,32 +244,34 @@ if(tipo==21)
 	z=16;
 	avance=-40;
 	loop
-	
-	if(pausa==0)
-		if(exists(id2))
-			x=id2.x;
-			y=id2.y+avance;
-		else
-			size_y-=5;
-			y-=70;
+		if(pausa==0)
+			if(exists(id2))
+				x=id2.x;
+				y=id2.y+avance;
+			else
+				size_y-=5;
+				y-=70;
+			end
+			avance-=70;
+			if(out_region(id,1)) break; end
 		end
-		avance-=70;
-		if(out_region(id,1)) break; end
-	end
-	frame;
+		frame;
 	end
 end
 if(tipo==30)
 	graph=31;
 	loop
-	if(pausa==0)
-		x=father.x;
-		y=father.y;
-		if(angle<pi) angle+=6000; end
-		if(angle=>pi) break; end
-		
-	end
-	frame;
+		if(pausa==0)
+			if(exists(father))
+				x=father.x;
+				y=father.y;
+				if(angle<pi) angle+=6000; end
+				if(angle=>pi) break; end
+			else
+				break;
+			end
+		end
+		frame;
 	end
 end
 
@@ -274,12 +293,12 @@ if(tipo==40)
 			end	
 			if(x1<20) x1++; end
 			advance(x1);
-	//		if(collision (type enemigo)) break; end
-	//		if(collision (type mina)) break; end
-	//		if(collision (type boss)) break; end
-	//		if(collision (type disparo02)) break; end
-	//		if(collision (type bomba02)) break; end
-	//		if(collision (type laser02)) break; end
+			if(collision (type enemigo)) break; end
+			if(collision (type mina)) break; end
+			if(collision (type boss)) break; end
+			if(collision (type disparo02)) break; end
+			if(collision (type bomba02)) break; end
+			if(collision (type laser02)) break; end
 			if(out_region(id,0)) signal(id,s_kill); end 
 			estela(x,y,angle,fpg_explosiones,42);
 		end
@@ -297,7 +316,7 @@ if(tipo==40)
 	if(opciones.particulas==1)
 		explotalo(x,y,z,alpha,angle,file,graph,40);
 	end
-	
+	frame(200);//para que el enemigo detecte la colisión
 	
 end
 
@@ -352,14 +371,13 @@ if(tipo==60)
 	z=16;
 	size=0;
 	loop
-	
-	if(pausa==0)
-		size+=10;
-		z-=1;
-		advance(30);
-		if(size>100) break; end
-	end
-	frame;
+		if(pausa==0)
+			size+=10;
+			z-=1;
+			advance(30);
+			if(size>100) break; end
+		end
+		frame;
 	end
 end
 
@@ -392,7 +410,7 @@ REPEAT
 		advance(20);
 		if(id2=collision(type laser))
 			if(id2.graph!=60)
-				explotalo(x,y,z,alpha,angle,file,graph,10);
+				explosion(x,y,2,75);
 				break;
 			end
 		end
@@ -400,18 +418,16 @@ REPEAT
 			estela(x,y,angle,fpg_explosiones,42);
 		end
 
-
-		
 		from jugador=1 to 4;
 			if(exists(id_nave[jugador]))
 				id2=(collision(id_nave[jugador])); 
 				if(id2)
 					id_nave[jugador].estado=-1;
 					explosion(x,y,2,75);
+					return;
 				end
 			end
 		end
-		
 		
 		if(collision(type disparo01)) explosion(x,y,2,75); break; end
 	end
@@ -423,7 +439,7 @@ END
 // Maneja las bombas enemigas
 //-----------------------------------------------------------------------
 
-process bomba02(x1,y1,angle,size);
+process bomba02(x1,y1,angle,size,tipo);
 
 private time=0; id2;
 begin
@@ -431,14 +447,19 @@ z-=15;
 file=fpg_bombas;
 region=1;
 id2=father;
-graph=40;
+if(tipo==1)
+	graph=40;
+end
+if(tipo==2)
+	graph=70;
+end
 loop
 	if(pausa==0)
 		if(exists(id2))
 			x=id2.x+x1;
 			y=id2.y+y1;
 			time++;
-			if(time>20) laser02(x,y,angle,size); end
+			if(time>20) laser02(x,y,angle,size,tipo); end
 			if(time==25) suena(s_laser2); end
 			if(time>125) break; end
 		else
@@ -454,15 +475,24 @@ end
 // Maneja el laser de las bombas enemigas
 //-----------------------------------------------------------------------
 
-process laser02(x1,y1,angle,size_y);
+process laser02(x1,y1,angle,size_y,tipo);
 
-private id2; avance;
+private id2; avance; size_max;
 
 begin
+priority=-2;
 z-=14;
 file=fpg_bombas;
 region=1;
-graph=41;
+if(tipo==1)
+	graph=41;
+end
+if(tipo==2)
+	graph=71;
+	size_max=size_y;
+	size=0;
+	size_y=100;
+end
 avance=30;
 loop
 	if(pausa==0)
@@ -477,17 +507,29 @@ loop
 			end
 		end
 		
-		if(exists(father))
-			x1=father.x;
-			y1=father.y;
-			x=x1+get_distx(angle,avance);
-			y=y1+get_disty(angle,avance);
-		else
-			size_y-=10;
-			x=x1+get_distx(angle,avance);
-			y=y1+get_disty(angle,avance);
+		if(tipo==1)
+			if(exists(father))
+				x1=father.x;
+				y1=father.y;
+				x=x1+get_distx(angle,avance);
+				y=y1+get_disty(angle,avance);
+			else
+				size_y-=10;
+				x=x1+get_distx(angle,avance);
+				y=y1+get_disty(angle,avance);
+			end
+			avance+=50;
 		end
-		avance+=50;
+		if(tipo==2)
+			size+=10;
+			z-=1;
+			x=x1+get_distx(angle,avance);
+			y=y1+get_disty(angle,avance);
+			avance+=30;
+			if(size>size_max) break; end
+		
+		end
+		
 		if(out_region(id,1)) break; end
 	end
 	frame;
