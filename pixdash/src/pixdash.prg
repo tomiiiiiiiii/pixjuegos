@@ -475,10 +475,8 @@ Begin
 					else
 						id_colision.gravedad=-20; //rebota el prota
 					end
-					while(size>0 and tipo!=2 and tipo!=4)  //animacion de la muerte, salvo que sean para-algo
-						size=size-5; 
-						angle+=7000;
-						frame; 
+					if(tipo!=2 and tipo!=4)  //animacion de la muerte, salvo que sean para-algo
+						explotalo(x,y,z,255,0,file,graph,60);
 					end
 					if(tipo==2 or tipo==4) enemigo(x,y,tipo-1,0); end
 					frame;
@@ -895,15 +893,17 @@ end //FIN IF WII
 	//3 2 1 YA:
 	from i=3 to 1 step -1;
 		timer[0]=0;
-		texto=write(fuente_grande,ancho_pantalla/2,alto_pantalla/2,4,i);
-		sonido(1);
-		while(timer[0]<100) frame; end
-		delete_text(texto);
+		graph=write_in_map(fuente_grande,i,4);
+		sonido(10);
+		while(timer[0]<100) alpha-=4; size++; frame; end
+		size=100;
+		alpha=255;
 	end
-	sonido(3);
+	sonido(11);
 	delete_text(all_text);
+	graph=write_in_map(fuente_grande,"YA",4);
 	if(modo_juego==0) marcadores(); end //marcadores de puntos en modo competición
-	texto=write(fuente_grande,ancho_pantalla/2,alto_pantalla/2,4,"YA");
+	//texto=write(fuente_grande,ancho_pantalla/2,alto_pantalla/2,4,"YA");
 	ready=1;
 	timer[0]=0;
 	timer[1]=0; //para contrarreloj
@@ -930,7 +930,11 @@ end //FIN IF WII
 	loop
 		if(key(_n)) while(key(_n)) frame; end num_nivel++; carga_nivel(); end
 		if(p[0].botones[7]) while(p[0].botones[7]) frame; end menu(); end
-		if(timer[0]>300 and texto!=0) delete_text(texto); texto=0; end
+		if(timer[0]>100 and alpha>0)
+			alpha-=5;
+			size++;
+			//delete_text(texto); texto=0; 
+		end
 		if(jugadores==3 and ((!exists(scroll[3].camera)) or scroll[3].camera==0 or rand(0,500)==333)) scroll[3].camera=get_id(type enemigo); end
 //		if(jugadores==1 and ((!exists(scroll[1].camera)) or scroll[1].camera==0 or rand(0,500)==333)) scroll[1].camera=get_id(type enemigo); end
 		frame;
