@@ -7,6 +7,7 @@ cd ..
 echo Exportando...
 mkdir export
 mkdir export\fpg
+mkdir export\fpg\monstruos
 mkdir export\ogg
 mkdir export\ogg\monstruos
 mkdir export\fnt
@@ -15,6 +16,7 @@ mkdir export\tour
 mkdir export\fondos
 mkdir export\fondos\monstruos
 copy fpg\*.fpg export\fpg
+copy fpg\monstruos\*.fpg export\fpg\monstruos
 copy ogg\*.ogg export\ogg
 copy ogg\monstruos\*.* export\ogg\monstruos
 copy wav\*.wav export\wav

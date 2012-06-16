@@ -884,7 +884,7 @@ Begin
 			from i=1 to 4;
 				boton[i]=get_joy_button(buzz_joy[1],(i-1)*5);
 				if(buzz_joy[2]!=0)
-					boton[i+4]=get_joy_button(buzz_joy[1],(i-1)*5);
+					boton[i+4]=get_joy_button(buzz_joy[2],(i-1)*5);
 				else
 					boton[5]=key(_q);
 					boton[6]=key(_z);

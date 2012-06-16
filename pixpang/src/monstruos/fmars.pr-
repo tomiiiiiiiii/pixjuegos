@@ -102,20 +102,20 @@ begin
 			if(animglobal==59) vez=3; end
 		end
 		if(ready==1)
-			if(y>500) p[1].muere=p[2].muere=1; end
-			if(rand(0,1000)==5);
-				fmars_lanzabola();
-			end
-			x+=fmars_xmoverse;
-			if(x=>740 && fmars_dire==1);
-				fmars_dire=0;
-			end
-			if(x<60 && fmars_dire==0);
-				fmars_ybase+=20;
-				fmars_dire=1;
+			if(y>500) p[1].muere=1; p[2].muere=1; end
+			if(!reloj) 
+				if(rand(0,1000)==5)	fmars_lanzabola(); end
+				x+=fmars_xmoverse; 
+				if(x=>740 && fmars_dire==1);
+					fmars_dire=0;
+				end
+				if(x<60 && fmars_dire==0);
+					fmars_ybase+=20;
+					fmars_dire=1;
+				end
 			end
 		end
-		if(id_col=collision(type muneco)) p[id_col.jugador].muere=1; break; end
+		if(id_col=collision(type muneco) and !reloj) p[id_col.jugador].muere=1; break; end
 		if(id_col=collision(type disparos))
 			id_col.accion=-1;
 			p[id_col.jugador].bonus+=500; 
@@ -169,7 +169,7 @@ begin
 		while(ready==0) frame; end
 		y+=4;
 		angle+=20000;
-		if(id_col=collision(type muneco)) p[id_col.jugador].muere=1; end
+		//if(id_col=collision(type muneco)) p[id_col.jugador].muere=1; end
 		frame;
 	end
 	switch(alto)

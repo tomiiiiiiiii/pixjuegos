@@ -34,16 +34,18 @@ Begin
 			Frame;
 		End
 		flags=0;
-		if(toques!=0) x_inc=3-toques/10; end
-		If(lao==0) x+=3+x_inc; End
-		If(lao==1) x-=3+x_inc; End
-		If(x=>800-18-(ancho_bola/2)) lao=1; End
-		If(x=<(((ancho_bola)/2))+18) lao=0; End
-		If(y>(500-(altura_bola/2))) grav=grav_org; toques+=2; End
-		grav-=5;
-		y-=3+(grav/20);
-		if(parpadea==15)
-			If(id_col=collision(Type muneco)) p[id_col.jugador].muere=1; End
+		if(!reloj)
+			if(toques!=0) x_inc=3-toques/10; end
+			If(lao==0) x+=3+x_inc; End
+			If(lao==1) x-=3+x_inc; End
+			If(x=>800-18-(ancho_bola/2)) lao=1; End
+			If(x=<(((ancho_bola)/2))+18) lao=0; End
+			If(y>(500-(altura_bola/2))) grav=grav_org; toques+=2; End
+			grav-=5;
+			y-=3+(grav/20);
+			if(parpadea==15)
+				If(id_col=collision(Type muneco)) p[id_col.jugador].muere=1; End
+			end
 		end
 		if(x<20) x=20; end
 		if(x>780) x=780; end

@@ -198,14 +198,18 @@ Begin
 					end
 				end
 				if(id_col=collision(type burbujarayo))
-					id_col.accion=muere;
-					vidajefe--;
-					sonido(9);
+					if(id_col.accion!=muere)
+						id_col.accion=muere;
+						vidajefe--;
+						sonido(9);
+					end
 				end
 				if(id_col=collision(type boladeenemigos))
-					id_col.accion=muere;
-					vidajefe--;
-					sonido(9);
+					if(id_col.accion!=muere)
+						id_col.accion=muere;
+						vidajefe--;
+						sonido(9);
+					end
 				end
 
 				if(vidajefe==0) patron=-1; end

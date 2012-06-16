@@ -1447,7 +1447,7 @@ Begin
 	cocos++;
 	If(lado==0) x=0; flags=1; Else x=800; flags=0; End
 	y=466;
-	z=-2;
+	z=1;
 	Loop
 		While(ready==0 OR reloj==1) Frame; End
 		If(ganando==1) Break; End
@@ -1496,7 +1496,7 @@ Private
 Begin
 	graph=300;
 	x=rand(100,500);
-	z=-2;
+	z=1;
 	cocos++;
 	y_destino_final=rand(100,400);
 	Loop
