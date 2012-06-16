@@ -21,7 +21,10 @@ Global
 	app_data=0; //temporal, hasta que se puedan descargar niveles desde linux
 	suelo;
 	dur_pinchos;
-	dur_muelle;
+	dur_muelle_arriba;
+	dur_muelle_derecha;
+	dur_muelle_abajo;
+	dur_muelle_izquierda;
 	ancho_pantalla=1280;
 	alto_pantalla=720;
 	ancho_nivel;
@@ -118,6 +121,27 @@ Local
 	saltando;
 End
 
+function string hasta_la_coma(string estring,int num_campo);
+private
+	string temp;
+	w;
+	campo_actual;
+begin
+	from w=0 to len(estring);
+		if(estring[w]!=",")
+			temp+=""+estring[w];
+		else
+			if(campo_actual==num_campo)
+				break;
+			else
+				temp="";
+				campo_actual++;
+			end
+		end
+	end
+	return temp;
+end
+
 Process prota(jugador);
 Private 
 	pulsando;
@@ -147,8 +171,23 @@ Begin
 	alto=29;
 	loop
 		while(ready==0) frame; end
-		if(p[jugador].botones[1]) flags=0; inercia+=2; end //la inercia sube al ir hacia la derecha
-		if(p[jugador].botones[0]) flags=1; inercia-=2; end //la inercia baja al ir hacia la izquierda
+		if(p[jugador].botones[1]) //la inercia sube al ir hacia la derecha
+			flags=0;
+			if(p[jugador].botones[4])
+				if(inercia<20) inercia+=2; end
+			else
+				if(inercia<10) inercia+=2; end
+			end
+		end
+		if(p[jugador].botones[0]) //la inercia baja al ir hacia la izquierda
+			flags=1;
+			if(p[jugador].botones[4])
+				if(inercia>-20) inercia-=2; end
+			else
+				if(inercia>-10) inercia-=2; end
+			end
+		end
+
 		if(p[jugador].botones[5] and pulsando==0 and saltando==0) saltando=1; sonido(5); saltogradual=1; gravedad=-15; pulsando=1; y--; end 
 		//al saltar suena el sonido correspondiente y se aplica la gravedad, y el salto gradual si saltamos poco 
 		if(p[jugador].botones[5] and pulsando==0 and powerup==3 and tiempo_powerup>0 and doble_salto==0) saltogradual=1; doble_salto=1; gravedad=-15; pulsando=1; y--; end
@@ -199,14 +238,13 @@ Begin
 				frame; 
 			end //aquí se queda!
 		end //al ganar mike canta y nos damos la vuelta xD
-		if(inercia>0 and gravedad==0) inercia--; end
-		if(inercia<0 and gravedad==0) inercia++; end
-		if(p[jugador].botones[4])
-			if(inercia>20) inercia=20; end
-			if(inercia<-20) inercia=-20; end
-		else
-			if(inercia>10) inercia=10; end
-			if(inercia<-10) inercia=-10; end
+		if(gravedad==0)
+			if(inercia>0) inercia--; end
+			if(inercia<0) inercia++; end
+//		else
+			//if(inercia>0) inercia-=0.3; end
+			//if(inercia<0) inercia+=0.3; end
+			//if(inercia<0.3 or inercia>-0.3) inercia=0; end
 		end
 		if(gravedad>40) gravedad=40; end
 		if(powerup==5) 
@@ -231,8 +269,8 @@ Begin
 
 		if(map_get_pixel(0,durezas,x,y)==dur_pinchos or map_get_pixel(0,durezas,x,y+alto)==dur_pinchos or map_get_pixel(0,durezas,x,y-alto)==dur_pinchos or
 			map_get_pixel(0,durezas,x-ancho,y)==dur_pinchos or map_get_pixel(0,durezas,x+ancho,y)==dur_pinchos) accion="muerte"; end
-		if(map_get_pixel(0,durezas,x,y)==dur_muelle or map_get_pixel(0,durezas,x,y+alto)==dur_muelle or map_get_pixel(0,durezas,x,y-alto)==dur_muelle or
-			map_get_pixel(0,durezas,x-ancho,y)==dur_muelle or map_get_pixel(0,durezas,x+ancho,y)==dur_muelle) doble_salto=0; gravedad=-40; y--; end
+		if(map_get_pixel(0,durezas,x,y)==dur_muelle_arriba or map_get_pixel(0,durezas,x,y+alto)==dur_muelle_arriba or map_get_pixel(0,durezas,x,y-alto)==dur_muelle_arriba or
+			map_get_pixel(0,durezas,x-ancho,y)==dur_muelle_arriba or map_get_pixel(0,durezas,x+ancho,y)==dur_muelle_arriba) doble_salto=0; gravedad=-40; y--; end
 	
 		if(x<10) x=10; end //pa no salirse de la pantalla por la izquierda
 		//y=y+gravedad;
@@ -349,7 +387,7 @@ Begin
 End //el flashazo de cuando muere el prota
 
 // tipos: 1: goomba, 2:paragoomba, 3:koopatroopa, 4:paratroopa, 5:spiky, 6:spiky-goomba, 7:billbala, 8:	lakitu, 9:huevo de spiky, 10:spikyparabuzzy
-Process enemigo(x,y,tipo);
+Process enemigo(x,y,tipo,flags);
 Private
 	id_colision;
 	x_original;
@@ -358,6 +396,7 @@ Private
 	frames_anim;
 	anim;
 	spikys;
+	x_destino;
 Begin
    ctype=c_scroll;
    file=fpg_enemigos;
@@ -383,23 +422,28 @@ Begin
 		if(map_get_pixel(0,durezas,x-ancho,y)==suelo or x=<10) if(tipo==7) explotalo(x,y,z,255,0,file,graph,60); break; end flags=1; end //giramos cuando chocamos, o nos salimos, por la izquierda. aunque billbala muere
 		if(map_get_pixel(0,durezas,x,y-alto)==suelo and tipo!=7) gravedad=10; y++; end //si chocamos arriba, nos vamos pabajo. pd: sólo chocan los para-algo
 		if(tipo==7) flags=0; x-=6; end //billbala siempre va hacia la izquierda
-		if(tipo==8 and rand(0,200)==0 and spikys<10) spikys++; enemigo(x,y,9); end //lakitu tirando pinchones
-		if(flags==0) 
-			if(tipo!=8) 
-				x-=2; 
-			else 
-				x-=6; 
-			end //los malos andan pa un lao
-		else  
-			if(tipo!=8) 
-				x+=2; 
-			else 
-				x+=6; 
-			end 
-		end	//si miramos pa un lao, andamos pa ese, sino viceversa
+		if(tipo==8 and rand(0,200)==0 and spikys<10) spikys++; enemigo(x,y,9,0); end //lakitu tirando pinchones
+		if(accion!="lanzado")
+			if(flags==0) 
+				if(tipo!=8) 
+					inercia=-2; 
+				else 
+					inercia=-6; 
+				end //los malos andan pa un lao
+			else  
+				if(tipo!=8) 
+					inercia=2; 
+				else 
+					inercia=6; 
+				end 
+			end	//si miramos pa un lao, andamos pa ese, sino viceversa
+		else
+			//..
+		end
 		if(tipo==8 and rand(0,300)==0) if(flags==0) flags=1; else flags=0; end end //cuando mira lakitu pa la derecha al azar
 		if(map_get_pixel(0,durezas,x,y+alto)==suelo and tipo!=8 and gravedad>0) //el malo tocó el suelo? lakitu no choca wei!
-			if(tipo==9) enemigo(x,y, tipo-4); break; end //los huevos de spiky tocan el suelo, mueren y llaman a los spikys
+			if(accion=="lanzado") accion=""; end
+			if(tipo==9) enemigo(x,y, tipo-4,0); break; end //los huevos de spiky tocan el suelo, mueren y llaman a los spikys
 			if(tipo==2 or tipo==4 or tipo==10) gravedad=-40; y--; else gravedad=0; end //saltos para los para-algo, sino quietos nel suelo
 		else 
 			gravedad++; //pos no lo tocó
@@ -419,7 +463,7 @@ Begin
 				if(tipo!=2 and tipo!=4)  //animacion de la muerte, salvo que sean para-algo
 					explotalo(x,y,z,255,0,file,graph,60);
 				end
-				if(tipo==2 or tipo==4) accion="renacer"; enemigo(x,y,tipo-1); end //los para-algo llamando a los correspondientes malos cuando los pisas
+				if(tipo==2 or tipo==4) accion="renacer"; enemigo(x,y,tipo-1,0); end //los para-algo llamando a los correspondientes malos cuando los pisas
 				frame;
 				break; //suicidamos al malo
 			else //el prota chocó por debajo de la altura del enemigo
@@ -436,7 +480,7 @@ Begin
 						angle+=7000;
 						frame; 
 					end
-					if(tipo==2 or tipo==4) enemigo(x,y,tipo-1); end
+					if(tipo==2 or tipo==4) enemigo(x,y,tipo-1,0); end
 					frame;
 					break; //suicidamos al malo
 				else
@@ -444,19 +488,28 @@ Begin
 				end
 			end
 		end
+		
+		//gestión de inercia
+		x_destino=x+(inercia/2);
+		if(x_destino>x)
+			from x=x to x_destino step 1; if(map_get_pixel(0,durezas,x+ancho,y+alto/2)==suelo) inercia=0; break; end end
+		elseif(x_destino<x)
+			from x=x to x_destino step -1; if(map_get_pixel(0,durezas,x-ancho,y+alto/2)==suelo) inercia=0; break; end end
+		end //calculamos donde se para si tiene inercia y dejas de correr
+		
 		if(map_get_pixel(0,durezas,x,y)==dur_pinchos or map_get_pixel(0,durezas,x,y+alto)==dur_pinchos or map_get_pixel(0,durezas,x,y-alto)==dur_pinchos or
 		map_get_pixel(0,durezas,x-ancho,y)==dur_pinchos or map_get_pixel(0,durezas,x+ancho,y)==dur_pinchos) 
 			explotalo(x,y,z,255,0,file,graph,60);
 			break; 
 		end
-		if(map_get_pixel(0,durezas,x,y)==dur_muelle or map_get_pixel(0,durezas,x,y+alto)==dur_muelle or map_get_pixel(0,durezas,x,y-alto)==dur_muelle or
-			map_get_pixel(0,durezas,x-ancho,y)==dur_muelle or map_get_pixel(0,durezas,x+ancho,y)==dur_muelle) gravedad=-40; y--; end
+		if(map_get_pixel(0,durezas,x,y)==dur_muelle_arriba or map_get_pixel(0,durezas,x,y+alto)==dur_muelle_arriba or map_get_pixel(0,durezas,x,y-alto)==dur_muelle_arriba or
+			map_get_pixel(0,durezas,x-ancho,y)==dur_muelle_arriba or map_get_pixel(0,durezas,x+ancho,y)==dur_muelle_arriba) gravedad=-40; y--; end
 
 		if(tipo!=7 and tipo!=8) y=y+(gravedad/4); end //gravedad barata. a billbala y a lakitu no les afecta
 		if(slowmotion==0) frame; else frame(300); end
 		//frame;
     end	
-	if(tipo==7) enemigo(x_original,y_original,tipo); end
+	if(tipo==7) enemigo(x_original,y_original,tipo,0); end
 	num_enemigos--;
 End
 
@@ -560,6 +613,8 @@ PRIVATE
 	decimas;
 	string string_tiempo;
 	fichero;
+	fp;
+	string linea;
 BEGIN
 	id_carganivel=id;
 	if(num_nivel!=1)
@@ -602,7 +657,6 @@ BEGIN
 		foto=get_screen(); 
 		put_screen(0,foto);
 	end
-	//set_mode(ancho_pantalla,alto_pantalla,16,WAITVSYNC);
 	delete_text(all_text);
 	
 	rand_seed(num_nivel);
@@ -654,6 +708,7 @@ BEGIN
 	ancho_nivel=ancho*tilesize;
 	
 	max_num_enemigos=(alto_nivel*ancho_nivel)/100000;
+
 	//BURRADA TEMPORAL PARA PRUEBAS CON MEMORIA DE LA WII
 	if(os_id!=os_wii)
 		mapa_scroll=new_map(ancho*tilesize,(alto-3)*tilesize,16);
@@ -682,7 +737,7 @@ BEGIN
 
 	suelo=map_get_pixel(fpg_durezas,501,0,0);
 	dur_pinchos=map_get_pixel(fpg_durezas,502,0,0);
-	dur_muelle=map_get_pixel(fpg_durezas,504,0,0);
+	dur_muelle_arriba=map_get_pixel(fpg_durezas,504,0,0);
 	//LO INVISIBLE (PERO TOCABLE)
 	repeat
 		pos_x=x*tilesize;
@@ -694,7 +749,7 @@ BEGIN
 		if(tile==tiles[3]) tile=4; end
 		if(tile==tiles[4]) moneda(pos_x+(tilesize/2),pos_y+(tilesize/2)); end
 		
-		from i=1 to 10; if(tile==enemigos[i]) enemigo(pos_x+(tilesize/2),pos_y+(tilesize/2),i); end end
+		from i=1 to 10; if(tile==enemigos[i]) enemigo(pos_x+(tilesize/2),pos_y+(tilesize/2),i,0); end end
 		from i=1 to 5; if(tile==powerups[i]) powerups(pos_x+(tilesize/2),pos_y+(tilesize/2),i); end end
 
 		tile=tile+500;
@@ -757,6 +812,23 @@ if(os_id!=os_wii)
 	//FIN DE PINTAR COSAS WACHIS!!!
 //BURRADA TEMPORAL PARA PRUEBAS CON MEMORIA DE LA WII
 end //FIN IF WII
+
+//NUEVO: LISTA DE OBJETOS EN UN FICHERO APARTE
+	if(fexists(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".obj"))
+		fp=fopen(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".obj",O_READ);
+		while(!feof(fp))
+			linea=fgets(fp);
+			if(hasta_la_coma(linea,0)=="muelle")
+				pon_muelle(atoi(hasta_la_coma(linea,1))*tilesize,atoi(hasta_la_coma(linea,2))*tilesize,atoi(hasta_la_coma(linea,3)));
+			end
+			if(hasta_la_coma(linea,0)=="enemigo")
+				enemigo(atoi(hasta_la_coma(linea,1))*tilesize,atoi(hasta_la_coma(linea,2))*tilesize,atoi(hasta_la_coma(linea,3)),atoi(hasta_la_coma(linea,4)));
+			end
+			i++;
+		end
+		fclose(fp);
+	end
+//----
 
 	flash=new_map(ancho_pantalla,alto_pantalla,8);
 	drawing_color(suelo);
@@ -1161,7 +1233,7 @@ Begin
 	if(os_id==os_win32)
 		editor_de_niveles=1;
 		descarga_niveles=1;
-		app_data=1;
+		//app_data=1;
 	end
 
 	set_title("PiX Dash");
@@ -1392,6 +1464,41 @@ Begin
 	y-=60;
 	from alpha=0 to 255 step 20; frame; end
 	loop
+		frame;
+	end
+End
+
+Process pon_muelle(x,y,direccion); //direccion 1:arriba,2:der-arr,3:derecha,4:der-aba,5:abajo,6:izq-aba,7:izquierda,8:izq-arr
+Private
+	id_colision;
+	x_inc;
+	y_inc;
+Begin
+	file=fpg_tiles;
+	ctype=c_scroll;
+	z=-1;
+	graph=4;
+	angle=-45*(direccion-1)*1000;
+	if(direccion==1 or direccion==2 or direccion==8) y_inc=-40; end
+	if(direccion==2 or direccion==3 or direccion==4) x_inc=+20; end
+	if(direccion==4 or direccion==5 or direccion==6) y_inc=+40; end
+	if(direccion==6 or direccion==7 or direccion==8) x_inc=-20; end
+	if(direccion==3 or direccion==7) y_inc=0; end
+	if(direccion==1 or direccion==5) x_inc=0; end
+	loop
+		if(id_colision=collision(type prota))
+			if(id_colision.accion!="muerte")
+				id_colision.gravedad=y_inc;
+				id_colision.inercia=x_inc;
+			end
+		end
+		if(id_colision=collision(type enemigo))
+			if(id_colision.accion!="muerte")
+				id_colision.gravedad=y_inc;
+				id_colision.inercia=x_inc;
+				id_colision.accion="lanzado";
+			end
+		end
 		frame;
 	end
 End
