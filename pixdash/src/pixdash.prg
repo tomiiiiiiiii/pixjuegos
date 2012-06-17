@@ -1418,7 +1418,7 @@ End
 
 function probar_pantalla();
 begin
-	if(os_id==1000) 
+	if(os_id==1000)
 		scale_resolution=06400480; 
 		ancho_pantalla=1066;
 		alto_pantalla=600;
@@ -1428,9 +1428,9 @@ begin
     if(arcade_mode) ancho_pantalla=1024; alto_pantalla=768; scale_resolution=0; return; end
 
 	if(mode_is_ok(1280,1024,16,MODE_WAITVSYNC+MODE_FULLSCREEN)) //Si soporta 1280x720 nativamente...
-        ancho_pantalla=1280; alto_pantalla=1024; scale_resolution=0;
+        ancho_pantalla=1280; alto_pantalla=1024; scale_resolution=12801024;
     elseif(mode_is_ok(1280,720,16,MODE_WAITVSYNC+MODE_FULLSCREEN)) //Si soporta 1280x1024 nativamente...
-        ancho_pantalla=1280; alto_pantalla=720; scale_resolution=0;
+        ancho_pantalla=1280; alto_pantalla=720; scale_resolution=12800720;
     elseif(mode_is_ok(1024,768,16,MODE_WAITVSYNC+MODE_FULLSCREEN)) //Si soporta 1024x768 nativamente...
         ancho_pantalla=1280; alto_pantalla=1024; scale_resolution=10240768;
     elseif(mode_is_ok(800,600,16,MODE_WAITVSYNC+MODE_FULLSCREEN)) //Si soporta 800x600 nativamente...

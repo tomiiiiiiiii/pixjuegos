@@ -30,7 +30,7 @@ begin
 	unload_map(0,durezas);
 	num_enemigos=0;
 	delete_text(all_text);
-	//set_mode(800,600,16,WAITVSYNC); //resolución y colores	    
+	set_mode(800,600,16,WAITVSYNC); //resolución y colores	    
 	i=0;
 	from i=1 to 4;
 		p[i].puntos=0;
@@ -65,7 +65,6 @@ begin
 	end
 	
 	elecc=0;
-	//lista(3);
 	frame;
 	logo(2);
 	machango();
@@ -80,7 +79,6 @@ begin
 	write(fuente_peq,x,y+=60,3,"Opciones");
 	write(fuente_peq,x,y+=60,3,"Ayuda");
 	write(fuente_peq,x,y+=60,3,"Creditos");
-	write(fuente_peq,x,y+=60,3,"PiXJuegos.com");
 	if(editor_de_niveles)
 		write(fuente_peq,x,y+=60,3,"Editor de niveles");
 	end
@@ -89,11 +87,11 @@ begin
 	x=400;
 	y=300;
 	loop
-		if(elecc==7 or (elecc==6 and !editor_de_niveles))
+		if(elecc==6 or (elecc==5 and !editor_de_niveles))
 			elecc=0;
 		end
 		if(elecc==-1)
-			if(!editor_de_niveles) elecc=5; else elecc=6; end
+			if(!editor_de_niveles) elecc=4; else elecc=5; end
 		end
 		if(keytime>0)
 			keytime--;
@@ -125,15 +123,6 @@ begin
 				break;
 			end
 			if(elecc==4)
- 				if(os_id==0)
- 					//shell("http://pixjuegos.com");
- 				else
-					//shell("x-www-browser http://pixjuegos.com &");
- 				end
-				guarda_opciones();
-				exit(0);
-			end
-			if(elecc==5)
 				if(editor_de_niveles)
 					editor_de_niveles(); 
 					return;
@@ -142,7 +131,7 @@ begin
 					exit(0);
 				end
 			end
-			if(elecc==6)
+			if(elecc==5)
 				guarda_opciones();
 				exit(0);
 			end
@@ -266,16 +255,6 @@ begin
 		end
 		//ayuda y tal
 		if(graph>=20 and graph<=22)
-			if(key(_f))
-				sonido(1);
- 				if(os_id==0)
-// 					shell("http://foro.pixjuegos.com");
- 				else
-//					shell("x-www-browser http://foro.pixjuegos.com &");
- 				end
-				guarda_opciones();
-				exit(0);
-			end
 			if(p[0].botones[4] and keytime==0)
 				graph++;
 				if(graph==22)
