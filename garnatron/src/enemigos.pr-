@@ -312,9 +312,9 @@ BEGIN
 	graph=21;
 	region=1;
 	file=fpg_enemigos;
-	if(size>149) vida=20; end
-	if(size>99 and size<150) vida=10; end
-	if(size<100) vida=5; end
+	if(size>99) vida=20; end
+	if(size>49 and size<100) vida=10; end
+	if(size<50) vida=5; end
 	loop
 		if(pausa==0)
 
@@ -331,7 +331,7 @@ BEGIN
 		id2=(collision(type bomba));
 		if(id2) explosion(x,y,1,200); if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end if(size>99) puntos[id2.jugador]+=30; else  puntos+=10; end break; end
 		if(vida<1)
-			if(size>99)
+			if(size>30)
 				asteroide(x,y,size/3,pi/2);
 				asteroide(x,y,size/3,pi*5/4);
 				asteroide(x,y,size/3,pi*7/4);

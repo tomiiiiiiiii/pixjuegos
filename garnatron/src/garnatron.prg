@@ -250,10 +250,9 @@ BEGIN
 	clear_screen();
 
 	
-	jugadores=4;
+	//jugadores=4;
 	//historia(1);
-	//juego(4);
-	fase(3);
+	fase(5);
 	frame;
 
 end
@@ -950,14 +949,13 @@ process boton(x,y,string texto,int a);
 
 begin
 	file=fpg_menu;
-	size_x=300;
 	z=-100;
 	loop
 		if(opcion==a)
-			graph=20;
+			graph=10;
 			id_texto=write(fuente[0],x,y,4,texto);
 		else
-			graph=44;
+			graph=11;
 			id_texto=write(fuente[0],x,y,4,texto);
 		end
 		frame;

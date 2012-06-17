@@ -28,7 +28,7 @@ Begin
 			end
 		end		
 		if(p[jugador].control==-1) return; end
-		If(p[jugador].control==0)  // teclado
+		if(p[jugador].control==0)  // teclado
 			If(key(opciones.teclado.izquierda)) p[jugador].botones[0]=1; Else p[jugador].botones[0]=0; End
 			If(key(opciones.teclado.derecha)) p[jugador].botones[1]=1; Else p[jugador].botones[1]=0; End
 			If(key(opciones.teclado.arriba)) p[jugador].botones[2]=1; Else p[jugador].botones[2]=0; End

@@ -7,7 +7,6 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="210mm"
@@ -15,7 +14,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.0 r9654"
-   sodipodi:docname="Documento nuevo 1">
+   sodipodi:docname="menu.svg">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -25,9 +24,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.7"
-     inkscape:cx="271.88055"
-     inkscape:cy="830.53471"
+     inkscape:zoom="7.9195959"
+     inkscape:cx="118.51999"
+     inkscape:cy="648.07474"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -78,32 +77,33 @@
        d="m 195,85.362183 -7,7 7,0 z"
        id="path3788"
        inkscape:connector-curvature="0" />
-    <image
-       y="194.44817"
-       x="-77.853424"
-       id="image3805"
-       xlink:href="file:///C:/Users/PROPIE~1/AppData/Local/Temp/inkscape-clipboard-import"
-       height="304.16498"
-       width="405.55328"
-       style="opacity:1" />
     <path
        style="fill:#000000;fill-opacity:1;stroke:#3c3c96;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
        d="m 80,417.36218 10,-10 80,0 0,10 -10,10 -80,0 z"
        id="path2987-57"
        inkscape:connector-curvature="0"
-       sodipodi:nodetypes="ccccccc" />
+       sodipodi:nodetypes="ccccccc"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\menu\11.png"
+       inkscape:export-xdpi="197.79947"
+       inkscape:export-ydpi="197.79947" />
     <path
        style="fill:#000000;fill-opacity:1;stroke:#00ff00;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
        d="m 80,392.36218 10,-10 80,0 0,10 -10,10 -80,0 z"
        id="path2987-57-7"
        inkscape:connector-curvature="0"
-       sodipodi:nodetypes="ccccccc" />
+       sodipodi:nodetypes="ccccccc"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\menu\10.png"
+       inkscape:export-xdpi="197.79947"
+       inkscape:export-ydpi="197.79947" />
     <path
        style="fill:#000000;fill-opacity:1;stroke:#00ff00;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
        d="m 80,347.36218 30,-30 60,0 0,30 -30,30 -60,0 z"
        id="path2987-57-6"
        inkscape:connector-curvature="0"
-       sodipodi:nodetypes="ccccccc" />
+       sodipodi:nodetypes="ccccccc"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\menu\12.png"
+       inkscape:export-xdpi="197.79947"
+       inkscape:export-ydpi="197.79947" />
     <path
        style="fill:#000000;fill-opacity:1;stroke:#00ff00;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        d="m 390,42.362183 30,-30 60,0 0,30 -30,30 -60,0 z"
@@ -111,13 +111,13 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccccc" />
     <path
-       style="fill:#000000;fill-opacity:1;stroke:#00ff00;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:#000000;fill-opacity:1;stroke:#08e515;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        d="m 390,112.36219 30,-30.000004 60,0 0,30.000004 -30,29.99999 -60,0 z"
        id="path2987-57-6-5-4"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccccc" />
     <path
-       style="fill:#000000;fill-opacity:1;stroke:#00ff00;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:#000000;fill-opacity:1;stroke:#10c829;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        d="m 390,182.36218 30,-30 60,0 0,30 -30,30 -60,0 z"
        id="path2987-57-6-5-9"
        inkscape:connector-curvature="0"
@@ -129,31 +129,31 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccccc" />
     <path
-       style="fill:#000000;fill-opacity:1;stroke:#00ff00;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:#000000;fill-opacity:1;stroke:#04f409;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        d="m 490,42.362183 30,-30 60,0 0,30 -30,30 -60,0 z"
        id="path2987-57-6-5-99"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccccc" />
     <path
-       style="fill:#000000;fill-opacity:1;stroke:#00ff00;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:#000000;fill-opacity:1;stroke:#06ed0e;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        d="m 590,42.362183 30,-30 60,0 0,30 -30,29.999997 -60,0 z"
        id="path2987-57-6-5-6"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccccc" />
     <path
-       style="fill:#000000;fill-opacity:1;stroke:#00ff00;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:#000000;fill-opacity:1;stroke:#0bdc1a;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        d="m 490,112.36218 30,-29.999994 60,0 0,29.999994 -30,30 -60,0 z"
        id="path2987-57-6-5-3"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccccc" />
     <path
-       style="fill:#000000;fill-opacity:1;stroke:#00ff00;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:#000000;fill-opacity:1;stroke:#0ed322;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        d="m 590,112.36218 30,-29.999997 60,0 0,29.999997 -30,30 -60,0 z"
        id="path2987-57-6-5-2"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccccc" />
     <path
-       style="fill:#000000;fill-opacity:1;stroke:#00ff00;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:#000000;fill-opacity:1;stroke:#14bf32;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        d="m 490,182.36218 30,-30 60,0 0,30 -30,30 -60,0 z"
        id="path2987-57-6-5-0"
        inkscape:connector-curvature="0"
@@ -252,11 +252,17 @@
        style="fill:#ffff00;fill-opacity:1;stroke:#ffc800;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
        d="m 80,382.36218 7,0 -7,7 z"
        id="path3786-2"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\menu\10.png"
+       inkscape:export-xdpi="197.79947"
+       inkscape:export-ydpi="197.79947" />
     <path
        style="fill:#ffff00;fill-opacity:1;stroke:#ffc800;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
        d="m 170,402.36218 -7,0 7,-7 z"
        id="path3786-5"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\menu\10.png"
+       inkscape:export-xdpi="197.79947"
+       inkscape:export-ydpi="197.79947" />
   </g>
 </svg>

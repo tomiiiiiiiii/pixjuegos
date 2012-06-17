@@ -102,7 +102,7 @@ if(tipo==2)	//nivel 2
 		end
 
 
-		if(patron==500) bomba02(0,60,3*pi/2,100,2); end
+		if(patron==500) bomba02(0,60,3*pi/2,150,2); end
 		if(patron>625) patron=0; end
 
 		id2=(collision(type disparo01));

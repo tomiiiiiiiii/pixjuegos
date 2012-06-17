@@ -295,6 +295,7 @@ if(tipo==40)
 			advance(x1);
 			if(collision (type enemigo)) break; end
 			if(collision (type mina)) break; end
+			if(collision (type asteroide)) break; end
 			if(collision (type boss)) break; end
 			if(collision (type disparo02)) break; end
 			if(collision (type bomba02)) break; end
@@ -402,7 +403,7 @@ if(tipo==3) graph=3; end
 if(tipo==4) graph=100; end
 if(tipo==5) graph=4; end
 
-advance(15);
+advance(10);
 
 REPEAT
 	if(estado==-1) break; end
@@ -505,6 +506,8 @@ loop
 					explosion(x,y,2,200);
 				end
 			end
+			id2=(collision(type disparo01));
+			if(id2) signal(id2,s_kill); explosion(id2.x,id2.y,2,100); end
 		end
 		
 		if(tipo==1)

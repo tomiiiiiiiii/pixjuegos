@@ -32,7 +32,7 @@ BEGIN
 				if(p[jugador].botones[0] and acelx>-10) graph=2+((jugador-1) * 3); acelx-=2; end
 				if(p[jugador].botones[2] and acely>-10) acely-=2; end
 				if(p[jugador].botones[3] and acely<10) acely+=2; end
-
+			/*	
 				if(jugador==1)
 					if(mouse.left)
 						if(mouse.x-x<-12 and acelx>-10) graph=2+((jugador-1) * 3); acelx-=3; end 
@@ -41,7 +41,7 @@ BEGIN
 						if(mouse.y-y>12 and acely<10) acely+=3; end
 					end
 				end
-				
+			*/	
 				if(x>874) x=874; end
 				if(x<150) x=150; end
 				if(y<100) y=100; end
