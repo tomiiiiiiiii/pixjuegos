@@ -22,9 +22,6 @@ Global
 	suelo;
 	dur_pinchos;
 	dur_muelle_arriba;
-	dur_muelle_derecha;
-	dur_muelle_abajo;
-	dur_muelle_izquierda;
 	ancho_pantalla=1280;
 	alto_pantalla=720;
 	ancho_nivel;
@@ -121,6 +118,27 @@ Local
 	saltando;
 End
 
+function int csv_int(string estring,int num_campo);
+private
+	string temp;
+	w;
+	campo_actual;
+begin
+	from w=0 to len(estring);
+		if(estring[w]!=",")
+			temp+=""+estring[w];
+		else
+			if(campo_actual==num_campo)
+				break;
+			else
+				temp="";
+				campo_actual++;
+			end
+		end
+	end
+	return atoi(temp);
+end
+
 function string hasta_la_coma(string estring,int num_campo);
 private
 	string temp;
@@ -190,12 +208,20 @@ Begin
 
 		if(p[jugador].botones[5] and pulsando==0 and saltando==0) saltando=1; sonido(5); saltogradual=1; gravedad=-15; pulsando=1; y--; end 
 		//al saltar suena el sonido correspondiente y se aplica la gravedad, y el salto gradual si saltamos poco 
-		if(p[jugador].botones[5] and pulsando==0 and powerup==3 and tiempo_powerup>0 and doble_salto==0) saltogradual=1; doble_salto=1; gravedad=-15; pulsando=1; y--; end
+		if(p[jugador].botones[5] and pulsando==0 and powerup==3 and tiempo_powerup>0 and doble_salto==0) sombra_doble_salto(); sonido(12); saltogradual=1; doble_salto=1; gravedad=-15; pulsando=1; y--; end
 		//e l doblesalto si disponemos del power-up 3
 		if(p[jugador].botones[5] and saltogradual<5 and saltogradual!=0) gravedad-=4; saltogradual++; end
-		if(saltogradual>0 and p[jugador].botones[5]==0 and gravedad<-10) saltogradual=0; gravedad=-10; end
+		if(saltogradual>0 and p[jugador].botones[5]==0 and gravedad<-10 and accion!="lanzado") saltogradual=0; gravedad=-10; end
 		if(!p[jugador].botones[5] and pulsando==1) pulsando=0; saltogradual=0; end
-		if(map_get_pixel(0,durezas,x,y+alto)==suelo or map_get_pixel(0,durezas,x-(ancho/3),y+alto)==suelo or map_get_pixel(0,durezas,x+(ancho/3),y+alto)==suelo and gravedad>0) gravedad=0; saltando=0; doble_salto=0; else saltando=1; gravedad++; end //al tocar el suelo, gravedad es 0
+		if(map_get_pixel(0,durezas,x,y+alto)==suelo or map_get_pixel(0,durezas,x-(ancho/3),y+alto)==suelo or map_get_pixel(0,durezas,x+(ancho/3),y+alto)==suelo and gravedad>0) 
+			if(accion=="lanzado") accion=""; end
+			gravedad=0; 
+			saltando=0; 
+			doble_salto=0; 
+		else 
+			saltando=1; 
+			gravedad++; 
+		end //al tocar el suelo, gravedad es 0
 		if(x>ancho_nivel) 
 			p[i].tiempos[num_nivel]=timer[1];
 			if(jugadores==1) num_nivel++; carga_nivel(); end
@@ -310,7 +336,6 @@ Begin
 				gravedad=-20;
 				flash_muerte(jugador);
 				sonido(6);
-				//if(ready==1) ready=0; frame(3000); end
 				frame(3000);
 				if(y<alto_nivel)
 					while(y<alto_nivel+150)
@@ -368,6 +393,7 @@ Begin
 			end
 		end
 		if(tiempo_powerup>0) tiempo_powerup--; else powerup=0; end
+		if(inercia>25 or inercia<-25) sombra(20); end
 		if(slowmotion==0 or powerup==4) frame; else frame(300); end
 	end      
 End
@@ -526,7 +552,10 @@ Begin
     ancho=graphic_info(file,graph,g_width)/2;
     alto=graphic_info(file,graph,g_height)/2;
     priority=-1;
+	alpha=0;
+	while(collision(type prota)) frame(3000); end
     loop
+		if(alpha<255) alpha+=5; end
 		if(!alguiencerca()) frame(10000); end
 		if(map_get_pixel(0,durezas,x,y+alto)!=suelo) y+=6; end 
 		if(map_get_pixel(0,durezas,x,y+alto)==dur_pinchos) break; end 
@@ -552,7 +581,12 @@ Begin
 				while(alpha>0 and id_colision.powerup==tipo and id_colision.powerup_id==id) //la animación en la que aparece detrás del prota
 					x=id_colision.x;
 					y=id_colision.y;
-					alpha=tiempo_powerup/2;
+					alpha=30+(tiempo_powerup/2);
+					if(tiempo_powerup<30)
+						if(_mod(tiempo_powerup,3)==3) 
+							if(alpha==255) alpha=128; else alpha=255; end
+						end
+					end
 					tiempo_powerup--;
 					z=1;
 					if(tipo==4) slowmotion=1; end
@@ -564,11 +598,7 @@ Begin
 		end
 		frame;
    end	
-	while(size>0)  //animacion de la muerte, salvo que sean para-algo
-		size=size-5; 
-		angle+=7000;
-		frame; 
-	end
+	explotalo(x,y,z,255,0,file,graph,60);
 	powerups(x_orig,y_orig,tipo);
 End
 
@@ -817,11 +847,19 @@ end //FIN IF WII
 		while(!feof(fp))
 			linea=fgets(fp);
 			if(hasta_la_coma(linea,0)=="muelle")
-				pon_muelle(atoi(hasta_la_coma(linea,1))*tilesize,atoi(hasta_la_coma(linea,2))*tilesize,atoi(hasta_la_coma(linea,3)));
+				muelle(tile_a_coordenada(csv_int(linea,1)),tile_a_coordenada(csv_int(linea,2)),csv_int(linea,3),csv_int(linea,4));
 			end
 			if(hasta_la_coma(linea,0)=="enemigo")
-				enemigo(atoi(hasta_la_coma(linea,1))*tilesize,atoi(hasta_la_coma(linea,2))*tilesize,atoi(hasta_la_coma(linea,3)),atoi(hasta_la_coma(linea,4)));
+				enemigo(tile_a_coordenada(csv_int(linea,1)),tile_a_coordenada(csv_int(linea,2)),csv_int(linea,3),csv_int(linea,4));
 			end
+			if(hasta_la_coma(linea,0)=="powerup")
+				powerups(tile_a_coordenada(csv_int(linea,1)),tile_a_coordenada(csv_int(linea,2)),csv_int(linea,3));
+			end
+			if(hasta_la_coma(linea,0)=="moneda")
+				moneda(tile_a_coordenada(csv_int(linea,1)),tile_a_coordenada(csv_int(linea,2)));
+			end
+
+
 			i++;
 		end
 		fclose(fp);
@@ -1133,7 +1171,7 @@ Begin
 					switch(tipo)   //1: >combo, 2: >monedas, 3: <powerups, 4: >enemigosmatados, 5: <muertes
 						case 1: texto_premio="Mayor combo realizado +2pts"; end
 						case 2: texto_premio="Mas monedas recogidas +2pts"; end
-						case 3: texto_premio="Menos powerups recogidos +2pts"; end
+						case 3: texto_premio="Menos estrellas recogidas +2pts"; end
 						case 4: texto_premio="Mas enemigos aniquilados +2pts"; end
 						case 5: texto_premio="Menos muertes +2pts"; end
 					end
@@ -1408,7 +1446,8 @@ Begin
 	y=father.y;
 	from i=1 to 4; 
 		if(exists(p[i].identificador))
-			if(get_dist(p[i].identificador)<ancho_pantalla*1.5)
+			//if(get_dist(p[i].identificador)<ancho_pantalla*1.5)
+			if(p[i].identificador.x>x-(ancho_pantalla*1.5) or p[i].identificador.x<x+(ancho_pantalla*1.5))
 				return 1; //ALGUIEN ESTÁ CERCA!
 			end
 		end
@@ -1472,7 +1511,7 @@ Begin
 	end
 End
 
-Process pon_muelle(x,y,direccion); //direccion 1:arriba,2:der-arr,3:derecha,4:der-aba,5:abajo,6:izq-aba,7:izquierda,8:izq-arr
+Process muelle(x,y,direccion,potencia); //direccion 1:arriba,2:der-arr,3:derecha,4:der-aba,5:abajo,6:izq-aba,7:izquierda,8:izq-arr
 Private
 	id_colision;
 	x_inc;
@@ -1483,28 +1522,78 @@ Begin
 	z=-1;
 	graph=4;
 	angle=-45*(direccion-1)*1000;
-	if(direccion==1 or direccion==2 or direccion==8) y_inc=-40; end
-	if(direccion==2 or direccion==3 or direccion==4) x_inc=+20; end
-	if(direccion==4 or direccion==5 or direccion==6) y_inc=+40; end
-	if(direccion==6 or direccion==7 or direccion==8) x_inc=-20; end
+	if(direccion==1 or direccion==2 or direccion==8) y_inc=-potencia; end
+	if(direccion==2 or direccion==3 or direccion==4) x_inc=potencia/2; end
+	if(direccion==4 or direccion==5 or direccion==6) y_inc=potencia/2; end
+	if(direccion==6 or direccion==7 or direccion==8) x_inc=-potencia/2; end
 	if(direccion==3 or direccion==7) y_inc=0; end
 	if(direccion==1 or direccion==5) x_inc=0; end
 	loop
 		if(id_colision=collision(type prota))
 			if(id_colision.accion!="muerte")
-				id_colision.gravedad=y_inc;
-				id_colision.inercia=x_inc;
-			end
-		end
-		if(id_colision=collision(type enemigo))
-			if(id_colision.accion!="muerte")
+				if(id_colision.gravedad==0)
+					id_colision.y--;
+				end
 				id_colision.gravedad=y_inc;
 				id_colision.inercia=x_inc;
 				id_colision.accion="lanzado";
 			end
 		end
+		if(id_colision=collision(type enemigo))
+			if(id_colision.accion!="muerte")
+				id_colision.gravedad=y_inc*1.1;
+				id_colision.inercia=x_inc*0.8;
+				id_colision.accion="lanzado";
+			end
+		end
 		frame;
 	end
+End
+
+Process sombra(paso);
+Begin
+	ctype=father.ctype;
+	flags=father.flags;
+	file=father.file;
+	z=father.z+1;
+	x=father.x;
+	y=father.y;
+	graph=father.graph;
+	size=father.size;
+	angle=father.angle;
+	alpha=200;
+	while(alpha>0)
+		alpha-=paso;
+		frame;
+	end
+End
+
+Function _mod(valor,divisor);
+Begin
+	while(valor>divisor)
+		valor-=divisor;
+	end
+	return valor;
+End
+
+Process sombra_doble_salto();
+Begin
+	ctype=c_scroll;
+	file=fpg_tiles;
+	z=father.z+1;
+	x=father.x;
+	y=father.y+40;
+	graph=1;
+	alpha=200;
+	while(alpha>0)
+		alpha-=5;
+		frame;
+	end
+End
+
+Function tile_a_coordenada(pos_tile);
+Begin
+	return (pos_tile*tilesize)+(tilesize/2);
 End
 
 include "../../common-src/controles.pr-";

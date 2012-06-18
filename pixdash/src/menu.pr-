@@ -53,12 +53,24 @@ begin
 		y=300;
 		write(fuente_peq,400,300,4,"Pulsa disparo para jugar");
 		while(p[0].botones[4] or p[0].botones[5] or p[0].botones[6]) frame; end
-		while(!(p[0].botones[4] or p[0].botones[5] or p[0].botones[6])) 
+		repeat
 			if(p[0].botones[7]) exit(); end
 			frame; 
-		end
+		until(p[0].botones[4] or p[0].botones[5] or p[0].botones[6])
 		while(p[0].botones[4] or p[0].botones[5] or p[0].botones[6]) frame; end
-		//ayuda?
+		
+		alpha=0;
+		delete_text(all_text);
+		put_screen(fpg_menu,201);
+		while(p[0].botones[4] or p[0].botones[5] or p[0].botones[6]) frame; end
+		repeat
+			if(p[0].botones[7]) exit(); end
+			frame; 
+		until(p[0].botones[4] or p[0].botones[5] or p[0].botones[6])
+		while(p[0].botones[4] or p[0].botones[5] or p[0].botones[6]) frame; end	
+		clear_screen();
+		alpha=255;
+		
 		delete_text(all_text);
 		elegir_num_jugadores();
 		return;
@@ -394,7 +406,14 @@ begin
 	elecc=0;
 	controlador(0);
 	back(1);
-	lista(31);
+	//lista(31);
+	x=120;
+	y=65;
+	write(fuente_peq,x,y+=60,3,"1 jugador");
+	if(posibles_jugadores>1) write(fuente_peq,x,y+=60,3,"2 jugadores"); end
+	if(posibles_jugadores>2) write(fuente_peq,x,y+=60,3,"3 jugadores"); end
+	if(posibles_jugadores>3) write(fuente_peq,x,y+=60,3,"4 jugadores"); end
+	
 	logo(253);
 	machango();
 	from i=0 to 20; elep(); end
