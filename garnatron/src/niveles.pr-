@@ -701,7 +701,7 @@ Begin
 	musica(1);
 	graph=20;
 	direccion=1;
-	size=200;
+	size=100;
 	if(nivel<5)
 		id_texto=write(fuente[0],x,y,4,"AREA: "+nivel);
 	else
@@ -712,7 +712,7 @@ Begin
 	while(timer[2]<300)
 		if(direccion==1) graph++; else graph--; end
 		if(graph==20) direccion=1; end
-		if(graph==44) direccion=0; end
+		if(graph==43) direccion=0; end
 		scroll.y0-=5;
 		frame;
 	end
@@ -771,7 +771,7 @@ Begin
 			if(pausa==0)
 				pausa=1;
 				graph=20;
-				size=300;
+				size=100;
 				direccion=1;
 				id_texto=write(fuente[0],x,y,4,"¿Salir de la partida?");
 				boton(512,500,"",1);
@@ -795,7 +795,7 @@ Begin
 				
 			if(direccion==1) graph++; else graph--; end
 			if(graph==20) direccion=1; end
-			if(graph==44) direccion=0; end
+			if(graph==43) direccion=0; end
 			if(p[0].botones[2] and gatillo==0 and opcion>1)
 				gatillo=1;
 				opcion--;
@@ -843,7 +843,7 @@ Begin
 			if(jefe==1 and not exists(id_boss01)) 
 				graph=20;
 				direccion=1;
-				size=200;
+				size=100;
 
 				id_texto=write(fuente[0],x,y,4,"AREA: "+nivel);
 				id_texto1=write(fuente[0],x-5,y+15,4,"completada");
@@ -851,7 +851,7 @@ Begin
 				while(timer[2]<500)
 					if(direccion==1) graph++; else graph--; end
 					if(graph==20) direccion=1; end
-					if(graph==44) direccion=0; end
+					if(graph==43) direccion=0; end
 					scroll.y0-=5;
 					frame;
 				end
@@ -867,14 +867,14 @@ Begin
 				delete_text(all_text);
 				graph=20;
 				direccion=1;
-				size=200;
+				size=100;
 				id_texto=write(fuente[0],x,y,4,"Fin de");
 				id_texto1=write(fuente[0],x-5,y+15,4,"la partida");
 				timer[2]=0;
 				while(timer[2]<500)
 					if(direccion==1) graph++; else graph--; end
 					if(graph==20) direccion=1; end
-					if(graph==44) direccion=0; end
+					if(graph==43) direccion=0; end
 					scroll.y0-=5;
 					frame;
 				end

@@ -250,9 +250,9 @@ BEGIN
 	clear_screen();
 
 	
-	//jugadores=4;
-	//historia(1);
-	fase(5);
+	//jugadores=2;
+	historia(1);
+	//fase(1);
 	frame;
 
 end
