@@ -8,10 +8,8 @@ Program plataformas;
  #ifndef LINUX
   import "mod_image";
  #endif
- import "mod_sys"; 
 #endif
-
-
+import "mod_sys"; 
 
 Global     
 	arcade_mode=0;
@@ -98,8 +96,8 @@ Global
 	string developerpath="/.PiXJuegos/PiXDash/";
 	
 	string paqueteniveles="";
-	string nivel_titulo[50];
-	string nivel_descripcion[50];
+	string nivel_titulo;
+	string nivel_descripcion;
 	string dir_juego;
 	string ruta_navegador; //porque no funciona correctamente la funcion navegador devolviendo un string
 End 
@@ -241,7 +239,7 @@ Begin
 				elseif(posiciones[4]==0) posicion=4; posiciones[4]=jugador; end
 			end
 			switch(posicion)
-				case 1: p[jugador].puntos+=6; end
+				case 1: p[jugador].puntos+=6; sonido(17); end
 				case 2: p[jugador].puntos+=4; end
 				case 3: p[jugador].puntos+=2; end
 				case 4: p[jugador].puntos++; end
@@ -365,6 +363,7 @@ Begin
 		if(modo_juego==0 and (id_colision=collision(type prota))) 
 			if(id_colision.accion!="muerte")
 				if(id_colision>id)
+					sonido(13);
 					if(id_colision.y>y)
 						id_colision.gravedad=20; gravedad=-20;
 					else
@@ -394,6 +393,7 @@ Begin
 		end
 		if(tiempo_powerup>0) tiempo_powerup--; else powerup=0; end
 		if(inercia>25 or inercia<-25) sombra(20); end
+		if(y<-20) flecha_personaje(); end
 		if(slowmotion==0 or powerup==4) frame; else frame(300); end
 	end      
 End
@@ -562,6 +562,7 @@ Begin
 		while(map_get_pixel(0,durezas,x,y+alto-1)==suelo) y--; end //colisiones con el suelo
 		if(y>alto_nivel) break; end //al caer poir un bujero los power-ups desaparecen
 		if(id_colision=collision(type prota)) //al tocarlos el prota
+			sonido(16);
 			if(id_colision.accion!="muerte")
 				p[id_colision.jugador].powerupscogidos++;
 				if(modo_juego==0)
@@ -578,12 +579,12 @@ Begin
 				end
 				tiempo_powerup=10*50;
 				
-				while(alpha>0 and id_colision.powerup==tipo and id_colision.powerup_id==id) //la animación en la que aparece detrás del prota
+				while(alpha>0 and id_colision.powerup==tipo and id_colision.powerup_id==id and x<ancho_nivel) //la animación en la que aparece detrás del prota
 					x=id_colision.x;
 					y=id_colision.y;
 					alpha=30+(tiempo_powerup/2);
 					if(tiempo_powerup<30)
-						if(_mod(tiempo_powerup,3)==3) 
+						if(_mod(tiempo_powerup,3)==3)
 							if(alpha==255) alpha=128; else alpha=255; end
 						end
 					end
@@ -592,15 +593,43 @@ Begin
 					if(tipo==4) slowmotion=1; end
 					frame;
 				end
+				if(id_colision.powerup_id==id and x<ancho_nivel) sonido(15); end
 				if(tipo==4) slowmotion=0; end
 				break;
 			end
 		end
 		frame;
-   end	
-	explotalo(x,y,z,255,0,file,graph,60);
+	end
+	if(x<ancho_nivel) explotalo(x,y,z,255,0,file,graph,60); end
 	powerups(x_orig,y_orig,tipo);
 End
+
+Process flecha_personaje();
+Begin
+	ctype=father.ctype;
+	flags=father.flags;
+	file=father.file;
+	z=father.z;
+	x=father.x;
+	y=50;
+	graph=father.graph;
+	size=70;
+	angle=father.angle;
+	flecha_personaje2();
+	frame;
+End
+
+Process flecha_personaje2();
+Begin
+	ctype=father.ctype;
+	file=fpg_general;
+	z=father.z+1;
+	x=father.x;
+	y=50;
+	graph=5;
+	frame;
+End
+
 
 Process moneda(x,y)
 Private
@@ -663,18 +692,17 @@ BEGIN
 				p[i].premios[j]=0;
 			end
 		end
-	else
-		if(os_id!=1000 and fexists(savegamedir+"niveles\"+paqueteniveles+"\descripciones.txt")) //la WII falla con fgets actualmente
-			i=1;
-			fichero=fopen(savegamedir+"niveles\"+paqueteniveles+"\descripciones.txt",O_READ);	
-			while(!feof(fichero))
-				nivel_titulo[i]=fgets(fichero);
-				nivel_descripcion[i++]=fgets(fichero);
-			end
-			fclose(fichero);
-			i=0;
-		end
 	end
+
+	if(fexists(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".txt"))
+		i=1;
+		fichero=fopen(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".txt",O_READ);	
+		nivel_titulo=fgets(fichero);
+		nivel_descripcion=fgets(fichero);
+		fclose(fichero);
+		i=0;
+	end
+
 	if(!file_exists(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".png"))  // FIN DE LA COMPETICION
 		//resultados();
 		menu(); 
@@ -926,8 +954,8 @@ end //FIN IF WII
 	clear_screen();
 	transicion();
 	//TEXTO PRESENTACION NIVEL:
-	write(fuente,ancho_pantalla/2,(alto_pantalla/4),4,nivel_titulo[num_nivel]);
-	write(fuente_peq,ancho_pantalla/2,(alto_pantalla/4)+50,4,nivel_descripcion[num_nivel]);
+	write(fuente,ancho_pantalla/2,(alto_pantalla/4),4,nivel_titulo);
+	write(fuente_peq,ancho_pantalla/2,(alto_pantalla/4)+50,4,nivel_descripcion);
 	//3 2 1 YA:
 	from i=3 to 1 step -1;
 		timer[0]=0;
@@ -1094,6 +1122,7 @@ Begin
 		end
 	
 		if(jugador!=jugador_anterior)
+			sonido(14);
 			if(jugadores==2)
 				x_destino=ancho_pantalla-40;
 				if(jugador==1)
@@ -1116,7 +1145,7 @@ Begin
 				end
 			end
 			if(jugador==0)
-				from alpha=255 to 50 step -10; alpha-=10; frame; end 
+				from alpha=255 to 50 step -10; size+=5; frame; end 
 				x=-100; y=-100; alpha=255;
 			else
 				if(jugador_anterior!=0)
@@ -1141,7 +1170,7 @@ Begin
 					x=x_destino;
 					y=y_destino;
 					alpha=155;
-					from size=70 to 50 step -2; alpha+=10; frame; end
+					from size=100 to 50 step -1; alpha+=10; frame; end
 				end
 			end
 		end
