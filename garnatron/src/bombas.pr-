@@ -161,7 +161,7 @@ end
 
 process laser(x,y,tipo,id2);
 
-private angulo; x1; avance;
+private angulo; x1; avance; n;
 
 begin
 priority=-2;
@@ -329,9 +329,9 @@ if(tipo==50)
 		if(pausa==0)
 			x=id_nave[jugador].x;
 			y=id_nave[jugador].y;
-			x1++;
+			n++;
 			if(size<150) size+=10; end
-			if(x1>120) break; end
+			if(n>120) break; end
 			if(id2=collision(type disparo02))
 				angulo=get_angle(id2)-id2.angle+270000+(get_angle(id2)-90000);
 				disparo01(id2.x,id2.y,angulo);
@@ -400,8 +400,8 @@ file=fpg_bombas;
 if(tipo==1) graph=1; end
 if(tipo==2) graph=2; end
 if(tipo==3) graph=3; end
-if(tipo==4) graph=100; end
-if(tipo==5) graph=4; end
+if(tipo==4) graph=4; end
+if(tipo==5) graph=100; end
 
 advance(10);
 
@@ -410,12 +410,12 @@ REPEAT
 	if(pausa==0)
 		advance(20);
 		if(id2=collision(type laser))
-			if(id2.graph!=60)
+			if(id2.graph!=50)//si no es escudo muere
 				explosion(x,y,2,75);
 				break;
 			end
 		end
-		if(tipo==4)
+		if(tipo==5)
 			estela(x,y,angle,fpg_explosiones,42);
 		end
 

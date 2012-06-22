@@ -199,7 +199,8 @@ begin
 	if(tipo==2)
 		vida=5;
 	elseif(tipo==3)
-		vida=20;
+		vida=15;
+		graph=35;
 	end
 	x1=x;
 	loop
@@ -253,10 +254,11 @@ begin
 				if(vida<1) explosion(x,y,1,100); if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end puntos[id2.jugador]+=10; break; end
 			end
 			if(tipo==3)//explota
-				y+=3;
+				y+=2;
 				from jugador=1 to 4;
 					if(exists(id_nave[jugador]))
-						if(get_dist(id_nave[jugador]<50))
+						say(get_dist(id_nave[jugador]));
+						if(get_dist(id_nave[jugador])<100)
 							explosion(x,y,1,100);
 							if(opciones.particulas==1)
 								explotalo(x,y,z,alpha,angle,file,graph,40);
@@ -327,9 +329,29 @@ BEGIN
 		id2=(collision(type disparo01));
 		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,75); puntos[id2.jugador]+=1; end
 		id2=(collision(type laser));
-		if(id2) explosion(x,y,1,200); if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end if(size>99) puntos[id2.jugador]+=30; else  puntos+=10; end break; end
+		if(id2) explosion(x,y,1,200);
+			if(opciones.particulas==1)
+				explotalo(x,y,z,alpha,angle,file,graph,40);
+			end
+			if(size>99)
+				puntos[id2.jugador]+=30;
+			else 
+				puntos+=10;
+			end
+			vida=0;
+		end
 		id2=(collision(type bomba));
-		if(id2) explosion(x,y,1,200); if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end if(size>99) puntos[id2.jugador]+=30; else  puntos+=10; end break; end
+		if(id2) explosion(x,y,1,200);
+			if(opciones.particulas==1)
+				explotalo(x,y,z,alpha,angle,file,graph,40);
+			end
+			if(size>99)
+				puntos[id2.jugador]+=30;
+			else 
+				puntos+=10;
+			end
+			vida=0;
+		end
 		if(vida<1)
 			if(size>30)
 				asteroide(x,y,size/3,pi/2);
@@ -392,8 +414,8 @@ begin
 			angle=angulo;
 			patron++;
 			if(patron==125)
-				disparo02(x+get_distx(angle+45000,10),y+get_disty(angle+45000,5),angle,2);
-				disparo02(x+get_distx(angle-45000,10),y+get_disty(angle-45000,5),angle,2);
+				disparo02(x+get_distx(angle+45000,10),y+get_disty(angle+45000,5),angle+3000,2);
+				disparo02(x+get_distx(angle-45000,10),y+get_disty(angle-45000,5),angle-3000,2);
 				suena(s_laser3);
 				patron=0;
 				jugador++;
@@ -414,7 +436,7 @@ process ametralladora(x1,y1);
 private angulo;
 
 begin
-	graph=53; z=-85; file=fpg_enemigos; jugador=1;
+	graph=51; z=-85; file=fpg_enemigos; jugador=1;
 	loop
 		if(pausa==0)
 			if(exists(father))

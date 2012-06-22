@@ -28,24 +28,40 @@ end
 
 process boss(tipo);
 
-private id2; vida; x1; angulo;
+private 
+	id2; 
+	vida;
+	x1;
+	angulo;
+	angulo2;
 
 begin
 z-=50;
 region=1;
 file=fpg_bosses;
 if(tipo==1)	//nivel 1
-	graph=1; x=512; y=-100; vida_boss=750; patron=1;
+	graph=1; x=512; y=-100; vida_boss=750; patron=1; angulo=pi/2; angulo2=pi/2;
 	barra_boss();
 	id_boss02=ametralladora(0,10);
 	while(y<200) y+=5; frame; end
 	loop
 	if(pausa==0)
-		if(patron==1) x++; end
-		if(patron==-1) x--; end
-		if(x>824) patron=-1; end
-		if(x<200) patron=1; end
+	
 
+
+		x=512+get_distx(angulo,300);
+		y=400+get_disty(angulo2,200);
+		angulo+=1000;
+		angulo2+=1000;
+		
+		if(angulo2==pi/2)
+			mina(x,y+30,3);
+		end
+		if(angulo2==pi/4 or angulo2==3*pi/4)
+			mina(x,y+30,2);
+		end
+		if(angulo2 > 2*pi) angulo2-=2*pi; end
+		
 		id2=(collision(type disparo01));
 		if(id2) vida_boss--; signal(id2,s_kill); explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
 
@@ -87,7 +103,7 @@ if(tipo==2)	//nivel 2
 	if(pausa==0)
 		patron++;
 		x=x1+get_distx(angulo,300);
-		angulo+=600;
+		angulo+=1000;
 
 		if(patron==25 or patron==50 or patron==75 or patron==100 or patron==125 or patron==150 or patron==175 or patron==200 or patron==225 or patron==250 or patron==275 or patron==300 or patron==325 or patron==350 or patron==375 or patron==400 or patron==425 or patron==450 or patron==475)
 			disparo02(x-50,y+5,235000,2);
@@ -102,7 +118,7 @@ if(tipo==2)	//nivel 2
 		end
 
 
-		if(patron==500) bomba02(0,60,3*pi/2,150,2); end
+		if(patron==500) bomba02(0,120,3*pi/2,100,2); end
 		if(patron>625) patron=0; end
 
 		id2=(collision(type disparo01));
@@ -155,10 +171,10 @@ if(tipo==3)	//nivel 3
 		end
 
 		if(patron>25) 
-			disparo02(x-7,y,3*pi/2,4);
-			disparo02(x-2,y,3*pi/2,4);
-			disparo02(x+7,y,3*pi/2,4);
-			disparo02(x+2,y,3*pi/2,4);
+			disparo02(x-7,y,3*pi/2,5);
+			disparo02(x-2,y,3*pi/2,5);
+			disparo02(x+7,y,3*pi/2,5);
+			disparo02(x+2,y,3*pi/2,5);
 			suena(s_misil);
 			patron=0;
 		end
@@ -203,15 +219,22 @@ if(tipo==4) //nivel 3 escudo
 	if(pausa==0)
 		y=father.y;
 		x=father.x-20;
-		angulo=get_angle(id_nave[1]);
+	//	angulo=get_angle(id_nave[1]);
+		if(exists(id_nave[jugador]))
+			angulo=get_angle(id_nave[jugador]);
+		else
+			jugador++;
+		end
+		
 		patron++;
 		if(patron>50)
 			patron=0;
 			disparo02(x,y,angulo+3000,2);
 			disparo02(x,y,angulo-3000,2);
 			suena(s_laser3);
+			jugador++;
 		end
-
+		if(jugador>4) jugador=1; end
 		id2=(collision(type disparo01));
 		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,100); puntos+=1; end
 
@@ -258,14 +281,22 @@ if(tipo==5)	//nivel 3 escudo
 	if(pausa==0)
 		y=father.y;
 		x=father.x+20;
-		angulo=get_angle(id_nave[1]);
+		
+		//angulo=get_angle(id_nave[1]);
+		if(exists(id_nave[jugador]))
+			angulo=get_angle(id_nave[jugador]);
+		else
+			jugador++;
+		end
 		patron++;
 		if(patron>50)
 			patron=0;
 			disparo02(x,y,angulo+3000,2);
 			disparo02(x,y,angulo-3000,2);
 			suena(s_laser3);
+			jugador++;
 		end
+		if(jugador>4) jugador=1; end
 
 		id2=(collision(type disparo01));
 		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,100); puntos+=1; end
@@ -312,8 +343,8 @@ if(tipo==6)	//nivel 4
 	barra_boss();
 	id_boss02=boss(7);
 	id_boss03=boss(8);
-	id_boss04=canon(-20,0);
-	id_boss05=canon(20,0);
+	id_boss04=canon(0,20);
+	id_boss05=canon(0,60);
 	while(y<150) y+=5; frame; end
 	loop
 	if(pausa==0)
@@ -332,11 +363,11 @@ if(tipo==6)	//nivel 4
 			end
 			if(patron==200)
 				y+=5; 
-				if(y>500) patron=300; end
+				if(y>600) patron=300; end
 			end
 			if(patron==300)
-				bomba02(70,-70,45000,100,1);
-				bomba02(-70,-70,135000,100,1);
+				bomba02(70,-40,45000,100,1);
+				bomba02(-70,-40,135000,100,1);
 				suena(s_laser2);
 			end
 			if(patron<435 and patron>299) patron++; end
@@ -364,13 +395,22 @@ if(tipo==6)	//nivel 4
 			end
 		end
 
-		if(vida_boss<1) signal(id_boss04,s_kill); signal(id_boss05,s_kill); explosion(x,y,4,200); explotalo(x,y,z,alpha,angle,file,graph,40); puntos+=4000; break; end
+		if(vida_boss<1) 
+			signal(id_boss04,s_kill); 
+			signal(id_boss05,s_kill); 
+			explosion(x,y,4,200); 
+			if(opciones.particulas==1)
+				explotalo(x,y,z,alpha,angle,file,graph,40);
+			end
+			puntos+=4000; 
+			break; 
+		end
 	end
 	frame;
 	end
 end
 if(tipo==7)	//nivel 4 ala
-	graph=31; vida=500;
+	graph=31; vida=500; z=father.z+1; priority=-2;
 	loop
 	if(pausa==0)
 		y=father.y;
@@ -400,14 +440,27 @@ if(tipo==7)	//nivel 4 ala
 		end
 
 		if(id2) vida-=2; explosion(id2.x,id2.y,2,100); end
-		if(vida<1) explosion(x+150,y,3,100); puntos+=500; explotalo(x,y,z,alpha,angle,file,graph,40); break; end
-		if(vida_boss<500) explosion(x+150,y,3,100); explotalo(x,y,z,alpha,angle,file,graph,40); break; end
+		if(vida<1)
+			explosion(x+150,y,3,100);
+			puntos+=500;
+			if(opciones.particulas==1)
+				explotalo(x,y,z,alpha,angle,file,graph,40);
+			end
+			break;
+		end
+		if(vida_boss<500)
+			explosion(x+150,y,3,100);
+			if(opciones.particulas==1)
+				explotalo(x,y,z,alpha,angle,file,graph,40);
+			end
+			break;
+		end
 	end
 	frame;
 	end
 end
 if(tipo==8)	//nivel 4 ala
-	graph=32; vida=500;
+	graph=32; vida=500; z=father.z+1; priority=-2;
 	loop
 	if(pausa==0)
 
@@ -437,8 +490,21 @@ if(tipo==8)	//nivel 4 ala
 			end
 		end
 
-		if(vida<1) explosion(x-150,y,3,100); puntos+=500; explotalo(x,y,z,alpha,angle,file,graph,40); break; end
-		if(vida_boss<500) explosion(x-150,y,3,100); explotalo(x,y,z,alpha,angle,file,graph,40); break; end
+		if(vida<1)
+			explosion(x-150,y,3,100);
+			puntos+=500;
+			if(opciones.particulas==1)
+				explotalo(x,y,z,alpha,angle,file,graph,40);
+			end
+			break;
+		end
+		if(vida_boss<500)
+			explosion(x-150,y,3,100);
+			if(opciones.particulas==1)
+				explotalo(x,y,z,alpha,angle,file,graph,40);
+			end
+			break;
+		end
 	end
 	frame;
 	end
@@ -567,8 +633,21 @@ if(tipo==10)	//nivel 5 escudo
 			end
 		end
 
-		if(vida_boss<500) explosion(x,y,3,100); break; end
-		if(vida<1) explosion(x,y,3,100); puntos+=500; break; end
+		if(vida_boss<500) 
+			explosion(x,y,3,100);
+			if(opciones.particulas==1)
+				explotalo(x,y,z,alpha,angle,file,graph,80);
+			end
+			break;
+		end
+		if(vida<1)
+			explosion(x,y,3,100);
+			puntos+=500;
+			if(opciones.particulas==1)
+				explotalo(x,y,z,alpha,angle,file,graph,80);
+			end
+			break;
+		end
 	end
 	frame;
 	end
@@ -605,8 +684,21 @@ if(tipo==11)	//nivel 5 escudo
 			end
 		end
 
-		if(vida_boss<500) explosion(x,y,3,100); break; end
-		if(vida<1) explosion(x,y,3,100); break; puntos+=500; end
+		if(vida_boss<500)
+			explosion(x,y,3,100);
+			if(opciones.particulas==1)
+				explotalo(x,y,z,alpha,angle,file,graph,80);
+			end
+			break;
+		end
+		if(vida<1)
+			explosion(x,y,3,100);
+			if(opciones.particulas==1)
+				explotalo(x,y,z,alpha,angle,file,graph,80);
+			end
+			break;
+			puntos+=500;
+		end
 	end
 	frame;
 	end
@@ -640,8 +732,21 @@ if(tipo==12)	//nivel 5 motor
 			end
 		end
 
-		if(vida<1) explosion(x-150,y+200,3,100); puntos+=500; break; end
-		if(vida_boss<1000) explosion(x-150,y+200,3,100); break; end
+		if(vida<1)
+			explosion(x-150,y+200,3,100);
+			puntos+=500;
+			if(opciones.particulas==1)
+				explotalo(x,y,z,alpha,angle,file,graph,80);
+			end
+			break;
+		end
+		if(vida_boss<1000)
+			explosion(x-150,y+200,3,100);
+			if(opciones.particulas==1)
+				explotalo(x,y,z,alpha,angle,file,graph,80);
+			end
+			break;
+		end
 	end
 	frame;
 	end
@@ -684,8 +789,21 @@ if(tipo==13)	//nivel 5 motor
 			end
 		end
 
-		if(vida_boss<1000) explosion(x+150,y+200,3,100); break; end
-		if(vida<1) explosion(x+150,y+200,3,100); puntos+=500; break; end
+		if(vida_boss<1000)
+			explosion(x+150,y+200,3,100);
+			if(opciones.particulas==1)
+				explotalo(x,y,z,alpha,angle,file,graph,80);
+			end
+			break;
+			end
+		if(vida<1)
+			explosion(x+150,y+200,3,100);
+			puntos+=500;
+			if(opciones.particulas==1)
+				explotalo(x,y,z,alpha,angle,file,graph,80);
+			end
+			break;
+		end
 	end
 	frame;
 	end
