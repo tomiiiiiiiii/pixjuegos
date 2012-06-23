@@ -170,6 +170,7 @@ Private
 	doble_salto;
 	saltogradual;
 	posicion;
+	id_col;
 Begin
 	p[jugador].identificador=id;
 	//controlador(jugador);
@@ -212,14 +213,31 @@ Begin
 		if(p[jugador].botones[5] and saltogradual<5 and saltogradual!=0) gravedad-=4; saltogradual++; end
 		if(saltogradual>0 and p[jugador].botones[5]==0 and gravedad<-10 and accion!="lanzado") saltogradual=0; gravedad=-10; end
 		if(!p[jugador].botones[5] and pulsando==1) pulsando=0; saltogradual=0; end
-		if(map_get_pixel(0,durezas,x,y+alto)==suelo or map_get_pixel(0,durezas,x-(ancho/3),y+alto)==suelo or map_get_pixel(0,durezas,x+(ancho/3),y+alto)==suelo and gravedad>0) 
+		if((map_get_pixel(0,durezas,x,y+alto)==suelo or map_get_pixel(0,durezas,x-(ancho/3),y+alto)==suelo or map_get_pixel(0,durezas,x+(ancho/3),y+alto)==suelo) and gravedad=>0)
 			if(accion=="lanzado") accion=""; end
 			gravedad=0; 
 			saltando=0; 
 			doble_salto=0; 
-		else 
-			saltando=1; 
-			gravedad++; 
+		else
+			if(gravedad=>0)
+				if(id_col=collision(type plataforma))
+					if(id_col.y>y+20)
+						if(accion=="lanzado") accion=""; end
+						gravedad=0;
+						saltando=0;
+						doble_salto=0;
+					else
+						saltando=1; 
+						gravedad++;
+					end
+				else
+					saltando=1; 
+					gravedad++;
+				end
+			else
+				saltando=1; 
+				gravedad++;
+			end
 		end //al tocar el suelo, gravedad es 0
 		if(x>ancho_nivel) 
 			p[i].tiempos[num_nivel]=timer[1];
@@ -298,7 +316,7 @@ Begin
 			map_get_pixel(0,durezas,x-ancho,y)==dur_muelle_arriba or map_get_pixel(0,durezas,x+ancho,y)==dur_muelle_arriba) doble_salto=0; gravedad=-40; y--; end
 	
 		if(x<10) x=10; end //pa no salirse de la pantalla por la izquierda
-		//y=y+gravedad;
+
 		y_destino=y+(gravedad/2);
 		if(y_destino>y)  
 			from y=y to y_destino step 1; 
@@ -882,6 +900,9 @@ end //FIN IF WII
 		fp=fopen(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".obj",O_READ);
 		while(!feof(fp))
 			linea=fgets(fp);
+			if(hasta_la_coma(linea,0)=="plataforma")
+				plataforma(tile_a_coordenada(csv_int(linea,1)),tile_a_coordenada(csv_int(linea,2)),csv_int(linea,3),tile_a_coordenada(csv_int(linea,4)),csv_int(linea,5));
+			end
 			if(hasta_la_coma(linea,0)=="muelle")
 				muelle(tile_a_coordenada(csv_int(linea,1)),tile_a_coordenada(csv_int(linea,2)),csv_int(linea,3),csv_int(linea,4));
 			end
@@ -1328,7 +1349,7 @@ Begin
 		savegamedir="";
 		developerpath="";
 	end
-
+	carga_opciones();
 	/* pal futuro
 	switch(lenguaje_sistema())
 		case "es": ops.lenguaje=1; lang_suffix="es"; end
@@ -1365,8 +1386,14 @@ Begin
 		wavs[i]=load_wav("wav\"+i+".wav");
 		i++;
 	end
+
+//TEST:
+		paqueteniveles="test";
+		jugadores=1;
+		carga_nivel();
+
 	
-	if(os_id!=1000) 
+/*	if(os_id!=1000) 
 		//editor_de_niveles();
 		if(argc>1 and argv[1]!="arcade") importar_paquete_offline(); end
 		menu();
@@ -1375,7 +1402,7 @@ Begin
 		paqueteniveles="nel";
 		jugadores=1;
 		carga_nivel();
-	end
+	end*/
 End
 
 Process cam_cooperativo();
@@ -1658,6 +1685,117 @@ Begin
 	alpha=200;
 	while(alpha>0)
 		alpha-=5;
+		frame;
+	end
+End
+
+Process plataforma(x_inicial,y_inicial,direccion,distancia,velocidad);
+Private
+	lado;
+	id_colision;
+	x_destino;
+	y_destino;
+Begin
+	ctype=c_scroll;
+	file=fpg_tiles;
+	graph=6;
+	z=-1;
+	x=x_inicial;
+	y=y_inicial;
+
+	if(direccion==1 or direccion==2 or direccion==8) y_destino=y_inicial-distancia; end
+	if(direccion==2 or direccion==3 or direccion==4) x_destino=x_inicial+distancia; end
+	if(direccion==4 or direccion==5 or direccion==6) y_destino=y_inicial+distancia; end
+	if(direccion==6 or direccion==7 or direccion==8) x_destino=x_inicial-distancia; end
+	
+	engranaje(x_inicial,y_inicial);
+	engranaje(x_destino,y_destino);
+	drawing_map(0,mapa_scroll);
+	drawing_color(rgb(0,0,0));
+	draw_line(x_inicial+get_distx(fget_angle(x_inicial,y_inicial,x_destino,y_destino)+pi/2,6),y_inicial+get_disty(fget_angle(x_inicial,y_inicial,x_destino,y_destino)+pi/2,6),x_destino+get_distx(fget_angle(x_inicial,y_inicial,x_destino,y_destino)+pi/2,6),y_destino+get_disty(fget_angle(x_inicial,y_inicial,x_destino,y_destino)+pi/2,6));
+	drawing_color(rgb(255,255,255));
+	draw_line(x_inicial+get_distx(fget_angle(x_inicial,y_inicial,x_destino,y_destino)+pi/2,5),y_inicial+get_disty(fget_angle(x_inicial,y_inicial,x_destino,y_destino)+pi/2,5),x_destino+get_distx(fget_angle(x_inicial,y_inicial,x_destino,y_destino)+pi/2,5),y_destino+get_disty(fget_angle(x_inicial,y_inicial,x_destino,y_destino)+pi/2,5));
+	drawing_color(rgb(0,0,0));
+	draw_line(x_inicial+get_distx(fget_angle(x_inicial,y_inicial,x_destino,y_destino)+pi/2,4),y_inicial+get_disty(fget_angle(x_inicial,y_inicial,x_destino,y_destino)+pi/2,4),x_destino+get_distx(fget_angle(x_inicial,y_inicial,x_destino,y_destino)+pi/2,4),y_destino+get_disty(fget_angle(x_inicial,y_inicial,x_destino,y_destino)+pi/2,4));
+	
+	drawing_color(rgb(0,0,0));
+	draw_line(x_inicial+get_distx(fget_angle(x_inicial,y_inicial,x_destino,y_destino)-pi/2,6),y_inicial+get_disty(fget_angle(x_inicial,y_inicial,x_destino,y_destino)-pi/2,6),x_destino+get_distx(fget_angle(x_inicial,y_inicial,x_destino,y_destino)-pi/2,6),y_destino+get_disty(fget_angle(x_inicial,y_inicial,x_destino,y_destino)-pi/2,6));
+	drawing_color(rgb(255,255,255));
+	draw_line(x_inicial+get_distx(fget_angle(x_inicial,y_inicial,x_destino,y_destino)-pi/2,5),y_inicial+get_disty(fget_angle(x_inicial,y_inicial,x_destino,y_destino)-pi/2,5),x_destino+get_distx(fget_angle(x_inicial,y_inicial,x_destino,y_destino)-pi/2,5),y_destino+get_disty(fget_angle(x_inicial,y_inicial,x_destino,y_destino)-pi/2,5));
+	drawing_color(rgb(0,0,0));
+	draw_line(x_inicial+get_distx(fget_angle(x_inicial,y_inicial,x_destino,y_destino)-pi/2,4),y_inicial+get_disty(fget_angle(x_inicial,y_inicial,x_destino,y_destino)-pi/2,4),x_destino+get_distx(fget_angle(x_inicial,y_inicial,x_destino,y_destino)-pi/2,4),y_destino+get_disty(fget_angle(x_inicial,y_inicial,x_destino,y_destino)-pi/2,4));
+	
+	loop
+		if(lado==0)
+			if(direccion==2 or direccion==3 or direccion==4) x+=velocidad; end
+			if(direccion==8 or direccion==7 or direccion==6) x-=velocidad; end
+			if(direccion==8 or direccion==1 or direccion==2) y-=velocidad; end
+			if(direccion==4 or direccion==5 or direccion==6) y+=velocidad; end
+			if((x_destino>x_inicial and x>x_destino) or 
+			(x_destino<x_inicial and x<x_destino) or 
+			(y_destino>y_inicial and y>y_destino) or 
+			(y_destino<y_inicial and y<y_destino))
+				x=x_destino;
+				y=y_destino;
+				lado=1;
+			end
+		else
+			if(direccion==2 or direccion==3 or direccion==4) x-=velocidad; end
+			if(direccion==8 or direccion==7 or direccion==6) x+=velocidad; end
+			if(direccion==8 or direccion==1 or direccion==2) y+=velocidad; end
+			if(direccion==4 or direccion==5 or direccion==6) y-=velocidad; end
+			if((x_destino>x_inicial and x<x_inicial) or 
+			(x_destino<x_inicial and x>x_inicial) or 
+			(y_destino>y_inicial and y<y_inicial) or 
+			(y_destino<y_inicial and y>y_inicial))
+				x=x_inicial;
+				y=y_inicial;
+				lado=0;
+			end
+		end
+		from jugador=1 to 4;
+			if(exists(p[jugador].identificador))
+				if(collision(p[jugador].identificador))
+					if(p[jugador].identificador.y<y-20)
+						if(p[jugador].identificador.gravedad>0) p[jugador].identificador.gravedad=0; end
+						if(p[jugador].identificador.gravedad==0)
+							p[jugador].identificador.y=y-38;
+							p[jugador].identificador.saltando=0;
+							
+							if(((direccion==4 or direccion==5 or direccion==6) and lado==0) or (((direccion==1 or direccion==2 or direccion==8)) and lado==1)) //lado1
+								p[jugador].identificador.y+=velocidad;
+							end
+							if(direccion==6 or direccion==7 or direccion==8)
+								if(lado==1)
+									p[jugador].identificador.x+=velocidad;
+								else
+									p[jugador].identificador.x-=velocidad;
+								end
+							end
+							if(direccion==2 or direccion==3 or direccion==4)
+								if(lado==1)
+									p[jugador].identificador.x-=velocidad;
+								else
+									p[jugador].identificador.x+=velocidad;
+								end
+							end
+						end
+					end
+				end
+			end
+		end
+
+		frame;
+	end
+End
+
+Process engranaje(x,y);
+Begin
+	file=fpg_tiles;
+	ctype=c_scroll;
+	graph=7;
+	loop
+		angle+=1000;
 		frame;
 	end
 End
