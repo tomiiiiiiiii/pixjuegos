@@ -54,7 +54,7 @@ Begin
 	loop
 		if(p[1].botones[4])
 			if(tecenter==0)
-				sonido(3);
+				sonido(3,0);
 				while(exists(type elep)) signal(type elep, s_kill); end
 				signal(type machango, s_kill);
 				signal(type controlador, s_kill);
@@ -72,7 +72,7 @@ Begin
 		if(p[1].botones[3])
 			if(tec==0)
 				if(ops.sonido==1)
-					sonido(2);
+					sonido(2,0);
 				end
 				elecc++;
 				tec=1;
@@ -83,7 +83,7 @@ Begin
 		if(p[1].botones[2])
 			if(tec2==0)
 				if(ops.sonido==1)
-					sonido(2);
+					sonido(2,0);
 				end
 				elecc--;
 				tec2=1;

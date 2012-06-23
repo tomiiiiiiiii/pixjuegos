@@ -77,6 +77,7 @@ Global
 	fpg_premios;
 	fpg_general;
 	wavs[20];
+	sonidos_niveles[20];
 	tilesize=40;
 	fondo;
 	flash;
@@ -204,9 +205,9 @@ Begin
 			end
 		end
 
-		if(p[jugador].botones[5] and pulsando==0 and saltando==0) saltando=1; sonido(5); saltogradual=1; gravedad=-15; pulsando=1; y--; end 
+		if(p[jugador].botones[5] and pulsando==0 and saltando==0) saltando=1; sonido(5,jugador); saltogradual=1; gravedad=-15; pulsando=1; y--; end 
 		//al saltar suena el sonido correspondiente y se aplica la gravedad, y el salto gradual si saltamos poco 
-		if(p[jugador].botones[5] and pulsando==0 and powerup==3 and tiempo_powerup>0 and doble_salto==0) sombra_doble_salto(); sonido(12); saltogradual=1; doble_salto=1; gravedad=-15; pulsando=1; y--; end
+		if(p[jugador].botones[5] and pulsando==0 and powerup==3 and tiempo_powerup>0 and doble_salto==0) sombra_doble_salto(); sonido(12,jugador); saltogradual=1; doble_salto=1; gravedad=-15; pulsando=1; y--; end
 		//e l doblesalto si disponemos del power-up 3
 		if(p[jugador].botones[5] and saltogradual<5 and saltogradual!=0) gravedad-=4; saltogradual++; end
 		if(saltogradual>0 and p[jugador].botones[5]==0 and gravedad<-10 and accion!="lanzado") saltogradual=0; gravedad=-10; end
@@ -239,7 +240,7 @@ Begin
 				elseif(posiciones[4]==0) posicion=4; posiciones[4]=jugador; end
 			end
 			switch(posicion)
-				case 1: p[jugador].puntos+=6; sonido(17); end
+				case 1: p[jugador].puntos+=6; sonido(17,jugador); end
 				case 2: p[jugador].puntos+=4; end
 				case 3: p[jugador].puntos+=2; end
 				case 4: p[jugador].puntos++; end
@@ -333,7 +334,7 @@ Begin
 				graph=2;
 				gravedad=-20;
 				flash_muerte(jugador);
-				sonido(6);
+				sonido(6,jugador);
 				frame(3000);
 				if(y<alto_nivel)
 					while(y<alto_nivel+150)
@@ -363,7 +364,7 @@ Begin
 		if(modo_juego==0 and (id_colision=collision(type prota))) 
 			if(id_colision.accion!="muerte")
 				if(id_colision>id)
-					sonido(13);
+					sonido(13,jugador);
 					if(id_colision.y>y)
 						id_colision.gravedad=20; gravedad=-20;
 					else
@@ -394,6 +395,7 @@ Begin
 		if(tiempo_powerup>0) tiempo_powerup--; else powerup=0; end
 		if(inercia>25 or inercia<-25) sombra(20); end
 		if(y<-20) flecha_personaje(); end
+		if(y<-1000) y=-1000; end
 		if(slowmotion==0 or powerup==4) frame; else frame(300); end
 	end      
 End
@@ -562,7 +564,7 @@ Begin
 		while(map_get_pixel(0,durezas,x,y+alto-1)==suelo) y--; end //colisiones con el suelo
 		if(y>alto_nivel) break; end //al caer poir un bujero los power-ups desaparecen
 		if(id_colision=collision(type prota)) //al tocarlos el prota
-			sonido(16);
+			sonido(16,0);
 			if(id_colision.accion!="muerte")
 				p[id_colision.jugador].powerupscogidos++;
 				if(modo_juego==0)
@@ -593,7 +595,7 @@ Begin
 					if(tipo==4) slowmotion=1; end
 					frame;
 				end
-				if(id_colision.powerup_id==id and x<ancho_nivel) sonido(15); end
+				if(id_colision.powerup_id==id and x<ancho_nivel) sonido(15,0); end
 				if(tipo==4) slowmotion=0; end
 				break;
 			end
@@ -645,7 +647,7 @@ Begin
 		if(graph==5) graph=1; end
 		if(id_colision=collision(type prota)) 
 			if(id_colision.accion!="muerte")
-				sonido(4);
+				sonido(4,id_colision.jugador);
 				p[id_colision.jugador].monedas++;
 				break;
 			end
@@ -691,6 +693,12 @@ BEGIN
 			from j=1 to 5;
 				p[i].premios[j]=0;
 			end
+		end
+	else //nivel 1:
+		i=1;
+		while(fexists(savegamedir+"niveles\"+paqueteniveles+"\"+i+".wav"));
+			sonidos_niveles[i]=load_wav(savegamedir+"niveles\"+paqueteniveles+"\"+i+".wav");
+			i++;
 		end
 	end
 
@@ -886,7 +894,9 @@ end //FIN IF WII
 			if(hasta_la_coma(linea,0)=="moneda")
 				moneda(tile_a_coordenada(csv_int(linea,1)),tile_a_coordenada(csv_int(linea,2)));
 			end
-
+			if(hasta_la_coma(linea,0)=="sonido")
+				sonador(tile_a_coordenada(csv_int(linea,1)),tile_a_coordenada(csv_int(linea,2)),csv_int(linea,3));
+			end
 
 			i++;
 		end
@@ -960,12 +970,13 @@ end //FIN IF WII
 	from i=3 to 1 step -1;
 		timer[0]=0;
 		graph=write_in_map(fuente_grande,i,4);
-		sonido(10);
+		sonido(10,0);
+		if(key(_n)) while(key(_n)) frame; end num_nivel++; carga_nivel(); end
 		while(timer[0]<100) alpha-=4; size++; frame; end
 		size=100;
 		alpha=255;
 	end
-	sonido(11);
+	sonido(11,0);
 	delete_text(all_text);
 	graph=write_in_map(fuente_grande,"YA",4);
 	if(modo_juego==0) marcadores(); end //marcadores de puntos en modo competición
@@ -1008,10 +1019,10 @@ end //FIN IF WII
 END
 
 //ganar, muerte, salto
-Process sonido(numsonido);
+Process sonido(numsonido,canal);
 Begin
 	if(numsonido==6) numsonido+=father.jugador-1; end
-	if(ops.sonido) play_wav(wavs[numsonido],0); end
+	if(ops.sonido) play_wav(wavs[numsonido],0,canal); end
 End
 
 Process pon_tiempo(tiempo,permanecer,x,y,jugador);
@@ -1122,7 +1133,7 @@ Begin
 		end
 	
 		if(jugador!=jugador_anterior)
-			sonido(14);
+			sonido(14,0);
 			if(jugadores==2)
 				x_destino=ancho_pantalla-40;
 				if(jugador==1)
@@ -1545,18 +1556,26 @@ Private
 	id_colision;
 	x_inc;
 	y_inc;
+	graph_base;
 Begin
 	file=fpg_tiles;
 	ctype=c_scroll;
 	z=-1;
-	graph=4;
-	angle=-45*(direccion-1)*1000;
+	if(direccion==1 or direccion==8) angle=90000; end
+	if(direccion==2 or direccion==3) angle=0; end
+	if(direccion==4 or direccion==5) angle=-90000; end
+	if(direccion==6 or direccion==7) angle=-180000; end
+	//if(direccion==1 or direccion==3 or direccion==5 or direccion==7) graph_base=11; else graph_base=15; end
+	if(direccion==1 or direccion==3 or direccion==5 or direccion==7) graph=10; else graph=20; end
 	if(direccion==1 or direccion==2 or direccion==8) y_inc=-potencia; end
 	if(direccion==2 or direccion==3 or direccion==4) x_inc=potencia/2; end
 	if(direccion==4 or direccion==5 or direccion==6) y_inc=potencia/2; end
 	if(direccion==6 or direccion==7 or direccion==8) x_inc=-potencia/2; end
 	if(direccion==3 or direccion==7) y_inc=0; end
 	if(direccion==1 or direccion==5) x_inc=0; end
+	//graph=graph_base;
+	//angle=(-45*(direccion-1)*1000)+90000;
+	//graph=10;
 	loop
 		if(id_colision=collision(type prota))
 			if(id_colision.accion!="muerte")
@@ -1566,6 +1585,7 @@ Begin
 				id_colision.gravedad=y_inc;
 				id_colision.inercia=x_inc;
 				id_colision.accion="lanzado";
+				sonido(18,id_colision.jugador);
 			end
 		end
 		if(id_colision=collision(type enemigo))
@@ -1578,6 +1598,28 @@ Begin
 		frame;
 	end
 End
+
+Process sonador(x,y,id_sonido); //direccion 1:arriba,2:der-arr,3:derecha,4:der-aba,5:abajo,6:izq-aba,7:izquierda,8:izq-arr
+Private
+	id_colision;
+	id_canal;
+Begin
+	file=fpg_tiles;
+	graph=1;
+	alpha=0;
+	ctype=c_scroll;
+	priority=100;
+	size=150;
+	loop		
+		if(collision(type prota))
+			id_canal=play_wav(sonidos_niveles[id_sonido],0);
+			while(is_playing_wav(id_canal)) frame(500); end
+			while(collision(type prota)) frame(500); end
+		end
+		frame;
+	end
+End
+
 
 Process sombra(paso);
 Begin

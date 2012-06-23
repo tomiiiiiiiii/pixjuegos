@@ -112,7 +112,7 @@ begin
 		if(p[0].botones[4] and keytime==0)
 			delete_text(all_text);
 			if(ops.sonido==1)
-				sonido(3);
+				sonido(3,0);
 			end
 			if(elecc==0)
 				let_me_alone();
@@ -152,7 +152,7 @@ begin
 			if(tec==0)
 				elecc++;
 				if(ops.sonido==1)
-					sonido(2);
+					sonido(2,0);
 				end
 				tec=1;
 			end
@@ -163,7 +163,7 @@ begin
 			if(tec2==0)
 				elecc--;
 				if(ops.sonido==1)
-					sonido(2);
+					sonido(2,0);
 				end
 				tec2=1;
 			end
@@ -260,7 +260,7 @@ begin
 	while(p[0].botones[4]) frame; end
 	loop
 		if(p[0].botones[5] or (graph==200 and p[0].botones[4]))
-			sonido(1);
+			sonido(1,0);
 			let_me_alone();
 			menu();
 			break;
@@ -270,7 +270,7 @@ begin
 			if(p[0].botones[4] and keytime==0)
 				graph++;
 				if(graph==22)
-					sonido(1);
+					sonido(1,0);
 					let_me_alone();
 					menu();
 					break;
@@ -336,7 +336,7 @@ begin
 						ops.sonido=0;
 					else
 						ops.sonido=1;
-						sonido(2);
+						sonido(2,0);
 					end
 				end
 				if(elecc==2)
@@ -366,7 +366,7 @@ begin
 		if(p[0].botones[3])
 			if(tec==0)
 				if(ops.sonido==1)
-					sonido(2);
+					sonido(2,0);
 				end
 				elecc++;
 				tec=1;
@@ -377,7 +377,7 @@ begin
 		if(p[0].botones[2])
 			if(tec2==0)
 				if(ops.sonido==1)
-					sonido(2);
+					sonido(2,0);
 				end
 				elecc--;
 				tec2=1;
@@ -443,7 +443,7 @@ begin
 		if(p[0].botones[3])
 			if(tec==0)
 				if(ops.sonido==1)
-					sonido(2);
+					sonido(2,0);
 				end
 				elecc++;
 				tec=1;
@@ -454,7 +454,7 @@ begin
 		if(p[0].botones[2])
 			if(tec2==0)
 				if(ops.sonido==1)
-					sonido(2);
+					sonido(2,0);
 				end
 				elecc--;
 				tec2=1;
@@ -536,7 +536,7 @@ begin
 		if(p[0].botones[3])
 			if(tec==0)
 				if(ops.sonido==1)
-					sonido(2);
+					sonido(2,0);
 				end
 				elecc++;
 				tec=1;
@@ -547,7 +547,7 @@ begin
 		if(p[0].botones[2])
 			if(tec2==0)
 				if(ops.sonido==1)
-					sonido(2);
+					sonido(2,0);
 				end
 				elecc--;
 				tec2=1;
@@ -662,7 +662,7 @@ if(nuevosniveles!=0)
 		if(p[0].botones[4])
 			if(tecenter==0)
 				let_me_alone();
-				sonido(3);
+				sonido(3,0);
 				descarga_niveles(nombresniveles[elecc+1]); 
 				if(z==1) 
 					write(fuente,400,280,4,"No se ha podido descargar");
@@ -690,7 +690,7 @@ if(nuevosniveles!=0)
 		if(p[0].botones[3])
 			if(tec==0)
 				if(ops.sonido==1)
-					sonido(2);
+					sonido(2,0);
 				end
 				elecc++;
 				tec=1;
@@ -701,7 +701,7 @@ if(nuevosniveles!=0)
 		if(p[0].botones[2])
 			if(tec2==0)
 				if(ops.sonido==1)
-					sonido(2);
+					sonido(2,0);
 				end
 				elecc--;
 				tec2=1;
