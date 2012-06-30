@@ -172,6 +172,7 @@ Private
 	posicion;
 	id_col;
 Begin
+	saltando=1;
 	p[jugador].identificador=id;
 	//controlador(jugador);
 	x=100;
@@ -901,7 +902,7 @@ end //FIN IF WII
 		while(!feof(fp))
 			linea=fgets(fp);
 			if(hasta_la_coma(linea,0)=="plataforma")
-				plataforma(tile_a_coordenada(csv_int(linea,1)),tile_a_coordenada(csv_int(linea,2)),csv_int(linea,3),tile_a_coordenada(csv_int(linea,4)),csv_int(linea,5));
+				plataforma(tile_a_coordenada(csv_int(linea,1)),tile_a_coordenada(csv_int(linea,2)),csv_int(linea,3),tile_a_coordenada(csv_int(linea,4)),csv_int(linea,5),csv_int(linea,6));
 			end
 			if(hasta_la_coma(linea,0)=="muelle")
 				muelle(tile_a_coordenada(csv_int(linea,1)),tile_a_coordenada(csv_int(linea,2)),csv_int(linea,3),csv_int(linea,4));
@@ -1689,12 +1690,19 @@ Begin
 	end
 End
 
-Process plataforma(x_inicial,y_inicial,direccion,distancia,velocidad);
+
+//tipos plataforma: 0-no vuelve, 1-vuelve, 2-bicho no vuelve, 3-bicho vuelve
+Process plataforma(x_inicial,y_inicial,direccion,distancia,velocidad,tipo);
 Private
 	lado;
 	id_colision;
 	x_destino;
 	y_destino;
+	grav;
+	inercia_x;
+	inercia_y;
+	vuelve;
+	bicho;
 Begin
 	ctype=c_scroll;
 	file=fpg_tiles;
@@ -1702,14 +1710,22 @@ Begin
 	z=-1;
 	x=x_inicial;
 	y=y_inicial;
+	x_destino=x_inicial;
+	y_destino=y_inicial;
 
+	if(tipo==0 or tipo==2) vuelve=0; else vuelve=1; end
+	if(tipo==2 or tipo==3) bicho=1; graph=8; set_center(file,graph,46,10); else bicho=0; end
+	
 	if(direccion==1 or direccion==2 or direccion==8) y_destino=y_inicial-distancia; end
 	if(direccion==2 or direccion==3 or direccion==4) x_destino=x_inicial+distancia; end
 	if(direccion==4 or direccion==5 or direccion==6) y_destino=y_inicial+distancia; end
 	if(direccion==6 or direccion==7 or direccion==8) x_destino=x_inicial-distancia; end
 	
+	//GRÁFICOS DE ENGRANAJES
 	engranaje(x_inicial,y_inicial);
 	engranaje(x_destino,y_destino);
+	
+	//PINTAMOS LOS "RAILES"
 	drawing_map(0,mapa_scroll);
 	drawing_color(rgb(0,0,0));
 	draw_line(x_inicial+get_distx(fget_angle(x_inicial,y_inicial,x_destino,y_destino)+pi/2,6),y_inicial+get_disty(fget_angle(x_inicial,y_inicial,x_destino,y_destino)+pi/2,6),x_destino+get_distx(fget_angle(x_inicial,y_inicial,x_destino,y_destino)+pi/2,6),y_destino+get_disty(fget_angle(x_inicial,y_inicial,x_destino,y_destino)+pi/2,6));
@@ -1717,20 +1733,43 @@ Begin
 	draw_line(x_inicial+get_distx(fget_angle(x_inicial,y_inicial,x_destino,y_destino)+pi/2,5),y_inicial+get_disty(fget_angle(x_inicial,y_inicial,x_destino,y_destino)+pi/2,5),x_destino+get_distx(fget_angle(x_inicial,y_inicial,x_destino,y_destino)+pi/2,5),y_destino+get_disty(fget_angle(x_inicial,y_inicial,x_destino,y_destino)+pi/2,5));
 	drawing_color(rgb(0,0,0));
 	draw_line(x_inicial+get_distx(fget_angle(x_inicial,y_inicial,x_destino,y_destino)+pi/2,4),y_inicial+get_disty(fget_angle(x_inicial,y_inicial,x_destino,y_destino)+pi/2,4),x_destino+get_distx(fget_angle(x_inicial,y_inicial,x_destino,y_destino)+pi/2,4),y_destino+get_disty(fget_angle(x_inicial,y_inicial,x_destino,y_destino)+pi/2,4));
-	
 	drawing_color(rgb(0,0,0));
 	draw_line(x_inicial+get_distx(fget_angle(x_inicial,y_inicial,x_destino,y_destino)-pi/2,6),y_inicial+get_disty(fget_angle(x_inicial,y_inicial,x_destino,y_destino)-pi/2,6),x_destino+get_distx(fget_angle(x_inicial,y_inicial,x_destino,y_destino)-pi/2,6),y_destino+get_disty(fget_angle(x_inicial,y_inicial,x_destino,y_destino)-pi/2,6));
 	drawing_color(rgb(255,255,255));
 	draw_line(x_inicial+get_distx(fget_angle(x_inicial,y_inicial,x_destino,y_destino)-pi/2,5),y_inicial+get_disty(fget_angle(x_inicial,y_inicial,x_destino,y_destino)-pi/2,5),x_destino+get_distx(fget_angle(x_inicial,y_inicial,x_destino,y_destino)-pi/2,5),y_destino+get_disty(fget_angle(x_inicial,y_inicial,x_destino,y_destino)-pi/2,5));
 	drawing_color(rgb(0,0,0));
 	draw_line(x_inicial+get_distx(fget_angle(x_inicial,y_inicial,x_destino,y_destino)-pi/2,4),y_inicial+get_disty(fget_angle(x_inicial,y_inicial,x_destino,y_destino)-pi/2,4),x_destino+get_distx(fget_angle(x_inicial,y_inicial,x_destino,y_destino)-pi/2,4),y_destino+get_disty(fget_angle(x_inicial,y_inicial,x_destino,y_destino)-pi/2,4));
+
+	if(direccion==2 or direccion==3 or direccion==4) inercia_x=velocidad; end
+	if(direccion==8 or direccion==7 or direccion==6) inercia_x=-velocidad; end
+	if(direccion==8 or direccion==1 or direccion==2) inercia_y=-velocidad; end
+	if(direccion==4 or direccion==5 or direccion==6) inercia_y=velocidad; end
+
 	
 	loop
+	
+		//SINO VUELVE, DESAPARECE Y LE DEJAMOS LA INERCIA AL JUGADOR
+		if(!vuelve and lado==1)
+			grav=0;
+			while(alpha>0)
+				alpha-=8; 
+				y+=grav/2; 
+				if(direccion==2 or direccion==3 or direccion==4) x+=velocidad; end
+				if(direccion==8 or direccion==7 or direccion==6) x-=velocidad; end
+				grav++; 
+				if(slowmotion==0) frame; else frame(300); end
+			end
+			x=x_inicial;
+			y=y_inicial;
+			from alpha=0 to 255 step 5; frame; end
+			lado=0;
+		end
+		
+		//MOVIMIENTO DE LA PLATAFORMA
 		if(lado==0)
-			if(direccion==2 or direccion==3 or direccion==4) x+=velocidad; end
-			if(direccion==8 or direccion==7 or direccion==6) x-=velocidad; end
-			if(direccion==8 or direccion==1 or direccion==2) y-=velocidad; end
-			if(direccion==4 or direccion==5 or direccion==6) y+=velocidad; end
+			x+=inercia_x;
+			y+=inercia_y;
+			inercia=inercia_x*3;
 			if((x_destino>x_inicial and x>x_destino) or 
 			(x_destino<x_inicial and x<x_destino) or 
 			(y_destino>y_inicial and y>y_destino) or 
@@ -1740,10 +1779,9 @@ Begin
 				lado=1;
 			end
 		else
-			if(direccion==2 or direccion==3 or direccion==4) x-=velocidad; end
-			if(direccion==8 or direccion==7 or direccion==6) x+=velocidad; end
-			if(direccion==8 or direccion==1 or direccion==2) y+=velocidad; end
-			if(direccion==4 or direccion==5 or direccion==6) y-=velocidad; end
+			x-=inercia_x;
+			y-=inercia_y;
+			inercia=-inercia_x*3;
 			if((x_destino>x_inicial and x<x_inicial) or 
 			(x_destino<x_inicial and x>x_inicial) or 
 			(y_destino>y_inicial and y<y_inicial) or 
@@ -1753,6 +1791,34 @@ Begin
 				lado=0;
 			end
 		end
+		///FIN MOVIMIENTO DE LA PLATAFORMA
+		
+		//GESTIÓN DE LA COLISIÓN CON EL JUGADOR
+		from jugador=1 to 4;
+			if(exists(p[jugador].identificador))
+				if(collision(p[jugador].identificador))
+					if(p[jugador].identificador.accion!="muerte")
+						if(p[jugador].identificador.y<y-20)
+							if(p[jugador].identificador.gravedad>0) p[jugador].identificador.gravedad=0; end
+							if(p[jugador].identificador.gravedad==0)
+								p[jugador].identificador.y=y-38;
+								p[jugador].identificador.saltando=0;								
+								if(((direccion==4 or direccion==5 or direccion==6) and lado==0) or (((direccion==1 or direccion==2 or direccion==8)) and lado==1)) //lado1
+									p[jugador].identificador.y+=velocidad;
+								end
+								if(lado==0) p[jugador].identificador.x+=inercia_x; else p[jugador].identificador.x-=inercia_x; end
+							end
+						else
+							if(bicho)
+								p[jugador].identificador.accion="muerte";
+							end
+						end
+					end
+				end
+			end
+		end
+
+		/*//GESTIÓN DE LA COLISIÓN LOS ENEMIGOS
 		from jugador=1 to 4;
 			if(exists(p[jugador].identificador))
 				if(collision(p[jugador].identificador))
@@ -1765,27 +1831,15 @@ Begin
 							if(((direccion==4 or direccion==5 or direccion==6) and lado==0) or (((direccion==1 or direccion==2 or direccion==8)) and lado==1)) //lado1
 								p[jugador].identificador.y+=velocidad;
 							end
-							if(direccion==6 or direccion==7 or direccion==8)
-								if(lado==1)
-									p[jugador].identificador.x+=velocidad;
-								else
-									p[jugador].identificador.x-=velocidad;
-								end
-							end
-							if(direccion==2 or direccion==3 or direccion==4)
-								if(lado==1)
-									p[jugador].identificador.x-=velocidad;
-								else
-									p[jugador].identificador.x+=velocidad;
-								end
-							end
+							if(lado==0) p[jugador].identificador.x+=inercia_x; else p[jugador].identificador.x-=inercia_x; end
 						end
 					end
 				end
 			end
-		end
+		end*/
 
-		frame;
+		
+		if(slowmotion==0) frame; else frame(300); end
 	end
 End
 

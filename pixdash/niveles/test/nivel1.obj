@@ -1,9 +1,6 @@
-#plataforma(x_inicial,y_inicial,direccion,distancia,velocidad);
--plataforma,20,16,4,5,10
-plataforma,19,23,1,8,9
--plataforma,20,16,4,5,8
--plataforma,20,16,4,5,7
--plataforma,20,16,4,5,6
--plataforma,20,16,4,5,5
--plataforma,20,16,4,5,4
--plataforma,20,16,4,5,3
+#muelle,x,y,direccion,distancia
+#plataforma,x_inicial,y_inicial,direccion,distancia,velocidad,vuelve);
+plataforma,6,22,3,20,5,2
+plataforma,6,19,3,20,5,3
+muelle,70,25,1,60
+muelle,70,3,3,200
