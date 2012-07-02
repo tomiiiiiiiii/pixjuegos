@@ -19,7 +19,7 @@ Global
 	app_data=0; //temporal, hasta que se puedan descargar niveles desde linux
 	suelo;
 	dur_pinchos;
-	dur_muelle_arriba;
+	dur_muelle;
 	ancho_pantalla=1280;
 	alto_pantalla=720;
 	ancho_nivel;
@@ -115,6 +115,10 @@ Local
 	i; j;
 	tiempo_powerup;
 	saltando;
+	mov_x;
+	mov_y;
+	tipo;
+	mata;
 End
 
 function int csv_int(string estring,int num_campo);
@@ -207,39 +211,37 @@ Begin
 			end
 		end
 
-		if(p[jugador].botones[5] and pulsando==0 and saltando==0) saltando=1; sonido(5,jugador); saltogradual=1; gravedad=-15; pulsando=1; y--; end 
-		//al saltar suena el sonido correspondiente y se aplica la gravedad, y el salto gradual si saltamos poco 
-		if(p[jugador].botones[5] and pulsando==0 and powerup==3 and tiempo_powerup>0 and doble_salto==0) sombra_doble_salto(); sonido(12,jugador); saltogradual=1; doble_salto=1; gravedad=-15; pulsando=1; y--; end
-		//e l doblesalto si disponemos del power-up 3
-		if(p[jugador].botones[5] and saltogradual<5 and saltogradual!=0) gravedad-=4; saltogradual++; end
-		if(saltogradual>0 and p[jugador].botones[5]==0 and gravedad<-10 and accion!="lanzado") saltogradual=0; gravedad=-10; end
-		if(!p[jugador].botones[5] and pulsando==1) pulsando=0; saltogradual=0; end
-		if((map_get_pixel(0,durezas,x,y+alto)==suelo or map_get_pixel(0,durezas,x-(ancho/3),y+alto)==suelo or map_get_pixel(0,durezas,x+(ancho/3),y+alto)==suelo) and gravedad=>0)
-			if(accion=="lanzado") accion=""; end
-			gravedad=0; 
-			saltando=0; 
-			doble_salto=0; 
-		else
-			if(gravedad=>0)
-				if(id_col=collision(type plataforma))
-					if(id_col.y>y+20)
-						if(accion=="lanzado") accion=""; end
-						gravedad=0;
-						saltando=0;
-						doble_salto=0;
-					else
-						saltando=1; 
-						gravedad++;
-					end
-				else
-					saltando=1; 
-					gravedad++;
-				end
-			else
+
+		
+		//salto: suena el sonido correspondiente y se aplica la gravedad, y el salto gradual si saltamos poco 
+		if(p[jugador].botones[5] and pulsando==0 and (saltando==0 or (powerup==3 and tiempo_powerup>0 and doble_salto==0)))
+			if(saltando==0)
 				saltando=1; 
-				gravedad++;
+				sonido(5,jugador);
+			else
+				sombra_doble_salto();
+				sonido(12,jugador);
+				doble_salto=1;
 			end
-		end //al tocar el suelo, gravedad es 0
+			saltogradual=1; 
+			gravedad=-15; 
+			pulsando=1; 
+		end
+				
+		//gestión del salto gradual
+		if(p[jugador].botones[5] and saltogradual<5 and saltogradual!=0) 
+			gravedad-=4; 
+			saltogradual++; 
+		end
+		
+		//fin del salto gradual
+		if(saltogradual>0 and p[jugador].botones[5]==0 and gravedad<-10 and accion!="lanzado")
+			saltogradual=0; 
+			gravedad=-10; 
+		end
+		if(!p[jugador].botones[5] and pulsando==1) pulsando=0; saltogradual=0; end
+		
+		//ha llegado al final del nivel
 		if(x>ancho_nivel) 
 			p[i].tiempos[num_nivel]=timer[1];
 			if(jugadores==1) num_nivel++; carga_nivel(); end
@@ -281,72 +283,93 @@ Begin
 				accion="ganando";
 				frame; 
 			end //aquí se queda!
-		end //al ganar mike canta y nos damos la vuelta xD
-		if(gravedad==0)
-			if(inercia>0) inercia--; end
-			if(inercia<0) inercia++; end
-//		else
-			//if(inercia>0) inercia-=0.3; end
-			//if(inercia<0) inercia+=0.3; end
-			//if(inercia<0.3 or inercia>-0.3) inercia=0; end
-		end
-		if(gravedad>40) gravedad=40; end
-		if(powerup==5) 
-			inercia*=2;
-		end //si tenemos el chute de velocidad la inercia se dobla
-		//x=x+inercia;
-		x_destino=x+(inercia/2);
-		if(x_destino>x) 
-			from x=x to x_destino step 1; if(map_get_pixel(0,durezas,x+ancho,y+alto/2)==suelo) inercia=0; break; end end
-		elseif(x_destino<x)
-			from x=x to x_destino step -1; if(map_get_pixel(0,durezas,x-ancho,y+alto/2)==suelo) inercia=0; break; end end
-		end //calculamos donde se para si tiene inercia y dejas de correr
-		
-		if(powerup==5)
-			inercia/=2;
 		end
 
+		//si caemos demasiado rápido, lo frenamos
+		if(gravedad>40) gravedad=40; end
+		
+		//gestión de movimiento horizontal
+		if(powerup==5)
+			x_destino=x+inercia+mov_x;
+		else
+			x_destino=x+(inercia/2)+mov_x;
+		end
+		x=movimiento_x(x_destino);
+	
+		//si te caes por un agujero
 		if(y>alto_nivel)
 			powerup=0;
 			accion="muerte";
-		end //si caes por un bujero y mueres
-
-		if(map_get_pixel(0,durezas,x,y)==dur_pinchos or map_get_pixel(0,durezas,x,y+alto)==dur_pinchos or map_get_pixel(0,durezas,x,y-alto)==dur_pinchos or
-			map_get_pixel(0,durezas,x-ancho,y)==dur_pinchos or map_get_pixel(0,durezas,x+ancho,y)==dur_pinchos) accion="muerte"; end
-		if(map_get_pixel(0,durezas,x,y)==dur_muelle_arriba or map_get_pixel(0,durezas,x,y+alto)==dur_muelle_arriba or map_get_pixel(0,durezas,x,y-alto)==dur_muelle_arriba or
-			map_get_pixel(0,durezas,x-ancho,y)==dur_muelle_arriba or map_get_pixel(0,durezas,x+ancho,y)==dur_muelle_arriba) doble_salto=0; gravedad=-40; y--; end
-	
-		if(x<10) x=10; end //pa no salirse de la pantalla por la izquierda
-
-		y_destino=y+(gravedad/2);
-		if(y_destino>y)  
-			from y=y to y_destino step 1; 
-				if(map_get_pixel(0,durezas,x,y+alto)==suelo) gravedad=0; break; end 
-				if(map_get_pixel(0,durezas,x-ancho/3,y+alto)==suelo) gravedad=0; break; end 
-				if(map_get_pixel(0,durezas,x+ancho/3,y+alto)==suelo) gravedad=0; break; end 
-			end
-		elseif(y_destino<y)
-			from y=y to y_destino step -1; 
-				if(map_get_pixel(0,durezas,x,y-alto)==suelo) gravedad=10; break; end 
-				if(map_get_pixel(0,durezas,x-ancho/3,y-alto)==suelo) gravedad=10; break; end 
-				if(map_get_pixel(0,durezas,x+ancho/3,y-alto)==suelo) gravedad=10; break; end 
-			end
 		end
-		while(map_get_pixel(0,durezas,x,y+alto-1)==suelo) y--; end
-		while(map_get_pixel(0,durezas,x-ancho/3,y+alto-1)==suelo) y--; end
-		while(map_get_pixel(0,durezas,x+ancho/3,y+alto-1)==suelo) y--; end
-		if(saltando==0 and gravedad==0) //animaciones al andar o estar quieto
+
+		//si tocamos pinchos moriremos
+		if(toca_pinchos()) accion="muerte"; end
+		
+		//si tocamos un muelle, saldremos disparados hacia arriba
+		if(toca_muelle()) doble_salto=0; gravedad=-40; y--; end
+		
+		//pa no salirse de la pantalla por la izquierda
+		if(x<10) x=10; end 
+
+		//gestión del movimiento vertical
+		y_destino=y+(gravedad/2)+mov_y;
+		y=movimiento_y(y_destino);
+		mov_y=0;
+		
+		//tocamos un muelle
+		if(id_colision=collision(type muelle))
+			inercia=id_colision.inercia;
+			gravedad=id_colision.gravedad;
+			sonido(18,jugador);
+		end
+		
+		//comprobamos si estamos tocando el suelo
+		if(toca_suelo())
+			if(accion=="lanzado") accion=""; end 
+			if(gravedad>0)
+				gravedad=0;
+				saltando=0;
+				doble_salto=0;
+			end
+			if(gravedad==0)
+				//reducimos las inercias internas y externas
+				if(inercia>0) inercia--; end
+				if(inercia<0) inercia++; end
+				if(mov_x>0) mov_x--; end
+				if(mov_x<0) mov_x++; end
+			end
+			
+			//estamos finalizando un combo?
 			if(p[jugador].combo!=0) 
 				if(p[jugador].combo>p[jugador].mejorcombo)
 					p[jugador].mejorcombo=p[jugador].combo;
 				end
 				p[jugador].combo=0;
 			end
+			
+			//animaciones al andar o estar quieto
 			if(inercia!=0) animacion="andar"; else animacion="quieto"; end
 		else
+			gravedad++;
+			saltando=1;
+			
+			//animación de salto
 			animacion="salto"; //animación al saltar
 		end
+	
+		//si por algún motivo estamos metidos en un sitio en el que no deberíamos, subiríamos hacia arriba
+		while(map_get_pixel(0,durezas,x,y+alto-1)==suelo) y--; end
+		while(map_get_pixel(0,durezas,x-ancho/3,y+alto-1)==suelo) y--; end
+		while(map_get_pixel(0,durezas,x+ancho/3,y+alto-1)==suelo) y--; end
+		
+		//si estamos en el suelo
+		//if(saltando==0 and gravedad==0)
+		//else
+		//end
+		
+		//nos han matado...
 		if(accion=="muerte") //animación de muerte
+			//y volvemos al principio
 			if(powerup!=2)
 				tiempo_powerup=0; 
 				powerup=0; 
@@ -375,12 +398,15 @@ Begin
 				accion="";
 				gravedad=0;
 				inercia=0;
-				//ready=1;
-			else 
+				mov_x=0;
+				mov_y=0;
+			else //aunque puede que seamos invencibles!
 				accion=""; 
 			end 
 		end
-		if(modo_juego==0 and (id_colision=collision(type prota))) 
+		
+		//si competimos (casi siempre, vamos) y chocamos con otro jugador, nos empujamos
+		if(modo_juego==0 and (id_colision=collision(type prota)))
 			if(id_colision.accion!="muerte")
 				if(id_colision>id)
 					sonido(13,jugador);
@@ -390,13 +416,19 @@ Begin
 						id_colision.gravedad=20; gravedad=-20;
 					end
 				end
-				if(id_colision.x<x) 
-					inercia+=5;
-				else
-					inercia-=5;
+				if(id_colision.x<x) inercia+=5; end
+				if(id_colision.x>x) inercia-=5; end
+				if(id_colision.x==x) //evitamos bloqueos!
+					if(id_colision>id)
+						inercia+=5;
+					else
+						inercia-=5;
+					end
 				end
 			end
 		end
+		
+		//gestión de la animación
 		switch(animacion)
 			case "": animacion="quieto"; graph=1; end
 			case "quieto": graph=1; end
@@ -411,12 +443,174 @@ Begin
 				if(gravedad<0) graph=3; else graph=5; end
 			end
 		end
+		
+		//si tenemos un powerup, le bajamos el tiempo o desactivamos
 		if(tiempo_powerup>0) tiempo_powerup--; else powerup=0; end
-		if(inercia>25 or inercia<-25) sombra(20); end
+		
+		//si tenemos suficiente velocidad, mostraremos un rastro
+		if(inercia>25 or inercia<-25) sombra(((int)abs(inercia)-10)); end
+		
+		//si estamos por encima del nivel, mostramos una flecha indicándolo
 		if(y<-20) flecha_personaje(); end
+		
+		//esta es la máxima altura que subiremos, pero no cancelamos la gravedad negativa!
 		if(y<-1000) y=-1000; end
+		
+		//si hay slowmotion, nos moveremos 3 veces más lentos
 		if(slowmotion==0 or powerup==4) frame; else frame(300); end
 	end      
+End
+
+Function movimiento_x(x_destino);
+Private
+	id_col;
+Begin
+	x=father.x;
+	y=father.y;
+	if(x_destino==x) return x; end
+	ancho=father.ancho;
+	alto=father.alto;
+	file=father.file;
+	graph=father.graph;
+	ctype=c_scroll;
+	if(x_destino>x)
+		from x=x to x_destino step 1; 
+			if(map_get_pixel(0,durezas,x+ancho,y+alto/2)==suelo) 
+				father.inercia=0; 
+				break; 
+			end 
+		end
+	elseif(x_destino<x)
+		from x=x to x_destino step -1; 
+			if(map_get_pixel(0,durezas,x-ancho,y+alto/2)==suelo) 
+				father.inercia=0; 
+				break; 
+			end 
+		end
+	end //calculamos donde se para si tiene inercia y dejas de correr
+	return x;
+End
+
+Function movimiento_y(y_destino);
+Private
+	id_col;
+Begin
+	x=father.x;
+	y=father.y;
+	if(y_destino==y) return y; end
+	ancho=father.ancho;
+	alto=father.alto;
+	file=father.file;
+	graph=father.graph;
+	ctype=c_scroll;
+	gravedad=father.gravedad;
+	inercia=father.inercia;
+	if(y_destino>y)
+		from y=y to y_destino step 1; 
+			if(toca_suelo()) 
+				break; 
+			end 
+		end
+	elseif(y_destino<y)
+		if(id_col=collision(type plataforma))
+			if(id_col.y>y+20 and id_col.gravedad<father.gravedad)
+				if(father.accion=="lanzado") father.accion=""; end
+				y=id_col.y-37;
+				mov_x=id_col.inercia;
+				mov_y=id_col.gravedad;
+			end
+		end
+		from y=y to y_destino step -1;
+			if(toca_techo()) father.gravedad=10; break; end
+		end
+	end
+	if(father.gravedad=>0)
+		if(mov_x!=0) father.mov_x=mov_x; end
+		if(mov_y!=0) father.mov_y=mov_y; end
+	end
+	return y;
+End
+
+Function toca_techo();
+Private
+	id_col;
+Begin
+	x=father.x;
+	y=father.y;
+	ancho=father.ancho;
+	alto=father.alto;
+	file=father.file;
+	graph=father.graph;
+	ctype=c_scroll;
+	if(map_get_pixel(0,durezas,x,y-alto)==suelo) return 1; end 
+	if(map_get_pixel(0,durezas,x-ancho/3,y-alto)==suelo) return 1; end 
+	if(map_get_pixel(0,durezas,x+ancho/3,y-alto)==suelo) return 1; end 
+	return 0;
+End
+
+Function toca_suelo();
+Private
+	id_col;
+Begin
+	x=father.x;
+	y=father.y;
+	ancho=father.ancho;
+	alto=father.alto;
+	file=father.file;
+	graph=father.graph;
+	ctype=c_scroll;
+	if(id_col=collision(type plataforma))
+		if(id_col.y>y+20)
+			if(father.gravedad=>0)
+				father.y=id_col.y-37;
+				if(father.accion=="lanzado") father.accion=""; end
+				father.mov_x=id_col.inercia;
+				father.mov_y=id_col.gravedad;
+			end
+			return 1;
+		end
+	end
+	if(map_get_pixel(0,durezas,x,y+alto)==suelo) return 1; end
+	if(map_get_pixel(0,durezas,x-(ancho/3),y+alto)==suelo) return 1; end
+	if(map_get_pixel(0,durezas,x+(ancho/3),y+alto)==suelo) return 1; end
+	return 0;
+End
+
+Function toca_pinchos();
+Private
+	id_col;
+Begin
+	x=father.x;
+	y=father.y;
+	ancho=father.ancho;
+	alto=father.alto;
+	file=father.file;
+	graph=father.graph;
+	ctype=c_scroll;
+	if(map_get_pixel(0,durezas,x,y)==dur_pinchos) return 1; end
+	if(map_get_pixel(0,durezas,x,y+alto)==dur_pinchos) return 1; end
+	if(map_get_pixel(0,durezas,x,y-alto)==dur_pinchos) return 1; end
+	if(map_get_pixel(0,durezas,x-ancho,y)==dur_pinchos) return 1; end
+	if(map_get_pixel(0,durezas,x+ancho,y)==dur_pinchos) return 1; end
+	return 0;
+End
+
+Function toca_muelle();
+Private
+	id_col;
+Begin
+	x=father.x;
+	y=father.y;
+	alto=father.alto;
+	file=father.file;
+	graph=father.graph;
+	ctype=c_scroll;
+	if(map_get_pixel(0,durezas,x,y)==dur_muelle) return 1; end
+	if(map_get_pixel(0,durezas,x,y+alto)==dur_muelle) return 1; end
+	if(map_get_pixel(0,durezas,x,y-alto)==dur_muelle) return 1; end
+	if(map_get_pixel(0,durezas,x-ancho,y)==dur_muelle) return 1; end
+	if(map_get_pixel(0,durezas,x+ancho,y)==dur_muelle) return 1; end
+	return 0;
 End
 
 Process flash_muerte(region);
@@ -444,6 +638,7 @@ Private
 	anim;
 	spikys;
 	x_destino;
+	y_destino;
 Begin
    ctype=c_scroll;
    file=fpg_enemigos;
@@ -471,33 +666,42 @@ Begin
 		if(tipo==7) flags=0; x-=6; end //billbala siempre va hacia la izquierda
 		if(tipo==8 and rand(0,200)==0 and spikys<10) spikys++; enemigo(x,y,9,0); end //lakitu tirando pinchones
 		if(accion!="lanzado")
+			if(mov_x>0) mov_x--; end
+			if(mov_x<0) mov_x++; end
 			if(flags==0) 
 				if(tipo!=8) 
-					inercia=-2; 
+					inercia=-1; 
 				else 
-					inercia=-6; 
+					inercia=-3; 
 				end //los malos andan pa un lao
-			else  
+			else
 				if(tipo!=8) 
-					inercia=2; 
+					inercia=1; 
 				else 
-					inercia=6; 
+					inercia=3; 
 				end 
 			end	//si miramos pa un lao, andamos pa ese, sino viceversa
 		else
 			//..
 		end
 		if(tipo==8 and rand(0,300)==0) if(flags==0) flags=1; else flags=0; end end //cuando mira lakitu pa la derecha al azar
-		if(map_get_pixel(0,durezas,x,y+alto)==suelo and tipo!=8 and gravedad>0) //el malo tocó el suelo? lakitu no choca wei!
+		if(gravedad>0 and toca_suelo() and tipo!=8) //el malo tocó el suelo? lakitu no choca wei!
 			if(accion=="lanzado") accion=""; end
 			if(tipo==9) enemigo(x,y, tipo-4,0); break; end //los huevos de spiky tocan el suelo, mueren y llaman a los spikys
 			if(tipo==2 or tipo==4 or tipo==10) gravedad=-40; y--; else gravedad=0; end //saltos para los para-algo, sino quietos nel suelo
 		else 
 			gravedad++; //pos no lo tocó
 		end //gravedad
-		if(y>alto_nivel or y<0) break; end //si cae por un bujero, muere
+		if(y>alto_nivel or y<-1000) break; end //si cae por un bujero, muere
 		while(map_get_pixel(0,durezas,x,y+alto-1)==suelo and tipo!=7 and tipo!=8) y--; end //corregimos atravesamiento de suelos...
 
+		//tocamos un muelle
+		if(id_colision=collision(type muelle))
+			inercia=id_colision.inercia;
+			gravedad=id_colision.gravedad;
+			accion="lanzado";
+		end
+		
 		if(alpha==255 and (id_colision=collision(type prota))) //chocamos con el prota
 			if(id_colision.y<y-(alto/2) and id_colision.saltando==1 and tipo!=5 and tipo!=6 and tipo!=9 and tipo!=10 and id_colision.accion!="muerte") //si el prota está más arriba, el malo muere. a menos que sean spikis o sus huevos! y que no esté muriendo el prota xD
 				p[id_colision.jugador].enemigosmatados++;
@@ -535,24 +739,32 @@ Begin
 		end
 		
 		//gestión de inercia
-		x_destino=x+(inercia/2);
-		if(x_destino>x)
-			from x=x to x_destino step 1; if(map_get_pixel(0,durezas,x+ancho,y+alto/2)==suelo) inercia=0; break; end end
-		elseif(x_destino<x)
-			from x=x to x_destino step -1; if(map_get_pixel(0,durezas,x-ancho,y+alto/2)==suelo) inercia=0; break; end end
-		end //calculamos donde se para si tiene inercia y dejas de correr
+		x_destino=x+inercia+mov_x;
+		x=movimiento_x(x_destino);
 		
-		if(map_get_pixel(0,durezas,x,y)==dur_pinchos or map_get_pixel(0,durezas,x,y+alto)==dur_pinchos or map_get_pixel(0,durezas,x,y-alto)==dur_pinchos or
-		map_get_pixel(0,durezas,x-ancho,y)==dur_pinchos or map_get_pixel(0,durezas,x+ancho,y)==dur_pinchos) 
+		if(toca_pinchos()) 
 			explotalo(x,y,z,255,0,file,graph,60);
 			break; 
 		end
-		if(map_get_pixel(0,durezas,x,y)==dur_muelle_arriba or map_get_pixel(0,durezas,x,y+alto)==dur_muelle_arriba or map_get_pixel(0,durezas,x,y-alto)==dur_muelle_arriba or
-			map_get_pixel(0,durezas,x-ancho,y)==dur_muelle_arriba or map_get_pixel(0,durezas,x+ancho,y)==dur_muelle_arriba) gravedad=-40; y--; end
+		if(toca_muelle()) gravedad=-40; y--; end
 
-		if(tipo!=7 and tipo!=8) y=y+(gravedad/4); end //gravedad barata. a billbala y a lakitu no les afecta
+		//gravedad. a billbala y a lakitu no les afecta
+		if(tipo!=7 and tipo!=8)
+			//gestión del movimiento vertical
+			if(tipo==2 or tipo==4 or tipo==10 and accion!="lanzado") //si son para para van menos rápidos
+				y_destino=y+(gravedad/4)+mov_y;
+			else
+				y_destino=y+(gravedad/2)+mov_y;
+			end
+			y=movimiento_y(y_destino);
+			if(toca_suelo())
+				if(accion=="lanzado") accion=""; end 
+			end
+
+			mov_y=0;
+		end 
+
 		if(slowmotion==0) frame; else frame(300); end
-		//frame;
     end	
 	if(tipo==7) enemigo(x_original,y_original,tipo,0); end
 	num_enemigos--;
@@ -820,7 +1032,7 @@ BEGIN
 
 	suelo=map_get_pixel(fpg_durezas,501,0,0);
 	dur_pinchos=map_get_pixel(fpg_durezas,502,0,0);
-	dur_muelle_arriba=map_get_pixel(fpg_durezas,504,0,0);
+	dur_muelle=map_get_pixel(fpg_durezas,504,0,0);
 	//LO INVISIBLE (PERO TOCABLE)
 	repeat
 		pos_x=x*tilesize;
@@ -1002,7 +1214,6 @@ end //FIN IF WII
 	delete_text(all_text);
 	graph=write_in_map(fuente_grande,"YA",4);
 	if(modo_juego==0) marcadores(); end //marcadores de puntos en modo competición
-	//texto=write(fuente_grande,ancho_pantalla/2,alto_pantalla/2,4,"YA");
 	ready=1;
 	timer[0]=0;
 	timer[1]=0; //para contrarreloj
@@ -1334,11 +1545,12 @@ include "../../common-src/lenguaje.pr-";
 //PROCESS MAIN
 Begin
 	if(argc>0) if(argv[1]=="arcade") arcade_mode=1; end end
-	if(os_id==os_win32)
+	//desactivado todo por ahora
+	/*if(os_id==os_win32)
 		editor_de_niveles=1;
 		descarga_niveles=1;
-		//app_data=1;
-	end
+		app_data=1;
+	end*/
 
 	set_title("PiX Dash");
 	
@@ -1389,12 +1601,12 @@ Begin
 	end
 
 //TEST:
-		paqueteniveles="test";
+/*		paqueteniveles="test";
 		jugadores=1;
-		carga_nivel();
+		carga_nivel();*/
 
 	
-/*	if(os_id!=1000) 
+	if(os_id!=1000) 
 		//editor_de_niveles();
 		if(argc>1 and argv[1]!="arcade") importar_paquete_offline(); end
 		menu();
@@ -1403,7 +1615,7 @@ Begin
 		paqueteniveles="nel";
 		jugadores=1;
 		carga_nivel();
-	end*/
+	end
 End
 
 Process cam_cooperativo();
@@ -1532,14 +1744,21 @@ begin
 		return;
 	end
 
-    if(arcade_mode) ancho_pantalla=1024; alto_pantalla=768; scale_resolution=0; return; end
+    if(arcade_mode) 
+		ancho_pantalla=1024; 
+		alto_pantalla=768; 
+		scale_resolution=08000600; 
+		return; 
+	end
 
-	if(mode_is_ok(1280,1024,16,MODE_WAITVSYNC+MODE_FULLSCREEN)) //Si soporta 1280x720 nativamente...
+	if(mode_is_ok(1280,1024,16,MODE_WAITVSYNC+MODE_FULLSCREEN)) //Si soporta 1280x1024 nativamente...
         ancho_pantalla=1280; alto_pantalla=1024; scale_resolution=12801024;
-    elseif(mode_is_ok(1280,720,16,MODE_WAITVSYNC+MODE_FULLSCREEN)) //Si soporta 1280x1024 nativamente...
+    elseif(mode_is_ok(1280,720,16,MODE_WAITVSYNC+MODE_FULLSCREEN)) //Si soporta 1280x720 nativamente...
         ancho_pantalla=1280; alto_pantalla=720; scale_resolution=12800720;
     elseif(mode_is_ok(1024,768,16,MODE_WAITVSYNC+MODE_FULLSCREEN)) //Si soporta 1024x768 nativamente...
         ancho_pantalla=1280; alto_pantalla=1024; scale_resolution=10240768;
+    elseif(mode_is_ok(1024,600,16,MODE_WAITVSYNC+MODE_FULLSCREEN)) //Si soporta 1024x768 nativamente...
+        ancho_pantalla=1280; alto_pantalla=1024; scale_resolution=10240600;
     elseif(mode_is_ok(800,600,16,MODE_WAITVSYNC+MODE_FULLSCREEN)) //Si soporta 800x600 nativamente...
         ancho_pantalla=1280; alto_pantalla=1024; scale_resolution=08000600;
     elseif(mode_is_ok(640,480,16,MODE_WAITVSYNC+MODE_FULLSCREEN)) //Si soporta 640x480 nativamente... lo escalamos desde 1280x1024.
@@ -1582,8 +1801,6 @@ End
 Process muelle(x,y,direccion,potencia); //direccion 1:arriba,2:der-arr,3:derecha,4:der-aba,5:abajo,6:izq-aba,7:izquierda,8:izq-arr
 Private
 	id_colision;
-	x_inc;
-	y_inc;
 	graph_base;
 Begin
 	file=fpg_tiles;
@@ -1595,34 +1812,14 @@ Begin
 	if(direccion==6 or direccion==7) angle=-180000; end
 	//if(direccion==1 or direccion==3 or direccion==5 or direccion==7) graph_base=11; else graph_base=15; end
 	if(direccion==1 or direccion==3 or direccion==5 or direccion==7) graph=10; else graph=20; end
-	if(direccion==1 or direccion==2 or direccion==8) y_inc=-potencia; end
-	if(direccion==2 or direccion==3 or direccion==4) x_inc=potencia/2; end
-	if(direccion==4 or direccion==5 or direccion==6) y_inc=potencia/2; end
-	if(direccion==6 or direccion==7 or direccion==8) x_inc=-potencia/2; end
-	if(direccion==3 or direccion==7) y_inc=0; end
-	if(direccion==1 or direccion==5) x_inc=0; end
-	//graph=graph_base;
-	//angle=(-45*(direccion-1)*1000)+90000;
-	//graph=10;
+	if(direccion==1 or direccion==2 or direccion==8) gravedad=-potencia; end
+	if(direccion==2 or direccion==3 or direccion==4) inercia=potencia/2; end
+	if(direccion==4 or direccion==5 or direccion==6) gravedad=potencia/2; end
+	if(direccion==6 or direccion==7 or direccion==8) inercia=-potencia/2; end
+	if(direccion==3 or direccion==7) gravedad=0; end
+	if(direccion==1 or direccion==5) inercia=0; end
+	
 	loop
-		if(id_colision=collision(type prota))
-			if(id_colision.accion!="muerte")
-				if(id_colision.gravedad==0)
-					id_colision.y--;
-				end
-				id_colision.gravedad=y_inc;
-				id_colision.inercia=x_inc;
-				id_colision.accion="lanzado";
-				sonido(18,id_colision.jugador);
-			end
-		end
-		if(id_colision=collision(type enemigo))
-			if(id_colision.accion!="muerte")
-				id_colision.gravedad=y_inc*1.1;
-				id_colision.inercia=x_inc*0.8;
-				id_colision.accion="lanzado";
-			end
-		end
 		frame;
 	end
 End
@@ -1704,6 +1901,7 @@ Private
 	vuelve;
 	bicho;
 Begin
+	priority=1;
 	ctype=c_scroll;
 	file=fpg_tiles;
 	graph=6;
@@ -1713,9 +1911,13 @@ Begin
 	x_destino=x_inicial;
 	y_destino=y_inicial;
 
+	if(velocidad>10) velocidad=10; end
+	
 	if(tipo==0 or tipo==2) vuelve=0; else vuelve=1; end
 	if(tipo==2 or tipo==3) bicho=1; graph=8; set_center(file,graph,46,10); else bicho=0; end
 	
+	if(bicho) mata=1; end
+
 	if(direccion==1 or direccion==2 or direccion==8) y_destino=y_inicial-distancia; end
 	if(direccion==2 or direccion==3 or direccion==4) x_destino=x_inicial+distancia; end
 	if(direccion==4 or direccion==5 or direccion==6) y_destino=y_inicial+distancia; end
@@ -1744,10 +1946,9 @@ Begin
 	if(direccion==8 or direccion==7 or direccion==6) inercia_x=-velocidad; end
 	if(direccion==8 or direccion==1 or direccion==2) inercia_y=-velocidad; end
 	if(direccion==4 or direccion==5 or direccion==6) inercia_y=velocidad; end
-
 	
 	loop
-	
+		while(ready==0) frame; end
 		//SINO VUELVE, DESAPARECE Y LE DEJAMOS LA INERCIA AL JUGADOR
 		if(!vuelve and lado==1)
 			grav=0;
@@ -1759,17 +1960,28 @@ Begin
 				grav++; 
 				if(slowmotion==0) frame; else frame(300); end
 			end
+			inercia=0;
+			gravedad=0;
+			mata=0;
 			x=x_inicial;
 			y=y_inicial;
 			from alpha=0 to 255 step 5; frame; end
 			lado=0;
+			if(bicho) mata=1; end
 		end
-		
+				
+		if(lado==0) 
+			inercia=inercia_x;
+			gravedad=inercia_y;
+		else
+			inercia=-inercia_x;
+			gravedad=-inercia_y;
+		end
+				
 		//MOVIMIENTO DE LA PLATAFORMA
 		if(lado==0)
-			x+=inercia_x;
-			y+=inercia_y;
-			inercia=inercia_x*3;
+			x+=inercia;
+			y+=gravedad;
 			if((x_destino>x_inicial and x>x_destino) or 
 			(x_destino<x_inicial and x<x_destino) or 
 			(y_destino>y_inicial and y>y_destino) or 
@@ -1779,9 +1991,8 @@ Begin
 				lado=1;
 			end
 		else
-			x-=inercia_x;
-			y-=inercia_y;
-			inercia=-inercia_x*3;
+			x+=inercia;
+			y+=gravedad;
 			if((x_destino>x_inicial and x<x_inicial) or 
 			(x_destino<x_inicial and x>x_inicial) or 
 			(y_destino>y_inicial and y<y_inicial) or 
@@ -1791,53 +2002,6 @@ Begin
 				lado=0;
 			end
 		end
-		///FIN MOVIMIENTO DE LA PLATAFORMA
-		
-		//GESTIÓN DE LA COLISIÓN CON EL JUGADOR
-		from jugador=1 to 4;
-			if(exists(p[jugador].identificador))
-				if(collision(p[jugador].identificador))
-					if(p[jugador].identificador.accion!="muerte")
-						if(p[jugador].identificador.y<y-20)
-							if(p[jugador].identificador.gravedad>0) p[jugador].identificador.gravedad=0; end
-							if(p[jugador].identificador.gravedad==0)
-								p[jugador].identificador.y=y-38;
-								p[jugador].identificador.saltando=0;								
-								if(((direccion==4 or direccion==5 or direccion==6) and lado==0) or (((direccion==1 or direccion==2 or direccion==8)) and lado==1)) //lado1
-									p[jugador].identificador.y+=velocidad;
-								end
-								if(lado==0) p[jugador].identificador.x+=inercia_x; else p[jugador].identificador.x-=inercia_x; end
-							end
-						else
-							if(bicho)
-								p[jugador].identificador.accion="muerte";
-							end
-						end
-					end
-				end
-			end
-		end
-
-		/*//GESTIÓN DE LA COLISIÓN LOS ENEMIGOS
-		from jugador=1 to 4;
-			if(exists(p[jugador].identificador))
-				if(collision(p[jugador].identificador))
-					if(p[jugador].identificador.y<y-20)
-						if(p[jugador].identificador.gravedad>0) p[jugador].identificador.gravedad=0; end
-						if(p[jugador].identificador.gravedad==0)
-							p[jugador].identificador.y=y-38;
-							p[jugador].identificador.saltando=0;
-							
-							if(((direccion==4 or direccion==5 or direccion==6) and lado==0) or (((direccion==1 or direccion==2 or direccion==8)) and lado==1)) //lado1
-								p[jugador].identificador.y+=velocidad;
-							end
-							if(lado==0) p[jugador].identificador.x+=inercia_x; else p[jugador].identificador.x-=inercia_x; end
-						end
-					end
-				end
-			end
-		end*/
-
 		
 		if(slowmotion==0) frame; else frame(300); end
 	end

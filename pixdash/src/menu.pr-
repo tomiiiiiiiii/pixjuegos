@@ -315,7 +315,7 @@ begin
 	write(fuente_peq,x,y+=60,3,"Pantalla completa");
 	write(fuente_peq,x,y+=60,3,"Sonido");
 	write(fuente_peq,x,y+=60,3,"Musica");
-	write(fuente_peq,x,y+=60,3,"Resolucion");
+	//write(fuente_peq,x,y+=60,3,"Resolucion");
 	
 	loop
 		if(p[0].botones[4])
@@ -348,7 +348,7 @@ begin
 						play_song(load_song("menu.ogg"),-1);
 					end
 				end
-				if(elecc==3)
+/*				if(elecc==3)
 					while(key(_enter)) frame; end
 					if(ops.resolucion==10240768) ops.resolucion=-1; end
 					if(ops.resolucion==06400480) ops.resolucion=10240768; end
@@ -356,7 +356,7 @@ begin
 					if(ops.resolucion==-1) ops.resolucion=0; end
 					scale_resolution=ops.resolucion;
 					set_mode(800,600,16,WAITVSYNC);
-				end
+				end*/
 			end
 			tecenter=1;
 		else
@@ -385,11 +385,11 @@ begin
 		else
 			tec2=0;
 		end
-		if(elecc==4)
+		if(elecc==3)
 			elecc=0;
 		end
 		if(elecc==-1)
-			elecc=3;
+			elecc=2;
 		end
 		frame;
 	end
