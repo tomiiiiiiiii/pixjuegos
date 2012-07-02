@@ -47,20 +47,14 @@ if(tipo==1)	//nivel 1
 	loop
 	if(pausa==0)
 	
-
-
 		x=512+get_distx(angulo,300);
-		y=400+get_disty(angulo2,200);
+		y=400+get_disty(angulo,200);
 		angulo+=1000;
-		angulo2+=1000;
-		
-		if(angulo2==pi/2)
-			mina(x,y+30,3);
-		end
-		if(angulo2==pi/4 or angulo2==3*pi/4)
+
+		if(angulo==120000 or angulo==60000)
 			mina(x,y+30,2);
 		end
-		if(angulo2 > 2*pi) angulo2-=2*pi; end
+		if(angulo > 2*pi) angulo-=2*pi; end
 		
 		id2=(collision(type disparo01));
 		if(id2) vida_boss--; signal(id2,s_kill); explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
@@ -156,25 +150,31 @@ if(tipo==2)	//nivel 2
 	end
 end
 if(tipo==3)	//nivel 3
-	graph=20; x=512; y=-100; vida_boss=1000; x1=x; angulo=pi/2;
+	graph=20; x=512; y=-100; vida_boss=1000; angulo=pi/2; angulo2=pi/2;
 	barra_boss();
-	id_boss02=boss(4);
-	id_boss03=boss(5);
+//	id_boss02=boss(4);
+//	id_boss03=boss(5);
+	id_boss02=escudo_asteroide1();
+	id_boss03=escudo_asteroide2();
+	id_boss04=escudo_asteroide3();
+	id_boss05=escudo_asteroide4();
 	while(y<200) y+=5; frame; end
 	loop
 	if(pausa==0)
-		x=x1+get_distx(angulo,300);
+		x=512+get_distx(angulo,300);
 		angulo+=600;
+		y=400+get_disty(angulo2,200);
+		angulo2+=1000;
 
-		if(!exists(id_boss02) and !exists(id_boss03))
+		if(!exists(id_boss04) and !exists(id_boss05))
 			patron++;
 		end
 
-		if(patron>25) 
-			disparo02(x-7,y,3*pi/2,5);
-			disparo02(x-2,y,3*pi/2,5);
-			disparo02(x+7,y,3*pi/2,5);
-			disparo02(x+2,y,3*pi/2,5);
+		if(patron>40) 
+			disparo02(x-18,y,3*pi/2,5);
+			disparo02(x-6,y,3*pi/2,5);
+			disparo02(x+6,y,3*pi/2,5);
+			disparo02(x+18,y,3*pi/2,5);
 			suena(s_misil);
 			patron=0;
 		end
@@ -808,4 +808,438 @@ if(tipo==13)	//nivel 5 motor
 	frame;
 	end
 end
+end
+
+
+//-----------------------------------------------------------------------
+// escudos arriba izquierda jefe nivel 3
+//-----------------------------------------------------------------------
+
+Process escudo_asteroide1();
+
+Private
+	vida;
+	angulo;
+	id2;
+	naves;
+
+Begin
+	file=fpg_bosses;
+	graph=21; vida=200; z-=51;
+	loop
+	if(pausa==0)
+		y=father.y-104;
+		x=father.x-85;
+		if(exists(id_nave[naves]))
+			angulo=get_angle(id_nave[naves]);
+		else
+			naves++;
+		end
+		
+		patron++;
+		if(patron>50)
+			patron=0;
+			disparo02(x,y,angulo+3000,2);
+			disparo02(x,y,angulo-3000,2);
+			suena(s_laser3);
+			naves++;
+		end
+		if(naves>4) naves=1; end
+		id2=(collision(type disparo01));
+		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,100); puntos+=1; end
+
+		id2=(collision(type laser));
+		if(id2) vida-=2; explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
+
+		from jugador=1 to 4;
+			if(exists(id_nave[jugador]))
+				if(collision(id_nave[jugador]))
+					if(id_nave[jugador].flags<>4)
+						explosion(id_nave[jugador].x,id_nave[jugador].y,3,200);
+					end
+					id_nave[jugador].estado=-1;
+				end
+			end
+		end
+
+		if(vida<1)
+			explosion(x,y,3,100);
+			if(opciones.particulas==1)
+				explotalo(x,y,z,alpha,angle,file,graph,40);
+			end
+			from jugador=1 to jugadores;
+				if(exists(id_nave[jugador]))
+					puntos[jugador]+=500;
+				end
+			end
+			break;
+		end
+		if(vida_boss<250)
+			explosion(x,y,3,100);
+			if(opciones.particulas==1)
+				explotalo(x,y,z,alpha,angle,file,graph,40);
+			end
+			break;
+		end
+	end
+	frame;
+	end
+end
+
+//-----------------------------------------------------------------------
+// escudos arriba derecha jefe nivel 3
+//-----------------------------------------------------------------------
+
+Process escudo_asteroide2();
+
+Private
+	vida;
+	angulo;
+	id2;
+	naves;
+
+Begin
+	file=fpg_bosses;
+	graph=22; vida=200; z-=51;
+	loop
+	if(pausa==0)
+		y=father.y-104;
+		x=father.x+95;
+		
+		//angulo=get_angle(id_nave[1]);
+		if(exists(id_nave[naves]))
+			angulo=get_angle(id_nave[naves]);
+		else
+			naves++;
+		end
+		patron++;
+		if(patron>50)
+			patron=0;
+			disparo02(x,y,angulo+3000,2);
+			disparo02(x,y,angulo-3000,2);
+			suena(s_laser3);
+			naves++;
+		end
+		if(naves>4) naves=1; end
+
+		id2=(collision(type disparo01));
+		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,100); puntos+=1; end
+
+		id2=(collision(type laser));
+		if(id2) vida-=2; explosion(id2.x,id2.y,2,100); puntos+=1; end
+
+		from jugador=1 to 4;
+			if(exists(id_nave[jugador]))
+				if(collision(id_nave[jugador]))
+					if(id_nave[jugador].flags<>4)
+						explosion(id_nave[jugador].x,id_nave[jugador].y,3,200);
+					end
+					id_nave[jugador].estado=-1;
+				end
+			end
+		end
+
+		if(vida<1)
+			explosion(x,y,3,100);
+			if(opciones.particulas==1)
+				explotalo(x,y,z,alpha,angle,file,graph,40);
+			end
+			from jugador=1 to jugadores;
+				if(exists(id_nave[jugador]))
+					puntos[jugador]+=500;
+				end
+			end
+			break;
+		end
+		if(vida_boss<250)
+			explosion(x,y,3,100);
+			if(opciones.particulas==1)
+				explotalo(x,y,z,alpha,angle,file,graph,40);
+			end
+			break;
+		end
+	end
+	frame;
+	end
+end
+
+//-----------------------------------------------------------------------
+// escudos abajo izquierda jefe nivel 3
+//-----------------------------------------------------------------------
+
+Process escudo_asteroide3();
+
+Private
+	vida;
+	angulo;
+	id2;
+	naves;
+
+Begin
+	file=fpg_bosses;
+	graph=23; vida=200; z-=51;
+	loop
+	if(pausa==0)
+		y=father.y+104;
+		x=father.x-90;
+		
+		//angulo=get_angle(id_nave[1]);
+		if(exists(id_nave[naves]))
+			angulo=get_angle(id_nave[naves]);
+		else
+			naves++;
+		end
+		patron++;
+		if(patron>50)
+			patron=0;
+			disparo02(x,y,angulo+3000,2);
+			disparo02(x,y,angulo-3000,2);
+			suena(s_laser3);
+			naves++;
+		end
+		if(naves>4) naves=1; end
+
+		id2=(collision(type disparo01));
+		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,100); puntos+=1; end
+
+		id2=(collision(type laser));
+		if(id2) vida-=2; explosion(id2.x,id2.y,2,100); puntos+=1; end
+
+		from jugador=1 to 4;
+			if(exists(id_nave[jugador]))
+				if(collision(id_nave[jugador]))
+					if(id_nave[jugador].flags<>4)
+						explosion(id_nave[jugador].x,id_nave[jugador].y,3,200);
+					end
+					id_nave[jugador].estado=-1;
+				end
+			end
+		end
+
+		if(vida<1)
+			explosion(x,y,3,100);
+			if(opciones.particulas==1)
+				explotalo(x,y,z,alpha,angle,file,graph,40);
+			end
+			from jugador=1 to jugadores;
+				if(exists(id_nave[jugador]))
+					puntos[jugador]+=500;
+				end
+			end
+			break;
+		end
+		if(vida_boss<250)
+			explosion(x,y,3,100);
+			if(opciones.particulas==1)
+				explotalo(x,y,z,alpha,angle,file,graph,40);
+			end
+			break;
+		end
+	end
+	frame;
+	end
+end
+
+//-----------------------------------------------------------------------
+// escudos abajo derecha jefe nivel 3
+//-----------------------------------------------------------------------
+
+Process escudo_asteroide4();
+
+Private
+	vida;
+	angulo;
+	id2;
+	naves;
+
+Begin
+	file=fpg_bosses;
+	graph=24; vida=200; z-=51;
+	loop
+	if(pausa==0)
+		y=father.y+104;
+		x=father.x+90;
+		
+		//angulo=get_angle(id_nave[1]);
+		if(exists(id_nave[naves]))
+			angulo=get_angle(id_nave[naves]);
+		else
+			naves++;
+		end
+		patron++;
+		if(patron>50)
+			patron=0;
+			disparo02(x,y,angulo+3000,2);
+			disparo02(x,y,angulo-3000,2);
+			suena(s_laser3);
+			naves++;
+		end
+		if(naves>4) naves=1; end
+
+		id2=(collision(type disparo01));
+		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,100); puntos+=1; end
+
+		id2=(collision(type laser));
+		if(id2) vida-=2; explosion(id2.x,id2.y,2,100); puntos+=1; end
+
+		from jugador=1 to 4;
+			if(exists(id_nave[jugador]))
+				if(collision(id_nave[jugador]))
+					if(id_nave[jugador].flags<>4)
+						explosion(id_nave[jugador].x,id_nave[jugador].y,3,200);
+					end
+					id_nave[jugador].estado=-1;
+				end
+			end
+		end
+
+		if(vida<1)
+			explosion(x,y,3,100);
+			if(opciones.particulas==1)
+				explotalo(x,y,z,alpha,angle,file,graph,40);
+			end
+			from jugador=1 to jugadores;
+				if(exists(id_nave[jugador]))
+					puntos[jugador]+=500;
+				end
+			end
+			break;
+		end
+		if(vida_boss<250)
+			explosion(x,y,3,100);
+			if(opciones.particulas==1)
+				explotalo(x,y,z,alpha,angle,file,graph,40);
+			end
+			break;
+		end
+	end
+	frame;
+	end
+end
+
+//-----------------------------------------------------------------------
+// ala derecha jefe nivel 4
+//-----------------------------------------------------------------------
+
+Process ala_derecha();
+
+Private
+	vida;
+	angulo;
+	id2;
+
+Begin
+	file=fpg_bosses;
+	graph=31; vida=500; z=father.z+1; priority=-2;
+	loop
+	if(pausa==0)
+		y=father.y;
+		x=father.x;
+	
+		patron++;
+		if(patron>40)
+			patron=0;
+			mina(x+200,y+50,1);
+			suena(s_misil);
+		end
+
+		id2=(collision(type disparo01));
+		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,100); puntos+=1; end
+		id2=(collision(type laser));
+		if(id2) vida-=2; explosion(id2.x,id2.y,2,100); puntos+=1; end
+		
+		from jugador=1 to 4;
+			if(exists(id_nave[jugador]))
+				if(collision(id_nave[jugador]))
+					if(id_nave[jugador].flags<>4)
+						explosion(id_nave[jugador].x,id_nave[jugador].y,3,200);
+					end
+					id_nave[jugador].estado=-1;
+				end
+			end
+		end
+
+		if(id2) vida-=2; explosion(id2.x,id2.y,2,100); end
+		if(vida<1)
+			explosion(x+150,y,3,100);
+			puntos+=500;
+			if(opciones.particulas==1)
+				explotalo(x,y,z,alpha,angle,file,graph,40);
+			end
+			break;
+		end
+		if(vida_boss<500)
+			explosion(x+150,y,3,100);
+			if(opciones.particulas==1)
+				explotalo(x,y,z,alpha,angle,file,graph,40);
+			end
+			break;
+		end
+	end
+	frame;
+	end
+end
+
+
+//-----------------------------------------------------------------------
+// ala izquierda jefe nivel 4
+//-----------------------------------------------------------------------
+
+Process ala_izquierda();
+
+Private
+	vida;
+	angulo;
+	id2;
+
+Begin
+	file=fpg_bosses;
+	graph=32; vida=500; z=father.z+1; priority=-2;
+	loop
+	if(pausa==0)
+
+		y=father.y;
+		x=father.x;
+
+		patron++;
+		if(patron>40)
+			patron=0;
+			mina(x-200,y+50,1);
+			suena(s_misil);
+		end
+
+		id2=(collision(type disparo01));
+		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,100); puntos+=1; end
+		id2=(collision(type laser));
+		if(id2) vida-=2; explosion(id2.x,id2.y,2,100); puntos+=1; end
+
+		from jugador=1 to 4;
+			if(exists(id_nave[jugador]))
+				if(collision(id_nave[jugador]))
+					if(id_nave[jugador].flags<>4)
+						explosion(id_nave[jugador].x,id_nave[jugador].y,3,200);
+					end
+					id_nave[jugador].estado=-1;
+				end
+			end
+		end
+
+		if(vida<1)
+			explosion(x-150,y,3,100);
+			puntos+=500;
+			if(opciones.particulas==1)
+				explotalo(x,y,z,alpha,angle,file,graph,40);
+			end
+			break;
+		end
+		if(vida_boss<500)
+			explosion(x-150,y,3,100);
+			if(opciones.particulas==1)
+				explotalo(x,y,z,alpha,angle,file,graph,40);
+			end
+			break;
+		end
+	end
+	frame;
+	end
 end

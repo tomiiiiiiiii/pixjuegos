@@ -252,7 +252,7 @@ BEGIN
 	
 	//jugadores=2;
 	historia(1);
-	//fase(1);
+	//fase(6);
 	frame;
 
 end
