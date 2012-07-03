@@ -119,7 +119,7 @@ Begin
 	fpg_objetos=load_fpg("objetos.fpg");
 	fpg_jefe=load_fpg("jefe.fpg");
 	carga_sonidos();
-	set_fps(60,0);
+	set_fps(60,3);
 	fade(0,0,0,8);
 	frame;
 	fuente=load_fnt("fuente.fnt");
@@ -448,7 +448,7 @@ Begin
 	end
 	from alpha=255 to 0 step -15; frame; end
 	if(!jodido)
-		set_fps(60,0);
+		set_fps(60,3);
 		fade(100,100,100,4);
 	end
 	if(enemigo==2) return; end
@@ -457,7 +457,7 @@ Begin
 		premio(premios_salas[id_mazmorra-1][1],premios_salas[id_mazmorra-1][2]);
 	else
 		premio(2,100);
-		if(victorias==7)
+		if(victorias=>7)
 			puerta(9);
 		end
 	end
@@ -931,7 +931,7 @@ Begin
 			set_fps(15,0);
 			graph=49; 
 			from alpha=255 to 0 step -5; frame; end 
-			set_fps(60,0);
+			set_fps(60,3);
 			fade_music_off(100); 
 			fade(0,0,0,16); 
 			while(fading) frame; end 
@@ -1521,7 +1521,7 @@ Begin
 	fade(200,200,200,1);
 	while(fading) frame; end
 	frame(3000);
-	set_fps(60,0);
+	set_fps(60,3);
 	fade(0,0,0,2);
 	timer[0]=0;
 	while(timer[0]<500)
