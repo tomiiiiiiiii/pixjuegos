@@ -2,6 +2,7 @@
 mkdir fpg
 ECHO CREANDO FPGS...
 cd fpg-sources
-..\..\bennu-win\bgdc -Ca pxlfpg.prg
-..\..\bennu-win\bgdi pxlfpg quizz
+copy ..\..\utils\pxlfpg.dcb . /y
+..\..\bennu-win\bgdi pxlfpg 32 quizz
+del /f pxlfpg.dcb
 pause

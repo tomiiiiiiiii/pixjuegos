@@ -5,7 +5,7 @@ echo Compilando...
 move pixbros.dcb ..
 cd ..
 echo Compilamos FPGs en 16 bits
-start /wait compilarfpgs-16bit.bat
+start /wait compilarfpgs.bat 16
 echo exportando...
 mkdir export-caanoo
 mkdir export-caanoo\fpg

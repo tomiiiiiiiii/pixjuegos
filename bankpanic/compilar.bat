@@ -3,8 +3,9 @@ ECHO CREANDO FPGS...
 rd /s /q fpg
 mkdir fpg
 cd fpg-sources
-..\..\bennu-win\bgdc pxlfpg.prg
-..\..\bennu-win\bgdi pxlfpg bp
+copy ..\..\utils\pxlfpg.dcb . /y
+..\..\bennu-win\bgdi pxlfpg 32 bp
+del /f pxlfpg.dcb
 cd ..
 cd src
 echo Compilando...

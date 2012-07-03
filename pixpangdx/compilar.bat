@@ -4,8 +4,8 @@ rd /s /q fpg
 mkdir fpg
 mkdir fpg\personajes
 cd fpg-sources
-..\..\bennu-win\bgdc pxlfpg.prg
-..\..\bennu-win\bgdi pxlfpg pixpang
+copy ..\..\utils\pxlfpg.dcb . /y
+..\..\bennu-win\bgdi pxlfpg 32 pixpang
 cd personajes
 ..\..\..\bennu-win\bgdc pxlfpg.prg
 for /D %%i in (*) do ..\..\..\bennu-win\bgdi pxlfpg %%i

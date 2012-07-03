@@ -1,5 +1,6 @@
 @echo off
 ECHO CREANDO FPGS...
 cd fpg-sources
-..\..\bennu-win\bgdc pxlfpg.prg
-..\..\bennu-win\bgdi pxlfpg armas general jefe objetos personaje
+copy ..\..\utils\pxlfpg.dcb . /y
+..\..\bennu-win\bgdi pxlfpg 32 armas general jefe objetos personaje
+del /f pxlfpg.dcb

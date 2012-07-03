@@ -2,6 +2,7 @@
 mkdir fpg
 ECHO CREANDO FPGS...
 cd fpg-sources
-..\..\bennu-win\bgdc -Ca pxlfpg.prg
-..\..\bennu-win\bgdi pxlfpg enemigos menu powerups pix pux pax pex moneda tiles premios general
+copy ..\..\utils\pxlfpg.dcb . /y
+..\..\bennu-win\bgdi pxlfpg 16 enemigos menu powerups pix pux pax pex moneda tiles premios general
+del /f pxlfpg.dcb
 pause

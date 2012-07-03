@@ -1,5 +1,6 @@
 @echo off
 ECHO CREANDO FPGS...
 cd fpg-sources
-..\..\bennu-win\bgdc -Ca pxlfpg.prg
-..\..\bennu-win\bgdi pxlfpg pixfrogger
+copy /y ..\..\utils\pxlfpg.dcb .
+..\..\bennu-win\bgdi pxlfpg 32 pixfrogger
+del /f pxlfpg.dcb

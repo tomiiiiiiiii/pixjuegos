@@ -1,8 +1,15 @@
+import "mod_screen";
+import "mod_video";
+import "mod_map";
+import "mod_dir";
+import "mod_file";
+import "mod_string";
+import "mod_grproc";
 import "mod_say";
 
 Begin
-	set_mode(100,100,16);
-	from x=1 to argc;
+	set_mode(100,100,argv[1]);
+	from x=2 to argc;
 		procesa(argv[x]);
 		say(argv[x]);
 	end
