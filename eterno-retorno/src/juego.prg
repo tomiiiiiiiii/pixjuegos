@@ -59,6 +59,17 @@ Const
 	CORONA=100;
 		
 Global
+	struct p[8];
+		botones[7];
+		id;
+		control;
+		armas[2];
+		objetos[1];
+	end
+	posibles_jugadores;
+	joysticks[4];
+	njoys;
+
 	jodido;
 	victorias;
 	id_mazmorra;
@@ -70,17 +81,16 @@ Global
 	fpg_personaje;
 	fpg_jefe;
 	fpg_objetos;
-	armas[2];
-	objetos[1];
 	premios_salas[6][2]; //num sala; cogido, tipo e id
 	jefes_salas[6][2]; //arma1, arma2, objeto
 	jefes_muertos[10];
-	id_personaje;
 	sonidos[100];
 	primera_vez=1;
 	vida[100];
 	cancion;
 	fuente;
+	arcade_mode;
+	jugadores=1;
 Local
 	ataque;
 	tipo_ataque;
@@ -90,13 +100,17 @@ Local
 	direccion;
 	accion;
 	jugador;
-Private
 	i;
+	j;
 Begin
+	if(argc>0) if(argv[1]=="arcade") arcade_mode=1; end end
 	cancion=load_song("isaac.ogg");
 	play_song(cancion,-1);
 	full_screen=true;
+	if(arcade_mode) full_screen=true; scale_resolution=08000600; end
 	set_mode(1280,720,32);
+	
+	configurar_controles();
 	rand_seed(time());
 	fpg_general=load_fpg("general.fpg");
 	fpg_armas=load_fpg("armas.fpg");
@@ -111,19 +125,20 @@ Begin
 	fuente=load_fnt("fuente.fnt");
 	from jugador=0 to 100;
 		vida[jugador]=30;
+		if(jugadores==2) vida[jugador]=60; end
 	end
 	put_screen(fpg_general,11);
-	armas[1]=1;
+	p[1].armas[1]=1;
+	p[2].armas[1]=1;
 	
 	rolear_premios();
 	rolear_jefes();
 	vida[1]=50;
+	vida[2]=50;
 	mazmorra(0);
 End
 
 Function carga_sonidos();
-Private
-	i;
 Begin
 	from i=1 to 20;
 		sonidos[i]=load_wav(i+".wav");
@@ -136,8 +151,6 @@ Begin
 End
 
 Function rolear_jefes();
-Private
-	i;
 Begin
 	from i=0 to 6;
 		jefes_salas[i][0]=1;
@@ -148,10 +161,8 @@ End
 
 Function rolear_premios();
 Private
-	int i;
 	int num_armas;
 	int num_objetos;
-	int j;
 Begin
 	repeat
 		num_armas=0;
@@ -184,7 +195,7 @@ Begin
 	until(num_armas>0 and num_objetos>0)
 End
 
-Process jefe(jugador);
+Process jefe(jugador,enemigo);
 Private
 	id_arma;
 	anterior_id_arma;
@@ -193,13 +204,15 @@ Private
 	retraso;
 	id_colision;
 	angulo;
+	persigue=1;
 Begin
+	persigue=enemigo;
 	file=fpg_jefe;
 	graph=7;
 	x=640;
 	y=200;
 	z=-10;
-	ctype=id_personaje.ctype;
+	ctype=p[1].id.ctype;
 	if(jodido)
 		switch(jugador-10)
 			case 1: x=80; y=600; end
@@ -285,9 +298,9 @@ Begin
 
 		if(accion!=HERIDO)
 			if(id_colision=collision(type arma))
-				//if(id_colision.jugador!=jugador)
-				if(id_colision.jugador==1)
-					accion=HERIDO; 
+				if(id_colision.jugador==1 or id_colision.jugador==2)
+					persigue=id_colision.jugador;
+					accion=HERIDO;
 					id_colision.accion=-1;
 					if((jefes_salas[jugador-10][2]==PENDIENTES_FUEGO and id_colision.tipo_ataque==FUEGO) or
 						(jefes_salas[jugador-10][2]==COLLAR_HIELO and id_colision.tipo_ataque==HIELO) or
@@ -320,11 +333,13 @@ Begin
 				end
 			end
 		end
-		if(id_personaje.x<x and accion!=HERIDO)
+		if(vida[1]=<0 and jugadores==2) persigue=2; end
+		if(vida[2]=<0 or jugadores==1) persigue=1; end
+		if(p[persigue].id.x<x and accion!=HERIDO)
 			flags=1;
 			direccion=3;
 			x_inc-=3;
-		elseif(id_personaje.x>x and accion!=HERIDO)
+		elseif(p[persigue].id.x>x and accion!=HERIDO)
 			flags=0;
 			direccion=1;
 			flags=0;
@@ -338,10 +353,10 @@ Begin
 				if(x_inc>0) x_inc=0; end
 			end
 		end
-		if(id_personaje.y<y and accion!=HERIDO)
+		if(p[persigue].id.y<y and accion!=HERIDO)
 			direccion=0;
 			y_inc-=3;
-		elseif(id_personaje.y>y and accion!=HERIDO)
+		elseif(p[persigue].id.y>y and accion!=HERIDO)
 			direccion=2;
 			y_inc+=3; 
 		else
@@ -353,7 +368,7 @@ Begin
 				if(y_inc>0) y_inc=0; end
 			end
 		end	
-		angulo=get_angle(id_personaje);
+		angulo=get_angle(p[persigue].id);
 		if(angulo<45000) direccion=1;
 		elseif(angulo<135000) direccion=0;
 		elseif(angulo<225000) direccion=3;
@@ -377,7 +392,7 @@ Begin
 			if(y_inc>6) y_inc=6; end
 			if(y_inc<-6) y_inc=-6; end
 		end
-		if(id_personaje.accion==HERIDO)
+		if(p[persigue].id.accion==HERIDO)
 			x_inc=-x_inc;
 			y_inc=-y_inc;
 			if(x>900) x_inc=-8; end
@@ -417,9 +432,12 @@ Begin
 		signal(type arma, s_kill);
 	end
 	timer[0]=0;
-	//vida[1]+=10;
 	if(!jodido)
-		while(timer<100) vida[1]++; frame(1000); end
+		while(timer<100) 
+			vida[1]++;
+			vida[2]++;
+			frame(1000); 
+		end
 	end
 	graph=49;
 	signal(id_cuerpo,s_kill);
@@ -433,7 +451,7 @@ Begin
 		set_fps(60,0);
 		fade(100,100,100,4);
 	end
-	
+	if(enemigo==2) return; end
 	jefes_muertos[id_mazmorra-1]=1;
 	if(jugador!=10)
 		premio(premios_salas[id_mazmorra-1][1],premios_salas[id_mazmorra-1][2]);
@@ -444,7 +462,7 @@ Begin
 		end
 	end
 
-	id_personaje.accion=QUIETO;
+	p[persigue].id.accion=QUIETO;
 	frame;
 End
 
@@ -492,9 +510,9 @@ Begin
 			x=father.x;
 			y=father.y-30;
 		else
-			if(!exists(id_personaje)) break; end
-			x=id_personaje.x;
-			y=id_personaje.y-30;
+			if(!exists(aquien)) break; end
+			x=aquien.x;
+			y=aquien.y-30;
 		end
 		frame;
 	end
@@ -513,7 +531,7 @@ Process mazmorra(tipo);
 	// 6: subjefe 5 - centro der
 	// 7: subjefe 6 - abajo  der
 Private
-	i;
+	posicion;
 Begin
 	if(tipo==-1) 
 		jodido=1; 
@@ -521,8 +539,10 @@ Begin
 		put_screen(fpg_general,13);
 		from i=0 to 99;
 			vida[i]=30;
+			if(jugadores==2) vida[jugador]=60; end
 		end
-		vida[1]=200; 
+		vida[1]=200;
+		vida[2]=200;
 	end
 	delete_text(all_text);
 	frame;
@@ -547,49 +567,66 @@ Begin
 		else
 			start_scroll(0,0,3,0,0,0);
 		end
-		scroll.camera=personaje(0);
+		posicion=0;
+		scroll.camera=personaje(posicion,1);
+		if(jugadores==2) personaje(posicion,2); end
 		if(primera_vez) primera_vez=0; titulo(); end
 		from i=1 to 6; puerta(i); end
-		if(armas[2]!=0 and objetos[1]!=0)
+		if((p[1].armas[2]!=0 or p[2].armas[2]!=0) and (p[1].objetos[1]!=0 or p[2].objetos[1]!=0))
 			puerta(10);
 		end
 		if(victorias==7 and anterior_mazmorra==1)
 			puerta(11);
 		end
 	elseif(tipo==1)
-		personaje(3);
-		//puerta(9);
+		posicion=3;
+		personaje(posicion,1);
+		if(jugadores==2) personaje(posicion,2); end
 	elseif(tipo>1 and tipo<5)
-		personaje(1);
+		posicion=1;
+		personaje(posicion,1);
+		if(jugadores==2) personaje(posicion,2); end
 		puerta(7);
 	else
-		personaje(2);
+		posicion=2;
+		personaje(posicion,1);
+		if(jugadores==2) personaje(posicion,2); end
 		puerta(8);
 	end
 	if(tipo!=0)
-		if(!jefes_muertos[id_mazmorra-1])
-			jefe(id_mazmorra-1+10);
+		if(jefes_muertos[id_mazmorra-1]==0)
+			jefe(id_mazmorra-1+10,1);
+			if(jugadores==2) jefe(id_mazmorra-1+10,2); end
+		elseif(jefes_muertos[id_mazmorra-1]==1)
+			premio(premios_salas[id_mazmorra-1][1],premios_salas[id_mazmorra-1][2]);
 		end
 		if(jodido)
 			from i=1 to 6;
-				jefe(i+10);
+				if(jugadores==1)
+					jefe(i+10,1);
+				else
+					jefe(i+10,rand(1,2));
+				end
 			end
 		end
 	end
-	pon_hud();
+	pon_hud(1);
+	if(jugadores==2) pon_hud(2); end
+	if(jugadores==1 and posibles_jugadores>1) controlador(2); end
 	loop
-		if(key(_esc)) exit(); end
+		if(jugadores==1 and p[2].botones[4] and p[2].botones[5]) jugadores=2; personaje(posicion,2); end
 		if(jodido and !exists(type jefe))
 			victorias++;
 			from i=0 to 6;
-				vida[i+10]=30;
-				jefe(i+10);
+				if(jugadores==1)
+					vida[i+10]=30;
+					jefe(i+10,1);
+				else
+					vida[i+10]=60;
+					jefe(i+10,rand(1,2));
+				end
 			end
 		end
-/*		if(key(_k) and armas[2]>1) while(key(_k)) frame; end armas[2]--; end
-		if(key(_l) and armas[2]<28) while(key(_l)) frame; end armas[2]++; end
-		if(key(_n) and objetos[1]>1) while(key(_n)) frame; end objetos[1]--; end
-		if(key(_m) and objetos[1]<11) while(key(_m)) frame; end objetos[1]++; end*/
 		frame;
 	end
 End
@@ -608,7 +645,7 @@ Begin
 	from alpha=255 to 0 step -2; frame; end
 End
 
-Process personaje(posicion);
+Process personaje(posicion,jugador);
 Private
 	pulsando;
 	id_colision;
@@ -619,8 +656,8 @@ Begin
 	//1. derecha mazmorra subjefe
 	//2. izquierda mazmorra subjefe
 	//3. abajo mazmorra jefe
-	id_personaje=id;
-	jugador=1;
+	p[jugador].id=id;
+	controlador(jugador);
 	file=fpg_personaje;
 	graph=7;
 	priority=1;
@@ -660,8 +697,9 @@ Begin
 			direccion=0;
 		end
 	end
-	if(objetos[1]==CONTRATO) ayudante(); end
+	if(p[jugador].objetos[1]==CONTRATO) ayudante(); end
 	loop
+		if(p[jugador].botones[7]) exit(); end
 		if(accion==QUIETO)
 			anim=0;
 			switch(direccion)
@@ -709,12 +747,12 @@ Begin
 				case 2: graph=43; y_inc=-(30-anim); end
 				case 3: graph=40; x_inc=30-anim; flags=1;end
 			end
-			if(objetos[1]==BOTAS_HIERRO)
+			if(p[jugador].objetos[1]==BOTAS_HIERRO)
 				x_inc/=2;
 				y_inc/=2;
 			end
 			if(anim<30)
-				if(objetos[1]==BOTAS_HIERRO) 
+				if(p[jugador].objetos[1]==BOTAS_HIERRO) 
 					anim+=3;
 				else
 					anim++;
@@ -732,16 +770,16 @@ Begin
 				vida[jugador]-=1;
 			end
 			if(id_colision=collision(type arma))
-				if(id_colision.jugador!=1)
+				if(id_colision.jugador!=jugador)
 					accion=HERIDO; 
-					if((objetos[1]==PENDIENTES_FUEGO and id_colision.tipo_ataque==FUEGO) or
-						(objetos[1]==COLLAR_HIELO and id_colision.tipo_ataque==HIELO) or
-						(objetos[1]==BRAZALETES_RAYO and id_colision.tipo_ataque==RAYO) or
-						(objetos[1]==ARMADURA_GELATINA and id_colision.tipo_ataque==PUNZANTE) or
-						(objetos[1]==ARMADURA_MALLA and id_colision.tipo_ataque==CORTANTE) or
-						(objetos[1]==ARMADURA_PESADA and id_colision.tipo_ataque==IMPACTO))
+					if((p[jugador].objetos[1]==PENDIENTES_FUEGO and id_colision.tipo_ataque==FUEGO) or
+						(p[jugador].objetos[1]==COLLAR_HIELO and id_colision.tipo_ataque==HIELO) or
+						(p[jugador].objetos[1]==BRAZALETES_RAYO and id_colision.tipo_ataque==RAYO) or
+						(p[jugador].objetos[1]==ARMADURA_GELATINA and id_colision.tipo_ataque==PUNZANTE) or
+						(p[jugador].objetos[1]==ARMADURA_MALLA and id_colision.tipo_ataque==CORTANTE) or
+						(p[jugador].objetos[1]==ARMADURA_PESADA and id_colision.tipo_ataque==IMPACTO))
 						//NO FOUL?
-					elseif(objetos[1]==CASCO_REFORZADO)
+					elseif(p[jugador].objetos[1]==CASCO_REFORZADO)
 						vida[jugador]-=id_colision.ataque-1;
 					else
 						vida[jugador]-=id_colision.ataque;
@@ -757,9 +795,9 @@ Begin
 			end
 			if(id_colision=collision(type explosion))
 				accion=HERIDO;
-				if(objetos[1]==ARMADURA_PESADA)
+				if(p[jugador].objetos[1]==ARMADURA_PESADA)
 					//NO FOUL?
-				elseif(objetos[1]==CASCO_REFORZADO)
+				elseif(p[jugador].objetos[1]==CASCO_REFORZADO)
 					vida[jugador]-=id_colision.ataque-1;
 				else
 					vida[jugador]-=id_colision.ataque;
@@ -767,11 +805,11 @@ Begin
 
 			end
 		end
-		if((key(_left) or key(_a)) and accion!=HERIDO)
+		if(p[jugador].botones[0] and accion!=HERIDO)
 			flags=1;
 			direccion=3;
 			x_inc-=3;
-		elseif((key(_right) or key(_d)) and accion!=HERIDO)
+		elseif(p[jugador].botones[1] and accion!=HERIDO)
 			flags=0;
 			direccion=1;
 			flags=0;
@@ -785,10 +823,10 @@ Begin
 				if(x_inc>0) x_inc=0; end
 			end
 		end
-		if((key(_up) or key(_w)) and accion!=HERIDO)
+		if(p[jugador].botones[2] and accion!=HERIDO)
 			direccion=0;
 			y_inc-=3;
-		elseif((key(_down) or key(_s)) and accion!=HERIDO)
+		elseif(p[jugador].botones[3] and accion!=HERIDO)
 			direccion=2;
 			y_inc+=3; 
 		else
@@ -800,27 +838,26 @@ Begin
 				if(y_inc>0) y_inc=0; end
 			end
 		end	
-		if(((key(_z) or mouse.left) and accion!=HERIDO and (pulsando==0 or armas[1]==METRALLETA)) and retraso==10)
+		if((p[jugador].botones[4] and accion!=HERIDO and (pulsando==0 or p[jugador].armas[1]==METRALLETA)) and retraso==10)
 			retraso=0;
 			pulsando=1;
-			arma(armas[1]);
+			arma(p[jugador].armas[1]);
 		end
-		if(((key(_x) or mouse.right) and accion!=HERIDO and (pulsando==0 or armas[2]==METRALLETA)) and retraso==10)
+		if((p[jugador].botones[5] and accion!=HERIDO and (pulsando==0 or p[jugador].armas[2]==METRALLETA)) and retraso==10)
 			retraso=0;
 			pulsando=1;
-			arma(armas[2]); 
+			arma(p[jugador].armas[2]); 
 		end
 		if(!key(_x) and !key(_z) and !mouse.left and !mouse.right)
 			pulsando=0;
 		end
-		//if(key(_enter)) while(key(_enter)) frame; end mazmorra(0); end
 		if(accion!=HERIDO)
 			if(x_inc>8) x_inc=8; end
 			if(x_inc<-8) x_inc=-8; end
 			if(y_inc>8) y_inc=8; end
 			if(y_inc<-8) y_inc=-8; end
 		end
-		if(objetos[1]==BOTAS_ALADAS and accion!=HERIDO)
+		if(p[jugador].objetos[1]==BOTAS_ALADAS and accion!=HERIDO)
 			nube();
 			x_inc*=2;
 			y_inc*=2;
@@ -832,7 +869,7 @@ Begin
 			x+=x_inc;
 			y+=y_inc;
 		end
-		if(objetos[1]==BOTAS_ALADAS and accion!=HERIDO)
+		if(p[jugador].objetos[1]==BOTAS_ALADAS and accion!=HERIDO)
 			x_inc/=2;
 			y_inc/=2;
 		end
@@ -883,7 +920,13 @@ Begin
 			end
 			if(y>600) if(accion==HERIDO) direccion=0; end y=600; end
 		end
-		if(vida[jugador]=<0) 
+		if(vida[jugador]=<0)
+			if(jugadores==2)
+				if(vida[1]>0 or vida[2]>0)
+					graph=49;
+					while(1) frame; end 
+				end
+			end
 			fade(50,50,50,4);
 			set_fps(15,0);
 			graph=49; 
@@ -901,7 +944,12 @@ Begin
 	while(timer[0]<300) frame; end
 	if(jodido) fin(); return; end
 	play_song(cancion,-1);
-	armas[1]=1; armas[2]=0; objetos[1]=0;
+	p[1].armas[1]=1; 
+	p[1].armas[2]=0; 
+	p[1].objetos[1]=0;
+	p[2].armas[1]=1; 
+	p[2].armas[2]=0; 
+	p[2].objetos[1]=0;
 	rolear_premios();
 	from jugador=0 to 10;
 		jefes_muertos[jugador]=0;
@@ -910,6 +958,7 @@ Begin
 		vida[jugador]=30;
 	end
 	vida[1]=50;
+	vida[2]=50;
 	id_mazmorra=0;
 	mazmorra(0);
 End
@@ -937,7 +986,6 @@ Begin
 	jugador=father.jugador;
 	while(exists(father))
 		ctype=father.ctype;
-		//if(father.accion==QUIETO or father.accion==OBJETO or father.accion==HERIDO or father.accion==ATACANDO)
 		if(father.accion==QUIETO)
 			graph=father.graph+1;
 			anim++;
@@ -980,7 +1028,6 @@ Begin
 	while(exists(father))
 		ctype=father.ctype;
 		if(father.accion==QUIETO or father.accion==OBJETO or father.accion==HERIDO or father.accion==ATACANDO)
-		//if(father.x_inc==0 and father.y_inc==0)
 			anim=0;
 			graph=father.graph+2;
 		else
@@ -1004,12 +1051,13 @@ Begin
 	end
 End
 
-Process pon_hud();
+Process pon_hud(jugador);
 Begin
 	hud_arma(1);
 	hud_arma(2);
 	hud_arma(3);
 	vida_personaje(1);
+	if(jugadores==2) vida_personaje(2); end
 	if(victorias>0)
 		hud_corona();
 	end
@@ -1017,6 +1065,7 @@ Begin
 	z=-9;
 	x=1000;
 	y=50;
+	if(jugador==2) y=680; end
 	loop frame; end
 End
 
@@ -1037,9 +1086,10 @@ Process vida_personaje(jugador);
 Begin
 	z=-12;
 	y=100;
-	if(jugador==1)
+	if(jugador==1 or jugador==2)
 		x=1000;
 		graph=7;
+		if(jugador==2) y=650; end
 	else
 		x=280;
 		graph=8;
@@ -1051,13 +1101,18 @@ Begin
 		x=640;
 	end
 	loop
-		size_x=100/30*vida[jugador];
+		if(jugadores==2 and jugador>9)
+			size_x=100/60*vida[jugador];
+		else
+			size_x=100/30*vida[jugador];
+		end
 		frame;
 	end
 End
 
 Process hud_arma(num);
 Begin
+	jugador=father.jugador;
 	z=-10;
 	y=50;
 	switch(num)
@@ -1065,20 +1120,20 @@ Begin
 		case 2: x=1000; file=fpg_armas2; end
 		case 3: x=1100; file=fpg_objetos; end
 	end
+	if(jugador==2) y=680; end
 	loop
 		if(num<3) 
-			graph=armas[num]; 
+			graph=p[jugador].armas[num];
 			if(graph==RAYOS)
 				graph=230;
 			end
 		else 
-			graph=objetos[1]; 
+			graph=p[jugador].objetos[1]; 
 		end
 		
 		frame;
 	end
 End
-
 
 Process arma(tipo);
 Private
@@ -1136,8 +1191,8 @@ Begin
 		case BOLA_RAYOS: sonido(16); ataque=3; tipo_ataque=RAYO; velocidad=2; end
 		case AGUJAS_HIELO: sonido(19); ataque=4; tipo_ataque=HIELO; velocidad=1; end
 	end
-	if(father==id_personaje and objetos[1]==ANILLO_PODER) ataque+=2; end
-	if(father!=id_personaje and jefes_salas[jugador][2]==ANILLO_PODER) ataque+=2; end
+	if(jugador<3 and p[jugador].objetos[1]==ANILLO_PODER) ataque+=2; end
+	if(jugador>3 and jefes_salas[jugador][2]==ANILLO_PODER) ataque+=2; end
 	//CORTA DISTANCIA
 	if(tipo==PALO or tipo==ESPADA or tipo==FLORETE or tipo==PORRA or tipo==LANZA 
 	or tipo==HACHA or tipo==MARTILLO or tipo==KATANA)
@@ -1250,7 +1305,7 @@ Begin
 				nube();
 			end
 			if(tipo==BOLA_RAYOS)
-				if(father.id==id_personaje)
+				if(jugador<10)
 					if(exists(type jefe))
 						id_jefe=get_id(type jefe);
 						if(direccion==1 or direccion==3)
@@ -1260,7 +1315,7 @@ Begin
 						end
 					end
 				else
-					id_jefe=id_personaje;
+					id_jefe=p[1].id;
 					if(direccion==1 or direccion==3)
 						if(id_jefe.y<y) y--; elseif(id_jefe.y>y) y++; end
 					else
@@ -1357,6 +1412,7 @@ Process ayudante();
 Private
 	retraso=30;
 	id_jefe;
+	cambio_prota=300;
 Begin
 	file=fpg_armas;
 	alpha=0;
@@ -1370,10 +1426,19 @@ Begin
 	while(exists(father))
 		if(alpha<160) alpha+=5; end
 		if(alpha=>160)
-			if(father==id_personaje)
+			if(jugador<10)
 				id_jefe=get_id(type jefe);
 			else
-				id_jefe=id_personaje;
+				if(jugadores==2)
+					if(cambio_prota==300)
+						id_jefe=p[rand(1,2)].id;
+						cambio_prota=0;
+					else
+						cambio_prota++;
+					end
+				else
+					id_jefe=p[1].id;
+				end
 			end
 			if(exists(id_jefe))
 				if(id_jefe.y<y) y-=2; elseif(id_jefe.y>y) y+=2; end
@@ -1469,28 +1534,29 @@ Process arma_pistola(graph);
 Begin
 	ctype=father.ctype;
 	file=fpg_armas;
-	while(exists(father) and exists(father.father) and id_personaje.accion==ATACANDO)
+	jugador=father.jugador;
+	while(exists(father) and exists(father.father) and father.accion==ATACANDO)
 		direccion=father.direccion;
 		y=father.father.y;
 		x=father.father.x;
-		if(id_personaje.direccion==0)
+		if(father.direccion==0)
 			z=4;
 			angle=0;
 			flags=0;
 			x=father.father.x;
 			y=father.father.y-20;
-		elseif(id_personaje.direccion==1)
+		elseif(father.direccion==1)
 			z=4;
 			angle=270000;
 			flags=0;
 			x=father.father.x+20;
 			y=father.father.y;
-		elseif(id_personaje.direccion==2)
+		elseif(father.direccion==2)
 			angle=180000;
 			flags=0;
 			x=father.father.x;
 			y=father.father.y+20;
-		elseif(id_personaje.direccion==3)
+		elseif(father.direccion==3)
 			z=4;
 			angle=270000;
 			flags=1;
@@ -1505,11 +1571,14 @@ End
 Process premio(tipo,num); //tipos: 1 ARMA, 2 OBJETO
 Private
 	id_arma;
+	id_col;
+	sala;
 Begin
 	if(jodido) return; end
 	x=640;
 	y=240;
 	z=-10;
+	sala=father.jugador;
 	if(tipo==1)
 		file=fpg_armas2;
 		if(num==FLECHA or num==PIEDRA or num==BALAS or num==RAYO_LASER or num==LLAMAS or num==MISIL_BAZOOKA)
@@ -1524,11 +1593,11 @@ Begin
 		graph=num;
 	end
 	loop
-		//if(collision(type personaje) or collision(type personaje_cuerpo) or collision(type personaje_piernas))
-		if(collision(type personaje))
-			if(tipo==1 and armas[2]!=0)
-				ayuda_cambio_arma();
-				if(key(_z) or key(_x) or mouse.left or mouse.right) break; end
+		if(id_col=collision(type personaje))
+			jugador=id_col.jugador;
+			if(tipo==1 and p[jugador].armas[2]!=0)
+				//ayuda_cambio_arma();
+				if(p[jugador].botones[4] or p[jugador].botones[5]) break; end
 			else
 				break;
 			end
@@ -1536,30 +1605,29 @@ Begin
 		frame;
 	end
 	if(tipo==1)
-		if((key(_z) or mouse.left) and armas[2]!=0) armas[1]=num; else armas[2]=num; end
+		if(p[jugador].botones[4] and p[jugador].armas[2]!=0) p[jugador].armas[1]=num; else p[jugador].armas[2]=num; end
 	else
 		if(num!=100)
-			objetos[1]=num;
+			p[jugador].objetos[1]=num;
 		end
 	end
-	id_personaje.accion=OBJETO;
+	id_col.accion=OBJETO;
 	from anim=0 to 60;
 		if(exists(type arma))
 			if(id_arma=get_id(type arma)) signal(id_arma,s_kill); end
 		end
-		x=id_personaje.x-20;
-		y=id_personaje.y-40;
+		x=id_col.x-20;
+		y=id_col.y-40;
 		frame; 
 	end
 	graph=0;
+	jefes_muertos[id_mazmorra-1]=-1;
 	if(num==100)
-		ponle_corona(1);
+		ponle_corona(p[jugador].id);
 		victorias++;
 		vida[1]=50;
 		hacerse_el_rey();
 		frame(5000);
-		//explosion(); 
-		//while(exists(type explosion)) frame; end 
 		fade_music_off(100);
 		fade(0,0,0,4); 
 		while(fading) frame; end
@@ -1568,7 +1636,8 @@ Begin
 		timer[0]=0;
 		while(timer[0]<300) frame; end
 		play_song(cancion,-1);
-		armas[1]=1; armas[2]=0; objetos[1]=0;
+		p[1].armas[1]=1; p[1].armas[2]=0; p[1].objetos[1]=0;
+		p[2].armas[1]=1; p[2].armas[2]=0; p[2].objetos[1]=0;
 		rolear_premios();
 		from jugador=0 to 10;
 			jefes_muertos[jugador]=0;
@@ -1577,6 +1646,7 @@ Begin
 			vida[jugador]=30;
 		end
 		vida[1]=50;
+		vida[2]=50;
 		id_mazmorra=0;
 		mazmorra(0);
 	end
@@ -1593,18 +1663,16 @@ Begin
 End
 
 Function hacerse_el_rey();
-Private
-	i;
-	j;
 Begin
+	jugador=father.jugador;
 	from i=5 to 0 step -1;
 		from j=0 to 2;
 			jefes_salas[i+1][j]=jefes_salas[i][j];
 		end
 	end
-	jefes_salas[0][0]=armas[1];
-	jefes_salas[0][1]=armas[2];
-	jefes_salas[0][2]=objetos[1];
+	jefes_salas[0][0]=p[jugador].armas[1];
+	jefes_salas[0][1]=p[jugador].armas[2];
+	jefes_salas[0][2]=p[jugador].objetos[1];
 End
 
 Process fin();
@@ -1623,3 +1691,5 @@ Begin
 	while(timer[0]<500) frame; end
 	from alpha=255 to 0 step -5; frame; end
 End
+
+include "..\..\common-src\controles.pr-";
