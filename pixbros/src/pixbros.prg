@@ -251,6 +251,7 @@ private
 	ii;
 	screenshotpantalla;
 begin
+	stop_wav(-1);
 	x=320;
 	y=240;
 	z=-512;
@@ -1287,7 +1288,7 @@ Begin
 	end
 End
 
-Process disparo3();
+Process disparo3(); //aspiradora
 Private
 	struct atrapados[10];
 		identificador;
@@ -1302,6 +1303,7 @@ Begin
 	size_x=10;
 	x=father.x;
 	y=father.y;
+	jugador=father.jugador;
 	file=fpg_general;
 	graph=21;
 	ancho=graphic_info(file,graph,g_width);
@@ -1311,7 +1313,7 @@ Begin
 	end
 	anim=0;
 	loop
-		if(father.accion==muere) accion=-2; end //los enemigos salen ilesos
+		if(father.accion==muere or !exists(father)) accion=-2; break; end //los enemigos salen ilesos
 		if(father.flags==1 or father.flags==5)
 			flags=0+b_ablend;
 		else
@@ -1319,8 +1321,8 @@ Begin
 		end
 		if(anim<2) anim++; else anim=0; graph++; if(graph==26) graph=21; end end
 
-		if(!p[father.jugador].botones[4]) accion=muere; end //esto es cuando se lanzan los enemigos
-		if(!p[father.jugador].lejos)
+		if(!p[jugador].botones[4]) accion=muere; end //esto es cuando se lanzan los enemigos
+		if(!p[jugador].lejos)
 			x=father.x;
 		else
 			if(flags==16) x=father.x+20; else x=father.x-20; end
@@ -1338,10 +1340,10 @@ Begin
 					tronco(id_col.x,id_col.y);
 					explosion_con_humo(id_col.x,id_col.y);
 					id_col.y-=200;
-					id_col.accion=anda;
+					id_col.accion=cae;
 				else
-					id_col.accion=atrapado;
-					id_col.grav=0;
+					//id_col.accion=atrapado;
+					//id_col.grav=0;
 					atrapados[num_ids].identificador=id_col;
 					atrapados[num_ids].identificador.accion=atrapado;
 					atrapados[num_ids].toques=1;
@@ -1396,10 +1398,15 @@ Begin
 					if(!collision(atrapados[i].identificador))
 						atrapados[i].identificador.angle=0;
 						atrapados[i].identificador.size=100;
-						atrapados[i].identificador.accion=anda;
+						atrapados[i].identificador.accion=cae;
 						atrapados[i].identificador=0;
+						atrapados[i].toques=0;
 					else
-						if(p[father.jugador].tocho) atrapados[i].toques+=2; else atrapados[i].toques++; end
+						if(p[father.jugador].tocho) 
+							atrapados[i].toques+=2; 
+						else 
+							atrapados[i].toques++; 
+						end
 					end
 				else
 					if(atrapados[i].identificador.size>3) atrapados[i].identificador.size-=7; atrapados[i].identificador.angle+=30000;
@@ -1424,10 +1431,10 @@ Begin
 	end
 	if(accion==-2) //enemigos ilesos
 		from i=0 to 10;
-			if(atrapados[i].identificador!=0)
+			if(atrapados[i].identificador!=0 and exists(atrapados[i].identificador))
 				atrapados[i].identificador.size=100;
 				atrapados[i].identificador.angle=0;
-				atrapados[i].identificador.accion=anda;
+				atrapados[i].identificador.accion=cae;
 				atrapados[i].identificador.y-=2;
 			end
 		end
@@ -1436,11 +1443,12 @@ Begin
 		//ZAS!
 		flags=father.flags;
 		from i=0 to 10;
-			if(atrapados[i].identificador!=0)
+			if(atrapados[i].identificador!=0 and exists(atrapados[i].identificador))
 				if(atrapados[i].toques<30)
 					atrapados[i].identificador.size=100;
 					atrapados[i].identificador.angle=0;
-					atrapados[i].identificador.accion=anda;
+					atrapados[i].identificador.accion=cae;
+					atrapados[i].identificador.y-=2;
 					atrapados[i].identificador=0;
 				end
 			end
