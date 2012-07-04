@@ -204,7 +204,7 @@ Private
 	retraso;
 	id_colision;
 	angulo;
-	persigue=1;
+	persigue;
 Begin
 	persigue=enemigo;
 	file=fpg_jefe;
@@ -765,6 +765,7 @@ Begin
 
 		if(retraso<10 and accion!=ATACANDO) retraso++; end
 		if(accion!=HERIDO)
+			//say("antes:"+vida[jugador]);
 			if(id_colision=collision(type jefe))
 				accion=HERIDO; 
 				vida[jugador]-=1;
@@ -793,6 +794,7 @@ Begin
 					end
 				end
 			end
+			//say("desp1:"+vida[jugador]);
 			if(id_colision=collision(type explosion))
 				accion=HERIDO;
 				if(p[jugador].objetos[1]==ARMADURA_PESADA)
@@ -802,8 +804,8 @@ Begin
 				else
 					vida[jugador]-=id_colision.ataque;
 				end
-
 			end
+			//say("desp2:"+vida[jugador]);
 		end
 		if(p[jugador].botones[0] and accion!=HERIDO)
 			flags=1;
@@ -936,7 +938,7 @@ Begin
 			fade(0,0,0,16); 
 			while(fading) frame; end 
 			break; 
-			end
+		end
 		frame;
 	end
 	let_me_alone();
@@ -1192,7 +1194,7 @@ Begin
 		case AGUJAS_HIELO: sonido(19); ataque=4; tipo_ataque=HIELO; velocidad=1; end
 	end
 	if(jugador<3 and p[jugador].objetos[1]==ANILLO_PODER) ataque+=2; end
-	if(jugador>3 and jefes_salas[jugador][2]==ANILLO_PODER) ataque+=2; end
+	if(jugador>3 and jefes_salas[jugador-10][2]==ANILLO_PODER) ataque+=2; end
 	//CORTA DISTANCIA
 	if(tipo==PALO or tipo==ESPADA or tipo==FLORETE or tipo==PORRA or tipo==LANZA 
 	or tipo==HACHA or tipo==MARTILLO or tipo==KATANA)
