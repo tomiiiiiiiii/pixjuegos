@@ -116,7 +116,12 @@ begin
 			end
 			if(elecc==0)
 				let_me_alone();
-				elegir_num_jugadores();
+				if(posibles_jugadores>1)
+					elegir_num_jugadores();
+				else
+					jugadores=1;
+					elegir_paquete_niveles();
+				end
 				break;
 			end
 			if(elecc==1)
