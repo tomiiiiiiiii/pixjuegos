@@ -1,4 +1,36 @@
-Program plataformas;
+Program pixdash;
+
+import "mod_blendop";
+import "mod_cd";
+import "mod_debug";
+import "mod_dir";
+import "mod_draw";
+import "mod_effects";
+import "mod_file";
+import "mod_flic";
+import "mod_grproc";
+import "mod_joy";
+import "mod_key";
+import "mod_m7";
+import "mod_map";
+import "mod_math";
+import "mod_mem";
+import "mod_mouse";
+import "mod_path";
+import "mod_proc";
+import "mod_rand";
+import "mod_regex";
+import "mod_say";
+import "mod_screen";
+import "mod_scroll";
+import "mod_sort";
+import "mod_sound";
+import "mod_string";
+import "mod_text";
+import "mod_time";
+import "mod_timers";
+import "mod_video";
+import "mod_wm";
 
 //comentar las dos siguientes líneas para Wii
 #ifndef WII
@@ -906,6 +938,14 @@ PRIVATE
 	fp;
 	string linea;
 BEGIN
+/*	probar_pantalla();
+	if(jugadores==1)
+		ancho_pantalla=1280;
+		alto_pantalla=720;
+	end
+	
+	set_mode(ancho_pantalla,alto_pantalla,16,WAITVSYNC); //resolución y colores	*/
+
 	id_carganivel=id;
 	if(num_nivel!=1)
 		from i=1 to 4;
@@ -932,7 +972,7 @@ BEGIN
 			i++;
 		end
 	end
-
+	
 	if(fexists(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".txt"))
 		i=1;
 		fichero=fopen(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".txt",O_READ);	
@@ -969,7 +1009,7 @@ BEGIN
 	stop_scroll(4);
 	unload_map(0,mapa_scroll);
 	unload_map(0,durezas);
-
+	
 	mapa=load_png(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".png"); 
 
 	if(os_id==os_wii)
@@ -1580,11 +1620,8 @@ Begin
 
 	set_fps(0,0); //imágenes por segundo
 	probar_pantalla();
-	//if(arcade_mode) full_screen=true; ancho_pantalla=1280; alto_pantalla=1024; end
 	full_screen=1; //TEMP
-	//if(scale_resolution>10000000) scale_resolution=0; end //TEMP
-	//set_mode(800,600,16,WAITVSYNC); //resolución y colores	    
-	set_mode(ancho_pantalla,alto_pantalla,16,WAITVSYNC); //resolución y colores	    
+	set_mode(ancho_pantalla,alto_pantalla,16); //resolución y colores	    
 	fpg_premios=load_fpg("fpg/premios.fpg"); //cargar el mapa de tiles
 	fpg_enemigos=load_fpg("fpg/enemigos.fpg"); //cargar el mapa de tiles
 	fpg_powerups=load_fpg("fpg/powerups.fpg"); //cargar el mapa de tiles
