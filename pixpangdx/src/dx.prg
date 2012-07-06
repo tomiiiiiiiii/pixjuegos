@@ -1,5 +1,29 @@
 /* Bienvenido al código fuente de PiX Pang DX*/
 
+import "mod_dir";
+import "mod_draw";
+import "mod_file";
+import "mod_grproc";
+import "mod_joy";
+import "mod_key";
+import "mod_map";
+import "mod_math";
+import "mod_mouse";
+import "mod_proc";
+import "mod_rand";
+import "mod_regex";
+import "mod_say";
+import "mod_screen";
+import "mod_sound";
+import "mod_string";
+import "mod_sys";
+import "mod_text";
+import "mod_time";
+import "mod_timers";
+import "mod_video";
+import "mod_wm";
+
+
 //constantes, variables globales y locales
 include "variables.pr-";
 

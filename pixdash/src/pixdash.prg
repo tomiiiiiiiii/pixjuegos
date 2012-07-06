@@ -1621,7 +1621,7 @@ Begin
 	set_fps(0,0); //imágenes por segundo
 	probar_pantalla();
 	full_screen=1; //TEMP
-	set_mode(ancho_pantalla,alto_pantalla,16); //resolución y colores	    
+	set_mode(ancho_pantalla,alto_pantalla,16); //resolución y colores
 	fpg_premios=load_fpg("fpg/premios.fpg"); //cargar el mapa de tiles
 	fpg_enemigos=load_fpg("fpg/enemigos.fpg"); //cargar el mapa de tiles
 	fpg_powerups=load_fpg("fpg/powerups.fpg"); //cargar el mapa de tiles

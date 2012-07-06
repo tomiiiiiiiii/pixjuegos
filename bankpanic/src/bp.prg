@@ -1,3 +1,26 @@
+import "mod_blendop";
+import "mod_debug";
+import "mod_dir";
+import "mod_draw";
+import "mod_file";
+import "mod_grproc";
+import "mod_joy";
+import "mod_key";
+import "mod_map";
+import "mod_math";
+import "mod_proc";
+import "mod_rand";
+import "mod_regex";
+import "mod_say";
+import "mod_screen";
+import "mod_scroll";
+import "mod_sound";
+import "mod_string";
+import "mod_sys";
+import "mod_text";
+import "mod_time";
+import "mod_timers";
+import "mod_video";
 /*graficos:
 1.reloj
 2.fondo
@@ -426,7 +449,7 @@ End
 
 Process tiempo();
 Private
-	time=1800;
+	_time=1800;
 Begin
 	grafico(905,512,465,-15);
 	z=-16;
@@ -436,8 +459,8 @@ Begin
 	y=465;
 	define_region(1,384,449,256,31);
 	loop
-		if(ready==1) time--; end
-		define_region(1,384,449,(float)256/1800*time,31);
+		if(ready==1) _time--; end
+		define_region(1,384,449,(float)256/1800*_time,31);
 		frame;
 	end
 End

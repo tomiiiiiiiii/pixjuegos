@@ -1,5 +1,29 @@
 program prueba;
 import "mod_vlc";
+import "mod_blendop";
+import "mod_debug";
+import "mod_dir";
+import "mod_draw";
+import "mod_file";
+import "mod_grproc";
+import "mod_joy";
+import "mod_key";
+import "mod_map";
+import "mod_math";
+import "mod_proc";
+import "mod_rand";
+import "mod_regex";
+import "mod_say";
+import "mod_screen";
+import "mod_scroll";
+import "mod_sound";
+import "mod_string";
+import "mod_sys";
+import "mod_text";
+import "mod_time";
+import "mod_timers";
+import "mod_video";
+import "mod_wm";
 global
 	wii; //si estamos en la wii, esto debe ser 1
 	buzz; //si jugamos con buzzers, esto debe ser 1
@@ -605,8 +629,8 @@ Begin
 
     while(!video_is_playing()) frame; end
 	duracion_en_ms=video_get_length()-100; //se usa para evitar un peazo de bug en video_stop
-	timer=0;
-	while(timer<duracion_en_ms)
+	timer[0]=0;
+	while(timer[0]<duracion_en_ms)
 		while(angle>0) angle-=(grav/2)*300; grav++; frame; end
 		if(angle<0) angle=0; end
 		if(jugador[0].botones[0]) break; end
