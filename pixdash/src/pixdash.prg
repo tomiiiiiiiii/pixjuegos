@@ -943,8 +943,11 @@ BEGIN
 	end
 
 	if(!file_exists(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".png"))  // FIN DE LA COMPETICION
-		//resultados();
-		menu(); 
+		if(jugadores>1)
+			pon_resultados();
+		else
+			menu(); 
+		end
 		return; 
 	end
 	frame;
@@ -1603,8 +1606,9 @@ Begin
 //TEST:
 /*		paqueteniveles="test";
 		jugadores=1;
-		carga_nivel();*/
-
+		carga_nivel();
+		pon_resultados();
+		*/
 	
 	if(os_id!=1000) 
 		//editor_de_niveles();
@@ -1615,6 +1619,99 @@ Begin
 		paqueteniveles="nel";
 		jugadores=1;
 		carga_nivel();
+	end
+End
+
+Process pon_resultados();
+Private
+	//posiciones[4];
+	fadeado;
+	temp;
+Begin
+	let_me_alone();
+	stop_song();
+	delete_text(all_text);
+	from i=0 to 4;
+		stop_scroll(i);
+	end
+	clear_screen();
+	set_mode(1024,768,16);
+	timer[0]=0;
+	posiciones[1]=1;
+	posiciones[2]=2;
+	posiciones[3]=3;
+	posiciones[4]=4;
+	
+	from j=1 to 4; //con 4 iteraciones esto se resuelve si o también
+		from i=2 to jugadores;
+			if(p[posiciones[i]].puntos>p[posiciones[i-1]].puntos)
+				temp=posiciones[i-1];
+				posiciones[i-1]=posiciones[i];
+				posiciones[i]=temp;
+			end
+		end
+	end
+	start_scroll(0,fpg_general,6,7,0,15);
+	from i=1 to jugadores;
+		prota_resultados_cae(posiciones[i],i);
+	end
+	while(timer[0]<1000)
+		gravedad++;
+		scroll.y0+=gravedad/25;
+		if(timer[0]>900 and fadeado==0) fadeado=1; fade(0,0,0,4); end
+		frame; 
+	end
+	stop_scroll(0);
+	put_screen(fpg_general,8);
+	fade(100,100,100,4);
+	write(fuente_grande,512,100,4,"GANADOR");
+	write(fuente_grande,512,200,4,"JUGADOR "+posiciones[1]);
+	write(fuente_grande,512,300,4,p[posiciones[1]].puntos);
+	if(jugadores=>2) write(fuente,352,360,4,p[posiciones[2]].puntos); end
+	if(jugadores=>3) write(fuente,672,400,4,p[posiciones[3]].puntos); end
+	if(jugadores==4) write(fuente,820,500,4,p[posiciones[4]].puntos); end
+	controlador(0);
+	timer[0]=0;
+	loop
+		if(p[0].botones[4] and timer[0]>300) while(p[0].botones[4]) frame; end probar_pantalla(); menu(); end
+		frame;
+	end
+End
+
+Process prota_resultados_cae(jugador,posicion);
+Private
+	y_inc;
+Begin
+	size=200;
+	switch(jugador) // los gráficos de cada jugador
+		case 1: file=load_fpg("fpg/pix.fpg"); end
+		case 2: file=load_fpg("fpg/pux.fpg"); end
+		case 3: file=load_fpg("fpg/pax.fpg"); end
+		case 4: file=load_fpg("fpg/pex.fpg"); end
+	end
+	switch(posicion)
+		case 1: x=512; y=-250; end
+		case 2: x=352; y=-180; end
+		case 3: x=672; y=-140; end
+		case 4: x=820; y=-150; end
+	end
+	graph=3;
+	loop
+		if(posicion==1 and y>410) y=410; break; end
+		if(posicion==2 and y>482) y=482; break; end
+		if(posicion==3 and y>516) y=516; break; end
+		if(posicion==4 and y>1000) sonido(6,jugador); break; end
+		if(posicion==4) angle+=300; y++; end
+		y+=2;
+		frame;
+	end
+	while(timer[0]<1000)
+		frame;
+	end
+	graph=4;
+	if(posicion==4) graph=2; y=600; angle=0; end
+	loop
+		frame; 
 	end
 End
 
