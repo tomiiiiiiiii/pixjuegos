@@ -225,33 +225,6 @@
          offset="1"
          style="stop-color:#ffe200;stop-opacity:1;" />
     </linearGradient>
-    <filter
-       color-interpolation-filters="sRGB"
-       inkscape:collect="always"
-       id="filter5730-2">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="1.0345734"
-         id="feGaussianBlur5732-5" />
-    </filter>
-    <filter
-       color-interpolation-filters="sRGB"
-       inkscape:collect="always"
-       id="filter5670-0">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="1.6825556"
-         id="feGaussianBlur5672-5" />
-    </filter>
-    <filter
-       color-interpolation-filters="sRGB"
-       inkscape:collect="always"
-       id="filter5702-7">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="0.93659025"
-         id="feGaussianBlur5704-8" />
-    </filter>
     <linearGradient
        id="linearGradient14345-4-2">
       <stop
@@ -271,9 +244,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.22627417"
-     inkscape:cx="1048.4623"
-     inkscape:cy="354.93106"
+     inkscape:zoom="0.90509668"
+     inkscape:cx="523.17847"
+     inkscape:cy="-185.59444"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -374,12 +347,15 @@
      inkscape:groupmode="layer"
      id="layer1">
     <rect
-       style="fill:#999999;fill-opacity:0.83653846;stroke:none"
+       style="fill:#999999;fill-opacity:0;stroke:none"
        id="rect4263-8-0"
        width="210"
        height="170"
        x="375"
-       y="1127.3622" />
+       y="1127.3622"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\bosses\20.png"
+       inkscape:export-xdpi="79.285713"
+       inkscape:export-ydpi="79.285713" />
     <rect
        style="fill:#999999;fill-opacity:0;stroke:none"
        id="rect4263-8-1"
