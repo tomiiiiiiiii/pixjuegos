@@ -1192,7 +1192,7 @@ end //FIN IF WII
 	if(modo_juego==0) //competitivo: 4 pantallas
 		if(jugadores<=2) //definir la pantalla partida y la división al ser 2 jugadores
 			define_region(1,0,0,ancho_pantalla,alto_pantalla/2);
-			define_region(2,0,alto_pantalla/2,ancho_pantalla,alto_pantalla);
+			define_region(2,0,alto_pantalla/2,ancho_pantalla,alto_pantalla/2);
 	
 			start_scroll(0,0,mapa_scroll,fondo,1,4);
 			scroll[0].camera=prota(1);
@@ -1207,9 +1207,9 @@ end //FIN IF WII
 		end
 		if(jugadores==3 or jugadores==4) //definirlo al ser 4
 			define_region(1,0,0,ancho_pantalla/2,alto_pantalla/2);
-			define_region(2,ancho_pantalla/2,0,ancho_pantalla,alto_pantalla/2);
-			define_region(3,0,alto_pantalla/2,ancho_pantalla/2,alto_pantalla);
-			define_region(4,ancho_pantalla/2,alto_pantalla/2,ancho_pantalla,alto_pantalla);
+			define_region(2,ancho_pantalla/2,0,ancho_pantalla/2,alto_pantalla/2);
+			define_region(3,0,alto_pantalla/2,ancho_pantalla/2,alto_pantalla/2);
+			define_region(4,ancho_pantalla/2,alto_pantalla/2,ancho_pantalla/2,alto_pantalla/2);
 	
 			start_scroll(0,0,mapa_scroll,fondo,1,4);
 			scroll[0].camera=prota(1);

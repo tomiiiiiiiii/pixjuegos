@@ -376,7 +376,7 @@ BEGIN
 			if(size>99)
 				puntos[id2.jugador]+=30;
 			else 
-				puntos+=10;
+				puntos[id2.jugador]+=10;
 			end
 			vida=0;
 		end
@@ -388,7 +388,7 @@ BEGIN
 			if(size>99)
 				puntos[id2.jugador]+=30;
 			else 
-				puntos+=10;
+				puntos[id2.jugador]+=10;
 			end
 			vida=0;
 		end
@@ -399,13 +399,13 @@ BEGIN
 				asteroide(x,y,size/3,pi*7/4);
 				explosion(x,y,1,200);
 				if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end
-				puntos+=30;
+				//puntos[id2.jugador]+=30;
 				break;
 
 			else
 				explosion(x,y,1,200);
 				if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end
-				puntos+=10;
+				//puntos+=10;
 				break;
 			end
 
