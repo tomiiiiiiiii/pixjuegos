@@ -44,5 +44,7 @@ EndFunc
 Func pon_juego($juego)
 	GuiSetState(@SW_HIDE)
 	RunWait("windows\"&$juego&".exe")
+	;RunWait("bgdi.exe "&$juego&".dcb",@ScriptDir&"\windows\"&$juego)
+	;msgbox(0,"",@ScriptDir&"\windows\"&$juego)
 	GuiSetState(@SW_SHOW)
 EndFunc
