@@ -183,7 +183,7 @@ Private
 	ancho_scroll;
 	alto_scroll;
 	base;
-	file_descripciones;
+	file_descripcion;
 	graph_cursor;
 	string argumentos;
 Begin
@@ -223,7 +223,7 @@ Begin
 				niveles[i].fondo=load_image(savegamedir+"niveles\"+paqueteniveles+"\fondo"+i+".jpg");
 			end
 		end
-		if(fexists(savegamedir+"niveles\"+paqueteniveles+"\descripciones.txt"))
+/*		if(fexists(savegamedir+"niveles\"+paqueteniveles+"\descripciones.txt"))
 			file_descripciones=fopen(savegamedir+"niveles\"+paqueteniveles+"\descripciones.txt",O_READ);
 			i=1;
 			while(!feof(file_descripciones))
@@ -231,7 +231,7 @@ Begin
 				niveles[i++].descripcion=fgets(file_descripciones);
 			end
 			fclose(file_descripciones);
-		end
+		end*/
 		if(fexists(savegamedir+"niveles\"+paqueteniveles+"\tiles.fpg"))
 			fpg_tiles=load_fpg(savegamedir+"niveles\"+paqueteniveles+"\tiles.fpg");
 		else
@@ -245,12 +245,12 @@ Begin
 		niveles[num_nivel].mapa=new_map(inputnum("Tamaño horizontal (minimo 32)"),inputnum("Tamaño vertical (minimo 32)"),16);
 		niveles[num_nivel].nombre=input("Escribe un nombre para este nivel"); 
 		niveles[num_nivel].descripcion=input("Describe brevemente este nivel"); 
-		file_descripciones=fopen(savegamedir+"niveles\"+paqueteniveles+"\descripciones.txt",O_WRITE);
+/*		file_descripciones=fopen(savegamedir+"niveles\"+paqueteniveles+"\descripciones.txt",O_WRITE);
 		from i=1 to num_niveles;
 			fputs(file_descripciones,niveles[i].nombre);
 			fputs(file_descripciones,niveles[i].descripcion);
 		end
-		fclose(file_descripciones);
+		fclose(file_descripciones);*/
 
 		base=load_png("fondos\base.png");
 		ancho_mapa=graphic_info(0,base,g_width);
@@ -329,12 +329,12 @@ Begin
 			while(key(_F1)) frame; end
 			niveles[num_nivel].nombre=input("Escribe un nombre para este nivel"); 
 			niveles[num_nivel].descripcion=input("Describe brevemente este nivel"); 
-			file_descripciones=fopen(savegamedir+"niveles\"+paqueteniveles+"\descripciones.txt",O_WRITE);
+/*			file_descripciones=fopen(savegamedir+"niveles\"+paqueteniveles+"\descripciones.txt",O_WRITE);
 			from i=1 to num_niveles;
 				fputs(file_descripciones,niveles[i].nombre);
 				fputs(file_descripciones,niveles[i].descripcion);
 			end
-			fclose(file_descripciones);
+			fclose(file_descripciones);*/
 			mensaje("Nombres y descripciones actualizadas");
 		end
 		if(key(_F2)) 
@@ -382,12 +382,12 @@ Begin
 
 			niveles[num_nivel].nombre=input("Escribe un nombre para este nivel"); 
 			niveles[num_nivel].descripcion=input("Describe brevemente este nivel"); 
-			file_descripciones=fopen(savegamedir+"niveles\"+paqueteniveles+"\descripciones.txt",O_WRITE);
+/*			file_descripciones=fopen(savegamedir+"niveles\"+paqueteniveles+"\descripciones.txt",O_WRITE);
 			from i=1 to num_niveles;
 				fputs(file_descripciones,niveles[i].nombre);
 				fputs(file_descripciones,niveles[i].descripcion);
 			end
-			fclose(file_descripciones);
+			fclose(file_descripciones);*/
 
 			mensaje("Nuevo nivel");
 		end
@@ -489,6 +489,7 @@ Function pon_nivel_editor(mapa);
 Private
 	tile;
 	id_objeto;
+	fp;
 Begin
 	ancho=GRAPHIC_INFO(0,mapa,G_WIDE);
 	alto=GRAPHIC_INFO(0,mapa,G_HEIGHT);
@@ -499,18 +500,40 @@ Begin
 	vacio=map_get_pixel(0,mapa,0,alto-1);	
 	size=50;
 	
+	fp=fopen("test.txt",O_WRITE);	
 	repeat
 		tile=map_get_pixel(0,mapa,x,y);	
-		from i=0 to 3; if(tile==tiles[i]) objeto_nivel(fpg_tiles,i+1,(x*tilesize/2)+(tilesize/4),(y*tilesize/2)+(tilesize/4),size); end end
-		if(tile==tiles[4]) objeto_nivel(fpg_moneda,1,(x*tilesize/2)+(tilesize/4),(y*tilesize/2)+(tilesize/4),size); end
-		from i=1 to 10; if(tile==enemigos[i]) objeto_nivel(fpg_enemigos,(i*10)+1,(x*tilesize/2)+(tilesize/4),(y*tilesize/2)+(tilesize/4),size); end end
-		from i=1 to 5; if(tile==powerups[i]) objeto_nivel(fpg_powerups,i,(x*tilesize/2)+(tilesize/4),(y*tilesize/2)+(tilesize/4),size); end end
+		from i=0 to 3;
+			if(tile==tiles[i])
+				objeto_nivel(fpg_tiles,i+1,(x*tilesize/2)+(tilesize/4),(y*tilesize/2)+(tilesize/4),size);
+			end
+		end
+		if(tile==tiles[3])
+			fputs(fp,"muelle,"+x+","+y+",1,40");
+		end
+		if(tile==tiles[4]) 
+			objeto_nivel(fpg_moneda,1,(x*tilesize/2)+(tilesize/4),(y*tilesize/2)+(tilesize/4),size);
+			fputs(fp,"moneda,"+x+","+y);
+		end
+		from i=1 to 10; 
+			if(tile==enemigos[i]) 
+				objeto_nivel(fpg_enemigos,(i*10)+1,(x*tilesize/2)+(tilesize/4),(y*tilesize/2)+(tilesize/4),size);
+				fputs(fp,"enemigo,"+x+","+y+","+i+",0");
+			end 
+		end
+		from i=1 to 5; 
+			if(tile==powerups[i]) 
+				objeto_nivel(fpg_powerups,i,(x*tilesize/2)+(tilesize/4),(y*tilesize/2)+(tilesize/4),size);
+				fputs(fp,"powerup,"+x+","+y+","+i);
+			end 
+		end
 		if(x<ancho)
 			x++;
 		else
 			y++; x=0;
 		end
 	until(y=>alto-3)
+	fclose(fp);
 End
 
 Process objeto_nivel(file,graph,x,y,size);

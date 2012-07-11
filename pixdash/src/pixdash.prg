@@ -697,7 +697,7 @@ Begin
 		if(map_get_pixel(0,durezas,x,y-alto)==suelo and tipo!=7) gravedad=10; y++; end //si chocamos arriba, nos vamos pabajo. pd: sólo chocan los para-algo
 		if(tipo==7) flags=0; x-=6; end //billbala siempre va hacia la izquierda
 		if(tipo==8 and rand(0,200)==0 and spikys<10) spikys++; enemigo(x,y,9,0); end //lakitu tirando pinchones
-		if(accion!="lanzado")
+		if(accion!="lanzado" or inercia==0)
 			if(mov_x>0) mov_x--; end
 			if(mov_x<0) mov_x++; end
 			if(flags==0) 
@@ -827,8 +827,8 @@ Begin
 		while(map_get_pixel(0,durezas,x,y+alto-1)==suelo) y--; end //colisiones con el suelo
 		if(y>alto_nivel) break; end //al caer poir un bujero los power-ups desaparecen
 		if(id_colision=collision(type prota)) //al tocarlos el prota
-			sonido(16,0);
 			if(id_colision.accion!="muerte")
+				sonido(16,0);
 				p[id_colision.jugador].powerupscogidos++;
 				if(modo_juego==0)
 					id_colision.powerup=tipo; //se activa el power-up
@@ -938,14 +938,6 @@ PRIVATE
 	fp;
 	string linea;
 BEGIN
-/*	probar_pantalla();
-	if(jugadores==1)
-		ancho_pantalla=1280;
-		alto_pantalla=720;
-	end
-	
-	set_mode(ancho_pantalla,alto_pantalla,16,WAITVSYNC); //resolución y colores	*/
-
 	id_carganivel=id;
 	if(num_nivel!=1)
 		from i=1 to 4;
@@ -1191,26 +1183,21 @@ end //FIN IF WII
 	
 	if(modo_juego==0) //competitivo: 4 pantallas
 		if(jugadores<=2) //definir la pantalla partida y la división al ser 2 jugadores
-			define_region(1,0,0,ancho_pantalla,alto_pantalla/2);
-			define_region(2,0,alto_pantalla/2,ancho_pantalla,alto_pantalla/2);
-	
+			define_region(1,0,0,ancho_pantalla,(alto_pantalla/2)-5);
+			define_region(2,0,(alto_pantalla/2)+5,ancho_pantalla,(alto_pantalla/2)-5);
+			
 			start_scroll(0,0,mapa_scroll,fondo,1,4);
 			scroll[0].camera=prota(1);
 			start_scroll(1,0,mapa_scroll,fondo,2,4);
-			if(jugadores==2) scroll[1].camera=prota(2); end
-	
-			graph=new_map(ancho_pantalla,alto_pantalla,16);
-			drawing_color(200);
-			drawing_map(0,graph);
-			draw_box(0,alto_pantalla/2-5,ancho_pantalla,alto_pantalla/2+5);
-	
+			if(jugadores==2) scroll[1].camera=prota(2); end	
 		end
 		if(jugadores==3 or jugadores==4) //definirlo al ser 4
-			define_region(1,0,0,ancho_pantalla/2,alto_pantalla/2);
-			define_region(2,ancho_pantalla/2,0,ancho_pantalla/2,alto_pantalla/2);
-			define_region(3,0,alto_pantalla/2,ancho_pantalla/2,alto_pantalla/2);
-			define_region(4,ancho_pantalla/2,alto_pantalla/2,ancho_pantalla/2,alto_pantalla/2);
-	
+			define_region(1,0,0,(ancho_pantalla/2)-5,(alto_pantalla/2)-5);
+			define_region(2,(ancho_pantalla/2)+5,0,(ancho_pantalla/2)-5,(alto_pantalla/2)-5);
+			define_region(3,0,(alto_pantalla/2)+5,(ancho_pantalla/2)-5,(alto_pantalla/2)-5);
+			define_region(4,(ancho_pantalla/2)+5,(alto_pantalla/2)+5,(ancho_pantalla/2)-5,(alto_pantalla/2)-5);
+
+			
 			start_scroll(0,0,mapa_scroll,fondo,1,4);
 			scroll[0].camera=prota(1);
 			start_scroll(1,0,mapa_scroll,fondo,2,4);
@@ -1221,13 +1208,6 @@ end //FIN IF WII
 			if(jugadores==4) 
 				scroll[3].camera=prota(4);
 			end
-
-			graph=new_map(ancho_pantalla,alto_pantalla,16);
-			drawing_color(200);
-			drawing_map(0,graph);
-			draw_box(0,alto_pantalla/2-5,ancho_pantalla,alto_pantalla/2+5);
-			draw_box(ancho_pantalla/2-5,0,ancho_pantalla/2+5,alto_pantalla);
-			
 		end
 	end
 	if(modo_juego==1) //cooperativo
@@ -1570,6 +1550,7 @@ Begin
 		frame;
 	end
 	timer[2]=0;
+	while(timer[2]<500) frame; end
 	delete_text(all_text);
 	num_nivel++;
 	carga_nivel();
@@ -1594,7 +1575,8 @@ Begin
 		descarga_niveles=1;
 		app_data=1;
 	end*/
-
+	editor_de_niveles=1;
+	
 	set_title("PiX Dash");
 	
 	// Código aportado por Devilish Games / Josebita
@@ -1620,7 +1602,7 @@ Begin
 
 	set_fps(0,0); //imágenes por segundo
 	probar_pantalla();
-	full_screen=1; //TEMP
+	//full_screen=1; //TEMP
 	set_mode(ancho_pantalla,alto_pantalla,16); //resolución y colores
 	fpg_premios=load_fpg("fpg/premios.fpg"); //cargar el mapa de tiles
 	fpg_enemigos=load_fpg("fpg/enemigos.fpg"); //cargar el mapa de tiles
