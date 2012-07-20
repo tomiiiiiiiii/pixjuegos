@@ -167,10 +167,15 @@ begin
 		if(!focus_status)
 			let_me_alone();
 			pause_song();
+			set_fps(1,0);
+			timer[0]=0;
 			while(!focus_status)
+				if(timer[0]>60000) exit(); end
 				frame;
 			end
 			resume_song();
+			set_mode(533,320,32);
+			set_fps(25,3);
 			juego();
 		end
 		if(ranviva[1]+ranviva[2]+ranviva[3]+ranviva[4]+ranviva[5]+ranviva[6]+ranviva[7]+ranviva[8]==1)

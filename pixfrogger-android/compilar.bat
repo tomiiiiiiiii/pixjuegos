@@ -1,8 +1,9 @@
 @echo off
 echo Compilando...
-REM ..\bennu-win\bgdc -D FAKE_SOUND=1 main.prg
-..\bennu-win\bgdc main.prg
+cd src
+..\..\bennu-win\bgdc pixfrogger-android.prg -g
+move pixfrogger-android.dcb ..\main.dcb
 pause
+cd ..
 ..\bennu-win\bgdi main.dcb
 pause
-exit
