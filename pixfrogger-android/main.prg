@@ -1,23 +1,3 @@
-#ifdef FAKE_SOUND
-#define stop_wav(a);
-#define key(a);
-#define get_joy_button(a,b);
-#define stop_song(a);
-#define set_channel_volume(a,b);
-#define set_song_volume(a);
-#define unload_wav(a);
-#define unload_song(a);
-#define load_wav(a) 0
-#define load_song(a) 0
-#define play_wav(a, b);
-#define play_song(a, b);
-#define fade_music_off(a);
-#define pause_song(a)
-#define resume_song(a)
-#define ALL_SOUND 0
-#endif
-
-
 import "mod_grproc.dll";
 //import "mod_joy.dll";
 //import "mod_key.dll";
@@ -27,14 +7,18 @@ import "mod_mouse.dll";
 import "mod_proc.dll";
 import "mod_rand.dll";
 import "mod_screen.dll";
-//import "mod_sound.dll";
+import "mod_sound.dll";
 import "mod_string.dll";
 import "mod_text.dll";
 import "mod_timers.dll";
 import "mod_video.dll";
 import "mod_multi.dll";
+import "mod_wm.dll";
 
 global
+	string temp;
+	int scale_resolution_y;
+	int scale_resolution_x; 
 	arcade_mode=0;
 	tbase=33; //altura de todo
 	final=-2325;
@@ -74,23 +58,31 @@ End
 //include "../../common-src/savepath.pr-";
 
 begin
+	frame;
+/*	scale_resolution_y=graphic_info(0, 0, G_HEIGHT);
+	scale_resolution_x=graphic_info(0, 0, G_WIDTH);
+	if(scale_resolution_x<1000)
+	   temp="0"+scale_resolution_x;
+	else
+	   temp=""+scale_resolution_x; 
+	end*/
+	//scale_resolution=08000480;
 	alpha_steps=32;
 	set_mode(533,320,32);
-	set_fps(25,0);
+	set_fps(25,3);
 	ler=load_fnt("puntos.fnt");
 	i=load_png("3.png");
 	put_screen(0,i);
 	frame;
 	timer[0]=0;
+	carga_sonidos();
+	music=load_song("1.ogg");
 	load_fpg("pixfrogger.fpg");
 	while(timer[0]<300) frame; end
 	clear_screen();
 	unload_map(0,i);
-	
-	//music=load_song("1.ogg");
-	 
+	play_song(music,-1);
 	elecpersonaje();
-	say(6);
 	loop
 		frame;
 	end
@@ -172,6 +164,15 @@ begin
 	frame(1000);
 	controlador();
 	loop
+		if(!focus_status)
+			let_me_alone();
+			pause_song();
+			while(!focus_status)
+				frame;
+			end
+			resume_song();
+			juego();
+		end
 		if(ranviva[1]+ranviva[2]+ranviva[3]+ranviva[4]+ranviva[5]+ranviva[6]+ranviva[7]+ranviva[8]==1)
 			graph=get_screen();
 			x=266; y=160;
@@ -359,12 +360,12 @@ begin
 	graph=gr;
 	y=-tbase;
 	x=rand(-50,850);
-	if(collision(type obstc))
-		return;
-	end
 	z=-10;
 	bac();
 	loop
+		if(collision(type obstc))
+			return;
+		end
 		obstcc(x,y);
 		if(tip==0 or tip==2)
 			if(tip==0)
