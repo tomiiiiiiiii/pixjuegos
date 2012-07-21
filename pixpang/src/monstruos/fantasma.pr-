@@ -4,7 +4,7 @@ Process fantasma();
 Private
 	lao;
 	temporizador=-40;
-	bolasmax=32;
+	bolasmax=7;
 	id_sombra;
 	id_disp;
 	id_fondo;
@@ -38,6 +38,7 @@ Begin
 			if(id_col=collision(type disparos))
 				id_col.accion=-1;
 				contaor--;
+				bolasmax=7;
 				frame(400);
 			end
 		end
@@ -45,6 +46,7 @@ Begin
 	end
 	matabolas=1;
 	signal(id_sombra,s_kill);
+	desvanecerse(x,y,z,1,file,10000,10000);
 	from size=100 to 0 step -5; angle+=5000; frame; end
 	matabolas=0;
 	jefe=0;
@@ -156,3 +158,31 @@ Begin
 		frame(12000);
 	end
 End
+
+process desvanecerse(x,y,z,graffico,file,omega,delta);
+private
+	angulo;
+	altura;
+	desfase;
+	radio=1;
+begin
+	alpha=100;
+	flags=father.flags;
+	loop
+		graph=new_map(radio*2+graphic_info(file,graffico,g_wide),graphic_info(file,graffico,g_height),16);
+
+		angulo=desfase;
+		from altura=0 to graphic_info(0,graffico,g_height);
+			map_block_copy(file,graph,radio+get_distx(angulo,radio),altura,graffico,0,altura,graphic_info(0,graffico,g_wide),1,128);
+			angulo+=omega;
+		end
+		desfase+=delta;
+		if(radio<256) radio++; end
+		alpha--;
+		if(angulo>360000) angulo=0; end
+		if(desfase>360000) desfase=0; end
+		frame;
+		unload_map(0,graph);
+		if(alpha<0) return; end
+	end
+end
