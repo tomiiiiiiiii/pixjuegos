@@ -39,11 +39,13 @@ Begin
 				id_col.accion=-1;
 				contaor--;
 				bolasmax=7;
+				suena(16);
 				frame(400);
 			end
 		end
 		frame;
 	end
+	suena(17);
 	matabolas=1;
 	signal(id_sombra,s_kill);
 	desvanecerse(x,y,z,1,file,10000,10000);

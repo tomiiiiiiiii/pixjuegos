@@ -1,32 +1,47 @@
 program pixfrogger;
 
-import "mod_debug";
 import "mod_dir";
 import "mod_draw";
-import "mod_file";
 import "mod_grproc";
-import "mod_joy";
-import "mod_key";
 import "mod_map";
-import "mod_math";
 import "mod_mouse";
+import "mod_multi";
 import "mod_proc";
 import "mod_rand";
-import "mod_regex";
 import "mod_say";
 import "mod_screen";
 import "mod_scroll";
 import "mod_sound";
 import "mod_string";
-import "mod_sys";
 import "mod_text";
 import "mod_timers";
 import "mod_video";
 import "mod_wm";
+import "mod_file";
+import "mod_joy";
+import "mod_math";
+import "mod_sys";
+
+//comentar las dos siguientes líneas para Wii
+#ifdef ANDROID
+Const
+	_q = 1;
+	_z = 1;
+	_u = 1;
+	_p = 1;
+	_up = 1;
+	_down = 1;
+	_enter = 1;
+	scan_code = 0;
+	_esc = 1;
+#else
+	import "mod_regex";
+	import "mod_key";
+#endif
 
 global
-	arcade_mode=0;
-
+	arcade_mode=0;	
+	
 	jue;
 	anterior_camino;
 	Struct ops; 
@@ -43,7 +58,7 @@ global
 	rana_viva[8];
 	rana_puntos[8];
 	llegada;
-	ler;
+	fnt_puntos;
 	music;
 	njoys;
 	buzz;
@@ -53,14 +68,16 @@ global
 	wavs[50];
 	boton[9]; //0: cualquier boton,1-8: ranas,9:salir
 	posibles_jugadores;
+	id_camara;
 	
 	ancho_pantalla=1280;
 	alto_pantalla=720;
-	panoramico=0;
-	alto_camino=50;
-	pos_inicio=50;
+	panoramico=1;
+	alto_camino=75;
+	pos_inicio=100;
 	num_caminos;
 	meta=0;
+	movil=0;
 
 	// COMPATIBILIDAD CON XP/VISTA/LINUX (usuarios)
 	string savegamedir;
@@ -78,9 +95,67 @@ include "../../common-src/lenguaje.pr-";
 include "../../common-src/savepath.pr-";
 
 begin
-	//arcade mode?
-	if(argc>0) if(argv[1]=="arcade") arcade_mode=1; end end
+	if(os_id==1003) movil=1; end
+	
+	if(!movil)
+		//arcade mode?
+		if(argc>0) if(argv[1]=="arcade") arcade_mode=1; end end
 
+		//detectamos buzzers
+		detecta_buzzers();
+	
+		//averiguamos el path para guardar datos
+		savepath();
+		
+		//cargamos las opciones actuales
+		carga_opciones();
+	
+		//detectamos el lenguaje a utilizar (en/es)
+		switch(lenguaje_sistema())
+			case "es": ops.lenguaje=0; end
+			default: ops.lenguaje=1; end
+		end
+	
+		//ajustes de rendimiento
+		alpha_steps=64;
+	
+		//en modo arcade, pantalla completa y escalado
+		if(arcade_mode) ops.pantalla_completa=true; scale_resolution=08000600; end
+	
+		//seteamos el modo de vídeo
+		full_screen=ops.pantalla_completa;
+	else
+		//ANDUROID
+		if(os_id==1003)
+			frame;
+			ancho_pantalla=graphic_info(0,0,g_width);
+			alto_pantalla=graphic_info(0,0,g_height);
+		end
+		
+		//ajustes de rendimiento
+		alpha_steps=32;
+	end
+	
+	set_mode(ancho_pantalla,alto_pantalla,32);
+	set_fps(25,3);
+	set_title("PiX Frogger");
+	
+	//cargamos los recursos a utilizar durante todo el juego
+	carga_sonidos();
+	fnt_puntos=load_fnt("fnt/puntos.fnt");
+	load_fpg("fpg/pixfrogger.fpg");
+	music=load_song("ogg/1.ogg");
+		
+	//averiguamos el alto del camino y el número de caminos
+	alto_camino=graphic_info(0,200,g_height);
+	num_caminos=(alto_pantalla/alto_camino)+2;
+			
+	//empezamos, ponemos el logo
+	logo_pixjuegos(); 
+end
+
+function detecta_buzzers();
+Begin
 	//encontramos buzzers
 	njoys=number_joy();
 	if(njoys>0)
@@ -97,41 +172,6 @@ begin
 			end
 		end
 	end
-
-	//averiguamos el path para guardar datos
-	savepath();
-	
-	//cargamos las opciones actuales
-	carga_opciones();
-	
-	//detectamos el lenguaje a utilizar (en/es)
-	switch(lenguaje_sistema())
-		case "es": ops.lenguaje=0; end
-		default: ops.lenguaje=1; end
-	end	
-
-	//ajustes de rendimiento
-	alpha_steps=64;
-	
-	//en modo arcade, pantalla completa y escalado
-	if(arcade_mode) ops.pantalla_completa=true; scale_resolution=08000600; end
-	
-	//seteamos el modo de vídeo
-	//full_screen=ops.pantalla_completa;
-	set_mode(ancho_pantalla,alto_pantalla,32,WAITVSYNC);
-	set_fps(30,0);
-	set_title("PiX Frogger");
-	
-	num_caminos=(alto_pantalla/alto_camino)+1;
-	
-	//cargamos los recursos a utilizar durante todo el juego
-	carga_sonidos();
-	ler=load_fnt("fnt/puntos.fnt");
-	load_fpg("fpg/pixfrogger.fpg");
-	music=load_song("ogg/1.ogg");
-	
-	//empezamos, ponemos el logo
-	logo_pixjuegos(); 
 end
 
 function reset();
@@ -172,7 +212,14 @@ begin
 	end
 	
 	//ponemos el menú
-	menu();
+	if(!movil)
+		menu();
+	else
+		posibles_jugadores=2;
+		rana_juega[1]=1;
+		juego();
+		return;
+	end
 	
 	//desaparece
 	from alpha=alpha to 0 step -10;
@@ -216,9 +263,9 @@ begin
 		return;
 	end
 	
-	lista(4);
-	logo(2);
-	machango();
+	lista_opciones(4);
+	logo_pixfrogger();
+	flecha_opcion();
 	x=ancho_pantalla/2;
 	y=alto_pantalla/2;
 	keytime=10;
@@ -238,7 +285,7 @@ begin
 			if(elecc==1)
 				let_me_alone();
 				back(3);
-				logo(2);
+				logo_pixfrogger();
 				opcion();
 				break;
 			end
@@ -248,7 +295,7 @@ begin
 				break;
 			end
 			if(elecc==3)
-				guarda_opciones();
+				//guarda_opciones();
 				exit(0);
 			end
 		end
@@ -280,10 +327,10 @@ begin
 	end
 end
 
-process lista(gr)
+process lista_opciones(gr)
 begin
-	x=-200;
-	y=300;
+	x=-(ancho_pantalla/4);
+	y=alto_pantalla/2;
 	if(gr==13)
 		y=276;
 	end
@@ -297,25 +344,29 @@ begin
 		if(graph==13) graph=913; end
 	end
 	loop
-		if(gr!=13) x+=(x-150)/-10; else x+=(x-200)/-10; end
+		if(gr!=13) 
+			x+=(x-(ancho_pantalla/4))/-10; 
+		else 
+			x+=(x-(ancho_pantalla/4))/-10; 
+		end
 		frame;
 	end
 end
 
-process logo(gr)
+process logo_pixfrogger()
 begin
-	x=400;
-	y=-140;
+	x=(ancho_pantalla/8)*5;
+	y=-(alto_pantalla/8);
 	z=-10;
-	graph=gr;
+	graph=2;
 	
 	loop
-		y+=(y-90)/-10;
+		y+=(y-(alto_pantalla/4))/-10;
 		frame;
 	end
 end
 
-process movi(gr)
+process grafico_al_centro(gr)
 private
 	con;
 begin
@@ -333,7 +384,7 @@ begin
 	end
 end
 
-process machango()
+process flecha_opcion()
 private
 	osc;
 begin
@@ -344,7 +395,7 @@ begin
 		if(osc>350000)
 			osc=0;
 		end
-		x=(cos(osc)*5)+20;
+		//x=(cos(osc)*5)+20;
 		elecy=y;
 		y=190+elecc*55;
 		frame;
@@ -370,7 +421,7 @@ begin
 		end
 		//ayuda y tal
 		if(graph==5 or graph==912)
-			if(key(_enter) and keytime==0)
+			if(key(_esc) and keytime==0)
 				sonido(3);
 				let_me_alone();
 				menu();
@@ -392,8 +443,8 @@ private
 	tecenter;
 begin
 	elecc=0;
-	lista(13);
-	machango();
+	lista_opciones(13);
+	flecha_opcion();
 	scroll_y=-100;
 	tecenter=1;
 	loop
@@ -498,12 +549,12 @@ begin
 	loop
 		dand++;
 		if(dand==100)
-			movi(11);
+			grafico_al_centro(11);
 		end
 		if(dand==200)
-			movi(12);
+			grafico_al_centro(12);
 		end
-		if(dand==250)
+		if(dand==250 or (dand>100 and key(_enter)))
 			graph=get_screen();
 			let_me_alone();
 			juego();
@@ -562,6 +613,8 @@ process juego()
 private
 	ganador;
 	dand;
+	ranas_vivas_antes;
+	ranas_vivas;
 begin
 	clear_screen();
 	controlador();
@@ -569,59 +622,73 @@ begin
 	scroll_y=0;
 	priority=1;
 	delete_text(all_text);
-	if(rana_puntos[1]!=0) write_int(ler,200,470,4,&rana_puntos[1]); end
-	if(rana_puntos[2]!=0) write_int(ler,250,470,4,&rana_puntos[2]); end
-	if(rana_puntos[3]!=0) write_int(ler,390,470,4,&rana_puntos[3]); end
-	if(rana_puntos[4]!=0) write_int(ler,440,470,4,&rana_puntos[4]); end
 	indicador();
-	start_scroll(0,0,0,0,0,15);
+	start_scroll(0,0,new_map(4,4,8),0,0,15);
 	scroll[0].camera=camara();
-	from i=pos_inicio-num_caminos to pos_inicio;
+	from i=pos_inicio-num_caminos+1 to pos_inicio;
 		camino(i);
 	end
 	from i=1 to posibles_jugadores;
 		rana(i,rana_juega[i]);
 	end
 	frame(1000);
+	//write_int(fnt_puntos,0,0,0,&fps);
 	loop
-		if(rana_viva[1]+rana_viva[2]+rana_viva[3]+rana_viva[4]==1)
+		//perdida del foco en el juego
+		if(!focus_status)
+			let_me_alone();
+			pause_song();
+			set_fps(1,9);
+			timer[0]=0;
+			while(!focus_status)
+				if(timer[0]>60000) exit(); end
+				frame;
+			end
+			resume_song();
+			set_mode(ancho_pantalla,alto_pantalla,32);
+			set_fps(25,3);
+			juego();
+		end
+
+	
+		//contamos el número de ranas vivas actuales
+		ranas_vivas=0;
+		from i=1 to posibles_jugadores;
+			if(rana_viva[i]) ranas_vivas++; end
+		end
+		
+		//si solo queda una rana, será la ganadora
+		if(ranas_vivas==1)
 			graph=get_screen();
 			x=ancho_pantalla/2;
 			y=alto_pantalla/2;
 			z=-3;
 			let_me_alone();
-			from i=1 to 4;
+			delete_text(all_text);
+			from i=1 to posibles_jugadores;
 				if(rana_viva[i]==1) ganador=i; end
 			end
-			//hay que crear otro proceso para colocar gráficos
+		
 			gana_rana(ganador);
 			gana_rana_you_win();
-			//rana_elec(320,200,500+ganador,0);
-			//rana_elec(320,380,916,0);
 			rana_puntos[ganador]++;
+			
 			timer[0]=0;
-			while(timer[0]<300) frame; end
-			alpha=60;
-			dand=100;
-			loop
-				dand++;
-				if(dand==100)
-					movi(11);
-				end
-				if(dand==200)
-					movi(12);
-				end
-				if(dand==250)
-					let_me_alone();
-					juego();
-					z=-10;
-					from alpha=255 to 0 step -15; frame; end
-					unload_map(0,graph);
-					signal(id,s_kill);
-				end			
+			while(timer[0]<300) 
+				frame; 
+				if(key(_enter)) break; end
 			end
+			
+			let_me_alone();
+			juego();
+			z=-10;
+			from alpha=255 to 0 step -15; frame; end
+			unload_map(0,graph);
+			return;
 		end
-		if(rana_viva[1]+rana_viva[2]+rana_viva[3]+rana_viva[4]==0)
+		
+		//si han muerto todas las ranas a la vez, reset! 
+		if(ranas_vivas==0)
 			graph=get_screen();
 			x=ancho_pantalla/2;
 			y=alto_pantalla/2;
@@ -635,6 +702,11 @@ begin
 			unload_map(0,graph);
 			signal(id,s_kill);
 		end
+		
+		//esto aún no tengo claro de para qué lo voy a usar...
+		ranas_vivas_antes=ranas_vivas;
+		
+		//botón esc, salir
 		if(boton[9])
 			while(boton[9]) frame; end
 			let_me_alone();
@@ -652,39 +724,42 @@ end
 // lo siento gnomwer xD
 process sombra();
 begin
+	//en caso de android, ios y demás, sin sombras
+	if(movil) return; end
 	ctype=c_scroll;
 	z=father.z+5;
 	flags=father.flags;
-	if(!exists(father))
-		return;
-	else
-		x=father.x+(father.x/30)-10;
-		y=father.y+5;
 
-		//if(father.graph==50 or father.graph==52 or father.graph==54 or father.graph==56)
+	priority=1;
+	
+	//coches y camiones
+	if(father.graph==100 or father.graph==101)
+		graph=904;
+	end
+	if(father.graph==102)
+		graph=906;
+	end
+	if(father.graph==103 or father.graph==104)
+		graph=905;
+	end
+	if(father.graph==106)
+		graph=903;
+	end
+	if(father.graph==105)
+		graph=902;
+	end
+
+	while(exists(father))
+		x=father.x+10;
+		y=father.y+10;
+
+		//ranas
 		if(father.graph>=50 and father.graph=<80)
 			if(father.graph%2==0)
 				graph=900;
 			else
 				graph=901;
 			end
-		end
-		
-		//coches y camiones
-		if(father.graph==100 or father.graph==101)
-			graph=904;
-		end
-		if(father.graph==102)
-			graph=906;
-		end
-		if(father.graph==103 or father.graph==104)
-			graph=905;
-		end
-		if(father.graph==106)
-			graph=903;
-		end
-		if(father.graph==105)
-			graph=902;
 		end
 		FRAME;
 	end
@@ -710,43 +785,47 @@ begin
 			x=(ancho_pantalla/2)-(alto_camino)-(alto_camino*6)+(alto_camino*(jugador)*1.5);
 		end
 	end
+	
+	if(rana_puntos[jugador]!=0) write_int(fnt_puntos,x,alto_pantalla-(alto_camino/2),4,&rana_puntos[jugador]); end
+	
 	z=-100;
 	gr=50+((jugador-1)*2);
 	ctype=c_scroll;
-	pos_y=pos_inicio;
+	pos_y=pos_inicio-1;
 	y=(alto_camino*pos_inicio)-(alto_camino/2);
-	priority=2;
+	priority=rand(100,200);
 	rana_viva[jugador]=1;
 	graph=gr;
+	sombra();
 	loop
 		if(retraso>0)
 			retraso--;
 		end
-		if(y<scroll[0].y1)
+		if(y<id_camara.y-(alto_pantalla/2))
 			pos_y++;
 		end
-		if(y>scroll[0].y1+alto_pantalla/2)
+		if(y>id_camara.y+alto_pantalla/2)
 			pos_y--;
 		end
 		if(pos_y==meta) llegada=jugador; end
-		if(!humano)
+		if(!humano and retraso==0)
 			graph=gr;
-			if(rand(0,100)>90 or collision (type vehiculo))
-				graph=gr+1;
+			if(rand(0,100)>90)
 				y-=alto_camino;
-				if(collision(type vehiculo_colisionador))
-					y+=alto_camino;
+				if(collision_box(type vehiculo))
 					graph=gr;
 				else
-					pos_y++;
+					graph=gr+1;
+					pos_y--;
 				end
+				y+=alto_camino;
 			end
 		end
 		
 		//POSIBLES FORMAS DE PERDER: NOS ATROPELLAN O GANA OTRO
 		gr_antes=graph; //guardamos el gráfico actual
 		graph=61; //y ponemos este para colisionar!
-		if(collision(type vehiculo_colisionador) or (llegada!=jugador and llegada!=0))
+		if(collision_box(type vehiculo_colisionador) or (llegada!=jugador and llegada!=0))
 			graph=gr_antes;
 			rana_golpeada(x,y,graph);
 			explotalo(x,y,z,alpha,angle,file,graph,60);
@@ -765,7 +844,6 @@ begin
 			end
 		end
 		y=(pos_y*alto_camino)+(alto_camino/2);
-		sombra();
 		frame;
 	end
 	rana_viva[jugador]=0;
@@ -773,14 +851,20 @@ end
 
 Process camara();
 Begin
+	id_camara=id;
 	x=ancho_pantalla/2;
 	y=(pos_inicio-(num_caminos/2))*alto_camino;
 	ctype=c_scroll;
 	loop
+		scroll[0].x1=x;
+		scroll[0].y1=y;
 		from i=1 to posibles_jugadores;
 			if(exists(rana_id[i]))
-				if(rana_id[i].y<y-(alto_pantalla/2)+200)
-					y-=5;
+				if(rana_id[i].y<y)
+					y-=alto_camino/10;
+				end
+				if(rana_id[i].y<y-(alto_pantalla/3))
+					y-=alto_camino/10;
 				end
 			end
 		end
@@ -790,7 +874,7 @@ End
 
 Function en_pantalla_y();
 Begin
-	if(father.y>scroll[0].y1+(alto_pantalla/2)+alto_camino)
+	if(father.y>id_camara.y+(alto_pantalla/2)+(alto_camino/2))
 		return 0;
 	else
 		return 1;
@@ -817,8 +901,8 @@ begin
 	x=rand(0,900);
 	y=(pos_y*alto_camino)+(alto_camino/2);
 	z=-10;
+	sombra();
 	loop
-		sombra();
 		vehiculo_colisionador(x,y);
 		if(!en_pantalla_y()) return; end
 		if(tipo==0 or tipo==2)
@@ -862,7 +946,7 @@ begin
 		angle+=30000;
 		grav+=1;
 		y+=grav;
-		if(y>scroll[0].y1+(alto_pantalla/2)+100) break;	end
+		if(y>id_camara.y+(alto_pantalla/2)+100) break;	end
 		frame;
 	end
 end
@@ -888,10 +972,16 @@ Begin
 			if(graph==200) //hierba
 				if(anterior_camino==201 or anterior_camino==203)
 					graph=205;
-				else
-					graph=200+(rand(0,2)*2);
 				end
-			else //calzada
+				if(anterior_camino==200)
+					graph=202;
+				elseif(anterior_camino==202)
+					graph=204;
+				else 
+					graph=200;
+				end
+			end
+			if(graph==201) //calzada
 				if(anterior_camino==201 or anterior_camino==203)
 					graph=201;
 				elseif(anterior_camino==200 or anterior_camino==202 or anterior_camino==204 or anterior_camino==205)
@@ -937,8 +1027,8 @@ private
 	tec2;
 begin
 	elecc=0;
-	lista(914);
-	machango();
+	lista_opciones(914);
+	flecha_opcion();
 	loop
 		if(elecc==2)
 			elecc=0;
@@ -950,7 +1040,7 @@ begin
 			keytime--;
 		end
 		//elige algo
-		if(key(_enter)and keytime==0)
+		if(key(_enter) and keytime==0)
 			sonido(3);
 			ops.lenguaje=elecc;
 			break;
@@ -993,6 +1083,7 @@ Private
 		vel_x;
 	end
 Begin
+	ctype=c_scroll;
 	ancho=graphic_info(file,grafico,g_width);
 	alto=graphic_info(file,grafico,g_height);
 	from b=0 to alto-1 step 3;
@@ -1048,52 +1139,57 @@ Process controlador();
 Begin
 	loop
 		from i=0 to 9; boton[i]=0; end
+		if(!movil)
+			if(arcade_mode)
+				if(get_joy_button(0,8)) boton[9]=1; end
+				if(get_joy_button(0,0)) boton[1]=1; end
+				if(get_joy_button(0,3)) boton[2]=1; end
+				if(get_joy_button(1,0)) boton[3]=1; end
+				if(get_joy_button(1,3)) boton[4]=1; end
+			end
+			
+			if(buzz==1)
+				if(get_joy_button(buzz_joy,0)) boton[1]=1; end
+				if(get_joy_button(buzz_joy,5)) boton[2]=1; end
+				if(get_joy_button(buzz_joy,10)) boton[3]=1; end
+				if(get_joy_button(buzz_joy,15)) boton[4]=1; end
+				if(key(_q)) boton[5]=1; end
+				if(key(_z)) boton[6]=1; end
+				if(key(_p)) boton[7]=1; end
+				if(key(_up)) boton[8]=1; end
+			end
+			if(buzz==2)
+				if(get_joy_button(buzz_joy,0)) boton[1]=1; end
+				if(get_joy_button(buzz_joy,5)) boton[2]=1; end
+				if(get_joy_button(buzz_joy,10)) boton[3]=1; end
+				if(get_joy_button(buzz_joy,15)) boton[4]=1; end
+				if(get_joy_button(buzz_joy2,0)) boton[5]=1; end
+				if(get_joy_button(buzz_joy2,5)) boton[6]=1; end
+				if(get_joy_button(buzz_joy2,10)) boton[7]=1; end
+				if(get_joy_button(buzz_joy2,15)) boton[8]=1; end
+			end
 
-		if(arcade_mode)
-			if(get_joy_button(0,8)) boton[9]=1; end
-			if(get_joy_button(0,0)) boton[1]=1; end
-			if(get_joy_button(0,3)) boton[2]=1; end
-			if(get_joy_button(1,0)) boton[3]=1; end
-			if(get_joy_button(1,3)) boton[4]=1; end
+			//teclado
+			if(buzz==0)
+				if(key(_q)) boton[1]=1; end
+				if(key(_z)) boton[2]=1; end
+				if(key(_p)) boton[3]=1; end
+				if(key(_up)) boton[4]=1; end
+			end
+			
+			//deberíamos poner para 8 jugadores en teclado??
+			/*if(key(_q)) boton[1]=1; else boton[1]=0; end
+			if(key(_q)) boton[1]=1; else boton[1]=0; end
+			if(key(_q)) boton[1]=1; else boton[1]=0; end
+			if(key(_q)) boton[1]=1; else boton[1]=0; end*/
+			
+			//tecla maestra
+			if(key(_esc)) boton[9]=1; end
 		end
 		
-		if(buzz==1)
-			if(get_joy_button(buzz_joy,0)) boton[1]=1; end
-			if(get_joy_button(buzz_joy,5)) boton[2]=1; end
-			if(get_joy_button(buzz_joy,10)) boton[3]=1; end
-			if(get_joy_button(buzz_joy,15)) boton[4]=1; end
-			if(key(_q)) boton[5]=1; end
-			if(key(_z)) boton[6]=1; end
-			if(key(_p)) boton[7]=1; end
-			if(key(_up)) boton[8]=1; end
+		if(movil)
+			if(mouse.left) boton[1]=1; end
 		end
-		if(buzz==2)
-			if(get_joy_button(buzz_joy,0)) boton[1]=1; end
-			if(get_joy_button(buzz_joy,5)) boton[2]=1; end
-			if(get_joy_button(buzz_joy,10)) boton[3]=1; end
-			if(get_joy_button(buzz_joy,15)) boton[4]=1; end
-			if(get_joy_button(buzz_joy2,0)) boton[5]=1; end
-			if(get_joy_button(buzz_joy2,5)) boton[6]=1; end
-			if(get_joy_button(buzz_joy2,10)) boton[7]=1; end
-			if(get_joy_button(buzz_joy2,15)) boton[8]=1; end
-		end
-		
-		//teclado
-		if(buzz==0)
-			if(key(_q)) boton[1]=1; end
-			if(key(_z)) boton[2]=1; end
-			if(key(_p)) boton[3]=1; end
-			if(key(_up)) boton[4]=1; end
-		end
-		
-		//deberíamos poner para 8 jugadores en teclado??
-		/*if(key(_q)) boton[1]=1; else boton[1]=0; end
-		if(key(_q)) boton[1]=1; else boton[1]=0; end
-		if(key(_q)) boton[1]=1; else boton[1]=0; end
-		if(key(_q)) boton[1]=1; else boton[1]=0; end*/
-		
-		//tecla maestra
-		if(key(_esc)) boton[9]=1; end
 		
 		from i=1 to 8;
 			if(boton[i]) boton[0]=1; break; end
@@ -1105,16 +1201,25 @@ End
 Process gana_rana(jugador);
 Begin
 	graph=500+jugador;
-	x=320;
-	y=200;
+	x=ancho_pantalla/2;
+	y=(alto_pantalla/8)*3;
 	z=-50;
-	alpha=40;
-	size=190;
+	alpha=0;
+	size=250;
 	angle=60000;
 	loop
-		if(size>100) size-=8; end
-		if(alpha<255) alpha+=10; end
-		if(angle>0) angle-=4000; end
+		if(size>100)
+			size-=((size-100)/8)+2;
+			if(size<105) size=100; end
+		end
+		if(alpha<255) 
+			alpha+=((255-alpha)/8)+2;
+			if(alpha>255) alpha=255; end
+		end
+		if(angle>0) 
+			angle+=(0-angle/8)-1000;
+			if(angle<0) angle=0; end
+		end
 		frame;
 	end
 End
@@ -1122,8 +1227,8 @@ End
 Process gana_rana_you_win();
 Begin
 	graph=916;
-	x=320;
-	y=380;
+	x=ancho_pantalla/2;
+	y=(alto_pantalla/8)*6;
 	z=-50;
 	alpha=40;
 	loop
@@ -1131,3 +1236,15 @@ Begin
 		frame;
 	end
 End
+
+#ifdef ANDROID
+Function split(string caca1, string caca2, pointer caca3, int caca4);
+Begin
+	return 0;
+End
+
+Function key(int caca)
+Begin
+	return 0;
+End
+#endif

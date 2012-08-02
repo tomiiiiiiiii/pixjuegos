@@ -448,11 +448,15 @@ Begin
 	End
 End
 
-Process carga_sonidos();
+Function carga_sonidos();
 Private
 	flipando;
 Begin
-	from flipando=0 to 16; s[flipando]=load_wav("./wav/"+flipando+".wav"); end
+	from flipando=0 to 18;
+		//if(file_exists(load_wav("./wav/"+flipando+".wav")))
+			s[flipando]=load_wav("./wav/"+flipando+".wav");
+	//	end
+	end
 End
 
 Process suena(sonido);

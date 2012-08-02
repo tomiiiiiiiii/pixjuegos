@@ -561,11 +561,10 @@ Begin
 		tipo=1; 
 		put_screen(fpg_general,13);
 		from i=0 to 99;
-			vida[i]=30;
-			if(jugadores==2) vida[jugador]=60; end
+			vida[i]=30*jugadores;
 		end
-		vida[1]=200;
-		vida[2]=200;
+		vida[1]=100;
+		vida[2]=100;
 	end
 	delete_text(all_text);
 	frame;
@@ -594,11 +593,13 @@ Begin
 		scroll.camera=personaje(posicion,1);
 		if(jugadores==2) personaje(posicion,2); end
 		if(primera_vez) primera_vez=0; titulo(); end
-		from i=1 to 6; puerta(i); end
-		if((p[1].armas[2]!=0 or p[2].armas[2]!=0) and (p[1].objetos[1]!=0 or p[2].objetos[1]!=0))
-			puerta(10);
+		if(anterior_mazmorra!=1)
+			from i=1 to 6; puerta(i); end
+			if((p[1].armas[2]!=0 or p[2].armas[2]!=0) and (p[1].objetos[1]!=0 or p[2].objetos[1]!=0))
+				puerta(10);
+			end
 		end
-		if(victorias==7 and anterior_mazmorra==1)
+		if(victorias=>7 and anterior_mazmorra==1)
 			puerta(11);
 		end
 	elseif(tipo==1)
@@ -641,13 +642,8 @@ Begin
 		if(jodido and !exists(type jefe))
 			victorias++;
 			from i=0 to 6;
-				if(jugadores==1)
-					vida[i+10]=30;
-					jefe(i+10,1);
-				else
-					vida[i+10]=60;
-					jefe(i+10,rand(1,2));
-				end
+				vida[i+10]=30*jugadores;
+				jefe(i+10,rand(1,jugadores));
 			end
 		end
 		frame;
@@ -1443,6 +1439,7 @@ Begin
 	alpha=0;
 	graph=30;
 	ctype=father.ctype;
+	jugador=father.jugador;
 	while(!exists(type jefe)) 
 		frame; 
 		x=father.x;
