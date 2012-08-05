@@ -21,26 +21,12 @@ import "mod_file";
 import "mod_joy";
 import "mod_math";
 import "mod_sys";
-
-//comentar las dos siguientes líneas para Wii
-#ifdef ANDROID
-Const
-	_q = 1;
-	_z = 1;
-	_u = 1;
-	_p = 1;
-	_up = 1;
-	_down = 1;
-	_enter = 1;
-	scan_code = 0;
-	_esc = 1;
-#else
-	import "mod_regex";
-	import "mod_key";
-#endif
+import "mod_regex";
+import "mod_key";
 
 global
-	arcade_mode=0;	
+	arcade_mode=0;
+	bpp=32;
 	
 	jue;
 	anterior_camino;
@@ -95,7 +81,10 @@ include "../../common-src/lenguaje.pr-";
 include "../../common-src/savepath.pr-";
 
 begin
-	if(os_id==1003) movil=1; end
+	if(os_id==1003) 
+		movil=1;
+		bpp=16;
+	end
 	
 	if(!movil)
 		//arcade mode?
@@ -136,7 +125,7 @@ begin
 		alpha_steps=32;
 	end
 	
-	set_mode(ancho_pantalla,alto_pantalla,32);
+	set_mode(ancho_pantalla,alto_pantalla,bpp);
 	set_fps(25,3);
 	set_title("PiX Frogger");
 	
@@ -863,8 +852,8 @@ Begin
 				if(rana_id[i].y<y)
 					y-=alto_camino/10;
 				end
-				if(rana_id[i].y<y-(alto_pantalla/3))
-					y-=alto_camino/10;
+				if(rana_id[i].y<y-(alto_pantalla/5))
+					y-=alto_camino/5;
 				end
 			end
 		end
@@ -1236,15 +1225,3 @@ Begin
 		frame;
 	end
 End
-
-#ifdef ANDROID
-Function split(string caca1, string caca2, pointer caca3, int caca4);
-Begin
-	return 0;
-End
-
-Function key(int caca)
-Begin
-	return 0;
-End
-#endif

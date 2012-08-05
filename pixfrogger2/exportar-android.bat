@@ -2,7 +2,7 @@
 rd /s /q export
 echo Compilando...
 cd src
-..\..\bennu-win\bgdc -D ANDROID=1 pixfrogger.prg -g
+..\..\bennu-win\bgdc pixfrogger.prg
 move pixfrogger.dcb ..\main.dcb
 cd ..
 pause
@@ -11,7 +11,7 @@ echo Compilando fpgs....
 del /f fpg\pixfrogger.fpg
 cd fpg-sources
 copy /y ..\..\utils\pxlfpg.dcb .
-..\..\bennu-win\bgdi pxlfpg 32 pixfrogger-mp
+..\..\bennu-win\bgdi pxlfpg 16 pixfrogger-mp
 del /f pxlfpg.dcb
 cd ..\fpg
 ren pixfrogger-mp.fpg pixfrogger.fpg.gz
