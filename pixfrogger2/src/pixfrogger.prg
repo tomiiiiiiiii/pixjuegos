@@ -1,6 +1,5 @@
 program pixfrogger;
 
-import "mod_debug";
 import "mod_dir";
 import "mod_draw";
 import "mod_grproc";
