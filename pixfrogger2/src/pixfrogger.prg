@@ -645,14 +645,18 @@ begin
 		if(!focus_status)
 			let_me_alone();
 			stop_scroll(0);
-			pause_song();
+			if(ops.musica)
+				stop_song();
+			end
 			set_fps(1,9);
 			timer[0]=0;
 			while(!focus_status)
 				if(timer[0]>60000) exit(); end
 				frame;
 			end
-			resume_song();
+			if(ops.musica)
+				play_song(music,-1);
+			end		
 			set_mode(ancho_pantalla,alto_pantalla,bpp);
 			set_fps(25,3);
 			juego();
