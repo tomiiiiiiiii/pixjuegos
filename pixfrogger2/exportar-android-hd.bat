@@ -22,7 +22,7 @@ cd ..
 echo Compilando fnts...
 cd fnt-sources
 copy ..\..\utils\pxlfnt.dcb . /y
-..\..\bennu-win\bgdi pxlfnt 8 puntos-hd puntos-md puntos-ld
+..\..\bennu-win\bgdi pxlfnt 8 puntos-md puntos-ld puntos-hd
 del /f pxlfnt.dcb
 cd ..
 
@@ -47,14 +47,18 @@ copy recursos\android\AndroidManifest.xml export\ /y
 copy recursos\android\build.xml export\ /y
 
 echo Copiando el juego...
-copy 3.png export\assets\3.png /y
-copy fpg\*.fpg export\assets\fpg /y
+copy fpg\pixfrogger-hd.fpg export\assets\fpg /y
+copy fpg\pixfrogger-md.fpg export\assets\fpg /y
+copy fpg\pixfrogger-ld.fpg export\assets\fpg /y
 copy ogg\*.ogg export\assets\ogg /y
 copy wav\*.wav export\assets\wav /y
-copy fnt\*.fnt export\assets\fnt /y
+copy fnt\puntos-hd.fnt export\assets\fnt /y
+copy fnt\puntos-md.fnt export\assets\fnt /y
+copy fnt\puntos-ld.fnt export\assets\fnt /y
 copy main.dcb export\assets /y
 echo Exportado correctamente. Ahora se instalará en el móvil...
 pause
 cd export
-ant debug install
+if exist c:\pixjuegos.keystore ant release
+if not exist c:\pixjuegos.keystore ant debug install
 pause

@@ -136,6 +136,7 @@ begin
 	
 	//cargamos los recursos a utilizar durante todo el juego
 	carga_sonidos();
+
 	if(ancho_pantalla=>800)
 		load_fpg("fpg/pixfrogger-hd.fpg");
 		fnt_puntos=load_fnt("fnt/puntos-hd.fnt");
@@ -181,6 +182,7 @@ Begin
 	delete_text(0);
 	stop_wav(-1);
 	stop_song();
+	stop_scroll(0);
 	clear_screen();
 End
 
@@ -355,6 +357,7 @@ begin
 	end
 end
 
+//aparece en los menús
 process logo_pixfrogger()
 begin
 	x=(ancho_pantalla/8)*5;
@@ -368,6 +371,7 @@ begin
 	end
 end
 
+//animación que muestra un gráfico que va desde arriba del todo al centro
 process grafico_al_centro(gr)
 private
 	con;
@@ -386,6 +390,7 @@ begin
 	end
 end
 
+//flecha de las opciones
 process flecha_opcion()
 private
 	osc;
@@ -634,11 +639,12 @@ begin
 		rana(i,rana_juega[i]);
 	end
 	frame(1000);
-	//write_int(fnt_puntos,0,0,0,&fps);
+
 	loop
 		//perdida del foco en el juego
 		if(!focus_status)
 			let_me_alone();
+			stop_scroll(0);
 			pause_song();
 			set_fps(1,9);
 			timer[0]=0;
@@ -647,11 +653,10 @@ begin
 				frame;
 			end
 			resume_song();
-			set_mode(ancho_pantalla,alto_pantalla,32);
+			set_mode(ancho_pantalla,alto_pantalla,bpp);
 			set_fps(25,3);
 			juego();
 		end
-
 	
 		//contamos el número de ranas vivas actuales
 		ranas_vivas=0;
@@ -666,6 +671,7 @@ begin
 			y=alto_pantalla/2;
 			z=-3;
 			let_me_alone();
+			stop_scroll(0);
 			delete_text(all_text);
 			from i=1 to posibles_jugadores;
 				if(rana_viva[i]==1) ganador=i; end
@@ -815,40 +821,34 @@ begin
 		end
 		if(pos_y==meta) llegada=jugador; end
 		if(!humano and retraso==0)
-			graph=gr;
 			if(rand(0,100)>90)
 				y-=alto_camino;
-				if(collision_box(type vehiculo))
-					graph=gr;
-				else
-					graph=gr+1;
+				if(!collision_box(type vehiculo))
 					pos_y--;
+					retraso=4;
 				end
 				y+=alto_camino;
 			end
 		end
 		
 		//POSIBLES FORMAS DE PERDER: NOS ATROPELLAN O GANA OTRO
-		gr_antes=graph; //guardamos el gráfico actual
-		graph=61; //y ponemos este para colisionar!
+		graph=71; //ponemos este para colisionar!
 		if(collision_box(type vehiculo_colisionador) or (llegada!=jugador and llegada!=0))
-			graph=gr_antes;
-			rana_golpeada(x,y,graph);
-			explotalo(x,y,z,alpha,angle,file,graph,60);
+			rana_golpeada(x,y,gr+1);
+			if(!movil)
+				explotalo(x,y,z,alpha,angle,file,gr+1,60);
+			end
 			sonido(4);
 			break;
 		end
-		graph=gr_antes;
 
 		if(humano)
 			if(boton[jugador]and retraso==0)
-				graph=gr+1;
 				pos_y--;
 				retraso=4;
-			else
-				if(retraso<3) graph=gr; end
 			end
 		end
+		if(retraso>2) graph=gr+1; else graph=gr; end
 		y=(pos_y*alto_camino)+(alto_camino/2);
 		frame;
 	end
@@ -962,10 +962,25 @@ Begin
 	z=50;
 	x=ancho_pantalla/2;
 	ctype=c_scroll;
-	
+
 	//al principio todo es hierba
-	graph=200+(rand(0,2)*2);
+	graph=200;
+	if(graph==200) //hierba
+		if(anterior_camino==201 or anterior_camino==203)
+			graph=205;
+		end
+		if(anterior_camino==200)
+			graph=202;
+		elseif(anterior_camino==202)
+			graph=204;
+		else 
+			graph=200;
+		end
+	end
+	anterior_camino=graph;
+	
 	y=(pos_y*alto_camino)+(alto_camino/2);
+	
 	loop
 		if(!en_pantalla_y())
 			pos_y-=num_caminos;
