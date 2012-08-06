@@ -8,21 +8,22 @@ cd ..
 pause
 
 echo Compilando fpgs....
-del /f fpg\pixfrogger.fpg
+del /f fpg\*.fpg
 cd fpg-sources
 copy /y ..\..\utils\pxlfpg.dcb .
-..\..\bennu-win\bgdi pxlfpg 16 pixfrogger-mp
+..\..\bennu-win\bgdi pxlfpg 16 pixfrogger-md pixfrogger-ld pixfrogger-hd
+
 del /f pxlfpg.dcb
 cd ..\fpg
-ren pixfrogger-mp.fpg pixfrogger.fpg.gz
-..\..\utils\gzip -d pixfrogger.fpg.gz
+ren *.fpg *.fpg.gz
+..\..\utils\gzip -d *.fpg.gz
 cd ..
 
 echo Compilando fnts...
-cd fnt
-ren puntos.fnt puntos.fnt.gz
-..\..\utils\gzip -d puntos.fnt.gz
-ren puntos.fnt.gz puntos.fnt
+cd fnt-sources
+copy ..\..\utils\pxlfnt.dcb . /y
+..\..\bennu-win\bgdi pxlfnt 8 puntos-hd puntos-md puntos-ld
+del /f pxlfnt.dcb
 cd ..
 
 echo Exportando...

@@ -1,5 +1,6 @@
 program pixfrogger;
 
+import "mod_debug";
 import "mod_dir";
 import "mod_draw";
 import "mod_grproc";
@@ -56,9 +57,9 @@ global
 	posibles_jugadores;
 	id_camara;
 	
-	ancho_pantalla=1280;
-	alto_pantalla=720;
-	panoramico=1;
+	ancho_pantalla=320;
+	alto_pantalla=240;
+	panoramico=0;
 	alto_camino=75;
 	pos_inicio=100;
 	num_caminos;
@@ -68,13 +69,15 @@ global
 	// COMPATIBILIDAD CON XP/VISTA/LINUX (usuarios)
 	string savegamedir;
 	string developerpath="/.PiXJuegos/PiXFrogger/";
+End //global
+
 Local
 	i; // la variable maestra
 	ancho;
 	alto;
 	jugador;
 	pos_y;	
-End
+End //local
 
 //cosas comunes de los pixjuegos
 include "../../common-src/lenguaje.pr-";
@@ -131,8 +134,16 @@ begin
 	
 	//cargamos los recursos a utilizar durante todo el juego
 	carga_sonidos();
-	fnt_puntos=load_fnt("fnt/puntos.fnt");
-	load_fpg("fpg/pixfrogger.fpg");
+	if(ancho_pantalla=>800)
+		load_fpg("fpg/pixfrogger-hd.fpg");
+		fnt_puntos=load_fnt("fnt/puntos-hd.fnt");
+	elseif(ancho_pantalla=>400)
+		load_fpg("fpg/pixfrogger-md.fpg");
+		fnt_puntos=load_fnt("fnt/puntos-md.fnt");
+	else
+		load_fpg("fpg/pixfrogger-ld.fpg");
+		fnt_puntos=load_fnt("fnt/puntos-ld.fnt");
+	end
 	music=load_song("ogg/1.ogg");
 		
 	//averiguamos el alto del camino y el número de caminos
@@ -715,6 +726,10 @@ process sombra();
 begin
 	//en caso de android, ios y demás, sin sombras
 	if(movil) return; end
+	
+	//en versiones con pantallas pequeñas, sin sombras
+	if(ancho_pantalla<800) return; end 
+	
 	ctype=c_scroll;
 	z=father.z+5;
 	flags=father.flags;
@@ -775,7 +790,7 @@ begin
 		end
 	end
 	
-	if(rana_puntos[jugador]!=0) write_int(fnt_puntos,x,alto_pantalla-(alto_camino/2),4,&rana_puntos[jugador]); end
+	if(rana_puntos[jugador]!=0) write(fnt_puntos,x,alto_pantalla-(alto_camino/2),4,rana_puntos[jugador]); end
 	
 	z=-100;
 	gr=50+((jugador-1)*2);
@@ -985,15 +1000,24 @@ Begin
 end
 
 process indicador()
+private
+	ancho_bandera;
+	base_x;
+	max_y;
 begin
 	bandera();
+	ancho_bandera=graphic_info(0,210,g_width);
 	graph=50;
 	angle=270000;
 	size=50;
 	y=22;
 	z=-50;
+	base_x=(ancho_pantalla/2)+(ancho_bandera/2);
+	max_y=alto_camino*pos_inicio;
 	loop
-		x=(scroll_y/10)+190;
+		if(exists(id_camara))
+			x=base_x-((id_camara.y*ancho_bandera)/max_y);
+		end
 		frame;
 	end
 end
