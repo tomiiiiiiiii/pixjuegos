@@ -56,9 +56,9 @@ global
 	posibles_jugadores;
 	id_camara;
 	
-	ancho_pantalla=320;
-	alto_pantalla=240;
-	panoramico=0;
+	ancho_pantalla=1280;
+	alto_pantalla=720;
+	panoramico=1;
 	alto_camino=75;
 	pos_inicio=100;
 	num_caminos;
@@ -127,6 +127,9 @@ begin
 		alpha_steps=32;
 	end
 	
+	if(!mode_is_ok(ancho_pantalla,alto_pantalla,bpp,mode_fullscreen))
+		full_screen=false;
+	end
 	set_mode(ancho_pantalla,alto_pantalla,bpp);
 	set_fps(25,3);
 	set_title("PiX Frogger");
