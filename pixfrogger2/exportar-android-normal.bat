@@ -58,6 +58,6 @@ echo Exportado correctamente. Ahora se instalará en el móvil...
 pause
 
 cd export
-if exist c:\pixjuegos.keystore ant release install run
-if not exist c:\pixjuegos.keystore ant debug install
+cmd /c if exist c:\pixjuegos.keystore ant release install
+cmd /c if not exist c:\pixjuegos.keystore ant debug install
 pause

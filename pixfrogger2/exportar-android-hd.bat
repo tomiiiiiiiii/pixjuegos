@@ -59,6 +59,6 @@ copy main.dcb export\assets /y
 echo Exportado correctamente. Ahora se instalará en el móvil...
 pause
 cd export
-if exist c:\pixjuegos.keystore ant release
+if exist c:\pixjuegos.keystore ant release install
 if not exist c:\pixjuegos.keystore ant debug install
 pause
