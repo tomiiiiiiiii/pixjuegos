@@ -1298,7 +1298,9 @@ Begin
 	angle=60000;
 	loop
 		if(movil)
-			if(mouse.left and collision(type mouse)) break; end
+			if(mouse.left and collision(type mouse)) 
+				timer[0]=300;
+			end
 		end
 		if(size>100)
 			size-=((size-100)/8)+2;
