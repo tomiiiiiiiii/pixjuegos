@@ -136,7 +136,6 @@ begin
 	
 	//cargamos los recursos a utilizar durante todo el juego
 	carga_sonidos();
-
 	if(ancho_pantalla=>800)
 		load_fpg("fpg/pixfrogger-hd.fpg");
 		fnt_puntos=load_fnt("fnt/puntos-hd.fnt");
@@ -147,12 +146,12 @@ begin
 		load_fpg("fpg/pixfrogger-ld.fpg");
 		fnt_puntos=load_fnt("fnt/puntos-ld.fnt");
 	end
-	music=load_song("ogg/1.ogg");
-		
+	music=load_song("ogg/1.ogg");	
+	
 	//averiguamos el alto del camino y el número de caminos
 	alto_camino=graphic_info(0,200,g_height);
 	num_caminos=(alto_pantalla/alto_camino)+2;
-			
+	
 	//empezamos, ponemos el logo
 	logo_pixjuegos(); 
 end
@@ -201,14 +200,14 @@ begin
 
 	//aparece
 	from alpha=50 to 255 step 5; 
-		if(scan_code!=0) break; end
+		if(scan_code!=0 or (movil and mouse.left)) break; end
 		frame; 
 	end
 
 	//permanece 3 segundos
 	timer[0]=0;
-	while(timer[0]<300) if(scan_code!=0) break; end frame; end
-	while(scan_code!=0) frame; end
+	while(timer[0]<300) if(scan_code!=0 or (movil and mouse.left)) break; end frame; end
+	while(scan_code!=0 or (movil and mouse.left)) frame; end
 	
 	//ponemos la canción del juego
 	if(ops.musica)
@@ -642,7 +641,7 @@ begin
 
 	loop
 		//perdida del foco en el juego
-		if(!focus_status)
+		if(!focus_status and movil)
 			let_me_alone();
 			stop_scroll(0);
 			if(ops.musica)
@@ -825,7 +824,7 @@ begin
 		end
 		if(pos_y==meta) llegada=jugador; end
 		if(!humano and retraso==0)
-			if(rand(0,100)>90)
+			if(rand(0,5)>0)
 				y-=alto_camino;
 				if(!collision_box(type vehiculo))
 					pos_y--;
@@ -1170,7 +1169,17 @@ Begin
 End
 
 Process controlador();
+Private
+	num_dedos;
 Begin
+	if(exists(type juego))
+		if(movil)
+			from i=1 to posibles_jugadores;
+				pon_boton(i);
+			end
+		end
+	end
+	
 	loop
 		from i=0 to 9; boton[i]=0; end
 		if(!movil)
@@ -1222,11 +1231,57 @@ Begin
 		end
 		
 		if(movil)
-			if(mouse.left) boton[1]=1; end
+			//if(mouse.left) boton[1]=1; end
+			//mod_multi!
+
+			// Store the total amount of fingers touching the screen
+			num_dedos = multi_numpointers();
+			
+			for(i=0; i<num_dedos; i++)
+				if(multi_info(i, "ACTIVE") > 0)
+					dedo(multi_info(i, "X"),multi_info(i, "Y"));
+				end
+			end
 		end
 		
 		from i=1 to 8;
 			if(boton[i]) boton[0]=1; break; end
+		end
+		frame;
+	end
+End
+
+Process dedo(x,y);
+Begin
+	graph=71;
+	alpha=0;
+	frame;
+End
+
+Process pon_boton(jugador);
+Begin
+	priority=-1;
+	graph=500+jugador;
+	size=40;
+	ancho=graphic_info(0,graph,g_width);
+
+	if(posibles_jugadores==2)
+		if(jugador==1) 
+			x=(ancho_pantalla/32)+((ancho/2)*size)/100;
+		else
+			x=ancho_pantalla-((ancho_pantalla/32)+(((ancho/2)*size)/100));
+		end
+		y=alto_pantalla/4*3;
+	elseif(posibles_jugadores==4)
+		
+	end
+	
+	if(rana_juega[jugador]==0) alpha=100; end
+	loop
+		boton[jugador]=0;
+		if(collision(type dedo)) 
+			boton[jugador]=1; 
+			if(alpha<255) rana_juega[jugador]=1; let_me_alone(); juego(); end
 		end
 		frame;
 	end
@@ -1242,6 +1297,9 @@ Begin
 	size=250;
 	angle=60000;
 	loop
+		if(movil)
+			if(mouse.left and collision(type mouse)) break; end
+		end
 		if(size>100)
 			size-=((size-100)/8)+2;
 			if(size<105) size=100; end

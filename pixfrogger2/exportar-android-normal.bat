@@ -11,7 +11,7 @@ echo Compilando fpgs....
 del /f fpg\*.fpg
 cd fpg-sources
 copy /y ..\..\utils\pxlfpg.dcb .
-..\..\bennu-win\bgdi pxlfpg 16 pixfrogger-md pixfrogger-ld
+..\..\bennu-win\bgdi pxlfpg 16 pixfrogger-md pixfrogger-ld pixfrogger-hd
 
 del /f pxlfpg.dcb
 cd ..\fpg
@@ -22,7 +22,7 @@ cd ..
 echo Compilando fnts...
 cd fnt-sources
 copy ..\..\utils\pxlfnt.dcb . /y
-..\..\bennu-win\bgdi pxlfnt 8 puntos-md puntos-ld
+..\..\bennu-win\bgdi pxlfnt 8 puntos-md puntos-ld puntos-hd
 del /f pxlfnt.dcb
 cd ..
 
