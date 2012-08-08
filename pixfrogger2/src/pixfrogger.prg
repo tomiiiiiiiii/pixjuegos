@@ -1,5 +1,6 @@
 program pixfrogger;
 
+import "mod_debug";
 import "mod_dir";
 import "mod_draw";
 import "mod_grproc";
@@ -27,6 +28,7 @@ import "mod_key";
 global
 	arcade_mode=0;
 	bpp=32;
+	matabotones;
 	
 	jue;
 	anterior_camino;
@@ -34,6 +36,7 @@ global
 		pantalla_completa=1;
 		sonido=1;
 		musica=1;
+		dificultad=1;
 		lenguaje;
 	End
 	elecc;
@@ -43,6 +46,7 @@ global
 	rana_juega[8];
 	rana_viva[8];
 	rana_puntos[8];
+	puntos_win=10;
 	llegada;
 	fnt_puntos;
 	music;
@@ -63,7 +67,7 @@ global
 	pos_inicio=100;
 	num_caminos;
 	meta=0;
-	movil=0;
+	movil=1;
 
 	// COMPATIBILIDAD CON XP/VISTA/LINUX (usuarios)
 	string savegamedir;
@@ -75,7 +79,9 @@ Local
 	ancho;
 	alto;
 	jugador;
-	pos_y;	
+	pos_y;
+	opcion;
+	id_boton;
 End //local
 
 //cosas comunes de los pixjuegos
@@ -153,8 +159,142 @@ begin
 	num_caminos=(alto_pantalla/alto_camino)+2;
 	
 	//empezamos, ponemos el logo
-	logo_pixjuegos(); 
+	logo_pixjuegos();
 end
+
+Process menu_tactil();
+Private
+	menu_actual=0;
+	cambia_menu=1;
+	jugadores=1;
+Begin
+	//ponemos el fondo y el logo, pa empezar
+	//botones jugar y opciones
+	put_screen(0,3);
+	stop_scroll(0);
+	
+	if(alto_pantalla>ancho_pantalla)
+		posibles_jugadores=2;
+	else
+		posibles_jugadores=4;
+	end
+	
+	mouse.graph=71;
+	
+	loop
+		if(opcion!=0)
+			if(menu_actual==1) //principal: 1 jugar, 2 opciones, 3 creditos, 4 salir
+				juego(); return;
+				switch(opcion)
+					case 1: cambia_menu=2; end
+					case 2: cambia_menu=3; end
+					case 3: cambia_menu=4; end
+					case 4: exit(); end
+				end
+			end
+			if(menu_actual==2) //jugar: 1 jugadores, 2 dificultad, 3 puntos para ganar, 4 jugar, 5 volver
+				switch(opcion)
+					case 1: 
+						jugadores++; 
+						if(jugadores>posibles_jugadores)
+							jugadores=1; 
+						end 
+						from i=1 to posibles_jugadores; rana_juega[i]=0; end
+						from i=1 to jugadores; rana_juega[i]=1; end
+					end
+					case 2:
+						ops.dificultad++;
+						if(ops.dificultad>4) ops.dificultad=1; end
+					end
+					case 3:
+						puntos_win+=10;
+						if(puntos_win>100) puntos_win=10; end
+					end
+					case 4:
+						juego();
+						return;
+					end
+					case 5:
+						cambia_menu=1;
+					end
+				end
+			end
+			if(menu_actual==3) //opciones: 1 sonido, 2 musica, 3 volver
+				switch(opcion)
+					case 1: if(ops.sonido) ops.sonido=0; else ops.sonido=1; end end
+					case 2: if(ops.musica) ops.musica=0; else ops.musica=1; end end
+					case 3: cambia_menu=1; end
+				end
+			end
+			if(menu_actual==4) //creditos: 1 volver
+				cambia_menu=1;
+			end
+			opcion=0;
+		end
+
+		if(cambia_menu!=0)
+			matabotones=1;
+			frame;
+			menu_actual=cambia_menu;
+			cambia_menu=0;
+			matabotones=0;
+			if(menu_actual==1)
+				pon_boton_menu(ancho_pantalla/2,((alto_pantalla/7)*4)-(alto_pantalla/14),601,100,255,1,0);
+				pon_boton_menu(ancho_pantalla/2,((alto_pantalla/7)*5)-(alto_pantalla/14),602,100,255,1,1);
+				pon_boton_menu(ancho_pantalla/2,((alto_pantalla/7)*6)-(alto_pantalla/14),603,100,255,1,2);
+				pon_boton_menu(ancho_pantalla/2,((alto_pantalla/7)*7)-(alto_pantalla/14),604,100,255,1,3);
+			end
+		end
+
+		frame;
+	end
+End
+
+//efecto_entrada: 0: fadein, 1: aparece por arriba, 2: aparece por la derecha, 3: aparece por abajo, 4: aparece por la izquierda
+//efecto_salida: 0: fadeoff, 1: aparece por arriba, 2: aparece por la derecha, 3: aparece por abajo, 4: aparece por la izquierda
+Process pon_boton_menu(x_out,y_out,graph,size_out,alpha_out,mi_opcion,efecto);
+Private
+	framess=5;
+Begin
+	x=x_out;
+	y=y_out;
+	alpha=alpha_out;
+	size=size_out;
+	switch(efecto)
+		case 0: from alpha=0 to alpha_out step 20; frame; end end
+		case 1: y=-alto_pantalla/2; while(y<y_out) y+=((y_out-y)/framess)+10; frame; end end
+		case 2: x=ancho_pantalla*1.5; while(x>x_out) x-=((x-x_out)/framess)+10; frame; end end
+		case 3: y=alto_pantalla*1.5; while(y>y_out) y-=((y-y_out)/framess)+10; frame; end end
+		case 4: x=-ancho_pantalla/2; while(x<x_out) x+=((x_out-x)/framess)+10; frame; end end
+	end
+	x=x_out;
+	y=y_out;
+	size=size_out;
+	alpha=alpha_out;
+	loop
+		if(mouse.left)
+			if(collision(type mouse))
+				if(graph>600 and graph<605) graph+=10; end
+				
+				while(mouse.left) frame; end
+				father.opcion=mi_opcion;
+				father.id_boton=id;
+				frame;
+				if(graph>610 and graph<615) graph-=10; end
+			end
+		end
+		if(matabotones) break; end
+		frame;
+	end
+	switch(efecto)
+		case 0: from alpha=alpha to 0 step -20; frame; end end
+		case 1: while(y>-alto_pantalla/2) y-=((y-(-alto_pantalla/2))/framess)+10; frame; end end
+		case 2: while(x<ancho_pantalla*1.5) x+=(((ancho_pantalla*1.5)-x)/framess)+10; frame; end end
+		case 3: while(y<alto_pantalla*1.5) y+=(((alto_pantalla*1.5)-y)/framess)+10; frame; end end
+		case 4: while(x>-ancho_pantalla/2) x-=((x-(-ancho_pantalla/2))/framess)+10; frame; end end
+	end
+End
+
 
 function detecta_buzzers();
 Begin
@@ -218,10 +358,11 @@ begin
 	if(!movil)
 		menu();
 	else
-		posibles_jugadores=2;
+		menu_tactil();
+/*		posibles_jugadores=2;
 		rana_juega[1]=1;
 		juego();
-		return;
+		return;*/
 	end
 	
 	//desaparece
@@ -567,7 +708,7 @@ begin
 			z=-100;
 			from alpha=255 to 0 step -15; frame; end
 			unload_map(0,graph);
-			break;
+			return;
 		end
 		
 		from i=1 to posibles_jugadores;
@@ -1281,7 +1422,7 @@ Begin
 		boton[jugador]=0;
 		if(collision(type dedo)) 
 			boton[jugador]=1; 
-			if(alpha<255) rana_juega[jugador]=1; let_me_alone(); juego(); end
+			if(alpha<255) rana_juega[jugador]=1; let_me_alone(); juego(); return; end
 		end
 		frame;
 	end
