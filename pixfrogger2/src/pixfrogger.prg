@@ -290,8 +290,12 @@ End
 
 Process boton_sonido(x,y);
 Begin
-	graph=500;
 	while(!matabotones)
+		if(ops.sonido)
+			graph=621;
+		else
+			graph=622;
+		end
 		if(mouse.left)
 			if(collision(type mouse))
 				frame;
@@ -304,6 +308,33 @@ Begin
 					else
 						ops.musica=1;
 						ops.sonido=1;
+						play_song(music,-1);
+					end
+				end
+			end
+		end
+		frame;
+	end
+End
+
+Process boton_musica(x,y);
+Begin
+	while(!matabotones)
+		if(ops.musica)
+			graph=623;
+		else
+			graph=624;
+		end
+		if(mouse.left)
+			if(collision(type mouse))
+				frame;
+				while(mouse.left and collision(type mouse)) frame; end
+				if(collision(type mouse))
+					if(ops.musica) 
+						ops.musica=0;
+						stop_song();
+					else
+						ops.musica=1;
 						play_song(music,-1);
 					end
 				end
@@ -444,7 +475,7 @@ begin
 	let_me_alone();
 	controlador(0);
 	
-	boton_sonido(ancho_pantalla-30,30);	
+	//boton_sonido(ancho_pantalla-30,30);	
 	
 	//ponemos el logo de pixjuegos
 	graph=1;
