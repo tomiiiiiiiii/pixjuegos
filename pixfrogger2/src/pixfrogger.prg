@@ -29,7 +29,7 @@ global
 	arcade_mode=0;
 	bpp=32;
 	matabotones;
-	
+	ready=1;
 	jue;
 	anterior_camino;
 	Struct ops; 
@@ -237,16 +237,13 @@ Begin
 						//no utilizado al final
 					end
 					case 3:
-						puntos_win+=10;
-						if(puntos_win>100) puntos_win=10; end
+						//no utilizado al final
 					end
 					case 4:
-						//test:
 						x=ancho_pantalla/2;
 						y=alto_pantalla/2;
 						graph=get_screen();
 						let_me_alone();
-						//matabotones=1;
 						juego();
 						z=-100;
 						from alpha=255 to 0 step -15; frame; end
@@ -294,9 +291,9 @@ Begin
 				
 				pon_boton_menu(ancho_pantalla/2,((alto_pantalla/7)*5)-(alto_pantalla/14),643,100,255,0,1); //texto objetivo
 				boton_puntos_objetivo(1,5);
-				boton_puntos_objetivo(1,10);
-				boton_puntos_objetivo(1,20);
-				boton_puntos_objetivo(1,50);
+				boton_puntos_objetivo(2,10);
+				boton_puntos_objetivo(3,20);
+				boton_puntos_objetivo(4,50);
 				
 				//boton jugarS
 				pon_boton_menu(ancho_pantalla/2,((alto_pantalla/7)*7)-(alto_pantalla/14),601,100,255,4,1); //jugar
@@ -414,33 +411,29 @@ Begin
 	y=((alto_pantalla/7)*4)-(alto_pantalla/14);
 	x=(ancho_pantalla/12)+(ancho_pantalla/6*dificultad);
 	graph=630+dificultad;
+	size=130;
 	if(ops.dificultad==dificultad)
 		from alpha=0 to 255 step 16; frame; end
 	else
-		from alpha=0 to 128 step 8; frame; end
+		from alpha=0 to 100 step 8; frame; end
 	end
 	while(!matabotones)
 		if(ops.dificultad==dificultad)
 			alpha=255;
 		else
-			alpha=128;
+			alpha=100;
 		end
-		if(mouse.left)
-			if(collision(type mouse))
-				frame;
-				while(collision(type mouse) and mouse.left) frame; end
-				if(collision(type mouse))
-					ops.dificultad=dificultad;
-					sonido(2);
-				end
-			end
+		if(collision(type dedo))
+			while(collision(type dedo)) frame; end
+			ops.dificultad=dificultad;
+			sonido(2);
 		end
 		frame;
 	end
 	if(alpha==255)
 		from alpha=255 to 0 step -16; frame; end
 	else
-		from alpha=128 to 0 step 8; frame; end
+		from alpha=100 to 0 step 8; frame; end
 	end
 End
 
@@ -449,26 +442,22 @@ Begin
 	y=((alto_pantalla/7)*6)-(alto_pantalla/14);
 	x=(ancho_pantalla/12)+(ancho_pantalla/6*posicion);
 	graph=write_in_map(fnt_puntos,puntos,4);
+	size=130;
 	if(ops.objetivo==puntos)
 		from alpha=0 to 255 step 16; frame; end
 	else
-		from alpha=0 to 128 step 8; frame; end
+		from alpha=0 to 100 step 8; frame; end
 	end
 	while(!matabotones)
 		if(ops.objetivo==puntos)
 			alpha=255;
 		else
-			alpha=128;
+			alpha=100;
 		end
-		if(mouse.left)
-			if(collision(type dedo))
-				frame;
-				while(collision(type dedo) and mouse.left) frame; end
-				if(collision(type dedo))
-					ops.objetivo=puntos;
-					sonido(2);
-				end
-			end
+		if(collision(type dedo))
+			while(collision(type dedo)) frame; end
+			ops.objetivo=puntos;
+			sonido(2);
 		end
 		frame;
 	end
@@ -1001,6 +990,7 @@ private
 	ranas_vivas_antes;
 	ranas_vivas;
 begin
+	ready=0;
 	clear_screen();
 	controlador(1);
 	llegada=0;
@@ -1016,8 +1006,8 @@ begin
 	from i=1 to posibles_jugadores;
 		rana(i,rana_juega[i]);
 	end
-	frame(1000);
-
+	while(exists(father)) frame; end
+	ready=1;
 	loop
 		//perdida del foco en el juego
 		if(!focus_status and movil)
@@ -1172,6 +1162,7 @@ private
 	gr;
 	id_obst;
 	gr_antes;
+	id_col;
 begin
 	y=8000;
 	rana_id[jugador]=id;
@@ -1209,8 +1200,8 @@ begin
 			pos_y--;
 		end
 		if(pos_y==meta) llegada=jugador; end
-		if(!humano and retraso==0)
-			if(rand(0,5)>0)
+		if(!humano and retraso==0 and ready)
+			if(rand(0,5)<ops.dificultad or ops.dificultad==4)
 				y-=alto_camino;
 				if(!collision_box(type vehiculo))
 					pos_y--;
@@ -1222,16 +1213,14 @@ begin
 		
 		//POSIBLES FORMAS DE PERDER: NOS ATROPELLAN O GANA OTRO
 		graph=71; //ponemos este para colisionar!
-		if(collision_box(type vehiculo_colisionador) or (llegada!=jugador and llegada!=0))
-			rana_golpeada(x,y,gr+1);
-			if(!movil)
-				explotalo(x,y,z,alpha,angle,file,gr+1,60);
+		if(id_col=collision_box(type vehiculo_colisionador))
+			if(id_col.y==y)
+				break;
 			end
-			sonido(4);
-			break;
 		end
+		if(llegada!=jugador and llegada!=0) break; end
 
-		if(humano)
+		if(humano and ready)
 			if(boton[jugador]and retraso==0)
 				pos_y--;
 				retraso=4;
@@ -1241,6 +1230,12 @@ begin
 		y=(pos_y*alto_camino)+(alto_camino/2);
 		frame;
 	end
+	rana_golpeada(x,y,gr+1);
+	if(!movil)
+		explotalo(x,y,z,alpha,angle,file,gr+1,60);
+	end
+	sonido(4);
+
 	rana_viva[jugador]=0;
 end
 
@@ -1640,6 +1635,7 @@ End
 
 Process dedo(x,y);
 Begin
+	priority=1;
 	graph=71;
 	alpha=0;
 	frame;
