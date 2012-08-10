@@ -36,7 +36,8 @@ global
 		pantalla_completa=1;
 		sonido=1;
 		musica=1;
-		dificultad=1;
+		dificultad=2;
+		objetivo=10;
 		lenguaje;
 	End
 	elecc;
@@ -61,7 +62,7 @@ global
 	id_camara;
 	
 	ancho_pantalla=480;
-	alto_pantalla=720;
+	alto_pantalla=800;
 	panoramico=1;
 	alto_camino=75;
 	pos_inicio=100;
@@ -142,7 +143,7 @@ begin
 	
 	//cargamos los recursos a utilizar durante todo el juego
 	carga_sonidos();
-	if(ancho_pantalla=>800)
+	if(ancho_pantalla=>1280)
 		load_fpg("fpg/pixfrogger-hd.fpg");
 		fnt_puntos=load_fnt("fnt/puntos-hd.fnt");
 	elseif(ancho_pantalla=>400)
@@ -196,7 +197,24 @@ Begin
 	//mouse.graph=71;
 	
 	loop
-		if(boton[9] and menu_actual!=1) cambia_menu=1; sonido(1); end
+		if(boton[9])
+			if(menu_actual!=1)
+				cambia_menu=1; sonido(1);
+			else
+				matabotones=1;
+				fade_music_off(500);
+				while(is_playing_song()) frame; end
+				exit();
+			end
+		end
+		if(!focus_status and movil)
+			matabotones=1;
+			fade_music_off(500);
+			set_fps(1,0);
+			while(is_playing_song()) frame; end
+			exit();
+		end
+
 		if(opcion!=0)
 			sonido(3);
 			if(menu_actual==1) //principal: 1 jugar, 2 opciones, 3 creditos, 4 salir
@@ -242,8 +260,6 @@ Begin
 			end
 			if(menu_actual==3) //opciones: 1 sonido, 2 musica, 3 volver
 				switch(opcion)
-/*					case 1: if(ops.sonido) ops.sonido=0; else ops.sonido=1; end end
-					case 2: if(ops.musica) ops.musica=0; else ops.musica=1; end end*/
 					case 3: cambia_menu=1; end
 				end
 			end
@@ -270,14 +286,17 @@ Begin
 			end
 			if(menu_actual==2) //jugar: opciones
 				from i=0 to 8; rana_juega[i]=0; end
-				//texto jugadores
+				pon_boton_menu(ancho_pantalla/2,((alto_pantalla/7)*1)-(alto_pantalla/14),641,100,255,0,1); //jugadores
 				tactil_elige_rana(1); tactil_elige_rana(2);
 				
-				//texto dificultad
-				//botones dificultad
+				pon_boton_menu(ancho_pantalla/2,((alto_pantalla/7)*3)-(alto_pantalla/14),642,100,255,0,1); //texto dificultad
+				from i=1 to 4; boton_dificultad(i); end
 				
-				//texto points to win
-				//
+				pon_boton_menu(ancho_pantalla/2,((alto_pantalla/7)*5)-(alto_pantalla/14),643,100,255,0,1); //texto objetivo
+				boton_puntos_objetivo(1,5);
+				boton_puntos_objetivo(1,10);
+				boton_puntos_objetivo(1,20);
+				boton_puntos_objetivo(1,50);
 				
 				//boton jugarS
 				pon_boton_menu(ancho_pantalla/2,((alto_pantalla/7)*7)-(alto_pantalla/14),601,100,255,4,1); //jugar
@@ -388,6 +407,76 @@ Begin
 	else
 		from alpha=128 to 0 step 8; frame; end
 	end
+End
+
+Process boton_dificultad(dificultad);
+Begin
+	y=((alto_pantalla/7)*4)-(alto_pantalla/14);
+	x=(ancho_pantalla/12)+(ancho_pantalla/6*dificultad);
+	graph=630+dificultad;
+	if(ops.dificultad==dificultad)
+		from alpha=0 to 255 step 16; frame; end
+	else
+		from alpha=0 to 128 step 8; frame; end
+	end
+	while(!matabotones)
+		if(ops.dificultad==dificultad)
+			alpha=255;
+		else
+			alpha=128;
+		end
+		if(mouse.left)
+			if(collision(type mouse))
+				frame;
+				while(collision(type mouse) and mouse.left) frame; end
+				if(collision(type mouse))
+					ops.dificultad=dificultad;
+					sonido(2);
+				end
+			end
+		end
+		frame;
+	end
+	if(alpha==255)
+		from alpha=255 to 0 step -16; frame; end
+	else
+		from alpha=128 to 0 step 8; frame; end
+	end
+End
+
+Process boton_puntos_objetivo(posicion,puntos);
+Begin
+	y=((alto_pantalla/7)*6)-(alto_pantalla/14);
+	x=(ancho_pantalla/12)+(ancho_pantalla/6*posicion);
+	graph=write_in_map(fnt_puntos,puntos,4);
+	if(ops.objetivo==puntos)
+		from alpha=0 to 255 step 16; frame; end
+	else
+		from alpha=0 to 128 step 8; frame; end
+	end
+	while(!matabotones)
+		if(ops.objetivo==puntos)
+			alpha=255;
+		else
+			alpha=128;
+		end
+		if(mouse.left)
+			if(collision(type dedo))
+				frame;
+				while(collision(type dedo) and mouse.left) frame; end
+				if(collision(type dedo))
+					ops.objetivo=puntos;
+					sonido(2);
+				end
+			end
+		end
+		frame;
+	end
+	if(alpha==255)
+		from alpha=255 to 0 step -16; frame; end
+	else
+		from alpha=128 to 0 step 8; frame; end
+	end	
 End
 
 //efecto_entrada: 0: fadein, 1: aparece por arriba, 2: aparece por la derecha, 3: aparece por abajo, 4: aparece por la izquierda
