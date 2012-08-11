@@ -28,6 +28,8 @@ import "mod_key";
 global
 	arcade_mode=0;
 	bpp=32;
+	frameskip=3;
+	fpg_general=0;
 	matabotones;
 	ready=1;
 	jue;
@@ -61,14 +63,15 @@ global
 	posibles_jugadores;
 	id_camara;
 	
-	ancho_pantalla=480;
-	alto_pantalla=800;
-	panoramico=1;
+	ancho_pantalla=1280;
+	alto_pantalla=1024;
+	panoramico=0;
+	portrait=0;
 	alto_camino=75;
 	pos_inicio=100;
 	num_caminos;
 	meta=0;
-	movil=1;
+	tactil=0;
 
 	// COMPATIBILIDAD CON XP/VISTA/LINUX (usuarios)
 	string savegamedir;
@@ -91,11 +94,11 @@ include "../../common-src/savepath.pr-";
 
 begin
 	if(os_id==1003) 
-		movil=1;
+		tactil=1;
 		bpp=16;
 	end
 	
-	if(!movil)
+	if(!tactil)
 		//arcade mode?
 		if(argc>0) if(argv[1]=="arcade") arcade_mode=1; end end
 
@@ -122,35 +125,31 @@ begin
 	
 		//seteamos el modo de vídeo
 		full_screen=ops.pantalla_completa;
-	else
-		//ANDUROID
-		if(os_id==1003)
-			frame;
-			ancho_pantalla=graphic_info(0,0,g_width);
-			alto_pantalla=graphic_info(0,0,g_height);
-		end
-		
+	else		
 		//ajustes de rendimiento
 		alpha_steps=32;
 	end
+
+	prueba_pantalla();
 	
-	if(!mode_is_ok(ancho_pantalla,alto_pantalla,bpp,mode_fullscreen))
-		full_screen=false;
-	end
 	set_mode(ancho_pantalla,alto_pantalla,bpp);
-	set_fps(25,3);
+	set_fps(25,frameskip);
 	set_title("PiX Frogger");
+		
+	if(ancho_pantalla>alto_pantalla) portrait=0; else portrait=1; end
 	
 	//cargamos los recursos a utilizar durante todo el juego
 	carga_sonidos();
 	if(ancho_pantalla=>1280)
-		load_fpg("fpg/pixfrogger-hd.fpg");
+		fpg_general=load_fpg("fpg/pixfrogger-hd.fpg");
 		fnt_puntos=load_fnt("fnt/puntos-hd.fnt");
-	elseif(ancho_pantalla=>400)
-		load_fpg("fpg/pixfrogger-md.fpg");
+	end
+	if((ancho_pantalla=>400 and ancho_pantalla<1280) or fpg_general==-1)
+		fpg_general=load_fpg("fpg/pixfrogger-md.fpg");
 		fnt_puntos=load_fnt("fnt/puntos-md.fnt");
-	else
-		load_fpg("fpg/pixfrogger-ld.fpg");
+	end
+	if(ancho_pantalla<400 or fpg_general==-1)
+		fpg_general=load_fpg("fpg/pixfrogger-ld.fpg");
 		fnt_puntos=load_fnt("fnt/puntos-ld.fnt");
 	end
 	music=load_song("ogg/1.ogg");	
@@ -162,6 +161,29 @@ begin
 	//empezamos, ponemos el logo
 	logo_pixjuegos();
 end
+
+Function prueba_pantalla();
+Begin
+	if(os_id==0) //Windows
+		if((mode_is_ok(1920,1080,16,MODE_FULLSCREEN) or mode_is_ok(1366,768,16,MODE_FULLSCREEN)) or 
+		(mode_is_ok(1280,720,16,MODE_FULLSCREEN) and !mode_is_ok(1280,1024,16,MODE_FULLSCREEN))) //Si soporta resoluciones panorámicas altas o no soporta alguna resolución no panorámica, es panorámico...
+			panoramico=1;
+			ancho_pantalla=1280; alto_pantalla=720;
+		else
+			panoramico=0;
+			if(mode_is_ok(640,480,16,MODE_FULLSCREEN))
+				ancho_pantalla=640; alto_pantalla=480;
+			elseif(mode_is_ok(320,240,16,MODE_FULLSCREEN))
+				ancho_pantalla=320; alto_pantalla=240;
+			end
+		end
+	end
+	if(os_id==1003) //ANDUROID
+		frame;
+		ancho_pantalla=graphic_info(0,0,g_width);
+		alto_pantalla=graphic_info(0,0,g_height);
+	end
+End
 
 Process pon_fondo(graph);
 Begin
@@ -181,14 +203,18 @@ Private
 Begin
 	from i=0 to 8; rana_puntos[i]=0; end
 	delete_text(all_text);
+
 	//ponemos el fondo y el logo, pa empezar
-	//botones jugar y opciones
-	pon_fondo(701);
+	if(portrait)
+		pon_fondo(701);
+	else
+		pon_fondo(3);
+	end
 	stop_scroll(0);
 	
 	controlador(0);
-	
-	if(alto_pantalla>ancho_pantalla)
+		
+	if(portrait)
 		posibles_jugadores=2;
 	else
 		posibles_jugadores=4;
@@ -207,10 +233,10 @@ Begin
 				exit();
 			end
 		end
-		if(!focus_status and movil)
+		if(!focus_status and tactil)
 			matabotones=1;
 			fade_music_off(500);
-			set_fps(1,0);
+			set_fps(1,frameskip);
 			while(is_playing_song()) frame; end
 			exit();
 		end
@@ -313,10 +339,10 @@ Begin
 			graph=622;
 		end
 		if(mouse.left)
-			if(collision(type mouse))
+			if(collision_box(type mouse))
 				frame;
-				while(mouse.left and collision(type mouse)) frame; end
-				if(collision(type mouse))
+				while(mouse.left and collision_box(type mouse)) frame; end
+				if(collision_box(type mouse))
 					if(ops.sonido) 
 						ops.sonido=0;
 						ops.musica=0;
@@ -342,10 +368,10 @@ Begin
 			graph=624;
 		end
 		if(mouse.left)
-			if(collision(type mouse))
+			if(collision_box(type mouse))
 				frame;
-				while(mouse.left and collision(type mouse)) frame; end
-				if(collision(type mouse))
+				while(mouse.left and collision_box(type mouse)) frame; end
+				if(collision_box(type mouse))
 					if(ops.musica) 
 						ops.musica=0;
 						stop_song();
@@ -383,10 +409,10 @@ Begin
 			alpha=128;
 		end
 		if(mouse.left)
-			if(collision(type mouse))
+			if(collision_box(type mouse))
 				frame;
-				while(collision(type mouse) and mouse.left) frame; end
-				if(collision(type mouse))
+				while(collision_box(type mouse) and mouse.left) frame; end
+				if(collision_box(type mouse))
 					if(rana_juega[jugador])
 						rana_juega[jugador]=0;
 						sonido(2);
@@ -423,8 +449,8 @@ Begin
 		else
 			alpha=100;
 		end
-		if(collision(type dedo))
-			while(collision(type dedo)) frame; end
+		if(collision_box(type dedo))
+			while(collision_box(type dedo)) frame; end
 			ops.dificultad=dificultad;
 			sonido(2);
 		end
@@ -454,8 +480,8 @@ Begin
 		else
 			alpha=100;
 		end
-		if(collision(type dedo))
-			while(collision(type dedo)) frame; end
+		if(collision_box(type dedo))
+			while(collision_box(type dedo)) frame; end
 			ops.objetivo=puntos;
 			sonido(2);
 		end
@@ -491,12 +517,12 @@ Begin
 	alpha=alpha_out;
 	loop
 		if(mouse.left)
-			if(collision(type mouse))
+			if(collision_box(type mouse))
 				if(graph>600 and graph<605) graph+=10; end
 				
-				while(mouse.left and collision(type mouse)) frame; end
+				while(mouse.left and collision_box(type mouse)) frame; end
 				
-				if(collision(type mouse))
+				if(collision_box(type mouse))
 					father.opcion=mi_opcion;
 					father.id_boton=id;
 					frame;
@@ -556,21 +582,26 @@ begin
 	//boton_sonido(ancho_pantalla-30,30);	
 	
 	//ponemos el logo de pixjuegos
-	graph=1;
+	if(portrait)
+		graph=702;
+	else
+		graph=1;
+	end
+	
 	x=ancho_pantalla/2;
 	y=alto_pantalla/2;
 	z=-10;
 
 	//aparece
 	from alpha=50 to 255 step 5; 
-		if(scan_code!=0 or (movil and mouse.left)) break; end
+		if(scan_code!=0 or (tactil and mouse.left)) break; end
 		frame; 
 	end
 
 	//permanece 3 segundos
 	timer[0]=0;
-	while(timer[0]<300) if(scan_code!=0 or (movil and mouse.left)) break; end frame; end
-	while(scan_code!=0 or (movil and mouse.left)) frame; end
+	while(timer[0]<300) if(scan_code!=0 or (tactil and mouse.left)) break; end frame; end
+	while(scan_code!=0 or (tactil and mouse.left)) frame; end
 	
 	//ponemos la canción del juego
 	if(ops.musica)
@@ -578,7 +609,7 @@ begin
 	end
 	
 	//ponemos el menú
-	if(!movil)
+	if(!tactil)
 		menu();
 	else
 		menu_tactil();
@@ -946,7 +977,7 @@ begin
 		if(boton[9])
 			while(boton[9]) frame; end
 			let_me_alone();
-			if(!movil)
+			if(!tactil)
 				menu();
 			else
 				menu_tactil();
@@ -990,13 +1021,15 @@ private
 	ranas_vivas_antes;
 	ranas_vivas;
 begin
-	ready=0;
+	if(tactil) ready=0; end
+
 	clear_screen();
 	controlador(1);
 	llegada=0;
 	scroll_y=0;
 	priority=1;
 	delete_text(all_text);
+	write_int(fnt_puntos,0,0,0,&fps);
 	indicador();
 	start_scroll(0,0,new_map(4,4,8),0,0,15);
 	scroll[0].camera=camara();
@@ -1010,14 +1043,14 @@ begin
 	ready=1;
 	loop
 		//perdida del foco en el juego
-		if(!focus_status and movil)
+		if(!focus_status and tactil)
 			let_me_alone();
 			stop_scroll(0);
 			if(ops.musica)
 				fade_music_off(1000);
 				//stop_song();
 			end
-			set_fps(1,9);
+			set_fps(1,frameskip);
 			timer[0]=0;
 			while(!focus_status)
 				if(timer[0]>60000) exit(); end
@@ -1027,7 +1060,7 @@ begin
 				play_song(music,-1);
 			end		
 			set_mode(ancho_pantalla,alto_pantalla,bpp);
-			set_fps(25,3);
+			set_fps(25,frameskip);
 			juego();
 		end
 	
@@ -1094,7 +1127,7 @@ begin
 			graph=get_screen();
 			x=ancho_pantalla/2; y=alto_pantalla/2; z=-100;
 			
-			if(!movil)
+			if(!tactil)
 				menu();
 			else
 				menu_tactil();
@@ -1112,7 +1145,7 @@ end
 process sombra();
 begin
 	//en caso de android, ios y demás, sin sombras
-	if(movil) return; end
+	if(tactil) return; end
 	
 	//en versiones con pantallas pequeñas, sin sombras
 	if(ancho_pantalla<800) return; end 
@@ -1212,7 +1245,7 @@ begin
 		end
 		
 		//POSIBLES FORMAS DE PERDER: NOS ATROPELLAN O GANA OTRO
-		graph=71; //ponemos este para colisionar!
+		//graph=71; //ponemos este para colisionar!
 		if(id_col=collision_box(type vehiculo_colisionador))
 			if(id_col.y==y)
 				break;
@@ -1231,7 +1264,7 @@ begin
 		frame;
 	end
 	rana_golpeada(x,y,gr+1);
-	if(!movil)
+	if(!tactil)
 		explotalo(x,y,z,alpha,angle,file,gr+1,60);
 	end
 	sonido(4);
@@ -1323,7 +1356,7 @@ begin
 	ctype=c_scroll;
 	z=59;
 	graph=99;
-	frame(100);
+	frame;
 end
 
 process rana_golpeada(x,y,graph)
@@ -1554,7 +1587,7 @@ Private
 	num_dedos;
 Begin
 	if(en_juego)
-		if(movil)
+		if(tactil)
 			from i=1 to posibles_jugadores;
 				pon_boton(i);
 			end
@@ -1563,7 +1596,7 @@ Begin
 	
 	loop
 		from i=0 to 9; boton[i]=0; end
-		if(!movil)
+		if(!tactil)
 			if(arcade_mode)
 				if(get_joy_button(0,8)) boton[9]=1; end
 				if(get_joy_button(0,0)) boton[1]=1; end
@@ -1612,7 +1645,7 @@ Begin
 			if(key(_esc)) boton[9]=1; end
 
 		
-		if(movil)
+		if(tactil)
 			if(mouse.left) dedo(mouse.x,mouse.y); end
 
 
@@ -1624,6 +1657,12 @@ Begin
 					dedo(multi_info(i, "X"),multi_info(i, "Y"));
 				end
 			end
+		end
+		
+		if(key(_alt) and key(_enter)) 
+			while(scan_code!=0) frame; end 
+			if(full_screen) full_screen=0; else full_screen=1; end
+			set_mode(ancho_pantalla,alto_pantalla,bpp);
 		end
 		
 		from i=1 to 8;
@@ -1662,7 +1701,7 @@ Begin
 	if(rana_juega[jugador]==0) alpha=100; end
 	loop
 		boton[jugador]=0;
-		if(collision(type dedo)) 
+		if(collision_box(type dedo)) 
 			boton[jugador]=1; 
 			if(alpha<255) rana_juega[jugador]=1; let_me_alone(); juego(); return; end
 		end
@@ -1680,8 +1719,8 @@ Begin
 	size=250;
 	angle=60000;
 	loop
-		if(movil)
-			if(mouse.left and collision(type mouse)) 
+		if(tactil)
+			if(mouse.left and collision_box(type mouse)) 
 				timer[0]=300;
 			end
 		end
