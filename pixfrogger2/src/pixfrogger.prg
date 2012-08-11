@@ -299,7 +299,8 @@ Begin
 			menu_actual=cambia_menu;
 			cambia_menu=0;
 			matabotones=0;
-			boton_sonido(ancho_pantalla-30,30);
+			if(!exists(type boton_sonido)) boton_sonido(ancho_pantalla-30,30); end
+			if(!exists(type boton_musica)) boton_musica(30,30); end
 			if(menu_actual==1)
 				pon_boton_menu(ancho_pantalla/2,((alto_pantalla/7)*2)-(alto_pantalla/14),2,100,255,0,1); //logo
 				pon_boton_menu(ancho_pantalla/2,((alto_pantalla/7)*4)-(alto_pantalla/14),601,100,255,1,2); //jugar
