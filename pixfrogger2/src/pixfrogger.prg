@@ -140,6 +140,7 @@ begin
 	
 	//cargamos los recursos a utilizar durante todo el juego
 	carga_sonidos();
+		
 	if(ancho_pantalla=>1280)
 		fpg_general=load_fpg("fpg/pixfrogger-hd.fpg");
 		fnt_puntos=load_fnt("fnt/puntos-hd.fnt");
@@ -152,7 +153,7 @@ begin
 		fpg_general=load_fpg("fpg/pixfrogger-ld.fpg");
 		fnt_puntos=load_fnt("fnt/puntos-ld.fnt");
 	end
-	music=load_song("ogg/1.ogg");	
+	music=load_song("ogg/1.ogg");
 	
 	//averiguamos el alto del camino y el número de caminos
 	alto_camino=graphic_info(0,200,g_height);
@@ -325,8 +326,45 @@ Begin
 				//boton jugarS
 				pon_boton_menu(ancho_pantalla/2,((alto_pantalla/7)*7)-(alto_pantalla/14),601,100,255,4,1); //jugar
 			end
+			if(menu_actual==4) //creditos
+				pon_creditos();
+				pon_enlace(ancho_pantalla/4,((alto_pantalla/7)*6)-(alto_pantalla/14),706,"http://www.pixjuegos.com");
+				pon_enlace(ancho_pantalla/4*3,((alto_pantalla/7)*5)-(alto_pantalla/14),704,"http://www.twitter.com/pixjuegos");
+				pon_enlace(ancho_pantalla/4*3,((alto_pantalla/7)*6)-(alto_pantalla/14),705,"http://www.facebook.com/pixjuegos");
+			end
 		end
 
+		frame;
+	end
+End
+
+Process pon_creditos();
+Begin
+	graph=703;
+	x=ancho_pantalla/2;
+	y=(alto_pantalla/7)*3;
+	alpha=0;
+	while(!matabotones)
+		if(alpha<255) alpha+=10; end
+		frame;
+	end
+	from alpha=255 to 0 step -15; end
+End
+
+Process pon_enlace(x,y,graph,string url);
+Begin
+	alpha=0;
+	while(!matabotones)
+		if(alpha<255) alpha+=10; end
+		if(mouse.left)
+			if(collision_box(type mouse))
+				frame;
+				while(mouse.left and collision_box(type mouse)) frame; end
+				if(collision_box(type mouse))
+					exec(_P_NOWAIT, url, 0, 0);
+				end
+			end
+		end
 		frame;
 	end
 End
@@ -614,10 +652,6 @@ begin
 		menu();
 	else
 		menu_tactil();
-/*		posibles_jugadores=2;
-		rana_juega[1]=1;
-		juego();
-		return;*/
 	end
 	
 	//desaparece
@@ -1649,10 +1683,8 @@ Begin
 		if(tactil)
 			if(mouse.left) dedo(mouse.x,mouse.y); end
 
+			if(scan_code==102 and os_id==1003) while(scan_code!=0) frame; end boton[9]=1; end
 
-			if(scan_code==97 and os_id==1003) while(scan_code!=0) frame; end boton[9]=1; end
-			//num_dedos = multi_numpointers();		
-			//for(i=0; i<num_dedos; i++)
 			for(i=0; i<10; i++)
 				if(multi_info(i, "ACTIVE") > 0)
 					dedo(multi_info(i, "X"),multi_info(i, "Y"));

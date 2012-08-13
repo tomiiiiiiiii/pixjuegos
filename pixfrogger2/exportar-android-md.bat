@@ -11,18 +11,18 @@ echo Compilando fpgs....
 del /f fpg\*.fpg
 cd fpg-sources
 copy /y ..\..\utils\pxlfpg.dcb .
-..\..\bennu-win\bgdi pxlfpg 16 pixfrogger-md pixfrogger-ld pixfrogger-hd
+..\..\bennu-win\bgdi pxlfpg 16 pixfrogger-md
 
 del /f pxlfpg.dcb
 cd ..\fpg
-ren *.fpg *.fpg.gz
-..\..\utils\gzip -d *.fpg.gz
+ren pixfrogger-md.fpg pixfrogger-md.fpg.gz
+..\..\utils\gzip -d pixfrogger-md.fpg.gz
 cd ..
 
 echo Compilando fnts...
 cd fnt-sources
 copy ..\..\utils\pxlfnt.dcb . /y
-..\..\bennu-win\bgdi pxlfnt 8 puntos-md puntos-ld puntos-hd
+..\..\bennu-win\bgdi pxlfnt 8 puntos-md
 del /f pxlfnt.dcb
 cd ..
 
@@ -56,6 +56,8 @@ echo Exportado correctamente. Ahora se instalará en el móvil...
 pause
 
 cd export
+adb uninstall PiXFrogger-debug.apk
+adb uninstall PiXFrogger-release.apk
 cmd /c if exist c:\pixjuegos.keystore ant release install
 cmd /c if not exist c:\pixjuegos.keystore ant debug install
 pause

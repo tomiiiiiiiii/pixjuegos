@@ -11,18 +11,18 @@ echo Compilando fpgs....
 del /f fpg\*.fpg
 cd fpg-sources
 copy /y ..\..\utils\pxlfpg.dcb .
-..\..\bennu-win\bgdi pxlfpg 16 pixfrogger-md pixfrogger-ld pixfrogger-hd
+..\..\bennu-win\bgdi pxlfpg 16 pixfrogger-hd
 
 del /f pxlfpg.dcb
 cd ..\fpg
-ren *.fpg *.fpg.gz
+ren pixfrogger-hd.fpg pixfrogger-hd.fpg.gz
 ..\..\utils\gzip -d *.fpg.gz
 cd ..
 
 echo Compilando fnts...
 cd fnt-sources
 copy ..\..\utils\pxlfnt.dcb . /y
-..\..\bennu-win\bgdi pxlfnt 8 puntos-md puntos-ld puntos-hd
+..\..\bennu-win\bgdi pxlfnt 8 puntos-hd
 del /f pxlfnt.dcb
 cd ..
 
@@ -48,13 +48,9 @@ copy recursos\android\build.xml export\ /y
 
 echo Copiando el juego...
 copy fpg\pixfrogger-hd.fpg export\assets\fpg /y
-copy fpg\pixfrogger-md.fpg export\assets\fpg /y
-copy fpg\pixfrogger-ld.fpg export\assets\fpg /y
 copy ogg\*.ogg export\assets\ogg /y
 copy wav\*.wav export\assets\wav /y
 copy fnt\puntos-hd.fnt export\assets\fnt /y
-copy fnt\puntos-md.fnt export\assets\fnt /y
-copy fnt\puntos-ld.fnt export\assets\fnt /y
 copy main.dcb export\assets /y
 echo Exportado correctamente. Ahora se instalará en el móvil...
 pause
