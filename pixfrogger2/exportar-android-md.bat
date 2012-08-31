@@ -8,14 +8,14 @@ cd ..
 pause
 
 echo Compilando fpgs....
-del /f fpg\*.fpg
 cd fpg-sources
 copy /y ..\..\utils\pxlfpg.dcb .
-..\..\bennu-win\bgdi pxlfpg 16 pixfrogger-md
+..\..\bennu-win\bgdi pxlfpg 16 pixfrogger-md-portrait
 
 del /f pxlfpg.dcb
 cd ..\fpg
-ren pixfrogger-md.fpg pixfrogger-md.fpg.gz
+del /f pixfrogger-md.fpg
+ren pixfrogger-md-portrait.fpg pixfrogger-md.fpg.gz
 ..\..\utils\gzip -d pixfrogger-md.fpg.gz
 cd ..
 

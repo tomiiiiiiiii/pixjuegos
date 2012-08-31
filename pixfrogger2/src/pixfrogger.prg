@@ -28,7 +28,7 @@ import "mod_key";
 global
 	arcade_mode=0;
 	bpp=32;
-	frameskip=3;
+	frameskip=1;
 	fpg_general=0;
 	matabotones;
 	ready=1;
@@ -73,6 +73,8 @@ global
 	meta=0;
 	tactil=0;
 
+	string version;
+	
 	// COMPATIBILIDAD CON XP/VISTA/LINUX (usuarios)
 	string savegamedir;
 	string developerpath="/.PiXJuegos/PiXFrogger/";
@@ -125,7 +127,7 @@ begin
 	
 		//seteamos el modo de vídeo
 		full_screen=ops.pantalla_completa;
-	else		
+	else
 		//ajustes de rendimiento
 		alpha_steps=32;
 	end
@@ -135,24 +137,27 @@ begin
 	set_mode(ancho_pantalla,alto_pantalla,bpp);
 	set_fps(25,frameskip);
 	set_title("PiX Frogger");
-		
-	if(ancho_pantalla>alto_pantalla) portrait=0; else portrait=1; end
 	
 	//cargamos los recursos a utilizar durante todo el juego
 	carga_sonidos();
-		
-	if(ancho_pantalla=>1280)
-		fpg_general=load_fpg("fpg/pixfrogger-hd.fpg");
-		fnt_puntos=load_fnt("fnt/puntos-hd.fnt");
+	
+	fpg_general=load_fpg("fpg/pixfrogger-"+version+".fpg");
+	fnt_puntos=load_fnt("fnt/puntos-"+version+".fnt");
+
+	if(version=="hd" and fpg_general==-1)
+		version="md";
+		fpg_general=load_fpg("fpg/pixfrogger-"+version+".fpg");
+		fnt_puntos=load_fnt("fnt/puntos-"+version+".fnt");
 	end
-	if((ancho_pantalla=>400 and ancho_pantalla<1280) or fpg_general==-1)
-		fpg_general=load_fpg("fpg/pixfrogger-md.fpg");
-		fnt_puntos=load_fnt("fnt/puntos-md.fnt");
+
+	if(version=="md" and fpg_general==-1)
+		version="ld";
+		fpg_general=load_fpg("fpg/pixfrogger-"+version+".fpg");
+		fnt_puntos=load_fnt("fnt/puntos-"+version+".fnt");
 	end
-	if(ancho_pantalla<400 or fpg_general==-1)
-		fpg_general=load_fpg("fpg/pixfrogger-ld.fpg");
-		fnt_puntos=load_fnt("fnt/puntos-ld.fnt");
-	end
+
+	if(fpg_general==-1) say("No he encontrado un fpg válido..."); exit(); end
+	
 	music=load_song("ogg/1.ogg");
 	
 	//averiguamos el alto del camino y el número de caminos
@@ -183,7 +188,24 @@ Begin
 		frame;
 		ancho_pantalla=graphic_info(0,0,g_width);
 		alto_pantalla=graphic_info(0,0,g_height);
+		say("---------------------------------"+ancho_pantalla);
+		say("---------------------------------"+alto_pantalla);
 	end
+
+	if(alto_pantalla>ancho_pantalla) portrait=1; else portrait=0; end
+	
+	if((ancho_pantalla=>1200 and portrait==0) or (alto_pantalla=>1200 and portrait==1))
+		version="hd";
+	elseif((ancho_pantalla=>600 and portrait==0) or (alto_pantalla=>600 and portrait==1))
+		version="md";
+	else
+		version="ld";
+	end
+/*	tactil=1;
+	ancho_pantalla=480;
+	alto_pantalla=800;
+	mouse.graph=71;
+	full_screen=0;*/
 End
 
 Process pon_fondo(graph);
@@ -205,6 +227,8 @@ Begin
 	from i=0 to 8; rana_puntos[i]=0; end
 	delete_text(all_text);
 
+	dump_type=0; restore_type=0;
+	
 	//ponemos el fondo y el logo, pa empezar
 	if(portrait)
 		pon_fondo(701);
@@ -221,7 +245,6 @@ Begin
 		posibles_jugadores=4;
 	end
 	
-	//mouse.graph=71;
 	
 	loop
 		if(boton[9])
@@ -269,6 +292,9 @@ Begin
 					case 4:
 						x=ancho_pantalla/2;
 						y=alto_pantalla/2;
+						dump_type=0;
+						restore_type=0;
+						frame;
 						graph=get_screen();
 						let_me_alone();
 						juego();
@@ -667,8 +693,9 @@ private
 	tec2;
 begin
 	delete_text(all_text);
-	from i=1 to 4; rana_viva[i]=0; rana_puntos[i]=0; end
+	from i=1 to 8; rana_viva[i]=0; rana_puntos[i]=0; end
 	elecc=0;
+	dump_type=0; restore_type=0;
 	put_screen(0,3);
 	if(!exists(type controlador)) controlador(0); end
 	if(arcade_mode)
@@ -1066,7 +1093,9 @@ begin
 	delete_text(all_text);
 	write_int(fnt_puntos,0,0,0,&fps);
 	indicador();
-	start_scroll(0,0,new_map(4,4,8),0,0,15);
+	dump_type=-1;
+	restore_type=-1;
+	start_scroll(0,0,-1,-1,0,15);
 	scroll[0].camera=camara();
 	from i=pos_inicio-num_caminos+1 to pos_inicio;
 		camino(i);
@@ -1623,9 +1652,11 @@ Private
 Begin
 	if(en_juego)
 		if(tactil)
-			from i=1 to posibles_jugadores;
-				pon_boton(i);
-			end
+			//from i=1 to posibles_jugadores;
+				if(rana_juega[i])
+					pon_boton(i);
+				end
+			//end
 		end
 	end
 	
