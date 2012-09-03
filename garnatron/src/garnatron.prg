@@ -5,25 +5,24 @@
 //-----------------------------------------------------------------------
 
 PROGRAM Garnatron;
-
-
 import "mod_blendop";
-import "mod_cd";
-import "mod_debug";
+//import "mod_cd";
+//import "mod_debug";
+//import "mod_mem";
+import "mod_effects";
+import "mod_flic";
+import "mod_m7";
+import "mod_path";
+import "mod_grproc";
 import "mod_dir";
 import "mod_draw";
-import "mod_effects";
 import "mod_file";
-import "mod_flic";
-import "mod_grproc";
 import "mod_joy";
 import "mod_key";
-import "mod_m7";
 import "mod_map";
 import "mod_math";
-import "mod_mem";
 import "mod_mouse";
-import "mod_path";
+import "mod_multi";
 import "mod_proc";
 import "mod_rand";
 import "mod_regex";
@@ -57,6 +56,9 @@ habil[4]=0,1,1,1,1;
 puntos[4];
 
 arcade_mode=0;
+
+guardar=1;
+tactil=0;
 
 struct opciones;
 	struct teclado;	//controles teclado
@@ -157,20 +159,27 @@ BEGIN
 	if(argc>0) if(argv[1]=="arcade") arcade_mode=1; end end
 	
 	set_fps(40,10);
-
-	if(!mode_is_ok(1024,768,32,MODE_FULLSCREEN))
-		scale_resolution=06400480; //compatible con Wii
-		if(!mode_is_ok(640,480,32,MODE_FULLSCREEN))
-			scale_resolution=03200240; //compatible con GP2X
-		end
-	end
 	
-	if(arcade_mode==1) scale_resolution=08000600; full_screen=true; end
+	if(os_id!=1003)
+		if(!mode_is_ok(1024,768,32,MODE_FULLSCREEN))
+			scale_resolution=06400480; //compatible con Wii
+			if(!mode_is_ok(640,480,32,MODE_FULLSCREEN))
+				scale_resolution=03200240; //compatible con GP2X
+			end
+		end
+		if(arcade_mode==1) scale_resolution=08000600; full_screen=true; end
+	end
 	
 	set_mode(1024,768,32,WAITVSYNC);
 
-	dump_type=-1;
-	restore_type=-1;
+	if(os_id==1003)
+		tactil=1;
+		guardar=0;
+		opciones.particulas=0;
+	end
+	
+	//dump_type=-1;
+	//restore_type=-1;
 	ALPHA_STEPS=128;
 
 	//imagen cargando
@@ -188,6 +197,8 @@ BEGIN
 	fpg_bosses=load_fpg("./fpg/bosses.fpg"); frame;
 	fpg_explosiones=load_fpg("./fpg/explosiones.fpg"); frame;
 
+	say("----------------- FPGS CARGADOS!");
+	
 	s_disparo=load_wav("./wav/laser.wav"); frame;
 	s_laser1=load_wav("./wav/laser9.wav"); frame;
 	s_laser2=load_wav("./wav/onda01.wav"); frame;
@@ -196,12 +207,16 @@ BEGIN
 	s_explosion=load_wav("./wav/explos.wav"); frame;
 	s_explosion_grande=load_wav("./wav/explosg.wav"); frame;
 
+	say("----------------- WAVS CARGADOS!");
+	
 	fuente[0]=load_fnt(".\fnt\fuente.fnt"); frame;
 	fuente[1]=load_fnt(".\fnt\garna1.fnt"); frame;
 	fuente[2]=load_fnt(".\fnt\garna2.fnt"); frame;
 	fuente[3]=load_fnt(".\fnt\garna3.fnt"); frame;
 	fuente[4]=load_fnt(".\fnt\garna4.fnt"); frame;
 
+	say("----------------- FNTS CARGADOS!");
+	
 	opciones.teclado.arriba=72;			//Arriba
 	opciones.teclado.derecha=77;		//Derecha
 	opciones.teclado.abajo=80;			//Abajo
@@ -215,34 +230,6 @@ BEGIN
 	opciones.gamepad.cambiar=2;			//2
 	
 	opciones.particulas=1;				//sistema de patículas activado
-
-	if(arcade_mode==1)
-		opciones.particulas=0;
-	end
-	
-	if(os_id==0) //windows
-		savegamedir=getenv("APPDATA")+developerpath;
-		if(savegamedir==developerpath) //windows 9x/me
-			savegamedir=cd();
-		else
-			crear_jerarquia(savegamedir);
-		end
-	end
-	if(os_id==1) //linux
-		savegamedir=getenv("HOME")+developerpath;
-		crear_jerarquia(savegamedir);
-	end
-	
-	if(file_exists(savegamedir+"opciones.dat"))
-		archivo=fopen(savegamedir+"opciones.dat",o_read);
-		fread(archivo,opciones);
-		fclose(archivo);
-	end
-	
-	if(opciones.p_completa) 
-		full_screen=true; 
-		set_mode(1024,768,32,WAITVSYNC);
-	end
 
 	save.nivel=1;	
 	save.poder[0]=1;
@@ -258,20 +245,54 @@ BEGIN
 	save.puntuacion[8]=10000;
 	save.puntuacion[9]=10000;
 	
-	if(file_exists(savegamedir+"save.dat"))
-		archivo=fopen(savegamedir+"save.dat",o_read);
-		fread(archivo,save);
-		fclose(archivo);
+	if(arcade_mode==1)
+		opciones.particulas=0;
 	end
 
+	if(os_id<1000)
+		if(os_id==0) //windows
+			savegamedir=getenv("APPDATA")+developerpath;
+			if(savegamedir==developerpath) //windows 9x/me
+				savegamedir=cd();
+			else
+				crear_jerarquia(savegamedir);
+			end
+		end
+		if(os_id==1) //linux
+			savegamedir=getenv("HOME")+developerpath;
+			crear_jerarquia(savegamedir);
+		end
+	end
+	
+	if(guardar)
+		if(file_exists(savegamedir+"opciones.dat"))
+			archivo=fopen(savegamedir+"opciones.dat",o_read);
+			fread(archivo,opciones);
+			fclose(archivo);
+		end
+		
+		if(file_exists(savegamedir+"save.dat"))
+			archivo=fopen(savegamedir+"save.dat",o_read);
+			fread(archivo,save);
+			fclose(archivo);
+		end
+	end
+	
+	if(opciones.p_completa) 
+		full_screen=true; 
+		set_mode(1024,768,32,WAITVSYNC);
+	end
+	
 	frame;
 
 	configurar_controles();
-
-	start_scroll(0,fpg_menu,7,8,1,15); //numero,file,grafico,fondo,region,loop
+	
+	//start_scroll(0,fpg_menu,7,8,1,15); //numero,file,grafico,fondo,region,loop
 	musica(1);
 	graph=2;
-
+	
+	say("----------------- INICIALIZANDO COSICAS!");
+	
 	from alpha=0 to 255 step 10; frame; end
 	timer[2]=0;
 
@@ -285,8 +306,10 @@ BEGIN
 
 	
 	//jugadores=2;
-	historia(1);
-	//fase(6);
+	//historia(1);
+	jugadores=1;
+	//fase(1);
+	juego(1);
 	frame;
 
 end
@@ -628,9 +651,11 @@ begin
 							ayuda();
 						end
 						case 6:
-							archivo=fopen(savegamedir+"opciones.dat", O_WRITE);
-							fwrite(archivo,opciones);
-							fclose(archivo);
+							if(guardar)
+								archivo=fopen(savegamedir+"opciones.dat", O_WRITE);
+								fwrite(archivo,opciones);
+								fclose(archivo);
+							end
 							exit();
 						end
 					end
@@ -735,9 +760,11 @@ begin
 
 							frame;
 							
-							archivo=fopen(savegamedir+"opciones.dat", O_WRITE);
-							fwrite(archivo,opciones);
-							fclose(archivo);
+							if(guardar)
+								archivo=fopen(savegamedir+"opciones.dat", O_WRITE);
+								fwrite(archivo,opciones);
+								fclose(archivo);
+							end
 							
 						end
 						case 2: 
@@ -877,9 +904,11 @@ begin
 							
 							frame;
 							
-							archivo=fopen(savegamedir+"opciones.dat", O_WRITE);
-							fwrite(archivo,opciones);
-							fclose(archivo);
+							if(guardar)
+								archivo=fopen(savegamedir+"opciones.dat", O_WRITE);
+								fwrite(archivo,opciones);
+								fclose(archivo);
+							end
 						end
 						case 3:
 							opciones.teclado.arriba=72;			//Arriba
@@ -894,9 +923,11 @@ begin
 							opciones.gamepad.bomba=1;			//1
 							opciones.gamepad.cambiar=2;			//2
 							
-							archivo=fopen(savegamedir+"opciones.dat", O_WRITE);
-							fwrite(archivo,opciones);
-							fclose(archivo);
+							if(guardar)
+								archivo=fopen(savegamedir+"opciones.dat", O_WRITE);
+								fwrite(archivo,opciones);
+								fclose(archivo);
+							end
 						end
 						case 4:
 							menu(1);

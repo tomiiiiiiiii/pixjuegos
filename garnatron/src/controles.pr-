@@ -11,6 +11,7 @@ Begin
 	end
 	Loop
 		if(!exists(father)) return; end
+		from i=0 to 7; p[jugador].botones[i]=0; end
 		if(p[jugador].control==-2) //GLOBAL: Para menús y tal
 			from i=1 to posibles_jugadores+1;
 				controlador(i);
@@ -28,76 +29,86 @@ Begin
 			end
 		end		
 		if(p[jugador].control==-1) return; end
-		if(p[jugador].control==0)  // teclado
-			If(key(opciones.teclado.izquierda)) p[jugador].botones[0]=1; Else p[jugador].botones[0]=0; End
-			If(key(opciones.teclado.derecha)) p[jugador].botones[1]=1; Else p[jugador].botones[1]=0; End
-			If(key(opciones.teclado.arriba)) p[jugador].botones[2]=1; Else p[jugador].botones[2]=0; End
-			If(key(opciones.teclado.abajo)) p[jugador].botones[3]=1; Else p[jugador].botones[3]=0; End
-			If(key(opciones.teclado.disparar) or mouse.left) p[jugador].botones[4]=1; Else p[jugador].botones[4]=0; End
-			If(key(opciones.teclado.bomba) or mouse.right) p[jugador].botones[5]=1; Else p[jugador].botones[5]=0; End
-			If(key(opciones.teclado.cambiar) or mouse.wheelup or mouse.wheeldown) p[jugador].botones[6]=1; Else p[jugador].botones[6]=0; End
-			If(key(_esc)) p[jugador].botones[7]=1; Else p[jugador].botones[7]=0; End
-		End
-		
-		
-		If(p[jugador].control>0)  // joysticks
-			POV=joy_gethat(joysticks[p[jugador].control],0); POVx=0; POVy=0;
+		if(!tactil)
+			if(p[jugador].control==0)  // teclado
+				If(key(opciones.teclado.izquierda)) p[jugador].botones[0]=1; Else p[jugador].botones[0]=0; End
+				If(key(opciones.teclado.derecha)) p[jugador].botones[1]=1; Else p[jugador].botones[1]=0; End
+				If(key(opciones.teclado.arriba)) p[jugador].botones[2]=1; Else p[jugador].botones[2]=0; End
+				If(key(opciones.teclado.abajo)) p[jugador].botones[3]=1; Else p[jugador].botones[3]=0; End
+				If(key(opciones.teclado.disparar) or mouse.left) p[jugador].botones[4]=1; Else p[jugador].botones[4]=0; End
+				If(key(opciones.teclado.bomba) or mouse.right) p[jugador].botones[5]=1; Else p[jugador].botones[5]=0; End
+				If(key(opciones.teclado.cambiar) or mouse.wheelup or mouse.wheeldown) p[jugador].botones[6]=1; Else p[jugador].botones[6]=0; End
+				If(key(_esc)) p[jugador].botones[7]=1; Else p[jugador].botones[7]=0; End
+			End
 			
-			if(os_id==os_caanoo)
-				axis_x = joy_getaxis(2,0);
-				axis_y = joy_getaxis(2,1);
-	
-				// EJES (en teoría debería ser lo mismo que analógico :P)
-				if(axis_x<-16384) POVx=1; end
-				if(axis_x>16384) POVx=2; end
-				if(axis_y<-16384) POVy=1; end
-				if(axis_y>16384) POVy=2; end
-			end
- 
-			// ANALOGICO
-			IF (get_joy_position(joysticks[p[jugador].control],0)<-10000) POVx=1; END // izquierda
-			IF (get_joy_position(joysticks[p[jugador].control],0)>10000) POVx=2; END // derecha
-			IF (get_joy_position(joysticks[p[jugador].control],1)<-7500) POVy=1; END // arriba
-			IF (get_joy_position(joysticks[p[jugador].control],1)>7500) POVy=2; END // abajo
+			
+			If(p[jugador].control>0)  // joysticks
+				POV=joy_gethat(joysticks[p[jugador].control],0); POVx=0; POVy=0;
+				
+				if(os_id==os_caanoo)
+					axis_x = joy_getaxis(2,0);
+					axis_y = joy_getaxis(2,1);
+		
+					// EJES (en teoría debería ser lo mismo que analógico :P)
+					if(axis_x<-16384) POVx=1; end
+					if(axis_x>16384) POVx=2; end
+					if(axis_y<-16384) POVy=1; end
+					if(axis_y>16384) POVy=2; end
+				end
+	 
+				// ANALOGICO
+				IF (get_joy_position(joysticks[p[jugador].control],0)<-10000) POVx=1; END // izquierda
+				IF (get_joy_position(joysticks[p[jugador].control],0)>10000) POVx=2; END // derecha
+				IF (get_joy_position(joysticks[p[jugador].control],1)<-7500) POVy=1; END // arriba
+				IF (get_joy_position(joysticks[p[jugador].control],1)>7500) POVy=2; END // abajo
 
-                        // DIGITAL (LINUX?)
-                        IF (get_joy_position(joysticks[p[jugador].control],3)<-10000) POVx=1; END // izquierda
-                        IF (get_joy_position(joysticks[p[jugador].control],3)>10000) POVx=2; END // derecha
-                        IF (get_joy_position(joysticks[p[jugador].control],4)<-7500) POVy=1; END // arriba
-                        IF (get_joy_position(joysticks[p[jugador].control],4)>7500) POVy=2; END // abajo
- 
-			// DIGITAL
-			IF (POV==1) POVy=1; END // arriba
-			IF (POV==3) POVy=1; POVx=2; END // der
-			IF (POV==9) POVy=1; POVx=1; END // izq
-			IF (POV==4) POVy=2; END // abajo
-			IF (POV==6) POVy=2; POVx=2; END // der
-			IF (POV==12) POVy=2; POVx=1; END // izq
-			IF (POV==2) POVx=2; END // der
-			IF (POV==8) POVx=1; END // izq
-		
-			If(povx==1) p[jugador].botones[0]=1; Else p[jugador].botones[0]=0; End
-			If(povx==2) p[jugador].botones[1]=1; Else p[jugador].botones[1]=0; End
-			If(povy==1) p[jugador].botones[2]=1; Else p[jugador].botones[2]=0; End
-			If(povy==2) p[jugador].botones[3]=1; Else p[jugador].botones[3]=0; End
-		
-			if(os_id==os_wii)
-				If(get_joy_button(joysticks[p[jugador].control],2)) p[jugador].botones[4]=1; Else p[jugador].botones[4]=0; End
-				If(get_joy_button(joysticks[p[jugador].control],3)) p[jugador].botones[5]=1; Else p[jugador].botones[5]=0; End
-				If(get_joy_button(joysticks[p[jugador].control],4)) p[jugador].botones[6]=1; Else p[jugador].botones[6]=0; End
-				If(get_joy_button(joysticks[p[jugador].control],6)) p[jugador].botones[7]=1; End
-			elseif(os_id==os_caanoo)
-				If(joy_getbutton(1,0)) p[jugador].botones[4]=1; Else p[jugador].botones[4]=0; End
-				If(joy_getbutton(1,1)) p[jugador].botones[5]=1; Else p[jugador].botones[5]=0; End
-				If(joy_getbutton(1,2)) p[jugador].botones[6]=1; Else p[jugador].botones[6]=0; End
-				If(joy_getbutton(1,8)) p[jugador].botones[7]=1; Else p[jugador].botones[7]=0; End
-			else
-				If(get_joy_button(joysticks[p[jugador].control],opciones.gamepad.disparar)) p[jugador].botones[4]=1; Else p[jugador].botones[4]=0; End
-				If(get_joy_button(joysticks[p[jugador].control],opciones.gamepad.bomba)) p[jugador].botones[5]=1; Else p[jugador].botones[5]=0; End
-				If(get_joy_button(joysticks[p[jugador].control],opciones.gamepad.cambiar)) p[jugador].botones[6]=1; Else p[jugador].botones[6]=0; End
-				If(get_joy_button(joysticks[p[jugador].control],8)) p[jugador].botones[7]=1; Else p[jugador].botones[7]=0; End
-			end
-		End
+				// DIGITAL (LINUX?)
+				IF (get_joy_position(joysticks[p[jugador].control],3)<-10000) POVx=1; END // izquierda
+				IF (get_joy_position(joysticks[p[jugador].control],3)>10000) POVx=2; END // derecha
+				IF (get_joy_position(joysticks[p[jugador].control],4)<-7500) POVy=1; END // arriba
+				IF (get_joy_position(joysticks[p[jugador].control],4)>7500) POVy=2; END // abajo
+	 
+				// DIGITAL
+				IF (POV==1) POVy=1; END // arriba
+				IF (POV==3) POVy=1; POVx=2; END // der
+				IF (POV==9) POVy=1; POVx=1; END // izq
+				IF (POV==4) POVy=2; END // abajo
+				IF (POV==6) POVy=2; POVx=2; END // der
+				IF (POV==12) POVy=2; POVx=1; END // izq
+				IF (POV==2) POVx=2; END // der
+				IF (POV==8) POVx=1; END // izq
+			
+				If(povx==1) p[jugador].botones[0]=1; Else p[jugador].botones[0]=0; End
+				If(povx==2) p[jugador].botones[1]=1; Else p[jugador].botones[1]=0; End
+				If(povy==1) p[jugador].botones[2]=1; Else p[jugador].botones[2]=0; End
+				If(povy==2) p[jugador].botones[3]=1; Else p[jugador].botones[3]=0; End
+			
+				if(os_id==os_wii)
+					If(get_joy_button(joysticks[p[jugador].control],2)) p[jugador].botones[4]=1; Else p[jugador].botones[4]=0; End
+					If(get_joy_button(joysticks[p[jugador].control],3)) p[jugador].botones[5]=1; Else p[jugador].botones[5]=0; End
+					If(get_joy_button(joysticks[p[jugador].control],4)) p[jugador].botones[6]=1; Else p[jugador].botones[6]=0; End
+					If(get_joy_button(joysticks[p[jugador].control],6)) p[jugador].botones[7]=1; End
+				elseif(os_id==os_caanoo)
+					If(joy_getbutton(1,0)) p[jugador].botones[4]=1; Else p[jugador].botones[4]=0; End
+					If(joy_getbutton(1,1)) p[jugador].botones[5]=1; Else p[jugador].botones[5]=0; End
+					If(joy_getbutton(1,2)) p[jugador].botones[6]=1; Else p[jugador].botones[6]=0; End
+					If(joy_getbutton(1,8)) p[jugador].botones[7]=1; Else p[jugador].botones[7]=0; End
+				else
+					If(get_joy_button(joysticks[p[jugador].control],opciones.gamepad.disparar)) p[jugador].botones[4]=1; Else p[jugador].botones[4]=0; End
+					If(get_joy_button(joysticks[p[jugador].control],opciones.gamepad.bomba)) p[jugador].botones[5]=1; Else p[jugador].botones[5]=0; End
+					If(get_joy_button(joysticks[p[jugador].control],opciones.gamepad.cambiar)) p[jugador].botones[6]=1; Else p[jugador].botones[6]=0; End
+					If(get_joy_button(joysticks[p[jugador].control],8)) p[jugador].botones[7]=1; Else p[jugador].botones[7]=0; End
+				end
+			End
+		else //tactil
+			if(mouse.left)
+				if(mouse.x<father.x) p[jugador].botones[0]=1; end
+				if(mouse.x>father.x) p[jugador].botones[1]=1; end
+				if(mouse.y<father.y) p[jugador].botones[2]=1; end
+				if(mouse.y>father.y) p[jugador].botones[3]=1; end
+			end 
+			p[jugador].botones[4]=1;
+		end
 		Frame;
 	End
 End

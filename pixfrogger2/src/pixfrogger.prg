@@ -1652,11 +1652,11 @@ Private
 Begin
 	if(en_juego)
 		if(tactil)
-			//from i=1 to posibles_jugadores;
+			from i=1 to posibles_jugadores;
 				if(rana_juega[i])
 					pon_boton(i);
 				end
-			//end
+			end
 		end
 	end
 	

@@ -37,23 +37,11 @@ Begin
 		save.puntos[jugador]=puntos[jugador];
 		save.poder[jugador]=poder[jugador];
 	end
-	archivo=fopen(savegamedir+"save.dat",o_write);
-	fwrite(archivo,save);
-	fclose(archivo);
-
-/*-----------------------------------------------------------------------------------	
-	fp=fopen("nivel"+nivel+".txt",O_READ);
-	while(!feof(fp))
-		linea=fgets(fp);  
-		from j=0 to 5;
-			datos_nivel[i][j]=hasta_la_coma(linea,j);
-		end
-		i++;
-	end
-	fclose(fp);
-
---------------------------------------------------------------	*/
-	
+	if(guardar)
+		archivo=fopen(savegamedir+"save.dat",o_write);
+		fwrite(archivo,save);
+		fclose(archivo);
+	end	
 	
 	ctype=c_screen;
 	define_region(1,0,0,1024,768);
@@ -669,12 +657,15 @@ Begin
 		save.puntos[jugador]=puntos[jugador];
 		save.poder[jugador]=poder[jugador];
 	end
-	archivo=fopen(savegamedir+"save.dat",o_write);
-	fwrite(archivo,save);
-	fclose(archivo);
+	say("----------------------------------------------before fuck");
+	if(guardar)
+		archivo=fopen(savegamedir+"save.dat",o_write);
+		fwrite(archivo,save);
+		fclose(archivo);
+	end
 
 	//carga el archivo del nivel
-
+	say("----------------------------------------------fuck");
 	archivo=fopen("./niveles/nivel"+nivel+".txt",O_READ);
 	while(!feof(archivo))
 		linea=fgets(archivo);  
@@ -684,7 +675,7 @@ Begin
 		i++;
 	end
 	fclose(archivo);
-	
+	say("----------------------------------------------fuckthewhat!");
 	ctype=c_screen;
 	define_region(1,0,0,1024,768);
 	pausa=1;
