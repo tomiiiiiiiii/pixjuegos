@@ -10,18 +10,18 @@ pause
 echo Compilando fpgs....
 cd fpg-sources
 copy /y ..\..\utils\pxlfpg.dcb .
-..\..\bennu-win\bgdi pxlfpg 16 pixfrogger-hd
+..\..\bennu-win\bgdi pxlfpg 16 pixfrogger-hd-portrait
 
 del /f pxlfpg.dcb
 cd ..\fpg
-ren pixfrogger-hd.fpg pixfrogger-hd.fpg.gz
-..\..\utils\gzip -d *.fpg.gz
+ren pixfrogger-hd-portrait.fpg pixfrogger-hd-portrait.fpg.gz
+..\..\utils\gzip -d pixfrogger-hd-portrait.fpg.gz
 cd ..
 
 echo Compilando fnts...
 cd fnt-sources
 copy ..\..\utils\pxlfnt.dcb . /y
-..\..\bennu-win\bgdi pxlfnt 8 puntos-hd
+..\..\bennu-win\bgdi pxlfnt 16 puntos-hd
 del /f pxlfnt.dcb
 cd ..
 
@@ -46,7 +46,7 @@ copy recursos\android\AndroidManifest.xml export\ /y
 copy recursos\android\build.xml export\ /y
 
 echo Copiando el juego...
-copy fpg\pixfrogger-hd.fpg export\assets\fpg /y
+copy fpg\pixfrogger-hd-portrait.fpg export\assets\fpg /y
 copy ogg\*.ogg export\assets\ogg /y
 copy wav\*.wav export\assets\wav /y
 copy fnt\puntos-hd.fnt export\assets\fnt /y

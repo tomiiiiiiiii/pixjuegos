@@ -34,6 +34,8 @@ global
 	ready=1;
 	jue;
 	anterior_camino;
+	primera_ronda;
+	string portrait_txt;
 	Struct ops; 
 		pantalla_completa=1;
 		sonido=1;
@@ -141,18 +143,20 @@ begin
 	//cargamos los recursos a utilizar durante todo el juego
 	carga_sonidos();
 	
-	fpg_general=load_fpg("fpg/pixfrogger-"+version+".fpg");
+	if(portrait) portrait_txt="-portrait"; end
+	
+	fpg_general=load_fpg("fpg/pixfrogger-"+version+portrait_txt+".fpg");
 	fnt_puntos=load_fnt("fnt/puntos-"+version+".fnt");
 
 	if(version=="hd" and fpg_general==-1)
 		version="md";
-		fpg_general=load_fpg("fpg/pixfrogger-"+version+".fpg");
+		fpg_general=load_fpg("fpg/pixfrogger-"+version+portrait_txt+".fpg");
 		fnt_puntos=load_fnt("fnt/puntos-"+version+".fnt");
 	end
 
 	if(version=="md" and fpg_general==-1)
 		version="ld";
-		fpg_general=load_fpg("fpg/pixfrogger-"+version+".fpg");
+		fpg_general=load_fpg("fpg/pixfrogger-"+version+portrait_txt+".fpg");
 		fnt_puntos=load_fnt("fnt/puntos-"+version+".fnt");
 	end
 
@@ -226,7 +230,7 @@ Private
 Begin
 	from i=0 to 8; rana_puntos[i]=0; end
 	delete_text(all_text);
-
+	primera_ronda=1;
 	dump_type=0; restore_type=0;
 	
 	//ponemos el fondo y el logo, pa empezar
@@ -695,6 +699,7 @@ begin
 	delete_text(all_text);
 	from i=1 to 8; rana_viva[i]=0; rana_puntos[i]=0; end
 	elecc=0;
+	primera_ronda=1;
 	dump_type=0; restore_type=0;
 	put_screen(0,3);
 	if(!exists(type controlador)) controlador(0); end
@@ -1083,15 +1088,15 @@ private
 	ranas_vivas_antes;
 	ranas_vivas;
 begin
-	if(tactil) ready=0; end
-
+	if(tactil or primera_ronda) ready=0; end
+	
 	clear_screen();
 	controlador(1);
 	llegada=0;
 	scroll_y=0;
 	priority=1;
 	delete_text(all_text);
-	write_int(fnt_puntos,0,0,0,&fps);
+	//write_int(fnt_puntos,0,0,0,&fps);
 	indicador();
 	dump_type=-1;
 	restore_type=-1;
@@ -1104,8 +1109,31 @@ begin
 		rana(i,rana_juega[i]);
 	end
 	while(exists(father)) frame; end
+	if(primera_ronda)
+		//3 2 1 YA:
+		x=ancho_pantalla/2;
+		y=alto_pantalla/2;
+		from i=3 to 1 step -1;
+			timer[0]=0;
+			graph=650+i;
+			sonido(5);
+			while(timer[0]<100) alpha-=4; size++; frame; end
+			size=100;
+			alpha=255;
+		end
+		sonido(6);
+		graph=650;
+		primera_ronda=0;
+	end
+
 	ready=1;
 	loop
+		if(alpha>0) 
+			alpha-=10; 
+			size+=3; 
+		else
+			size=100;
+		end
 		//perdida del foco en el juego
 		if(!focus_status and tactil)
 			let_me_alone();
@@ -1136,6 +1164,9 @@ begin
 		
 		//si solo queda una rana, será la ganadora
 		if(ranas_vivas==1)
+			dump_type=0;
+			restore_type=0;
+			frame;
 			graph=get_screen();
 			x=ancho_pantalla/2;
 			y=alto_pantalla/2;
@@ -1167,6 +1198,9 @@ begin
 		
 		//si han muerto todas las ranas a la vez, reset! 
 		if(ranas_vivas==0)
+			dump_type=0;
+			restore_type=0;
+			frame;
 			graph=get_screen();
 			x=ancho_pantalla/2;
 			y=alto_pantalla/2;

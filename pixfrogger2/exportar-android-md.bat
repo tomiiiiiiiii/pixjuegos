@@ -14,15 +14,14 @@ copy /y ..\..\utils\pxlfpg.dcb .
 
 del /f pxlfpg.dcb
 cd ..\fpg
-del /f pixfrogger-md.fpg
-ren pixfrogger-md-portrait.fpg pixfrogger-md.fpg.gz
-..\..\utils\gzip -d pixfrogger-md.fpg.gz
+ren pixfrogger-md-portrait.fpg pixfrogger-md-portrait.fpg.gz
+..\..\utils\gzip -d pixfrogger-md-portrait.fpg.gz
 cd ..
 
 echo Compilando fnts...
 cd fnt-sources
 copy ..\..\utils\pxlfnt.dcb . /y
-..\..\bennu-win\bgdi pxlfnt 8 puntos-md
+..\..\bennu-win\bgdi pxlfnt 16 puntos-md
 del /f pxlfnt.dcb
 cd ..
 
@@ -47,7 +46,7 @@ copy recursos\android\AndroidManifest.xml export\ /y
 copy recursos\android\build.xml export\ /y
 
 echo Copiando el juego...
-copy fpg\pixfrogger-md.fpg export\assets\fpg /y
+copy fpg\pixfrogger-md-portrait.fpg export\assets\fpg /y
 copy ogg\*.ogg export\assets\ogg /y
 copy wav\*.wav export\assets\wav /y
 copy fnt\puntos-md.fnt export\assets\fnt /y
