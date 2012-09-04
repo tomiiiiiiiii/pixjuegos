@@ -75,7 +75,7 @@ global
 	meta=0;
 	tactil=0;
 
-	string version;
+	string version="";
 	
 	// COMPATIBILIDAD CON XP/VISTA/LINUX (usuarios)
 	string savegamedir;
@@ -140,10 +140,14 @@ begin
 	set_fps(25,frameskip);
 	set_title("PiX Frogger");
 	
+	if(portrait) portrait_txt="-portrait"; end
+	
+	put_screen(0,load_png("load-"+version+portrait_txt+".png"));
+	frame; //tengo que hacer 2 frames para que lo de arriba funcione :|
+	frame;
+	
 	//cargamos los recursos a utilizar durante todo el juego
 	carga_sonidos();
-	
-	if(portrait) portrait_txt="-portrait"; end
 	
 	fpg_general=load_fpg("fpg/pixfrogger-"+version+portrait_txt+".fpg");
 	fnt_puntos=load_fnt("fnt/puntos-"+version+".fnt");
@@ -169,7 +173,18 @@ begin
 	num_caminos=(alto_pantalla/alto_camino)+2;
 	
 	//empezamos, ponemos el logo
-	logo_pixjuegos();
+	//logo_pixjuegos();
+	
+	//ponemos el menú directamente
+	if(ops.musica)
+		play_song(music,-1);
+	end
+	if(!tactil)
+		menu();
+	else
+		menu_tactil();
+	end
+
 end
 
 Function prueba_pantalla();
@@ -196,20 +211,46 @@ Begin
 		say("---------------------------------"+alto_pantalla);
 	end
 
+	
+	//TTTTTTTTTTTTTTTTTTEEEEEEEEEEEEESSSSSSSSSSSSSSSSSSTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+		
+/*	tactil=1;
+	ancho_pantalla=240;
+	alto_pantalla=400;
+	mouse.graph=71;
+	full_screen=0;
+	panoramico=0;*/
+	
+	//********************************************************************************
+	
+	
+	
+	
 	if(alto_pantalla>ancho_pantalla) portrait=1; else portrait=0; end
 	
-	if((ancho_pantalla=>1200 and portrait==0) or (alto_pantalla=>1200 and portrait==1))
-		version="hd";
-	elseif((ancho_pantalla=>600 and portrait==0) or (alto_pantalla=>600 and portrait==1))
-		version="md";
-	else
-		version="ld";
+	if(version=="") 
+		if((ancho_pantalla=>1200 and portrait==0) or (alto_pantalla=>1200 and portrait==1))
+			version="hd";
+		elseif((ancho_pantalla=>600 and portrait==0) or (alto_pantalla=>600 and portrait==1))
+			version="md";
+		else
+			version="ld";
+		end
 	end
-/*	tactil=1;
-	ancho_pantalla=480;
-	alto_pantalla=800;
-	mouse.graph=71;
-	full_screen=0;*/
+		
+/*	if(os_id==1003)
+		scale_resolution=ancho_pantalla*10000+alto_pantalla;
+		if(portrait)
+			if(version=="hd" and ancho_pantalla!=720) ancho_pantalla=720; alto_pantalla=1280; end
+			if(version=="md" and ancho_pantalla!=480) ancho_pantalla=480; alto_pantalla=800;  end
+			if(version=="ld" and ancho_pantalla!=240) ancho_pantalla=240; alto_pantalla=400; end
+		else
+			if(version=="hd" and ancho_pantalla!=1280) scale_resolution=12800720; end
+			if(version=="md" and ancho_pantalla!=800) scale_resolution=08000480; end
+			if(version=="ld" and ancho_pantalla!=400) scale_resolution=04000240; end
+		end
+	end
+*/
 End
 
 Process pon_fondo(graph);
@@ -235,9 +276,11 @@ Begin
 	
 	//ponemos el fondo y el logo, pa empezar
 	if(portrait)
-		pon_fondo(701);
+		//pon_fondo(701);
+		put_screen(0,701);
 	else
-		pon_fondo(3);
+		//pon_fondo(3);
+		put_screen(0,3);
 	end
 	stop_scroll(0);
 	
@@ -1220,6 +1263,8 @@ begin
 		
 		//botón esc, salir
 		if(boton[9])
+			dump_type=0;
+			restore_type=0;
 			while(boton[9]) frame; end
 			let_me_alone();
 			graph=get_screen();
@@ -1668,7 +1713,7 @@ end
 
 Function carga_sonidos();
 Begin
-	from i=1 to 50;
+	from i=1 to 6;
 		wavs[i]=load_wav("wav/"+i+".wav");
 	end
 End

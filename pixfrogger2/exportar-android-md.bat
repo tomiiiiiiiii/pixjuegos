@@ -46,6 +46,7 @@ copy recursos\android\AndroidManifest.xml export\ /y
 copy recursos\android\build.xml export\ /y
 
 echo Copiando el juego...
+copy load-md-portrait.png export\assets /y
 copy fpg\pixfrogger-md-portrait.fpg export\assets\fpg /y
 copy ogg\*.ogg export\assets\ogg /y
 copy wav\*.wav export\assets\wav /y

@@ -10,18 +10,22 @@ pause
 echo Compilando fpgs....
 cd fpg-sources
 copy /y ..\..\utils\pxlfpg.dcb .
-..\..\bennu-win\bgdi pxlfpg 16 pixfrogger-hd-portrait
+..\..\bennu-win\bgdi pxlfpg 16 pixfrogger-hd-portrait pixfrogger-md-portrait pixfrogger-ld-portrait
 
 del /f pxlfpg.dcb
 cd ..\fpg
 ren pixfrogger-hd-portrait.fpg pixfrogger-hd-portrait.fpg.gz
+ren pixfrogger-md-portrait.fpg pixfrogger-md-portrait.fpg.gz
+ren pixfrogger-ld-portrait.fpg pixfrogger-ld-portrait.fpg.gz
 ..\..\utils\gzip -d pixfrogger-hd-portrait.fpg.gz
+..\..\utils\gzip -d pixfrogger-md-portrait.fpg.gz
+..\..\utils\gzip -d pixfrogger-ld-portrait.fpg.gz
 cd ..
 
 echo Compilando fnts...
 cd fnt-sources
 copy ..\..\utils\pxlfnt.dcb . /y
-..\..\bennu-win\bgdi pxlfnt 16 puntos-hd
+..\..\bennu-win\bgdi pxlfnt 16 puntos-hd puntos-ld puntos-md
 del /f pxlfnt.dcb
 cd ..
 
@@ -46,11 +50,17 @@ copy recursos\android\AndroidManifest.xml export\ /y
 copy recursos\android\build.xml export\ /y
 
 echo Copiando el juego...
+copy load-ld-portrait.png export\assets /y
+copy load-md-portrait.png export\assets /y
 copy load-hd-portrait.png export\assets /y
+copy fnt\puntos-hd.fnt export\assets\fnt /y
+copy fnt\puntos-md.fnt export\assets\fnt /y
+copy fnt\puntos-ld.fnt export\assets\fnt /y
 copy fpg\pixfrogger-hd-portrait.fpg export\assets\fpg /y
+copy fpg\pixfrogger-md-portrait.fpg export\assets\fpg /y
+copy fpg\pixfrogger-ld-portrait.fpg export\assets\fpg /y
 copy ogg\*.ogg export\assets\ogg /y
 copy wav\*.wav export\assets\wav /y
-copy fnt\puntos-hd.fnt export\assets\fnt /y
 copy main.dcb export\assets /y
 echo Exportado correctamente. Ahora se instalará en el móvil...
 pause
