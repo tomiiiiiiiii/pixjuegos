@@ -1,4 +1,6 @@
 @echo off
+call ..\utils\entorno.bat garnatron
+
 rd /s /q export
 echo Compilando...
 cd src

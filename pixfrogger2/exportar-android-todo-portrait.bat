@@ -1,4 +1,6 @@
 @echo off
+call ..\utils\entorno.bat pixfrogger2
+
 rd /s /q export
 echo Compilando...
 cd src
@@ -33,6 +35,9 @@ echo Exportando...
 mkdir export
 echo Copiando base de bennu-android...
 xcopy /r/e/y ..\bennu-android .\export
+
+rem echo Generamos local.properties
+rem echo sdk.dir=%dirbase%/utils/android-sdk > export\local.properties
 
 echo Creando carpetas...
 mkdir export\assets\fpg
