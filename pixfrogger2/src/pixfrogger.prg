@@ -64,6 +64,7 @@ global
 	boton[9]; //0: cualquier boton,1-8: ranas,9:salir
 	posibles_jugadores;
 	id_camara;
+	num_jugadores=0;
 	
 	ancho_pantalla=1280;
 	alto_pantalla=1024;
@@ -96,25 +97,28 @@ End //local
 include "../../common-src/lenguaje.pr-";
 include "../../common-src/savepath.pr-";
 
+Private
+	graph_loading;
+
 begin
 	if(os_id==1003) 
 		tactil=1;
 		bpp=16;
 	end
 	
+	//averiguamos el path para guardar datos
+	savepath();
+	
+	//cargamos las opciones actuales
+	carga_opciones();
+
 	if(!tactil)
 		//arcade mode?
 		if(argc>0) if(argv[1]=="arcade") arcade_mode=1; end end
 
 		//detectamos buzzers
 		detecta_buzzers();
-	
-		//averiguamos el path para guardar datos
-		savepath();
-		
-		//cargamos las opciones actuales
-		carga_opciones();
-	
+			
 		//detectamos el lenguaje a utilizar (en/es)
 		switch(lenguaje_sistema())
 			case "es": ops.lenguaje=0; end
@@ -141,10 +145,12 @@ begin
 	set_title("PiX Frogger");
 	
 	if(portrait) portrait_txt="-portrait"; end
-	
-	put_screen(0,load_png("load-"+version+portrait_txt+".png"));
+	graph_loading=load_png("load-"+version+portrait_txt+".png");
+	put_screen(0,graph_loading);
 	frame; //tengo que hacer 2 frames para que lo de arriba funcione :|
 	frame;
+	
+	unload_map(0,graph_loading);
 	
 	//cargamos los recursos a utilizar durante todo el juego
 	carga_sonidos();
@@ -188,6 +194,8 @@ begin
 end
 
 Function prueba_pantalla();
+Private
+	float proporcion;
 Begin
 	if(os_id==0) //Windows
 		if((mode_is_ok(1920,1080,16,MODE_FULLSCREEN) or mode_is_ok(1366,768,16,MODE_FULLSCREEN)) or 
@@ -207,6 +215,7 @@ Begin
 		frame;
 		ancho_pantalla=graphic_info(0,0,g_width);
 		alto_pantalla=graphic_info(0,0,g_height);
+		proporcion=(float) alto_pantalla/ancho_pantalla;
 		say("---------------------------------"+ancho_pantalla);
 		say("---------------------------------"+alto_pantalla);
 	end
@@ -215,12 +224,13 @@ Begin
 	//TTTTTTTTTTTTTTTTTTEEEEEEEEEEEEESSSSSSSSSSSSSSSSSSTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
 		
 /*	tactil=1;
-	ancho_pantalla=240;
-	alto_pantalla=400;
+	ancho_pantalla=480;
+	alto_pantalla=800;
 	mouse.graph=71;
 	full_screen=0;
-	panoramico=0;*/
-	
+	panoramico=0;
+	bpp=16;
+	*/
 	//********************************************************************************
 	
 	
@@ -238,19 +248,25 @@ Begin
 		end
 	end
 		
-/*	if(os_id==1003)
+	if(os_id==1003)
 		scale_resolution=ancho_pantalla*10000+alto_pantalla;
 		if(portrait)
-			if(version=="hd" and ancho_pantalla!=720) ancho_pantalla=720; alto_pantalla=1280; end
-			if(version=="md" and ancho_pantalla!=480) ancho_pantalla=480; alto_pantalla=800;  end
-			if(version=="ld" and ancho_pantalla!=240) ancho_pantalla=240; alto_pantalla=400; end
+			if(version=="hd" and ancho_pantalla!=720)
+				ancho_pantalla=720; alto_pantalla=ancho_pantalla*proporcion;
+			end
+			if(version=="md" and ancho_pantalla!=480)
+				ancho_pantalla=480; alto_pantalla=ancho_pantalla*proporcion;
+			end
+			if(version=="ld" and ancho_pantalla!=240)
+				ancho_pantalla=240; alto_pantalla=ancho_pantalla*proporcion;
+			end
 		else
 			if(version=="hd" and ancho_pantalla!=1280) scale_resolution=12800720; end
 			if(version=="md" and ancho_pantalla!=800) scale_resolution=08000480; end
 			if(version=="ld" and ancho_pantalla!=400) scale_resolution=04000240; end
 		end
 	end
-*/
+
 End
 
 Process pon_fondo(graph);
@@ -292,8 +308,11 @@ Begin
 		posibles_jugadores=4;
 	end
 	
-	
 	loop
+		num_jugadores=0;
+		from i=1 to 8;
+			if(rana_juega[i]) num_jugadores++; end
+		end
 		if(boton[9])
 			if(menu_actual!=1)
 				cambia_menu=1; sonido(1);
@@ -301,7 +320,7 @@ Begin
 				matabotones=1;
 				fade_music_off(500);
 				while(is_playing_song()) frame; end
-				exit();
+				salir();
 			end
 		end
 		if(!focus_status and tactil)
@@ -309,7 +328,7 @@ Begin
 			fade_music_off(500);
 			set_fps(1,frameskip);
 			while(is_playing_song()) frame; end
-			exit();
+			salir();
 		end
 
 		if(opcion!=0)
@@ -322,7 +341,7 @@ Begin
 					end
 					case 2: cambia_menu=3; end
 					case 3: cambia_menu=4; end
-					case 4: exit(); end
+					case 4: salir(); end
 				end
 			end
 			if(menu_actual==2) //jugar: 1 jugadores, 2 dificultad, 3 puntos para ganar, 4 jugar, 5 volver
@@ -343,6 +362,7 @@ Begin
 						restore_type=0;
 						frame;
 						graph=get_screen();
+						alpha=255;
 						let_me_alone();
 						juego();
 						z=-100;
@@ -373,14 +393,15 @@ Begin
 			menu_actual=cambia_menu;
 			cambia_menu=0;
 			matabotones=0;
-			if(!exists(type boton_sonido)) boton_sonido(ancho_pantalla-30,30); end
-			if(!exists(type boton_musica)) boton_musica(30,30); end
+			if(!exists(type boton_sonido)) boton_sonido(); end
+			if(!exists(type boton_musica)) boton_musica(); end
 			if(menu_actual==1)
 				pon_boton_menu(ancho_pantalla/2,((alto_pantalla/7)*2)-(alto_pantalla/14),2,100,255,0,1); //logo
+				//pon_boton_menu(ancho_pantalla/2,((alto_pantalla/7)*4)-(alto_pantalla/14),601,100,255,1,2); //jugar
+				//pon_boton_menu(ancho_pantalla/2,((alto_pantalla/7)*5)-(alto_pantalla/14),602,100,255,2,4); //opciones
 				pon_boton_menu(ancho_pantalla/2,((alto_pantalla/7)*4)-(alto_pantalla/14),601,100,255,1,2); //jugar
-				pon_boton_menu(ancho_pantalla/2,((alto_pantalla/7)*5)-(alto_pantalla/14),602,100,255,2,4); //opciones
-				pon_boton_menu(ancho_pantalla/2,((alto_pantalla/7)*6)-(alto_pantalla/14),603,100,255,3,2); //creditos
-				pon_boton_menu(ancho_pantalla/2,((alto_pantalla/7)*7)-(alto_pantalla/14),604,100,255,4,4); //salir
+				pon_boton_menu(ancho_pantalla/2,((alto_pantalla/7)*5)-(alto_pantalla/14),603,100,255,3,3); //creditos
+				pon_boton_menu(ancho_pantalla/2,((alto_pantalla/7)*6)-(alto_pantalla/14),604,100,255,4,4); //salir
 			end
 			if(menu_actual==2) //jugar: opciones
 				from i=0 to 8; rana_juega[i]=0; end
@@ -397,13 +418,13 @@ Begin
 				boton_puntos_objetivo(4,50);
 				
 				//boton jugarS
-				pon_boton_menu(ancho_pantalla/2,((alto_pantalla/7)*7)-(alto_pantalla/14),601,100,255,4,1); //jugar
+				pon_boton_menu(ancho_pantalla/2,((alto_pantalla/7)*7)-(alto_pantalla/14),602,100,255,4,1); //jugar/demo
 			end
 			if(menu_actual==4) //creditos
 				pon_creditos();
-				pon_enlace(ancho_pantalla/4,((alto_pantalla/7)*6)-(alto_pantalla/14),706,"http://www.pixjuegos.com");
-				pon_enlace(ancho_pantalla/4*3,((alto_pantalla/7)*5)-(alto_pantalla/14),704,"http://www.twitter.com/pixjuegos");
-				pon_enlace(ancho_pantalla/4*3,((alto_pantalla/7)*6)-(alto_pantalla/14),705,"http://www.facebook.com/pixjuegos");
+				pon_enlace(ancho_pantalla/2,(alto_pantalla/7)*6,706,"http://www.pixjuegos.com");
+				//pon_enlace(ancho_pantalla/4*3,((alto_pantalla/7)*5)-(alto_pantalla/14),704,"http://www.twitter.com/pixjuegos");
+				//pon_enlace(ancho_pantalla/4*3,((alto_pantalla/7)*6)-(alto_pantalla/14),705,"http://www.facebook.com/pixjuegos");
 			end
 		end
 
@@ -442,8 +463,22 @@ Begin
 	end
 End
 
-Process boton_sonido(x,y);
+Process boton_sonido();
 Begin
+	switch(version)
+		case "ld":
+			x=20;
+			y=20;
+		end
+		case "md":
+			x=30;
+			y=30;
+		end
+		case "hd":
+			x=40;
+			y=40;
+		end
+	end
 	while(!matabotones)
 		if(ops.sonido)
 			graph=621;
@@ -471,8 +506,22 @@ Begin
 	end
 End
 
-Process boton_musica(x,y);
+Process boton_musica();
 Begin
+	switch(version)
+		case "ld":
+			x=ancho_pantalla-20;
+			y=20;
+		end
+		case "md":
+			x=ancho_pantalla-30;
+			y=30;
+		end
+		case "hd":
+			x=ancho_pantalla-40;
+			y=40;
+		end
+	end
 	while(!matabotones)
 		if(ops.musica)
 			graph=623;
@@ -549,7 +598,6 @@ Begin
 	y=((alto_pantalla/7)*4)-(alto_pantalla/14);
 	x=(ancho_pantalla/12)+(ancho_pantalla/6*dificultad);
 	graph=630+dificultad;
-	size=130;
 	if(ops.dificultad==dificultad)
 		from alpha=0 to 255 step 16; frame; end
 	else
@@ -580,12 +628,12 @@ Begin
 	y=((alto_pantalla/7)*6)-(alto_pantalla/14);
 	x=(ancho_pantalla/12)+(ancho_pantalla/6*posicion);
 	graph=write_in_map(fnt_puntos,puntos,4);
-	size=130;
 	if(ops.objetivo==puntos)
 		from alpha=0 to 255 step 16; frame; end
 	else
 		from alpha=0 to 100 step 8; frame; end
 	end
+	//mouse.graph=graph;
 	while(!matabotones)
 		if(ops.objetivo==puntos)
 			alpha=255;
@@ -611,11 +659,14 @@ End
 Process pon_boton_menu(x_out,y_out,graph,size_out,alpha_out,mi_opcion,efecto);
 Private
 	framess=5;
+	demo_button=0;
 Begin
 	x=x_out;
 	y=y_out;
+	z=-101;
 	alpha=alpha_out;
 	size=size_out;
+	if(graph==602) demo_button=1; end
 	switch(efecto)
 		case 0: from alpha=0 to alpha_out step 20; frame; end end
 		case 1: y=-alto_pantalla/2; while(y<y_out) y+=((y_out-y)/framess)+10; frame; end end
@@ -628,6 +679,13 @@ Begin
 	size=size_out;
 	alpha=alpha_out;
 	loop
+		if(demo_button)
+			if(num_jugadores>0)
+				graph=601;
+			else
+				graph=602;
+			end
+		end
 		if(mouse.left)
 			if(collision_box(type mouse))
 				if(graph>600 and graph<605) graph+=10; end
@@ -751,7 +809,7 @@ begin
 		write(0,ancho_pantalla/2,alto_pantalla/2,4,"Pulsa el botón 1 para jugar");
 		while(boton[0]) frame; end
 		while(!boton[0]) 
-			if(boton[9]) exit(); end
+			if(boton[9]) salir(); end
 			frame; 
 		end
 		delete_text(all_text);
@@ -760,7 +818,7 @@ begin
 		put_screen(0,6);
 		while(boton[0]) frame; end
 		while(!boton[0]) 
-			if(boton[9]) exit(); end
+			if(boton[9]) salir(); end
 			frame; 
 		end
 		while(boton[0]) frame; end
@@ -803,8 +861,8 @@ begin
 				break;
 			end
 			if(elecc==3)
-				//guarda_opciones();
-				exit(0);
+				guarda_opciones();
+				salir();
 			end
 		end
 		if(key(_down))
@@ -1130,6 +1188,7 @@ private
 	dand;
 	ranas_vivas_antes;
 	ranas_vivas;
+	botones_pulsados;
 begin
 	if(tactil or primera_ronda) ready=0; end
 	
@@ -1152,10 +1211,43 @@ begin
 		rana(i,rana_juega[i]);
 	end
 	while(exists(father)) frame; end
-	if(primera_ronda)
+	num_jugadores=0;
+	from i=1 to 8;
+		if(rana_juega[i]) num_jugadores++; end
+	end
+	if(primera_ronda and num_jugadores>0)
 		//3 2 1 YA:
 		x=ancho_pantalla/2;
 		y=alto_pantalla/2;
+		graph=521;
+		size=100;
+		from alpha=0 to 255 step 20; frame; end
+		while(botones_pulsados<num_jugadores)
+			botones_pulsados=0;
+			from i=1 to posibles_jugadores;
+				if(boton[i]) botones_pulsados++; end
+			end
+			if(boton[9])
+				while(boton[9]) frame; end
+				x=ancho_pantalla/2;
+				y=alto_pantalla/2;
+				z=-3;
+				alpha=255;
+				graph=get_screen();
+				let_me_alone();
+				
+				if(tactil)
+					menu_tactil();
+				else
+					menu();
+				end
+				return;
+			end
+			frame;
+		end
+		from alpha=255 to 0 step -20; frame; end
+		alpha=255;
+		
 		from i=3 to 1 step -1;
 			timer[0]=0;
 			graph=650+i;
@@ -1179,16 +1271,16 @@ begin
 		end
 		//perdida del foco en el juego
 		if(!focus_status and tactil)
+			primera_ronda=1;
 			let_me_alone();
 			stop_scroll(0);
 			if(ops.musica)
 				fade_music_off(1000);
-				//stop_song();
 			end
 			set_fps(1,frameskip);
 			timer[0]=0;
 			while(!focus_status)
-				if(timer[0]>60000) exit(); end
+				if(timer[0]>60000) salir(); end
 				frame;
 			end
 			if(ops.musica)
@@ -1197,6 +1289,7 @@ begin
 			set_mode(ancho_pantalla,alto_pantalla,bpp);
 			set_fps(25,frameskip);
 			juego();
+			return;
 		end
 	
 		//contamos el número de ranas vivas actuales
@@ -1207,6 +1300,15 @@ begin
 		
 		//si solo queda una rana, será la ganadora
 		if(ranas_vivas==1)
+		
+			from i=1 to posibles_jugadores;
+				if(rana_viva[i]==1) ganador=i; end
+			end
+			
+			//delete_text(all_text);
+						
+			rana_puntos[ganador]++;
+		
 			dump_type=0;
 			restore_type=0;
 			frame;
@@ -1214,17 +1316,43 @@ begin
 			x=ancho_pantalla/2;
 			y=alto_pantalla/2;
 			z=-3;
+			alpha=255;
 			let_me_alone();
 			stop_scroll(0);
 			delete_text(all_text);
-			from i=1 to posibles_jugadores;
-				if(rana_viva[i]==1) ganador=i; end
-			end
-		
-			gana_rana(ganador);
-			gana_rana_you_win();
-			rana_puntos[ganador]++;
 			
+			if(tactil)
+				if(rana_puntos[ganador]!=ops.objetivo)
+					//gana la ronda
+					gana_rana(ganador);
+					gana_rana_you_win();
+				else
+					//gana el juego
+					sonido(7);
+					gana_rana(ganador);
+					gana_rana_wins_match();
+					
+					opcion=0;
+					
+					pon_boton_menu(ancho_pantalla/2,((alto_pantalla/7)*6)-(alto_pantalla/14),604,100,255,4,4); //salir
+					
+					while(opcion!=4)
+						if(boton[9]) while(boton[9]) frame; end break; end
+						frame;	
+					end
+
+					let_me_alone();
+					graph=get_screen();
+
+					menu_tactil();
+					from alpha=255 to 0 step -15; frame; end
+					return;
+				end
+			else
+				//gana la ronda
+				gana_rana(ganador);
+				gana_rana_you_win();
+			end
 			timer[0]=0;
 			while(timer[0]<300) 
 				frame; 
@@ -1354,7 +1482,7 @@ begin
 		end
 	end
 	
-	if(rana_puntos[jugador]!=0) write(fnt_puntos,x,alto_pantalla-(alto_camino/2),4,rana_puntos[jugador]); end
+	if(rana_puntos[jugador]!=0) write_int(fnt_puntos,x,alto_pantalla-(alto_camino/2),4,&rana_puntos[jugador]); end
 	
 	z=-100;
 	gr=50+((jugador-1)*2);
@@ -1713,7 +1841,7 @@ end
 
 Function carga_sonidos();
 Begin
-	from i=1 to 6;
+	from i=1 to 7;
 		wavs[i]=load_wav("wav/"+i+".wav");
 	end
 End
@@ -1786,13 +1914,13 @@ Begin
 			if(key(_q)) boton[1]=1; else boton[1]=0; end*/
 		end
 
-			//tecla maestra
-			if(key(_esc)) boton[9]=1; end
+		//tecla maestra
+		if(key(_esc)) while(key(_esc)) frame; end boton[9]=1; end
 
 		
 		if(tactil)
 			if(mouse.left) dedo(mouse.x,mouse.y); end
-
+			if(mouse.right) while(mouse.right) frame; end boton[9]=1; end
 			if(scan_code==102 and os_id==1003) while(scan_code!=0) frame; end boton[9]=1; end
 
 			for(i=0; i<10; i++)
@@ -1826,8 +1954,7 @@ End
 Process pon_boton(jugador);
 Begin
 	priority=-1;
-	graph=500+jugador;
-	size=40;
+	graph=800+jugador;
 	ancho=graphic_info(0,graph,g_width);
 
 	if(posibles_jugadores==2)
@@ -1862,8 +1989,8 @@ Begin
 	size=250;
 	angle=60000;
 	loop
-		if(tactil)
-			if(mouse.left and collision_box(type mouse)) 
+		if(tactil and size<101)
+			if(mouse.left and collision_box(type mouse))
 				timer[0]=300;
 			end
 		end
@@ -1894,4 +2021,23 @@ Begin
 		if(alpha<255) alpha+=10; y++; end
 		frame;
 	end
+End
+
+Process gana_rana_wins_match();
+Begin
+	graph=522;
+	x=ancho_pantalla/2;
+	y=(alto_pantalla/2);
+	z=-50;
+	alpha=40;
+	loop
+		if(alpha<255) alpha+=10; y++; end
+		frame;
+	end
+End
+
+Function salir();
+Begin
+	guarda_opciones();
+	exit();
 End
