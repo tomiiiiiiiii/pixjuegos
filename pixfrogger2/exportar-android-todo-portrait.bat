@@ -7,7 +7,7 @@ cd src
 ..\..\bennu-win\bgdc pixfrogger.prg
 move pixfrogger.dcb ..\main.dcb
 cd ..
-rem pause
+pause
 
 echo Compilando fpgs....
 cd fpg-sources
@@ -68,8 +68,8 @@ copy ogg\*.ogg export\assets\ogg /y
 copy wav\*.wav export\assets\wav /y
 copy main.dcb export\assets /y
 echo Exportado correctamente. Ahora se instalará en el móvil...
-rem pause
+pause
 cd export
-if exist c:\pixjuegos.keystore ant release install
-if not exist c:\pixjuegos.keystore ant debug install
+if exist c:\pixjuegos.keystore call ant release install
+if not exist c:\pixjuegos.keystore call ant debug install
 pause

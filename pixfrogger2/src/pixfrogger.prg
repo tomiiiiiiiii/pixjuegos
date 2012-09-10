@@ -223,14 +223,15 @@ Begin
 	
 	//TTTTTTTTTTTTTTTTTTEEEEEEEEEEEEESSSSSSSSSSSSSSSSSSTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
 		
-/*	tactil=1;
-	ancho_pantalla=480;
-	alto_pantalla=800;
+	/*tactil=1;
+	ancho_pantalla=800;
+	alto_pantalla=1280;
 	mouse.graph=71;
 	full_screen=0;
 	panoramico=0;
 	bpp=16;
-	*/
+	scale_resolution=04800800;*/
+	
 	//********************************************************************************
 	
 	
@@ -1580,6 +1581,7 @@ private
 	gr;
 	id_col;
 	tipo;
+	x_inc;
 begin
 	ctype=c_scroll;
 	tipo=rand(0,3);
@@ -1595,25 +1597,30 @@ begin
 	x=rand(-alto_camino*4,(ancho_pantalla)+alto_camino*4);
 	y=(pos_y*alto_camino)+(alto_camino/2);
 	z=-10;
+	if(tipo==0 or tipo==1)
+		switch(version)
+			case "hd": x_inc=rand(12,17); end
+			case "md": x_inc=rand(8,12); end
+			case "ld": x_inc=rand(5,8); end
+		end
+	else
+		switch(version)
+			case "hd": x_inc=7; end
+			case "md": x_inc=5; end
+			case "ld": x_inc=3; end
+		end
+	end
 	sombra();
 	loop
 		vehiculo_colisionador(x,y);
 		if(!en_pantalla_y()) return; end
 		if(tipo==0 or tipo==2)
-			if(tipo==0)
-				x+=rand(10,15);
-			else
-				x+=5;
-			end
+			x+=x_inc;
 			if(x>ancho_pantalla+(alto_camino*4))
 				x=-alto_camino*4;
 			end
 		else
-			if(tipo==1)
-				x-=rand(10,15);
-			else
-				x-=5;
-			end
+			x-=x_inc;
 			if(x<-alto_camino*4)
 				x=ancho_pantalla+(alto_camino*4);
 			end
