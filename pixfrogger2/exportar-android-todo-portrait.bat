@@ -54,6 +54,9 @@ copy recursos\android\strings.xml export\res\values\strings.xml /y
 copy recursos\android\AndroidManifest.xml export\ /y
 copy recursos\android\build.xml export\ /y
 
+mkdir export\src\com
+xcopy /r/e/y recursos\android\com export\src\com
+
 echo Copiando el juego...
 copy load-ld-portrait.png export\assets /y
 copy load-md-portrait.png export\assets /y

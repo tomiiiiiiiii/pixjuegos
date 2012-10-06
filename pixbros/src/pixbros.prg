@@ -1,7 +1,7 @@
 Program pixbros;
 
 import "mod_blendop";
-import "mod_debug";
+//import "mod_debug";
 import "mod_dir";
 import "mod_draw";
 import "mod_file";
@@ -22,6 +22,7 @@ import "mod_sys";
 import "mod_text";
 import "mod_timers";
 import "mod_video";
+import "mod_wm";
 
 Const
 	piensa=1;
@@ -41,6 +42,7 @@ Const
 End
 
 Global
+
 	arcade_mode=0;
 	
 	bitscolor=32;
@@ -162,10 +164,14 @@ Begin
 		default: ops.lenguaje=0; lang_suffix="en"; end
 	end	
 	
-	if(os_id==os_caanoo or os_id==os_wii) bitscolor=16; end
+	if(os_id==os_caanoo or os_id==os_wii or os_id==1003) bitscolor=16; end
 	if(os_id==os_caanoo) scale_resolution=03200240; end
 	if(arcade_mode) full_screen=true; scale_resolution=08000600; end
-	set_mode(640,480,bitscolor,WAITVSYNC);
+	if(os_id==1003)
+		frame;
+		scale_resolution=(graphic_info(0,0,g_width)*10000)+graphic_info(0,0,g_height);
+	end
+	set_mode(640,480,bitscolor);
 	set_fps(40,9);
 	frame;
 
@@ -284,7 +290,7 @@ begin
 
 	color_pendiente=map_get_pixel(0,masknivel,1,0);
 	color_colision=map_get_pixel(0,masknivel,0,0);
-	descriptor_nivel=fopen("niveles/nivel"+mundo+"desc.lvl",O_READ);
+	descriptor_nivel=fopen("./niveles/nivel"+mundo+"desc.lvl",O_READ);
 	tiempo_hurry=atoi(fgets(descriptor_nivel))*60;
 	tiempo_burbujas=atoi(fgets(descriptor_nivel))*60;
 	burbujasrayo=atoi(fgets(descriptor_nivel));
@@ -418,6 +424,24 @@ begin
 			matabichos=1;
 		else
 			matabichos=0;
+		end
+		if(os_id==1003)
+			if(!focus_status)
+				if(ops.musica)
+					fade_music_off(1000);
+				end
+				set_fps(1,0);
+				let_me_alone();
+				timer[0]=0;
+				while(!focus_status)
+					if(timer[0]>60000) exit(); end
+					frame;
+				end
+				set_fps(40,9);
+				nivel();
+				return;
+				
+			end
 		end
 		frame;
 	end

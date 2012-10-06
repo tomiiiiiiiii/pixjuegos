@@ -11,7 +11,7 @@ Begin
 		savegamedir=getenv("HOME")+developerpath;
 		crear_jerarquia(savegamedir);
 	elseif(os_id==1003) //android!
-		savegamedir="/data/data/org.libsdl.app/files";
+		savegamedir="/data/data/com.pixjuegos.pixfrogger/files";
 	else
 		savegamedir="";
 		developerpath="";

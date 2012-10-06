@@ -78,6 +78,12 @@ global
 
 	string version="";
 	
+	#ifdef FREE
+	free_version=1;
+	#else
+	free_version=0;
+	#endif
+	
 	// COMPATIBILIDAD CON XP/VISTA/LINUX (usuarios)
 	string savegamedir;
 	string developerpath="/.PiXJuegos/PiXFrogger/";
@@ -108,6 +114,9 @@ begin
 	
 	//averiguamos el path para guardar datos
 	savepath();
+	if(os_id==1003)
+		savegamedir="/data/data/com.pixjuegos.pixfrogger/files";
+	end
 	
 	//cargamos las opciones actuales
 	carga_opciones();
@@ -145,7 +154,12 @@ begin
 	set_title("PiX Frogger");
 	
 	if(portrait) portrait_txt="-portrait"; end
-	graph_loading=load_png("load-"+version+portrait_txt+".png");
+	if(free_version)
+		graph_loading=load_png("free-"+version+portrait_txt+".png");
+	else
+		graph_loading=load_png("load-"+version+portrait_txt+".png");
+	end
+	timer[0]=0;
 	put_screen(0,graph_loading);
 	frame; //tengo que hacer 2 frames para que lo de arriba funcione :|
 	frame;
@@ -169,7 +183,11 @@ begin
 		fpg_general=load_fpg("fpg/pixfrogger-"+version+portrait_txt+".fpg");
 		fnt_puntos=load_fnt("fnt/puntos-"+version+".fnt");
 	end
-
+	
+	if(free_version)
+		while(timer[0]<600) frame; end
+	end
+	
 	if(fpg_general==-1) say("No he encontrado un fpg válido..."); exit(); end
 	
 	music=load_song("ogg/1.ogg");
@@ -190,7 +208,6 @@ begin
 	else
 		menu_tactil();
 	end
-
 end
 
 Function prueba_pantalla();
@@ -314,6 +331,7 @@ Begin
 		from i=1 to 8;
 			if(rana_juega[i]) num_jugadores++; end
 		end
+
 		if(boton[9])
 			if(menu_actual!=1)
 				cambia_menu=1; sonido(1);
@@ -324,6 +342,7 @@ Begin
 				salir();
 			end
 		end
+
 		if(!focus_status and tactil)
 			matabotones=1;
 			fade_music_off(500);
@@ -343,6 +362,10 @@ Begin
 					case 2: cambia_menu=3; end
 					case 3: cambia_menu=4; end
 					case 4: salir(); end
+					case 5: //donate???!!! :O
+						exec(_P_NOWAIT, "market://details?id=com.pixjuegos.pixfrogger", 0, 0);						
+						salir(); 
+					end
 				end
 			end
 			if(menu_actual==2) //jugar: 1 jugadores, 2 dificultad, 3 puntos para ganar, 4 jugar, 5 volver
@@ -403,6 +426,9 @@ Begin
 				pon_boton_menu(ancho_pantalla/2,((alto_pantalla/7)*4)-(alto_pantalla/14),601,100,255,1,2); //jugar
 				pon_boton_menu(ancho_pantalla/2,((alto_pantalla/7)*5)-(alto_pantalla/14),603,100,255,3,3); //creditos
 				pon_boton_menu(ancho_pantalla/2,((alto_pantalla/7)*6)-(alto_pantalla/14),604,100,255,4,4); //salir
+				if(free_version)
+					pon_boton_menu(ancho_pantalla/2,((alto_pantalla/7)*7)-(alto_pantalla/14),605,100,255,5,4); //donate
+				end
 			end
 			if(menu_actual==2) //jugar: opciones
 				from i=0 to 8; rana_juega[i]=0; end
@@ -1415,13 +1441,7 @@ end
 
 // lo siento gnomwer xD
 process sombra();
-begin
-	//en caso de android, ios y demás, sin sombras
-	if(tactil) return; end
-	
-	//en versiones con pantallas pequeñas, sin sombras
-	if(ancho_pantalla<800) return; end 
-	
+begin	
 	ctype=c_scroll;
 	z=father.z+5;
 	flags=father.flags;
@@ -1493,7 +1513,11 @@ begin
 	priority=rand(100,200);
 	rana_viva[jugador]=1;
 	graph=gr;
-	sombra();
+
+	if(!tactil)
+		sombra();
+	end
+	
 	loop
 		if(retraso>0)
 			retraso--;
@@ -1517,8 +1541,8 @@ begin
 		end
 		
 		//POSIBLES FORMAS DE PERDER: NOS ATROPELLAN O GANA OTRO
-		//graph=71; //ponemos este para colisionar!
-		if(id_col=collision_box(type vehiculo_colisionador))
+		graph=71; //ponemos este para colisionar!
+		if(id_col=collision_box(type vehiculo))
 			if(id_col.y==y)
 				break;
 			end
@@ -1610,9 +1634,10 @@ begin
 			case "ld": x_inc=3; end
 		end
 	end
-	sombra();
+	if(!tactil)
+		sombra();
+	end
 	loop
-		vehiculo_colisionador(x,y);
 		if(!en_pantalla_y()) return; end
 		if(tipo==0 or tipo==2)
 			x+=x_inc;
@@ -1627,14 +1652,6 @@ begin
 		end		
 		frame;
 	end
-end
-
-process vehiculo_colisionador(x,y)
-begin
-	ctype=c_scroll;
-	z=59;
-	graph=99;
-	frame;
 end
 
 process rana_golpeada(x,y,graph)
@@ -1923,7 +1940,6 @@ Begin
 
 		//tecla maestra
 		if(key(_esc)) while(key(_esc)) frame; end boton[9]=1; end
-
 		
 		if(tactil)
 			if(mouse.left) dedo(mouse.x,mouse.y); end
