@@ -6,11 +6,9 @@ Private
 	axis_x;
 	axis_y;
 Begin
-	from i=0 to 5;
-		p[jugador].botones[i]=0;
-	end
 	Loop
 		if(!exists(father)) return; end
+		from i=0 to 5; p[jugador].botones[i]=0;	end		
 		if(p[jugador].control==-2) //GLOBAL: Para menús y tal
 			from i=1 to posibles_jugadores+1;
 				controlador(i);
@@ -30,24 +28,24 @@ Begin
 		if(p[jugador].control==-1) return; end
 		If(p[jugador].control==0)  // teclado
 			if(os_id==1003)
-				If(key(_left)) p[jugador].botones[0]=1; Else p[jugador].botones[0]=0; End
-				If(key(_right)) p[jugador].botones[1]=1; Else p[jugador].botones[1]=0; End
-				If(key(_up)) p[jugador].botones[2]=1; Else p[jugador].botones[2]=0; End
-				If(key(_down)) p[jugador].botones[3]=1; Else p[jugador].botones[3]=0; End
-				If(key(_1)) p[jugador].botones[4]=1; Else p[jugador].botones[4]=0; End
-				If(key(_2)) p[jugador].botones[5]=1; Else p[jugador].botones[5]=0; End
-				//If(key(_d)) p[jugador].botones[6]=1; Else p[jugador].botones[6]=0; End
-				If(key(102)) p[jugador].botones[7]=1; Else p[jugador].botones[7]=0; End
+				If(key(_left)) p[jugador].botones[0]=1; End
+				If(key(_right)) p[jugador].botones[1]=1; End
+				If(key(_up)) p[jugador].botones[2]=1; End
+				If(key(_down)) p[jugador].botones[3]=1; End
+				If(key(_1)) p[jugador].botones[4]=1; End
+				If(key(_2)) p[jugador].botones[5]=1; End
+				//If(key(_d)) p[jugador].botones[6]=1; End
+				if(scan_code==102) p[jugador].botones[7]=1; end
 				//key 35: home, no usada
 			else
-				If(key(_left)) p[jugador].botones[0]=1; Else p[jugador].botones[0]=0; End
-				If(key(_right)) p[jugador].botones[1]=1; Else p[jugador].botones[1]=0; End
-				If(key(_up)) p[jugador].botones[2]=1; Else p[jugador].botones[2]=0; End
-				If(key(_down)) p[jugador].botones[3]=1; Else p[jugador].botones[3]=0; End
-				If(key(_a)) p[jugador].botones[4]=1; Else p[jugador].botones[4]=0; End
-				If(key(_s)) p[jugador].botones[5]=1; Else p[jugador].botones[5]=0; End
-				If(key(_d)) p[jugador].botones[6]=1; Else p[jugador].botones[6]=0; End
-				If(key(_esc)) p[jugador].botones[7]=1; Else p[jugador].botones[7]=0; End
+				If(key(_left)) p[jugador].botones[0]=1; End
+				If(key(_right)) p[jugador].botones[1]=1; End
+				If(key(_up)) p[jugador].botones[2]=1; End
+				If(key(_down)) p[jugador].botones[3]=1; End
+				If(key(_a)) p[jugador].botones[4]=1; End
+				If(key(_s)) p[jugador].botones[5]=1; End
+				If(key(_d)) p[jugador].botones[6]=1; End
+				If(key(_esc)) p[jugador].botones[7]=1; End
 			end
 		End
 		If(p[jugador].control>0)  // joysticks
@@ -86,26 +84,26 @@ Begin
 			IF (POV==2) POVx=2; END // der
 			IF (POV==8) POVx=1; END // izq
 		
-			If(povx==1) p[jugador].botones[0]=1; Else p[jugador].botones[0]=0; End
-			If(povx==2) p[jugador].botones[1]=1; Else p[jugador].botones[1]=0; End
-			If(povy==1) p[jugador].botones[2]=1; Else p[jugador].botones[2]=0; End
-			If(povy==2) p[jugador].botones[3]=1; Else p[jugador].botones[3]=0; End
+			If(povx==1) p[jugador].botones[0]=1; End
+			If(povx==2) p[jugador].botones[1]=1; End
+			If(povy==1) p[jugador].botones[2]=1; End
+			If(povy==2) p[jugador].botones[3]=1; End
 		
 			if(os_id==os_wii)
-				If(get_joy_button(joysticks[p[jugador].control],2)) p[jugador].botones[4]=1; Else p[jugador].botones[4]=0; End
-				If(get_joy_button(joysticks[p[jugador].control],3)) p[jugador].botones[5]=1; Else p[jugador].botones[5]=0; End
-				If(get_joy_button(joysticks[p[jugador].control],4)) p[jugador].botones[6]=1; Else p[jugador].botones[6]=0; End
+				If(get_joy_button(joysticks[p[jugador].control],2)) p[jugador].botones[4]=1; End
+				If(get_joy_button(joysticks[p[jugador].control],3)) p[jugador].botones[5]=1; End
+				If(get_joy_button(joysticks[p[jugador].control],4)) p[jugador].botones[6]=1; End
 				If(get_joy_button(joysticks[p[jugador].control],6)) p[jugador].botones[7]=1; End
 			elseif(os_id==os_caanoo)
-				If(joy_getbutton(1,0)) p[jugador].botones[4]=1; Else p[jugador].botones[4]=0; End
-				If(joy_getbutton(1,1)) p[jugador].botones[5]=1; Else p[jugador].botones[5]=0; End
-				If(joy_getbutton(1,2)) p[jugador].botones[6]=1; Else p[jugador].botones[6]=0; End
-				If(joy_getbutton(1,8)) p[jugador].botones[7]=1; Else p[jugador].botones[7]=0; End				
+				If(joy_getbutton(1,0)) p[jugador].botones[4]=1; End
+				If(joy_getbutton(1,1)) p[jugador].botones[5]=1; End
+				If(joy_getbutton(1,2)) p[jugador].botones[6]=1; End
+				If(joy_getbutton(1,8)) p[jugador].botones[7]=1; End				
 			else
-				If(get_joy_button(joysticks[p[jugador].control],0)) p[jugador].botones[4]=1; Else p[jugador].botones[4]=0; End
-				If(get_joy_button(joysticks[p[jugador].control],1)) p[jugador].botones[5]=1; Else p[jugador].botones[5]=0; End
-				If(get_joy_button(joysticks[p[jugador].control],2)) p[jugador].botones[6]=1; Else p[jugador].botones[6]=0; End
-				If(get_joy_button(joysticks[p[jugador].control],8)) p[jugador].botones[7]=1; Else p[jugador].botones[7]=0; End
+				If(get_joy_button(joysticks[p[jugador].control],0)) p[jugador].botones[4]=1; End
+				If(get_joy_button(joysticks[p[jugador].control],1)) p[jugador].botones[5]=1; End
+				If(get_joy_button(joysticks[p[jugador].control],2)) p[jugador].botones[6]=1; End
+				If(get_joy_button(joysticks[p[jugador].control],8)) p[jugador].botones[7]=1; End
 			end
 		End
 		Frame;
@@ -167,7 +165,6 @@ Begin
 	if(os_id==os_caanoo) //caanoo
 		joysticks[0]=1;
 		p[1].control=1;
-		p[0].control=-2;
 		posibles_jugadores=1;
 	end
 	
@@ -176,7 +173,6 @@ Begin
 //		joysticks[1]=1; //por ahora no funciona más de un jugador :(
 //		joysticks[2]=2;
 //		joysticks[3]=3;
-		p[0].control=1;
 		p[1].control=1;
 		p[2].control=2;
 		p[3].control=3;
@@ -186,7 +182,6 @@ Begin
 	end
 	
 	if(os_id==1003) //android!
-		p[0].control=0;
 		p[1].control=0;
 		posibles_jugadores=1;
 	end

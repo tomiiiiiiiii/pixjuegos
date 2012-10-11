@@ -173,6 +173,9 @@ Begin
 	set_title("PiX Pang");
 	
 	savepath();
+	if(os_id==1003)
+		savegamedir="/data/data/com.pixjuegos.pixpang/files";
+	end
 	carga_opciones();
 	full_screen=!ops.ventana;
 	
@@ -186,20 +189,23 @@ Begin
 	if(os_id==9) 
 		ops.op_sombras=0;
 		scale_resolution=03200240; set_mode(800,600,16); 
+	elseif(os_id==1003) //android
+		ops.op_sombras=0;
+		set_mode(800,480,16);
 	else
 		set_mode(800,600,32,WAITVSYNC);
 	end
 	
-	load_fpg("./fpg/pixpang.fpg");
+	load_fpg("fpg/pixpang.fpg");
 	fpg_menu=load_fpg("fpg/menu.fpg");
 	fpg_bloquesmask=load_fpg("fpg/bloquesmask.fpg");
 	
 	if((atoi(ftime("%d",time()))>23 and atoi(ftime("%m",time()))==12) or (atoi(ftime("%d",time()))<8 and atoi(ftime("%m",time()))==1)) 
-		p[1].fpg=load_fpg("./fpg/pixxmas.fpg"); 
-		p[2].fpg=load_fpg("./fpg/puxxmas.fpg");
+		p[1].fpg=load_fpg("fpg/pixxmas.fpg"); 
+		p[2].fpg=load_fpg("fpg/puxxmas.fpg");
 	else 
-		p[1].fpg=load_fpg("./fpg/pix.fpg"); 
-		p[2].fpg=load_fpg("./fpg/pux.fpg"); 
+		p[1].fpg=load_fpg("fpg/pix.fpg"); 
+		p[2].fpg=load_fpg("fpg/pux.fpg"); 
 	end
 	set_center(p[1].fpg,601,10,0);
 	set_center(p[1].fpg,602,10,0);
@@ -215,9 +221,9 @@ Begin
 
 
 	img_pixpang=950;
-	fnt1=load_fnt("./fnt/textos.fnt");
-	fnt2=load_fnt("./fnt/conta.fnt");
-	fnt3=load_fnt("./fnt/textos2.fnt");
+	fnt1=load_fnt("fnt/textos.fnt");
+	fnt2=load_fnt("fnt/conta.fnt");
+	fnt3=load_fnt("fnt/textos2.fnt");
 
 // joysticks
 	configurar_controles();
@@ -342,7 +348,7 @@ Begin
 		while(cancion>6) cancion-=6; end
 	end
 	
-	cancion_cargada=load_song("./ogg/"+cancion+"."+formato);
+	cancion_cargada=load_song("ogg/"+cancion+"."+formato);
 	
 	If(ops.op_music==1)
 		If(cancion!=20 AND cancion!=18)
@@ -453,8 +459,8 @@ Private
 	flipando;
 Begin
 	from flipando=0 to 18;
-		//if(file_exists(load_wav("./wav/"+flipando+".wav")))
-			s[flipando]=load_wav("./wav/"+flipando+".wav");
+		//if(file_exists(load_wav("wav/"+flipando+".wav")))
+			s[flipando]=load_wav("wav/"+flipando+".wav");
 	//	end
 	end
 End

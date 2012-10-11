@@ -153,6 +153,9 @@ Begin
 	if(argc>0) if(argv[1]=="arcade") arcade_mode=1; end end
 
 	savepath();
+	if(os_id==1003)
+		savegamedir="/data/data/com.pixjuegos.pixbros/files";
+	end
 	carga_opciones();
 	full_screen=!ops.ventana;
 	
@@ -167,10 +170,10 @@ Begin
 	if(os_id==os_caanoo or os_id==os_wii or os_id==1003) bitscolor=16; end
 	if(os_id==os_caanoo) scale_resolution=03200240; end
 	if(arcade_mode) full_screen=true; scale_resolution=08000600; end
-	if(os_id==1003)
+/*	if(os_id==1003)
 		frame;
 		scale_resolution=(graphic_info(0,0,g_width)*10000)+graphic_info(0,0,g_height);
-	end
+	end*/
 	set_mode(640,480,bitscolor);
 	set_fps(40,9);
 	frame;
@@ -257,6 +260,7 @@ private
 	datosvarios[5];
 	ii;
 	screenshotpantalla;
+	lineas_recorridas;
 begin
 	stop_wav(-1);
 	x=320;
@@ -290,17 +294,18 @@ begin
 
 	color_pendiente=map_get_pixel(0,masknivel,1,0);
 	color_colision=map_get_pixel(0,masknivel,0,0);
-	descriptor_nivel=fopen("./niveles/nivel"+mundo+"desc.lvl",O_READ);
+	descriptor_nivel=fopen("niveles/nivel"+mundo+"desc.lvl",O_READ);
 	tiempo_hurry=atoi(fgets(descriptor_nivel))*60;
 	tiempo_burbujas=atoi(fgets(descriptor_nivel))*60;
 	burbujasrayo=atoi(fgets(descriptor_nivel));
 	burbujasagua=atoi(fgets(descriptor_nivel));
 	burbujasfuego=atoi(fgets(descriptor_nivel));
 	rebotesmax=atoi(fgets(descriptor_nivel));
-	frame;
-	repeat
+	//frame;
+	loop
 		i=0;
 		string_mander=fgets(descriptor_nivel);
+		lineas_recorridas++;
 		if(string_mander[0]!="/")
 			if(string_mander[0]=="m" and string_mander[1]=="u" and string_mander[2]=="n" and string_mander[3]=="e" and string_mander[4]=="c" and string_mander[5]=="o")
 				datosvarios[0]=atoi(string_mander[7]);
@@ -333,8 +338,21 @@ begin
 				enemigo(datosvarios[0],datosvarios[1],datosvarios[2]);
 			end
 		end
-	until(feof(descriptor_nivel))
-	fclose(descriptor_nivel);
+		if(os_id==1003)
+			if(string_mander[0]=="#" and string_mander[1]=="f" and string_mander[2]=="i" and string_mander[3]=="n")
+				break;
+			end
+		else
+			if(feof(descriptor_nivel))
+				break;
+			end
+		end
+		if(lineas_recorridas>500)
+			break;
+		end
+
+	end
+	fclose(descriptor_nivel);	
 	frame;
 	marcadores();
 	frame;
@@ -376,12 +394,6 @@ begin
 	ready=1;
 	frame;
 	unload_map(0,graph);
-	/* utilizando el controlador masivo 0 no es necesario tener uno para cada jugador
-	if(posibles_jugadores>1)
-		if(p[1].juega==0) controlador(1); end
-		if(p[2].juega==0) controlador(2); end
-		if(p[3].juega==0) controlador(3); end
-	end*/
 	controlador(0);
 	loop
 		if(posibles_jugadores>1)
@@ -440,7 +452,6 @@ begin
 				set_fps(40,9);
 				nivel();
 				return;
-				
 			end
 		end
 		frame;

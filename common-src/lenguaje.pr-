@@ -28,7 +28,7 @@ begin
 			case "0c": id_lenguaje="fr"; end
 		end
 	end
-	if(os_id==os_linux) //linux
+	if(os_id==os_linux or os_id==1003) //linux o Android!
 		// Aportado por Miry
 		env_lang=getenv("LANG");
 		env_lang=""+env_lang[0]+env_lang[1];

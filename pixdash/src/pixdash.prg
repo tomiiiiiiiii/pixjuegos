@@ -1,8 +1,8 @@
 Program pixdash;
 
-import "mod_blendop";
+/*import "mod_blendop";
 import "mod_cd";
-import "mod_debug";
+//import "mod_debug";
 import "mod_dir";
 import "mod_draw";
 import "mod_effects";
@@ -30,15 +30,42 @@ import "mod_text";
 import "mod_time";
 import "mod_timers";
 import "mod_video";
+import "mod_wm";*/
+
+import "mod_dir";
+import "mod_draw";
+import "mod_grproc";
+import "mod_map";
+import "mod_mouse";
+import "mod_multi";
+import "mod_proc";
+import "mod_rand";
+import "mod_say";
+import "mod_screen";
+import "mod_scroll";
+import "mod_sound";
+import "mod_string";
+import "mod_text";
+import "mod_timers";
+import "mod_video";
 import "mod_wm";
+import "mod_file";
+import "mod_joy";
+import "mod_math";
+import "mod_sys";
+import "mod_regex";
+import "mod_key";
+
 
 //comentar las dos siguientes líneas para Wii
-#ifndef WII
- #ifdef LINUX
-  import "image";
- #endif
- #ifndef LINUX
-  import "mod_image";
+#ifndef ANDROID
+ #ifndef WII
+  #ifdef LINUX
+   import "image";
+  #endif
+  #ifndef LINUX
+   import "mod_image";
+  #endif
  #endif
 #endif
 import "mod_sys"; 
@@ -1004,19 +1031,27 @@ BEGIN
 	
 	mapa=load_png(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".png"); 
 
-	if(os_id==os_wii)
+#ifdef WII
+	if(fexists(savegamedir+"niveles\"+paqueteniveles+"\fondo"+num_nivel+".jpg.png"))
+		fondo=load_png(savegamedir+"niveles\"+paqueteniveles+"\fondo"+num_nivel+".jpg.png"); //cargar el fondo. ponemos .jpg.png para saber que viene de un jpg
+	else
+		fondo=load_png("fondos\fondo"+rand(1,5)+".jpg.png"); //cargar el fondo
+	end
+#else
+	#ifdef ANDROID
 		if(fexists(savegamedir+"niveles\"+paqueteniveles+"\fondo"+num_nivel+".jpg.png"))
 			fondo=load_png(savegamedir+"niveles\"+paqueteniveles+"\fondo"+num_nivel+".jpg.png"); //cargar el fondo. ponemos .jpg.png para saber que viene de un jpg
 		else
 			fondo=load_png("fondos\fondo"+rand(1,5)+".jpg.png"); //cargar el fondo
 		end
-	else
+	#else
 		if(fexists(savegamedir+"niveles\"+paqueteniveles+"\fondo"+num_nivel+".jpg"))
 			fondo=load_image(savegamedir+"niveles\"+paqueteniveles+"\fondo"+num_nivel+".jpg"); //cargar el fondo
 		else
 			fondo=load_image("fondos\fondo"+rand(1,5)+".jpg"); //cargar el fondo
 		end
-	end
+	#endif
+#endif
 
 
 	if(fexists(savegamedir+"niveles\"+paqueteniveles+"\tiles.fpg"))
@@ -1558,8 +1593,10 @@ End
 
 include "menu.pr-";
 include "navegador.pr-";
-#ifndef WII
-include "editorniveles.pr-";
+#ifndef ANDROID
+ #ifndef WII
+  include "editorniveles.pr-";
+ #endif
 #endif
 include "explosion.pr-";
 
@@ -1866,6 +1903,14 @@ begin
 		scale_resolution=08000600; 
 		return; 
 	end
+	
+	if(os_id==1003)
+		frame;
+		ancho_pantalla=graphic_info(0,0,g_width);
+		alto_pantalla=graphic_info(0,0,g_height);
+		scale_resolution=0;
+		return;
+	end
 
 	if(mode_is_ok(1280,1024,16,MODE_WAITVSYNC+MODE_FULLSCREEN)) //Si soporta 1280x1024 nativamente...
         ancho_pantalla=1280; alto_pantalla=1024; scale_resolution=12801024;
@@ -2146,5 +2191,9 @@ include "../../common-src/controles.pr-";
 function getenv(string basura); begin end
 function exec(int basura1,string basura2,int basura3,pointer basura4); begin end
 function set_title(string basura); begin end
+function editor_de_niveles(); begin end
+#endif
+
+#ifdef ANDROID
 function editor_de_niveles(); begin end
 #endif
