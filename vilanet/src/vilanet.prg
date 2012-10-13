@@ -60,7 +60,10 @@ begin
 	end
 	if(ancho_pantalla!=480 or alto_pantalla!=800) 
 		scale_resolution=ancho_pantalla*10000+alto_pantalla; 
+		ancho_pantalla=480;
+		alto_pantalla=800;
 	end
+	say("--------------------- "+scale_resolution);
 
 	//inicializamos el modo gráfico, fps y nombre de la ventana
 	set_mode(480,800,16);
@@ -80,7 +83,9 @@ begin
 	load_fpg("fpg/vilanet.fpg");
 	
 	//si no estamos en android, ponemos algo para localizar el cursor
-	mouse.graph=71;
+	if(os_id!=1003)
+		mouse.graph=71;
+	end
 	
 	//ponemos la canción de fondo del juego
 	music=load_song("ogg/1.ogg");

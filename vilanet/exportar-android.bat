@@ -61,5 +61,5 @@ copy main.dcb export\assets /y
 echo Exportado correctamente. Ahora se instalará en el móvil...
 pause
 cd export
-ant debug install
+start ant debug install
 pause
