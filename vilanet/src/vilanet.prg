@@ -44,12 +44,20 @@ global
 	id_boton_menu;
 	opcion_menu;
 
+	ready;
+	doble_clic;
+	dificultad;
+	distancia;
+	obstaculos_en_pantalla;
+	puntos;
+	fuente;
+	
 Private
 	graph_loading;
 	
 Local
 	i;
-	
+	accion;
 begin
 	//establecemos la pantalla a utilizar y su tamaño
 	frame;
@@ -64,7 +72,9 @@ begin
 		alto_pantalla=800;
 	end
 	say("--------------------- "+scale_resolution);
-
+	
+	if(os_id!=1003) scale_resolution=02400400; end
+	
 	//inicializamos el modo gráfico, fps y nombre de la ventana
 	set_mode(480,800,16);
 	set_fps(_fps,frameskip);
@@ -82,17 +92,18 @@ begin
 	//cargamos el fpg de gráficos
 	load_fpg("fpg/vilanet.fpg");
 	
+	//la fuente
+	fuente=load_fnt("fpg/1.fnt");
+	
 	//si no estamos en android, ponemos algo para localizar el cursor
 	if(os_id!=1003)
 		mouse.graph=71;
 	end
 	
-	//ponemos la canción de fondo del juego
-	music=load_song("ogg/1.ogg");
-	play_song(music,-1);
-
 	//y finalmente el menú
 	menu_tactil();
+	
+	//juego();
 end
 
 Process menu_tactil();
@@ -103,10 +114,20 @@ Private
 Begin
 	//ponemos el fondo
 	put_screen(0,1);
+
+	stop_scroll(0);
 	
 	id_boton_menu=0;
 	opcion_menu=0;
+
+	delete_text(all_text);	
 	
+	//ponemos la canción de fondo del juego
+	music=load_song("ogg/1.ogg");
+	if(ops.musica)
+		play_song(music,-1);
+	end
+
 	loop
 		//botón esc o back
 		if(scan_code==102 or key(_esc))
@@ -129,7 +150,7 @@ Begin
 		end
 
 		if(opcion_menu!=0)
-			sonido(3);
+			sonido(1);
 			if(menu_actual==1) //principal: 1 jugar, 2 opciones, 3 creditos, 4 salir
 				switch(opcion_menu)
 					case 1: juego(); return; end
@@ -170,7 +191,7 @@ Begin
 			end
 			if(menu_actual==4) //creditos
 				pon_creditos();
-				pon_enlace(ancho_pantalla/2,(alto_pantalla/7)*6,706,"http://www.pixjuegos.com");
+				//pon_enlace(ancho_pantalla/2,(alto_pantalla/7)*6,706,"http://www.pixjuegos.com");
 				//pon_enlace(ancho_pantalla/4*3,((alto_pantalla/7)*5)-(alto_pantalla/14),704,"http://www.twitter.com/pixjuegos");
 				//pon_enlace(ancho_pantalla/4*3,((alto_pantalla/7)*6)-(alto_pantalla/14),705,"http://www.facebook.com/pixjuegos");
 			end
@@ -323,17 +344,34 @@ Begin
 End
 
 process juego()
-private
+Private
+	retraso=100;
+	retraso_esquiador;
+	anterior;
+	nuevo;
 begin
-	graph=get_screen();
+	//graph=get_screen();
 	let_me_alone();
 	clear_screen();
 	controlador();
+	puntos=0;
+	distancia=0;
+	obstaculos_en_pantalla=0;
 	x=ancho_pantalla/2;
 	y=alto_pantalla/2;
+	start_scroll(0,0,11,0,0,15);
+	scroll[0].camera=camara();
+	prota();
+	ready=0;
+	write_int(fuente,ancho_pantalla,0,2,&puntos);
 	
-	write(0,0,0,0,"INICIO DEL JUEGO");
+	//ponemos la canción de fondo del juego
+	music=load_song("ogg/2.ogg");
+	play_song(music,-1);
+	ready=1;
 	loop
+		distancia++;
+		if(exists(type prota)) puntos+=1+(dificultad/3); end
 		while(alpha>0) alpha-=5; frame; end
 		//perdida del foco en el juego
 		if(!focus_status)
@@ -355,6 +393,29 @@ begin
 			return;
 		end
 		
+		dificultad=6+(distancia/100);
+		
+	//	if(rand(0,100)=<dificultad)
+			if(obstaculos_en_pantalla<5)
+				if(retraso>50-dificultad*2)
+					repeat
+						nuevo=rand(1,5);
+					until(nuevo!=anterior)
+					obstaculo(nuevo,rand(15,19));
+					anterior=nuevo;
+					retraso=0;
+				else
+					retraso++;
+				end
+			end
+	//	end
+		if(retraso_esquiador>100)
+			retraso_esquiador=rand(-100,0);
+			esquiador(rand(1,5));
+		else
+			retraso_esquiador++;
+		end
+	
 		//botón esc, salir
 		if(scan_code==102 or key(_esc))
 			while(scan_code==102 or key(_esc)) frame; end
@@ -388,8 +449,9 @@ End
 Process controlador();
 Begin	
 	loop
-		if(mouse.left) dedo(mouse.x,mouse.y); end
-
+		if(mouse.left)
+			dedo(mouse.x,mouse.y); 
+		end
 		for(i=0; i<10; i++)
 			if(multi_info(i, "ACTIVE") > 0)
 				dedo(multi_info(i, "X"),multi_info(i, "Y"));
@@ -406,3 +468,199 @@ Begin
 	alpha=0;
 	frame;
 End
+
+Process prota();
+Private
+	retraso;
+	anim;
+Begin
+	flags=B_VMIRROR;
+	x=ancho_pantalla/2;
+	y=alto_pantalla-70;
+	z=-2;
+	graph=5;
+	loop
+		if(anim<10-(dificultad/5))
+			anim++;
+		else
+			if(graph<10) graph++; else graph=5; end
+			anim=0;
+		end
+		if((os_id==1003 and mouse.left) or os_id!=1003)
+			if(x<mouse.x) 
+				x+=20;
+				if(x>mouse.x) x=mouse.x; end
+			elseif(x>mouse.x) 
+				x-=20;
+				if(x<mouse.x) x=mouse.x; end
+			end
+		end
+		if(x<(ancho_pantalla/10)) x=ancho_pantalla/10; end
+		if(x>ancho_pantalla-(ancho_pantalla/10)) x=ancho_pantalla-(ancho_pantalla/10); end
+		if(retraso>100)
+			if((os_id==1003 and mouse.left and mouse.y<(alto_pantalla/4)*3) or (os_id!=1003 and mouse.left))
+				disparo();
+				retraso=0;
+			end
+		else
+			retraso++;
+		end
+		if(accion<0) break; end
+		frame;
+	end
+	if(accion==-1) explosion(); end
+	if(accion==-2) sonido(5); from size=100 to 0 step -10; frame; end end
+	gameover();
+End
+
+Process disparo();
+Begin
+	x=father.x;
+	y=father.y;
+	z=-1;
+	graph=4;
+	size=200;
+	while(y>-100)
+		if(accion==-1) 
+			from alpha=255 to 0 step -30; 
+				size+=3; 
+				frame; 
+			end 
+			break; 
+		end
+		y-=20;
+		angle+=20000;
+		frame;
+	end
+End
+
+Process obstaculo(pos_x,graph);
+Private
+	id_col;
+Begin
+	y=-100;
+	if(graph==18) pos_x=1; end
+	if(graph==19) pos_x=5; end
+	if(graph==18 or graph==19)
+		y=-600;
+	end
+	x=((pos_x-1)*(480/5))+(480/10);
+	z=-1;
+	size=150;
+	if(collision(type obstaculo))
+		return;
+	end
+	size=100;
+	obstaculos_en_pantalla++;
+	loop
+		if(id_col=collision(type prota))
+			if(graph==18 or graph==19)
+				id_col.accion=-2;
+			else
+				id_col.accion=-1;
+			end
+		end
+		if(graph<18)
+			if(id_col=collision(type disparo))
+				if(graph==17) //explosion
+					explosion();
+				end
+				id_col.accion=-1;
+				if(graph==15 or graph==16) sonido(3); end
+				break;
+			end
+			if(y>alto_pantalla+100) break; end
+		else
+			//barrancos
+			if(y>alto_pantalla+600) break; end
+		end
+		y+=3+dificultad;
+		frame;
+	end
+	//explosion
+	from alpha=255 to 0 step -30; y+=3+dificultad; frame; end
+	obstaculos_en_pantalla--;
+End
+
+Process explosion();
+Private
+	anim;
+Begin
+	sonido(4);
+	x=father.x;
+	y=father.y;
+	z=-2;
+	graph=22;
+	while(graph<27)
+		if(anim==4) graph++; anim=0; else anim++; end
+		size+=10;
+		alpha-=5;
+		y+=3+dificultad;
+		frame;
+	end
+		
+End
+
+Process esquiador(pos_x);
+Private
+	id_col;
+Begin
+	x=((pos_x-1)*(480/5))+(480/10);
+	y=-100;
+	z=0;
+	graph=20;
+	size=150;
+	if(collision(type obstaculo))
+		esquiador(rand(1,5));
+		return;
+	end
+	size=100;
+	if(collision(type obstaculo)) return; end
+	while(y<alto_pantalla+100);
+		if(graph==20)
+			if(id_col=collision(type disparo))
+				id_col.accion=-1;
+				graph=21;
+				sonido(2);
+			end
+			if(collision(type obstaculo))
+				graph=21;
+				sonido(3);
+			end
+			if(collision(type prota))
+				puntos+=1000;
+				sonido(2);
+				break;
+			end
+			y+=6+dificultad;
+		else
+			y+=3+dificultad;
+		end
+		frame;
+	end
+End
+
+Process camara();
+Begin
+	loop
+		y-=3+dificultad;
+		frame;
+	end
+End
+
+Process gameover();
+Begin
+	delete_text(all_text);
+	write(fuente,ancho_pantalla/2,(alto_pantalla/4)*3,4,puntos);
+	x=ancho_pantalla/2;
+	y=(alto_pantalla/2);
+	graph=705;
+	z=-10;
+	if(ops.musica)
+		play_song(load_song("ogg/3.ogg"),0);
+	end
+	while(is_playing_song()) frame; end
+	let_me_alone();
+	delete_text(all_text);
+	menu_tactil();
+end
