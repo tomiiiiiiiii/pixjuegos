@@ -245,9 +245,7 @@ BEGIN
 	save.puntuacion[8]=10000;
 	save.puntuacion[9]=10000;
 	
-	if(arcade_mode==1)
-		opciones.particulas=0;
-	end
+	
 
 	if(os_id<1000)
 		if(os_id==0) //windows
@@ -283,6 +281,10 @@ BEGIN
 		set_mode(1024,768,32,WAITVSYNC);
 	end
 	
+	if(arcade_mode==1)
+		opciones.particulas=0;
+	end
+	
 	frame;
 
 	configurar_controles();
@@ -290,6 +292,7 @@ BEGIN
 	//start_scroll(0,fpg_menu,7,8,1,15); //numero,file,grafico,fondo,region,loop
 	musica(1);
 	graph=2;
+	
 	
 	say("----------------- INICIALIZANDO COSICAS!");
 	
@@ -304,12 +307,11 @@ BEGIN
 
 	clear_screen();
 
-	
 	//jugadores=2;
-	//historia(1);
+	historia(1);
 	jugadores=1;
 	//fase(1);
-	juego(1);
+	//juego(1);
 	frame;
 
 end
@@ -1052,8 +1054,8 @@ begin
 	end
 	if(arcade_mode==1)
 		jugadores=2;
-		poder[1]=0;
-		poder[2]=0;
+		poder[1]=1;
+		poder[2]=1;
 		puntos[1]=0;
 		puntos[2]=0;
 		fase(1);
