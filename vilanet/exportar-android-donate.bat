@@ -43,12 +43,12 @@ copy recursos\android\hdpi.png export\res\drawable-hdpi\icon.png /y
 copy recursos\android\ldpi.png export\res\drawable-ldpi\icon.png /y
 copy recursos\android\mdpi.png export\res\drawable-mdpi\icon.png /y
 
-copy recursos\android\strings.xml export\res\values\strings.xml /y
-copy recursos\android\AndroidManifest.xml export\ /y
-copy recursos\android\build.xml export\ /y
+copy recursos\android-donate\strings.xml export\res\values\strings.xml /y
+copy recursos\android-donate\AndroidManifest.xml export\ /y
+copy recursos\android-donate\build.xml export\ /y
 
 mkdir export\src\com
-xcopy /r/e/y recursos\android\com export\src\com
+xcopy /r/e/y recursos\android-donate\com export\src\com
 
 echo Copiando el juego...
 copy loading.png export\assets /y

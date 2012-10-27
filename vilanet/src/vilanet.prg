@@ -30,6 +30,7 @@ global
 		sonido=1;
 		musica=1;
 	End
+	
 	music;
 	wavs[10];
 
@@ -158,7 +159,7 @@ Begin
 					case 3: cambia_menu=4; end
 					case 4: exit(); end
 					case 5: //donate???!!! :O
-						exec(_P_NOWAIT, "market://details?id=com.pixjuegos.pixfrogger", 0, 0);						
+						exec(_P_NOWAIT, "market://details?id=com.pixjuegos.deadsnowdonate", 0, 0);						
 						exit(); 
 					end
 				end
@@ -217,6 +218,7 @@ End
 Process pon_enlace(x,y,graph,string url);
 Begin
 	alpha=0;
+	z=-3;
 	while(!matabotones)
 		if(alpha<255) alpha+=10; end
 		if(mouse.left)
@@ -225,6 +227,7 @@ Begin
 				while(mouse.left and collision_box(type mouse)) frame; end
 				if(collision_box(type mouse))
 					exec(_P_NOWAIT, url, 0, 0);
+					exit();
 				end
 			end
 		end
@@ -366,8 +369,10 @@ begin
 	write_int(fuente,ancho_pantalla,0,2,&puntos);
 	
 	//ponemos la canción de fondo del juego
-	music=load_song("ogg/2.ogg");
-	play_song(music,-1);
+	if(ops.musica)
+		music=load_song("ogg/2.ogg");
+		play_song(music,-1);
+	end
 	ready=1;
 	loop
 		distancia++;
@@ -657,9 +662,14 @@ Begin
 	graph=705;
 	z=-10;
 	if(ops.musica)
-		play_song(load_song("ogg/3.ogg"),0);
+		play_song(load_song("ogg/3.ogg"),-1);
 	end
-	while(is_playing_song()) frame; end
+	while(mouse.left) frame; end
+	opcion_menu=0;
+	pon_enlace(ancho_pantalla/4,(alto_pantalla/7)*1,707,"https://twitter.com/intent/tweet?text=I've scored "+puntos+" points in Dead Snow! @pixjuegos http://play.google.com/store/apps/details?id=com.pixjuegos.deadsnow");
+	pon_enlace((ancho_pantalla/4)*3,(alto_pantalla/7)*1,708,"http://www.facebook.com/dialog/feed?app_id=489131254450948&link=https://play.google.com/store/apps/details?id=com.pixjuegos.deadsnow&picture=http://www.pixjuegos.com/images/deadsnow-logo.png&name=Dead Snow%20-%20 My score&caption=I've scored "+puntos+" on Dead Snow! I dare you to beat me!&description=Get it for free on Google Play!&redirect_uri=http://www.pixjuegos.com");
+	pon_boton_menu(ancho_pantalla/2,((alto_pantalla/7)*7)-(alto_pantalla/14),604,100,255,4,4); //salir
+	while(opcion_menu!=4) frame; end
 	let_me_alone();
 	delete_text(all_text);
 	menu_tactil();

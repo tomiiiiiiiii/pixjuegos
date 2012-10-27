@@ -1,4 +1,4 @@
-package com.pixjuegos.vilanet;
+package com.pixjuegos.deadsnowdonate;
 
 import org.libsdl.app.SDLActivity;
 import android.os.*;
@@ -7,7 +7,7 @@ import android.os.*;
  * A sample wrapper class that just calls SDLActivity
  */ 
 
-public class Vilanet extends SDLActivity {
+public class DeadSnow extends SDLActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
