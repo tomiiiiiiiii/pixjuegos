@@ -52,7 +52,6 @@ Const
 End
 
 Global
-	vida;
 	puntos;
 	
 	string savegamedir;
@@ -64,7 +63,7 @@ Global
 	//estructuras de los personajes
 	struct p[5];
 		botones[7];
-		vidas=5; 
+		vida=500; 
 		puntos; 
 		control; 
 		juega;
@@ -80,6 +79,8 @@ Global
 	
 	fpg_ripolles;
 	fpg_nivel;
+	fpg_general;
+	fpg_objetos;
 End
 
 Local
@@ -87,6 +88,8 @@ Local
 	alto;
 	altura;
 	accion;
+	herida;
+	rango;
 	lleva_objeto;
 	animacion;
 	anim; //contador
@@ -107,19 +110,25 @@ Begin
 	
 	//Pero internamente trabajaremos con esto:
 	set_mode(640,360,32);
-	
+		
 	fpg_ripolles=load_fpg("fpg\ripolles.fpg");
 	fpg_nivel=load_fpg("fpg\nivel1.fpg");
+	fpg_general=load_fpg("fpg\general.fpg");
+	fpg_objetos=load_fpg("fpg\objetos.fpg");
+	
+	//configuramos controladores
+	configurar_controles();
 	
 	//A 30 imágenes por segundo
 	set_fps(30,0);
 	
 	ripolles(1);
+	ripolles(2);
 	
 	put_screen(fpg_nivel,1);
 	
 	loop
-		if(key(_esc)) exit(); end
+		if(p[1].botones[b_salir]) exit(); end
 		frame;
 	end
 End
@@ -128,86 +137,152 @@ Process ripolles(jugador);
 Private
 	y_base;
 	pulsando_salto;
+	pulsando_ataque1;
+	pulsando_ataque2;
+	hacia_que_lado;
 Begin
 	file=fpg_ripolles;
 	x=200;
 	y_base=200;
 	accion=quieto;
 	controlador(jugador);
-	loop		
-		if(altura==0) //EN EL SUELO
-			if((accion==quieto or accion==camina))
-				if(p[jugador].botones[b_arriba] xor p[jugador].botones[b_abajo])
-					if(p[jugador].botones[b_arriba])
-						y_inc-=3;
-					else //izquierda
-						y_inc+=3;
-					end
-				end
-				if(p[jugador].botones[b_izquierda] xor p[jugador].botones[b_derecha])
-					if(p[jugador].botones[b_izquierda])
-						x_inc-=3;
-						flags=1;
-					else //derecha
-						x_inc+=3;
-						flags=0;
-					end
-				end
-			end
+	write_int(0,0,10*(jugador-1),0,&p[jugador].vida);
+	loop
+		if(flags==0)
+			hacia_que_lado=1;
+		else
+			hacia_que_lado=-1;
+		end
 
-			if(p[jugador].botones[b_2])
-				if(pulsando_salto==0)
-					pulsando_salto=1;
-					gravedad=-24;
-					altura=1;
-				end
-			else
-				pulsando_salto=0;
-			end
+		if(herida==0 and (accion==herido_leve or accion==herido_grave))
+			accion=quieto;
+			animacion=quieto;
+		end
+		
+		if(herida==0)
+			if(altura==0) //EN EL SUELO
+				if((accion==quieto or accion==camina))
+					//ataque suelo o lanzar objeto
+					if(p[jugador].botones[b_1] and pulsando_ataque1==0)
+						pulsando_ataque1=1;
+						if(lleva_objeto==0)
+							accion=ataca_suelo;
+							animacion=ataca_suelo;
+						else
+							accion=lanza_objeto;
+							animacion=lanza_objeto;					
+						end
+					end
 
-			if(x_inc>0)
-				x_inc--;
-			elseif(x_inc<0)
-				x_inc++;
-			end
-			if(y_inc>0)
-				y_inc--;
-			elseif(y_inc<0)
-				y_inc++;
-			end
-		else //EN EL AIRE (SALTO)
-			if(p[jugador].botones[b_arriba] xor p[jugador].botones[b_abajo])
-				if(p[jugador].botones[b_arriba])
-					y_inc-=1;
-				else //izquierda
-					y_inc+=1;
-				end
-			end
-			if(p[jugador].botones[b_izquierda] xor p[jugador].botones[b_derecha])
-				if(p[jugador].botones[b_izquierda])
-					x_inc-=1;
-					flags=1;
-				else //derecha
-					x_inc+=1;
-					flags=0;
-				end
-			end
-			
-			gravedad+=2;
-			altura+=gravedad;
-			if(altura>1) 
-				altura=0;
-				gravedad=0;
-				if(x_inc!=0 or y_inc!=0)
-					animacion=camina;
+					//movimiento
+					if(p[jugador].botones[b_arriba] xor p[jugador].botones[b_abajo])
+						if(p[jugador].botones[b_arriba])
+							y_inc-=3;
+						else //izquierda
+							y_inc+=3;
+						end
+					end
+					if(p[jugador].botones[b_izquierda] xor p[jugador].botones[b_derecha])
+						if(p[jugador].botones[b_izquierda])
+							x_inc-=3;
+							flags=1;
+						else //derecha
+							x_inc+=3;
+							flags=0;
+						end
+					end
+				end	
+										
+				//salto
+				if(p[jugador].botones[b_2])
+					if(pulsando_salto==0)
+						pulsando_salto=1;
+						gravedad=-24;
+						altura=1;
+					end
 				else
-					animacion=quieto;
+					pulsando_salto=0;
+				end
+
+				//reducción de inercias
+				if(x_inc>0)
+					x_inc--;
+				elseif(x_inc<0)
+					x_inc++;
+				end
+				if(y_inc>0)
+					y_inc--;
+				elseif(y_inc<0)
+					y_inc++;
+				end
+			else //EN EL AIRE (SALTO)
+				//ataque aereo
+				if(p[jugador].botones[b_1]) 
+					if(pulsando_ataque1==0)
+						pulsando_ataque1=1;
+						accion=ataca_aire;
+						animacion=ataca_aire;
+					end
+				end
+
+				if(accion!=ataca_aire)
+					if(p[jugador].botones[b_arriba] xor p[jugador].botones[b_abajo])
+						if(p[jugador].botones[b_arriba])
+							y_inc-=1;
+						else //izquierda
+							y_inc+=1;
+						end
+					end
+					if(p[jugador].botones[b_izquierda] xor p[jugador].botones[b_derecha])
+						if(p[jugador].botones[b_izquierda])
+							x_inc-=1;
+							flags=1;
+						else //derecha
+							x_inc+=1;
+							flags=0;
+						end
+					end
+				end
+
+				gravedad+=2;
+				altura+=gravedad;
+				if(altura>1)
+					altura=0;
+					gravedad=0;
+					accion=quieto;
+					if(x_inc!=0 or y_inc!=0)
+						animacion=camina;
+					else
+						animacion=quieto;
+					end
+				else
+					y+=gravedad;
+				end
+			end
+		else //está siendo herido
+			if(accion!=herido_leve and accion!=herido_grave) //escisión!
+				p[jugador].vida-=herida;
+				if(herida<40)
+					accion=herido_leve;
+					animacion=herido_leve;
+				else
+					//say("hola!");
+					accion=herido_grave;
+					animacion=herido_grave;
+					//gravedad=-herida/3;
 				end
 			else
-				y+=gravedad;
+				herida--;
+				if(flags==1)
+					x_inc+=herida/2;
+				else
+					x_inc-=herida/2;
+				end
 			end
 		end
 
+		if(!p[jugador].botones[b_1]) pulsando_ataque1=0; end
+		
 		if(x_inc>0)
 			if(x_inc>6) x_inc=6; end
 		elseif(x_inc<0)
@@ -239,7 +314,9 @@ Begin
 			if(lleva_objeto>0)
 				animacion=salta_objeto;
 			else
-				animacion=salta;
+				if(accion!=ataca_aire)
+					animacion=salta;
+				end
 			end
 		end
 		
@@ -248,7 +325,7 @@ Begin
 		
 		y_base+=y_inc;
 		y=y_base+altura;
-		z=y;
+		z=-y_base;
 		
 		if(altura==0)
 			x+=x_inc;
@@ -257,6 +334,42 @@ Begin
 		end
 		
 		animame();
+		
+		if(herida==0)
+			cuerpo();
+		end
+		
+		if(lleva_objeto!=0)
+			if(accion==lanza_objeto)
+				if(anim<4)
+					objeto_portado(x+(-10*hacia_que_lado),y-25,lleva_objeto);
+				else
+					if(anim==4) objeto_lanzado(x+(10*hacia_que_lado),y-25,lleva_objeto); end
+				end
+				if(anim==7) lleva_objeto=0; accion=quieto; animacion=quieto; end
+			else
+				objeto_portado(x,y-50,lleva_objeto);
+			end
+		end		
+		
+		if(accion==ataca_suelo)
+			if(anim<4)
+				ataque(x+(15*hacia_que_lado),y-15,1,15,20);
+			else
+				ataque(x+(45*hacia_que_lado),y-15,1,10,20);
+			end
+			if(anim==7)
+				accion=quieto; 
+				animacion=quieto;
+			end
+		end
+
+		if(accion==ataca_aire)
+			if(accion==ataca_aire)	
+				ataque(x+(40*hacia_que_lado),y,1,20,15);
+			end
+		end
+				
 		frame;
 	end
 End
@@ -275,7 +388,8 @@ Begin
 		anim=father.anim;
 		anim++;
 	end
-		
+	jugador=father.jugador;
+	
 	//por defecto, para las animaciones que no utilicen el contador,
 	//para evitar una cuenta infinita
 	anim_max=10;
@@ -306,16 +420,21 @@ Begin
 			end
 		end
 		case ataca_suelo:
-			papi_graph=3;
+			if(anim<4) 
+				papi_graph=31;
+			else
+				papi_graph=32;
+			end
+			anim_max=8;
 		end
 		case ataca_aire:
-			papi_graph=4;
+			papi_graph=42;
 		end
 		case defiende:
-			papi_graph=5;
+			papi_graph=51;
 		end
 		case herido_leve:
-			papi_graph=6;
+			papi_graph=61;
 		end
 		case herido_grave:
 			if(father.gravedad<0) //sube
@@ -378,24 +497,78 @@ End
 Process cuerpo();
 Private
 	id_col;
+	dist_z;
 Begin
 	jugador=father.jugador;
-	ctype=c_scroll;
+	//ctype=c_scroll;
 	x=father.x;
 	y=father.y;
-	//graph=;
+	z=father.z;
+	file=fpg_general;
+	graph=2;
 	alpha=0;
-	while(id_col=collision(type ataque))
+	rango=20;
+	if(id_col=collision(type ataque))
 		if(id_col.jugador!=jugador)
-			
+			if(id_col.z>z)
+				dist_z=id_col.z-z;
+			else
+				dist_z=z-id_col.z;
+			end
+			if(id_col.rango=>dist_z)
+				father.herida=id_col.herida;
+				if(id_col.flags==0)
+					father.flags=1;
+				else
+					father.flags=0;
+				end
+			end
+		end
+	end
+	if(id_col=collision(type cuerpo))
+		if(id_col.z>z)
+			dist_z=id_col.z-z;
+		else
+			dist_z=z-id_col.z;
+		end
+		if(id_col.rango=>dist_z)
+			if(id_col<id) //manda este
+				if(x<id_col.x)
+					id_col.father.x_inc+=3;
+					father.x_inc-=3;
+					father.flags=0;
+					id_col.flags=1;
+				else
+					id_col.father.x_inc-=3;
+					father.x_inc+=3;
+					father.flags=1;
+					id_col.flags=0;
+				end
+			end
 		end
 	end
 	frame;
 End
 
-Process ataque(x,y,graph);
+Process ataque(x,y,graph,herida,rango);
 Begin
 	jugador=father.jugador;
-	ctype=c_scroll;
+	flags=father.flags;
+	file=fpg_general;
+	z=father.z;
+	//ctype=c_scroll;
 	frame;
+End
+
+Process objeto_portado(x,y,graph);
+Begin
+	z=father.z-1;
+	file=fpg_objetos;
+	//ctype=c_scroll;
+	frame;
+End
+
+Process objeto_lanzado(x,y,graph);
+Begin
+	flags=father.flags;
 End
