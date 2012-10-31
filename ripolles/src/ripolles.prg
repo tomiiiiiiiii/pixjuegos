@@ -156,12 +156,10 @@ Begin
 
 		if(herida==0 and (accion==herido_leve or accion==herido_grave))
 			accion=quieto;
-			animacion=quieto;
 		end
 		
 		if(accion==defiende and !p[jugador].botones[b_3])
 			accion=quieto;
-			animacion=quieto;
 			x_inc=0;
 			y_inc=0;
 		end
@@ -174,10 +172,8 @@ Begin
 						pulsando_ataque1=1;
 						if(lleva_objeto==0)
 							accion=ataca_suelo;
-							animacion=ataca_suelo;
 						else
 							accion=lanza_objeto;
-							animacion=lanza_objeto;					
 						end
 					end
 
@@ -202,7 +198,6 @@ Begin
 					//defenderse
 					if(p[jugador].botones[b_3])
 						accion=defiende;
-						animacion=defiende;
 					end
 				end	
 														
@@ -226,7 +221,6 @@ Begin
 					if(pulsando_ataque1==0)
 						pulsando_ataque1=1;
 						accion=ataca_aire;
-						animacion=ataca_aire;
 					end
 				end
 
@@ -255,11 +249,6 @@ Begin
 					altura=0;
 					gravedad=0;
 					accion=quieto;
-					if(x_inc!=0 or y_inc!=0)
-						animacion=camina;
-					else
-						animacion=quieto;
-					end
 				else
 					y+=gravedad;
 				end
@@ -267,7 +256,7 @@ Begin
 		else //está siendo herido
 			if(accion!=herido_leve and accion!=herido_grave) //escisión!
 				p[jugador].vida-=herida;
-				herida=herida/2;
+				herida=herida/1.5;
 				if(flags==1)
 					x_inc+=herida;
 				else
@@ -275,10 +264,8 @@ Begin
 				end
 				if(herida<15)
 					accion=herido_leve;
-					animacion=herido_leve;
 				else
 					accion=herido_grave;
-					animacion=herido_grave;
 					gravedad=-herida;
 					altura=-1;
 				end
@@ -312,33 +299,16 @@ Begin
 			if(y_inc<-3) y_inc=-3; end
 		end
 
-		if(herida==0)
-			if(altura==0)
-				if((x_inc!=0 or y_inc!=0) and accion==quieto)
-					accion=camina;
-					if(lleva_objeto>0)
-						animacion=camina_objeto;
-					else
-						animacion=camina;
-					end
-				elseif(accion==camina and x_inc==0 and y_inc==0)
-					accion=quieto;
-					if(lleva_objeto>0)
-						animacion=quieto_objeto;
-					else
-						animacion=quieto;
-					end
-				end
-			else
-				if(lleva_objeto>0)
-					animacion=salta_objeto;
-				else
-					if(accion!=ataca_aire)
-						animacion=salta;
-					end
-				end
+		if(herida==0 and altura==0)
+			if(accion==quieto and (x_inc!=0 or y_inc!=0))
+				accion=camina;
+			elseif(accion==camina and x_inc==0 and y_inc==0)
+				accion=quieto;
 			end
 		end
+		
+		//pon animacion correspondiente a mi acción
+		pon_animacion();
 		
 		if(y_base<135) y_base=135; end
 		if(y_base>305) y_base=305; end
@@ -382,6 +352,50 @@ Begin
 		end
 				
 		frame;
+	end
+End
+
+Function pon_animacion();
+Begin
+	if(father.herida==0)
+		if(father.altura==0)
+			if(father.accion==quieto)
+				if(father.lleva_objeto>0)
+					father.animacion=quieto_objeto;
+				else
+					father.animacion=quieto;
+				end
+			end
+			if(father.accion==camina)
+				if(father.lleva_objeto>0)
+					father.animacion=camina_objeto;
+				else
+					father.animacion=camina;
+				end
+			end
+			if(father.accion==ataca_suelo)
+				father.animacion=ataca_suelo;
+			end
+			if(father.accion==defiende)
+				father.animacion=defiende;
+			end
+		else //en el aire
+			if(father.lleva_objeto>0)
+				father.animacion=salta_objeto;
+			else
+				if(father.accion==ataca_aire)
+					father.animacion=ataca_aire;
+				else
+					father.animacion=salta;
+				end
+			end
+		end
+	else //herido:
+		if(father.accion==herido_leve)
+			father.animacion=herido_leve;
+		else
+			father.animacion=herido_grave;
+		end
 	end
 End
 
