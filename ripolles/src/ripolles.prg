@@ -126,6 +126,8 @@ Begin
 	//La resolución del monitor será esta:
 	scale_resolution=12800720;
 	
+	full_screen=true;
+	
 	//Pero internamente trabajaremos con esto:
 	set_mode(640,360,32);
 		
@@ -213,6 +215,7 @@ Begin
 						if(lleva_objeto==0)
 							if(p[jugador].botones[b_3])
 								accion=ataca_area;
+								p[jugador].vida-=30;
 							else
 								accion=ataca_suelo;
 							end
@@ -414,7 +417,7 @@ Begin
 				accion=quieto;
 			end
 		end
-				
+		sombra();
 		frame;
 	end
 End
@@ -747,4 +750,18 @@ Begin
 			father.y+=father.gravedad;
 		end
 	end
+End
+
+Process sombra();
+Begin
+	y=father.y_base+55;
+	z=father.z+10;
+	x=father.x;
+	altura=father.altura;
+	ctype=coordenadas;
+	file=fpg_general;
+	graph=3;
+	alpha=200+altura;
+	size=100+(altura/3);
+	frame;
 End
