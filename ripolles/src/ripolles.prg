@@ -60,6 +60,7 @@ Global
 	joysticks[10];
 	posibles_jugadores;
 	njoys;
+	ancho_nivel;
 	//estructuras de los personajes
 	struct p[5];
 		botones[7];
@@ -81,6 +82,7 @@ Global
 	fpg_nivel;
 	fpg_general;
 	fpg_objetos;
+	id_camara;
 	
 	coordenadas=c_scroll;
 	
@@ -141,13 +143,16 @@ Begin
 	
 	//A 30 imágenes por segundo
 	set_fps(30,0);
+
+	ancho_nivel=graphic_info(fpg_nivel,1,G_WIDTH);
+	start_scroll(0,fpg_nivel,1,0,0,0);
+	id_camara=scroll[0].camera=camara();
 	
 	ripolles(1);
 	ripolles(2);
-	
-	start_scroll(0,fpg_nivel,1,0,0,0);
-	scroll[0].camera=camara();
-	
+	ripolles(3);
+	ripolles(4);
+		
 	loop
 		if(p[1].botones[b_salir]) exit(); end
 		frame;
@@ -168,6 +173,8 @@ Begin
 			end
 		end
 		if(j>0) x=suma_x/j; end
+		if(x<320) x=320; end
+		if(x>ancho_nivel-320) x=ancho_nivel-320; end
 		frame;
 	end
 End
@@ -181,7 +188,7 @@ Begin
 	file=fpg_ripolles;
 	ctype=coordenadas;
 	x=50+50*jugador;
-	y_base=130+40*jugador;
+	//y_base=130+40*jugador;
 	altura=-300;
 	accion=quieto;
 	controlador(jugador);
@@ -217,7 +224,17 @@ Begin
 								accion=ataca_area;
 								p[jugador].vida-=30;
 							else
-								accion=ataca_suelo;
+								if(accion==quieto and x_inc==0 and (id_col=collision(type objeto)))
+									if(id_col.y>y+35)
+										lleva_objeto=id_col.graph;
+										accion=coge_objeto;
+										signal(id_col,s_kill);
+									else
+										accion=ataca_suelo;
+									end
+								else
+									accion=ataca_suelo;
+								end
 							end
 						else
 							accion=lanza_objeto;
@@ -246,7 +263,7 @@ Begin
 					if(p[jugador].botones[b_3] and !p[jugador].botones[b_1])
 						accion=defiende;
 						if(lleva_objeto)
-							objeto(x,y_base+40,altura-100,lleva_objeto,0);
+							objeto(x,y_base,altura-100,lleva_objeto,0);
 							lleva_objeto=0;
 						end
 					end
@@ -275,7 +292,7 @@ Begin
 							accion=ataca_aire;
 						else
 							accion=lanza_objeto;
-						end					
+						end
 					end
 				end
 
@@ -311,7 +328,7 @@ Begin
 		else //está siendo herido
 			if(accion!=herido_leve and accion!=herido_grave) //escisión!
 				if(lleva_objeto)
-					objeto(x,y_base+40,altura-100,lleva_objeto,0);
+					objeto(x,y_base,altura-100,lleva_objeto,0);
 					lleva_objeto=0;
 				end
 				p[jugador].vida-=herida;
@@ -323,6 +340,7 @@ Begin
 				end
 				if(herida<15)
 					accion=herido_leve;
+					herida=15; //más retraso
 				else
 					accion=herido_grave;
 					gravedad=-herida;
@@ -368,16 +386,11 @@ Begin
 		
 		//pon animacion correspondiente a mi acción
 		pon_animacion();
-		
-		if(y_base<135) y_base=135; end
-		if(y_base>305) y_base=305; end
-			
+					
 		mueveme();
 		animame();
 		
-		if(herida==0)
-			cuerpo();
-		end
+		cuerpo();
 		
 		if(lleva_objeto!=0)
 			if(accion==lanza_objeto)
@@ -385,15 +398,22 @@ Begin
 					objeto_portado(x+(-30*hacia_que_lado),y-25,lleva_objeto);
 				else
 					if(anim==4)
-						objeto(x,y_base+40,altura-100,lleva_objeto,x_inc+(10*hacia_que_lado));
+						objeto(x,y_base,altura-100,lleva_objeto,x_inc+(10*hacia_que_lado));
 					end
 				end
 				if(anim==7) 
 					lleva_objeto=0; 
 					accion=quieto; 
 				end
+			elseif(accion==coge_objeto)
+				if(anim<4)
+				else
+					if(anim==7)
+						accion=quieto;
+					end
+				end
 			else
-				objeto_portado(x,y-50,lleva_objeto);
+				objeto_portado(x,y-34,lleva_objeto);
 			end
 		end		
 		
@@ -413,7 +433,7 @@ Begin
 		end
 		if(accion==ataca_area)
 			ataque(x,y,file,graph,40,20);
-			if(anim==31)
+			if(anim==23)
 				accion=quieto;
 			end
 		end
@@ -424,48 +444,53 @@ End
 
 Function pon_animacion();
 Begin
-	if(father.herida==0)
-		if(father.altura==0)
-			if(father.accion==quieto)
-				if(father.lleva_objeto>0)
-					father.animacion=quieto_objeto;
-				else
-					father.animacion=quieto;
-				end
-			end
-			if(father.accion==camina)
-				if(father.lleva_objeto>0)
-					father.animacion=camina_objeto;
-				else
-					father.animacion=camina;
-				end
-			end
-			if(father.accion==ataca_suelo)
-				father.animacion=ataca_suelo;
-			end
-			if(father.accion==ataca_area)
-				father.animacion=ataca_area;
-			end
-			if(father.accion==defiende)
-				father.animacion=defiende;
-			end
-		else //en el aire
+	if(father.altura==0)
+		if(father.accion==quieto)
 			if(father.lleva_objeto>0)
-				father.animacion=salta_objeto;
+				father.animacion=quieto_objeto;
 			else
-				if(father.accion==ataca_aire)
-					father.animacion=ataca_aire;
-				else
-					father.animacion=salta;
-				end
+				father.animacion=quieto;
 			end
 		end
-	else //herido:
-		if(father.accion==herido_leve)
-			father.animacion=herido_leve;
-		else
-			father.animacion=herido_grave;
+		if(father.accion==camina)
+			if(father.lleva_objeto>0)
+				father.animacion=camina_objeto;
+			else
+				father.animacion=camina;
+			end
 		end
+	else //en el aire
+		if(father.lleva_objeto>0)
+			father.animacion=salta_objeto;
+		else
+			if(father.accion==ataca_aire)
+				father.animacion=ataca_aire;
+			else
+				father.animacion=salta;
+			end
+		end
+	end
+	if(father.accion==ataca_suelo)
+		father.animacion=ataca_suelo;
+	end
+	if(father.accion==ataca_area)
+		father.animacion=ataca_area;
+	end
+	if(father.accion==defiende)
+		father.animacion=defiende;
+	end
+	if(father.accion==coge_objeto)
+		father.animacion=coge_objeto;
+	end
+	if(father.accion==lanza_objeto)
+		father.animacion=lanza_objeto;
+	end
+
+	if(father.accion==herido_leve)
+		father.animacion=herido_leve;
+	end
+	if(father.accion==herido_grave)
+		father.animacion=herido_grave;
 	end
 End
 
@@ -475,13 +500,19 @@ Begin
 		father.y=father.y_base+father.altura;
 		father.z=-father.y_base;
 
-		if(father.x<0 and father.x_inc<0) father.x_inc*=-1; end
+		if(father.y_base<135) father.y_base=135; end
+		if(father.y_base>305) father.y_base=305; end
+	
+		if((father.x<30 and father.x_inc<0) or (father.x>ancho_nivel-30 and father.x_inc>0)) father.x_inc*=-1; end
 
+		if(father.x<id_camara.x-300) father.x=id_camara.x-300; end
+		if(father.x>id_camara.x+300) father.x=id_camara.x+300; end
+		
 		if(father.altura==0)
 			father.x+=father.x_inc;
 		else
 			father.x+=father.x_inc*1.4;
-		end
+		end		
 End
 
 Function friccioname();
@@ -569,27 +600,40 @@ Begin
 			end
 		end
 		case ataca_area:
-			if(anim<4) 
+			if(anim<2) 
 				father.graph=81;
-			elseif(anim<8)
+			elseif(anim<4)
 				father.graph=82;
+			elseif(anim<6)
+				father.graph=83;
+			elseif(anim<8)
+				father.graph=84;
+			elseif(anim<10) 
+				father.graph=81;
 			elseif(anim<12)
+				father.graph=82;
+			elseif(anim<14)
 				father.graph=83;
 			elseif(anim<16)
 				father.graph=84;
-			elseif(anim<20) 
+			elseif(anim<18) 
 				father.graph=81;
-			elseif(anim<24)
+			elseif(anim<20)
 				father.graph=82;
-			elseif(anim<28)
+			elseif(anim<22)
 				father.graph=83;
 			else
 				father.graph=84;
 			end
-			anim_max=32;
+			anim_max=24;
 		end
 		case coge_objeto:
-			father.graph=9;
+			if(anim<4) 
+				father.graph=91;
+			else
+				father.graph=92;
+			end
+			anim_max=8;
 		end
 		case quieto_objeto:
 			father.graph=101;
@@ -651,47 +695,57 @@ Begin
 	
 	alpha=0;
 	rango=20;
-	if(id_col=collision(type ataque))
-		if(id_col.jugador!=jugador)
+	if(father.accion!=herido_leve and father.accion!=herido_grave and father.accion!=ataca_area)
+		if(id_col=collision(type ataque))
+			if(id_col.jugador!=jugador)
+				if(id_col.z>z)
+					dist_z=id_col.z-z;
+				else
+					dist_z=z-id_col.z;
+				end
+				if(id_col.rango=>dist_z)
+					if(father.accion==defiende and ((father.flags==0 and x<id_col.x) or (father.flags==1 and x>id_col.x)))
+						//destello();
+					else
+						father.herida=id_col.herida;
+						if(id_col.flags==0)
+							father.flags=1;
+						else
+							father.flags=0;
+						end
+					end
+				end
+			end
+		end
+		if(id_col=collision(type cuerpo))
 			if(id_col.z>z)
 				dist_z=id_col.z-z;
 			else
 				dist_z=z-id_col.z;
 			end
 			if(id_col.rango=>dist_z)
-				if(father.accion==defiende and ((father.flags==0 and x<id_col.x) or (father.flags==1 and x>id_col.x)))
-					//destello();
-				else
-					father.herida=id_col.herida;
-					if(id_col.flags==0)
-						father.flags=1;
-					else
+				if(id_col<id) //manda este
+					if(x<id_col.x)
+						if(id_col.father.accion!=herido_grave)
+							id_col.father.x_inc+=3;
+							id_col.father.flags=1;
+						end
+						father.x_inc-=3;
 						father.flags=0;
+					else
+						if(id_col.father.accion!=herido_grave)
+							id_col.father.x_inc-=3;
+							id_col.father.flags=0;
+						end
+						father.x_inc+=3;
+						father.flags=1;
 					end
 				end
 			end
 		end
-	end
-	if(id_col=collision(type cuerpo))
-		if(id_col.z>z)
-			dist_z=id_col.z-z;
-		else
-			dist_z=z-id_col.z;
-		end
-		if(id_col.rango=>dist_z)
-			if(id_col<id) //manda este
-				if(x<id_col.x)
-					id_col.father.x_inc+=3;
-					father.x_inc-=3;
-					father.flags=0;
-					id_col.flags=1;
-				else
-					id_col.father.x_inc-=3;
-					father.x_inc+=3;
-					father.flags=1;
-					id_col.flags=0;
-				end
-			end
+	else
+		if(father.accion==herido_grave and father.x_inc!=0)
+			ataque(x,y,fpg_general,1,abs(father.x_inc),40);
 		end
 	end
 	frame;
@@ -704,20 +758,27 @@ Begin
 	z=father.z;
 	priority=1;
 	ctype=coordenadas;
+	alpha=0;
 	frame;
 End
 
 Process objeto_portado(x,y,graph);
 Begin
 	z=father.z-1;
+	flags=father.flags;
 	file=fpg_objetos;
+	if(flags)
+		x-=5;
+	else
+		x+=5;
+	end
 	ctype=coordenadas;
 	frame;
 End
 
 Process objeto(x,y_base,altura,graph,x_inc);
 Begin
-	y=y_base+altura;
+	y=y_base+altura+50;
 	z=y_base-1;
 	file=fpg_objetos;
 	x_inc=x_inc*2;
@@ -730,10 +791,12 @@ Begin
 			friccioname();
 		end
 		mueveme();
+		y+=50; //parche para alinear el objeto con el suelo
 		if(x_inc!=0)
 			ataque(x,y,file,graph,abs(x_inc),40);
 		end
 		z--;
+		sombra();
 		frame;
 	end
 End
