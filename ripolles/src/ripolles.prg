@@ -126,9 +126,9 @@ include "niveles.pr-";
 
 Begin
 	//La resolución del monitor será esta:
-	scale_resolution=12800720;
+	//scale_resolution=12800720;
 	
-	full_screen=true;
+	//full_screen=true;
 	
 	//Pero internamente trabajaremos con esto:
 	set_mode(640,360,32);
@@ -149,9 +149,11 @@ Begin
 	id_camara=scroll[0].camera=camara();
 	
 	ripolles(1);
-	ripolles(2);
-	ripolles(3);
-	ripolles(4);
+	//ripolles(2);
+	//ripolles(3);
+	enemigo(2);
+	enemigo(3);
+	enemigo(4);
 		
 	loop
 		if(p[1].botones[b_salir]) exit(); end
@@ -184,7 +186,12 @@ Private
 	pulsando_salto;
 	pulsando_ataque1;
 	hacia_que_lado;
+	ia;
 Begin
+	if(jugador>10)
+		ia=1;
+		jugador=jugador-10;
+	end
 	file=fpg_ripolles;
 	ctype=coordenadas;
 	x=50+50*jugador;
@@ -196,7 +203,6 @@ Begin
 	p[jugador].identificador=id;
 	write_int(0,0,10*(jugador-1),0,&p[jugador].vida);
 	loop
-		if(key(_1)) lleva_objeto=rand(1,5); end
 		if(flags==0)
 			hacia_que_lado=1;
 		else
@@ -360,22 +366,10 @@ Begin
 			else
 				y+=gravedad;
 			end
-
 		end
 		
 		if(!p[jugador].botones[b_1]) pulsando_ataque1=0; end
 		
-		if(x_inc>0)
-			if(x_inc>6) x_inc=6; end
-		elseif(x_inc<0)
-			if(x_inc<-6) x_inc=-6; end
-		end
-		if(y_inc>0)
-			if(y_inc>3) y_inc=3; end
-		elseif(y_inc<0)
-			if(y_inc<-3) y_inc=-3; end
-		end
-
 		if(herida==0 and altura==0)
 			if(accion==quieto and (x_inc!=0 or y_inc!=0))
 				accion=camina;
@@ -386,12 +380,15 @@ Begin
 		
 		//pon animacion correspondiente a mi acción
 		pon_animacion();
-					
+		
+		//gestiones comunes de los personajes en juego
+		inercia_maxima(6,3);		
 		mueveme();
 		animame();
-		
 		cuerpo();
+		sombra();
 		
+		//gestion del objeto portado o siendo cogido
 		if(lleva_objeto!=0)
 			if(accion==lanza_objeto)
 				if(anim<4)
@@ -401,12 +398,13 @@ Begin
 						objeto(x,y_base,altura-100,lleva_objeto,x_inc+(10*hacia_que_lado));
 					end
 				end
-				if(anim==7) 
+				if(anim==7)
 					lleva_objeto=0; 
 					accion=quieto; 
 				end
 			elseif(accion==coge_objeto)
 				if(anim<4)
+					objeto_portado(x+(-20*hacia_que_lado),y+35,lleva_objeto);
 				else
 					if(anim==7)
 						accion=quieto;
@@ -417,6 +415,7 @@ Begin
 			end
 		end		
 		
+		//gestión de los ataques (puntos de colisión de los ataques
 		if(accion==ataca_suelo)
 			if(anim<4)
 				ataque(x+(15*hacia_que_lado),y-15,fpg_general,1,15,20);
@@ -427,7 +426,6 @@ Begin
 				accion=quieto; 
 			end
 		end
-
 		if(accion==ataca_aire)
 			ataque(x+(40*hacia_que_lado),y,fpg_general,1,30,15);
 		end
@@ -437,8 +435,21 @@ Begin
 				accion=quieto;
 			end
 		end
-		sombra();
 		frame;
+	end
+End
+
+Function inercia_maxima(max_x,max_y);
+Begin
+	if(father.x_inc>0)
+		if(father.x_inc>max_x) father.x_inc=max_x; end
+	elseif(father.x_inc<0)
+		if(father.x_inc<-max_x) father.x_inc=-max_x; end
+	end
+	if(father.y_inc>0)
+		if(father.y_inc>max_y) father.y_inc=max_y; end
+	elseif(father.y_inc<0)
+		if(father.y_inc<-max_y) father.y_inc=-max_y; end
 	end
 End
 
@@ -681,9 +692,23 @@ Begin
 	end
 End
 
-Process cuerpo();
+Function en_rango(z1,z2,rango);
 Private
 	dist_z;
+Begin
+	if(z1>z2)
+		dist_z=z1-z2;
+	else
+		dist_z=z2-z1;
+	end	
+	if(rango>dist_z) 
+		return 1; 
+	else
+		return 0;
+	end
+End
+
+Process cuerpo();
 Begin
 	jugador=father.jugador;
 	ctype=coordenadas;
@@ -698,12 +723,7 @@ Begin
 	if(father.accion!=herido_leve and father.accion!=herido_grave and father.accion!=ataca_area)
 		if(id_col=collision(type ataque))
 			if(id_col.jugador!=jugador)
-				if(id_col.z>z)
-					dist_z=id_col.z-z;
-				else
-					dist_z=z-id_col.z;
-				end
-				if(id_col.rango=>dist_z)
+				if(en_rango(z,id_col.z,rango))
 					if(father.accion==defiende and ((father.flags==0 and x<id_col.x) or (father.flags==1 and x>id_col.x)))
 						//destello();
 					else
@@ -718,12 +738,7 @@ Begin
 			end
 		end
 		if(id_col=collision(type cuerpo))
-			if(id_col.z>z)
-				dist_z=id_col.z-z;
-			else
-				dist_z=z-id_col.z;
-			end
-			if(id_col.rango=>dist_z)
+			if(en_rango(z,id_col.z,rango))
 				if(id_col<id) //manda este
 					if(x<id_col.x)
 						if(id_col.father.accion!=herido_grave)
@@ -827,4 +842,115 @@ Begin
 	alpha=200+altura;
 	size=100+(altura/3);
 	frame;
+End
+
+Function jugador_mas_cercano();
+Private
+	dist_x;
+	dist_x_ganador=1000;
+Begin
+	from i=1 to 4;
+		if(p[i].juega)
+			if(p[i].identificador.x<father.x)
+				dist_x=father.x-p[i].identificador.x;
+			else
+				dist_x=p[i].identificador.x-father.x;
+			end
+			if(dist_x<dist_x_ganador)
+				j=i;
+				dist_x_ganador=dist_x;
+			end
+		end
+	end
+	
+	return i;
+End
+
+Function distancia_jugador(jugador);
+Begin
+	if(p[jugador].identificador.x<father.x)
+		return father.x-p[jugador].identificador.x;
+	else
+		return p[jugador].identificador.x-father.x;
+	end	
+End
+
+Function lado_jugador(jugador);
+Begin
+	if(p[jugador].identificador.x<father.x)
+		return 1; //a la izquierda
+	else
+		return 0; //a la derecha
+	end
+End
+
+Process enemigo(jugador);
+Private
+	objetivo;
+	e; //id enemigo
+	o; //id objetivo
+	piensa;
+Begin
+	p[i].juega=-1;
+	e=ripolles(jugador+10);
+	loop
+		x=e.x;
+		y=e.y;
+		accion=e.accion;
+		from i=0 to 7; p[jugador].botones[i]=0;	end
+		if(objetivo==0)
+			//objetivo=jugador_mas_cercano();
+			objetivo=1;
+		else
+			o=p[objetivo].identificador;
+			if(e.accion==quieto or e.accion==camina)
+				if(o.herida==0)
+					if(distancia_jugador(objetivo)>60 or !en_rango(o.z,e.z,50))
+						if(o.x_inc!=0 and distancia_jugador(objetivo)<150) //objetivo en movimiento
+							//IA patrocinada por los fantasmas del Super Mario World
+							if(lado_jugador(objetivo)) //a la izquierda
+								if(o.flags==1) //se aleja o está lejos, vamos a por él!
+									p[jugador].botones[b_izquierda]=1;
+								else //viene a por nosotros, HUYAMOS!!
+									p[jugador].botones[b_derecha]=1;
+								end
+							else //a la derecha
+								if(o.flags==0) //se aleja, vamos a por él!
+									p[jugador].botones[b_derecha]=1;
+								else //viene a por nosotros, HUYAMOS!!
+									p[jugador].botones[b_izquierda]=1;
+								end							
+							end
+						else //objetivo quieto
+							if(lado_jugador(objetivo)) //a la izquierda
+								p[jugador].botones[b_izquierda]=1;
+							else //a la derecha
+								p[jugador].botones[b_derecha]=1;
+							end						
+						end
+						
+						if(!en_rango(o.z,e.z,20) and distancia_jugador(objetivo)<200)
+							if(e.z<o.z)
+								p[jugador].botones[b_arriba]=1;
+							else
+								p[jugador].botones[b_abajo]=1;
+							end
+						end
+					else //tenemos al objetivo lo suficientemente cerca como para atacar
+						if(rand(1,10)==1)
+							p[jugador].botones[b_1]=1; 
+						end
+					end
+				else	//objetivo herido: nos separamos
+					if(lado_jugador(objetivo)) //a la izquierda
+						p[jugador].botones[b_derecha]=1;
+					else //a la derecha
+						p[jugador].botones[b_izquierda]=1;
+					end
+				end
+			end
+			e.flags=lado_jugador(objetivo); //a la izquierda
+		end
+		frame;
+	end	
 End
