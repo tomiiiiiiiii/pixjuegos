@@ -62,7 +62,7 @@ Global
 	njoys;
 	ancho_nivel;
 	//estructuras de los personajes
-	struct p[5];
+	struct p[100];
 		botones[7];
 		vida=500; 
 		puntos; 
@@ -82,6 +82,10 @@ Global
 	fpg_nivel;
 	fpg_general;
 	fpg_objetos;
+	fpg_enemigo1;
+	fpg_enemigo2;
+	fpg_enemigo3;
+	fpg_enemigo4;
 	id_camara;
 	
 	coordenadas=c_scroll;
@@ -134,6 +138,10 @@ Begin
 	set_mode(640,360,32);
 		
 	fpg_ripolles=load_fpg("fpg\ripolles.fpg");
+	fpg_enemigo1=load_fpg("fpg\enemigo1.fpg");
+	fpg_enemigo2=load_fpg("fpg\enemigo2.fpg");
+	fpg_enemigo3=load_fpg("fpg\enemigo3.fpg");
+	fpg_enemigo4=load_fpg("fpg\enemigo4.fpg");
 	fpg_nivel=load_fpg("fpg\nivel1.fpg");
 	fpg_general=load_fpg("fpg\general.fpg");
 	fpg_objetos=load_fpg("fpg\objetos.fpg");
@@ -151,9 +159,9 @@ Begin
 	ripolles(1);
 	//ripolles(2);
 	//ripolles(3);
-	enemigo(2);
-	enemigo(3);
-	enemigo(4);
+	enemigo(11);
+	enemigo(12);
+	enemigo(13);
 		
 	loop
 		if(p[1].botones[b_salir]) exit(); end
@@ -190,15 +198,19 @@ Private
 Begin
 	if(jugador>10)
 		ia=1;
-		jugador=jugador-10;
+		//jugador=jugador-10;
 	end
-	file=fpg_ripolles;
+	if(ia)
+		file=fpg_enemigo1;
+	else
+		file=fpg_ripolles;
+	end
 	ctype=coordenadas;
 	x=50+50*jugador;
 	//y_base=130+40*jugador;
 	altura=-300;
 	accion=quieto;
-	controlador(jugador);
+	if(!ia) controlador(jugador); end
 	p[jugador].juega=1;
 	p[jugador].identificador=id;
 	write_int(0,0,10*(jugador-1),0,&p[jugador].vida);
@@ -891,8 +903,7 @@ Private
 	o; //id objetivo
 	piensa;
 Begin
-	p[i].juega=-1;
-	e=ripolles(jugador+10);
+	e=ripolles(jugador);
 	loop
 		x=e.x;
 		y=e.y;
