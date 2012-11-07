@@ -64,9 +64,9 @@ Global
 	//estructuras de los personajes
 	struct p[100];
 		botones[7];
-		vida=500; 
-		puntos; 
-		control; 
+		vida=500;
+		puntos;
+		control;
 		juega;
 		identificador;
 	end
@@ -140,7 +140,7 @@ Begin
 	fpg_ripolles=load_fpg("fpg\ripolles.fpg");
 	fpg_enemigo1=load_fpg("fpg\enemigo1.fpg");
 	fpg_enemigo2=load_fpg("fpg\enemigo2.fpg");
-	fpg_enemigo3=load_fpg("fpg\enemigo3.fpg");
+	fpg_enemigo3=load_fpg("fpg\enemigo2.fpg");
 	fpg_enemigo4=load_fpg("fpg\enemigo4.fpg");
 	fpg_nivel=load_fpg("fpg\nivel1.fpg");
 	fpg_general=load_fpg("fpg\general.fpg");
@@ -156,12 +156,13 @@ Begin
 	start_scroll(0,fpg_nivel,1,0,0,0);
 	id_camara=scroll[0].camera=camara();
 	
-	ripolles(1);
-	//ripolles(2);
-	//ripolles(3);
-	enemigo(11);
-	enemigo(12);
-	enemigo(13);
+	personaje(1);
+	//personaje(2);
+	//personaje(3);
+	enemigo(10,1);
+	enemigo(11,2);
+	enemigo(12,3);
+	enemigo(13,4);
 		
 	loop
 		if(p[1].botones[b_salir]) exit(); end
@@ -189,7 +190,7 @@ Begin
 	end
 End
 
-Process ripolles(jugador);
+Process personaje(jugador);
 Private
 	pulsando_salto;
 	pulsando_ataque1;
@@ -198,19 +199,19 @@ Private
 Begin
 	if(jugador>10)
 		ia=1;
-		//jugador=jugador-10;
-	end
-	if(ia)
-		file=fpg_enemigo1;
-	else
-		file=fpg_ripolles;
 	end
 	ctype=coordenadas;
-	x=50+50*jugador;
-	//y_base=130+40*jugador;
+	if(jugador<10)
+		x=50+50*jugador;
+		y_base=130+40*jugador;
+		controlador(jugador);
+		file=fpg_ripolles;
+	else
+		x=rand(0,640);
+		y_base=rand(100,360);
+	end
 	altura=-300;
 	accion=quieto;
-	if(!ia) controlador(jugador); end
 	p[jugador].juega=1;
 	p[jugador].identificador=id;
 	write_int(0,0,10*(jugador-1),0,&p[jugador].vida);
@@ -528,8 +529,10 @@ Begin
 	
 		if((father.x<30 and father.x_inc<0) or (father.x>ancho_nivel-30 and father.x_inc>0)) father.x_inc*=-1; end
 
-		if(father.x<id_camara.x-300) father.x=id_camara.x-300; end
-		if(father.x>id_camara.x+300) father.x=id_camara.x+300; end
+		if(father.jugador<10)
+			if(father.x<id_camara.x-300) father.x=id_camara.x-300; end
+			if(father.x>id_camara.x+300) father.x=id_camara.x+300; end
+		end
 		
 		if(father.altura==0)
 			father.x+=father.x_inc;
@@ -755,17 +758,25 @@ Begin
 					if(x<id_col.x)
 						if(id_col.father.accion!=herido_grave)
 							id_col.father.x_inc+=3;
-							id_col.father.flags=1;
+							if(id_col.father.accion!=defiende)
+								id_col.father.flags=1;
+							end
 						end
 						father.x_inc-=3;
-						father.flags=0;
+						if(father.accion!=defiende)
+							father.flags=0;
+						end
 					else
 						if(id_col.father.accion!=herido_grave)
 							id_col.father.x_inc-=3;
-							id_col.father.flags=0;
+							if(id_col.father.accion!=defiende)
+								id_col.father.flags=0;
+							end
 						end
 						father.x_inc+=3;
-						father.flags=1;
+						if(father.accion!=defiende)
+							father.flags=1;
+						end
 					end
 				end
 			end
@@ -862,7 +873,7 @@ Private
 	dist_x_ganador=1000;
 Begin
 	from i=1 to 4;
-		if(p[i].juega)
+		if(p[i].juega and i!=father.jugador)
 			if(p[i].identificador.x<father.x)
 				dist_x=father.x-p[i].identificador.x;
 			else
@@ -875,7 +886,7 @@ Begin
 		end
 	end
 	
-	return i;
+	return j;
 End
 
 Function distancia_jugador(jugador);
@@ -896,22 +907,28 @@ Begin
 	end
 End
 
-Process enemigo(jugador);
+Process enemigo(jugador,tipo);
 Private
 	objetivo;
 	e; //id enemigo
 	o; //id objetivo
 	piensa;
 Begin
-	e=ripolles(jugador);
+	e=personaje(jugador);
+	switch(tipo)
+		case 1: e.file=fpg_enemigo1; end
+		case 2: e.file=fpg_enemigo2; end
+		case 3: e.file=fpg_enemigo3; end
+		case 4: e.file=fpg_enemigo4; end
+	end
 	loop
 		x=e.x;
 		y=e.y;
 		accion=e.accion;
 		from i=0 to 7; p[jugador].botones[i]=0;	end
 		if(objetivo==0)
-			//objetivo=jugador_mas_cercano();
-			objetivo=1;
+			objetivo=jugador_mas_cercano();
+			//objetivo=1;
 		else
 			o=p[objetivo].identificador;
 			if(e.accion==quieto or e.accion==camina)
@@ -961,6 +978,7 @@ Begin
 				end
 			end
 			e.flags=lado_jugador(objetivo); //a la izquierda
+			if(e.herida!=0) objetivo=0; end
 		end
 		frame;
 	end	
