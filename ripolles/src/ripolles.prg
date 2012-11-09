@@ -86,6 +86,7 @@ Global
 	fpg_enemigo2;
 	fpg_enemigo3;
 	fpg_enemigo4;
+	enemigos;
 	id_camara;
 	
 	ancho_pantalla=640;
@@ -104,6 +105,7 @@ Global
 			pos_x;
 			pos_y;
 			tipo;
+			x_trigger;
 		end
 	end
 End
@@ -185,7 +187,7 @@ Private
 Begin
 	from i=1 to 30;
 		if(emboscada[en_emboscada+1].enemigo[i].tipo!=0)			
-			enemigo(10+i,emboscada[en_emboscada+1].enemigo[i].tipo,emboscada[en_emboscada+1].enemigo[i].pos_x,emboscada[en_emboscada+1].enemigo[i].pos_y);
+			enemigo(10+i,emboscada[en_emboscada+1].enemigo[i].tipo,emboscada[en_emboscada+1].enemigo[i].pos_x,emboscada[en_emboscada+1].enemigo[i].pos_y,emboscada[en_emboscada+1].enemigo[i].x_trigger);
 		end
 	end
 
@@ -198,16 +200,31 @@ Begin
 				j++;
 			end
 		end
-		if(j>0) x=suma_x/j; end
+		if(j>0)
+			if(distancia_jugador(personaje_mas_avanzado()>ancho_pantalla/4))
+				x_inc=6;
+			else
+				x_inc=3;
+			end
+			if(x<suma_x)
+				x+=x_inc;
+				if(x>suma_x) x=suma_x; end
+			elseif(x>suma_x)
+				x-=x_inc;
+				if(x<suma_x) x=suma_x; end
+			end
+			//x=suma_x/j; 
+		end
+		
 		if(x<ancho_pantalla/2) x=ancho_pantalla/2; end
 		if(x>ancho_nivel-(ancho_pantalla/2)) x=ancho_nivel-(ancho_pantalla/2); end
 		if(en_emboscada>0)
 			if(x<emboscada[en_emboscada].x_minima) x=emboscada[en_emboscada].x_minima; end
 			if(x>emboscada[en_emboscada].x_maxima) x=emboscada[en_emboscada].x_maxima; end
-			if(!exists(type enemigo))
+			if(enemigos==0)
 				from i=1 to 30;
 					if(emboscada[en_emboscada+1].enemigo[i].tipo!=0)
-						enemigo(10+i,emboscada[en_emboscada+1].enemigo[i].tipo,emboscada[en_emboscada+1].enemigo[i].pos_x,emboscada[en_emboscada+1].enemigo[i].pos_y);
+						enemigo(10+i,emboscada[en_emboscada+1].enemigo[i].tipo,emboscada[en_emboscada+1].enemigo[i].pos_x,emboscada[en_emboscada+1].enemigo[i].pos_y,emboscada[en_emboscada+1].enemigo[i].x_trigger);
 					end
 				end
 				anterior_emboscada=en_emboscada;
@@ -269,9 +286,9 @@ Begin
 	p[jugador].juega=1;
 	p[jugador].identificador=id;
 	//write_int(0,0,10*(jugador-1),0,&p[jugador].vida);
-	write_int(0,0,10*(jugador-1),0,&x);
+	//write_int(0,0,10*(jugador-1),0,&x);
 	loop
-		if(p[jugador].vida<1) graph=72; accion=herido_grave; herida=1000; end
+		if(p[jugador].vida<1) accion=muere; herida=100; end
 		
 		if(flags==0)
 			hacia_que_lado=1;
@@ -402,9 +419,11 @@ Begin
 				end
 			end
 			//no herido, común de suelo y aire
-			if(accion!=herido_leve and accion!=herido_grave) inercia_maxima(inercia_max,3); end
+			if(accion!=herido_leve and accion!=herido_grave and accion!=muere)
+				inercia_maxima(inercia_max,3); 
+			end
 		else //está siendo herido
-			if(accion!=herido_leve and accion!=herido_grave) //escisión!
+			if(accion!=herido_leve and accion!=herido_grave and accion!=muere) //escisión!
 				if(lleva_objeto)
 					objeto(x,y_base,altura-100,lleva_objeto,0);
 					lleva_objeto=0;
@@ -413,20 +432,26 @@ Begin
 				if(herida<20 and altura==0)
 					accion=herido_leve;
 					herida=15; //más retraso
+					if(flags==1)
+						x_inc=herida*0.8;
+					else
+						x_inc=-herida*0.8;
+					end
 				else
 					accion=herido_grave;
-					if(herida>20)
-						gravedad=-herida/2;
+					if(herida>15)
+						gravedad=-herida;
 					else
-						gravedad=-10;
+						gravedad=-15;
+					end
+					if(flags==1)
+						x_inc=herida/4;
+					else
+						x_inc=-herida/4;
 					end
 					altura=-1;
 				end
-				if(flags==1)
-					x_inc=herida/4;
-				else
-					x_inc=-herida/4;
-				end
+
 			else
 				if(altura==0)
 					herida--;
@@ -572,12 +597,14 @@ Begin
 	if(father.accion==lanza_objeto)
 		father.animacion=lanza_objeto;
 	end
-
 	if(father.accion==herido_leve)
 		father.animacion=herido_leve;
 	end
 	if(father.accion==herido_grave)
 		father.animacion=herido_grave;
+	end
+	if(father.accion==muere)
+		father.animacion=muere;
 	end
 End
 
@@ -687,7 +714,6 @@ Begin
 			elseif(father.gravedad>0) //baja
 				father.graph=72;
 			end
-			if(p[father.jugador].vida<1) father.graph=72; end
 		end
 		case ataca_area:
 			if(anim<2) 
@@ -758,6 +784,9 @@ Begin
 		end
 		case ataca_fuerte:
 			father.graph=14;
+		end
+		case muere:
+			father.graph=72;
 		end
 	end
 	if(anim=>anim_max) anim=0; end
@@ -931,7 +960,7 @@ Begin
 	ctype=coordenadas;
 	file=fpg_general;
 	graph=3;
-	alpha=200+altura;
+	alpha=father.alpha+altura;
 	size=100+(altura/3);
 	frame;
 End
@@ -989,8 +1018,21 @@ Begin
 	end
 End
 
+Function personaje_mas_avanzado();
+Private
+	max_x;
+Begin
+	from i=1 to 4;
+		if(p[i].juega)
+			if(p[i].identificador.x>max_x)
+				j=i;
+				max_x=p[i].identificador.x;
+			end
+		end
+	end
+End
 
-Process enemigo(jugador,tipo,x,y);
+Process enemigo(jugador,tipo,x,y,x_trigger);
 Private
 	objetivo;
 	e; //id enemigo
@@ -1000,6 +1042,10 @@ Begin
 	e=personaje(jugador,tipo);
 	e.x=x;
 	e.y_base=y;
+	enemigos++;
+	
+	while(!exists(id_camara)) frame; end
+	
 	switch(tipo)
 		case 1: 
 			e.file=fpg_enemigo1; 
@@ -1018,9 +1064,10 @@ Begin
 			p[jugador].vida=120;
 		end
 	end
-	while(!estoy_en_pantalla())
-		frame(2000);
-	end
+	
+	while(!estoy_en_pantalla())	frame(2000); end
+	while(id_camara.x<x_trigger) frame(2000); end
+	
 	loop
 		x=e.x;
 		y=e.y;
@@ -1081,9 +1128,12 @@ Begin
 				e.flags=lado_jugador(objetivo); //a la izquierda
 			end
 			if(e.herida!=0) objetivo=0; end
-			if(e.herida==1000)
+			if(e.accion==muere)
 				frame(3000);
 				from i=255 to 0 step -15; e.alpha=i; frame; end
+				enemigos--;
+				signal(e,s_kill);
+				return;
 			end
 		end
 		frame;
