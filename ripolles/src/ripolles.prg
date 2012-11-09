@@ -64,7 +64,7 @@ Global
 	//estructuras de los personajes
 	struct p[100];
 		botones[7];
-		vida=500;
+		vida=50;
 		puntos;
 		control;
 		juega;
@@ -88,18 +88,22 @@ Global
 	fpg_enemigo4;
 	id_camara;
 	
-	coordenadas=c_scroll;
+	ancho_pantalla=640;
+	alto_pantalla=360;
 	
-	struct nivel;
-		struct emboscadas[20];
-			x_evento;
-			x_minima;
-			x_maxima;
-			struct enemigos[30];
-				pos_x;
-				pos_y;
-				tipo;
-			end
+	coordenadas=c_scroll;
+
+	anterior_emboscada;
+	en_emboscada;
+	
+	struct emboscada[20];
+		x_evento;
+		x_minima;
+		x_maxima;
+		struct enemigo[30];
+			pos_x;
+			pos_y;
+			tipo;
 		end
 	end
 End
@@ -135,7 +139,7 @@ Begin
 	//full_screen=true;
 	
 	//Pero internamente trabajaremos con esto:
-	set_mode(640,360,32);
+	set_mode(ancho_pantalla,alto_pantalla,32);
 		
 	fpg_ripolles=load_fpg("fpg\ripolles.fpg");
 	fpg_enemigo1=load_fpg("fpg\enemigo1.fpg");
@@ -152,17 +156,22 @@ Begin
 	//A 30 imágenes por segundo
 	set_fps(30,0);
 
+	carga_nivel(1);
+	
 	ancho_nivel=graphic_info(fpg_nivel,1,G_WIDTH);
 	start_scroll(0,fpg_nivel,1,0,0,0);
 	id_camara=scroll[0].camera=camara();
 	
-	personaje(1);
+	personaje(1,0);
 	//personaje(2);
 	//personaje(3);
-	enemigo(10,1);
+/*	from i=1 to 20;
+		emboscada[]
+	end*/
+	/*enemigo(10,1);
 	enemigo(11,2);
 	enemigo(12,3);
-	enemigo(13,4);
+	enemigo(13,4);*/
 		
 	loop
 		if(p[1].botones[b_salir]) exit(); end
@@ -174,6 +183,12 @@ Process camara();
 Private
 	suma_x;
 Begin
+	from i=1 to 30;
+		if(emboscada[en_emboscada+1].enemigo[i].tipo!=0)			
+			enemigo(10+i,emboscada[en_emboscada+1].enemigo[i].tipo,emboscada[en_emboscada+1].enemigo[i].pos_x,emboscada[en_emboscada+1].enemigo[i].pos_y);
+		end
+	end
+
 	loop
 		suma_x=0;
 		j=0;
@@ -184,18 +199,37 @@ Begin
 			end
 		end
 		if(j>0) x=suma_x/j; end
-		if(x<320) x=320; end
-		if(x>ancho_nivel-320) x=ancho_nivel-320; end
+		if(x<ancho_pantalla/2) x=ancho_pantalla/2; end
+		if(x>ancho_nivel-(ancho_pantalla/2)) x=ancho_nivel-(ancho_pantalla/2); end
+		if(en_emboscada>0)
+			if(x<emboscada[en_emboscada].x_minima) x=emboscada[en_emboscada].x_minima; end
+			if(x>emboscada[en_emboscada].x_maxima) x=emboscada[en_emboscada].x_maxima; end
+			if(!exists(type enemigo))
+				from i=1 to 30;
+					if(emboscada[en_emboscada+1].enemigo[i].tipo!=0)
+						enemigo(10+i,emboscada[en_emboscada+1].enemigo[i].tipo,emboscada[en_emboscada+1].enemigo[i].pos_x,emboscada[en_emboscada+1].enemigo[i].pos_y);
+					end
+				end
+				anterior_emboscada=en_emboscada;
+				en_emboscada=0;
+			end
+		else
+			if(x=>emboscada[anterior_emboscada+1].x_evento and emboscada[anterior_emboscada+1].x_evento!=0)
+				en_emboscada=anterior_emboscada+1;
+			end
+		end
 		frame;
 	end
 End
 
-Process personaje(jugador);
+Process personaje(jugador,tipo);
 Private
 	pulsando_salto;
 	pulsando_ataque1;
 	hacia_que_lado;
 	ia;
+	inercia_max;
+	fuerza_ataque;
 Begin
 	if(jugador>10)
 		ia=1;
@@ -206,16 +240,39 @@ Begin
 		y_base=130+40*jugador;
 		controlador(jugador);
 		file=fpg_ripolles;
+		inercia_max=6;
+		fuerza_ataque=10;
+		altura=-300;
 	else
 		x=rand(0,640);
 		y_base=rand(100,360);
+		switch(tipo)
+			case 1:
+				inercia_max=3;
+				fuerza_ataque=10;
+			end
+			case 2:
+				inercia_max=4;
+				fuerza_ataque=15;
+			end
+			case 3:
+				inercia_max=2;
+				fuerza_ataque=20;
+			end
+			case 4:
+				inercia_max=5;
+				fuerza_ataque=25;
+			end
+		end
 	end
-	altura=-300;
 	accion=quieto;
 	p[jugador].juega=1;
 	p[jugador].identificador=id;
-	write_int(0,0,10*(jugador-1),0,&p[jugador].vida);
+	//write_int(0,0,10*(jugador-1),0,&p[jugador].vida);
+	write_int(0,0,10*(jugador-1),0,&x);
 	loop
+		if(p[jugador].vida<1) graph=72; accion=herido_grave; herida=1000; end
+		
 		if(flags==0)
 			hacia_que_lado=1;
 		else
@@ -344,6 +401,8 @@ Begin
 					y+=gravedad;
 				end
 			end
+			//no herido, común de suelo y aire
+			if(accion!=herido_leve and accion!=herido_grave) inercia_maxima(inercia_max,3); end
 		else //está siendo herido
 			if(accion!=herido_leve and accion!=herido_grave) //escisión!
 				if(lleva_objeto)
@@ -351,22 +410,27 @@ Begin
 					lleva_objeto=0;
 				end
 				p[jugador].vida-=herida;
-				herida=herida/1.5;
-				if(flags==1)
-					x_inc+=herida;
-				else
-					x_inc-=herida;
-				end
-				if(herida<15)
+				if(herida<20 and altura==0)
 					accion=herido_leve;
 					herida=15; //más retraso
 				else
 					accion=herido_grave;
-					gravedad=-herida;
+					if(herida>20)
+						gravedad=-herida/2;
+					else
+						gravedad=-10;
+					end
 					altura=-1;
 				end
+				if(flags==1)
+					x_inc=herida/4;
+				else
+					x_inc=-herida/4;
+				end
 			else
-				herida--;
+				if(altura==0)
+					herida--;
+				end
 			end
 
 			gravedad+=2;
@@ -395,7 +459,6 @@ Begin
 		pon_animacion();
 		
 		//gestiones comunes de los personajes en juego
-		inercia_maxima(6,3);		
 		mueveme();
 		animame();
 		cuerpo();
@@ -431,19 +494,19 @@ Begin
 		//gestión de los ataques (puntos de colisión de los ataques
 		if(accion==ataca_suelo)
 			if(anim<4)
-				ataque(x+(15*hacia_que_lado),y-15,fpg_general,1,15,20);
+				ataque(x+(15*hacia_que_lado),y-15,fpg_general,1,fuerza_ataque,20);
 			else
-				ataque(x+(45*hacia_que_lado),y-15,fpg_general,1,10,20);
+				ataque(x+(45*hacia_que_lado),y-15,fpg_general,1,fuerza_ataque*1.5,20);
 			end
 			if(anim==7)
 				accion=quieto; 
 			end
 		end
 		if(accion==ataca_aire)
-			ataque(x+(40*hacia_que_lado),y,fpg_general,1,30,15);
+			ataque(x+(40*hacia_que_lado),y,fpg_general,1,fuerza_ataque*2,15);
 		end
 		if(accion==ataca_area)
-			ataque(x,y,file,graph,40,20);
+			ataque(x,y,file,graph,fuerza_ataque*2.5,20);
 			if(anim==23)
 				accion=quieto;
 			end
@@ -624,6 +687,7 @@ Begin
 			elseif(father.gravedad>0) //baja
 				father.graph=72;
 			end
+			if(p[father.jugador].vida<1) father.graph=72; end
 		end
 		case ataca_area:
 			if(anim<2) 
@@ -735,6 +799,7 @@ Begin
 	
 	alpha=0;
 	rango=20;
+	size=80;
 	if(father.accion!=herido_leve and father.accion!=herido_grave and father.accion!=ataca_area)
 		if(id_col=collision(type ataque))
 			if(id_col.jugador!=jugador)
@@ -758,23 +823,27 @@ Begin
 					if(x<id_col.x)
 						if(id_col.father.accion!=herido_grave)
 							id_col.father.x_inc+=3;
-							if(id_col.father.accion!=defiende)
+							id_col.father.y_inc+=2;
+							if(id_col.father.accion==quieto)
 								id_col.father.flags=1;
 							end
 						end
 						father.x_inc-=3;
-						if(father.accion!=defiende)
+						father.y_inc-=2;
+						if(father.accion==quieto)
 							father.flags=0;
 						end
 					else
 						if(id_col.father.accion!=herido_grave)
 							id_col.father.x_inc-=3;
-							if(id_col.father.accion!=defiende)
+							id_col.father.y_inc-=2;
+							if(id_col.father.accion==quieto)
 								id_col.father.flags=0;
 							end
 						end
 						father.x_inc+=3;
-						if(father.accion!=defiende)
+						father.y_inc+=2;
+						if(father.accion==quieto)
 							father.flags=1;
 						end
 					end
@@ -907,19 +976,50 @@ Begin
 	end
 End
 
-Process enemigo(jugador,tipo);
+Function estoy_en_pantalla();
+Begin
+	if(exists(id_camara))
+		if(father.x>id_camara.x+(ancho_pantalla/2))
+			return 0; 
+		else
+			return 1;
+		end
+	else
+		return 1;
+	end
+End
+
+
+Process enemigo(jugador,tipo,x,y);
 Private
 	objetivo;
 	e; //id enemigo
 	o; //id objetivo
 	piensa;
 Begin
-	e=personaje(jugador);
+	e=personaje(jugador,tipo);
+	e.x=x;
+	e.y_base=y;
 	switch(tipo)
-		case 1: e.file=fpg_enemigo1; end
-		case 2: e.file=fpg_enemigo2; end
-		case 3: e.file=fpg_enemigo3; end
-		case 4: e.file=fpg_enemigo4; end
+		case 1: 
+			e.file=fpg_enemigo1; 
+			p[jugador].vida=50;
+		end
+		case 2: 
+			e.file=fpg_enemigo2; 
+			p[jugador].vida=80;
+		end
+		case 3: 
+			e.file=fpg_enemigo3; 
+			p[jugador].vida=100;
+		end
+		case 4: 
+			e.file=fpg_enemigo4; 
+			p[jugador].vida=120;
+		end
+	end
+	while(!estoy_en_pantalla())
+		frame(2000);
 	end
 	loop
 		x=e.x;
@@ -965,20 +1065,26 @@ Begin
 							end
 						end
 					else //tenemos al objetivo lo suficientemente cerca como para atacar
-						if(rand(1,10)==1)
+						if(rand(1,100)==1)
 							p[jugador].botones[b_1]=1; 
 						end
 					end
 				else	//objetivo herido: nos separamos
-					if(lado_jugador(objetivo)) //a la izquierda
+					/*if(lado_jugador(objetivo)) //a la izquierda
 						p[jugador].botones[b_derecha]=1;
 					else //a la derecha
 						p[jugador].botones[b_izquierda]=1;
-					end
+					end*/
 				end
 			end
-			e.flags=lado_jugador(objetivo); //a la izquierda
+			if(e.accion==quieto or e.accion==camina)
+				e.flags=lado_jugador(objetivo); //a la izquierda
+			end
 			if(e.herida!=0) objetivo=0; end
+			if(e.herida==1000)
+				frame(3000);
+				from i=255 to 0 step -15; e.alpha=i; frame; end
+			end
 		end
 		frame;
 	end	

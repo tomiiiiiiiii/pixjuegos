@@ -1,7 +1,26 @@
-Process carga_nivel(num_nivel);
+Function carga_nivel(num_nivel);
 Begin
-
-	//NIVEL 1:
-	
-	//NIVEL 2:
+	switch(num_nivel)
+		case 1:
+			//NIVEL 1:
+			emboscada[1].x_evento=640;
+			emboscada[1].x_minima=320;
+			emboscada[1].x_maxima=1280;
+			
+			emboscada[1].enemigo[1].tipo=1;
+			emboscada[1].enemigo[1].pos_x=680;
+			emboscada[1].enemigo[1].pos_y=310;
+			
+			emboscada[1].enemigo[2].tipo=2;
+			emboscada[1].enemigo[2].pos_x=640;
+			emboscada[1].enemigo[2].pos_y=210;
+			
+			emboscada[1].enemigo[3].tipo=3;
+			emboscada[1].enemigo[3].pos_x=640;
+			emboscada[1].enemigo[3].pos_y=310;
+		end
+		case 2:
+			//NIVEL 2:
+		end
+	end
 End
