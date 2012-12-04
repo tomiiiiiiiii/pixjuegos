@@ -30,6 +30,7 @@ Global
 		pagado;
 	end
 	ready;
+	pausa;
 	nivel=1;
 	tiempo_margen;
 	x_central; //para cuando movemos las puertas
@@ -59,14 +60,20 @@ Begin
 	sonidos[2]=load_wav("2.wav");
 	sonidos[3]=load_wav("3.wav");
 
+	fade_off();
+	while(fading) frame; end
+	
 	clear_screen();
 	unload_map(0,map_cargando);
+	
 	titulo();
 End
 
 Process titulo();
 Begin
 	let_me_alone();
+	fade_on();
+	while(fading) frame; end
 	delete_text(all_text);
 	play_song(load_song("2.ogg"),0);
 	put_screen(0,903);
@@ -98,6 +105,7 @@ Begin
 	delete_text(all_text);
 	play_song(load_song("1.ogg"),-1);
 	ready=1;
+	pausa=0;
 	moviendo=0;
 	todo_pagado=0;
 	disparando=0;
@@ -208,7 +216,7 @@ Begin
 		from x=1 to 12; if(!puertas[x].pagado) nopagado=1; end end
 		if(nopagado==0) break; end
 	  end
-	  if(disparando==0 and ready==1)
+	  if(disparando==0 and pausa==0)
 		mueve_izquierda=0;
 		mueve_derecha=0;
 		if(mouse.left)
@@ -285,7 +293,7 @@ Begin
 	if(hueco>=-2 and hueco<=2) id_txt[hueco+3]=write(fnt,x,187,4,num_puerta); end
 	if(hueco>=-1 and hueco<=1) cuadropuerta(num_puerta); end
 	loop
-		while(ready==0) frame; end
+		while(pausa) frame; end
 		x=320+(hueco)*200+x_central;
 		move_text(id_txt[hueco+3],x,187);
 		if(puertas[num_puerta].distancia==0 and hueco>=-1 and hueco<=1 and x_central==0 and puertas[num_puerta].tipo!=0 and rand(0,60)==0 and moviendo==0)
@@ -293,14 +301,14 @@ Begin
 		end
 		frame;
 	end
-	//ready--;
+	ready--;
 	delete_text(id_txt[hueco+3]);
 	graph=12;
 //	frame(1000);
 //	graph=13;
 //	frame(1000);
 	//resolución!
-	while(ready==0) frame; end
+	while(pausa) frame; end
 	switch(puertas[num_puerta].tipo)
 		case 1 .. 2: //bueno
 			i=puertas[num_puerta].tipo;
@@ -414,7 +422,7 @@ Begin
 	if(exists(id_grafico[1])) signal(id_grafico[1],s_kill); end
 	if(puertas[num_puerta].tipo<3) puertas[num_puerta].pagado=1; end
 	puertas[num_puerta].tipo=0;
-	//ready++;
+	ready++;
 	delete_text(id_txt[hueco+3]);
 	puerta(orig_num_puerta);
 End
@@ -558,7 +566,7 @@ End
 
 Process queja(tipo,x);
 Begin
-	ready=0;
+	pausa=1;
 	//aqui meteremos al protestón
 	y=father.y;
 	suena(4);
