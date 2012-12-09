@@ -1,5 +1,5 @@
 @echo off
-call ..\utils\entorno.bat bankpanic-android
+call ..\utils\entorno.bat bankpanic
 
 rd /s /q export
 echo Compilando...
