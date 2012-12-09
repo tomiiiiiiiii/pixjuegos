@@ -35,6 +35,8 @@ Global
 	end
 	joysticks[10];
 	sonidos[1];
+
+	num_juegos=6;
 	
 	cancion;
 Local
@@ -107,8 +109,8 @@ Begin
 		enmovimiento(0); enmovimiento(1);
 		opcion--; 
 	end
-	if(opcion>5) opcion=1; end
-	if(opcion<1) opcion=5; end
+	if(opcion>num_juegos) opcion=1; end
+	if(opcion<1) opcion=num_juegos; end
 	musica(opcion);
 End
 
@@ -125,6 +127,7 @@ Begin
 		case 3: juego="garnatron"; end
 		case 4: juego="pixfrogger"; end
 		case 5: juego="pixdash"; end
+		case 6: juego="eterno-retorno"; end
 	end
 	say(juego);
 	exit();
@@ -138,7 +141,7 @@ Process flecha(flags);
 Private
 	inercia;
 Begin
-	graph=6;
+	graph=100;
 	y=300;
 	z=-1;
 	if(flags==0) x=700; end
@@ -164,8 +167,8 @@ Begin
 		case 3: graph=opcion+1; x=1200; end
 	end
 
-	if(graph>5) graph=1; end
-	if(graph<1) graph=5; end
+	if(graph>num_juegos) graph=1; end
+	if(graph<1) graph=num_juegos; end
 
 	loop
 		switch(tipo)
