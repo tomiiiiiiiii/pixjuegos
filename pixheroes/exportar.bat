@@ -23,7 +23,6 @@ echo DEBES ELEGIR EL PIXheroes.EXE
 ..\..\bennu-win\pakator 
 move pixheroes_exe_pak.exe ..\pixheroes.exe
 cd ..
-rd /s /q export
 echo LISTO!!
 exit
 pause

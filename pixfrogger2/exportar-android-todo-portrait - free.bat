@@ -36,9 +36,6 @@ mkdir export
 echo Copiando base de bennu-android...
 xcopy /r/e/y ..\bennu-android .\export
 
-rem echo Generamos local.properties
-rem echo sdk.dir=%dirbase%/utils/android-sdk > export\local.properties
-
 echo Creando carpetas...
 mkdir export\assets\fpg
 mkdir export\assets\ogg
@@ -71,8 +68,9 @@ copy ogg\*.ogg export\assets\ogg /y
 copy wav\*.wav export\assets\wav /y
 copy main.dcb export\assets /y
 echo Exportado correctamente. Ahora se instalará en el móvil...
-pause
+
 cd export
 if exist c:\pixjuegos.keystore call ant release install
 if not exist c:\pixjuegos.keystore call ant debug install
 pause
+adb shell am start -n com.pixjuegos.pixfrogger.free/com.pixjuegos.pixfrogger.free.PiXFrogger

@@ -31,7 +31,6 @@ echo DEBES ELEGIR EL PIXDASH.EXE
 ..\..\bennu-win\pakator 
 move pixdash_exe_pak.exe ..\
 cd ..
-rd /s /q export
 echo LISTO!!
 exit
 pause

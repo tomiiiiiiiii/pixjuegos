@@ -19,7 +19,11 @@ Private
 Begin
 	If(p[jugador].vidas<0) Return; End
 	file=p[jugador].fpg;
-	x=370;
+	if(jugador==1)
+		x=340;
+	else
+		x=440;
+	end
 	graph=501;
 	alto=graphic_info(file,graph,g_height);
 	y_statico=510-(alto/2);

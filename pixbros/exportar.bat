@@ -26,7 +26,6 @@ echo DEBES ELEGIR EL PIXbros.EXE
 ..\..\bennu-win\pakator 
 move pixbros_exe_pak.exe ..\
 cd ..
-rd /s /q export
 echo LISTO!!
 exit
 pause

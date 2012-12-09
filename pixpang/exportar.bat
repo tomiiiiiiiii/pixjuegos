@@ -32,7 +32,6 @@ echo DEBES ELEGIR EL PIXpang.EXE
 ..\..\bennu-win\pakator 
 move pixpang_exe_pak.exe ..\
 cd ..
-rd /s /q export
 echo LISTO!!
 exit
 pause

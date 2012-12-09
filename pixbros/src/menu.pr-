@@ -72,7 +72,7 @@ begin
 			keytime--;
 		end
 		//elige algo
-		if(p[0].botones[5] and keytime==0)
+		if((p[0].botones[5] or key(_enter)) and keytime==0)
 			if(ops.sonido==1)
 				sonido(3);
 			end
@@ -277,6 +277,7 @@ private
 	keytime;
 	juegan;
 begin
+	z=-512;
 	p[1].muneco=0;
 	p[2].muneco=0;
 	p[3].muneco=0;
@@ -310,6 +311,9 @@ begin
 	elecpersonajes(3);
 	frame(1000);
 	elige_personaje(1);
+	loop
+		frame;
+	end
 end
 
 Process textoelecpersonaje();
@@ -319,7 +323,7 @@ Begin
 	x=320;
 	y=100;
 	file=fpg_menu2;
-	loop
+	while(exists(father))
 		frame;
 	end
 End
@@ -443,6 +447,7 @@ process elecpersonajes(num_personaje);
 begin
 	z=-1;
 	y=-240;
+	z=-2;
 	file=fpg_menu;
 	switch(num_personaje)
 		case 1:
@@ -465,6 +470,7 @@ begin
 	repeat
 		from graph=295+num_personaje*5 to 297+num_personaje*5; frame(400); end
 		graph=298+num_personaje*5;
+		if(!exists(father)) break; end
 		frame(400);
 	until(p[1].muneco==num_personaje or p[2].muneco==num_personaje or p[3].muneco==num_personaje)
 	grav=0;
@@ -594,7 +600,8 @@ private
 	personaje_elegido;
 	id_controlador;
 begin
-	let_me_alone();
+	//let_me_alone();
+	ready=0;
 	fondo_elecpersonaje_ingame();
 	frame;
 
@@ -602,9 +609,9 @@ begin
 	if(p[1].muneco!=1 and p[2].muneco!=1 and p[3].muneco!=1) elecpersonajes(1); frame(1000); end
 	if(p[1].muneco!=2 and p[2].muneco!=2 and p[3].muneco!=2) elecpersonajes(2); frame(1000); end
 	if(p[1].muneco!=3 and p[2].muneco!=3 and p[3].muneco!=3) elecpersonajes(3); frame(1000); end
-	elecpersonajes(p[jugador].muneco);
+	//elecpersonajes(p[jugador].muneco);
 	p[jugador].muneco=0;
-	id_controlador=controlador(jugador);
+	//id_controlador=controlador(jugador);
 	file=fpg_menu2;
 	graph=500+jugador;
 	personaje_elegido=jugador;
@@ -658,22 +665,25 @@ begin
 			end
 		end
 		frame;
-	until(p[jugador].botones[5]);
+	until(p[jugador].botones[5])
 	while(p[jugador].botones[5]) frame; end
-	signal(id_controlador,s_kill);
+
 	p[jugador].muneco=personaje_elegido;
 	p[jugador].juega=1;
 	p[jugador].puntos=0;
 	p[jugador].vidas=3;
+
 	sonido(3);
+
+	ready=1;
+
 	from alpha=240 to 0 step -40; y++; frame; end
-	frame(3000); let_me_alone(); nivel();
 end
 
 process fondo_elecpersonaje_ingame();
 Begin
 	graph=get_screen();
-	fondo_elecpersonaje_ingame2();
+	//put_screen(0,graph);
 	x=320;
 	y=240;
 	z=0;
@@ -681,35 +691,26 @@ Begin
 	blendop_assign(0,graph,blendop);
 	blendop_grayscale(blendop,1);
 	alpha=0;
-	loop
+	while(exists(father))
 		if(alpha<255) alpha+=5; end
 		frame;
 	end
 End
 
-process fondo_elecpersonaje_ingame2();
-Begin
-	graph=get_screen();
-	x=320;
-	y=240;
-	z=1;
-	while(father.alpha!=255)
-		frame;
-	end
-	unload_map(0,graph);
-End
-
 process fondo_elecpersonaje_continuar();
 Begin
-//	graph=load_png(savegamedir+"partida.png");
-	file=fpg_menu;
-	graph=1;
+	if(file_exists(savegamedir+"partida.png"))
+		graph=load_png(savegamedir+"partida.png");
+		alpha=170;
+	else
+		file=fpg_menu;
+		graph=1;
+	end
+	
 	x=320;
 	y=240;
 	z=0;
-//	blendop=blendop_new();
-//	blendop_assign(0,graph,blendop);
-//	blendop_grayscale(blendop,1);
+	
 	loop
 		frame;
 	end

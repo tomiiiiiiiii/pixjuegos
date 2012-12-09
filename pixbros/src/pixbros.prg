@@ -359,7 +359,7 @@ begin
 	//transiciones
 //	if(!net) set_center(0,graph,640,0); x=640; y=0; loop grav++; angle+=grav*1000; if(angle>90000) break; end frame;	end end
 //	set_center(0,graph,640,0); x=640; y=0; loop grav++; angle+=grav*1000; if(angle>90000) break; end frame;	end 
-	switch(rand(0,5))
+	switch(rand(0,3))
 		case 0:
 			set_center(0,graph,640,0); x=640; y=0; loop grav++; angle+=grav*1000; if(angle>90000) break; end frame;	end
 		end
@@ -388,18 +388,26 @@ begin
 		if(mundo=>21 and mundo<30) musica(4); end
 		if(mundo=>31 and mundo<40) musica(5); end
 	end
-	//screenshotpantalla=get_screen();
-	//save_png(0,screenshotpantalla,savegamedir+"partida.png");
-	//unload_map(0,screenshotpantalla);
+	
 	ready=1;
 	frame;
 	unload_map(0,graph);
 	controlador(0);
+	
+	if(os_id==os_win32)
+		frame;
+		screenshotpantalla=get_screen();
+		save_png(0,screenshotpantalla,savegamedir+"partida.png");
+		unload_map(0,screenshotpantalla);
+	end
+	
 	loop
-		if(posibles_jugadores>1)
-			if(p[1].juega==0 and p[1].botones[4]==1 and p[1].botones[5]==1) elecpersonaje_ingame(1); end
-			if(p[2].juega==0 and posibles_jugadores and p[2].botones[4]==1 and p[2].botones[5]==1) elecpersonaje_ingame(2); end
-			if(p[3].juega==0 and posibles_jugadores>2 and p[3].botones[4]==1 and p[3].botones[5]==1) elecpersonaje_ingame(3); end
+		if(ready==1)
+			if(posibles_jugadores>1)
+				if(p[1].juega==0 and p[1].botones[4]==1 and p[1].botones[5]==1) elecpersonaje_ingame(1); end
+				if(p[2].juega==0 and posibles_jugadores and p[2].botones[4]==1 and p[2].botones[5]==1) elecpersonaje_ingame(2); end
+				if(p[3].juega==0 and posibles_jugadores>2 and p[3].botones[4]==1 and p[3].botones[5]==1) elecpersonaje_ingame(3); end
+			end
 		end
 		if(!exists(type enemigo) and !exists(type item) and !exists(type enemigo_lanzado) and !exists(type boladeenemigos) and hayjefe==0)
 			if(mundo<num_mundos) mundo++; else ganar(); end
@@ -417,6 +425,7 @@ begin
 						p[ii].vidas--;
 					else
 						p[ii].juega=0;
+						p[ii].muneco=0;
 					end
 				end
 			end

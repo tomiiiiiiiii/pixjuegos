@@ -491,7 +491,6 @@ begin
 	let_me_alone();
 	delete_text(all_text);
 	//chdir(savegamedir+"niveles");
-	say(cd());
 	i=1;
 	if(os_id==os_win32)
 		dir_handle=diropen(savegamedir+"niveles/*.");

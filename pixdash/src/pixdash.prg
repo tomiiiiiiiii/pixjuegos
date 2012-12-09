@@ -1,37 +1,5 @@
 Program pixdash;
 
-/*import "mod_blendop";
-import "mod_cd";
-//import "mod_debug";
-import "mod_dir";
-import "mod_draw";
-import "mod_effects";
-import "mod_file";
-import "mod_flic";
-import "mod_grproc";
-import "mod_joy";
-import "mod_key";
-import "mod_m7";
-import "mod_map";
-import "mod_math";
-import "mod_mem";
-import "mod_mouse";
-import "mod_path";
-import "mod_proc";
-import "mod_rand";
-import "mod_regex";
-import "mod_say";
-import "mod_screen";
-import "mod_scroll";
-import "mod_sort";
-import "mod_sound";
-import "mod_string";
-import "mod_text";
-import "mod_time";
-import "mod_timers";
-import "mod_video";
-import "mod_wm";*/
-
 import "mod_dir";
 import "mod_draw";
 import "mod_grproc";
@@ -1606,13 +1574,13 @@ include "../../common-src/lenguaje.pr-";
 //PROCESS MAIN
 Begin
 	if(argc>0) if(argv[1]=="arcade") arcade_mode=1; end end
+
 	//desactivado todo por ahora
 	/*if(os_id==os_win32)
 		editor_de_niveles=1;
 		descarga_niveles=1;
 		app_data=1;
 	end*/
-	editor_de_niveles=1;
 	
 	set_title("PiX Dash");
 	
@@ -1624,7 +1592,10 @@ Begin
 		savegamedir="";
 		developerpath="";
 	end
+
 	carga_opciones();
+	full_screen=ops.pantalla_completa;
+
 	/* pal futuro
 	switch(lenguaje_sistema())
 		case "es": ops.lenguaje=1; lang_suffix="es"; end
@@ -1639,8 +1610,9 @@ Begin
 
 	set_fps(0,0); //imágenes por segundo
 	probar_pantalla();
-	//full_screen=1; //TEMP
+
 	set_mode(ancho_pantalla,alto_pantalla,16); //resolución y colores
+
 	fpg_premios=load_fpg("fpg/premios.fpg"); //cargar el mapa de tiles
 	fpg_enemigos=load_fpg("fpg/enemigos.fpg"); //cargar el mapa de tiles
 	fpg_powerups=load_fpg("fpg/powerups.fpg"); //cargar el mapa de tiles
@@ -1901,6 +1873,7 @@ begin
 		ancho_pantalla=1024; 
 		alto_pantalla=768; 
 		scale_resolution=08000600; 
+		full_screen=1;
 		return; 
 	end
 	

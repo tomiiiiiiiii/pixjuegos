@@ -24,7 +24,6 @@ echo DEBES ELEGIR EL garnatron.EXE
 ..\..\bennu-win\pakator 
 move garnatron_exe_pak.exe ..\
 cd ..
-rd /s /q export
 echo LISTO!!
 exit
 pause

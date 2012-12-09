@@ -22,7 +22,6 @@ echo DEBES ELEGIR EL vilanet.EXE
 ..\..\bennu-win\pakator 
 move vilanet_exe_pak.exe ..\vilanet.exe
 cd ..
-rd /s /q export
 echo LISTO!!
 exit
 pause

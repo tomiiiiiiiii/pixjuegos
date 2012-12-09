@@ -22,7 +22,6 @@ echo DEBES ELEGIR EL dx.EXE
 ..\..\bennu-win\pakator 
 move dx_exe_pak.exe ..\
 cd ..
-rd /s /q export
 echo LISTO!!
 exit
 pause

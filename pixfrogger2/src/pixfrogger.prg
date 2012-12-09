@@ -107,20 +107,24 @@ Private
 	graph_loading;
 
 begin
-	if(os_id==1003) 
+	//averiguamos el path para guardar datos
+	if(os_id==1003)
 		tactil=1;
 		bpp=16;
-	end
-	
-	//averiguamos el path para guardar datos
-	savepath();
-	if(os_id==1003)
-		savegamedir="/data/data/com.pixjuegos.pixfrogger/files";
+		if(free_version)
+			savegamedir="/data/data/com.pixjuegos.pixfrogger.free/files";
+		else
+			savegamedir="/data/data/com.pixjuegos.pixfrogger/files";
+		end
+	else
+		savepath();
 	end
 	
 	//cargamos las opciones actuales
 	carga_opciones();
 
+	prueba_pantalla();
+	
 	if(!tactil)
 		//arcade mode?
 		if(argc>0) if(argv[1]=="arcade") arcade_mode=1; end end
@@ -146,9 +150,7 @@ begin
 		//ajustes de rendimiento
 		alpha_steps=32;
 	end
-
-	prueba_pantalla();
-	
+		
 	set_mode(ancho_pantalla,alto_pantalla,bpp);
 	set_fps(25,frameskip);
 	set_title("PiX Frogger");
@@ -159,16 +161,15 @@ begin
 	else
 		graph_loading=load_png("load-"+version+portrait_txt+".png");
 	end
+	
 	timer[0]=0;
 	put_screen(0,graph_loading);
 	frame; //tengo que hacer 2 frames para que lo de arriba funcione :|
 	frame;
-	
 	unload_map(0,graph_loading);
 	
 	//cargamos los recursos a utilizar durante todo el juego
 	carga_sonidos();
-	
 	fpg_general=load_fpg("fpg/pixfrogger-"+version+portrait_txt+".fpg");
 	fnt_puntos=load_fnt("fnt/puntos-"+version+".fnt");
 

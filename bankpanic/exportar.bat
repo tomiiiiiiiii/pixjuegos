@@ -22,7 +22,6 @@ echo DEBES ELEGIR EL bp.EXE
 ..\..\bennu-win\pakator 
 move bp_exe_pak.exe ..\
 cd ..
-rd /s /q export
 echo LISTO!!
 exit
 pause

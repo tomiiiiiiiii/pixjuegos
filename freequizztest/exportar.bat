@@ -70,7 +70,6 @@ echo DEBES ELEGIR EL quizz.EXE
 ..\..\bennu-win\pakator 
 move quizz_exe_pak.exe ..\
 cd ..
-rd /s /q export
 echo LISTO!!
 exit
 pause

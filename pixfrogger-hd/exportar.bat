@@ -64,7 +64,6 @@ echo DEBES ELEGIR EL PIXfrogger.EXE
 ..\..\bennu-win\pakator 
 move pixfrogger_exe_pak.exe ..\pixfrogger.exe
 cd ..
-rd /s /q export
 echo LISTO!!
 exit
 pause

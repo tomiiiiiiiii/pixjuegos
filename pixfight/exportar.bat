@@ -20,6 +20,5 @@ echo DEBES ELEGIR EL PIXFIGHT.EXE
 ..\..\bennu-win\pakator 
 move pixfight_exe_pak.exe ..\
 cd ..
-rd /s /q pixfight-export
 echo LISTO!!
 exit

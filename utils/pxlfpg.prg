@@ -31,7 +31,7 @@ End
 
 Function procesa(string fpgname);
 Begin
-	cd(fpgname);
+	chdir(fpgname);
 	file=fpg_new();
 	from x=0 to 999;
 		If(file_exists(itoa(x)+".png"))
@@ -39,5 +39,5 @@ Begin
 		end
 	End
 	save_fpg(file,"../../fpg/"+fpgname+".fpg");
-	cd("..");
+	chdir("..");
 End

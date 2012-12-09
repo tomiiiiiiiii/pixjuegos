@@ -33,7 +33,7 @@ Function procesa(string fntname);
 Private
 	fuente;
 Begin
-	cd(fntname);
+	chdir(fntname);
 	fuente=fnt_new(CHARSET_ISO8859,argv[1]);
 	from x=0 to 999;
 		If(file_exists(itoa(x)+".png"))
@@ -41,5 +41,5 @@ Begin
 		end
 	End
 	save_fnt(fuente,"../../fnt/"+fntname+".fnt");
-	cd("..");
+	chdir("..");
 End
