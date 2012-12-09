@@ -1,26 +1,19 @@
-import "mod_blendop";
-import "mod_debug";
-import "mod_dir";
-import "mod_draw";
-import "mod_file";
 import "mod_grproc";
-import "mod_joy";
+import "mod_multi";
+import "mod_mouse";
 import "mod_key";
 import "mod_map";
-import "mod_math";
 import "mod_proc";
 import "mod_rand";
-import "mod_regex";
-import "mod_say";
 import "mod_screen";
-import "mod_scroll";
 import "mod_sound";
 import "mod_string";
-import "mod_sys";
+import "mod_wm";
 import "mod_text";
 import "mod_time";
 import "mod_timers";
 import "mod_video";
+
 /*graficos:
 1.reloj
 2.fondo
@@ -30,14 +23,15 @@ import "mod_video";
 
 Global
 	puerta_actual=2;
-	struct puertas[12]; //0 no existe
+	struct puertas[13]; //0 no existe
 		distancia;
 		tipo; //1: bueno, 2: malo, 3: niñobonus, 4:rehenluegomalo, 5:atado, 6:malodisfrazado, 7:primerobuenoyluegomaloaprovechapuertaabierta
 		toques;
 		pagado;
 	end
 	ready;
-	nivel=1;
+	pausa;
+	nivel;
 	tiempo_margen;
 	x_central; //para cuando movemos las puertas
 	fnt;
@@ -45,23 +39,77 @@ Global
 	todo_pagado;
 	puntos;
 	vidas=5;
-	id_txt[5];
+	id_txt[6];
 	disparando;
-	sonidos[5];
+	sonidos[6];
+	map_cargando;
+	
+	ogg_intro;
+	ogg_juego;
+	
+	ancho_pantalla;
+	alto_pantalla;
+	
+	_time;
 End
 
 Begin
 	rand_seed(time());
-	full_screen=1;
-	set_mode(640,480,32);
+	//full_screen=1;
+	
+	prueba_pantalla();
+	set_mode(640,480,16);
+	fade_off();
+	while(fading); frame; end
+	map_cargando=load_png("loading.png");
+	put_screen(0,map_cargando);
+	fade_on();
+	while(fading); frame; end
+	timer[0]=0;
 	load_fpg("bp.fpg");
 	fnt=load_fnt("oeste.fnt");
-	play_song(load_song("2.ogg"),0);
 	sonidos[1]=load_wav("1.wav");
 	sonidos[2]=load_wav("2.wav");
+	sonidos[3]=load_wav("3.wav");
+	sonidos[4]=load_wav("4.wav");
+	ogg_juego=load_song("1.ogg");
+	ogg_intro=load_song("2.ogg");
+	while(timer[0]<200) frame; end
+	fade_off();
+	while(fading) frame; end
 	
+	clear_screen();
+	unload_map(0,map_cargando);
+	
+	titulo();
+End
+
+Process titulo();
+Begin
+	puntos=0;
+	vidas=5;
+	nivel=1;
+	let_me_alone();
+	fade_on();
+	while(fading) frame; end
+	delete_text(all_text);
+	play_song(ogg_intro,-1);
 	put_screen(0,903);
-	while(!key(_enter)) frame; end
+	if(os_id==1003)
+		write(fnt,320,190,4,"Touch to play");
+	else
+		write(fnt,320,190,4,"Touch to play or press Enter");
+	end
+	while(!mouse.left and !key(_enter))
+		if(scan_code==102 or key(_esc)) exit(); end
+		if(!focus_status)
+			let_me_alone();
+			fade_music_off(500);
+			while(is_playing_song()) frame; end
+			exit();
+		end
+		frame; 
+	end
 	intro();
 End
 
@@ -69,20 +117,32 @@ Process pon_nivel(inicio);
 Private
 	id_puerta;
 	nopagado;
+	i;
+	frames_pulsado;
+	mueve_izquierda;
+	mueve_derecha;
+	mouse_x_origen;
 Begin
 	let_me_alone();
 	delete_text(all_text);
-	play_song(load_song("1.ogg"),-1);
+	play_song(ogg_juego,-1);
 	ready=1;
+	pausa=0;
 	moviendo=0;
 	todo_pagado=0;
+	disparando=0;
 	tiempo_margen=60-nivel*2;
 
-	write_int(fnt,0,0,0,&puntos);
-	write_int(fnt,0,20,0,&vidas);
+	puntos_y_vida();
 	
 	if(inicio==0) //si inicio=1:reiniciamos el nivel porque perdimos una vida. no tocamos estas variables
 		puerta_actual=5;
+		
+		//reseteamos todas las puertas
+		from x=1 to 12;
+			puertas[x].pagado=0;
+		end
+
 		//algunos aparecerán pagados
 		from x=1 to 12-nivel;
 			if(rand(0,nivel)==0) puertas[x].pagado=1; end
@@ -120,17 +180,39 @@ Begin
 	set_fps(28+(nivel*2),0);
 	
 	//mirillas
-	grafico(26,320,240,-10);
-	grafico(26,120,240,-10);
-	grafico(26,520,240,-10);
+	//if(os_id!=1003)
+		grafico(26,320,240,-10);
+		grafico(26,120,240,-10);
+		grafico(26,520,240,-10);
+	//end
 
+	fade_on();
+	while(fading) frame; end
+	
 	loop
+	  if(scan_code==102 or key(_esc))
+		while(scan_code==102 or key(_esc)) frame; end
+		titulo();
+		return;
+	  end
+	  if(_time==0)
+		game_over(2);
+	  end
 	  if(ready==1)
-		if(key(_left)) 
+		if(key(_l))
+			_time=0;
+		end
+		if(!focus_status)
+			let_me_alone();
+			fade_music_off(500);
+			while(is_playing_song()) frame; end
+			exit();
+		end
+		if(mueve_izquierda) 
 			moviendo=1;
 			from x_central=0 to 200 step 10; frame; end
 			puerta_actual--;
-		elseif(key(_right)) 
+		elseif(mueve_derecha) 
 			moviendo=1;
 			from x_central=0 to -200 step -10; frame; end
 			puerta_actual++;
@@ -141,10 +223,12 @@ Begin
 			end
 			if(puerta_actual>12) puerta_actual-=12; end
 			if(puerta_actual<1) puerta_actual+=12; end
-			//delete_text(all_text);
-			from x=1 to 5;
-				delete_text(id_txt[x]);
-			end
+
+			delete_text(all_text);
+			
+			//recolocamos los marcadores
+			puntos_y_vida();
+			
 			x_central=0;
 			from x=puerta_actual-3 to puerta_actual+3;
 				puerta(x);
@@ -163,12 +247,63 @@ Begin
 		from x=1 to 12; if(!puertas[x].pagado) nopagado=1; end end
 		if(nopagado==0) break; end
 	  end
-	  if(!exists(type disparo) and disparando==0)
-		if(key(_A)) disparo(120,240);
-		elseif(key(_S)) disparo(320,240);
-		elseif(key(_D)) disparo(520,240); end
+	  if(disparando)
+		if(!mouse.left and !key(_a) and !key(_s) and !key(_d))
+			disparando=0;
+		end
 	  end
-	  if(!key(_A) and !key(_S) and !key(_D)) disparando=0; end
+	  if(disparando==0 and pausa==0)
+		mueve_izquierda=0;
+		mueve_derecha=0;
+		
+		//teclado
+		if(key(_left))
+			mueve_izquierda=1;
+		elseif(key(_right))
+			mueve_derecha=1;
+		end
+		if(key(_a))
+			disparo(120,240);
+		elseif(key(_s))
+			disparo(320,240);
+		elseif(key(_d))
+			disparo(520,240);
+		end
+		
+		//tactil
+		if(mouse.left)
+			if(frames_pulsado==0)
+				mouse_x_origen=mouse.x;
+				if(mouse.x<214)
+					disparo(120,240);
+				elseif(mouse.x<426) 
+					disparo(320,240);
+				else 
+					disparo(520,240); 
+				end
+			end
+			frames_pulsado++;
+		else
+			if(frames_pulsado>0)
+				//gestos!!
+				if(mouse.x<mouse_x_origen-100)
+					mueve_derecha=1;
+				elseif(mouse.x>mouse_x_origen+100)
+					mueve_izquierda=1;
+/*				else
+					if(mouse.x<214)
+						disparo(120,240);
+					elseif(mouse.x<426) 
+						disparo(320,240);
+					else 
+						disparo(520,240); 
+					end
+*/
+				end
+			end
+			frames_pulsado=0;
+		end
+	  end
 	  frame;
 	end
 	todo_pagado=1;
@@ -178,8 +313,7 @@ Begin
 		puertas[x].distancia=0;
 		puertas[x].toques=0;
 	end
-	nivel++;
-	pon_nivel(0);
+	nivel_completado();
 End
 
 Process reloj();
@@ -215,11 +349,12 @@ Begin
 	y=260;
 	z=1;
 
-	if(hueco>=-2 and hueco<=2) id_txt[hueco+3]=write(fnt,x,187,4,num_puerta); end
+	if(hueco>=-2 and hueco<=2) id_txt[hueco+3]=write(fnt,x-3,190,4,num_puerta); end
 	if(hueco>=-1 and hueco<=1) cuadropuerta(num_puerta); end
 	loop
+		while(pausa) frame; end
 		x=320+(hueco)*200+x_central;
-		move_text(id_txt[hueco+3],x,187);
+		move_text(id_txt[hueco+3],x-1,189);
 		if(puertas[num_puerta].distancia==0 and hueco>=-1 and hueco<=1 and x_central==0 and puertas[num_puerta].tipo!=0 and rand(0,60)==0 and moviendo==0)
 			break;
 		end
@@ -228,78 +363,108 @@ Begin
 	ready--;
 	delete_text(id_txt[hueco+3]);
 	graph=12;
-//	frame(1000);
-//	graph=13;
-//	frame(1000);
+
 	//resolución!
+	while(pausa) frame; end
 	switch(puertas[num_puerta].tipo)
 		case 1 .. 2: //bueno
 			i=puertas[num_puerta].tipo;
 			id_grafico[1]=grafico(i*100+1,x,y,2);
 			frame(400); //mostramos al que viene con la puerta medio abierta momentaneamente
+			
 			graph=13; //abrimos la puerta del todo
 			//aparece
 			from temp=0 to 10;
-				if(collision(type disparo)) signal(id_grafico[1],s_kill); puertas[num_puerta].tipo=0; queja(puertas[num_puerta].tipo,x); loop frame; end end
+				if(collision_box(type disparo))
+					signal(id_grafico[1],s_kill); 
+					puertas[num_puerta].tipo=0; 
+					queja(puertas[num_puerta].tipo,x); 
+					loop frame; end 
+				end
 				frame;
 			end
+			
 			//mira para los lados
 			if(rand(0,1)) 
 				id_grafico[1].graph=i*100+2;
 				from temp=0 to 10; 
-					if(collision(type disparo)) signal(id_grafico[1],s_kill); puertas[num_puerta].tipo=0; queja(puertas[num_puerta].tipo,x); loop frame; end end
+					if(collision_box(type disparo)) 
+						signal(id_grafico[1],s_kill); 
+						puertas[num_puerta].tipo=0; 
+						queja(puertas[num_puerta].tipo,x); 
+						loop frame; end 
+					end
 					if(temp<5) id_grafico[1].flags=0; else id_grafico[1].flags=1; end 
 					frame;
 				end
 				from temp=0 to 10; 
-					if(collision(type disparo)) signal(id_grafico[1],s_kill); puertas[num_puerta].tipo=0; queja(puertas[num_puerta].tipo,x); loop frame; end end
+					if(collision_box(type disparo)) 
+						signal(id_grafico[1],s_kill); 
+						puertas[num_puerta].tipo=0; 
+						queja(puertas[num_puerta].tipo,x); 
+						loop frame; end 
+					end
 					if(temp<5) id_grafico[1].flags=0; else id_grafico[1].flags=1; end 
 					frame;
 				end
 			end
 			id_grafico[1].flags=0;
+			
 			//entrega la pasta
 			id_grafico[1].graph=i*100+3;
 			suena(2);
 			from temp=0 to 20;
-				if(collision(type disparo)) signal(id_grafico[1],s_kill); puertas[num_puerta].tipo=0; queja(puertas[num_puerta].tipo,x); loop frame; end end
+				if(collision_box(type disparo)) signal(id_grafico[1],s_kill); puertas[num_puerta].tipo=0; queja(puertas[num_puerta].tipo,x); loop frame; end end
 				frame;
 			end
+			
 			//y se va
 			id_grafico[1].graph=i*100+4;
 			tomapuntos(500,x,y);
 			//frame(500);
 		end
+		
 		case 3: //niñobonus!!
 			id_grafico[1]=grafico(301,x,y,2);
 			frame(400); //mostramos al que viene con la puerta medio abierta momentaneamente
 			graph=13; //abrimos la puerta del todo
 			//aparece
 			temp=0;
-			while(temp<30)
-				if(collision(type disparo)) temp=0; tomapuntos((id_grafico[1].graph-300)*100,x,y); id_grafico[1].graph++; end
-				if(id_grafico[1].graph==306) puertas[num_puerta].pagado=1; suena(2); frame(1000); break; end
+			while(temp<50)
+				if(collision_box(type disparo))
+					temp=0; 
+					tomapuntos((id_grafico[1].graph-300)*100,x,y); 
+					id_grafico[1].graph++; 
+				end
+				if(id_grafico[1].graph==306) 
+					puertas[num_puerta].pagado=1; 
+					suena(2); 
+					frame(1000); 
+					break; 
+				end
 				temp++;
 				frame;
 			end
 		end
+		
 		case 4: //malo
 			id_grafico[1]=grafico(401,x,y,2);
 			frame(400); //mostramos al que viene con la puerta medio abierta momentaneamente
 			graph=13; //abrimos la puerta del todo
 			//aparece
-			from temp=0 to 25;
-				if(collision(type disparo)) temp=0; break; end
+			from temp=0 to 40;
+				if(collision_box(type disparo)) temp=0; break; end
 				frame;
 			end
-			if(temp>=25)
+			if(temp>=40)
+				pausa=1;
 				//nos disparan
 				id_grafico[1].graph=402;
 				suena(1);
 				disparo(x-35,y-5);
 				frame(1000);
 				puertas[num_puerta].tipo=0;
-				game_over();
+				game_over(0);
 				return;
 			else
 				//le disparamos
@@ -321,8 +486,20 @@ Begin
 End
 
 Process tomapuntos(cuantos,x,y);
+Private
+	i;
 Begin
 	puntos+=cuantos;
+	z=-5;
+	graph=write_in_map(fnt,cuantos,4);
+	while(i<30) 
+		i++; 
+		y--; 
+		z=-5-y;
+		frame; 
+	end
+	from alpha=255 to 0 step -20; frame; end
+	unload_map(0,graph);
 End
 
 Process cuadropuerta(num_puerta);
@@ -409,48 +586,106 @@ Begin
 	from alpha=255 to 100 step -40; size-=3; frame; end
 End
 
-Process game_over();
+Process game_over(tipo); //0: nos disparan, 1: hemos disparado a un civil, 2: tiempo
 Begin
 	let_me_alone();
 	delete_text(all_text);
 	put_screen(0,901);
-	disparo(320,240);
+	//disparo(320,240);
 	graph=501;
 	x=320;
 	y=320;
+	suena(3);
 	frame(200);
+	switch(tipo)
+		case 0:	write(fnt,320,140,4,"The robber shot you first!"); end
+		case 1:	write(fnt,320,140,4,"Don't shoot at civilians!"); end
+		case 2:	write(fnt,320,140,4,"You ran out of time!"); end
+	end
 	y=370;
 	graph=504;
-	frame(3000);
+	timer[0]=0;
+	while(timer[0]<400) frame; end
 	vidas--;
-	if(vidas>0) pon_nivel(1); end
+	if(vidas>0)
+		fade_off();
+		while(fading) frame; end
+		pon_nivel(1);
+	else
+		delete_text(all_text);
+		write(fnt,320,240,4,"GAME OVER");
+		timer[0]=0;
+		while(timer[0]<500 and !mouse.left) frame; end
+		fade_off();
+		while(fading) frame; end
+		titulo();
+	end
 	exit();
 End
 
 Process intro();
 Begin
+	let_me_alone();
+	delete_text(all_text);
 	put_screen(0,901);
 	graph=501;
 	x=320;
 	y=320;
 	frame(3000);
-	write(fnt,320,140,4,"Nivel "+nivel);
+	write(fnt,320,140,4,"Level "+nivel);
 	graph=502;
 	disparo_intro(271,330);
 	frame(5000);
 	pon_nivel(0);
 End
 
+Process nivel_completado();
+Begin
+	let_me_alone();
+	delete_text(all_text);
+	put_screen(0,901);
+	vidas++;
+	puntos+=_time*10;
+	graph=501;
+	x=320;
+	y=320;
+	frame(3000);
+	suena(1);
+	write(fnt,320,140,4,"Level "+nivel+" complete!");
+	 nivel++;
+	timer[0]=0;
+	while(timer[0]<300) frame; end
+	
+	suena(2);
+	write(fnt,320,165,4,"Time bonus: "+(_time*10));
+	timer[0]=0;
+	while(timer[0]<500) frame; end
+	intro();
+End
+
 Process queja(tipo,x);
 Begin
+	pausa=1;
+	z=2;
 	//aqui meteremos al protestón
-	game_over();
+	y=father.y;
+	suena(4);
+	graph=108;
+	frame(2000);
+	graph=109;
+	frame(1500);
+	graph=110;
+	frame(1500);
+	graph=109;
+	frame(1500);
+	graph=110;
+	frame(1500);
+	game_over(1);
 End
 
 Process tiempo();
-Private
-	_time=1800;
 Begin
+	_time=1800;
 	grafico(905,512,465,-15);
 	z=-16;
 	graph=904;
@@ -458,14 +693,37 @@ Begin
 	x=512;
 	y=465;
 	define_region(1,384,449,256,31);
-	loop
-		if(ready==1) _time--; end
+	while(_time>0)
+		if(ready==1 and pausa==0) _time--; end
 		define_region(1,384,449,(float)256/1800*_time,31);
 		frame;
+	end
+	loop 
+		frame; 
 	end
 End
 
 Process suena(sonido);
 Begin
 	play_wav(sonidos[sonido],0);
+End
+
+Function puntos_y_vida();
+Begin
+	write_int(fnt,280,30,5,&puntos);
+	write(fnt,380,30,3,"x");
+	write_int(fnt,400,30,3,&vidas);
+End
+
+Function prueba_pantalla();
+Private
+	proporcion;
+Begin
+	if(os_id==1003) //ANDUROID
+		scale_resolution_aspectratio = SRA_PRESERVE;
+		ancho_pantalla=graphic_info(0,0,g_width);
+		alto_pantalla=graphic_info(0,0,g_height);
+		proporcion=(float) alto_pantalla/ancho_pantalla;
+		scale_resolution=ancho_pantalla*10000+alto_pantalla;
+	end
 End
