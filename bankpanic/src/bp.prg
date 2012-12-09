@@ -131,8 +131,8 @@ Begin
 	moviendo=0;
 	todo_pagado=0;
 	disparando=0;
-	tiempo_margen=60-nivel*2;
-
+	tiempo_margen=35-(nivel*2);
+	
 	puntos_y_vida();
 	
 	if(inicio==0) //si inicio=1:reiniciamos el nivel porque perdimos una vida. no tocamos estas variables
@@ -177,14 +177,12 @@ Begin
 	
 	//panel marcadores
 	grafico(2,320,55,-10);
-	set_fps(28+(nivel*2),0);
+	set_fps(30,0);
 	
 	//mirillas
-	//if(os_id!=1003)
-		grafico(26,320,240,-10);
-		grafico(26,120,240,-10);
-		grafico(26,520,240,-10);
-	//end
+	grafico(26,320,240,-10);
+	grafico(26,120,240,-10);
+	grafico(26,520,240,-10);
 
 	fade_on();
 	while(fading) frame; end
@@ -199,9 +197,11 @@ Begin
 		game_over(2);
 	  end
 	  if(ready==1)
-		if(key(_l))
-			_time=0;
-		end
+		/*if(key(_l))
+			from x=1 to 12;
+				puertas[x].pagado=1;
+			end
+		end*/
 		if(!focus_status)
 			let_me_alone();
 			fade_music_off(500);
@@ -247,11 +247,13 @@ Begin
 		from x=1 to 12; if(!puertas[x].pagado) nopagado=1; end end
 		if(nopagado==0) break; end
 	  end
+
 	  if(disparando)
 		if(!mouse.left and !key(_a) and !key(_s) and !key(_d))
 			disparando=0;
 		end
 	  end
+
 	  if(disparando==0 and pausa==0)
 		mueve_izquierda=0;
 		mueve_derecha=0;
@@ -290,15 +292,6 @@ Begin
 					mueve_derecha=1;
 				elseif(mouse.x>mouse_x_origen+100)
 					mueve_izquierda=1;
-/*				else
-					if(mouse.x<214)
-						disparo(120,240);
-					elseif(mouse.x<426) 
-						disparo(320,240);
-					else 
-						disparo(520,240); 
-					end
-*/
 				end
 			end
 			frames_pulsado=0;
@@ -430,7 +423,7 @@ Begin
 			graph=13; //abrimos la puerta del todo
 			//aparece
 			temp=0;
-			while(temp<50)
+			while(temp<tiempo_margen)
 				if(collision_box(type disparo))
 					temp=0; 
 					tomapuntos((id_grafico[1].graph-300)*100,x,y); 
@@ -452,11 +445,11 @@ Begin
 			frame(400); //mostramos al que viene con la puerta medio abierta momentaneamente
 			graph=13; //abrimos la puerta del todo
 			//aparece
-			from temp=0 to 40;
+			from temp=0 to tiempo_margen;
 				if(collision_box(type disparo)) temp=0; break; end
 				frame;
 			end
-			if(temp>=40)
+			if(temp>=tiempo_margen)
 				pausa=1;
 				//nos disparan
 				id_grafico[1].graph=402;
@@ -644,7 +637,6 @@ Begin
 	let_me_alone();
 	delete_text(all_text);
 	put_screen(0,901);
-	vidas++;
 	puntos+=_time*10;
 	graph=501;
 	x=320;
@@ -652,9 +644,9 @@ Begin
 	frame(3000);
 	suena(1);
 	write(fnt,320,140,4,"Level "+nivel+" complete!");
-	 nivel++;
+	nivel++;
 	timer[0]=0;
-	while(timer[0]<300) frame; end
+	while(timer[0]<150) frame; end
 	
 	suena(2);
 	write(fnt,320,165,4,"Time bonus: "+(_time*10));
