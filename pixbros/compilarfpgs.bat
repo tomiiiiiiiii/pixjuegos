@@ -8,5 +8,10 @@ copy ..\..\utils\pxlfpg.dcb . /y
 ..\..\bennu-win\bgdi pxlfpg %bits% intro-de intro-en intro-es intro-fr intro-it intro-jp
 ..\..\bennu-win\bgdi pxlfpg %bits% menu menu-de menu-en menu-es menu-fr menu-it menu-jp
 del /f pxlfpg.dcb
+
+cd ..\fpg
+ren *.fpg *.fpg.gz
+..\..\utils\gzip -d *.fpg.gz
+
 cd ..
 exit

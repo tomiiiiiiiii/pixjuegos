@@ -10,12 +10,7 @@ cd ..
 pause
 
 echo Compilando fpgs....
-rem start /wait compilarfpgs.bat 16
-
-rem cd fpg
-rem ren *.fpg *.fpg.gz
-rem ..\..\utils\gzip -d *.fpg.gz
-rem cd ..
+start /wait compilarfpgs.bat 16
 
 echo Exportando...
 mkdir export
