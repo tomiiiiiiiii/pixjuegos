@@ -13,6 +13,9 @@ Global
 	graph_dedo;
 	graph_boton;
 	id_gamepad;
+	gamepad_boton_separacion=40;
+	gamepad_boton_size=40;
+	gamepad_botones=3;
 End
 
 Process controlador(jugador);
@@ -23,22 +26,24 @@ Private
 	axis_x;
 	axis_y;
 Begin
-	//if(os_id==1003 and jugador==1)
+	priority=1;
+	if(os_id==1003 and jugador==1 and p[1].control==0)
 		if(graph_dedo<1)
-			graph_dedo=new_map(20,20,8);
+			graph_dedo=new_map(gamepad_boton_size*2/3,gamepad_boton_size*2/3,8);
+			drawing_color(384);
 			drawing_map(0,graph_dedo);
-			draw_box(0,0,20,20);
+			draw_box(0,0,gamepad_boton_size/2,gamepad_boton_size*2/3);
 
 			if(os_id!=1003) mouse.graph=graph_dedo; end
 			
-			graph_boton=new_map(50,50,8);
+			graph_boton=new_map(gamepad_boton_size,gamepad_boton_size,8);
 			drawing_map(0,graph_boton);
 			draw_box(0,0,50,50);
 		end
 		if(!exists(id_gamepad))
 			gamepad_virtual();
 		end
-	//End
+	End
 	
 	Loop
 		if(!exists(father)) return; end
@@ -225,15 +230,17 @@ End
 
 Process gamepad_virtual();
 Begin
-	boton_tactil(80,360,0,1,b_arriba);
-	boton_tactil(40,400,0,1,b_izquierda);
-	boton_tactil(120,400,0,1,b_derecha);
-	boton_tactil(80,440,0,1,b_abajo);
+	boton_tactil(gamepad_boton_separacion*2,alto_pantalla-(gamepad_boton_separacion*3),0,1,b_arriba);
+	boton_tactil(gamepad_boton_separacion,alto_pantalla-(gamepad_boton_separacion*2),0,1,b_izquierda);
+	boton_tactil(gamepad_boton_separacion*3,alto_pantalla-(gamepad_boton_separacion*2),0,1,b_derecha);
+	boton_tactil(gamepad_boton_separacion*2,alto_pantalla-gamepad_boton_separacion,0,1,b_abajo);
 	
-	boton_tactil(540,440,0,1,b_1);
-	boton_tactil(600,440,0,1,b_2);
-	boton_tactil(600,380,0,1,b_3);
-
+	boton_tactil(ancho_pantalla-(gamepad_boton_separacion*2.5),alto_pantalla-gamepad_boton_separacion,0,1,b_1);
+	boton_tactil(ancho_pantalla-gamepad_boton_separacion,alto_pantalla-gamepad_boton_separacion,0,1,b_2);
+	if(gamepad_botones>2)
+		boton_tactil(ancho_pantalla-gamepad_boton_separacion,alto_pantalla-(gamepad_boton_separacion*2.5),0,1,b_3);
+	end
+	
 	loop
 		if(mouse.left) dedo(mouse.x,mouse.y); end
 		for(i=0; i<10; i++)
@@ -250,16 +257,17 @@ Begin
 	priority=1;
 	graph=graph_dedo;
 	//alpha=0;
-	frame;
+	frame(200);
 End
 
 Process boton_tactil(x,y,graph,jugador,boton);
 Begin
-	//priority=0;
+	priority=0;
 	z=-512;
 	graph=graph_boton;
 	drawing_map(0,graph);
 	draw_box(0,0,50,50);
+	alpha=128;
 	while(exists(father))
 		if(collision_box(type dedo))
 			p[jugador].botones[boton]=1;

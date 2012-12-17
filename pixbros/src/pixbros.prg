@@ -10,6 +10,8 @@ import "mod_joy";
 import "mod_key";
 import "mod_map";
 import "mod_math";
+import "mod_mouse";
+import "mod_multi";
 import "mod_proc";
 import "mod_rand";
 import "mod_regex";
@@ -42,7 +44,6 @@ Const
 End
 
 Global
-
 	arcade_mode=0;
 	
 	bitscolor=32;
@@ -83,6 +84,9 @@ Global
 
 	cancionsonando;
 
+	ancho_pantalla=640;
+	alto_pantalla=480;
+	
 	tiempo_hurry;
 	tiempo_burbujas;
 	burbujasrayo;
@@ -119,8 +123,6 @@ Global
 End
 
 Local
-	caca084a;
-	caca084b;
 	ancho;
 	alto;
 	grav;
@@ -140,6 +142,7 @@ End
 
 include "../../common-src/lenguaje.pr-";
 include "../../common-src/savepath.pr-";
+include "../../common-src/controles.pr-";
 
 Private
 	string env_lang;
@@ -170,10 +173,16 @@ Begin
 	if(os_id==os_caanoo or os_id==os_wii or os_id==1003) bitscolor=16; end
 	if(os_id==os_caanoo) scale_resolution=03200240; end
 	if(arcade_mode) full_screen=true; scale_resolution=08000600; end
-/*	if(os_id==1003)
+	if(os_id==1003)
 		frame;
-		scale_resolution=(graphic_info(0,0,g_width)*10000)+graphic_info(0,0,g_height);
-	end*/
+		//if(graphic_info(0,0,g_height)!=480) 
+			scale_resolution_aspectratio = SRA_PRESERVE;
+			scale_resolution=(graphic_info(0,0,g_width)*10000)+graphic_info(0,0,g_height);
+		//end
+		gamepad_boton_separacion=70;
+		gamepad_boton_size=60;
+		gamepad_botones=2;
+	end
 	set_mode(640,480,bitscolor);
 	set_fps(40,9);
 	frame;
@@ -1676,7 +1685,6 @@ end
 
 
 //-----------------------------------------------------------------------------------------
-include "../../common-src/controles.pr-";
 
 Process readyando();
 Begin
