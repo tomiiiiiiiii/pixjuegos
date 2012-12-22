@@ -47,11 +47,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.476285"
-     inkscape:cx="-79.963207"
-     inkscape:cy="-372.98361"
+     inkscape:zoom="3.81028"
+     inkscape:cx="-489.76889"
+     inkscape:cy="-599.83246"
      inkscape:document-units="px"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="layer2"
      showgrid="true"
      inkscape:window-width="1366"
      inkscape:window-height="706"
@@ -2004,6 +2004,92 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cczczczczcsccc"
        inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\ripolles\fpg-sources\Enemigo1\132.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#42518b;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;display:inline"
+       d="m -482.32937,692.99464 c -0.17394,-3.30438 -0.25062,-5.52903 1.94185,-8.91474 0,0 -1.41378,-8.25179 0.50665,-7.81894 1.92046,0.43285 2.68455,7.10256 2.68455,7.10256 0,0 2.68488,-8.08831 4.81664,-7.13354 2.13174,0.95473 -2.02832,8.46242 -2.02832,8.46242 0,0 5.12693,-7.63111 7.21554,-6.49787 2.08863,1.13325 -4.98402,8.41658 -4.98402,8.41658 0,0 8.68729,-6.32046 10.2813,-5.03041 1.594,1.29003 -8.18942,6.64983 -8.18942,6.64983 0,0 6.6811,-3.3169 7.94415,-1.88188 1.04632,1.18876 -6.604,5.09613 -6.604,5.09613 -0.29813,3.39494 -2.41044,6.67496 -6.60673,8.695 -6.17061,7.93018 -6.73347,-4.34589 -6.97819,-7.14514 z"
+       id="path3677-4-17-9-3-1"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cczczczczcsccc"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\ripolles\fpg-sources\Enemigo1\151.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;display:inline"
+       d="m -548.13212,710.31934 c -14.08633,-29.49827 49.37434,-40.74666 66.62367,-10.82063 17.24934,29.92601 -52.53734,40.3189 -66.62367,10.82063 z"
+       id="path3673-0-40-2-1-7"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="zzz"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\ripolles\fpg-sources\Enemigo1\151.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#42518b;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;display:inline"
+       d="m -449.48414,716.37633 c 3.02722,-3.53181 3.30282,-7.75703 2.11365,-13.43485 -6.95012,3.65971 -20.54839,3.07789 -20.36146,1.75615 0.18693,-1.32175 11.2472,-2.59781 18.84565,-1.46998 1.52931,-3.28226 2.46378,-9.08543 -0.57086,-12.82348 -3.82143,6.09181 -14.55278,4.06056 -23.41675,7.64893 -13.23392,5.35745 -5.63922,15.31076 -0.94853,15.64167 10.94558,0.77217 16.57838,-0.58761 24.3383,2.68156 z"
+       id="path3675-4-9-9-4"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cczccssc"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\ripolles\fpg-sources\Enemigo1\151.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <g
+       style="display:inline"
+       id="g3253-8-0"
+       transform="matrix(0.77109156,-0.63672427,0.8038376,0.63309873,-126.72342,331.50367)"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\ripolles\fpg-sources\Enemigo1\151.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <path
+         sodipodi:nodetypes="zzz"
+         inkscape:connector-curvature="0"
+         id="path3673-82-5-6-9"
+         d="m -568.5504,20.540629 c 14.79378,-31.714983 64.01255,0.01845 50.87741,34.077211 -13.13513,34.058768 -65.67119,-2.362228 -50.87741,-34.077211 z"
+         style="fill:#e0cc00;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;display:inline" />
+      <path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="path3719-45-4-5-4"
+         d="m -561.44618,46.075188 c 6.66198,0.453408 12.00335,-7.368478 9.25431,-13.135803"
+         style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;display:inline" />
+      <path
+         sodipodi:nodetypes="ccc"
+         inkscape:connector-curvature="0"
+         id="path3721-51-3-0-8"
+         d="m -550.08649,23.957319 c 2.13662,-6.754138 8.82306,-10.124811 13.74354,-8.047025 -1.99961,5.758421 -8.27394,9.576309 -13.74354,8.047025 z"
+         style="fill:#ffffff;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;display:inline" />
+      <path
+         sodipodi:nodetypes="czc"
+         inkscape:connector-curvature="0"
+         id="path3723-7-1-2-8"
+         d="m -564.49557,18.938986 c 24.3773,16.575885 24.74173,24.481796 28.16315,24.600641 3.42143,0.11884 2.69371,-7.018613 2.69371,-7.018613"
+         style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;display:inline" />
+      <path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="path3725-11-2-8-2"
+         d="m -528.46495,47.682315 c -0.76907,-4.28927 -2.29873,-8.655997 1.39064,-16.447243"
+         style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;display:inline" />
+      <path
+         sodipodi:nodetypes="ccszsczczczczccc"
+         inkscape:connector-curvature="0"
+         id="path3727-5-3-6-4"
+         d="m -554.52271,62.934692 c 1.26655,-1.997973 1.71389,-4.5828 4.6325,-5.908093 -0.92941,0.219337 -1.88515,-2.707947 -1.77303,-4.169959 0.23126,-3.015045 1.55455,-3.666554 2.59499,-3.815758 1.04043,-0.14921 -0.0294,1.763618 0.11549,4.222043 0.0984,1.669681 1.70693,3.185121 1.70693,3.185121 0,0 -0.28283,-10.081977 1.85515,-9.979814 2.13799,0.102155 0.77939,10.466032 0.77939,10.466032 0,0 1.96146,-8.380365 3.54247,-8.041618 1.58103,0.338744 0.0245,7.740722 0.0245,7.740722 0,0 2.44469,-6.965879 4.46625,-5.867925 2.02155,1.097975 -2.30552,7.198124 -2.30552,7.198124 0,0 5.15774,-5.55186 6.26304,-4.018292 1.1053,1.53358 -5.18631,6.742328 -5.18631,6.742328 -0.5804,3.157288 0.24053,5.164419 -1.97618,7.781919 -4.47302,-1.023851 -10.93557,-1.901712 -14.73972,-5.53483 z"
+         style="fill:#324931;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;display:inline" />
+      <path
+         sodipodi:nodetypes="zzz"
+         inkscape:connector-curvature="0"
+         id="path3785-27-3-0-5"
+         d="m -544.47818,17.173193 c -2.83629,1.696 0.31988,6.377143 2.84543,4.843473 2.52555,-1.533665 -0.009,-6.539471 -2.84543,-4.843473 z"
+         style="fill:#000000;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;display:inline" />
+    </g>
+    <path
+       style="fill:#42518b;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;display:inline"
+       d="m -481.38554,719.83234 c 0.31596,3.65063 0.57042,6.1085 3.34149,9.85783 0,0 -0.36164,9.2828 1.55594,8.81169 1.91756,-0.47115 1.93061,-8.91045 1.93061,-8.91045 0,0 3.90025,9.83557 5.95768,8.78856 2.05743,-1.04701 -3.27857,-10.2465 -3.27857,-10.2465 0,0 6.45454,10.26713 8.59249,8.51483 2.13795,-1.75232 -6.57663,-10.62661 -6.57663,-10.62661 0,0 9.95184,7.97357 11.40389,6.55406 1.45205,-1.4195 -9.48729,-8.33564 -9.48729,-8.33564 0,0 7.30959,4.59235 8.39825,3.01141 0.90184,-1.30964 -7.58161,-5.65579 -7.58161,-5.65579 -0.81688,-3.75244 -3.48934,-7.38468 -8.12414,-9.63247 -6.80692,-4.32863 -6.85605,4.58686 -6.13211,7.86908 z"
+       id="path3677-9-7-2-5"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cczczczczcsccc"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\ripolles\fpg-sources\Enemigo1\151.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
   </g>

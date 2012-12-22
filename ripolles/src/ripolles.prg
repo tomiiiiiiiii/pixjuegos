@@ -1,7 +1,7 @@
 Program ripolles;
 
 import "mod_blendop";
-import "mod_debug";
+//import "mod_debug";
 import "mod_dir";
 import "mod_draw";
 import "mod_file";
@@ -10,6 +10,8 @@ import "mod_joy";
 import "mod_key";
 import "mod_map";
 import "mod_math";
+import "mod_mouse";
+import "mod_multi";
 import "mod_proc";
 import "mod_rand";
 import "mod_regex";
@@ -49,22 +51,30 @@ Const
 	canya=3;
 	rollo=4;
 	casco=5;
+		
+	//modos de movimiento
+	encerrandome=0;
+	sin_encerrarme=1;
 End
 
 Global
 	puntos;
 	
 	string savegamedir;
-	string developerpath="/.PiXJuegos/PiXBros/";
+	string developerpath="/.PiXJuegos/Ripolles/";
+
+	anterior_cancion;
 	
 	joysticks[10];
 	posibles_jugadores;
 	njoys;
 	ancho_nivel;
+	alto_nivel;
 	//estructuras de los personajes
 	struct p[100];
 		botones[7];
-		vida=50;
+		vida;
+		vidas;
 		puntos;
 		control;
 		juega;
@@ -75,10 +85,19 @@ Global
 		musica=1;
 		sonido=1;
 		ventana=1;
-		byte dificultad=1; //0,1,2
+		dificultad=1; //0,1,2
+		truco_pato=-1;
+		truco_matajefes=0;
+		truco_fuego_amigo=-5;
+		truco_sin_bandos=-1;
 	End	
 	
-	fpg_ripolles;
+	fpg_pato;
+	fpg_ripolles1;
+	fpg_ripolles2;
+	fpg_ripolles3;
+	fpg_ripolles4;
+	fpg_menu;
 	fpg_nivel;
 	fpg_general;
 	fpg_objetos;
@@ -86,28 +105,56 @@ Global
 	fpg_enemigo2;
 	fpg_enemigo3;
 	fpg_enemigo4;
+	fpg_enemigo5;
+	fpg_jefe;
+	fpg_cutscenes;
+	fnt_menu;
+	fnt_tiempo;
+	wavs[50];
+	
 	enemigos;
 	id_camara;
 	
+	jugadores;
+
+	nivel;
+		
 	ancho_pantalla=640;
 	alto_pantalla=360;
+	bpp=32;
 	
 	coordenadas=c_scroll;
 
+	modo_juego;
+	
 	anterior_emboscada;
 	en_emboscada;
+
+	enemigos_matados;
+	fuego_amigo=0;
+	sin_bandos=0;
+	renacimiento;
+	mata_enemigos;
+	ganando;
 	
 	struct emboscada[20];
 		x_evento;
-		x_minima;
-		x_maxima;
+		evento_especial;
+		max_x;
+		min_x;
 		struct enemigo[30];
 			pos_x;
 			pos_y;
 			tipo;
-			x_trigger;
+			flags;
 		end
 	end
+	
+	//modos de juego (alguno puede variar al ser desbloqueable)
+	modo_historia=1;
+	modo_supervivencia=2;
+	modo_matajefes=3;
+	modo_battleroyale=4;
 End
 
 Local
@@ -132,65 +179,313 @@ End
 
 include "../../common-src/controles.pr-";
 include "../../common-src/savepath.pr-";
+include "jefe1.pr-";
+include "jefe4.pr-";
 include "niveles.pr-";
+include "menu.pr-";
+include "cutscenes.pr-";
+include "personaje.pr-";
+include "enemigo.pr-";
 
 Begin
+	savepath();
+	carga_opciones();
+
 	//La resolución del monitor será esta:
-	//scale_resolution=12800720;
+	if(os_id!=1003)
+		scale_resolution=12800720;
+	else
+		ancho_pantalla=graphic_info(0,0,g_width);
+		alto_pantalla=graphic_info(0,0,g_height);
+		scale_resolution=ancho_pantalla*10000+alto_pantalla; 
+		ancho_pantalla=640;
+		alto_pantalla=360;
+		bpp=16;
+	end
 	
-	//full_screen=true;
+	if(ops.ventana==0)
+		full_screen=true;
+	else
+		full_screen=false;
+	end
 	
 	//Pero internamente trabajaremos con esto:
-	set_mode(ancho_pantalla,alto_pantalla,32);
-		
-	fpg_ripolles=load_fpg("fpg\ripolles.fpg");
-	fpg_enemigo1=load_fpg("fpg\enemigo1.fpg");
-	fpg_enemigo2=load_fpg("fpg\enemigo2.fpg");
-	fpg_enemigo3=load_fpg("fpg\enemigo2.fpg");
-	fpg_enemigo4=load_fpg("fpg\enemigo4.fpg");
-	fpg_nivel=load_fpg("fpg\nivel1.fpg");
-	fpg_general=load_fpg("fpg\general.fpg");
-	fpg_objetos=load_fpg("fpg\objetos.fpg");
+	set_mode(ancho_pantalla,alto_pantalla,bpp);
+
+	//gráfico para mientras se carga
+	graph=load_png("loading.png");
+	x=ancho_pantalla/2;
+	y=alto_pantalla/2;
+	z=-520;
 	
+	from alpha=0 to 255 step 20; frame; end
+	timer[0]=0;
+
+	//cargamos recursos
+	carga_fpgs();
+	carga_wavs();
+	carga_fnts();
+
 	//configuramos controladores
 	configurar_controles();
+	controlador(0);
+	
+	//recolocamos el centro de los objetos
+	recoloca_centros();
 	
 	//A 30 imágenes por segundo
-	set_fps(30,0);
-
-	carga_nivel(1);
+	set_fps(30,5);
 	
+	loop
+		if(timer[0]>500 or key(_esc) or key(_enter) or p[0].botones[b_1] or p[0].botones[b_2] or p[0].botones[b_3]) break; end
+		frame; 
+	end
+	from alpha=255 to 0 step -20; frame; end
+	
+	fade_off();
+	while(fading) frame; end
+	
+	/*jugadores=1;
+	nivel=4;
+	modo_juego=modo_historia;
+	jugar();
+	
+	cutscene_final();
+	return;*/
+	//iniciamos el menú
+	menu(-1);
+	return;
+End
+
+Function carga_fnts();
+Begin
+	fnt_menu=load_fnt("fnt\menu.fnt");
+	fnt_tiempo=load_fnt("fnt\tiempo.fnt");
+End
+
+Function carga_wavs();
+Begin
+	from i=1 to 50;
+		wavs[i]=load_wav("wav/"+i+".wav");
+	end
+End
+
+Function carga_fpgs();
+Begin
+	fpg_pato=load_fpg("fpg/pato.fpg");
+	fpg_ripolles1=load_fpg("fpg/ripolles1.fpg");
+	fpg_ripolles2=load_fpg("fpg/ripolles2.fpg");
+	fpg_ripolles3=load_fpg("fpg/ripolles3.fpg");
+	fpg_ripolles4=load_fpg("fpg/ripolles4.fpg");
+	fpg_enemigo1=load_fpg("fpg/enemigo1.fpg");
+	fpg_enemigo2=load_fpg("fpg/enemigo2.fpg");
+	fpg_enemigo3=load_fpg("fpg/enemigo3.fpg");
+	fpg_enemigo4=load_fpg("fpg/enemigo4.fpg");
+	fpg_enemigo5=load_fpg("fpg/enemigo5.fpg");
+	fpg_general=load_fpg("fpg/general.fpg");
+	fpg_objetos=load_fpg("fpg/objetos.fpg");
+	fpg_menu=load_fpg("fpg/menu.fpg");
+	fpg_cutscenes=load_fpg("fpg/cutscenes.fpg");
+End
+
+Process jugar();
+Begin
+	let_me_alone();
+	set_fps(30,5);
+	clear_screen();
+	delete_text(all_text);
+	ganando=0;
+	en_emboscada=0;
+	anterior_emboscada=0;
+	enemigos=0;
+	enemigos_matados=0;
+	if(fpg_nivel>0) unload_fpg(fpg_nivel); end
+
+	if(ops.truco_fuego_amigo==1) fuego_amigo=1; else fuego_amigo=0; end
+	if(ops.truco_sin_bandos==1) sin_bandos=1; else sin_bandos=0; end
+	
+	switch(modo_juego)
+		case modo_historia:
+			carga_nivel(nivel);
+			muestra_nivel();
+		end
+		case modo_supervivencia:
+			supervivencia();
+		end
+		case modo_battleroyale:
+			battleroyale();
+		end
+		case modo_matajefes:
+			matajefes();
+		end
+	end
+
 	ancho_nivel=graphic_info(fpg_nivel,1,G_WIDTH);
-	start_scroll(0,fpg_nivel,1,0,0,0);
+	alto_nivel=graphic_info(fpg_nivel,1,G_HEIGHT);
+	
+	start_scroll(0,fpg_nivel,1,0,0,8);
 	id_camara=scroll[0].camera=camara();
 	
-	personaje(1,0);
-	//personaje(2);
-	//personaje(3);
-/*	from i=1 to 20;
-		emboscada[]
-	end*/
-	/*enemigo(10,1);
-	enemigo(11,2);
-	enemigo(12,3);
-	enemigo(13,4);*/
-		
+	from i=1 to jugadores;
+		personaje(i,0);
+	end
+
+	fade_on();
+	while(fading) frame; end
+	
 	loop
-		if(p[1].botones[b_salir]) exit(); end
+		averigua_jugadores();
+		if(jugadores==0 or (modo_juego==modo_battleroyale and jugadores==1) or (ganando==1 and modo_juego==modo_historia))
+			break;
+		end
+		
+/*		if(key(_space)) set_fps(60,0); end
+		if(key(_n)) set_fps(30,0); end*/
+		if(p[1].botones[b_salir] or key(_esc)) menu(-1); end
+		if(key(_1))
+			if(p[1].juega==0) personaje(1,0); end
+			p[1].vida=100;
+		end
+		if(key(_2))
+			if(p[2].juega==0) personaje(2,0); end
+			p[2].vida=100;
+		end
+		if(key(_3))
+			if(p[3].juega==0) personaje(3,0); end
+			p[3].vida=100;
+		end
+		if(key(_4))
+			if(p[4].juega==0) personaje(4,0); end
+			p[4].vida=100;
+		end
+		if(key(_k)) 
+			while(key(_k)) frame; end 
+			mata_enemigos=1; 
+			frame; 
+			mata_enemigos=0; 
+		end
 		frame;
 	end
+	if(jugadores>0)
+		ganando=1;
+	end
+	frame(5000);
+
+	if(modo_juego==modo_historia and jugadores>0)
+		from i=1 to jugadores;
+			if(p[i].juega)
+				p[i].vida++;
+			end
+		end
+		nivel_superado();
+		while(exists(type nivel_superado)) frame; end
+		switch(nivel)
+			case 1:
+				nivel=4;
+				fade_off();
+				while(fading) frame; end
+				jugar();
+				return;
+			end
+			case 4:
+				fade_off();
+ 				while(fading) frame; end
+				final_del_juego();
+				return;
+			end
+		end
+	end
+	x=ancho_pantalla/2;
+	y=(alto_pantalla/2)-(13*4);
+	z=-256;
+	file=fpg_general;
+	i=0;
+	if(modo_juego==modo_battleroyale)
+		if(ops.truco_fuego_amigo<0)
+			ops.truco_fuego_amigo++; //jugador secreto Pato disponible
+			guarda_opciones();
+			if(ops.truco_fuego_amigo==0)
+				truco_descubierto("Fuego amigo desbloqueado!");
+				while(exists(type truco_descubierto)) frame; end
+			end
+		end
+	
+		from i=1 to 9;
+			if(p[i].juega) 
+				graph=30+i; 
+				if(graph==31 and ops.truco_pato==1) graph=36; end
+				break; 
+			end
+		end
+		write(0,0,0,0,i);
+	else
+		if(ops.truco_pato==1)
+			graph=35;
+		else
+			graph=30;
+		end
+	end
+	
+	if(modo_juego==modo_supervivencia and ops.truco_sin_bandos<0)
+		if(timer[0]>60*5) //si ha aguantado más de 5 minutos, le damos el cheto "sin bandos"
+			ops.truco_sin_bandos=0; //modo matajefes disponible
+			guarda_opciones();
+			truco_descubierto("Sin bandos desbloqueado!");
+			while(exists(type truco_descubierto)) frame; end
+		end
+	end
+	
+	delete_text(all_text);
+	from alpha=0 to 255 step 20; y+=4; frame; end
+	y=alto_pantalla/2;
+	timer[0]=0;
+	let_me_alone();
+	stop_scroll(0);
+	while(timer[0]<100)
+		frame; 
+	end
+	controlador(i);
+	while(p[i].botones[b_1]) frame; end
+	while(!p[i].botones[b_1]) frame; end
+	from alpha=255 to 0 step -20; y+=4; frame; end
+	menu(-1);
+End
+
+Function recoloca_centros();
+Begin
+	//todos los objetos deben tener el centro en su base
+	from i=1 to 998;
+		if(graphic_info(fpg_objetos,i,G_HEIGHT)>0)
+			set_center(fpg_objetos,i,graphic_info(fpg_objetos,i,G_WIDTH)/2,graphic_info(fpg_objetos,i,G_HEIGHT)-10);
+		end
+	end
+	
+	//las barras de vida deben tener su centro en la izquierda
+	set_center(fpg_general,25,0,graphic_info(fpg_general,25,G_HEIGHT)/2);
+	set_center(fpg_general,26,0,graphic_info(fpg_general,26,G_HEIGHT)/2);
+	set_center(fpg_general,27,0,graphic_info(fpg_general,27,G_HEIGHT)/2);
 End
 
 Process camara();
 Private
 	suma_x;
 Begin
-	from i=1 to 30;
-		if(emboscada[en_emboscada+1].enemigo[i].tipo!=0)			
-			enemigo(10+i,emboscada[en_emboscada+1].enemigo[i].tipo,emboscada[en_emboscada+1].enemigo[i].pos_x,emboscada[en_emboscada+1].enemigo[i].pos_y,emboscada[en_emboscada+1].enemigo[i].x_trigger);
-		end
+	if(modo_juego!=1)
+		x=ancho_pantalla/2;
+		y=alto_pantalla/2;
+		loop frame; end 
 	end
 
+	from i=1 to 30;
+		if(emboscada[en_emboscada+1].enemigo[i].tipo!=0)			
+			enemigo(10+i,emboscada[en_emboscada+1].enemigo[i].tipo,emboscada[en_emboscada+1].enemigo[i].pos_x,emboscada[en_emboscada+1].enemigo[i].pos_y,emboscada[en_emboscada+1].x_evento,emboscada[en_emboscada+1].enemigo[i].flags);
+		end
+	end
+	
+	x_inc=7;
+	y_inc=5;
+	//y_base=alto_nivel-alto_pantalla;
+	
 	loop
 		suma_x=0;
 		j=0;
@@ -200,12 +495,22 @@ Begin
 				j++;
 			end
 		end
+
 		if(j>0)
-			if(distancia_jugador(personaje_mas_avanzado()>ancho_pantalla/4))
-				x_inc=6;
-			else
-				x_inc=3;
+			suma_x=suma_x/j;
+		else
+			suma_x=x;
+		end
+		
+		if(en_emboscada>0)
+			if(suma_x<emboscada[en_emboscada].min_x)
+				suma_x=emboscada[en_emboscada].min_x;
+			elseif(suma_x>emboscada[en_emboscada].max_x)
+				suma_x=emboscada[en_emboscada].max_x;
 			end
+		end
+
+		if(suma_x!=0)
 			if(x<suma_x)
 				x+=x_inc;
 				if(x>suma_x) x=suma_x; end
@@ -213,331 +518,60 @@ Begin
 				x-=x_inc;
 				if(x<suma_x) x=suma_x; end
 			end
-			//x=suma_x/j; 
 		end
 		
 		if(x<ancho_pantalla/2) x=ancho_pantalla/2; end
 		if(x>ancho_nivel-(ancho_pantalla/2)) x=ancho_nivel-(ancho_pantalla/2); end
 		if(en_emboscada>0)
-			if(x<emboscada[en_emboscada].x_minima) x=emboscada[en_emboscada].x_minima; end
-			if(x>emboscada[en_emboscada].x_maxima) x=emboscada[en_emboscada].x_maxima; end
 			if(enemigos==0)
 				from i=1 to 30;
 					if(emboscada[en_emboscada+1].enemigo[i].tipo!=0)
-						enemigo(10+i,emboscada[en_emboscada+1].enemigo[i].tipo,emboscada[en_emboscada+1].enemigo[i].pos_x,emboscada[en_emboscada+1].enemigo[i].pos_y,emboscada[en_emboscada+1].enemigo[i].x_trigger);
+						enemigo(10+i,emboscada[en_emboscada+1].enemigo[i].tipo,emboscada[en_emboscada+1].enemigo[i].pos_x,emboscada[en_emboscada+1].enemigo[i].pos_y,emboscada[en_emboscada+1].x_evento,emboscada[en_emboscada+1].enemigo[i].flags);
 					end
 				end
 				anterior_emboscada=en_emboscada;
 				en_emboscada=0;
+				gogogo();
 			end
 		else
-			if(x=>emboscada[anterior_emboscada+1].x_evento and emboscada[anterior_emboscada+1].x_evento!=0)
-				en_emboscada=anterior_emboscada+1;
+			if(personaje_mas_avanzado()>0)
+				if(p[personaje_mas_avanzado()].identificador.x=>emboscada[anterior_emboscada+1].x_evento and emboscada[anterior_emboscada+1].x_evento!=0)
+					en_emboscada=anterior_emboscada+1;
+					switch(emboscada[en_emboscada].evento_especial)
+						case 101: //1er jefe
+							pon_musica(12);
+							jefe1(emboscada[en_emboscada].x_evento);
+						end
+						case 104: //4º jefe
+							pon_musica(12);
+							jefe4(emboscada[en_emboscada].x_evento);
+						end
+						case 111: //evil ripolles
+							from i=1 to jugadores;
+								enemigo(11+i,5,id_camara.x-(ancho_pantalla/2)-100,150+(i*20),0,1);
+							end
+						end	
+					end
+				end
 			end
 		end
 		frame;
 	end
 End
 
-Process personaje(jugador,tipo);
-Private
-	pulsando_salto;
-	pulsando_ataque1;
-	hacia_que_lado;
-	ia;
-	inercia_max;
-	fuerza_ataque;
+Process estela();
 Begin
-	if(jugador>10)
-		ia=1;
-	end
 	ctype=coordenadas;
-	if(jugador<10)
-		x=50+50*jugador;
-		y_base=130+40*jugador;
-		controlador(jugador);
-		file=fpg_ripolles;
-		inercia_max=6;
-		fuerza_ataque=10;
-		altura=-300;
-	else
-		x=rand(0,640);
-		y_base=rand(100,360);
-		switch(tipo)
-			case 1:
-				inercia_max=3;
-				fuerza_ataque=10;
-			end
-			case 2:
-				inercia_max=4;
-				fuerza_ataque=15;
-			end
-			case 3:
-				inercia_max=2;
-				fuerza_ataque=20;
-			end
-			case 4:
-				inercia_max=5;
-				fuerza_ataque=25;
-			end
-		end
-	end
-	accion=quieto;
-	p[jugador].juega=1;
-	p[jugador].identificador=id;
-	//write_int(0,0,10*(jugador-1),0,&p[jugador].vida);
-	//write_int(0,0,10*(jugador-1),0,&x);
-	loop
-		if(p[jugador].vida<1) accion=muere; herida=100; end
-		
-		if(flags==0)
-			hacia_que_lado=1;
-		else
-			hacia_que_lado=-1;
-		end
-
-		if(herida==0 and (accion==herido_leve or accion==herido_grave))
-			accion=quieto;
-		end
-		
-		if(accion==defiende and !p[jugador].botones[b_3])
-			accion=quieto;
-			x_inc=0;
-			y_inc=0;
-		end
-		
-		if(herida==0)
-			if(altura==0) //EN EL SUELO
-				if((accion==quieto or accion==camina))
-					//ataque suelo o lanzar objeto
-					if(p[jugador].botones[b_1] and pulsando_ataque1==0)
-						pulsando_ataque1=1;
-						if(lleva_objeto==0)
-							if(p[jugador].botones[b_3])
-								accion=ataca_area;
-								p[jugador].vida-=30;
-							else
-								if(accion==quieto and x_inc==0 and (id_col=collision(type objeto)))
-									if(id_col.y>y+35)
-										lleva_objeto=id_col.graph;
-										accion=coge_objeto;
-										signal(id_col,s_kill);
-									else
-										accion=ataca_suelo;
-									end
-								else
-									accion=ataca_suelo;
-								end
-							end
-						else
-							accion=lanza_objeto;
-						end
-					end
-
-					//movimiento
-					if(p[jugador].botones[b_arriba] xor p[jugador].botones[b_abajo])
-						if(p[jugador].botones[b_arriba])
-							y_inc-=3;
-						else //izquierda
-							y_inc+=3;
-						end
-					end
-					if(p[jugador].botones[b_izquierda] xor p[jugador].botones[b_derecha])
-						if(p[jugador].botones[b_izquierda])
-							x_inc-=3;
-							flags=1;
-						else //derecha
-							x_inc+=3;
-							flags=0;
-						end
-					end
-					
-					//defenderse
-					if(p[jugador].botones[b_3] and !p[jugador].botones[b_1])
-						accion=defiende;
-						if(lleva_objeto)
-							objeto(x,y_base,altura-100,lleva_objeto,0);
-							lleva_objeto=0;
-						end
-					end
-				end
-														
-				//salto
-				if(p[jugador].botones[b_2])
-					if(pulsando_salto==0)
-						pulsando_salto=1;
-						gravedad=-24;
-						altura=1;
-					end
-				else
-					pulsando_salto=0;
-				end
-
-				//reducción de inercias
-				friccioname();
-				
-			else //EN EL AIRE (SALTO)
-				//ataque aereo
-				if(p[jugador].botones[b_1]) 
-					if(pulsando_ataque1==0)
-						pulsando_ataque1=1;
-						if(lleva_objeto==0)
-							accion=ataca_aire;
-						else
-							accion=lanza_objeto;
-						end
-					end
-				end
-
-				if(accion!=ataca_aire)
-					if(p[jugador].botones[b_arriba] xor p[jugador].botones[b_abajo])
-						if(p[jugador].botones[b_arriba])
-							y_inc-=1;
-						else //izquierda
-							y_inc+=1;
-						end
-					end
-					if(p[jugador].botones[b_izquierda] xor p[jugador].botones[b_derecha])
-						if(p[jugador].botones[b_izquierda])
-							x_inc-=1;
-							flags=1;
-						else //derecha
-							x_inc+=1;
-							flags=0;
-						end
-					end
-				end
-
-				gravedad+=2;
-				altura+=gravedad;
-				if(altura>1)
-					altura=0;
-					gravedad=0;
-					accion=quieto;
-				else
-					y+=gravedad;
-				end
-			end
-			//no herido, común de suelo y aire
-			if(accion!=herido_leve and accion!=herido_grave and accion!=muere)
-				inercia_maxima(inercia_max,3); 
-			end
-		else //está siendo herido
-			if(accion!=herido_leve and accion!=herido_grave and accion!=muere) //escisión!
-				if(lleva_objeto)
-					objeto(x,y_base,altura-100,lleva_objeto,0);
-					lleva_objeto=0;
-				end
-				p[jugador].vida-=herida;
-				if(herida<20 and altura==0)
-					accion=herido_leve;
-					herida=15; //más retraso
-					if(flags==1)
-						x_inc=herida*0.8;
-					else
-						x_inc=-herida*0.8;
-					end
-				else
-					accion=herido_grave;
-					if(herida>15)
-						gravedad=-herida;
-					else
-						gravedad=-15;
-					end
-					if(flags==1)
-						x_inc=herida/4;
-					else
-						x_inc=-herida/4;
-					end
-					altura=-1;
-				end
-
-			else
-				if(altura==0)
-					herida--;
-				end
-			end
-
-			gravedad+=2;
-			altura+=gravedad;
-			if(altura>1)
-				altura=0;
-				gravedad=0;
-				graph=73;
-				friccioname();
-			else
-				y+=gravedad;
-			end
-		end
-		
-		if(!p[jugador].botones[b_1]) pulsando_ataque1=0; end
-		
-		if(herida==0 and altura==0)
-			if(accion==quieto and (x_inc!=0 or y_inc!=0))
-				accion=camina;
-			elseif(accion==camina and x_inc==0 and y_inc==0)
-				accion=quieto;
-			end
-		end
-		
-		//pon animacion correspondiente a mi acción
-		pon_animacion();
-		
-		//gestiones comunes de los personajes en juego
-		mueveme();
-		animame();
-		cuerpo();
-		sombra();
-		
-		//gestion del objeto portado o siendo cogido
-		if(lleva_objeto!=0)
-			if(accion==lanza_objeto)
-				if(anim<4)
-					objeto_portado(x+(-30*hacia_que_lado),y-25,lleva_objeto);
-				else
-					if(anim==4)
-						objeto(x,y_base,altura-100,lleva_objeto,x_inc+(10*hacia_que_lado));
-					end
-				end
-				if(anim==7)
-					lleva_objeto=0; 
-					accion=quieto; 
-				end
-			elseif(accion==coge_objeto)
-				if(anim<4)
-					objeto_portado(x+(-20*hacia_que_lado),y+35,lleva_objeto);
-				else
-					if(anim==7)
-						accion=quieto;
-					end
-				end
-			else
-				objeto_portado(x,y-34,lleva_objeto);
-			end
-		end		
-		
-		//gestión de los ataques (puntos de colisión de los ataques
-		if(accion==ataca_suelo)
-			if(anim<4)
-				ataque(x+(15*hacia_que_lado),y-15,fpg_general,1,fuerza_ataque,20);
-			else
-				ataque(x+(45*hacia_que_lado),y-15,fpg_general,1,fuerza_ataque*1.5,20);
-			end
-			if(anim==7)
-				accion=quieto; 
-			end
-		end
-		if(accion==ataca_aire)
-			ataque(x+(40*hacia_que_lado),y,fpg_general,1,fuerza_ataque*2,15);
-		end
-		if(accion==ataca_area)
-			ataque(x,y,file,graph,fuerza_ataque*2.5,20);
-			if(anim==23)
-				accion=quieto;
-			end
-		end
-		frame;
-	end
+	x=father.x;
+	y=father.y;
+	size=father.size;
+	z=father.z;
+	graph=father.graph;
+	file=father.file;
+	alpha=father.alpha;
+	angle=father.angle;
+	flags=father.flags;
+	while(alpha>0) alpha-=50; frame; end
 End
 
 Function inercia_maxima(max_x,max_y);
@@ -585,6 +619,9 @@ Begin
 	if(father.accion==ataca_suelo)
 		father.animacion=ataca_suelo;
 	end
+	if(father.accion==ataca_fuerte)
+		father.animacion=ataca_fuerte;
+	end
 	if(father.accion==ataca_area)
 		father.animacion=ataca_area;
 	end
@@ -608,7 +645,7 @@ Begin
 	end
 End
 
-Function mueveme();
+Function mueveme(forma);
 Begin
 		father.y_base+=father.y_inc;
 		father.y=father.y_base+father.altura;
@@ -619,7 +656,7 @@ Begin
 	
 		if((father.x<30 and father.x_inc<0) or (father.x>ancho_nivel-30 and father.x_inc>0)) father.x_inc*=-1; end
 
-		if(father.jugador<10)
+		if(forma==encerrandome)
 			if(father.x<id_camara.x-300) father.x=id_camara.x-300; end
 			if(father.x>id_camara.x+300) father.x=id_camara.x+300; end
 		end
@@ -708,7 +745,11 @@ Begin
 		end
 		case herido_grave:
 			if(father.altura==0)
-				father.graph=73;
+				if(father.herida<5)
+					father.graph=73;
+				else
+					father.graph=151;
+				end
 			elseif(father.gravedad<=0) //sube
 				father.graph=71;
 			elseif(father.gravedad>0) //baja
@@ -783,10 +824,27 @@ Begin
 			end
 		end
 		case ataca_fuerte:
-			father.graph=14;
+			if(anim<8)
+				father.graph=141;
+			elseif(anim<12)
+				father.graph=142;
+			else
+				father.graph=143;
+			end
+			anim_max=16;
 		end
 		case muere:
-			father.graph=72;
+			if(father.altura==0)
+				if(father.herida<5)
+					father.graph=73;
+				else
+					father.graph=151;
+				end
+			elseif(father.gravedad<=0) //sube
+				father.graph=71;
+			elseif(father.gravedad>0) //baja
+				father.graph=72;
+			end
 		end
 	end
 	if(anim=>anim_max) anim=0; end
@@ -809,7 +867,7 @@ Begin
 	else
 		dist_z=z2-z1;
 	end	
-	if(rango>dist_z) 
+	if(rango>dist_z)
 		return 1; 
 	else
 		return 0;
@@ -829,18 +887,27 @@ Begin
 	alpha=0;
 	rango=20;
 	size=80;
-	if(father.accion!=herido_leve and father.accion!=herido_grave and father.accion!=ataca_area)
-		if(id_col=collision(type ataque))
+	if(father.accion!=herido_leve and father.accion!=herido_grave and father.accion!=ataca_area and father.accion!=muere)
+		if(id_col=collision(type ataque))		
 			if(id_col.jugador!=jugador)
-				if(en_rango(z,id_col.z,rango))
-					if(father.accion==defiende and ((father.flags==0 and x<id_col.x) or (father.flags==1 and x>id_col.x)))
-						//destello();
-					else
-						father.herida=id_col.herida;
-						if(id_col.flags==0)
-							father.flags=1;
+				if(!((jugador>10 and id_col.jugador>10 and id_col.jugador!=0) or (jugador<10 and id_col.jugador<10 and id_col.jugador!=0)) or fuego_amigo) //esta línea evita el fuego amigo
+					if(en_rango(z,id_col.z,id_col.rango))
+						//if(father.accion==defiende and ((father.flags==0 and x<id_col.x) or (father.flags==1 and x>id_col.x)))
+						if(father.accion==defiende and ((father.flags==0 and x<id_col.x) or (father.flags==1 and x>id_col.x)))
+							//destello();
+							if(id_col.x>x)
+								father.x_inc=-5;
+							else
+								father.x_inc=5;
+							end
 						else
-							father.flags=0;
+							father.herida=id_col.herida;
+							efecto_golpe(id_col);
+							if(id_col.flags==0)
+								father.flags=1;
+							else
+								father.flags=0;
+							end
 						end
 					end
 				end
@@ -880,7 +947,7 @@ Begin
 			end
 		end
 	else
-		if(father.accion==herido_grave and father.x_inc!=0)
+		if(father.accion==herido_grave and father.x_inc!=0 and father.y_inc!=0)
 			ataque(x,y,fpg_general,1,abs(father.x_inc),40);
 		end
 	end
@@ -914,25 +981,34 @@ End
 
 Process objeto(x,y_base,altura,graph,x_inc);
 Begin
-	y=y_base+altura+50;
+	y=y_base+altura+40;
 	z=y_base-1;
 	file=fpg_objetos;
 	x_inc=x_inc*2;
 	flags=father.flags;
 	jugador=father.jugador;
 	ctype=coordenadas;
+	while(!exists(id_camara)) frame; end
 	loop
+		//al poco de lanzarlo dejará de estar asociado al jugador y podrá dañar al mismo y a los compañeros
+		if(jugador>0)
+			j++;
+			if(j>10) jugador=0; end
+		end
+		
 		aplica_gravedad();
 		if(altura==0)
 			friccioname();
 		end
-		mueveme();
-		y+=50; //parche para alinear el objeto con el suelo
-		if(x_inc!=0)
-			ataque(x,y,file,graph,abs(x_inc),40);
+		mueveme(sin_encerrarme);
+		y+=40; //ajuste del centro del objeto
+		
+		if(x_inc!=0) //mientras se mueve, golpea
+			ataque(x,y,file,graph,abs(x_inc)*2,40);
 		end
+		
 		z--;
-		sombra();
+		sombra_objeto();
 		frame;
 	end
 End
@@ -953,14 +1029,28 @@ End
 
 Process sombra();
 Begin
-	y=father.y_base+55;
+	y=father.y_base+(father.alto/2);
 	z=father.z+10;
 	x=father.x;
 	altura=father.altura;
 	ctype=coordenadas;
 	file=fpg_general;
 	graph=3;
-	alpha=father.alpha+altura;
+	alpha=father.alpha+altura-50;
+	size=100+(altura/3);
+	frame;
+End
+
+Process sombra_objeto();
+Begin
+	y=father.y+5;
+	z=father.z+10;
+	x=father.x;
+	altura=father.altura;
+	ctype=coordenadas;
+	file=fpg_general;
+	graph=3;
+	alpha=father.alpha+altura-50;
 	size=100+(altura/3);
 	frame;
 End
@@ -969,31 +1059,43 @@ Function jugador_mas_cercano();
 Private
 	dist_x;
 	dist_x_ganador=1000;
+	hasta;
 Begin
-	from i=1 to 4;
+	if(sin_bandos) hasta=99; else hasta=4; end
+	from i=1 to hasta;
 		if(p[i].juega and i!=father.jugador)
-			if(p[i].identificador.x<father.x)
-				dist_x=father.x-p[i].identificador.x;
-			else
-				dist_x=p[i].identificador.x-father.x;
-			end
-			if(dist_x<dist_x_ganador)
-				j=i;
-				dist_x_ganador=dist_x;
+			if(p[i].identificador.accion!=muere and p[i].identificador.accion!=herido_leve and p[i].identificador.accion!=herido_grave)
+				if(p[i].identificador.x<father.x)
+					dist_x=father.x-p[i].identificador.x;
+				else
+					dist_x=p[i].identificador.x-father.x;
+				end
+				if(dist_x<dist_x_ganador)
+					j=i;
+					dist_x_ganador=dist_x;
+				end
 			end
 		end
 	end
 	
-	return j;
+	if(dist_x<ancho_pantalla)
+		return j;
+	else
+		return 0;
+	end
 End
 
 Function distancia_jugador(jugador);
 Begin
-	if(p[jugador].identificador.x<father.x)
-		return father.x-p[jugador].identificador.x;
+	if(jugador!=0)
+		if(p[jugador].identificador.x<father.x)
+			return father.x-p[jugador].identificador.x;
+		else
+			return p[jugador].identificador.x-father.x;
+		end	
 	else
-		return p[jugador].identificador.x-father.x;
-	end	
+		return 1000;
+	end
 End
 
 Function lado_jugador(jugador);
@@ -1030,112 +1132,496 @@ Begin
 			end
 		end
 	end
+	return j;
 End
 
-Process enemigo(jugador,tipo,x,y,x_trigger);
-Private
-	objetivo;
-	e; //id enemigo
-	o; //id objetivo
-	piensa;
+Process tram(pos_x);
 Begin
-	e=personaje(jugador,tipo);
-	e.x=x;
-	e.y_base=y;
 	enemigos++;
-	
-	while(!exists(id_camara)) frame; end
-	
-	switch(tipo)
-		case 1: 
-			e.file=fpg_enemigo1; 
-			p[jugador].vida=50;
+	file=fpg_general;
+	graph=10;
+	x=ancho_pantalla/2;
+	y=alto_pantalla/3;
+	from alpha=0 to 255 step 40; size+=2; frame; end
+	from alpha=255 to 0 step -40; size-=2; frame; end
+	from alpha=0 to 255 step 40; size+=2; frame; end
+	from alpha=255 to 0 step -40; size-=2; frame; end
+	from alpha=0 to 255 step 40; size+=2; frame; end
+	from alpha=255 to 0 step -40; size-=2; frame; end
+
+	ctype=coordenadas;
+	x=pos_x+ancho_pantalla;
+	y=160+(rand(0,1)*70);
+	z=-y;
+	graph=11;
+	flags=1;
+	alpha=255;
+	while(x>id_camara.x-ancho_pantalla)
+		x-=20;
+		ataque(x,y+65,file,graph,30,38);
+		if(anim==2) 
+			anim=0;
+			if(graph==11) graph=12; else graph=11; end
+		else
+			anim++;
 		end
-		case 2: 
-			e.file=fpg_enemigo2; 
-			p[jugador].vida=80;
+		frame;
+	end
+	enemigos--;
+End
+
+Process avioncete(pos_x);
+Begin
+	enemigos++;
+	file=fpg_general;
+	graph=10;
+	x=ancho_pantalla/2;
+	y=alto_pantalla/3;
+	from alpha=0 to 255 step 40; size+=2; frame; end
+	from alpha=255 to 0 step -40; size-=2; frame; end
+	from alpha=0 to 255 step 40; size+=2; frame; end
+	from alpha=255 to 0 step -40; size-=2; frame; end
+	from alpha=0 to 255 step 40; size+=2; frame; end
+	from alpha=255 to 0 step -40; size-=2; frame; end
+
+	ctype=coordenadas;
+	x=pos_x+ancho_pantalla;
+	y=160+(rand(0,1)*70);
+	z=-y;
+	graph=13;
+	flags=1;
+	alpha=255;
+	while(x>id_camara.x-ancho_pantalla)
+		x-=20;
+		y--;
+		ataque(x,y+65,file,graph,30,38);
+		if(x<id_camara.x)
+			graph=14;
+			y-=3;
 		end
-		case 3: 
-			e.file=fpg_enemigo3; 
-			p[jugador].vida=100;
+		frame;
+	end
+	enemigos--;
+End
+
+Function salir();
+Begin
+	guarda_opciones();
+	full_screen=0;
+	set_mode(320,240,32);
+	exit();
+End
+
+Process pon_musica(i);
+Begin
+	if(ops.musica)
+		if(i!=anterior_cancion)
+			fade_music_off(400);
+			timer[1]=0;
+			while(timer[1]<40) frame; end
+			anterior_cancion=i;
+			play_song(load_song(i+".ogg"),-1);
 		end
-		case 4: 
-			e.file=fpg_enemigo4; 
-			p[jugador].vida=120;
-		end
+	else
+		anterior_cancion=0;
+	end
+End
+
+Function sonido(i,veces);
+Begin
+	if(ops.sonido)
+		return play_wav(wavs[i],veces);
+	end
+	return 0;
+End
+
+Process marcador(jugador);
+Private
+	txt_marcador;
+Begin
+	file=fpg_general;
+	if(ops.truco_pato==1 and jugador==1)
+		graph=28;
+	else
+		graph=20+jugador;
 	end
 	
-	while(!estoy_en_pantalla())	frame(2000); end
-	while(id_camara.x<x_trigger) frame(2000); end
+	x=90+((jugador-1)*150);
+	y=30;
+	z=-10;
+	txt_marcador=write_int(fnt_menu,x-70,y,4,&p[jugador].vidas);
+	while(p[jugador].juega)
+		vida(x-29,y+2,p[jugador].vida-1,25);
+		frame;
+	end
+	delete_text(txt_marcador);
+	from alpha=255 to 0 step -25; y-=2; frame; end
+End
+
+Process marcador_jefe();
+Private
+	max_vida;
+Begin
+	max_vida=p[100].vida;
+	file=fpg_general;
+	graph=26;
+	x=160;
+	y=340;
+	z=-10;
+	while(p[100].vida>0)
+		i=(p[100].vida*100)/max_vida;
+		vida(x,y,i,27);
+		frame;
+	end
+	from alpha=255 to 0 step -25; y-=2; frame; end
+End
+
+Process vida(x,y,size_x,graph);
+Begin
+	file=fpg_general;
+	z=-11;
+	frame;
+End
+
+Process efecto_golpe(id_col);
+Begin
+	x=id_col.x;
+	y=id_col.y;
+	z=-512;
+	ctype=coordenadas;
+	file=fpg_general;
+	graph=rand(4,7);
+	efecto_golpe2();
+	angle=rand(0,3)*90000;
+	from alpha=255 to 0 step -30; size+=6; frame; end
+End
+
+Process efecto_golpe2();
+Begin
+	x=father.x;
+	y=father.y;
+	z=-513;
+	ctype=coordenadas;
+	file=fpg_general;
+	graph=father.graph;
+	while(graph==father.graph)
+		graph=rand(4,7);
+	end
+	size=40;
+	angle=rand(0,3)*90000;
+	from alpha=255 to 0 step -30; size+=6; frame; end
+End
+
+Process supervivencia();
+Begin
+	fpg_nivel=load_fpg("nivel_survival1.fpg");
+	from i=1 to jugadores; p[i].vidas=0; end
+
+	timer[0]=0;
+	pon_tiempo();
+	from i=1 to jugadores; p[i].vidas=0; end
 	
 	loop
-		x=e.x;
-		y=e.y;
-		accion=e.accion;
-		from i=0 to 7; p[jugador].botones[i]=0;	end
-		if(objetivo==0)
-			objetivo=jugador_mas_cercano();
-			//objetivo=1;
-		else
-			o=p[objetivo].identificador;
-			if(e.accion==quieto or e.accion==camina)
-				if(o.herida==0)
-					if(distancia_jugador(objetivo)>60 or !en_rango(o.z,e.z,50))
-						if(o.x_inc!=0 and distancia_jugador(objetivo)<150) //objetivo en movimiento
-							//IA patrocinada por los fantasmas del Super Mario World
-							if(lado_jugador(objetivo)) //a la izquierda
-								if(o.flags==1) //se aleja o está lejos, vamos a por él!
-									p[jugador].botones[b_izquierda]=1;
-								else //viene a por nosotros, HUYAMOS!!
-									p[jugador].botones[b_derecha]=1;
-								end
-							else //a la derecha
-								if(o.flags==0) //se aleja, vamos a por él!
-									p[jugador].botones[b_derecha]=1;
-								else //viene a por nosotros, HUYAMOS!!
-									p[jugador].botones[b_izquierda]=1;
-								end							
-							end
-						else //objetivo quieto
-							if(lado_jugador(objetivo)) //a la izquierda
-								p[jugador].botones[b_izquierda]=1;
-							else //a la derecha
-								p[jugador].botones[b_derecha]=1;
-							end						
-						end
-						
-						if(!en_rango(o.z,e.z,20) and distancia_jugador(objetivo)<200)
-							if(e.z<o.z)
-								p[jugador].botones[b_arriba]=1;
-							else
-								p[jugador].botones[b_abajo]=1;
-							end
-						end
-					else //tenemos al objetivo lo suficientemente cerca como para atacar
-						if(rand(1,100)==1)
-							p[jugador].botones[b_1]=1; 
-						end
+		if(jugadores>0)
+			if(enemigos<(timer[0]/1000/jugadores)+1)
+				i=10;
+				loop
+					i++;
+					if((p[i].vida<1 and p[i].juega==0) or i>99)
+						break;
 					end
-				else	//objetivo herido: nos separamos
-					/*if(lado_jugador(objetivo)) //a la izquierda
-						p[jugador].botones[b_derecha]=1;
-					else //a la derecha
-						p[jugador].botones[b_izquierda]=1;
-					end*/
 				end
-			end
-			if(e.accion==quieto or e.accion==camina)
-				e.flags=lado_jugador(objetivo); //a la izquierda
-			end
-			if(e.herida!=0) objetivo=0; end
-			if(e.accion==muere)
-				frame(3000);
-				from i=255 to 0 step -15; e.alpha=i; frame; end
-				enemigos--;
-				signal(e,s_kill);
-				return;
+				if(i!=100)
+					if(rand(0,1))
+						enemigo(i,rand(1,4),-100,rand(100,300),0,0);
+					else
+						enemigo(i,rand(1,4),ancho_pantalla+100,rand(100,300),0,0);
+					end
+				end
 			end
 		end
 		frame;
-	end	
+	end
+End
+
+Process pon_tiempo();
+Private
+	decimas;
+	segundos;
+	minutos;
+	txt_tiempo;
+	string string_tiempo;
+	tiempo;
+	tiempo_antes;
+Begin
+	x=320;
+	y=330;
+	loop
+		if(jugadores==0) return; end
+		tiempo=timer[0];
+		decimas=tiempo; while(decimas=>100) decimas-=100; end
+		segundos=tiempo/100; while(segundos=>60) segundos-=60; end
+		minutos=tiempo/6000;
+	
+		if(decimas<10 and segundos<10) string_tiempo=itoa(minutos)+":0"+itoa(segundos)+":0"+itoa(decimas); end
+		if(decimas>9 and segundos<10) string_tiempo=itoa(minutos)+":0"+itoa(segundos)+":"+itoa(decimas); end
+		if(decimas<10 and segundos>9) string_tiempo=itoa(minutos)+":"+itoa(segundos)+":0"+itoa(decimas); end
+		if(decimas>9 and segundos>9) string_tiempo=itoa(minutos)+":"+itoa(segundos)+":"+itoa(decimas); end
+		txt_tiempo=write(fnt_tiempo,x,y,4,string_tiempo);
+		frame;
+		if(jugadores>0)
+			if(ganando)
+				tiempo_antes=timer[0];
+				while(ganando) frame; end
+				timer[0]=tiempo_antes;
+			end
+
+			delete_text(txt_tiempo);
+		end
+	end
+End
+
+Function averigua_jugadores();
+Begin
+	from i=1 to posibles_jugadores;
+		if(p[i].juega) j++; end
+	end
+	jugadores=j;
+	return j;
+End
+
+Function reinicio_variables();
+Begin
+	clear_screen();
+	stop_scroll(0);
+	enemigos_matados=0;
+	id_camara=0;
+	en_emboscada=0;
+	nivel=1;
+	anterior_emboscada=0;
+	sin_bandos=0;
+	fuego_amigo=0;
+	ganando=0;
+	from i=1 to 10;
+		p[i].vidas=5;
+	end
+	from i=0 to 100;
+		p[i].juega=0;
+		p[i].vida=0;
+		p[i].identificador=0;
+	end
+	delete_text(all_text);
+End
+
+Process final_del_juego();
+Begin
+	if(ops.truco_pato<1) 
+		cutscene_final();
+	else
+		creditos();
+	end
+End
+
+Process creditos();
+Private
+	id_siguiente_imagen;
+Begin
+	fade_off();
+	while(fading) frame; end
+	let_me_alone();
+	delete_text(all_text);
+	stop_scroll(0);
+	pon_musica(15);
+	tv();
+	fade_on();
+	while(fading) frame; end
+	x=ancho_pantalla/2;
+	y=alto_pantalla/2;
+	z=1;
+	file=fpg_cutscenes;
+	from i=34 to 40;
+		id_siguiente_imagen=siguiente_imagen(i);
+		while(id_siguiente_imagen.alpha<255) frame; end
+		graph=i;
+		id_siguiente_imagen.accion=-1;
+		timer[0]=0;
+		while(timer[0]<500) frame; end		
+		frame;
+	end
+	//desbloqueamos el modo matajefes si no está desbloqueado
+	if(ops.truco_matajefes==0)
+		ops.truco_matajefes=1; //modo matajefes disponible
+		guarda_opciones();
+		truco_descubierto("Modo matajefes disponible!");
+		while(exists(type truco_descubierto)) frame; end
+ 	end
+
+	fade_off();
+	while(fading) frame; end
+	menu(-1);
+	return;
+End
+
+Process siguiente_imagen(graph);
+Begin
+	file=fpg_cutscenes;
+	x=ancho_pantalla/2;
+	y=alto_pantalla/2;
+	z=-1;
+	from alpha=0 to 255 step 5; frame; end
+	while(accion==0) frame; end
+End
+
+Process tv();
+Begin
+	graph=33;
+	file=fpg_cutscenes;
+	x=ancho_pantalla/2;
+	y=alto_pantalla/2;
+	z=-2;
+	while(exists(father)) frame; end
+End
+
+Process matajefes();
+Private
+	id_jefe;
+Begin
+	fpg_nivel=load_fpg("nivel_matajefes1.fpg");
+	timer[0]=0;
+	pon_tiempo();
+	from i=1 to jugadores; p[i].vidas=0; end
+	pon_musica(12);
+	
+	while(timer[0]<300) frame; end
+	id_jefe=jefe1(ancho_pantalla/2);
+	while(!ganando) frame; end
+	from alpha=255 to 0 step -15; id_jefe.alpha=alpha; frame; end
+	signal(id_jefe,s_kill);
+	ganando=0;
+	timer[2]=0;
+	while(timer[2]<300) frame; end
+
+	/*
+	id_jefe=jefe2(id_camara.x);
+	while(!ganando) frame; end
+	from alpha=255 to 0 step -15; id_jefe.alpha=alpha; frame; end
+	timer[2]=0;
+	while(timer[2]<300) frame; end
+
+	id_jefe=jefe3(id_camara.x);
+	while(!ganando) frame; end
+	from alpha=255 to 0 step -15; id_jefe.alpha=alpha; frame; end
+	timer[2]=0;
+	while(timer[2]<300) frame; end
+
+	*/
+
+	id_jefe=jefe4(ancho_pantalla/2);
+	while(!ganando) frame; end
+	from alpha=255 to 0 step -15; id_jefe.alpha=alpha; frame; end
+	timer[2]=0;
+	while(timer[2]<300) frame; end
+
+	/*
+	id_jefe=jefe5(id_camara.x);
+	while(!ganando) frame; end
+	from alpha=255 to 0 step -15; id_jefe.alpha=alpha; frame; end
+	timer[2]=0;
+	while(timer[2]<300) frame; end
+
+	*/
+	
+	ganando=0;
+	enemigos=0;
+	enemigo(11,5,-100,150,0,1);
+	if(jugadores>1) enemigo(12,5,ancho_pantalla+100,350,0,1); end
+	if(jugadores>2) enemigo(13,5,-100,150,0,1); end
+	if(jugadores>3) enemigo(14,5,ancho_pantalla+100,350,0,1); end
+	
+	while(enemigos>0) frame; end
+	
+	truco_descubierto("Modo matajefes superado!");
+	ganando=1;
+	timer[2]=0;
+	while(timer[2]<500) frame; end
+	
+	if(ops.truco_pato<0)
+		ops.truco_pato=0; //modo matajefes disponible
+		guarda_opciones();
+		truco_descubierto("Personaje Pato desbloqueado!");
+		while(exists(type truco_descubierto)) frame; end
+	end
+	menu(-1);
+End
+
+Process battleroyale();
+Begin
+	fpg_nivel=load_fpg("nivel_battleroyale1.fpg");
+	from i=1 to jugadores; p[i].vidas=0; end
+	fuego_amigo=1;
+End
+
+Process muestra_nivel();
+Begin
+	graph=write_in_map(fnt_menu,"Nivel "+nivel,4);
+	x=ancho_pantalla/2;
+	y=(alto_pantalla/2)-34;
+	z=-512;
+	from alpha=0 to 255 step 15; y++; frame; end
+	muestra_nombre_nivel();
+	frame(7000);
+	from alpha=255 to 0 step -24; y+=2; frame; end
+	unload_map(0,graph);
+End
+
+Process muestra_nombre_nivel();
+Begin
+	switch(nivel)
+		case 1: graph=write_in_map(fnt_menu,"Centro",4); end
+		case 4: graph=write_in_map(fnt_menu,"Aeropuerto",4); end
+	end
+	x=ancho_pantalla/2;
+	y=father.y+20;
+	z=-512;
+	from alpha=0 to 255 step 15; y++; frame; end
+	frame(5000);
+	from alpha=255 to 0 step -24; y+=2; frame; end
+	unload_map(0,graph);
+End
+
+Process nivel_superado();
+Begin
+	graph=write_in_map(fnt_menu,"Nivel "+nivel+" superado",4);
+	x=ancho_pantalla/2;
+	y=(alto_pantalla/3)-34;
+	z=-512;
+	from alpha=0 to 255 step 15; y++; frame; end
+	frame(15000);
+	from alpha=255 to 0 step -24; y+=2; frame; end
+	unload_map(0,graph);
+End
+
+Process gogogo();
+Begin
+	file=fpg_general;
+	graph=8;
+	y=60;
+	z=-512;
+	from i=1 to 3;
+		x=500;
+		from alpha=0 to 255 step 30; x+=5; frame; end
+		from alpha=255 to 0 step -30; x+=5; frame; end
+	end
+End
+
+Process truco_descubierto(string texto);
+Begin
+	graph=write_in_map(fnt_menu,texto,4);
+	x=ancho_pantalla/2;
+	y=(alto_pantalla/2)-34;
+	z=-512;
+	from alpha=0 to 255 step 15; y++; frame; end
+	frame(15000);
+	from alpha=255 to 0 step -24; y+=2; frame; end
+	unload_map(0,graph);
 End
