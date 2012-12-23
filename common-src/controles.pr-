@@ -36,7 +36,7 @@ Private
 	axis_y;
 Begin
 	priority=10;
-//	if(os_id==1003 and jugador==1 and p[1].control==0)
+	if(os_id==1003 and jugador==1 and p[1].control==0)
 		if(graph_dedo<1)
 			graph_dedo=new_map(gamepad_boton_size*2/3,gamepad_boton_size*2/3,8);
 			drawing_color(80);
@@ -52,7 +52,7 @@ Begin
 		if(!exists(id_gamepad))
 			id_gamepad=gamepad_virtual();
 		end
-//	End
+	End
 	
 	Loop
 		if(!exists(father)) return; end
