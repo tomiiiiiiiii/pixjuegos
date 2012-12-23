@@ -1,0 +1,480 @@
+Process personaje(jugador,tipo);
+Private
+	pulsando_salto;
+	pulsando_ataque1;
+	hacia_que_lado;
+	inercia_max_x;
+	inercia_max_y;
+	fuerza_ataque;
+	invencibilidad;
+	pulsando_abajo;
+Begin
+	ctype=coordenadas;
+	p[jugador].juega=1;
+	p[jugador].identificador=id;
+	
+	if(tipo==0)
+		switch(modo_juego)
+			case modo_historia:
+				x=50+50*jugador;
+			end
+			case modo_supervivencia:
+				x=ancho_pantalla/2;
+			end
+			case modo_battleroyale:
+				if(jugador<3)
+					x=50;
+				else
+					x=ancho_pantalla-50;
+				end
+				if(jugador==1 or jugador==3)
+					y_base=135;
+				else
+					y_base=305;
+				end
+			end
+		end
+		y_base=130+40*jugador;
+		controlador(jugador);
+		switch(jugador)
+			case 1: 
+				if(ops.truco_pato==1)
+					p[1].vidas=1;
+					file=fpg_pato;
+				else
+					file=fpg_ripolles1;
+				end
+			end
+			case 2: file=fpg_ripolles2; end
+			case 3: file=fpg_ripolles3; end
+			case 4: file=fpg_ripolles4; end
+		end
+		p[jugador].vida=100;
+		inercia_max_x=6;
+		inercia_max_y=3;
+		fuerza_ataque=10;
+		altura=-300;
+		marcador(jugador);
+		if(jugador==1 and ops.truco_pato==1)
+			inercia_max_x=9;
+			inercia_max_y=6;
+			fuerza_ataque=40;
+		end
+	else
+		enemigos++;
+		x=rand(0,640);
+		y_base=rand(100,360);
+		switch(tipo)
+			case 1:
+				inercia_max_x=3;
+				inercia_max_y=1;
+				fuerza_ataque=10;
+				file=fpg_enemigo1; 
+				p[jugador].vida=(50*jugadores)/1.2;
+			end
+			case 2:
+				inercia_max_x=4;
+				inercia_max_y=2;
+				fuerza_ataque=15;
+				file=fpg_enemigo2; 
+				p[jugador].vida=(80*jugadores)/1.2;
+			end
+			case 3:
+				inercia_max_x=2;
+				inercia_max_y=2;
+				fuerza_ataque=20;
+				file=fpg_enemigo3; 
+				p[jugador].vida=(100*jugadores)/1.2;
+			end
+			case 4:
+				inercia_max_x=5;
+				inercia_max_y=3;
+				fuerza_ataque=25;
+				file=fpg_enemigo4; 
+				p[jugador].vida=(120*jugadores)/1.2;
+			end
+			case 5: //EVIL RIPOLLES
+				inercia_max_x=7;
+				inercia_max_y=4;
+				fuerza_ataque=20;
+				file=fpg_enemigo5;
+				p[jugador].vida=300;
+			end
+		end
+	end
+	accion=quieto;
+	alto=graphic_info(file,1,G_HEIGHT);
+	frame;
+	
+	loop
+		if(p[jugador].vida<1 or (tipo>0 and ganando))
+			p[jugador].vida=0;
+			if(accion!=muere)
+				gravedad=-20; 
+				//x_inc; 
+			end
+			accion=muere; herida+=100; 
+		end
+		if(tipo==0 and lleva_objeto!=0 and accion==quieto)
+			if(lleva_objeto==1 or lleva_objeto==4) //coca o rollo
+				if(lleva_objeto==4)
+					p[jugador].vida=100;
+				else
+					p[jugador].vida+=50;
+					if(p[jugador].vida>100) p[jugador].vida=100; end
+				end
+				lleva_objeto=0;
+			end
+			if(lleva_objeto==5) //casco de Jaume I
+				invencibilidad=900;
+				p[jugador].vida=100;
+				lleva_objeto=0;
+			end
+		end
+		//if(modo_juego==modo_battleroyale and jugadores==1) //ganador
+		if(ganando and tipo==0)
+			graph=161;
+			accion=quieto;
+			while(ganando==1)
+				if(altura==0 and gravedad==0)
+					if(rand(0,20)==0) 
+						gravedad=-10; 
+						frame; 
+					end
+				elseif(altura>1)
+					altura=0;
+					gravedad=0;
+					y=y_base;
+				else
+					y+=gravedad;
+					altura+=gravedad;
+					gravedad++;
+				end
+				frame; 
+			end
+		end
+		if(flags==0)
+			hacia_que_lado=1;
+		else
+			hacia_que_lado=-1;
+		end
+
+		if(invencibilidad>0)
+			alpha=128;
+			invencibilidad--;
+			herida=0;
+		else
+			alpha=255;
+		end
+		
+		if(herida==0 and (accion==herido_leve or accion==herido_grave))
+			accion=quieto;
+		end
+		
+		if(accion==defiende and !p[jugador].botones[b_3])
+			accion=quieto;
+			x_inc=0;
+			y_inc=0;
+		end
+		
+		if(p[jugador].botones[b_abajo])
+			pulsando_abajo++;
+		else
+			pulsando_abajo=0;
+		end
+		if(tipo>0 and tipo<5) //evitamos que los enemigos puedan hacer un "ataque fuerte", salvo evil ripo
+			pulsando_abajo=5;
+		end
+		
+		if(herida==0)
+			if(altura==0) //EN EL SUELO
+				if((accion==quieto or accion==camina))
+					//ataque suelo o lanzar objeto
+					if(p[jugador].botones[b_1] and pulsando_ataque1==0)
+						pulsando_ataque1=1;
+						if(lleva_objeto==0)
+							if(p[jugador].botones[b_3] and p[jugador].vida>30)
+								accion=ataca_area;
+								sonido(3,3);
+								if(invencibilidad==0)
+									p[jugador].vida-=20;
+								end
+							else
+								if(accion==quieto and x_inc==0 and (id_col=collision(type objeto)))
+									//si el objeto está en el suelo y no somos un enemigo cogiendo vida o powerup...
+									if(id_col.y>y+35 and !(tipo>0 and (id_col.graph==1 or id_col.graph==4 or id_col.graph==5))) 
+										lleva_objeto=id_col.graph;
+										accion=coge_objeto;
+										signal(id_col,s_kill);
+									else
+										sonido(3,0);
+										accion=ataca_suelo;
+									end
+								else
+									sonido(3,0);
+									if(p[jugador].botones[b_abajo] and pulsando_abajo<3)
+										accion=ataca_fuerte;
+									else
+										accion=ataca_suelo;
+									end
+								end
+							end
+						else
+							sonido(3,0);
+							accion=lanza_objeto;
+						end
+					end
+
+					//movimiento
+					if(p[jugador].botones[b_arriba] xor p[jugador].botones[b_abajo])
+						if(p[jugador].botones[b_arriba])
+							y_inc-=3;
+						else //abajo
+							y_inc+=3;
+						end
+					end
+					if(p[jugador].botones[b_izquierda] xor p[jugador].botones[b_derecha])
+						if(p[jugador].botones[b_izquierda])
+							x_inc-=3;
+							flags=1;
+						else //derecha
+							x_inc+=3;
+							flags=0;
+						end
+					end
+					
+					//defenderse
+					if(p[jugador].botones[b_3] and !p[jugador].botones[b_1])
+						accion=defiende;
+						if(lleva_objeto)
+							objeto(x,y_base,altura-100,lleva_objeto,0);
+							lleva_objeto=0;
+						end
+					end
+				end
+														
+				//salto
+				if(p[jugador].botones[b_2] and (accion==quieto or accion==camina))
+					if(pulsando_salto==0)
+						pulsando_salto=1;
+						gravedad=-24;
+						altura=1;
+					end
+				else
+					pulsando_salto=0;
+				end
+
+				//reducción de inercias
+				friccioname();
+				
+			else //EN EL AIRE (SALTO)
+				//ataque aereo
+				if(p[jugador].botones[b_1]) 
+					if(pulsando_ataque1==0)
+						pulsando_ataque1=1;
+						if(lleva_objeto==0)
+							accion=ataca_aire;
+							sonido(3,0);
+						else
+							accion=lanza_objeto;
+							sonido(3,0);
+						end
+					end
+				end
+
+				if(accion!=ataca_aire)
+					if(p[jugador].botones[b_arriba] xor p[jugador].botones[b_abajo])
+						if(p[jugador].botones[b_arriba])
+							y_inc-=1;
+						else //izquierda
+							y_inc+=1;
+						end
+					end
+					if(p[jugador].botones[b_izquierda] xor p[jugador].botones[b_derecha])
+						if(p[jugador].botones[b_izquierda])
+							x_inc-=1;
+							flags=1;
+						else //derecha
+							x_inc+=1;
+							flags=0;
+						end
+					end
+				end
+
+				gravedad+=2;
+				altura+=gravedad;
+				if(altura>1)
+					altura=0;
+					gravedad=0;
+					accion=quieto;
+				else
+					y+=gravedad;
+				end
+			end
+			//no herido, común de suelo y aire
+			if(accion!=herido_leve and accion!=herido_grave and accion!=muere)
+				inercia_maxima(inercia_max_x,inercia_max_y); 
+			end
+		else //está siendo herido
+			if(accion!=herido_leve and accion!=herido_grave and accion!=muere) //escisión!
+				if(lleva_objeto)
+					objeto(x,y_base,altura-100,lleva_objeto,0);
+					lleva_objeto=0;
+				end
+				p[jugador].vida-=herida;
+				if(herida<20 and altura==0)
+					sonido(1,0);
+					accion=herido_leve;
+					herida=15; //más retraso
+					if(flags==1)
+						x_inc=herida*0.8;
+					else
+						x_inc=-herida*0.8;
+					end
+				else
+					sonido(2,0);
+					accion=herido_grave;
+					if(herida>15)
+						gravedad=-herida;
+					else
+						gravedad=-15;
+					end
+					if(flags==1)
+						x_inc=herida/4;
+					else
+						x_inc=-herida/4;
+					end
+					altura=-1;
+				end
+
+			else
+				if(altura==0)
+					herida--;
+				end
+			end
+
+			altura+=gravedad;
+			if(altura>1)
+				altura=0;
+				gravedad=0;
+				graph=73;
+				sonido(4,0);
+			elseif(altura<0)
+				y+=gravedad;
+				gravedad+=2;
+			else
+				friccioname();
+			end
+		end
+		
+		if(!p[jugador].botones[b_1]) pulsando_ataque1=0; end
+		
+		if(herida==0 and altura==0)
+			if(accion==quieto and (x_inc!=0 or y_inc!=0))
+				accion=camina;
+			elseif(accion==camina and x_inc==0 and y_inc==0)
+				accion=quieto;
+			end
+		end
+		
+		//pon animacion correspondiente a mi acción
+		pon_animacion();
+		
+		//gestiones comunes de los personajes en juego
+		if(jugador<10)
+			mueveme(encerrandome);
+		else
+			mueveme(sin_encerrarme);
+		end
+		animame();
+		cuerpo();
+		sombra();
+		
+		//gestion del objeto portado o siendo cogido
+		if(lleva_objeto!=0 or accion==lanza_objeto)
+			if(accion==lanza_objeto)
+				if(anim<4)
+					objeto_portado(x+(-30*hacia_que_lado),y-25,lleva_objeto);
+				else
+					if(anim==4)
+						objeto(x,y_base,altura-100,lleva_objeto,x_inc+(10*hacia_que_lado));
+						lleva_objeto=0;
+					end
+				end
+				if(anim==7)
+					accion=quieto; 
+				end
+			elseif(accion==coge_objeto)
+				if(anim<4)
+					objeto_portado(x+(-20*hacia_que_lado),y+35,lleva_objeto);
+				else
+					if(anim==7)
+						accion=quieto;
+					end
+				end
+			else
+				objeto_portado(x,y-34,lleva_objeto);
+			end
+		end		
+		
+		//gestión de los ataques (puntos de colisión de los ataques
+		if(accion==ataca_suelo)
+			if(anim<4)
+				ataque(x+(15*hacia_que_lado),y-15,fpg_general,1,fuerza_ataque,20);
+			else
+				ataque(x+(45*hacia_que_lado),y-15,fpg_general,1,fuerza_ataque*1.5,20);
+			end
+			if(anim==7)
+				accion=quieto; 
+			end
+		end
+		if(accion==ataca_fuerte)
+			if(graph==142 or graph==143)
+				ataque(x+(40*hacia_que_lado),y,fpg_general,3,fuerza_ataque*2.5,20);
+			end
+			if(anim==15)
+				accion=quieto; 
+			end
+		end
+		if(accion==ataca_aire)
+			ataque(x+(40*hacia_que_lado),y,fpg_general,1,fuerza_ataque*2,15);
+		end
+		if(accion==ataca_area)
+			ataque(x,y,file,graph,fuerza_ataque*2.5,20);
+			if(anim==23)
+				accion=quieto;
+			end
+		end
+		if(accion==muere)
+			if(herida>3000)
+				from alpha=255 to 0 step -15; frame; end
+				if(jugador>10) enemigos--; end
+				
+				if(p[jugador].vidas>0 and jugador<10)
+					frame(2000);
+					renacimiento=1;
+					p[jugador].vidas--;
+					alpha=255;
+					x_inc=0;
+					y_inc=0;
+					herida=0;
+					accion=0;
+					x=id_camara.x;
+					y_base=130+40*jugador;
+					y=-500;
+					altura=-300;
+					p[jugador].vida=100;
+					frame;
+					renacimiento=0;
+				else
+					enemigos_matados++;
+					p[jugador].juega=0;
+					frame;
+					return;
+				end
+			end
+		end
+		if(tipo==5) estela(); end
+		frame;
+	end
+End

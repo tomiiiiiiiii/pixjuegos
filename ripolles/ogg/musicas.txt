@@ -1,0 +1,7 @@
+1 - 2º nivel
+2 - menu
+11 - 1er nivel
+12 - jefes
+13 - historia (prologo)
+14 - historia (final del juego)
+15 - créditos (tras el final del juego)

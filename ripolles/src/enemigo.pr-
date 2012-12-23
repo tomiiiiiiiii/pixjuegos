@@ -1,0 +1,135 @@
+Process enemigo(jugador,tipo,x,y,x_trigger,flags);
+Private
+	objetivo;
+	e; //id enemigo
+	o; //id objetivo
+	piensa;
+	se_defiende;
+	ataca_en_aire;
+	sabe_saltar;
+Begin
+	from i=0 to 7; p[jugador].botones[i]=0;	end
+	e=personaje(jugador,tipo);
+	e.x=x;
+	e.y_base=y;
+	e.flags=flags;
+	
+	while(!exists(id_camara)) frame; end
+	from alpha=0 to 255 step 25; frame; end
+	
+	loop
+		if(personaje_mas_avanzado()!=0)
+			if(p[personaje_mas_avanzado()].identificador.x>x_trigger)
+				break;
+			end
+		end
+		if(e.herida!=0) break; end
+		if(e.x_inc!=0 or e.y_inc!=0) break; end
+		if(modo_juego!=modo_historia) break; end
+		frame; 
+	end
+	
+	if(tipo==5) from alpha=0 to 255 step 4; frame; end end
+	
+	if(tipo==2 or tipo==5) se_defiende=1; end
+	if(tipo==4 or tipo==5) sabe_saltar=1; end
+	loop
+		if(mata_enemigos and tipo>0)
+			p[jugador].vida=0;
+		end
+
+		x=e.x;
+		y=e.y;
+		accion=e.accion;
+		from i=0 to 7; p[jugador].botones[i]=0;	end
+
+		
+		//recolocamos al enemigo si está muy alejado
+		if(x<id_camara.x-((ancho_pantalla/2)+150))
+			x=e.x=id_camara.x-((ancho_pantalla/2)+150);
+		elseif(x>id_camara.x+((ancho_pantalla/2)+150))
+			x=e.x=id_camara.x+((ancho_pantalla/2)+150);
+		end
+			
+		objetivo=jugador_mas_cercano();
+		
+		if(renacimiento)
+			e.herida=20;
+		end
+		if(objetivo>0)
+			if(p[objetivo].juega)
+				o=p[objetivo].identificador;
+				if(e.accion==quieto or e.accion==camina or e.accion==defiende) //si el enemigo puede actuar
+					if(o.herida==0) //si el prota está herido, el enemigo se queda quieto
+						if(sabe_saltar and rand(1,100)) //podemos saltar, igual saltamos
+							p[jugador].botones[b_2]=1;
+						end
+						if(o.accion==ataca_aire and se_defiende) //si el prota está atacando en el aire, nos intentaremos proteger
+							p[jugador].botones[b_3]=1;
+						else //si no nos protegemos
+							if(distancia_jugador(objetivo)>60 or !en_rango(o.z,e.z,20)) //si no lo tenemos lo suficientemente cerca como para atacar
+								if(distancia_jugador(objetivo)>150) //si está bastante lejos vamos a por él
+									if(lado_jugador(objetivo)) //prota a la izquierda
+										p[jugador].botones[b_izquierda]=1;
+									else
+										p[jugador].botones[b_derecha]=1;
+									end
+								else //si está bastante cerca, puede que no queramos ir directamente hacia él
+									if(o.x_inc!=0) //prota en movimiento
+										//IA patrocinada por los fantasmas del Super Mario World
+										//si vienen a por nosotros, huímos, sino, atacamos
+										if(lado_jugador(objetivo)) //prota a la izquierda
+											if(o.flags==1) //se aleja, a por él!
+												p[jugador].botones[b_izquierda]=1;
+											else //viene a por nosotros, HUYAMOS!!
+												p[jugador].botones[b_derecha]=1;
+											end
+										else //a la derecha
+											if(o.flags==0) //se aleja, vamos a por él!
+												p[jugador].botones[b_derecha]=1;
+											else //viene a por nosotros, HUYAMOS!!
+												p[jugador].botones[b_izquierda]=1;
+											end							
+										end
+									else //objetivo quieto
+										if(lado_jugador(objetivo)) //a la izquierda
+											p[jugador].botones[b_izquierda]=1;
+											if(sabe_saltar and rand(1,100))
+												p[jugador].botones[b_2]=1;
+											end
+										else //a la derecha
+											p[jugador].botones[b_derecha]=1;
+											if(sabe_saltar and rand(1,100))
+												p[jugador].botones[b_2]=1;
+											end
+										end
+									end
+								end
+								//si no está en rango y estamos relativamente cerca, nos acercamos
+								if(!en_rango(o.z,e.z,20) and distancia_jugador(objetivo)<100)
+									if(e.z<o.z)
+										p[jugador].botones[b_arriba]=1;
+									else
+										p[jugador].botones[b_abajo]=1;
+									end
+								end
+								
+							else //tenemos al objetivo lo suficientemente cerca como para atacar
+								if(rand(1,30)==1)
+									p[jugador].botones[b_1]=1; //ataque
+								end
+							end
+						end
+					end
+				end
+				if(e.accion==quieto or e.accion==camina) //siempre intentaremos que el enemigo mire hacia el jugador
+					e.flags=lado_jugador(objetivo);
+				end
+			end
+		end
+		if(e.accion==muere)
+			return;
+		end
+		frame;
+	end	
+End

@@ -1,0 +1,195 @@
+	stop_scroll(0);
+	let_me_alone();
+	pon_musica(13);
+	while(fading) frame; end
+	//frame(10000);
+	fade_on();
+	while(fading) frame; end
+	
+	//size=180;
+	file=fpg_cutscenes;
+
+	cambia_fps();
+	
+	//viñeta 1: se levanta de la cama y sale de la habitación
+	put_screen(fpg_cutscenes,1);
+	id_por_delante=por_delante(0);
+	
+	//falta animación de levantarse?
+	flags=1;
+	y=140;
+	x=417;
+	from graph=51 to 67; 
+		if(graph>66) y+=20; end
+		frame(800); 
+	end
+	graph=68;
+	//y=180;
+	frame(3000);
+	flags=0;
+	graph=69;
+	sonido(3,2);
+	frame(3000);
+	flags=1;
+	graph=70;
+	frame(3000);
+	
+	//levantado
+	graph=11;
+	//y=279;
+	from x=417 to 160 step -4;
+		if(anim<4)
+			anim++;
+		else
+			anim=0;
+			graph++;
+			if(graph==16) graph=11; end
+		end
+		if(x<280) y-=2; end
+		frame; 
+	end
+	
+/*	//entra en el pasillo y va al baño a mear
+	put_screen(fpg_cutscenes,18);
+	from x=650 to 500 step -3;
+		if(anim<4)
+			anim++;
+		else
+			anim=0;
+			graph++;
+			if(graph==16) graph=11; end
+		end
+		y--;
+		frame; 
+	end
+	fade_off();
+	//sonido pis
+	while(fading) frame; end
+	id_sonido=sonido(21,0);
+	while(is_playing_wav(id_sonido) and !key(_space)) frame; end
+	fade_on();
+	while(fading) frame; end
+	
+	//sale del baño y va a la cocina
+	from x=500 to 400 step -3;
+		if(anim<4)
+			anim++;
+		else
+			anim=0;
+			graph++;
+			if(graph==16) graph=11; end
+		end
+		y+=2;
+		frame;
+	end
+	from x=400 to 300 step -3;
+		if(anim<4)
+			anim++;
+		else
+			anim=0;
+			graph++;
+			if(graph==16) graph=11; end
+		end
+		y-=2;
+		frame;
+	end	
+	*/
+	//entra en la cocina y pone el café
+	put_screen(fpg_cutscenes,3);
+	flags=0;
+	y=220;
+	from x=120 to 320 step 4;
+		if(anim<4)
+			anim++;
+		else
+			anim=0;
+			graph++;
+			if(graph==16) graph=11; end
+		end
+		y--;
+		frame;
+	end
+	graph=70;
+/*	fade_off();
+	while(fading) frame; end
+	
+	//primer plano de la cafetera...
+	id_por_delante.graph=29;
+	graph=0;
+	fade_on(); while(fading) frame; end
+	frame(10000);
+	fade_off(); while(fading) frame; end
+	*/
+	//en la cocina, se echa el café y se va
+	id_por_delante.graph=0;
+	graph=31;
+	fade_on(); while(fading) frame; end
+	//grafico de quieto!
+	frame(10000);
+	//sale de la cocina
+	flags=1;
+	graph=41;
+	from x=320 to 120 step -4;
+		if(anim<4)
+			anim++;
+		else
+			anim=0;
+			graph++;
+			if(graph==46) graph=41; end
+		end
+		frame;
+	end
+	
+/*	//esta en el pasillo y va al salón
+	put_screen(fpg_cutscenes,2);
+	y=170;
+	from x=300 to 140 step -3;
+		if(anim<4)
+			anim++;
+		else
+			anim=0;
+			graph++;
+			if(graph==46) graph=41; end
+		end
+		y++;
+		frame; 
+	end
+	from x=140 to 100 step -4;
+		if(anim<4)
+			anim++;
+		else
+			anim=0;
+			graph++;
+			if(graph==46) graph=41; end
+		end
+		frame;
+	end*/
+	
+	//está en el salón y se va hasta la ventana
+	put_screen(fpg_cutscenes,4);
+	flags=1;
+	y=262;
+	from x=570 to 80 step -4;
+		if(anim<4)
+			anim++;
+		else
+			anim=0;
+			graph++;
+			if(graph==46) graph=41; end
+		end
+		if(x<200) y-=3; end
+		frame;
+	end
+	//from i=1 to 10; y--; frame; end
+	graph=42;
+	frame(10000);
+	
+	fade_off(); while(fading) frame; end
+	//esta en la ventana, la mira, ve que la ciudad está en llamas
+	id_por_delante.graph=20; //mira por la ventana
+	fade_on(); while(fading) frame; end
+	frame(10000);
+	id_por_delante.graph=5; //ve la ciudad en llamas
+	frame(10000);
+	id_por_delante.graph=21; //se asusta y se dispone a beber de su café
+	frame(10000);

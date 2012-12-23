@@ -1,0 +1,173 @@
+Process cutscene_principio();
+Private
+	id_por_delante;
+	id_sonido;
+Begin
+	if(ops.truco_pato==1)
+		jugar();
+		return;
+	end
+
+	include "cutscene_compartido.pr-";
+
+	id_por_delante.graph=6; //ve un nuevo detalle, su estatua la está destruyendo
+	frame(10000);
+	sonido(22,0);
+	id_por_delante.graph=26; //se acojona y se le cae el café
+	frame(10000);
+	fade_off(); while(fading) frame; end
+	
+	//en la habitación del armario, va hacia el armario
+	fade_on();
+	put_screen(fpg_cutscenes,7);
+	flags=1;
+	id_por_delante.graph=0;
+	y=150;
+	graph=11;
+	from x=448 to 260 step -8;
+		if(anim<2)
+			anim++;
+		else
+			anim=0;
+			graph++;
+			if(graph==16) graph=11; end
+		end
+		y++;
+		frame;
+	end
+	
+	//mira el armario
+	graph=0;
+	put_screen(fpg_cutscenes,8);
+	id_por_delante.graph=0;
+	frame(10000);
+	
+	//en la habitación del armario, sale hacia la puerta
+	put_screen(fpg_cutscenes,7);
+	flags=0;
+	graph=81;
+
+	from x=260 to 448 step 8;
+		if(anim<2)
+			anim++;
+		else
+			anim=0;
+			graph++;
+			if(graph==86) graph=81; end
+		end
+		y--;
+		frame;
+	end
+
+	//de la puerta de la calle hacia fuera
+	put_screen(fpg_cutscenes,9);
+	flags=0;
+	id_por_delante.graph=0;
+	y=180;
+	from x=120 to 800 step 8;
+		if(anim<2)
+			anim++;
+		else
+			anim=0;
+			graph++;
+			if(graph==86) graph=81; end
+		end
+		if(x>450 and !fading) fade_off(); end
+		frame;
+	end
+	while(fading) frame; end
+
+	jugar();
+End
+
+Process cutscene_final();
+Private
+	id_por_delante;
+	id_sonido;
+Begin
+	delete_text(all_text);
+	include "cutscene_compartido.pr-";
+	
+	id_por_delante.graph=10; //ve un nuevo detalle, la estatua de tombatossals está destruyendo la ciudad
+	frame(10000);
+	sonido(22,0);
+	id_por_delante.graph=27; //cara de DA FUQ?
+	frame(20000);
+	fade_off(); while(fading) frame; end
+
+	//está en la ventana y se va hasta el sofá
+	put_screen(fpg_cutscenes,4);
+	flags=0;
+	id_por_delante.graph=0;
+	fade_on();
+	from x=80 to 437 step 4;
+		if(anim<4)
+			anim++;
+		else
+			anim=0;
+			graph++;
+			if(graph==46) graph=41; end
+		end
+		if(x<200) y+=3; end
+		frame;
+	end
+	while(y>200)
+		if(anim<4)
+			anim++;
+		else
+			anim=0;
+			graph++;
+			if(graph==46) graph=41; end
+		end
+		y-=4; 
+		frame; 
+	end
+	id_por_delante.graph=104; //mira por la ventana
+	from graph=71 to 73;
+		x-=50;
+		frame(2000);
+	end
+	frame(4000);
+	graph=74;
+	frame(2000);
+	graph=73;
+	fade_off();
+	while(fading) frame; end
+		
+	//y créditos!
+	creditos();
+End
+
+Process por_delante(graph);
+Begin
+	x=ancho_pantalla/2;
+	y=alto_pantalla/2;
+	z=-100;
+	file=fpg_cutscenes;
+	while(accion==0)
+		frame;
+	end
+End
+
+Process cambia_fps();
+Begin
+	loop
+		if(mouse.left)
+			i++;
+		else
+			i=0;
+		end
+		if(key(_esc) or i>15)
+			fade_off();
+			while(fading) frame; end
+			let_me_alone();
+			jugar();
+		end
+		if(key(_space))
+			set_fps(120,9);
+		else
+			set_fps(30,0);
+		end
+		frame;
+	end
+End

@@ -1,0 +1,317 @@
+process menu(num_menu);
+private
+	y_objetivo;
+	opcion_actual=1;
+	num_opciones;
+	pulsando;
+	volver_a_menu;
+	distancia_opciones=50;
+begin
+	file=fpg_menu;
+	delete_text(all_text);
+	if(num_menu==-1)
+		let_me_alone();
+		reinicio_variables();
+		start_scroll(0,fpg_menu,3,4,0,15);
+		controlador(0);
+		pon_musica(2);
+		num_menu=0;
+		logo(2);
+		scroll[0].camera=mueve_fondo();
+	end
+
+	guarda_opciones();
+	
+	z=-20;
+	graph=50;
+	x=60;
+	y=20;
+	
+	fade_on();
+	
+	//ponemos el menú actual
+	switch(num_menu)
+		case 0: //general
+			titulo();
+			write(fnt_menu,x,y+=distancia_opciones,3,"Jugar");
+			write(fnt_menu,x,y+=distancia_opciones,3,"Opciones");
+			write(fnt_menu,x,y+=distancia_opciones,3,"Ayuda");
+			write(fnt_menu,x,y+=distancia_opciones,3,"Creditos");
+			write(fnt_menu,x,y+=distancia_opciones,3,"Salir");
+			num_opciones=5;
+			volver_a_menu=0;
+		end
+		case 1: //jugar
+			write(fnt_menu,x,y+=distancia_opciones,3,"1 jugador");
+			num_opciones=1;
+			if(posibles_jugadores>1) write(fnt_menu,x,y+=distancia_opciones,3,"2 jugadores"); num_opciones++; end
+			if(posibles_jugadores>2) write(fnt_menu,x,y+=distancia_opciones,3,"3 jugadores"); num_opciones++; end
+			if(posibles_jugadores>3) write(fnt_menu,x,y+=distancia_opciones,3,"4 jugadores"); num_opciones++; end
+			volver_a_menu=0;
+		end
+		case 2: //opciones
+			write(fnt_menu,x,y+=distancia_opciones,3,"Pantalla completa"); estado_opcion(y,1);
+			write(fnt_menu,x,y+=distancia_opciones,3,"Sonido"); estado_opcion(y,2);
+			write(fnt_menu,x,y+=distancia_opciones,3,"Musica"); estado_opcion(y,3);
+			num_opciones=3;
+			if(ops.truco_pato=>0) write(fnt_menu,x,y+=distancia_opciones,3,"Jugar con Pato"); estado_opcion(y,4); num_opciones++; end
+			if(ops.truco_fuego_amigo=>0) write(fnt_menu,x,y+=distancia_opciones,3,"Fuego amigo"); estado_opcion(y,5); num_opciones++; end
+			if(ops.truco_sin_bandos=>0)write(fnt_menu,x,y+=distancia_opciones,3,"Sin bandos"); estado_opcion(y,6); num_opciones++; end
+			volver_a_menu=0;
+		end
+		case 3: //modos de juego
+			num_opciones=0;
+			write(fnt_menu,x,y+=distancia_opciones,3,"Modo historia");
+			num_opciones++;
+			write(fnt_menu,x,y+=distancia_opciones,3,"Modo supervivencia");
+			num_opciones++;
+			if(ops.truco_matajefes)
+				modo_matajefes=3;
+				write(fnt_menu,x,y+=distancia_opciones,3,"Modo matajefes");
+				num_opciones++;
+			end
+			if(jugadores>1)
+				if(ops.truco_matajefes)
+					modo_battleroyale=4;
+				else
+					modo_battleroyale=3;
+				end
+				write(fnt_menu,x,y+=distancia_opciones,3,"Modo Battle Royale");
+				num_opciones++;
+			end
+			volver_a_menu=0;
+		end
+	end
+	
+	x=40;
+	y=800;
+	
+	loop
+		if(key(_c)) 
+			while(key(_c)) frame; end 
+			sonido(22,0); 
+			ops.truco_matajefes=1;
+			ops.truco_pato=0;
+			ops.truco_sin_bandos=0;
+			ops.truco_fuego_amigo=0;
+			guarda_opciones();
+		end
+		if(opcion_actual>num_opciones) opcion_actual=1;	end
+		if(opcion_actual<1)	opcion_actual=num_opciones;	end
+
+		y_objetivo=20+(opcion_actual*distancia_opciones);
+		if(y!=y_objetivo) 
+			y+=(y_objetivo-y)/2;
+			angle=fget_angle(x,y,x+30,y_objetivo);
+		else
+			angle=0;
+		end
+
+		if(p[0].botones[4] or key(_enter))
+			if(ops.sonido==1)
+				sonido(13,0);
+			end
+			while(p[0].botones[4] or key(_enter)) frame; end
+			if(num_menu==0 and opcion_actual==1 and posibles_jugadores==1) //si solo hay un posible jugador, no se elige el número de jugadores
+				jugadores=1;
+				num_menu=1;
+			end
+			switch(num_menu)
+				case 0: //general
+					delete_text(all_text);
+					switch(opcion_actual)
+						case 1: menu(1); end
+						case 2: menu(2); end
+						case 3: muestra_hasta_volver(201); end
+						case 4: muestra_hasta_volver(210); end
+						case 5: salir(); end
+					end
+					return;
+				end
+				case 1: //jugar
+					jugadores=opcion_actual;
+					menu(3);
+					return;
+				end
+				case 2: //opciones
+					switch(opcion_actual)
+						case 1: 
+							if(ops.ventana) 
+								ops.ventana=0; 
+								full_screen=1;
+							else 
+								ops.ventana=1; 
+								full_screen=0;
+							end
+							set_mode(ancho_pantalla,alto_pantalla,32);
+						end
+						case 2: 
+							if(ops.sonido) ops.sonido=0; else ops.sonido=1; end 
+							sonido(13,0);
+						end
+						case 3:
+							if(ops.musica) stop_song(); ops.musica=0; else ops.musica=1; end 
+							pon_musica(2);
+						end
+						case 4:
+							//condiciones de caca. entregamos mañana, es aceptable xD
+							if(ops.truco_pato=>0)
+								if(ops.truco_pato) ops.truco_pato=0; else ops.truco_pato=1; end
+							elseif(ops.truco_pato<0 and ops.truco_fuego_amigo=>0)
+								if(ops.truco_fuego_amigo) ops.truco_fuego_amigo=0; else ops.truco_fuego_amigo=1; end
+							elseif(ops.truco_pato<0 and ops.truco_fuego_amigo<0 and ops.truco_sin_bandos=>0)
+								if(ops.truco_sin_bandos) ops.truco_sin_bandos=0; else ops.truco_sin_bandos=1; end
+							end
+						end
+						case 5:
+							if(ops.truco_pato=>0 and ops.truco_fuego_amigo=>0)
+								if(ops.truco_fuego_amigo) ops.truco_fuego_amigo=0; else ops.truco_fuego_amigo=1; end
+							elseif((ops.truco_pato=>0 and ops.truco_fuego_amigo<0 and ops.truco_sin_bandos=>0)
+							  or (ops.truco_pato<0 and ops.truco_fuego_amigo=>0 and ops.truco_sin_bandos=>0))
+								if(ops.truco_sin_bandos) ops.truco_sin_bandos=0; else ops.truco_sin_bandos=1; end
+							end
+						end
+						case 6:
+							if(ops.truco_sin_bandos) ops.truco_sin_bandos=0; else ops.truco_sin_bandos=1; end
+						end
+					end
+				end
+				case 3: //modo de juego
+					modo_juego=opcion_actual;
+					fade_off();
+					while(fading) frame; end
+					delete_text(all_text);
+					if(modo_juego==modo_historia)
+						cutscene_principio();
+					else
+						jugar();
+					end
+					return;
+				end
+			end
+		end
+		if((p[0].botones[5] or key(_esc)) and volver_a_menu!=num_menu)
+			delete_text(all_text);
+			if(ops.sonido==1)
+				sonido(11,0);
+			end
+			while(p[0].botones[5] or key(_esc)) frame; end
+			menu(volver_a_menu);
+			return;
+		end
+		if(p[0].botones[3])
+			if(!pulsando)
+				opcion_actual++;
+				if(ops.sonido==1)
+					sonido(12,0);
+				end
+				pulsando=1;
+			end
+		elseif(p[0].botones[2])
+			if(!pulsando)
+				opcion_actual--;
+				if(ops.sonido==1)
+					sonido(12,0);
+				end
+				pulsando=1;
+			end
+		else
+			pulsando=0;
+		end
+		frame;
+	end
+end
+
+process logo(graph);
+begin
+	file=fpg_menu;
+	x=600;
+	y=132;
+	z=-10;
+	loop
+		if(x>380)
+			x+=(x-380)/-10;
+		else
+			x=380;
+		end
+		frame;
+	end
+end
+
+Process titulo();
+Begin
+	x=400;
+	y=324;
+	z=-100;
+	file=fpg_menu;
+	graph=1;
+	from alpha=0 to 255 step 40; y-=4; frame; end
+	while(exists(father))
+		frame;
+	end
+	from alpha=255 to 0 step -40; y-=4; frame; end
+End
+
+process muestra_hasta_volver(graph);
+begin
+	x=ancho_pantalla/2;
+	y=alto_pantalla/2;
+	z=-512;
+	file=fpg_menu;
+	i=1;
+	graph--;
+	while(i==1)
+		graph++;
+		from alpha=0 to 255 step 40; frame; end
+		while(!p[0].botones[5] and !p[0].botones[4] and !p[0].botones[6] and !key(_enter) and !key(_esc)) frame; end
+		if(p[0].botones[5] or key(_esc) or graphic_info(fpg_menu,graph+1,G_WIDTH)<1) 
+			sonido(13,0); 
+			i=0; 
+		else
+			sonido(12,0);
+		end
+		while(p[0].botones[5] or p[0].botones[4] or p[0].botones[6] or key(_enter) or key(_esc)) frame; end
+		from alpha=255 to 0 step -40; frame; end
+		frame;
+	end
+	menu(0);
+end
+
+process mueve_fondo();
+Begin
+	loop
+		x-=3;
+		y-=3;
+		frame;
+	end
+End
+
+//1: pantalla completa, 2:sonido, 3: musica, 4:panoramico, 4:pato, 5:fuego amigo, 6:sin bandos
+Process estado_opcion(y,tipo);
+Begin
+	file=fpg_general;
+	x=616;
+	z=-512;
+	switch(tipo) //con lo fácil que hubiera sido utilizar punteros...
+		case 1: graph=41+ops.ventana; end
+		case 2: graph=42-ops.sonido; end
+		case 3: graph=42-ops.musica; end
+		case 4: graph=42-ops.truco_pato; end
+		case 5: graph=42-ops.truco_fuego_amigo; end
+		case 6: graph=42-ops.truco_sin_bandos; end
+	end
+
+	from alpha=0 to 255 step 30; x-=2; frame; end
+	while(exists(father))
+		switch(tipo) //con lo fácil que hubiera sido utilizar punteros...
+			case 1: graph=41+ops.ventana; end
+			case 2: graph=42-ops.sonido; end
+			case 3: graph=42-ops.musica; end
+			case 4: graph=42-ops.truco_pato; end
+			case 5: graph=42-ops.truco_fuego_amigo; end
+			case 6: graph=42-ops.truco_sin_bandos; end
+		end
+		frame;
+	end
+	from alpha=255 to 0 step -30; x-=2; frame; end
+End
