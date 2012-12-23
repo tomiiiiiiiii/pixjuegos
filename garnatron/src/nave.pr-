@@ -22,7 +22,7 @@ BEGIN
 						inmunidad=0; 
 					else 
 						explosion(x,y,3,200);
-						if(opciones.particulas==1)
+						if(ops.particulas==1)
 							explotalo(x,y,z,alpha,angle,file,graph,20);
 						end
 						break; 
@@ -326,7 +326,7 @@ loop
 		
 			from escudos=4 to 0;
 				if(escudo[jugador]==escudos)
-					if(opciones.particulas==1)
+					if(ops.particulas==1)
 						explotalo(x+x1,y+y1[escudos],z-1,alpha,angle,file,15,10);
 					else
 						sombra(15,x+x1,y+y1[escudos],file,1);
@@ -367,7 +367,7 @@ loop
 					if(tipo==1) escudo[nave]+=1; end
 					if(tipo==2) energia[nave]=20; end
 					if(tipo==3) poder[nave]+=1; end
-					if(opciones.particulas==1)
+					if(ops.particulas==1)
 						explotalo(x,y,z,alpha,angle,file,graph,20);
 					else
 						sombra(graph,x,y,file,1);

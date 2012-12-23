@@ -314,7 +314,7 @@ if(tipo==40)
 //	until(graph==12)
 	
 	explosion(x,y,1,200);
-	if(opciones.particulas==1)
+	if(ops.particulas==1)
 		explotalo(x,y,z,alpha,angle,file,graph,40);
 	end
 	frame(200);//para que el enemigo detecte la colisión

@@ -174,7 +174,7 @@ begin
 			end
 			if(vida<1) 
 				explosion(x,y,1,100);
-				if(opciones.particulas==1)
+				if(ops.particulas==1)
 					explotalo(x,y,z,alpha,angle,file,graph,40);
 				end
 				puntos[id2.jugador]+=10;
@@ -184,7 +184,7 @@ begin
 				if(exists(id_nave[jugador]))
 					id2=(collision(id_nave[jugador])); 
 					if(id2) id_nave[jugador].estado=-1; explosion(x,y,3,100);
-						if(opciones.particulas==1)
+						if(ops.particulas==1)
 							explotalo(x,y,z,alpha,angle,file,graph,40);
 						end
 						return;
@@ -194,7 +194,7 @@ begin
 			id2=(collision(type laser));
 			if(id2)
 				explosion(x,y,1,100);
-				if(opciones.particulas==1)
+				if(ops.particulas==1)
 					explotalo(x,y,z,alpha,angle,file,graph,40);
 				end
 				puntos[id2.jugador]+=10;
@@ -203,7 +203,7 @@ begin
 			id2=(collision(type bomba));
 			if(id2)
 				explosion(x,y,1,100);
-				if(opciones.particulas==1)
+				if(ops.particulas==1)
 					explotalo(x,y,z,alpha,angle,file,graph,40);
 				end
 				puntos[id2.jugador]+=10;
@@ -292,7 +292,7 @@ begin
 		
 				id2=(collision(type disparo01));
 					if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,75);  puntos[id2.jugador]+=1; end
-				if(vida<1) explosion(x,y,1,100); if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end puntos[id2.jugador]+=10; break; end
+				if(vida<1) explosion(x,y,1,100); if(ops.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end puntos[id2.jugador]+=10; break; end
 			end
 			if(tipo==3)//explota
 				y+=2;
@@ -300,7 +300,7 @@ begin
 					if(exists(id_nave[jugador]))
 						if(get_dist(id_nave[jugador])<100)
 							explosion(x,y,1,100);
-							if(opciones.particulas==1)
+							if(ops.particulas==1)
 								explotalo(x,y,z,alpha,angle,file,graph,40);
 							end
 							from angle=0 to 2*pi step pi/6;
@@ -315,7 +315,7 @@ begin
 				if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,75);  puntos[id2.jugador]+=1; end
 				if(vida<1)
 					explosion(x,y,1,100);
-					if(opciones.particulas==1)
+					if(ops.particulas==1)
 						explotalo(x,y,z,alpha,angle,file,graph,40);
 					end
 					puntos[id2.jugador]+=10;
@@ -328,13 +328,13 @@ begin
 			from jugador=1 to 4;
 				if(exists(id_nave[jugador]))
 					id2=(collision(id_nave[jugador]));
-					if(id2) id_nave[jugador].estado=-1; explosion(x,y,3,100); if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end return; end
+					if(id2) id_nave[jugador].estado=-1; explosion(x,y,3,100); if(ops.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end return; end
 				end
 			end
 			id2=(collision(type laser));
-			if(id2) explosion(x,y,1,100); if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end puntos[id2.jugador]+=10; break; end
+			if(id2) explosion(x,y,1,100); if(ops.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end puntos[id2.jugador]+=10; break; end
 			id2=(collision(type bomba));
-			if(id2) explosion(x,y,1,100); if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end puntos[id2.jugador]+=10; break; end
+			if(id2) explosion(x,y,1,100); if(ops.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end puntos[id2.jugador]+=10; break; end
 		end
 		frame;
 	end
@@ -370,7 +370,7 @@ BEGIN
 		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,75); puntos[id2.jugador]+=1; end
 		id2=(collision(type laser));
 		if(id2) explosion(x,y,1,200);
-			if(opciones.particulas==1)
+			if(ops.particulas==1)
 				explotalo(x,y,z,alpha,angle,file,graph,40);
 			end
 			if(size>99)
@@ -382,7 +382,7 @@ BEGIN
 		end
 		id2=(collision(type bomba));
 		if(id2) explosion(x,y,1,200);
-			if(opciones.particulas==1)
+			if(ops.particulas==1)
 				explotalo(x,y,z,alpha,angle,file,graph,40);
 			end
 			if(size>99)
@@ -398,13 +398,13 @@ BEGIN
 				asteroide(x,y,size/3,pi*5/4);
 				asteroide(x,y,size/3,pi*7/4);
 				explosion(x,y,1,200);
-				if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end
+				if(ops.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end
 				//puntos[id2.jugador]+=30;
 				break;
 
 			else
 				explosion(x,y,1,200);
-				if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end
+				if(ops.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end
 				//puntos+=10;
 				break;
 			end
@@ -416,7 +416,7 @@ BEGIN
 				if(collision(id_nave[jugador]))
 					id_nave[jugador].estado=-1;
 					explosion(x,y,3,200);
-					if(opciones.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end
+					if(ops.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end
 					return;
 				end
 			end

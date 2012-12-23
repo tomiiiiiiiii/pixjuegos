@@ -9,6 +9,8 @@ move garnatron.dcb ..\main.dcb
 cd ..
 pause
 
+start /wait compilarfpgs.bat 16
+
 echo Exportando...
 mkdir export
 
@@ -41,8 +43,6 @@ copy niveles\*.txt export\assets\niveles /y
 copy fnt\*.fnt export\assets\fnt /y
 copy main.dcb export\assets /y
 echo Exportado correctamente. Ahora se instalará en el móvil...
-pause
-
 cd export
 cmd /c if exist c:\pixjuegos.keystore ant release install
 cmd /c if not exist c:\pixjuegos.keystore ant debug install

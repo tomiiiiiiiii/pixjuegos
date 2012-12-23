@@ -75,7 +75,7 @@ if(tipo==1)	//nivel 1
 		if(vida_boss<1)
 			signal(id_boss02,s_kill);
 			explosion(x,y,4,200);
-			if(opciones.particulas==1)
+			if(ops.particulas==1)
 				explotalo(x,y,z,alpha,angle,file,graph,40);
 			end
 			from jugador=1 to jugadores;
@@ -135,7 +135,7 @@ if(tipo==2)	//nivel 2
 		if(vida_boss<1)
 			signal(id_boss02,s_kill);
 			explosion(x,y,4,200);
-			if(opciones.particulas==1)
+			if(ops.particulas==1)
 				explotalo(x,y,z,alpha,angle,file,graph,40);
 			end
 			from jugador=1 to jugadores;
@@ -199,7 +199,7 @@ if(tipo==3)	//nivel 3
 		if(vida_boss<1)
 			signal(id_boss02,s_kill);
 			explosion(x,y,4,200);
-			if(opciones.particulas==1)
+			if(ops.particulas==1)
 				explotalo(x,y,z,alpha,angle,file,graph,40);
 			end
 			from jugador=1 to jugadores;
@@ -254,7 +254,7 @@ if(tipo==4) //nivel 3 escudo
 
 		if(vida<1)
 			explosion(x,y,3,100);
-			if(opciones.particulas==1)
+			if(ops.particulas==1)
 				explotalo(x,y,z,alpha,angle,file,graph,40);
 			end
 			from jugador=1 to jugadores;
@@ -266,7 +266,7 @@ if(tipo==4) //nivel 3 escudo
 		end
 		if(vida_boss<250)
 			explosion(x,y,3,100);
-			if(opciones.particulas==1)
+			if(ops.particulas==1)
 				explotalo(x,y,z,alpha,angle,file,graph,40);
 			end
 			break;
@@ -317,7 +317,7 @@ if(tipo==5)	//nivel 3 escudo
 
 		if(vida<1)
 			explosion(x,y,3,100);
-			if(opciones.particulas==1)
+			if(ops.particulas==1)
 				explotalo(x,y,z,alpha,angle,file,graph,40);
 			end
 			from jugador=1 to jugadores;
@@ -329,7 +329,7 @@ if(tipo==5)	//nivel 3 escudo
 		end
 		if(vida_boss<250)
 			explosion(x,y,3,100);
-			if(opciones.particulas==1)
+			if(ops.particulas==1)
 				explotalo(x,y,z,alpha,angle,file,graph,40);
 			end
 			break;
@@ -399,7 +399,7 @@ if(tipo==6)	//nivel 4
 			signal(id_boss04,s_kill); 
 			signal(id_boss05,s_kill); 
 			explosion(x,y,4,200); 
-			if(opciones.particulas==1)
+			if(ops.particulas==1)
 				explotalo(x,y,z,alpha,angle,file,graph,40);
 			end
 			//puntos[id2.jugador]+=4000; 
@@ -443,14 +443,14 @@ if(tipo==7)	//nivel 4 ala
 		if(vida<1)
 			explosion(x+150,y,3,100);
 			//puntos[id2.jugador]+=500;
-			if(opciones.particulas==1)
+			if(ops.particulas==1)
 				explotalo(x,y,z,alpha,angle,file,graph,40);
 			end
 			break;
 		end
 		if(vida_boss<500)
 			explosion(x+150,y,3,100);
-			if(opciones.particulas==1)
+			if(ops.particulas==1)
 				explotalo(x,y,z,alpha,angle,file,graph,40);
 			end
 			break;
@@ -493,14 +493,14 @@ if(tipo==8)	//nivel 4 ala
 		if(vida<1)
 			explosion(x-150,y,3,100);
 			//puntos[id2.jugador]+=500;
-			if(opciones.particulas==1)
+			if(ops.particulas==1)
 				explotalo(x,y,z,alpha,angle,file,graph,40);
 			end
 			break;
 		end
 		if(vida_boss<500)
 			explosion(x-150,y,3,100);
-			if(opciones.particulas==1)
+			if(ops.particulas==1)
 				explotalo(x,y,z,alpha,angle,file,graph,40);
 			end
 			break;
@@ -587,7 +587,7 @@ if(tipo==9)	//nivel 5
 
 		if(vida_boss<-99)
 			explosion(x,y,4,1000);
-			if(opciones.particulas==1)
+			if(ops.particulas==1)
 				explotalo(x,y,z,alpha,angle,file,graph,80);
 			end
 			from jugador=1 to jugadores;
@@ -635,7 +635,7 @@ if(tipo==10)	//nivel 5 escudo
 
 		if(vida_boss<500) 
 			explosion(x,y,3,100);
-			if(opciones.particulas==1)
+			if(ops.particulas==1)
 				explotalo(x,y,z,alpha,angle,file,graph,80);
 			end
 			break;
@@ -643,7 +643,7 @@ if(tipo==10)	//nivel 5 escudo
 		if(vida<1)
 			explosion(x,y,3,100);
 			//puntos[id2.jugador]+=500;
-			if(opciones.particulas==1)
+			if(ops.particulas==1)
 				explotalo(x,y,z,alpha,angle,file,graph,80);
 			end
 			break;
@@ -686,14 +686,14 @@ if(tipo==11)	//nivel 5 escudo
 
 		if(vida_boss<500)
 			explosion(x,y,3,100);
-			if(opciones.particulas==1)
+			if(ops.particulas==1)
 				explotalo(x,y,z,alpha,angle,file,graph,80);
 			end
 			break;
 		end
 		if(vida<1)
 			explosion(x,y,3,100);
-			if(opciones.particulas==1)
+			if(ops.particulas==1)
 				explotalo(x,y,z,alpha,angle,file,graph,80);
 			end
 			break;
@@ -735,14 +735,14 @@ if(tipo==12)	//nivel 5 motor
 		if(vida<1)
 			explosion(x-150,y+200,3,100);
 			//puntos[id2.jugador]+=500;
-			if(opciones.particulas==1)
+			if(ops.particulas==1)
 				explotalo(x,y,z,alpha,angle,file,graph,80);
 			end
 			break;
 		end
 		if(vida_boss<1000)
 			explosion(x-150,y+200,3,100);
-			if(opciones.particulas==1)
+			if(ops.particulas==1)
 				explotalo(x,y,z,alpha,angle,file,graph,80);
 			end
 			break;
@@ -791,7 +791,7 @@ if(tipo==13)	//nivel 5 motor
 
 		if(vida_boss<1000)
 			explosion(x+150,y+200,3,100);
-			if(opciones.particulas==1)
+			if(ops.particulas==1)
 				explotalo(x,y,z,alpha,angle,file,graph,80);
 			end
 			break;
@@ -799,7 +799,7 @@ if(tipo==13)	//nivel 5 motor
 		if(vida<1)
 			explosion(x+150,y+200,3,100);
 			//puntos[id2.jugador]+=500;
-			if(opciones.particulas==1)
+			if(ops.particulas==1)
 				explotalo(x,y,z,alpha,angle,file,graph,80);
 			end
 			break;
@@ -864,7 +864,7 @@ Begin
 
 		if(vida<1)
 			explosion(x,y,3,100);
-			if(opciones.particulas==1)
+			if(ops.particulas==1)
 				explotalo(x,y,z,alpha,angle,file,graph,40);
 			end
 			from jugador=1 to jugadores;
@@ -876,7 +876,7 @@ Begin
 		end
 		if(vida_boss<250)
 			explosion(x,y,3,100);
-			if(opciones.particulas==1)
+			if(ops.particulas==1)
 				explotalo(x,y,z,alpha,angle,file,graph,40);
 			end
 			break;
@@ -941,7 +941,7 @@ Begin
 
 		if(vida<1)
 			explosion(x,y,3,100);
-			if(opciones.particulas==1)
+			if(ops.particulas==1)
 				explotalo(x,y,z,alpha,angle,file,graph,40);
 			end
 			from jugador=1 to jugadores;
@@ -953,7 +953,7 @@ Begin
 		end
 		if(vida_boss<250)
 			explosion(x,y,3,100);
-			if(opciones.particulas==1)
+			if(ops.particulas==1)
 				explotalo(x,y,z,alpha,angle,file,graph,40);
 			end
 			break;
@@ -1018,7 +1018,7 @@ Begin
 
 		if(vida<1)
 			explosion(x,y,3,100);
-			if(opciones.particulas==1)
+			if(ops.particulas==1)
 				explotalo(x,y,z,alpha,angle,file,graph,40);
 			end
 			from jugador=1 to jugadores;
@@ -1030,7 +1030,7 @@ Begin
 		end
 		if(vida_boss<250)
 			explosion(x,y,3,100);
-			if(opciones.particulas==1)
+			if(ops.particulas==1)
 				explotalo(x,y,z,alpha,angle,file,graph,40);
 			end
 			break;
@@ -1095,7 +1095,7 @@ Begin
 
 		if(vida<1)
 			explosion(x,y,3,100);
-			if(opciones.particulas==1)
+			if(ops.particulas==1)
 				explotalo(x,y,z,alpha,angle,file,graph,40);
 			end
 			from jugador=1 to jugadores;
@@ -1107,7 +1107,7 @@ Begin
 		end
 		if(vida_boss<250)
 			explosion(x,y,3,100);
-			if(opciones.particulas==1)
+			if(ops.particulas==1)
 				explotalo(x,y,z,alpha,angle,file,graph,40);
 			end
 			break;
@@ -1163,14 +1163,14 @@ Begin
 		if(vida<1)
 			explosion(x+150,y,3,100);
 			//puntos[id2.jugador]+=500;
-			if(opciones.particulas==1)
+			if(ops.particulas==1)
 				explotalo(x,y,z,alpha,angle,file,graph,40);
 			end
 			break;
 		end
 		if(vida_boss<500)
 			explosion(x+150,y,3,100);
-			if(opciones.particulas==1)
+			if(ops.particulas==1)
 				explotalo(x,y,z,alpha,angle,file,graph,40);
 			end
 			break;
@@ -1227,14 +1227,14 @@ Begin
 		if(vida<1)
 			explosion(x-150,y,3,100);
 			//puntos[id2.jugador]+=500;
-			if(opciones.particulas==1)
+			if(ops.particulas==1)
 				explotalo(x,y,z,alpha,angle,file,graph,40);
 			end
 			break;
 		end
 		if(vida_boss<500)
 			explosion(x-150,y,3,100);
-			if(opciones.particulas==1)
+			if(ops.particulas==1)
 				explotalo(x,y,z,alpha,angle,file,graph,40);
 			end
 			break;

@@ -1,5 +1,6 @@
 Program pixpang;
 
+//import "mod_debug";
 import "mod_dir";
 import "mod_draw";
 import "mod_file";
@@ -9,12 +10,14 @@ import "mod_key";
 import "mod_map";
 import "mod_math";
 import "mod_mouse";
+import "mod_multi";
 import "mod_proc";
 import "mod_rand";
 import "mod_regex";
 import "mod_screen";
 import "mod_sound";
 import "mod_string";
+import "mod_say";
 import "mod_sys";
 import "mod_text";
 import "mod_time";
@@ -48,6 +51,9 @@ Global
 		Int br[200];
 		Int btime;
 	End
+	
+	ancho_pantalla=800;
+	alto_pantalla=600;
 	
 	njoys;
 	posibles_jugadores;
@@ -146,6 +152,7 @@ Global
 	int cancion_cargada;
 
 End
+
 Local
 	int i;
 	int j;
@@ -157,6 +164,7 @@ End
 
 include "../../common-src/lenguaje.pr-";
 include "../../common-src/savepath.pr-";
+include "../../common-src/controles.pr-";
 	
 Private
     lee_archivo;
@@ -164,9 +172,13 @@ Private
     intejer;
     num;
     pit;
+	
 Begin  
 	if(argc>0) if(argv[1]=="arcade") arcade_mode=1; end end
 
+	gamepad_boton_separacion=50;
+	gamepad_boton_size=80;
+	
 	borrar=new_map(1,1,8);
 	Alpha_steps=64;
 	
@@ -186,12 +198,15 @@ Begin
 	
 	if(ops.ventana==0 or arcade_mode==1) Full_screen=true; else full_screen=false; end
 	
-	if(os_id==9) 
+	if(os_id==9) //caanoo
 		ops.op_sombras=0;
 		scale_resolution=03200240; set_mode(800,600,16); 
 	elseif(os_id==1003) //android
 		ops.op_sombras=0;
-		set_mode(800,480,16);
+		scale_resolution_aspectratio = SRA_PRESERVE;
+		scale_resolution=graphic_info(0,0,g_width)*10000+graphic_info(0,0,g_height);
+		say("---------- THIS IS MAY SCALE!!!!:"+SCALE_RESOLUTION);
+		set_mode(800,600,16);
 	else
 		set_mode(800,600,32,WAITVSYNC);
 	end
@@ -1810,13 +1825,10 @@ Begin
 			map_put_pixel(0,graph,particula[c].pos_x+(ancho*8/2),particula[c].pos_y+(alto*8/2)+1,particula[c].pixel);
 			map_put_pixel(0,graph,particula[c].pos_x+(ancho*8/2)+1,particula[c].pos_y+(alto*8/2)+1,particula[c].pixel);
 			particula[c].pos_x+=particula[c].vel_x;
-			particula[c].pos_y+=particula[c].vel_y+tiempo-10;
-			
+			particula[c].pos_y+=particula[c].vel_y+tiempo-10;		
 		end
 		tiempo++;
 		frame;
 		unload_map(0,graph);
 	end
 end
-
-include "../../common-src/controles.pr-";

@@ -16,6 +16,15 @@ Global
 	gamepad_boton_separacion=40;
 	gamepad_boton_size=40;
 	gamepad_botones=3;
+	
+	key_b_izquierda=_LEFT;
+	key_b_derecha=_RIGHT;
+	key_b_arriba=_UP;
+	key_b_abajo=_DOWN;
+	key_b_1=_A;
+	key_b_2=_S;
+	key_b_3=_D;
+	key_b_salir=_ESC;
 End
 
 Process controlador(jugador);
@@ -26,11 +35,11 @@ Private
 	axis_x;
 	axis_y;
 Begin
-	priority=1;
-	if(os_id==1003 and jugador==1 and p[1].control==0)
+	priority=10;
+//	if(os_id==1003 and jugador==1 and p[1].control==0)
 		if(graph_dedo<1)
 			graph_dedo=new_map(gamepad_boton_size*2/3,gamepad_boton_size*2/3,8);
-			drawing_color(384);
+			drawing_color(80);
 			drawing_map(0,graph_dedo);
 			draw_box(0,0,gamepad_boton_size/2,gamepad_boton_size*2/3);
 
@@ -41,14 +50,15 @@ Begin
 			draw_box(0,0,50,50);
 		end
 		if(!exists(id_gamepad))
-			gamepad_virtual();
+			id_gamepad=gamepad_virtual();
 		end
-	End
+//	End
 	
 	Loop
 		if(!exists(father)) return; end
 		from i=0 to 7; p[jugador].botones[i]=0;	end		
 		if(p[jugador].control==-2) //GLOBAL: Para menús y tal
+			priority=1;
 			from i=1 to posibles_jugadores+1;
 				controlador(i);
 			end
@@ -66,26 +76,14 @@ Begin
 		end		
 		if(p[jugador].control==-1) return; end
 		If(p[jugador].control==0)  // teclado
-			if(os_id==1003)
-				If(key(_left)) p[jugador].botones[0]=1; End
-				If(key(_right)) p[jugador].botones[1]=1; End
-				If(key(_up)) p[jugador].botones[2]=1; End
-				If(key(_down)) p[jugador].botones[3]=1; End
-				If(key(_1)) p[jugador].botones[4]=1; End
-				If(key(_2)) p[jugador].botones[5]=1; End
-				//If(key(_d)) p[jugador].botones[6]=1; End
-				if(scan_code==102) p[jugador].botones[7]=1; end
-				//key 35: home, no usada
-			else
-				If(key(_left)) p[jugador].botones[0]=1; End
-				If(key(_right)) p[jugador].botones[1]=1; End
-				If(key(_up)) p[jugador].botones[2]=1; End
-				If(key(_down)) p[jugador].botones[3]=1; End
-				If(key(_a)) p[jugador].botones[4]=1; End
-				If(key(_s)) p[jugador].botones[5]=1; End
-				If(key(_d)) p[jugador].botones[6]=1; End
-				If(key(_esc)) p[jugador].botones[7]=1; End
-			end
+			If(key(key_b_izquierda)) p[jugador].botones[0]=1; End
+			If(key(key_b_derecha)) p[jugador].botones[1]=1; End
+			If(key(key_b_arriba)) p[jugador].botones[2]=1; End
+			If(key(key_b_abajo)) p[jugador].botones[3]=1; End
+			If(key(key_b_1)) p[jugador].botones[4]=1; End
+			If(key(key_b_2)) p[jugador].botones[5]=1; End
+			If(key(key_b_3)) p[jugador].botones[6]=1; End
+			if(key(key_b_salir)) p[jugador].botones[7]=1; end
 		End
 		If(p[jugador].control>0)  // joysticks
 			POV=joy_gethat(joysticks[p[jugador].control],0); POVx=0; POVy=0;
@@ -223,6 +221,7 @@ Begin
 	if(os_id==1003) //android!
 		p[1].control=0;
 		posibles_jugadores=1;
+		key_b_salir=102;
 	end
 	
 	//Y creo que ya estamos :)
@@ -230,10 +229,10 @@ End
 
 Process gamepad_virtual();
 Begin
-	boton_tactil(gamepad_boton_separacion*2,alto_pantalla-(gamepad_boton_separacion*3),0,1,b_arriba);
-	boton_tactil(gamepad_boton_separacion,alto_pantalla-(gamepad_boton_separacion*2),0,1,b_izquierda);
-	boton_tactil(gamepad_boton_separacion*3,alto_pantalla-(gamepad_boton_separacion*2),0,1,b_derecha);
-	boton_tactil(gamepad_boton_separacion*2,alto_pantalla-gamepad_boton_separacion,0,1,b_abajo);
+	boton_tactil(gamepad_boton_separacion*3,alto_pantalla-(gamepad_boton_separacion*3),0,1,b_arriba);
+	boton_tactil(gamepad_boton_separacion*2,alto_pantalla-(gamepad_boton_separacion*2),0,1,b_izquierda);
+	boton_tactil(gamepad_boton_separacion*4,alto_pantalla-(gamepad_boton_separacion*2),0,1,b_derecha);
+	boton_tactil(gamepad_boton_separacion*3,alto_pantalla-gamepad_boton_separacion,0,1,b_abajo);
 	
 	boton_tactil(ancho_pantalla-(gamepad_boton_separacion*2.5),alto_pantalla-gamepad_boton_separacion,0,1,b_1);
 	boton_tactil(ancho_pantalla-gamepad_boton_separacion,alto_pantalla-gamepad_boton_separacion,0,1,b_2);
@@ -241,6 +240,7 @@ Begin
 		boton_tactil(ancho_pantalla-gamepad_boton_separacion,alto_pantalla-(gamepad_boton_separacion*2.5),0,1,b_3);
 	end
 	
+	priority=8;
 	loop
 		if(mouse.left) dedo(mouse.x,mouse.y); end
 		for(i=0; i<10; i++)
@@ -254,15 +254,15 @@ End
 
 Process dedo(x,y);
 Begin
-	priority=1;
+	priority=6;
 	graph=graph_dedo;
 	//alpha=0;
-	frame(200);
+	frame;
 End
 
 Process boton_tactil(x,y,graph,jugador,boton);
 Begin
-	priority=0;
+	priority=4;
 	z=-512;
 	graph=graph_boton;
 	drawing_map(0,graph);

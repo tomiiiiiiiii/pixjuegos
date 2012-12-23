@@ -1,8 +1,15 @@
-@echo off
-rd /s /q fpg
-mkdir fpg
+rem @echo off
+set bits=%1
+if "%bits%"==""; set bits=32
 ECHO CREANDO FPGS...
 cd fpg-sources
 copy ..\..\utils\pxlfpg.dcb . /y
-..\..\bennu-win\bgdi pxlfpg 32 bombas bosses enemigos explosiones menu nave
+..\..\bennu-win\bgdi pxlfpg %bits% bombas bosses enemigos explosiones menu nave
 del /f pxlfpg.dcb
+
+cd ..\fpg
+ren *.fpg *.fpg.gz
+..\..\utils\gzip -d *.fpg.gz
+
+cd ..
+exit

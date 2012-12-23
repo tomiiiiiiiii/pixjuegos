@@ -40,108 +40,111 @@ import "mod_video";
 import "mod_wm";
 
 Global
+	pausa;
+	distancia;
 
-pausa;
-distancia;
+	jugadores=1;
+	id_nave[5];
 
-jugadores=1;
-id_nave[5];
+	vidas[4]=0,0,0,0,0;
+	escudo[4]=0,5,5,5,5;
+	poder[4]=0,1,1,1,1;
+	fuerza[4]=0,1,1,1,1;
+	energia[4]=0,20,20,20,20;
+	habil[4]=0,1,1,1,1;
+	puntos[4];
 
-vidas[4]=0,0,0,0,0;
-escudo[4]=0,5,5,5,5;
-poder[4]=0,1,1,1,1;
-fuerza[4]=0,1,1,1,1;
-energia[4]=0,20,20,20,20;
-habil[4]=0,1,1,1,1;
-puntos[4];
+	arcade_mode=0;
 
-arcade_mode=0;
+	guardar=1;
+	tactil=0;
 
-guardar=1;
-tactil=0;
-
-struct opciones;
-	struct teclado;	//controles teclado
-		arriba;		
-		derecha;
-		abajo;
-		izquierda;
-		disparar;
-		bomba;
-		cambiar;
+	struct ops;
+		struct teclado;	//controles teclado
+			arriba;		
+			derecha;
+			abajo;
+			izquierda;
+			disparar;
+			bomba;
+			cambiar;
+		end
+		struct gamepad	//controles gamepad
+			arriba;		
+			derecha;
+			abajo;
+			izquierda;
+			disparar;
+			bomba;
+			cambiar;
+		end
+		particulas;
+		p_completa;
 	end
-	struct gamepad	//controles gamepad
-		arriba;		
-		derecha;
-		abajo;
-		izquierda;
-		disparar;
-		bomba;
-		cambiar;
-	end
-	particulas;
-	p_completa;
-end
 
-//------ inicio controles.pr-
-	njoys;
-	posibles_jugadores;
-	debuj;
-	struct p[5];
-		botones[7];
-		control;
-	end
-	joysticks[10];
-//------ fin controles.pr-
+	//------ inicio controles.pr-
+		njoys;
+		posibles_jugadores;
+		debuj;
+		struct p[5];
+			botones[7];
+			control;
+		end
+		joysticks[10];
+	//------ fin controles.pr-
 
-struct save;
-		nivel;
-		vidas[4];
-		poder[4];
-		string nombres[9];
-		puntuacion[9];
-		puntos[4];
-	end
-	
-vida_boss;
-id_boss01;
-id_boss02;
-id_boss03;
-id_boss04;
-id_boss05;
+	struct save;
+			nivel;
+			vidas[4];
+			poder[4];
+			string nombres[9];
+			puntuacion[9];
+			puntos[4];
+		end
+		
+	vida_boss;
+	id_boss01;
+	id_boss02;
+	id_boss03;
+	id_boss04;
+	id_boss05;
 
-juego;
+	juego;
 
-opcion;
-      
-fpg_menu;
-fpg_nave;
-fpg_bombas;
-fpg_enemigos;
-fpg_bosses;
-fpg_explosiones;
-      
-fuente[5];
+	opcion;
+		  
+	fpg_menu;
+	fpg_nave;
+	fpg_bombas;
+	fpg_enemigos;
+	fpg_bosses;
+	fpg_explosiones;
+		  
+	fuente[5];
 
-s_disparo;
-s_laser1;
-s_laser2;
-s_laser3;
-s_misil;
-s_explosion;
-s_explosion_grande;
+	s_disparo;
+	s_laser1;
+	s_laser2;
+	s_laser3;
+	s_misil;
+	s_explosion;
+	s_explosion_grande;
 
-s_aceptar;
-s_mover;
-s_cancelar;
+	s_aceptar;
+	s_mover;
+	s_cancelar;
 
-archivo;
+	archivo;
 
-disparos_sonando;
+	disparos_sonando;
 
-string savegamedir;
-string developerpath="/.PiXJuegos/Garnatron/";
+	string savegamedir;
+	string developerpath="/.PiXJuegos/Garnatron/";
 
+	ancho_pantalla=1024;
+	alto_pantalla=768;
+	bpp=32;
+End
 
 Local
 	jugador;
@@ -149,18 +152,28 @@ Local
 	patron;
 	id_texto;
 	i,j; //para controles.pr-
+End
+
+include "..\..\common-src\controles.pr-";
+include "..\..\common-src\savepath.pr-";
 
 //-----------------------------------------------------------------------
 // introduccion del juego
 //-----------------------------------------------------------------------
-
-
 BEGIN
 	if(argc>0) if(argv[1]=="arcade") arcade_mode=1; end end
 	
 	set_fps(40,10);
+
+	gamepad_boton_separacion=60;
+	gamepad_boton_size=75;
 	
-	if(os_id!=1003)
+	if(os_id==1003)
+		scale_resolution_aspectratio = SRA_PRESERVE;
+		scale_resolution=graphic_info(0,0,g_width)*10000+graphic_info(0,0,g_height);
+		bpp=16;
+		set_mode(1024,768,bpp);
+	else
 		if(!mode_is_ok(1024,768,32,MODE_FULLSCREEN))
 			scale_resolution=06400480; //compatible con Wii
 			if(!mode_is_ok(640,480,32,MODE_FULLSCREEN))
@@ -168,14 +181,11 @@ BEGIN
 			end
 		end
 		if(arcade_mode==1) scale_resolution=08000600; full_screen=true; end
+		set_mode(1024,768,bpp,WAITVSYNC);
 	end
 	
-	set_mode(1024,768,32,WAITVSYNC);
-
 	if(os_id==1003)
 		tactil=1;
-		guardar=0;
-		opciones.particulas=0;
 	end
 	
 	//dump_type=-1;
@@ -217,19 +227,23 @@ BEGIN
 
 	say("----------------- FNTS CARGADOS!");
 	
-	opciones.teclado.arriba=72;			//Arriba
-	opciones.teclado.derecha=77;		//Derecha
-	opciones.teclado.abajo=80;			//Abajo
-	opciones.teclado.izquierda=75;		//Izquierda
-	opciones.teclado.disparar=30;		//A
-	opciones.teclado.bomba=31;			//S
-	opciones.teclado.cambiar=32;		//D
+	ops.teclado.arriba=72;			//Arriba
+	ops.teclado.derecha=77;		//Derecha
+	ops.teclado.abajo=80;			//Abajo
+	ops.teclado.izquierda=75;		//Izquierda
+	ops.teclado.disparar=30;		//A
+	ops.teclado.bomba=31;			//S
+	ops.teclado.cambiar=32;		//D
 	
-	opciones.gamepad.disparar=0;		//0
-	opciones.gamepad.bomba=1;			//1
-	opciones.gamepad.cambiar=2;			//2
+	ops.gamepad.disparar=0;		//0
+	ops.gamepad.bomba=1;			//1
+	ops.gamepad.cambiar=2;			//2
 	
-	opciones.particulas=1;				//sistema de patículas activado
+	if(os_id==1003)
+		ops.particulas=0;
+	else
+		ops.particulas=1;				//sistema de patículas activado
+	end
 
 	save.nivel=1;	
 	save.poder[0]=1;
@@ -245,8 +259,6 @@ BEGIN
 	save.puntuacion[8]=10000;
 	save.puntuacion[9]=10000;
 	
-	
-
 	if(os_id<1000)
 		if(os_id==0) //windows
 			savegamedir=getenv("APPDATA")+developerpath;
@@ -261,13 +273,17 @@ BEGIN
 			crear_jerarquia(savegamedir);
 		end
 	end
+	if(os_id==1003)
+		savegamedir="/data/data/com.pixjuegos.garnatron/files";
+	end
 	
 	if(guardar)
-		if(file_exists(savegamedir+"opciones.dat"))
-			archivo=fopen(savegamedir+"opciones.dat",o_read);
-			fread(archivo,opciones);
+		guarda_opciones();
+/*		if(file_exists(savegamedir+"ops.dat"))
+			archivo=fopen(savegamedir+"ops.dat",o_read);
+			fread(archivo,ops);
 			fclose(archivo);
-		end
+		end*/
 		
 		if(file_exists(savegamedir+"save.dat"))
 			archivo=fopen(savegamedir+"save.dat",o_read);
@@ -275,21 +291,31 @@ BEGIN
 			fclose(archivo);
 		end
 	end
+
+	key_b_arriba=ops.teclado.arriba;			//Arriba
+	key_b_derecha=ops.teclado.derecha;		//Derecha
+	key_b_abajo=ops.teclado.abajo;			//Abajo
+	key_b_izquierda=ops.teclado.izquierda;		//Izquierda
+	key_b_1=ops.teclado.disparar;		//A
+	key_b_2=ops.teclado.bomba;			//S
+	key_b_3=ops.teclado.cambiar;		//D
 	
-	if(opciones.p_completa) 
+	if(ops.p_completa) 
 		full_screen=true; 
 		set_mode(1024,768,32,WAITVSYNC);
 	end
 	
 	if(arcade_mode==1)
-		opciones.particulas=0;
+		ops.particulas=0;
 	end
 	
 	frame;
 
 	configurar_controles();
 	
-	//start_scroll(0,fpg_menu,7,8,1,15); //numero,file,grafico,fondo,region,loop
+	if(os_id!=1003)
+		start_scroll(0,fpg_menu,7,8,1,15); //numero,file,grafico,fondo,region,loop
+	end
 	musica(1);
 	graph=2;
 	
@@ -654,9 +680,10 @@ begin
 						end
 						case 6:
 							if(guardar)
-								archivo=fopen(savegamedir+"opciones.dat", O_WRITE);
+								guarda_opciones();
+/*								archivo=fopen(savegamedir+"ops.dat", O_WRITE);
 								fwrite(archivo,opciones);
-								fclose(archivo);
+								fclose(archivo);*/
 							end
 							exit();
 						end
@@ -671,10 +698,10 @@ begin
 							menu(3);
 						end
 						case 3:
-							if(opciones.particulas==0)
-								opciones.particulas=1;
+							if(ops.particulas==0)
+								ops.particulas=1;
 							else
-								opciones.particulas=0;
+								ops.particulas=0;
 							end
 						end
 						case 4:
@@ -686,12 +713,12 @@ begin
 					switch(opcion_actual)
 						case 1: 
 							full_screen=true;
-							opciones.p_completa=1;
+							ops.p_completa=1;
 							set_mode(1024,768,32,WAITVSYNC);
 						end
 						case 2: 
 							full_screen=false;
-							opciones.p_completa=0;
+							ops.p_completa=0;
 							set_mode(1024,768,32,WAITVSYNC);
 						end
 						case 3:
@@ -705,57 +732,57 @@ begin
 							
 							id_texto=write(fuente[0],400,400,4,"Pulse tecla para arriba");
 							repeat
-								opciones.teclado.arriba=scan_code;
+								ops.teclado.arriba=scan_code;
 								frame;
-							until(opciones.teclado.arriba<>0);
+							until(ops.teclado.arriba<>0);
 							while(scan_code<>0) frame; end
 							delete_text(id_texto);
 	
 							id_texto=write(fuente[0],400,400,4,"Pulse una tecla para derecha");
 							Repeat
-								opciones.teclado.derecha=scan_code;
+								ops.teclado.derecha=scan_code;
 								frame;
-							until(opciones.teclado.derecha<>0);
+							until(ops.teclado.derecha<>0);
 							while(scan_code<>0) frame; end
 							delete_text(id_texto);
 
 							id_texto=write(fuente[0],400,400,4,"Pulse una tecla para abajo");
 							Repeat
-								opciones.teclado.abajo=scan_code;
+								ops.teclado.abajo=scan_code;
 								frame;
-							until(opciones.teclado.abajo<>0);
+							until(ops.teclado.abajo<>0);
 							while(scan_code<>0) frame; end
 							delete_text(id_texto);
 	
 							id_texto=write(fuente[0],400,400,4,"Pulse una tecla para izquierda");
 							Repeat
-								opciones.teclado.izquierda=scan_code;
+								ops.teclado.izquierda=scan_code;
 								frame;
-							until(opciones.teclado.izquierda<>0);
+							until(ops.teclado.izquierda<>0);
 							while(scan_code<>0) frame; end
 							delete_text(id_texto);
 	
 							id_texto=write(fuente[0],400,400,4,"Pulse una tecla para diparar");
 							Repeat
-								opciones.teclado.disparar=scan_code;
+								ops.teclado.disparar=scan_code;
 								frame;
-							until(opciones.teclado.disparar<>0);
+							until(ops.teclado.disparar<>0);
 							while(scan_code<>0) frame; end
 							delete_text(id_texto);
 
 							id_texto=write(fuente[0],400,400,4,"Pulse una tecla para disparar una bomba");
 							Repeat
-								opciones.teclado.bomba=scan_code;
+								ops.teclado.bomba=scan_code;
 								frame;
-							until(opciones.teclado.bomba<>0);
+							until(ops.teclado.bomba<>0);
 							while(scan_code<>0) frame; end
 							delete_text(id_texto);
 
 							id_texto=write(fuente[0],400,400,4,"Pulse una tecla para cambiar arma");
 							Repeat
-								opciones.teclado.cambiar=scan_code;
+								ops.teclado.cambiar=scan_code;
 								frame;
-							until(opciones.teclado.cambiar<>0);
+							until(ops.teclado.cambiar<>0);
 							while(scan_code<>0) frame; end
 							delete_text(id_texto);
 
@@ -763,9 +790,10 @@ begin
 							frame;
 							
 							if(guardar)
-								archivo=fopen(savegamedir+"opciones.dat", O_WRITE);
+								guarda_opciones();
+								/*archivo=fopen(savegamedir+"ops.dat", O_WRITE);
 								fwrite(archivo,opciones);
-								fclose(archivo);
+								fclose(archivo);*/
 							end
 							
 						end
@@ -781,7 +809,7 @@ begin
 							and !get_joy_button(6) and !get_joy_button(7)
 							and !get_joy_button(8) and !get_joy_button(9)
 							and !get_joy_button(10) and !get_joy_button(11)) 
-								opciones.gamepad.arriba=get_joy_position(1);
+								ops.gamepad.arriba=get_joy_position(1);
 								frame;
 							end
 							while(get_joy_button(0) or get_joy_button(1) 
@@ -803,7 +831,7 @@ begin
 							and !get_joy_button(8) and !get_joy_button(9)
 							and !get_joy_button(10) and !get_joy_button(11))
 
-								opciones.gamepad.derecha=get_joy_position(0);
+								ops.gamepad.derecha=get_joy_position(0);
 								frame;
 							end
 							while(get_joy_button(0) or get_joy_button(1) 
@@ -824,7 +852,7 @@ begin
 							and !get_joy_button(6) and !get_joy_button(7)
 							and !get_joy_button(8) and !get_joy_button(9)
 							and !get_joy_button(10) and !get_joy_button(11))
-								opciones.gamepad.abajo=get_joy_position(1);
+								ops.gamepad.abajo=get_joy_position(1);
 								frame;
 							end
 							while(get_joy_button(0) or get_joy_button(1) 
@@ -845,7 +873,7 @@ begin
 							and !get_joy_button(6) and !get_joy_button(7)
 							and !get_joy_button(8) and !get_joy_button(9)
 							and !get_joy_button(10) and !get_joy_button(11))
-								opciones.gamepad.izquierda=get_joy_position(0);
+								ops.gamepad.izquierda=get_joy_position(0);
 								frame;
 							end
 							while(get_joy_button(0) or get_joy_button(1) 
@@ -862,13 +890,13 @@ begin
 							repeat
 								from a=0 to 11;
 									if(get_joy_button(0,a))
-										opciones.gamepad.disparar=a;
+										ops.gamepad.disparar=a;
 										break;
 									end
 								end
 								frame;
-							until(get_joy_button(0,opciones.gamepad.disparar));
-							while(get_joy_button(0,opciones.gamepad.disparar))
+							until(get_joy_button(0,ops.gamepad.disparar));
+							while(get_joy_button(0,ops.gamepad.disparar))
 								frame;
 							end
 							delete_text(id_texto);
@@ -877,13 +905,13 @@ begin
 							repeat
 								from a=0 to 11;
 									if(get_joy_button(0,a))
-										opciones.gamepad.bomba=a;
+										ops.gamepad.bomba=a;
 										break;
 									end
 								end
 								frame;
-							until(get_joy_button(0,opciones.gamepad.bomba));
-							while(get_joy_button(0,opciones.gamepad.bomba))
+							until(get_joy_button(0,ops.gamepad.bomba));
+							while(get_joy_button(0,ops.gamepad.bomba))
 								frame;
 							end
 							delete_text(id_texto);
@@ -892,13 +920,13 @@ begin
 							repeat
 								from a=0 to 11;
 									if(get_joy_button(0,a))
-										opciones.gamepad.cambiar=a;
+										ops.gamepad.cambiar=a;
 										break;
 									end
 								end
 								frame;
-							until(get_joy_button(0,opciones.gamepad.cambiar));
-							while(get_joy_button(0,opciones.gamepad.cambiar))
+							until(get_joy_button(0,ops.gamepad.cambiar));
+							while(get_joy_button(0,ops.gamepad.cambiar))
 								frame;
 							end
 							delete_text(id_texto);
@@ -907,28 +935,30 @@ begin
 							frame;
 							
 							if(guardar)
-								archivo=fopen(savegamedir+"opciones.dat", O_WRITE);
+								guarda_opciones();
+								/*archivo=fopen(savegamedir+"ops.dat", O_WRITE);
 								fwrite(archivo,opciones);
-								fclose(archivo);
+								fclose(archivo);*/
 							end
 						end
 						case 3:
-							opciones.teclado.arriba=72;			//Arriba
-							opciones.teclado.derecha=77;		//Derecha
-							opciones.teclado.abajo=80;			//Abajo
-							opciones.teclado.izquierda=75;		//Izquierda
-							opciones.teclado.disparar=30;		//A
-							opciones.teclado.bomba=31;			//S
-							opciones.teclado.cambiar=32;		//D
+							ops.teclado.arriba=72;			//Arriba
+							ops.teclado.derecha=77;		//Derecha
+							ops.teclado.abajo=80;			//Abajo
+							ops.teclado.izquierda=75;		//Izquierda
+							ops.teclado.disparar=30;		//A
+							ops.teclado.bomba=31;			//S
+							ops.teclado.cambiar=32;		//D
 
-							opciones.gamepad.disparar=0;		//0
-							opciones.gamepad.bomba=1;			//1
-							opciones.gamepad.cambiar=2;			//2
+							ops.gamepad.disparar=0;		//0
+							ops.gamepad.bomba=1;			//1
+							ops.gamepad.cambiar=2;			//2
 							
 							if(guardar)
-								archivo=fopen(savegamedir+"opciones.dat", O_WRITE);
+								guarda_opciones();
+								/*archivo=fopen(savegamedir+"ops.dat", O_WRITE);
 								fwrite(archivo,opciones);
-								fclose(archivo);
+								fclose(archivo);*/
 							end
 						end
 						case 4:
@@ -1249,43 +1279,6 @@ end
 end
 
 //-----------------------------------------------------------------------
-// funcion para guardar archivos
-//-----------------------------------------------------------------------
-
-Function crear_jerarquia(string nuevo_directorio)                // Mejor Function que Process aquí
-Private
-	string directorio_actual="";
-	string rutas_parciales[10];     // Sólo acepta la creación de un máximo de 10 directorios
-	int i_max=0;
-Begin
-    directorio_actual = cd();                        // Recuperamos el directorio actual de trabajo, para volver luego a él
-    if(chdir(nuevo_directorio) == 0)    // El directorio ya existe!
-		cd(directorio_actual);
-        return 0;
-    end
-    i_max = split("[\\/]", nuevo_directorio, &rutas_parciales, 10);
-    chdir("/");
-    while (i<i_max)
-        while(rutas_parciales[i] == "")         // Se salta partes en blanco
-                if(i++ >=i_max)
-                       cd(directorio_actual);
-                       return 0;
-                end
-        end
-        if(chdir(rutas_parciales[i]) == -1)
-                if(mkdir(rutas_parciales[i]) == -1)        // Error al intentar crear el directorio
-                        cd(directorio_actual);
-                        return -1;
-                end
-                chdir(rutas_parciales[i]);
-        end;
-        i++;
-    end
-    chdir(directorio_actual);
-    return 0;
-End
-
-//-----------------------------------------------------------------------
 // explosiones de particulas
 //-----------------------------------------------------------------------
 
@@ -1350,6 +1343,6 @@ include "nave.pr-"
 include "bombas.pr-"
 include "bosses.pr-"
 include "enemigos.pr-"
-include "controles.pr-"
+//include "controles.pr-"
 
 //include "../../common-src/controles.pr-";

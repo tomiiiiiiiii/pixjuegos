@@ -644,6 +644,7 @@ struct datos_nivel[00];
 end
 -----------------------------------------------------------------------*/
 Begin
+	if(os_id==1003) juego(nivel); return; end
 	file=fpg_menu;
 	fade_off();
 	delete_text(all_text);
