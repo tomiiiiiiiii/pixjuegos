@@ -15,7 +15,7 @@ Begin
 	parpadea=15;
 	jefe=1;
 	ready=0;
-	fpg_jefe=load_fpg("fpg/monstruos/ultraball.fpg");
+	fpg_jefe=load_fpg("fpg/ultraball.fpg");
 	readyando();
 	file=fpg_jefe;
 	x=400; y=-10; alpha=0; z=-10;

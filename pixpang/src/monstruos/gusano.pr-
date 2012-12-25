@@ -21,7 +21,7 @@ Begin
 	x=400;		//coordenadas iniciales
 	y=80;
 	alpha=128;
-	fpg_jefe=load_fpg("fpg/monstruos/gusano.fpg");
+	fpg_jefe=load_fpg("fpg/gusano.fpg");
 	id_fondo=pon_fondo(load_png("fondos/monstruos/fantasma.png"));
 	file=fpg_jefe;
 	vidajefe();

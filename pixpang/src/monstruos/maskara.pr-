@@ -21,7 +21,7 @@ Begin
 	ready=0;
 	x=400;		//coordenadas iniciales
 	y=100;
-	fpg_jefe=load_fpg("fpg/monstruos/maskara.fpg");
+	fpg_jefe=load_fpg("fpg/maskara.fpg");
 	id_fondo=pon_fondo(load_png("fondos/monstruos/fantasma.png"));
 	file=fpg_jefe;
 	vidajefe();

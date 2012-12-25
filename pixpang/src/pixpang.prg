@@ -1,6 +1,8 @@
 Program pixpang;
 
-//import "mod_debug";
+import "mod_image";
+
+import "mod_debug";
 import "mod_dir";
 import "mod_draw";
 import "mod_file";
@@ -73,6 +75,7 @@ Global
 		id;
 		fpg;
 		vidafuera;
+		personaje;
 	end
 	joysticks[10];
 	
@@ -81,7 +84,7 @@ Global
 	int animglobal;
 	int ready;
 	int prisa;
-	int escenario;
+	//int escenario;
 	int fnt1;
 	int fnt2;
 	int fnt3;
@@ -308,7 +311,11 @@ Begin
 	grafico(400,559,7,1,0,0);
 	If(modo_juego==1 OR modo_juego==-1) 
 		grafico(400,300,2,2,0,0);
-	    If(modo_juego==1) barra_nivel(); End
+		write(fnt2,300,540,3,"Level ");
+		write_int(fnt2,460,540,3,&mundo);
+	    If(modo_juego==1) 
+			barra_nivel(); 
+		End
 	End
 	If(modo_juego==2) 
 		grafico(400,300,1,2,0,0);
@@ -325,12 +332,10 @@ Begin
    graph=444;
    set_center(file,graph,0,15);
    // Se asignan las coordenadas
-   x=305; y=575; z=0;
-   grafico(400,540,442,0,0,fpg_lang);
-   grafico(400,575,443,-1,0,0);
+   x=305; y=580; z=0;
+   grafico(400,580,443,-1,0,0);
    Loop
-      energia=((p[1].bolas+p[2].bolas)-((cont-1)*50));
-      size_x=energia*2;
+	  size_x=(((p[1].bolas+p[2].bolas))-((mundo)*5))*20;
 	  if(size_x>100) size_x=100; end
       Frame;
    End
@@ -710,7 +715,10 @@ Begin
 		faderaro(img_pixpang);
 		let_me_alone();
 	End
-	If(modo_juego==2) If(mundo==tour_levels+1) menu(); else inicio(); End end
+	If(modo_juego==2) 
+		If(mundo==tour_levels+1) menu(); else inicio(); End 
+	end
+	if(modo_juego==1) menu(); end
 End
 
 Process cuadro_ganar(num);
@@ -804,7 +812,7 @@ Begin
 	relojarena=0;
 End
 
-/*Process fondos_panic();
+Process fondos_panic();
 Private
 	png_fondo;
 	cambiado;  
@@ -847,9 +855,9 @@ Begin
 		End
 		Frame;
 	End
-End                  */
+End
 
-process fondos_panic();
+/*process fondos_panic();
 begin
 	pon_fondo(fondotemporal);
 	loop
@@ -861,9 +869,9 @@ end
 process fondos_tour();
 begin
 	pon_fondo(fondotemporal);
-end
+end*/
 
-/*Process fondos_tour();
+Process fondos_tour();
 Private
 	png_fond;
 Begin
@@ -888,23 +896,11 @@ Begin
 	If(mundo==18) png_fond=load_image(".\fondos\12.jpg"); End  
 	If(mundo==19) png_fond=load_image(".\fondos\11.jpg"); End  
 	If(mundo>19) png_fond=load_image(".\fondos\"+itoa(mundo+12)+".jpg"); End
-//----------ENGLAND TOUR
-	If(mundo==100 AND mod_england==1) png_fond=load_image(".\england\fondos\1.jpg"); End
-	If(mundo==101 AND mod_england==1) png_fond=load_image(".\england\fondos\2.jpg"); End
-	If(mundo==102 AND mod_england==1) png_fond=load_image(".\england\fondos\3.jpg"); End
-	If(mundo==103 AND mod_england==1) png_fond=load_image(".\england\fondos\4.jpg"); End
-//----------ANDORRA TOUR
-	If(mundo==100 AND mod_andorra==1) png_fond=load_image(".\andorra\fondos\1.jpg"); End
-	If(mundo==101 AND mod_andorra==1) png_fond=load_image(".\andorra\fondos\2.jpg"); End
-	If(mundo==102 AND mod_andorra==1) png_fond=load_image(".\andorra\fondos\3.jpg"); End
-	If(mundo==103 AND mod_andorra==1) png_fond=load_image(".\andorra\fondos\4.jpg"); End
-	If(mundo==104 AND mod_andorra==1) png_fond=load_image(".\andorra\fondos\5.jpg"); End
-//----------CUSTOM TOUR
-	If(mundo=>100 AND mod_custom==1) png_fond=load_image(".\custom\fondos\"+itoa(mundo-99)+".jpg"); End
+	//If(mundo=>100 AND mod_custom==1) png_fond=load_image(".\custom\fondos\"+itoa(mundo-99)+".jpg"); End
 	If(png_fond<1) png_fond=load_image(".\fondos\"+rand(1,42)+".jpg"); End
 	pon_fondo(png_fond);
 	Frame;
-End*/
+End
 
 Process pon_fondo(el_png);
 Begin                                 
@@ -946,7 +942,9 @@ Begin
 	if(posibles_jugadores==1)
 		players=1;
 	end
-	guardar_partida();
+	if(modo_juego==2)
+		guardar_partida();
+	end
 	delete_text(all_text); // borra textos
 	clear_screen();
 	cont=0; // contador fondos
@@ -1040,7 +1038,6 @@ Begin
 	p[1].arma=2;
 	p[2].arma=2;
 	modo_juego=1;    
-	If(cont==12) cont=11; End
 	controlador(0);
 	Loop
 		If(pixel_mola==1 and ready==1)
@@ -1050,12 +1047,14 @@ Begin
 			If(key(_f) AND txt_fps==0) txt_fps=write_int(fnt1,0,0,0,&fps); End
 			If(key(_n)) nube(); End
 		End
+		mundo=(p[1].bolas+p[2].bolas)/5;
+		if(mundo>99) mundo=99; end
 		If(p[0].botones[7]) while(p[0].botones[7]) frame; end menu(); End
 		If((p[1].bolas+p[2].bolas)>100 AND rand(0,200)==0) nube(); End
 		If(bolas=>13 AND prisa==0) prisa=1; hayprisa(); End
 		If(bolas<8 AND prisa==1) prisa=0; timer[8]=0; musica(5); End
 		If(key(_d) AND key(_b) AND key(_g)) pixel_mola=1; End
-		If(cont==12 AND ganando==0 AND bolas==0 AND ready==1) ganar(); Return; End
+		If(mundo==99 AND bolas==0 AND ready==1) ganar(); Return; End
 		if(key(_p) and ready==1)
 			txt_pausa=write(fnt1,400,300,4,"PAUSA");
 			suena(8);
@@ -1068,7 +1067,7 @@ Begin
 			ready=1;
 			suena(2);
 		end
-		If((timer[7]>1500 OR bolas<1) and jefe==0 AND (ganando==0 AND ready==1 AND p[1].bolas+p[2].bolas<550 and bola_estrella==0 and matabolas==0)) 
+		If((timer[7]>1000 OR (bolas<5 and rand(0,1000)==0)) and jefe==0 AND (ganando==0 AND ready==1 AND p[1].bolas+p[2].bolas<500 and bola_estrella==0 and matabolas==0)) 
 			timer[7]=0; 
 			If(prisa==1) prisa=0; timer[8]=0; musica(5); End 
 			if(p[1].bolas+p[2].bolas<200) kindabolas=rand(0,2); else kindabolas=rand(0,4); end 
@@ -1095,18 +1094,18 @@ Begin
 			If(p[1].muere==2 AND p[1].vidas<0) gameover(); End
 		End           
 		If(relojarena==0 and jefe==0) 
-			switch(ops.dificultad)			
+			switch(ops.dificultad)
 				case 0:
-					velocidad=600-(p[1].bolas/3+p[2].bolas/3); 
+					velocidad=450-(p[1].bolas/3+p[2].bolas/3); 
 				end
 				case 1:
-					velocidad=550-(p[1].bolas/3+p[2].bolas/3); 
+					velocidad=400-(p[1].bolas/3+p[2].bolas/3); 
 				end
 				case 2:
-					velocidad=500-(p[1].bolas/3+p[2].bolas/3); 
+					velocidad=350-(p[1].bolas/3+p[2].bolas/3); 
 				end
 				case 3:
-					velocidad=400-(p[1].bolas/3+p[2].bolas/3); 
+					velocidad=300-(p[1].bolas/3+p[2].bolas/3); 
 				end
 			end
 		End
@@ -1832,3 +1831,41 @@ Begin
 		unload_map(0,graph);
 	end
 end
+
+Process texto_fondos(String creador);
+Private
+	timr;
+Begin
+	// desactivado por ahora
+	return;
+	// ...
+	x=1100;
+	y=40;                 
+	If(txt_fondos[0]!=0) delete_text(txt_fondos[0]); End
+	While(x>25)
+		If(x>100) x-=5; End
+		x-=5;
+		Set_text_color(color_texto[0]);
+		txt_fondos[0]=write(fnt1,x,y,0,creador);
+		Frame;
+		delete_text(txt_fondos[0]);
+	End
+	timr=0;
+	While(timr<300)
+		timr++;
+		Set_text_color(color_texto[0]);
+		txt_fondos[0]=write(fnt1,x,y,0,creador);
+		Frame;
+		delete_text(txt_fondos[0]);
+	End
+	While(x>-300)
+		x-=5;
+		Set_text_color(color_texto[0]);
+		txt_fondos[0]=write(fnt1,x,y,0,creador);
+		Frame;
+		delete_text(txt_fondos[0]);
+	End
+	delete_text(txt_fondos[0]);
+End
+
+include "demo.pr-";

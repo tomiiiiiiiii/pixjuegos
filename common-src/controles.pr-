@@ -129,13 +129,14 @@ Begin
 			if(os_id==os_wii)
 				If(get_joy_button(joysticks[p[jugador].control],2)) p[jugador].botones[4]=1; End
 				If(get_joy_button(joysticks[p[jugador].control],3)) p[jugador].botones[5]=1; End
-				If(get_joy_button(joysticks[p[jugador].control],4)) p[jugador].botones[6]=1; End
+				If(get_joy_button(joysticks[p[jugador].control],1)) p[jugador].botones[6]=1; End
 				If(get_joy_button(joysticks[p[jugador].control],6)) p[jugador].botones[7]=1; End
 			elseif(os_id==os_caanoo)
-				If(joy_getbutton(1,0)) p[jugador].botones[4]=1; End
-				If(joy_getbutton(1,1)) p[jugador].botones[5]=1; End
-				If(joy_getbutton(1,2)) p[jugador].botones[6]=1; End
-				If(joy_getbutton(1,8)) p[jugador].botones[7]=1; End				
+			//elseif(os_id==os_caanoo or os_id==os_dingux_a320 or os_id==os_gp2x or os_id==os_gp2x_wiz or os_id==os_gp32 or os_id==os_dc)
+				If(joy_getbutton(0,12)) p[jugador].botones[4]=1; End
+				If(joy_getbutton(0,14)) p[jugador].botones[5]=1; End
+				If(joy_getbutton(0,13)) p[jugador].botones[6]=1; End
+				If(joy_getbutton(0,8)) p[jugador].botones[7]=1; End				
 			else
 				If(get_joy_button(joysticks[p[jugador].control],0)) p[jugador].botones[4]=1; End
 				If(get_joy_button(joysticks[p[jugador].control],1)) p[jugador].botones[5]=1; End
@@ -199,7 +200,8 @@ Begin
 	p[0].control=-2; //Esto son los menus :)
 	
 	//controladores especiales!
-	if(os_id==os_caanoo) //caanoo
+	//if(os_id==os_caanoo) //caanoo
+	if(os_id==os_caanoo or os_id==os_dingux_a320 or os_id==os_gp2x or os_id==os_gp2x_wiz or os_id==os_gp32 or os_id==os_dc)
 		joysticks[0]=1;
 		p[1].control=1;
 		posibles_jugadores=1;
@@ -243,11 +245,13 @@ Begin
 	priority=8;
 	loop
 		if(mouse.left) dedo(mouse.x,mouse.y); end
+#IFNDEF CAANOO
 		for(i=0; i<10; i++)
 			if(multi_info(i, "ACTIVE") > 0)
 				dedo(multi_info(i, "X"),multi_info(i, "Y"));
 			end
 		end
+#ENDIF
 		frame;
 	end
 End

@@ -13,6 +13,8 @@ private
 	tec2;
 	continuable;
 begin
+	//int3titulo();
+	//return;
 	i=0;
 	while(i<400)
 		id_bolas[i]=0;

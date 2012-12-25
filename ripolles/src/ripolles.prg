@@ -11,7 +11,9 @@ import "mod_key";
 import "mod_map";
 import "mod_math";
 import "mod_mouse";
+#IFNDEF CAANOO
 import "mod_multi";
+#ENDIF
 import "mod_proc";
 import "mod_rand";
 import "mod_regex";
@@ -59,11 +61,15 @@ End
 
 Global
 	puntos;
+
+	arcade_mode;
 	
 	string savegamedir;
 	string developerpath="/.PiXJuegos/Ripolles/";
 
 	anterior_cancion;
+
+	panoramico=1;
 	
 	joysticks[10];
 	posibles_jugadores;
@@ -179,6 +185,7 @@ End
 
 include "../../common-src/controles.pr-";
 include "../../common-src/savepath.pr-";
+include "../../common-src/resolucioname.pr-";
 include "jefe1.pr-";
 include "jefe4.pr-";
 include "niveles.pr-";
@@ -188,19 +195,30 @@ include "personaje.pr-";
 include "enemigo.pr-";
 
 Begin
+	if(argc>0) if(argv[1]=="arcade") arcade_mode=1; end end
+
 	savepath();
 	carga_opciones();
 
+	resolucioname(1280,720,1);
+	
 	//La resolución del monitor será esta:
-	if(os_id!=1003)
-		scale_resolution=12800720;
-	else
-		ancho_pantalla=graphic_info(0,0,g_width);
-		alto_pantalla=graphic_info(0,0,g_height);
-		scale_resolution=ancho_pantalla*10000+alto_pantalla; 
-		ancho_pantalla=640;
+	if(os_id==os_caanoo or os_id==os_dingux_a320 or os_id==os_gp2x or os_id==os_gp2x_wiz or os_id==os_gp32 or os_id==os_dc)
+		panoramico=0;
+		//scale_resolution=03200240;
+		ancho_pantalla=480;
 		alto_pantalla=360;
 		bpp=16;
+	elseif(os_id==os_wii)
+		scale_resolution=06400480;
+		scale_resolution_aspectratio = SRA_PRESERVE;
+		bpp=16;	
+	elseif(os_id==os_android or os_id==os_ios) //móviles
+		scale_resolution=graphic_info(0,0,g_width)*10000+graphic_info(0,0,g_height);
+		bpp=16;	
+	else
+		scale_resolution=12800720;
+		//graph_mode=mode_2xscale;
 	end
 	
 	if(ops.ventana==0)
@@ -216,6 +234,7 @@ Begin
 	graph=load_png("loading.png");
 	x=ancho_pantalla/2;
 	y=alto_pantalla/2;
+	if(!panoramico) size=75; end
 	z=-520;
 	
 	from alpha=0 to 255 step 20; frame; end
@@ -285,7 +304,6 @@ Begin
 	fpg_general=load_fpg("fpg/general.fpg");
 	fpg_objetos=load_fpg("fpg/objetos.fpg");
 	fpg_menu=load_fpg("fpg/menu.fpg");
-	fpg_cutscenes=load_fpg("fpg/cutscenes.fpg");
 End
 
 Process jugar();
@@ -503,6 +521,10 @@ Begin
 		end
 		
 		if(en_emboscada>0)
+			if(!panoramico and emboscada[en_emboscada].min_x==emboscada[en_emboscada].max_x)
+				emboscada[en_emboscada].min_x=emboscada[en_emboscada].min_x-80;
+				emboscada[en_emboscada].max_x=emboscada[en_emboscada].max_x+80;
+			end
 			if(suma_x<emboscada[en_emboscada].min_x)
 				suma_x=emboscada[en_emboscada].min_x;
 			elseif(suma_x>emboscada[en_emboscada].max_x)
@@ -657,8 +679,8 @@ Begin
 		if((father.x<30 and father.x_inc<0) or (father.x>ancho_nivel-30 and father.x_inc>0)) father.x_inc*=-1; end
 
 		if(forma==encerrandome)
-			if(father.x<id_camara.x-300) father.x=id_camara.x-300; end
-			if(father.x>id_camara.x+300) father.x=id_camara.x+300; end
+			if(father.x<id_camara.x-((ancho_pantalla/2)-50)) father.x=id_camara.x-((ancho_pantalla/2)-50); end
+			if(father.x>id_camara.x+((ancho_pantalla/2)-50)) father.x=id_camara.x+((ancho_pantalla/2)-50); end
 		end
 		
 		if(father.altura==0)
@@ -959,7 +981,7 @@ Begin
 	jugador=father.jugador;
 	flags=father.flags;
 	z=father.z;
-	priority=1;
+	priority=-1;
 	ctype=coordenadas;
 	alpha=0;
 	frame;
@@ -1213,14 +1235,19 @@ Begin
 End
 
 Process pon_musica(i);
+Private
+	string formato="ogg";
 Begin
+	if(os_id==os_wii /*or os_id==os_caanoo*/ or os_id==os_dingux_a320 or os_id==os_gp2x or os_id==os_gp2x_wiz or os_id==os_gp32 or os_id==os_dc) 
+		//formato="mp3"; 
+	end
 	if(ops.musica)
 		if(i!=anterior_cancion)
 			fade_music_off(400);
 			timer[1]=0;
 			while(timer[1]<40) frame; end
 			anterior_cancion=i;
-			play_song(load_song(i+".ogg"),-1);
+			play_song(load_song("ogg/"+i+"."+formato),-1);
 		end
 	else
 		anterior_cancion=0;
@@ -1608,7 +1635,7 @@ Begin
 	y=60;
 	z=-512;
 	from i=1 to 3;
-		x=500;
+		x=ancho_pantalla-140;
 		from alpha=0 to 255 step 30; x+=5; frame; end
 		from alpha=255 to 0 step -30; x+=5; frame; end
 	end

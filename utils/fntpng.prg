@@ -23,6 +23,7 @@ import "mod_wm";
 
 Begin
 	set_mode(100,100,argv[1]);
+	frame;
 	from x=2 to argc-1;
 		say(argv[x]);
 		procesa(argv[x]);

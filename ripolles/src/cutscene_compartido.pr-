@@ -7,6 +7,7 @@
 	while(fading) frame; end
 	
 	//size=180;
+	fpg_nivel=fpg_cutscenes=load_fpg("fpg/cutscenes.fpg");
 	file=fpg_cutscenes;
 
 	cambia_fps();

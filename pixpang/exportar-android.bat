@@ -15,10 +15,7 @@ start /wait compilarfpgs.bat 16
 cd fpg
 ren *.fpg *.fpg.gz
 ..\..\utils\gzip -d *.fpg.gz
-cd monstruos
-ren *.fpg *.fpg.gz
-..\..\utils\gzip -d *.fpg.gz
-cd ..\..
+cd ..
 
 echo Exportando...
 mkdir export

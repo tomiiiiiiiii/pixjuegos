@@ -23,6 +23,7 @@ import "mod_wm";
 
 Begin
 	set_mode(100,100,32);
+	frame;
 	mkdir(argv[1]);
 	cd(argv[1]);
 	file=load_fpg("..\..\fpg\"+argv[1]+".fpg");
