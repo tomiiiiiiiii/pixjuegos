@@ -312,10 +312,9 @@ BEGIN
 	frame;
 
 	configurar_controles();
-	
-	if(os_id!=1003)
-		start_scroll(0,fpg_menu,7,8,1,15); //numero,file,grafico,fondo,region,loop
-	end
+
+	start_scroll(0,fpg_menu,8,0,1,15); //numero,file,grafico,fondo,region,loop
+
 	musica(1);
 	graph=2;
 	

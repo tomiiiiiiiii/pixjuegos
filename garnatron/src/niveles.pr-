@@ -128,7 +128,7 @@ Begin
 			if(pausa==0)
 				pausa=1;
 				graph=20;
-				size=300;
+				size=100;
 				direccion=1;
 				id_texto=write(fuente[0],x,y,4,"¿Salir de la partida?");
 				boton(512,500,"",1);
@@ -140,8 +140,9 @@ Begin
 				pausa=0;
 				graph=0;;
 				delete_text(id_texto);
+				delete_text(id_texto1);
+				delete_text(id_texto2);
 				signal(type boton,s_kill);
-				delete_text(0);
 			end
 		end
 
@@ -151,7 +152,7 @@ Begin
 				
 			if(direccion==1) graph++; else graph--; end
 			if(graph==20) direccion=1; end
-			if(graph==44) direccion=0; end
+			if(graph==43) direccion=0; end
 			if(p[0].botones[2] and gatillo==0 and opcion>1)
 				gatillo=1;
 				opcion--;
@@ -658,7 +659,7 @@ Begin
 		save.puntos[jugador]=puntos[jugador];
 		save.poder[jugador]=poder[jugador];
 	end
-	say("----------------------------------------------before fuck");
+//	say("----------------------------------------------before fuck");
 	if(guardar)
 		archivo=fopen(savegamedir+"save.dat",o_write);
 		fwrite(archivo,save);
@@ -666,7 +667,7 @@ Begin
 	end
 
 	//carga el archivo del nivel
-	say("----------------------------------------------fuck");
+//	say("----------------------------------------------fuck");
 	archivo=fopen("./niveles/nivel"+nivel+".txt",O_READ);
 	while(!feof(archivo))
 		linea=fgets(archivo);  

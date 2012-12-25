@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.44.1"
+   sodipodi:docbase="D:\fenix\iparty"
+   sodipodi:docname="energia.svg">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4"
+     inkscape:cx="267.03156"
+     inkscape:cy="752.41917"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     showguides="true"
+     inkscape:object-points="false"
+     inkscape:grid-points="true"
+     gridtolerance="50"
+     inkscape:guide-points="true"
+     inkscape:object-nodes="true"
+     inkscape:guide-bbox="true"
+     inkscape:window-width="942"
+     inkscape:window-height="573"
+     inkscape:window-x="154"
+     inkscape:window-y="182">
+    <sodipodi:guide
+       orientation="horizontal"
+       position="744.28572"
+       id="guide4536" />
+    <sodipodi:guide
+       orientation="vertical"
+       position="245.71429"
+       id="guide4538" />
+    <sodipodi:guide
+       orientation="vertical"
+       position="330"
+       id="guide4540" />
+    <sodipodi:guide
+       orientation="vertical"
+       position="159.28571"
+       id="guide4542" />
+    <sodipodi:guide
+       orientation="horizontal"
+       position="828.57143"
+       id="guide4544" />
+    <sodipodi:guide
+       orientation="horizontal"
+       position="667.14286"
+       id="guide4546" />
+    <sodipodi:guide
+       orientation="vertical"
+       position="200.71429"
+       id="guide4548" />
+    <sodipodi:guide
+       orientation="vertical"
+       position="291.42857"
+       id="guide4550" />
+    <sodipodi:guide
+       orientation="horizontal"
+       position="787.14286"
+       id="guide4552" />
+    <sodipodi:guide
+       orientation="horizontal"
+       position="702.85714"
+       id="guide4554" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       sodipodi:type="spiral"
+       style="fill:none;fill-rule:evenodd;stroke:black;stroke-width:12;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path5459"
+       sodipodi:cx="240"
+       sodipodi:cy="312.36218"
+       sodipodi:expansion="1"
+       sodipodi:revolution="3"
+       sodipodi:radius="90.030991"
+       sodipodi:argument="-18.930126"
+       sodipodi:t0="0.1"
+       d="M 237.91605,321.12077 C 230.29934,323.09953 224.27468,315.44204 223.94258,308.5416 C 223.38034,296.85919 234.62201,288.59886 245.55721,289.00594 C 261.22196,289.58908 271.89999,304.72009 270.65507,319.65602 C 269.01837,339.29249 249.89568,352.44028 230.96954,350.31608 C 207.36243,347.66651 191.72234,324.50675 194.74727,301.5951 C 198.38833,274.01681 225.60915,255.8724 252.50371,259.81063 C 284.0539,264.4306 304.70988,295.72668 299.85038,326.60252 C 294.25951,362.12527 258.87904,385.29754 224.02303,379.51139 C 184.52718,372.95502 158.83537,333.48398 165.55197,294.64859 C 173.07001,251.1792 216.63603,222.9655 259.45022,230.61532 C 296.32245,237.20346 324.78232,268.2291 329.73893,305.11621" />
+    <path
+       sodipodi:type="spiral"
+       style="fill:none;fill-rule:evenodd;stroke:#ff7500;stroke-width:10;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path1876"
+       sodipodi:cx="240"
+       sodipodi:cy="312.36218"
+       sodipodi:expansion="1"
+       sodipodi:revolution="3"
+       sodipodi:radius="90.030991"
+       sodipodi:argument="-18.930126"
+       sodipodi:t0="0.1"
+       d="M 237.91605,321.12077 C 230.29934,323.09953 224.27468,315.44204 223.94258,308.5416 C 223.38034,296.85919 234.62201,288.59886 245.55721,289.00594 C 261.22196,289.58908 271.89999,304.72009 270.65507,319.65602 C 269.01837,339.29249 249.89568,352.44028 230.96954,350.31608 C 207.36243,347.66651 191.72234,324.50675 194.74727,301.5951 C 198.38833,274.01681 225.60915,255.8724 252.50371,259.81063 C 284.0539,264.4306 304.70988,295.72668 299.85038,326.60252 C 294.25951,362.12527 258.87904,385.29754 224.02303,379.51139 C 184.52718,372.95502 158.83537,333.48398 165.55197,294.64859 C 173.07001,251.1792 216.63603,222.9655 259.45022,230.61532 C 296.32245,237.20346 324.78232,268.2291 329.73893,305.11621" />
+    <path
+       sodipodi:type="spiral"
+       style="fill:none;fill-rule:evenodd;stroke:blue;stroke-width:5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path2764"
+       sodipodi:cx="240"
+       sodipodi:cy="312.36218"
+       sodipodi:expansion="1"
+       sodipodi:revolution="3"
+       sodipodi:radius="90.030991"
+       sodipodi:argument="-18.930126"
+       sodipodi:t0="0.1"
+       d="M 237.91605,321.12077 C 230.29934,323.09953 224.27468,315.44204 223.94258,308.5416 C 223.38034,296.85919 234.62201,288.59886 245.55721,289.00594 C 261.22196,289.58908 271.89999,304.72009 270.65507,319.65602 C 269.01837,339.29249 249.89568,352.44028 230.96954,350.31608 C 207.36243,347.66651 191.72234,324.50675 194.74727,301.5951 C 198.38833,274.01681 225.60915,255.8724 252.50371,259.81063 C 284.0539,264.4306 304.70988,295.72668 299.85038,326.60252 C 294.25951,362.12527 258.87904,385.29754 224.02303,379.51139 C 184.52718,372.95502 158.83537,333.48398 165.55197,294.64859 C 173.07001,251.1792 216.63603,222.9655 259.45022,230.61532 C 296.32245,237.20346 324.78232,268.2291 329.73893,305.11621" />
+  </g>
+</svg>

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.44.1"
+   sodipodi:docbase="D:\fenix\iparty\graficos"
+   sodipodi:docname="fondo_montana.svg">
+  <defs
+     id="defs4">
+    <linearGradient
+       id="linearGradient2802">
+      <stop
+         id="stop2804"
+         offset="0"
+         style="stop-color:#62371b;stop-opacity:1;" />
+      <stop
+         id="stop2806"
+         offset="1"
+         style="stop-color:#3f250e;stop-opacity:1;" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient2778">
+      <stop
+         style="stop-color:#a05a2c;stop-opacity:1;"
+         offset="0"
+         id="stop2780" />
+      <stop
+         style="stop-color:#553213;stop-opacity:1;"
+         offset="1"
+         id="stop2782" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2778"
+       id="linearGradient2792"
+       x1="-17.142857"
+       y1="520.93359"
+       x2="-11.428572"
+       y2="903.79077"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2802"
+       id="linearGradient2800"
+       x1="488.57144"
+       y1="572.36218"
+       x2="488.57141"
+       y2="780.93365"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2802"
+       id="linearGradient2814"
+       x1="488.57144"
+       y1="572.36218"
+       x2="488.57141"
+       y2="780.93365"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2802"
+       id="linearGradient2816"
+       x1="488.57144"
+       y1="572.36218"
+       x2="488.57141"
+       y2="780.93365"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.35"
+     inkscape:cx="479.83864"
+     inkscape:cy="442.53211"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:window-width="942"
+     inkscape:window-height="573"
+     inkscape:window-x="132"
+     inkscape:window-y="156">
+    <sodipodi:guide
+       orientation="horizontal"
+       position="577.14286"
+       id="guide1882" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <image
+       y="194.07646"
+       x="-605.71429"
+       id="image1879"
+       height="768"
+       width="2000"
+       sodipodi:absref="D:\fenix\iparty\fondos.png"
+       xlink:href="D:\fenix\iparty\fondos.png"
+       inkscape:export-filename="D:\fenix\iparty\graficos\fondo_2.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:url(#linearGradient2816);fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1.0"
+       d="M 165.71428,958.07647 C 225.71428,886.6479 391.42857,483.79075 514.28571,483.79075 C 637.14286,483.79075 762.85714,960.93361 762.85714,960.93361 L 165.71428,958.07647 z "
+       id="path1886"
+       sodipodi:nodetypes="cscc" />
+    <path
+       style="fill:url(#linearGradient2814);fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1.0"
+       d="M 1028.5714,715.21933 C 1108.5714,655.21933 1257.1429,475.21932 1394.2857,475.21932 C 1391.4286,680.93361 1408.5715,966.64793 1408.5715,966.64793 L 1028.5714,715.21933 z "
+       id="path1888"
+       sodipodi:nodetypes="cccc" />
+    <path
+       style="fill:url(#linearGradient2800);fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1.0"
+       d="M -302.85715,689.50504 C -468.57143,560.93361 -517.14286,475.21932 -608.57143,475.21932 C -605.71429,560.93361 -625.71428,992.36221 -625.71428,992.36221 L -302.85715,689.50504 z "
+       id="path1890"
+       sodipodi:nodetypes="cccc" />
+    <path
+       style="fill:url(#linearGradient2792);fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1.0"
+       d="M -608.57143,972.36218 C -457.14286,832.36218 -320,395.21933 -54.285714,395.21933 C 211.42857,395.21933 528.57143,960.93361 528.57143,960.93361 C 528.57143,960.93361 651.42857,612.36218 920,612.36218 C 1188.5714,612.36218 1408.5714,972.36218 1408.5714,972.36218"
+       id="path1884"
+       sodipodi:nodetypes="cscsc" />
+  </g>
+</svg>
