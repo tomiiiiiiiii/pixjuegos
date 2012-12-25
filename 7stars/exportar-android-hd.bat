@@ -1,11 +1,11 @@
 @echo off
-call ..\utils\entorno.bat garnatron
+call ..\utils\entorno.bat 7stars
 
 rd /s /q export
 echo Compilando...
 cd src
-..\..\bennu-win\bgdc garnatron.prg
-move garnatron.dcb ..\main.dcb
+..\..\bennu-win\bgdc 7stars.prg
+move 7stars.dcb ..\main.dcb
 cd ..
 pause
 
@@ -39,7 +39,6 @@ echo Copiando el juego...
 copy fpg\*.fpg export\assets\fpg /y
 copy ogg\*.ogg export\assets\ogg /y
 copy wav\*.wav export\assets\wav /y
-copy niveles\*.txt export\assets\niveles /y
 copy fnt\*.fnt export\assets\fnt /y
 copy main.dcb export\assets /y
 echo Exportado correctamente. Ahora se instalará en el móvil...

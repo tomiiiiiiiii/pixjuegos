@@ -1,17 +1,11 @@
 program seven_stars;
 
 import "mod_blendop";
-//import "mod_cd";
-import "mod_debug";
-//import "mod_mem";
-import "mod_effects";
-import "mod_flic";
-import "mod_m7";
-import "mod_path";
-import "mod_grproc";
+//import "mod_debug";
 import "mod_dir";
 import "mod_draw";
 import "mod_file";
+import "mod_grproc";
 import "mod_joy";
 import "mod_key";
 import "mod_map";
@@ -24,18 +18,16 @@ import "mod_regex";
 import "mod_say";
 import "mod_screen";
 import "mod_scroll";
-import "mod_sort";
 import "mod_sound";
 import "mod_string";
 import "mod_sys";
 import "mod_text";
-import "mod_time";
 import "mod_timers";
 import "mod_video";
 import "mod_wm";
 
-
 global
+	arcade_mode;
 	vidas;
 	magia=1;
 	pausa;	
@@ -66,9 +58,11 @@ local
 end
 
 include "../../common-src/controles.pr-";
+include "../../common-src/resolucioname.pr-";
 	
 begin
 full_screen=false;
+resolucioname(1024,768,0);
 set_mode(1024,768,32);
 set_fps(30,0);
 fuente=load_fnt("./fnt/fuente.fnt");
