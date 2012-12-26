@@ -550,8 +550,8 @@ begin
 	delete_text(all_text);
 	file=fpg_menu;
 	define_region(1,0,0,1024,768);
-	sombra(9,400,75,file,2);
-	objeto(400,75,9,file,100,16);
+	sombra(9,512,75,file,2);
+	objeto(512,75,9,file,100,16);
 	controlador(0);
 	controlador(1);
 	
@@ -569,71 +569,116 @@ begin
 	end
 	
 	z=-20;
-	graph=6;
-	x=120;
+	graph=0;
+	x=512;
 	y=200;
 	
 	//ponemos el menú actual
 	switch(num_menu)
 		case 0: //general
-			write(fuente[0],x,y+=60,3,"Jugar");
-			write(fuente[0],x,y+=60,3,"Continuar");
-			write(fuente[0],x,y+=60,3,"Opciones");
-			write(fuente[0],x,y+=60,3,"Clasificacion");
-			write(fuente[0],x,y+=60,3,"Ayuda");
-			write(fuente[0],x,y+=60,3,"Salir");
+		//	write(fuente[0],x,y+=60,4,"Jugar");
+			boton(x,y+=60,"Jugar",1);
+		//	write(fuente[0],x,y+=60,4,"Continuar");
+			boton(x,y+=60,"Continuar",2);
+		//	write(fuente[0],x,y+=60,4,"Opciones");
+			boton(x,y+=60,"Opciones",3);
+		//	write(fuente[0],x,y+=60,4,"Clasificacion");
+			boton(x,y+=60,"Clasificacion",4);
+		//	write(fuente[0],x,y+=60,4,"Ayuda");
+			boton(x,y+=60,"Ayuda",5);
+		//	write(fuente[0],x,y+=60,4,"Salir");
+			boton(x,y+=60,"Salir",6);
 			num_opciones=6;
 			volver_a_menu=0;
 		end
 		case 1: //opciones
-			write(fuente[0],x,y+=60,3,"Video");
-			write(fuente[0],x,y+=60,3,"Control");
-			write(fuente[0],x,y+=60,3,"Particulas");
-			write(fuente[0],x,y+=60,3,"Volver");
+		//	write(fuente[0],x,y+=60,4,"Video");
+			boton(x,y+=60,"Video",1);
+		//	write(fuente[0],x,y+=60,4,"Control");
+			boton(x,y+=60,"Control",2);
+			if(ops.particulas==0)
+		//		write(fuente[0],x,y+=60,4,"Particulas: No");
+				boton(x,y+=60,"Particulas: No",3);
+			else
+		//		write(fuente[0],x,y+=60,4,"Particulas: Si");
+				boton(x,y+=60,"Particulas: Si",3);
+			end
+		//	write(fuente[0],x,y+=60,4,"Volver");
+			boton(x,y+=60,"Volver",4);
 			num_opciones=4;
 			volver_a_menu=0;
 		end
 		case 2: //video
-			write(fuente[0],x,y+=60,3,"Pantalla completa");
-			write(fuente[0],x,y+=60,3,"Ventana");
-			write(fuente[0],x,y+=60,3,"Volver");
+		//	write(fuente[0],x,y+=60,4,"Pantalla completa");
+			boton(x,y+=60,"Pantalla completa",1);
+		//	write(fuente[0],x,y+=60,4,"Ventana");
+			boton(x,y+=60,"Ventana",2);
+		//	write(fuente[0],x,y+=60,4,"Volver");
+			boton(x,y+=60,"Volver",3);
 			num_opciones=3;
 			volver_a_menu=0;
 		end
 		case 3: //control
-			write(fuente[0],x,y+=60,3,"Teclado");
-			write(fuente[0],x,y+=60,3,"Mando");
-			write(fuente[0],x,y+=60,3,"Restablecer");
-			write(fuente[0],x,y+=60,3,"Volver");
+		//	write(fuente[0],x,y+=60,4,"Teclado");
+			boton(x,y+=60,"Teclado",1);
+		//	write(fuente[0],x,y+=60,4,"Mando");
+			boton(x,y+=60,"Mando",2);
+		//	write(fuente[0],x,y+=60,4,"Restablecer");
+			boton(x,y+=60,"Restablecer",3);
+		//	write(fuente[0],x,y+=60,4,"Volver");
+			boton(x,y+=60,"Volver",4);
 			num_opciones=4;
 			volver_a_menu=0;
 		end
 		case 4: //jugadores, juego nuevo
-			write(fuente[0],x,y+=60,3,"1 Jugador");
-			write(fuente[0],x,y+=60,3,"2 Jugadores");
+		//	write(fuente[0],x,y+=60,4,"1 Jugador");
+			boton(x,y+=60,"1 Jugador",1);
+		//	write(fuente[0],x,y+=60,4,"2 Jugadores");
+			boton(x,y+=60,"2 Jugadores",2);
 			num_opciones=3;
-			if(posibles_jugadores>2) num_opciones++; write(fuente[0],x,y+=60,3,"3 Jugadores"); end
-			if(posibles_jugadores>3) num_opciones++; write(fuente[0],x,y+=60,3,"4 Jugadores"); end
-			write(fuente[0],x,y+=60,3,"Volver");
+			if(posibles_jugadores>2)
+				num_opciones++;
+		//		write(fuente[0],x,y+=60,4,"3 Jugadores");
+				boton(x,y+=60,"3 Jugadores",3);
+			end
+			if(posibles_jugadores>3)
+				num_opciones++;
+		//		write(fuente[0],x,y+=60,4,"4 Jugadores");
+				boton(x,y+=60,"4 Jugadores",4);
+			end
+		//	write(fuente[0],x,y+=60,3,"Volver");
+			boton(x,y+=60,"Volver",num_opciones);
 			volver_a_menu=0;
 		end
 		case 5: //jugadores, continuar
-			write(fuente[0],x,y+=60,3,"1 Jugador");
-			write(fuente[0],x,y+=60,3,"2 Jugadores");
+		//	write(fuente[0],x,y+=60,4,"1 Jugador");
+			boton(x,y+=60,"1 Jugador",1);
+		//	write(fuente[0],x,y+=60,4,"2 Jugadores");
+			boton(x,y+=60,"2 Jugadores",2);
 			num_opciones=3;
-			if(posibles_jugadores>2) num_opciones++; write(fuente[0],x,y+=60,3,"3 Jugadores"); end
-			if(posibles_jugadores>3) num_opciones++; write(fuente[0],x,y+=60,3,"4 Jugadores"); end
-			write(fuente[0],x,y+=60,3,"Volver");
+			if(posibles_jugadores>2)
+				num_opciones++;
+		//		write(fuente[0],x,y+=60,4,"3 Jugadores");
+				boton(x,y+=60,"3 Jugadores",3);
+			end
+			if(posibles_jugadores>3)
+				num_opciones++;
+		//		write(fuente[0],x,y+=60,4,"4 Jugadores");
+				boton(x,y+=60,"4 Jugadores",4);
+			end
+		//	write(fuente[0],x,y+=60,3,"Volver");
+			boton(x,y+=60,"Volver",num_opciones);
 			volver_a_menu=0;
 		end
 	end
 	
-	x=70;
+	x=512;
 	y=800;
 	
 	loop
 		if(opcion_actual>num_opciones) opcion_actual=1;	end
 		if(opcion_actual<1)	opcion_actual=num_opciones;	end
+		opcion=opcion_actual;
 		
 		scroll.x0+=3;
 		
@@ -702,6 +747,7 @@ begin
 							else
 								ops.particulas=0;
 							end
+							menu(1);
 						end
 						case 4:
 							menu(0);
@@ -729,7 +775,7 @@ begin
 					switch(opcion_actual)
 						case 1: 
 							
-							id_texto=write(fuente[0],400,400,4,"Pulse tecla para arriba");
+							id_texto=write(fuente[0],512,400,4,"Pulse tecla para arriba");
 							repeat
 								ops.teclado.arriba=scan_code;
 								frame;
@@ -737,7 +783,7 @@ begin
 							while(scan_code<>0) frame; end
 							delete_text(id_texto);
 	
-							id_texto=write(fuente[0],400,400,4,"Pulse una tecla para derecha");
+							id_texto=write(fuente[0],512,400,4,"Pulse una tecla para derecha");
 							Repeat
 								ops.teclado.derecha=scan_code;
 								frame;
@@ -745,7 +791,7 @@ begin
 							while(scan_code<>0) frame; end
 							delete_text(id_texto);
 
-							id_texto=write(fuente[0],400,400,4,"Pulse una tecla para abajo");
+							id_texto=write(fuente[0],512,400,4,"Pulse una tecla para abajo");
 							Repeat
 								ops.teclado.abajo=scan_code;
 								frame;
@@ -753,7 +799,7 @@ begin
 							while(scan_code<>0) frame; end
 							delete_text(id_texto);
 	
-							id_texto=write(fuente[0],400,400,4,"Pulse una tecla para izquierda");
+							id_texto=write(fuente[0],512,400,4,"Pulse una tecla para izquierda");
 							Repeat
 								ops.teclado.izquierda=scan_code;
 								frame;
@@ -761,7 +807,7 @@ begin
 							while(scan_code<>0) frame; end
 							delete_text(id_texto);
 	
-							id_texto=write(fuente[0],400,400,4,"Pulse una tecla para diparar");
+							id_texto=write(fuente[0],512,400,4,"Pulse una tecla para diparar");
 							Repeat
 								ops.teclado.disparar=scan_code;
 								frame;
@@ -769,7 +815,7 @@ begin
 							while(scan_code<>0) frame; end
 							delete_text(id_texto);
 
-							id_texto=write(fuente[0],400,400,4,"Pulse una tecla para disparar una bomba");
+							id_texto=write(fuente[0],512,400,4,"Pulse una tecla para disparar una bomba");
 							Repeat
 								ops.teclado.bomba=scan_code;
 								frame;
@@ -777,7 +823,7 @@ begin
 							while(scan_code<>0) frame; end
 							delete_text(id_texto);
 
-							id_texto=write(fuente[0],400,400,4,"Pulse una tecla para cambiar arma");
+							id_texto=write(fuente[0],512,400,4,"Pulse una tecla para cambiar arma");
 							Repeat
 								ops.teclado.cambiar=scan_code;
 								frame;
@@ -885,7 +931,7 @@ begin
 							end
 							delete_text(id_texto);
 ---------------------------------------------------------	*/
-							id_texto=write(fuente[0],400,400,4,"Pulsa un boton para disparar");
+							id_texto=write(fuente[0],512,400,4,"Pulsa un boton para disparar");
 							repeat
 								from a=0 to 11;
 									if(get_joy_button(0,a))
@@ -900,7 +946,7 @@ begin
 							end
 							delete_text(id_texto);
 
-							id_texto=write(fuente[0],400,400,4,"Pulsa un boton para disparar una bomba");
+							id_texto=write(fuente[0],512,400,4,"Pulsa un boton para disparar una bomba");
 							repeat
 								from a=0 to 11;
 									if(get_joy_button(0,a))
@@ -915,7 +961,7 @@ begin
 							end
 							delete_text(id_texto);
 
-							id_texto=write(fuente[0],400,400,4,"Pulsa un boton para cambiar arma");
+							id_texto=write(fuente[0],512,400,4,"Pulsa un boton para cambiar arma");
 							repeat
 								from a=0 to 11;
 									if(get_joy_button(0,a))
@@ -1045,7 +1091,7 @@ process boton(x,y,string texto,int a);
 
 begin
 	file=fpg_menu;
-	z=-100;
+	z=100;
 	loop
 		if(opcion==a)
 			graph=10;
