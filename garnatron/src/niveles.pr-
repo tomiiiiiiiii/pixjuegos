@@ -56,16 +56,13 @@ Begin
 	opcion=0;
 	distancia=0;
 
-
 	musica(1);
 	graph=20;
 	direccion=1;
-	size=200;
-	if(nivel<5)
-		id_texto=write(fuente[0],x,y,4,"AREA: "+nivel);
-	else
-		id_texto=write(fuente[0],x,y,4,"AREA: Final");
-	end
+	size=100;
+
+	id_texto=write(fuente[0],x,y,4,"AREA: "+nivel);
+	
 	fade_on();
 	timer[2]=0;
 	while(timer[2]<300)
@@ -695,11 +692,9 @@ Begin
 	graph=20;
 	direccion=1;
 	size=100;
-	if(nivel<5)
-		id_texto=write(fuente[0],x,y,4,"AREA: "+nivel);
-	else
-		id_texto=write(fuente[0],x,y,4,"AREA: Final");
-	end
+
+	id_texto=write(fuente[0],x,y,4,"AREA: "+nivel);
+
 	fade_on();
 	timer[2]=0;
 	while(timer[2]<300)

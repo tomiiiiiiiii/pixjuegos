@@ -165,8 +165,8 @@ BEGIN
 	
 	set_fps(40,10);
 
-	gamepad_boton_separacion=60;
-	gamepad_boton_size=75;
+	gamepad_boton_separacion=75;
+	gamepad_boton_size=60;
 	
 	if(os_id==1003)
 		scale_resolution_aspectratio = SRA_PRESERVE;

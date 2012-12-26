@@ -12,6 +12,13 @@ End
 Global
 	graph_dedo;
 	graph_boton;
+	
+	graph_boton_izquierda;
+	graph_boton_derecha;
+	graph_boton_arriba;
+	graph_boton_abajo;
+	
+	
 	id_gamepad;
 	gamepad_boton_separacion=40;
 	gamepad_boton_size=40;
@@ -41,13 +48,93 @@ Begin
 			graph_dedo=new_map(gamepad_boton_size*2/3,gamepad_boton_size*2/3,8);
 			drawing_color(80);
 			drawing_map(0,graph_dedo);
-			draw_box(0,0,gamepad_boton_size/2,gamepad_boton_size*2/3);
+		//	draw_box(0,0,gamepad_boton_size/2,gamepad_boton_size*2/3);
+			draw_fcircle(gamepad_boton_size/3,gamepad_boton_size/3,gamepad_boton_size/3-1);
 
 			if(os_id!=1003) mouse.graph=graph_dedo; end
 			
 			graph_boton=new_map(gamepad_boton_size,gamepad_boton_size,8);
 			drawing_map(0,graph_boton);
-			draw_box(0,0,50,50);
+			draw_box(0,0,gamepad_boton_size,gamepad_boton_size);
+			drawing_color(255);
+			draw_rect(0,0,gamepad_boton_size-1,gamepad_boton_size-1);
+			
+			graph_boton_arriba=new_map(2*gamepad_boton_size,gamepad_boton_size,8);
+			drawing_map(0,graph_boton_arriba);
+			drawing_color(80);
+			i=0;
+			from j=0 to gamepad_boton_size/2;
+				draw_line(gamepad_boton_size-i,j,gamepad_boton_size+i,j);
+				i+=2;
+			end
+			from j=gamepad_boton_size/2 to gamepad_boton_size;
+				draw_line(gamepad_boton_size-i,j,gamepad_boton_size+i,j);
+				i-=1;
+			end
+			drawing_color(255);
+			draw_line(0,gamepad_boton_size/2,gamepad_boton_size,0);
+			draw_line(gamepad_boton_size,0,2*gamepad_boton_size,gamepad_boton_size/2);
+			draw_line(2*gamepad_boton_size,gamepad_boton_size/2,6*gamepad_boton_size/4,gamepad_boton_size);
+			draw_line(6*gamepad_boton_size/4,gamepad_boton_size,2*gamepad_boton_size/4,gamepad_boton_size);
+			draw_line(2*gamepad_boton_size/4,gamepad_boton_size,0,gamepad_boton_size/2);
+			
+			graph_boton_abajo=new_map(2*gamepad_boton_size,gamepad_boton_size,8);
+			drawing_map(0,graph_boton_abajo);
+			drawing_color(80);
+			i=0;
+			from j=0 to gamepad_boton_size/2;
+				draw_line(gamepad_boton_size-i,gamepad_boton_size-j,gamepad_boton_size+i,gamepad_boton_size-j);
+				i+=2;
+			end
+			from j=gamepad_boton_size/2 to gamepad_boton_size;
+				draw_line(gamepad_boton_size-i,gamepad_boton_size-j,gamepad_boton_size+i,gamepad_boton_size-j);
+				i-=1;
+			end
+			drawing_color(255);
+			draw_line(0,gamepad_boton_size/2,gamepad_boton_size,gamepad_boton_size);
+			draw_line(gamepad_boton_size,gamepad_boton_size,2*gamepad_boton_size,gamepad_boton_size/2);
+			draw_line(2*gamepad_boton_size,gamepad_boton_size/2,6*gamepad_boton_size/4,0);
+			draw_line(6*gamepad_boton_size/4,0,2*gamepad_boton_size/4,0);
+			draw_line(2*gamepad_boton_size/4,0,0,gamepad_boton_size/2);
+			
+			graph_boton_izquierda=new_map(gamepad_boton_size,2*gamepad_boton_size,8);
+			drawing_map(0,graph_boton_izquierda);
+			drawing_color(80);
+			i=0;
+			from j=0 to gamepad_boton_size/2;
+				draw_line(j,gamepad_boton_size-i,j,gamepad_boton_size+i);
+				i+=2;
+			end
+			from j=gamepad_boton_size/2 to gamepad_boton_size;
+				draw_line(j,gamepad_boton_size-i,j,gamepad_boton_size+i);
+				i-=1;
+			end
+			drawing_color(255);
+			draw_line(gamepad_boton_size/2,0,0,gamepad_boton_size);
+			draw_line(0,gamepad_boton_size,gamepad_boton_size/2,2*gamepad_boton_size);
+			draw_line(gamepad_boton_size/2,2*gamepad_boton_size,gamepad_boton_size,6*gamepad_boton_size/4);
+			draw_line(gamepad_boton_size,6*gamepad_boton_size/4,gamepad_boton_size,2*gamepad_boton_size/4);
+			draw_line(gamepad_boton_size,2*gamepad_boton_size/4,gamepad_boton_size/2,0);
+			
+			graph_boton_derecha=new_map(gamepad_boton_size,2*gamepad_boton_size,8);
+			drawing_map(0,graph_boton_derecha);
+			drawing_color(80);
+			i=0;
+			from j=0 to gamepad_boton_size/2;
+				draw_line(gamepad_boton_size-j,gamepad_boton_size-i,gamepad_boton_size-j,gamepad_boton_size+i);
+				i+=2;
+			end
+			from j=gamepad_boton_size/2 to gamepad_boton_size;
+				draw_line(gamepad_boton_size-j,gamepad_boton_size-i,gamepad_boton_size-j,gamepad_boton_size+i);
+				i-=1;
+			end
+			drawing_color(255);
+			draw_line(gamepad_boton_size/2,0,gamepad_boton_size,gamepad_boton_size);
+			draw_line(gamepad_boton_size,gamepad_boton_size,gamepad_boton_size/2,2*gamepad_boton_size);
+			draw_line(gamepad_boton_size/2,2*gamepad_boton_size,0,6*gamepad_boton_size/4);
+			draw_line(0,6*gamepad_boton_size/4,0,2*gamepad_boton_size/4);
+			draw_line(0,2*gamepad_boton_size/4,gamepad_boton_size/2,0);
+			
 		end
 		if(!exists(id_gamepad))
 			id_gamepad=gamepad_virtual();
@@ -231,15 +318,15 @@ End
 
 Process gamepad_virtual();
 Begin
-	boton_tactil(gamepad_boton_separacion*3,alto_pantalla-(gamepad_boton_separacion*3),0,1,b_arriba);
-	boton_tactil(gamepad_boton_separacion*2,alto_pantalla-(gamepad_boton_separacion*2),0,1,b_izquierda);
-	boton_tactil(gamepad_boton_separacion*4,alto_pantalla-(gamepad_boton_separacion*2),0,1,b_derecha);
-	boton_tactil(gamepad_boton_separacion*3,alto_pantalla-gamepad_boton_separacion,0,1,b_abajo);
+	boton_tactil(gamepad_boton_separacion*3,alto_pantalla-(gamepad_boton_separacion*3),graph_boton_arriba,1,b_arriba);
+	boton_tactil(gamepad_boton_separacion*2,alto_pantalla-(gamepad_boton_separacion*2),graph_boton_izquierda,1,b_izquierda);
+	boton_tactil(gamepad_boton_separacion*4,alto_pantalla-(gamepad_boton_separacion*2),graph_boton_derecha,1,b_derecha);
+	boton_tactil(gamepad_boton_separacion*3,alto_pantalla-gamepad_boton_separacion,graph_boton_abajo,1,b_abajo);
 	
-	boton_tactil(ancho_pantalla-(gamepad_boton_separacion*2.5),alto_pantalla-gamepad_boton_separacion,0,1,b_1);
-	boton_tactil(ancho_pantalla-gamepad_boton_separacion,alto_pantalla-gamepad_boton_separacion,0,1,b_2);
+	boton_tactil(ancho_pantalla-(gamepad_boton_separacion*2.5),alto_pantalla-gamepad_boton_separacion,graph_boton,1,b_1);
+	boton_tactil(ancho_pantalla-gamepad_boton_separacion,alto_pantalla-gamepad_boton_separacion,graph_boton,1,b_2);
 	if(gamepad_botones>2)
-		boton_tactil(ancho_pantalla-gamepad_boton_separacion,alto_pantalla-(gamepad_boton_separacion*2.5),0,1,b_3);
+		boton_tactil(ancho_pantalla-gamepad_boton_separacion,alto_pantalla-(gamepad_boton_separacion*2.5),graph_boton,1,b_3);
 	end
 	
 	priority=8;
@@ -268,9 +355,6 @@ Process boton_tactil(x,y,graph,jugador,boton);
 Begin
 	priority=4;
 	z=-512;
-	graph=graph_boton;
-	drawing_map(0,graph);
-	draw_box(0,0,50,50);
 	alpha=128;
 	while(exists(father))
 		if(collision_box(type dedo))
