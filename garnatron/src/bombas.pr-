@@ -408,7 +408,7 @@ advance(10);
 REPEAT
 	if(estado==-1) break; end
 	if(pausa==0)
-		advance(20);
+		advance(12);
 		if(id2=collision(type laser))
 			if(id2.graph!=50)//si no es escudo muere
 				explosion(x,y,2,75);

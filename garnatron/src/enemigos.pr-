@@ -58,7 +58,7 @@ begin
 
 			if(tipo==1)	//
 
-				y+=5;
+				y+=4;
 				if(patron==1 and y==100)
 					disparo02(x,y,3*pi/2,4);
 					suena(s_misil);
@@ -151,7 +151,7 @@ begin
 			end
 			if(tipo==6) //cañon
 
-				y+=2;
+				y+=4;
 				x=x1+get_distx(angulo,100);
 				angulo+=2000;
 				y=y+get_disty(angulo2,5);
@@ -284,10 +284,10 @@ begin
 					graph=38;
 				end
 				if(exists(id_nave[jugador]))
-					if(id_nave[jugador].x>x) x+=4; angle+=pi/7; end
-					if(id_nave[jugador].x<x) x-=4; angle+=pi/9; end
-					if(id_nave[jugador].y>y) y+=4; angle+=pi/7; end
-					if(id_nave[jugador].y<y) y-=4; angle+=pi/9; end
+					if(id_nave[jugador].x>x) x+=2; angle+=pi/7; end
+					if(id_nave[jugador].x<x) x-=2; angle+=pi/9; end
+					if(id_nave[jugador].y>y) y+=2; angle+=pi/7; end
+					if(id_nave[jugador].y<y) y-=2; angle+=pi/9; end
 				end
 		
 				id2=(collision(type disparo01));

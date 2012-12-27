@@ -775,60 +775,71 @@ begin
 					switch(opcion_actual)
 						case 1: 
 							
+							let_me_alone();
+							clear_screen();
+							delete_text(all_text);
+							
 							id_texto=write(fuente[0],512,400,4,"Pulse tecla para arriba");
 							repeat
 								ops.teclado.arriba=scan_code;
 								frame;
+								scroll.x0+=3;
 							until(ops.teclado.arriba<>0);
-							while(scan_code<>0) frame; end
+							while(scan_code<>0) frame; scroll.x0+=3; end
 							delete_text(id_texto);
 	
 							id_texto=write(fuente[0],512,400,4,"Pulse una tecla para derecha");
 							Repeat
 								ops.teclado.derecha=scan_code;
 								frame;
+								scroll.x0+=3;
 							until(ops.teclado.derecha<>0);
-							while(scan_code<>0) frame; end
+							while(scan_code<>0) frame; scroll.x0+=3; end
 							delete_text(id_texto);
 
 							id_texto=write(fuente[0],512,400,4,"Pulse una tecla para abajo");
 							Repeat
 								ops.teclado.abajo=scan_code;
 								frame;
+								scroll.x0+=3;
 							until(ops.teclado.abajo<>0);
-							while(scan_code<>0) frame; end
+							while(scan_code<>0) frame; scroll.x0+=3; end
 							delete_text(id_texto);
 	
 							id_texto=write(fuente[0],512,400,4,"Pulse una tecla para izquierda");
 							Repeat
 								ops.teclado.izquierda=scan_code;
 								frame;
+								scroll.x0+=3;
 							until(ops.teclado.izquierda<>0);
-							while(scan_code<>0) frame; end
+							while(scan_code<>0) frame; scroll.x0+=3; end
 							delete_text(id_texto);
 	
 							id_texto=write(fuente[0],512,400,4,"Pulse una tecla para diparar");
 							Repeat
 								ops.teclado.disparar=scan_code;
 								frame;
+								scroll.x0+=3;
 							until(ops.teclado.disparar<>0);
-							while(scan_code<>0) frame; end
+							while(scan_code<>0) frame; scroll.x0+=3; end
 							delete_text(id_texto);
 
 							id_texto=write(fuente[0],512,400,4,"Pulse una tecla para disparar una bomba");
 							Repeat
 								ops.teclado.bomba=scan_code;
 								frame;
+								scroll.x0+=3;
 							until(ops.teclado.bomba<>0);
-							while(scan_code<>0) frame; end
+							while(scan_code<>0) frame; scroll.x0+=3; end
 							delete_text(id_texto);
 
 							id_texto=write(fuente[0],512,400,4,"Pulse una tecla para cambiar arma");
 							Repeat
 								ops.teclado.cambiar=scan_code;
 								frame;
+								scroll.x0+=3;
 							until(ops.teclado.cambiar<>0);
-							while(scan_code<>0) frame; end
+							while(scan_code<>0) frame; scroll.x0+=3; end
 							delete_text(id_texto);
 
 
@@ -840,9 +851,12 @@ begin
 								fwrite(archivo,opciones);
 								fclose(archivo);*/
 							end
-							
+							menu(1);
 						end
 						case 2: 
+							let_me_alone();
+							clear_screen();
+							delete_text(all_text);
 /*	--------------------------------------------------------- Asignación de los botones de mobimiento
 							select_joy(0);
 							frame;
@@ -940,9 +954,11 @@ begin
 									end
 								end
 								frame;
+								scroll.x0+=3;
 							until(get_joy_button(0,ops.gamepad.disparar));
 							while(get_joy_button(0,ops.gamepad.disparar))
 								frame;
+								scroll.x0+=3;
 							end
 							delete_text(id_texto);
 
@@ -955,9 +971,11 @@ begin
 									end
 								end
 								frame;
+								scroll.x0+=3;
 							until(get_joy_button(0,ops.gamepad.bomba));
 							while(get_joy_button(0,ops.gamepad.bomba))
 								frame;
+								scroll.x0+=3;
 							end
 							delete_text(id_texto);
 
@@ -970,13 +988,14 @@ begin
 									end
 								end
 								frame;
+								scroll.x0+=3;
 							until(get_joy_button(0,ops.gamepad.cambiar));
 							while(get_joy_button(0,ops.gamepad.cambiar))
 								frame;
+								scroll.x0+=3;
 							end
 							delete_text(id_texto);
 
-							
 							frame;
 							
 							if(guardar)
@@ -985,17 +1004,19 @@ begin
 								fwrite(archivo,opciones);
 								fclose(archivo);*/
 							end
+							menu(1);
 						end
 						case 3:
+
 							ops.teclado.arriba=72;			//Arriba
-							ops.teclado.derecha=77;		//Derecha
+							ops.teclado.derecha=77;			//Derecha
 							ops.teclado.abajo=80;			//Abajo
 							ops.teclado.izquierda=75;		//Izquierda
 							ops.teclado.disparar=30;		//A
 							ops.teclado.bomba=31;			//S
-							ops.teclado.cambiar=32;		//D
+							ops.teclado.cambiar=32;			//D
 
-							ops.gamepad.disparar=0;		//0
+							ops.gamepad.disparar=0;			//0
 							ops.gamepad.bomba=1;			//1
 							ops.gamepad.cambiar=2;			//2
 							
@@ -1005,6 +1026,7 @@ begin
 								fwrite(archivo,opciones);
 								fclose(archivo);*/
 							end
+							menu(1);
 						end
 						case 4:
 							menu(1);
