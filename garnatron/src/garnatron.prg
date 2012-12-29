@@ -333,9 +333,9 @@ BEGIN
 	clear_screen();
 
 	//jugadores=2;
-	historia(1);
-	jugadores=1;
-	//fase(1);
+	//historia(1);
+	jugadores=4;
+	fase(3);
 	//juego(1);
 	frame;
 

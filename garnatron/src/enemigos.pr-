@@ -236,7 +236,6 @@ begin
 	z-=15;
 	region=1;
 	file=fpg_enemigos;
-	graph=35;
 	if(tipo==2)
 		vida=5;
 	elseif(tipo==3)
@@ -360,19 +359,15 @@ BEGIN
 	loop
 		if(pausa==0)
 
-			x+=get_distx(angulo,7);
-			y+=get_disty(angulo,7);
+			x+=get_distx(angulo,4);
+			y+=get_disty(angulo,4);
 			
-			angle+=pi/size;
+		//	angle+=pi/size;
 
 		end
-		id2=(collision(type disparo01));
-		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,75); puntos[id2.jugador]+=1; end
+		
 		id2=(collision(type laser));
-		if(id2) explosion(x,y,1,200);
-			if(ops.particulas==1)
-				explotalo(x,y,z,alpha,angle,file,graph,40);
-			end
+		if(id2)
 			if(size>99)
 				puntos[id2.jugador]+=30;
 			else 
@@ -380,17 +375,28 @@ BEGIN
 			end
 			vida=0;
 		end
-		id2=(collision(type bomba));
-		if(id2) explosion(x,y,1,200);
-			if(ops.particulas==1)
-				explotalo(x,y,z,alpha,angle,file,graph,40);
-			end
+/*		id2=(collision(type bomba));
+		if(id2) 
 			if(size>99)
 				puntos[id2.jugador]+=30;
 			else 
 				puntos[id2.jugador]+=10;
 			end
 			vida=0;
+		end*/
+		id2=(collision(type disparo01));
+		if(id2)
+			vida--;
+			signal(id2,s_kill);
+			explosion(id2.x,id2.y,2,75);
+			puntos[id2.jugador]+=1;
+			if(vida<1)
+				if(size>99)
+					puntos[id2.jugador]+=30;
+				else 
+					puntos[id2.jugador]+=10;
+				end
+			end
 		end
 		if(vida<1)
 			if(size>30)
@@ -398,14 +404,12 @@ BEGIN
 				asteroide(x,y,size/3,pi*5/4);
 				asteroide(x,y,size/3,pi*7/4);
 				explosion(x,y,1,200);
-				if(ops.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end
-				//puntos[id2.jugador]+=30;
+				if(ops.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,20); end
 				break;
 
 			else
 				explosion(x,y,1,200);
 				if(ops.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end
-				//puntos+=10;
 				break;
 			end
 
