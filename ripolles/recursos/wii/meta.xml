@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<app version="0.7">
+  <name>La Pesadilla de Ripollés DEMO1</name>
+  <coder>PiX Juegos</coder>
+  <version>0.7</version>
+  <short_description>Classic beat'em up featuring Castellón and its artist Ripollés</short_description> 
+  <long_description>PLEASE, DON'T UPLOAD THIS TO THE HOMEBREW BROWSER YET.
+
+  Features:
+- 4 players at the same time (not working right now)
+- 4 different game modes
+- 2 different characters
+- 2 levels
+- 6 different enemies
+- 3 enemy bosses
+...</long_description> 
+</app>

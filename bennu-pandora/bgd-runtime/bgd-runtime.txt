@@ -1,0 +1,16 @@
+------------------------------
+BennuGD runtime - Version r270
+------------------------------
+
+Open Pandora port by GECA soft (2011/10/30)
+
+http://www.gecasoft.no.sapo.pt
+
+
+NOTE:
+-----
+
+To identify the OS where BennuGD is running use 'os_id'.
+In Open Pandora 'os_id' is: "os_id = 1010" or "os_id = OS_PANDORA".
+
+--------------------------------------------------------------------

@@ -4,7 +4,7 @@ call ..\utils\entorno.bat ripolles
 rd /s /q export
 echo Compilando...
 cd src
-..\..\bennu-win\bgdc ripolles.prg
+..\..\bennu-win-old\bgdc -DTACTIL=1 ripolles.prg
 move ripolles.dcb ..\main.dcb
 cd ..
 pause
@@ -27,6 +27,8 @@ echo Copiando recursos de android...
 copy recursos\android\hdpi.png export\res\drawable-hdpi\icon.png /y
 copy recursos\android\ldpi.png export\res\drawable-ldpi\icon.png /y
 copy recursos\android\mdpi.png export\res\drawable-mdpi\icon.png /y
+copy recursos\android\xhdpi.png export\res\drawable-xhdpi\icon.png /y
+copy recursos\android\ouya_icon.png export\res\drawable-xhdpi\ouya_icon.png /y
 
 copy recursos\android\strings.xml export\res\values\strings.xml /y
 copy recursos\android\AndroidManifest.xml export\ /y

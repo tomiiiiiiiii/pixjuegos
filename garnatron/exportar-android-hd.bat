@@ -4,7 +4,7 @@ call ..\utils\entorno.bat garnatron
 rd /s /q export
 echo Compilando...
 cd src
-..\..\bennu-win\bgdc garnatron.prg
+..\..\bennu-win-old\bgdc garnatron.prg
 move garnatron.dcb ..\main.dcb
 cd ..
 pause

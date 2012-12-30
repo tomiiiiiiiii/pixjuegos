@@ -4,7 +4,7 @@ call ..\utils\entorno.bat bankpanic
 rd /s /q export
 echo Compilando...
 cd src
-..\..\bennu-win\bgdc bp.prg
+..\..\bennu-win-old\bgdc bp.prg
 move bp.dcb ..\main.dcb
 cd ..
 pause

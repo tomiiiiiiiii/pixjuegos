@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+  <PXML xmlns="http://openpandora.org/namespaces/PXML">
+  <application id="ripolles" appdata="ripolles">
+  <title lang="en_US">La pesadilla de Ripollés</title> 
+  <description lang="en_US">DEMO1</description> 
+  <version major="4" minor="1" release="1" build="1" /> 
+  <exec command="./ripolles.sh" background="true" standalone="true" /> 
+  <author name="(c) 2012 - PiX Juegos" website="www.pixjuegos.com" email="contacto@pixjuegos.com" /> 
+  <icon src="ripolles.png" />
+  <info name="La pesadilla de Ripollés" type="text" src="ripo_pandora.txt" />
+  <categories>
+  <category name="Game">
+  <subcategory name="ActionGame" /> 
+  </category>
+  </categories>
+  </application>
+  </PXML>

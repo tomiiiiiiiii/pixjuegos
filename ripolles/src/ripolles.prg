@@ -11,9 +11,6 @@ import "mod_key";
 import "mod_map";
 import "mod_math";
 import "mod_mouse";
-#IFNDEF CAANOO
-import "mod_multi";
-#ENDIF
 import "mod_proc";
 import "mod_rand";
 import "mod_regex";
@@ -185,7 +182,6 @@ End
 
 include "../../common-src/controles.pr-";
 include "../../common-src/savepath.pr-";
-include "../../common-src/resolucioname.pr-";
 include "jefe1.pr-";
 include "jefe4.pr-";
 include "niveles.pr-";
@@ -200,8 +196,6 @@ Begin
 	savepath();
 	carga_opciones();
 
-	resolucioname(1280,720,1);
-	
 	//La resolución del monitor será esta:
 	if(os_id==os_caanoo or os_id==os_dingux_a320 or os_id==os_gp2x or os_id==os_gp2x_wiz or os_id==os_gp32 or os_id==os_dc)
 		panoramico=0;
@@ -213,9 +207,12 @@ Begin
 		scale_resolution=06400480;
 		scale_resolution_aspectratio = SRA_PRESERVE;
 		bpp=16;	
-	elseif(os_id==os_android or os_id==os_ios) //móviles
+	elseif(os_id==1003 or os_id==os_ios) //móviles
 		scale_resolution=graphic_info(0,0,g_width)*10000+graphic_info(0,0,g_height);
 		bpp=16;	
+	elseif(os_id==1010) //pandora
+		scale_resolution=08000480;
+		bpp=16;
 	else
 		scale_resolution=12800720;
 		//graph_mode=mode_2xscale;

@@ -1,0 +1,10 @@
+#!/bin/sh
+LD_LIBRARY_PATH=./bgd-runtime:$LD_LIBRARY_PATH
+PATH=$PATH:./bgd-runtime
+
+echo 2 > /proc/cpu/alignment
+
+bgdi ripolles
+
+cd /usr/gp2x
+exec /usr/gp2x/gp2xmenu

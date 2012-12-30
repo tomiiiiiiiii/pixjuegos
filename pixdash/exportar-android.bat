@@ -4,7 +4,7 @@ call ..\utils\entorno.bat pixdash
 rd /s /q export
 echo Compilando...
 cd src
-..\..\bennu-win\bgdc -DANDROID=1 pixdash.prg
+..\..\bennu-win-old\bgdc -DANDROID=1 pixdash.prg
 move pixdash.dcb ..\main.dcb
 cd ..
 pause

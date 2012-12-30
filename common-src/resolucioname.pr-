@@ -16,9 +16,15 @@ begin
 		return; 
 	end
 	
-	if(os_id==1003)
+	if(os_id==1003 or os_id==os_ios) //móviles
 		frame;
 		scale_resolution=graphic_info(0,0,g_width)*10000+graphic_info(0,0,g_height);
+		return;
+	end
+
+	if(os_id==1010) //pandora
+		frame;
+		scale_resolution=08000480;
 		return;
 	end
 	
