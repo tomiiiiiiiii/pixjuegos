@@ -228,14 +228,14 @@ BEGIN
 	say("----------------- FNTS CARGADOS!");
 	
 	ops.teclado.arriba=72;			//Arriba
-	ops.teclado.derecha=77;		//Derecha
+	ops.teclado.derecha=77;			//Derecha
 	ops.teclado.abajo=80;			//Abajo
 	ops.teclado.izquierda=75;		//Izquierda
 	ops.teclado.disparar=30;		//A
 	ops.teclado.bomba=31;			//S
-	ops.teclado.cambiar=32;		//D
+	ops.teclado.cambiar=32;			//D
 	
-	ops.gamepad.disparar=0;		//0
+	ops.gamepad.disparar=0;			//0
 	ops.gamepad.bomba=1;			//1
 	ops.gamepad.cambiar=2;			//2
 	
@@ -332,10 +332,9 @@ BEGIN
 
 	clear_screen();
 
-	//jugadores=2;
-	//historia(1);
-	jugadores=4;
-	fase(3);
+	historia(1);
+	//jugadores=4;
+	//fase(3);
 	//juego(1);
 	frame;
 
@@ -1230,6 +1229,7 @@ if(cosa==4) //onda expasiva
 	flags=4;
 	from size = 100 to 500 step 20;
 		alpha--;
+		while(pausa!=0) frame; end
     	frame;
 	end
 end
@@ -1237,6 +1237,7 @@ if(cosa==5)	//marcadores
 	flags=father.flags+16;
 	from alpha=255 to 0 step -20;
 		size+=3;
+		while(pausa!=0) frame; end
 		frame;
 	end
 end
@@ -1367,29 +1368,40 @@ Private
 Begin
 	ancho=graphic_info(file,grafico,g_width);
 	alto=graphic_info(file,grafico,g_height);
-		from b=0 to alto-1 step 5;
-		from a=0 to ancho-1 step 5;
+		from b=0 to alto-1 step 7;
+		from a=0 to ancho-1 step 7;
 			if(map_get_pixel(file,grafico,a,b)!=0)
 				particula[c].pixell=map_get_pixel(file,grafico,a,b);
 				
 				particula[c].pos_x=a-(ancho/2);
 				particula[c].pos_y=b-(alto/2);
-				particula[c].vel_x=((a-(ancho/2))/12)+rand(-1,1);
-				particula[c].vel_y=((b-(alto/2))/12)+rand(-1,1);
+				particula[c].vel_x=((a-(ancho/2))/6);
+				particula[c].vel_y=((b-(alto/2))/6);
 
 				c++;
 			end
 		end
 	end
 	a=c;
-	size=200;
-	graph=new_map(ancho*4,alto*4,32);
+//	size=200;
+	graph=new_map(ancho*2,alto*2,32);
 	while(tiempo<frames)
 		drawing_color(0);
 		drawing_map(file,graph);
-		draw_box(0,0,ancho*4,alto*4);
+		draw_box(0,0,ancho*2,alto*2);
 		from c=0 to a;
-			map_put_pixel(file,graph,particula[c].pos_x+(ancho*4/2),particula[c].pos_y+(alto*4/2),particula[c].pixell);
+		//	map_put_pixel(file,graph,particula[c].pos_x+(ancho*2/2),particula[c].pos_y+(alto*2/2),particula[c].pixell);
+		//	map_put_pixel(file,graph,particula[c].pos_x+(ancho*2/2)+1,particula[c].pos_y+(alto*2/2),particula[c].pixell);
+		//	map_put_pixel(file,graph,particula[c].pos_x+(ancho*2/2),particula[c].pos_y+(alto*2/2)+1,particula[c].pixell);
+		//	map_put_pixel(file,graph,particula[c].pos_x+(ancho*2/2)+1,particula[c].pos_y+(alto*2/2)+1,particula[c].pixell);
+			
+			drawing_color(particula[c].pixell);
+			draw_line(
+					particula[c].pos_x+(ancho*2/2),
+					particula[c].pos_y+(alto*2/2),
+					particula[c].pos_x+(ancho*2/2)+particula[c].vel_x,
+					particula[c].pos_y+(alto*2/2)+particula[c].vel_y
+					);
 			
 			particula[c].pos_x+=particula[c].vel_x;
 			particula[c].pos_y+=particula[c].vel_y;
