@@ -249,8 +249,8 @@ Begin
 	boton_tactil(gamepad_boton_separacion*3,alto_pantalla-(gamepad_boton_separacion*2),graph_boton_derecha,1,b_derecha);
 	boton_tactil(gamepad_boton_separacion*2,alto_pantalla-gamepad_boton_separacion,graph_boton_abajo,1,b_abajo);
 	
-	boton_tactil(ancho_pantalla-(gamepad_boton_separacion*2)+get_distx(7*pi/6,gamepad_boton_separacion/1),alto_pantalla-(gamepad_boton_separacion*2)+get_disty(7*pi/6,gamepad_boton_separacion/1),graph_boton_1,1,b_1);
-	boton_tactil(ancho_pantalla-(gamepad_boton_separacion*2)+get_distx(11*pi/6,gamepad_boton_separacion/1),(alto_pantalla-gamepad_boton_separacion*2)+get_disty(11*pi/6,gamepad_boton_separacion/1),graph_boton_2,1,b_2);
+	boton_tactil(ancho_pantalla-(gamepad_boton_separacion*2)+get_distx(7*pi/6,gamepad_boton_separacion),alto_pantalla-(gamepad_boton_separacion*2)+get_disty(7*pi/6,gamepad_boton_separacion*2/3),graph_boton_1,1,b_1);
+	boton_tactil(ancho_pantalla-(gamepad_boton_separacion*2)+get_distx(11*pi/6,gamepad_boton_separacion),(alto_pantalla-gamepad_boton_separacion*2)+get_disty(11*pi/6,gamepad_boton_separacion*2/3),graph_boton_2,1,b_2);
 	if(gamepad_botones>2)
 		boton_tactil(ancho_pantalla-(gamepad_boton_separacion*2)+get_distx(pi/2,gamepad_boton_separacion/1),alto_pantalla-(gamepad_boton_separacion*2)+get_disty(pi/2,gamepad_boton_separacion/1),graph_boton_3,1,b_3);
 	end
