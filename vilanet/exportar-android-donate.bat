@@ -4,7 +4,7 @@ call ..\utils\entorno.bat vilanet
 rd /s /q export
 echo Compilando...
 cd src
-..\..\bennu-win\bgdc vilanet.prg
+..\..\bennu-win-old\bgdc vilanet.prg
 move vilanet.dcb ..\main.dcb
 cd ..
 pause
