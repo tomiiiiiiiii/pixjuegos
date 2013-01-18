@@ -4,7 +4,7 @@ call ..\utils\entorno.bat pixfrogger2
 rd /s /q export
 echo Compilando...
 cd src
-..\..\bennu-win\bgdc -DFREE=1 pixfrogger.prg
+..\..\bennu-win-old\bgdc -DFREE=1 pixfrogger.prg
 move pixfrogger.dcb ..\main.dcb
 cd ..
 pause
