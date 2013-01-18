@@ -1,0 +1,106 @@
+Global
+	demo_obj[2];
+End
+
+Process personaje_demo(jugador);
+Private
+	contator;
+	estado; //0:quieto 1: mueve 2:dispara
+	grav;
+	anim;
+Begin
+	graph=501;
+	x=400;
+	y=456;
+	z=0;
+	file=p[jugador].fpg;
+	alto=graphic_info(file,graph,g_height);
+	y=500-(alto/2);
+	jugador=1;
+	loop
+		demo_obj[jugador]=contator;
+		if(exists(id_bolas[contator]))
+			if(get_dist(id_bolas[contator].x)<100)
+				if(id_bolas[contator].x<x and get_dist(id_bolas[contator].x)<5)
+					 flags=1;
+					 x-=4;
+					 estado=1;
+				end
+				if(id_bolas[contator].x>x and get_dist(id_bolas[contator].x)<5)
+					flags=0;
+					x+=4;
+					estado=1;
+				end
+				if((((get_dist(id_bolas[contator].x)<15 and get_dist(id_bolas[contator].x)>-15) and reloj==0) or ((get_dist(id_bolas[contator].x)<5 and get_dist(id_bolas[contator].x)>-5) and reloj==1)) and exists(p[jugador].disparos[1])==0)
+					p[jugador].disparos[1]=disparos(p[jugador].arma); graph=506; frame(400);
+				end
+			end
+		else
+			contator++;
+			estado=0;
+		end
+		if(x>755) x=755; end
+		if(x<45) x=45; end
+		if(contator>200) contator=0; end
+		if(estado==1)
+			if(graph>506 or graph<502) graph=502; end
+			If(anim<11)
+					anim++;
+			Else
+				anim=0;
+			End
+			If(graph<506 AND anim>10)
+				graph++;
+			End
+			If(graph==506)
+				graph=502;
+			End
+		End
+		if(exists(id_bolas[contator]))
+			if((x-id_bolas[contator].x<3 and x-id_bolas[contator].x>-3) or (id_bolas[contator].x-x<3 and id_bolas[contator].x-x>-3))
+				graph=501;
+			end
+		end
+		If(estado==0) graph=501; End
+		If(p[jugador].muere==1)
+			grav=rand(50,250);
+			While(y<464)
+				If(ops.op_sombras==1) sombra(graph,x,y,flags,1); End
+				If(flags==0) x+=12; End
+				If(flags==1) x-=12; End
+				If(x=>755) flags=1; End
+				If(x=<45) flags=0; End
+				If(grav>0) graph=508; End
+				If(grav<0) graph=509; End
+				grav-=5;
+				y-=grav/10;
+				Frame;
+			End
+			y=500-(alto/2);
+			grav=0;
+			p[jugador].muere=0;
+		End
+		While(ganando==1)
+			graph=507;
+			Frame;
+		End
+		Frame;
+	end
+End
+
+Process texto_demo();
+Private
+	texto;
+Begin
+	x=400;
+	y=260;
+	Set_text_color(color_texto[0]);
+	texto=write(fnt1,x,y,4,"DEMO");
+	Loop
+		delete_text(texto);
+		Frame(3000);
+		Set_text_color(color_texto[0]);
+		texto=write(fnt1,x,y,4,"DEMO");
+		Frame(5000);
+	End
+End
