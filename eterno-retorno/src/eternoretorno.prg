@@ -1,5 +1,5 @@
 import "mod_blendop";
-import "mod_debug";
+//import "mod_debug";
 import "mod_dir";
 import "mod_draw";
 import "mod_file";
@@ -21,6 +21,7 @@ import "mod_text";
 import "mod_time";
 import "mod_timers";
 import "mod_video";
+import "mod_wm";
 Const
 	//-----ACCION DEL PERSONAJE O JEFE
 	QUIETO=0;
@@ -82,6 +83,10 @@ Const
 	CORONA=100;
 		
 Global
+	alto_pantalla;
+	ancho_pantalla;
+	bpp=32;
+
 	struct p[8];
 		botones[7];
 		id;
@@ -114,6 +119,7 @@ Global
 	fuente;
 	arcade_mode;
 	jugadores=1;
+
 Local
 	ataque;
 	tipo_ataque;
@@ -125,13 +131,26 @@ Local
 	jugador;
 	i;
 	j;
+	
+include "..\..\common-src\controles.pr-";
+include "..\..\common-src\resolucioname.pr-";
 Begin
 	if(argc>0) if(argv[1]=="arcade") arcade_mode=1; end end
 	cancion=load_song("isaac.ogg");
 	play_song(cancion,-1);
 	full_screen=true;
-	if(arcade_mode) full_screen=true; scale_resolution=08000600; end
-	set_mode(1280,720,32);
+	if(arcade_mode) 
+		full_screen=true; 
+		scale_resolution=08000600; 
+	else
+		resolucioname(1280,720,1);
+	end
+
+	gamepad_boton_separacion=80;
+	gamepad_boton_size=80;
+	gamepad_botones=2;
+	
+	set_mode(1280,720,bpp);
 	
 	configurar_controles();
 	rand_seed(time());
@@ -1713,5 +1732,3 @@ Begin
 	while(timer[0]<500) frame; end
 	from alpha=255 to 0 step -5; frame; end
 End
-
-include "..\..\common-src\controles.pr-";

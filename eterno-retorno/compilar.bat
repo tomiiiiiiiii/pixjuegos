@@ -1,7 +1,7 @@
 @echo off
 cd src
-..\..\bennu-win\bgdc -g juego.prg
-move juego.dcb ..
+..\..\bennu-win\bgdc -g eternoretorno.prg
+move eternoretorno.dcb ..
 cd ..
-..\bennu-win\bgdi juego.dcb
+..\bennu-win\bgdi eternoretorno.dcb
 pause
