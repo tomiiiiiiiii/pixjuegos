@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project name="Garnatron" default="help">
+<project name="7stars" default="help">
   <loadproperties srcFile="local.properties"/>
   <property file="build.properties"/>
   <property file="default.properties"/>

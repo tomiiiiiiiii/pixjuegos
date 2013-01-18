@@ -1,4 +1,4 @@
-package com.pixjuegos.garnatron;
+package com.pixjuegos.7stars;
 
 import org.libsdl.app.SDLActivity;
 import android.os.*;
@@ -7,7 +7,7 @@ import android.os.*;
  * A sample wrapper class that just calls SDLActivity
  */ 
 
-public class Garnatron extends SDLActivity {
+public class 7stars extends SDLActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
