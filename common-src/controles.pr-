@@ -49,7 +49,11 @@ Private
 	axis_y;
 Begin
 	priority=10;
-	if(os_id==1003 and jugador==1 and p[1].control==0 and njoys<2)
+	if(os_id==1003 and jugador==1 and p[1].control==0 and posibles_jugadores==1)
+		if(ancho_pantalla==0 or alto_pantalla==0)
+			ancho_pantalla=graphic_info(0,0,g_width);
+			alto_pantalla=graphic_info(0,0,g_height);
+		end
 		if(graph_dedo<1)
 			pinta_gamepad();			
 		end
@@ -59,6 +63,13 @@ Begin
 	End
 	
 	Loop
+		if(os_id==1003 and !focus_status) //en android, si estamos en 2º plano, nos vamos al aire
+			let_me_alone();
+			fade_music_off(500);
+			while(is_playing_song()) frame; end
+			exit();
+		end
+
 		if(!exists(father)) return; end
 		from i=0 to 7; p[jugador].botones[i]=0;	end		
 		if(p[jugador].control==-2) //GLOBAL: Para menús y tal
@@ -146,10 +157,11 @@ Begin
 				If(joy_getbutton(joysticks[p[jugador].control],1)) p[jugador].botones[b_abajo]=1; End
 				If(joy_getbutton(joysticks[p[jugador].control],2)) p[jugador].botones[b_izquierda]=1; End
 				If(joy_getbutton(joysticks[p[jugador].control],3)) p[jugador].botones[b_derecha]=1; End
-				If(joy_getbutton(joysticks[p[jugador].control],5) or joy_getbutton(joysticks[p[jugador].control],20)) p[jugador].botones[b_1]=1; End
-				If(joy_getbutton(joysticks[p[jugador].control],6) or joy_getbutton(joysticks[p[jugador].control],21)) p[jugador].botones[b_2]=1; End
-				If(joy_getbutton(joysticks[p[jugador].control],7) or joy_getbutton(joysticks[p[jugador].control],22)) p[jugador].botones[b_3]=1; End
-				If(joy_getbutton(joysticks[p[jugador].control],8) or joy_getbutton(joysticks[p[jugador].control],23)) p[jugador].botones[b_salir]=1; End
+				If(joy_getbutton(joysticks[p[jugador].control],8) or joy_getbutton(joysticks[p[jugador].control],20)) p[jugador].botones[b_1]=1; End
+				If(joy_getbutton(joysticks[p[jugador].control],5) or joy_getbutton(joysticks[p[jugador].control],21)) p[jugador].botones[b_2]=1; End
+				If(joy_getbutton(joysticks[p[jugador].control],6) or joy_getbutton(joysticks[p[jugador].control],22)) p[jugador].botones[b_3]=1; End
+				If(joy_getbutton(joysticks[p[jugador].control],19) or joy_getbutton(joysticks[p[jugador].control],9)) p[jugador].botones[b_salir]=1; End
+				if(key(key_b_salir)) p[jugador].botones[b_salir]=1; end
 			else
 				If(get_joy_button(joysticks[p[jugador].control],0)) p[jugador].botones[4]=1; End
 				If(get_joy_button(joysticks[p[jugador].control],1)) p[jugador].botones[5]=1; End
@@ -165,6 +177,11 @@ Function configurar_controles();
 Begin
 	//1. Averiguamos cuantos joysticks tenemos
 	njoys=number_joy();
+	
+	//1.1 En Android, descontamos el último joystick ya que se trata de un sensor
+	if(os_id==1003)
+		njoys=njoys-1;
+	end
 
 	//2. ¿Cuántos de ellos son utilizables/tienen al menos dos ejes y dos botones?
 	from i=0 to (njoys-1);
@@ -233,10 +250,13 @@ Begin
 		posibles_jugadores=1;
 	end
 	
-	if(os_id==1003 and posibles_jugadores==1) //android!
-		p[1].control=0;
-		posibles_jugadores=1;
+	if(os_id==1003) //android!
 		key_b_salir=102;
+		if(posibles_jugadores>1) //con joysticks, sin gamepadvirtual
+			posibles_jugadores--;
+		else
+			p[1].control=0;
+		end
 	end
 	
 	//Y creo que ya estamos :)
@@ -251,7 +271,7 @@ Begin
 	
 	boton_tactil(ancho_pantalla-(gamepad_boton_separacion*2)+get_distx(7*pi/6,gamepad_boton_separacion),alto_pantalla-(gamepad_boton_separacion*2)+get_disty(7*pi/6,gamepad_boton_separacion*2/3),graph_boton_1,1,b_1);
 	boton_tactil(ancho_pantalla-(gamepad_boton_separacion*2)+get_distx(11*pi/6,gamepad_boton_separacion),(alto_pantalla-gamepad_boton_separacion*2)+get_disty(11*pi/6,gamepad_boton_separacion*2/3),graph_boton_2,1,b_2);
-	if(gamepad_botones>2)
+	if(gamepad_botones==3)
 		boton_tactil(ancho_pantalla-(gamepad_boton_separacion*2)+get_distx(pi/2,gamepad_boton_separacion/1),alto_pantalla-(gamepad_boton_separacion*2)+get_disty(pi/2,gamepad_boton_separacion/1),graph_boton_3,1,b_3);
 	end
 	
