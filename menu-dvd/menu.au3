@@ -1,5 +1,5 @@
-#include <GUIConstantsEx.au3>
-#include <WindowsConstants.au3>
+#include <AutoIT\GUIConstantsEx.au3>
+#include <AutoIT\WindowsConstants.au3>
 ;Opt('MustDeclareVars', 1)
 Opt('TrayIconHide',1)
 Global $gui, $guiPos, $pic, $picPos
