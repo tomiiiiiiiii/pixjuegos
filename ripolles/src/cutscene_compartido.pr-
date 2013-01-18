@@ -1,6 +1,7 @@
 	stop_scroll(0);
 	let_me_alone();
 	pon_musica(13);
+	controlador(0);
 	while(fading) frame; end
 	//frame(10000);
 	fade_on();

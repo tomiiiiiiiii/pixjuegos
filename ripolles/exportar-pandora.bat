@@ -32,7 +32,7 @@ copy recursos\pandora\*.* export-pandora\ripolles\
 copy ripolles.dcb export-pandora\ripolles
 copy loading.png export-pandora\ripolles
 
-..\bennu-pandora\tools\mksquashfs.exe export-pandora\ripolles ripolles.pnd -nopad -no-recovery -noappend
+..\bennu-pandora\tools\mksquashfs.exe export-pandora\ripolles ripolles.pnd
 move ripolles.pnd export-pandora
 
 echo LISTO!!

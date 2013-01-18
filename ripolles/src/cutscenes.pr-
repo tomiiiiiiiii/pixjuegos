@@ -152,12 +152,12 @@ End
 Process cambia_fps();
 Begin
 	loop
-		if(mouse.left)
+		if(mouse.left or p[0].botones[b_1])
 			i++;
 		else
 			i=0;
 		end
-		if(key(_esc) or i>15)
+		if(p[0].botones[b_salir] or i>15)
 			fade_off();
 			while(fading) frame; end
 			let_me_alone();

@@ -136,14 +136,16 @@ begin
 				case 2: //opciones
 					switch(opcion_actual)
 						case 1: 
-							if(ops.ventana) 
-								ops.ventana=0; 
-								full_screen=1;
-							else 
-								ops.ventana=1; 
-								full_screen=0;
+							if(os_id==os_win32 or os_id==os_linux)
+								if(ops.ventana) 
+									ops.ventana=0; 
+									full_screen=1;
+								else 
+									ops.ventana=1; 
+									full_screen=0;
+								end
+								set_mode(ancho_pantalla,alto_pantalla,32);
 							end
-							set_mode(ancho_pantalla,alto_pantalla,32);
 						end
 						case 2: 
 							if(ops.sonido) ops.sonido=0; else ops.sonido=1; end 

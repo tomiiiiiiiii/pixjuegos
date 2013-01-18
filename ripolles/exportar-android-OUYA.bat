@@ -4,7 +4,7 @@ call ..\utils\entorno.bat ripolles
 rd /s /q export
 echo Compilando...
 cd src
-..\..\bennu-win-old\bgdc ripolles.prg
+..\..\bennu-win\bgdc -DTACTIL=1 ripolles.prg
 move ripolles.dcb ..\main.dcb
 cd ..
 pause
@@ -15,7 +15,7 @@ echo Exportando...
 mkdir export
 
 echo Copiando base de bennu-android...
-xcopy /r/e/y ..\bennu-android .\export
+xcopy /r/e/y ..\bennu-android-4.1 .\export
 
 echo Creando carpetas...
 mkdir export\assets\fpg
@@ -31,7 +31,7 @@ copy recursos\android\xhdpi.png export\res\drawable-xhdpi\icon.png /y
 copy recursos\android\ouya_icon.png export\res\drawable-xhdpi\ouya_icon.png /y
 
 copy recursos\android\strings.xml export\res\values\strings.xml /y
-copy recursos\android\AndroidManifest.ouya.xml export\AndroidManifest.xml /y
+copy recursos\android\AndroidManifest.xml export\AndroidManifest.xml /y
 copy recursos\android\default.ouya.properties export\default.properties /y
 copy recursos\android\build.xml export\ /y
 
