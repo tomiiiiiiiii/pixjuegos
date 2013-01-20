@@ -97,8 +97,8 @@ Global
 			nivel;
 //			vidas[5];
 			poder[5];
-			string nombres[10];
-			puntuacion[10];
+			string nombres[10]="PoX", "PeX", "PaX", "PuX", "PiX", "Nico", "Ana", "Nibler337", "PiXeL", "Carles Vicent";
+			puntuacion[10]=10000,20000,30000,40000,50000,60000,70000,80000,90000,100000;
 			puntos[5];
 		end
 		
@@ -248,16 +248,6 @@ BEGIN
 	save.nivel=1;	
 	save.poder[0]=1;
 	save.poder[1]=1;
-	save.puntuacion[0]=10000;
-	save.puntuacion[1]=10000;
-	save.puntuacion[2]=10000;
-	save.puntuacion[3]=10000;
-	save.puntuacion[4]=10000;
-	save.puntuacion[5]=10000;
-	save.puntuacion[6]=10000;
-	save.puntuacion[7]=10000;
-	save.puntuacion[8]=10000;
-	save.puntuacion[9]=10000;
 	
 	if(os_id<1000)
 		if(os_id==0) //windows
@@ -301,7 +291,7 @@ BEGIN
 	key_b_3=ops.teclado.cambiar;		//D
 	
 	if(ops.p_completa) 
-		full_screen=true; 
+		full_screen=true;
 		set_mode(1024,768,32,WAITVSYNC);
 	end
 	
@@ -332,8 +322,8 @@ BEGIN
 
 	clear_screen();
 
-	jugadores=4;
-	historia(2);
+	//jugadores=4;
+	historia(1);
 	//fase(3);
 	//juego(1);
 	frame;
@@ -358,7 +348,7 @@ begin
 	fade_on();
 	timer[2]=0;
 	
-	escapable();
+	
 	
 	if(cosa==1)
 	
@@ -390,37 +380,46 @@ begin
 	end
 
 	if(cosa==2) //creditos
-		
+		escapable();
 		pausa=1;
-		
 		switch(jugadores)
 			case 1:
 				id_nave[1]=nave01(-450,384,1);
 				id_nave[1].angle=-90000;
+				escudo[1]=5;
 			end
 			case 2: 
 				id_nave[1]=nave01(-350,256,1);
 				id_nave[1].angle=-90000;
+				escudo[1]=5;
 				id_nave[2]=nave01(-450,512,2);
 				id_nave[2].angle=-90000;
+				escudo[2]=5;
 			end
 			case 3: 
 				id_nave[1]=nave01(-250,192,1);
 				id_nave[1].angle=-90000;
+				escudo[1]=5;
 				id_nave[2]=nave01(-350,384,2);
 				id_nave[2].angle=-90000;
+				escudo[2]=5;
 				id_nave[3]=nave01(-450,576,3);
 				id_nave[3].angle=-90000;
+				escudo[3]=5;
 			end
 			case 4:
 				id_nave[1]=nave01(-150,154,1);
 				id_nave[1].angle=-90000;
+				escudo[1]=5;
 				id_nave[2]=nave01(-250,306,2);
 				id_nave[2].angle=-90000;
+				escudo[2]=5;
 				id_nave[3]=nave01(-350,460,3);
 				id_nave[3].angle=-90000;
+				escudo[3]=5;
 				id_nave[4]=nave01(-450,614,4);
 				id_nave[4].angle=-90000;
+				escudo[4]=5;
 			end
 		end
 		
@@ -555,7 +554,7 @@ begin
 		end
 
 		delete_text(all_text);
-		menu(0);
+		highscores(puntos[1],puntos[2],puntos[3],puntos[4]);
 	end
 
 end
@@ -568,7 +567,7 @@ process escapable();
 Begin
 	controlador(0);
 	loop
-		if(p[0].botones[7]) while(p[0].botones[7]) frame; end menu(0); end
+		if(p[0].botones[7]) while(p[0].botones[7]) frame; end highscores(puntos[1],puntos[2],puntos[3],puntos[4]); end
 		frame;
 	end
 End
@@ -757,7 +756,7 @@ begin
 							menu(1);
 						end
 						case 4: 
-							clasificacion(0);
+							highscores(0,0,0,0);
 						end
 						case 5:
 							ayuda();
@@ -1218,45 +1217,87 @@ begin
 	frame;
 end
 
-//-----------------------------------------------------------------------
-// proceso clasificacion
-//-----------------------------------------------------------------------
-
-process clasificacion(nuevo);
+process highscores(nuevo_j1,nuevo_j2,nuevo_j3,nuevo_j4);
 
 private
 a;
-aux;
+nueva_puntuacion[5];
+nuevo_aspirante[5]=0,-1,-1,-1,-1;
 
 begin
 	let_me_alone();
 	delete_text(all_text);
-	controlador(0);
 	
-	from a=0 to 9;
-		if(nuevo>save.puntuacion[a])
-			aux=save.puntuacion[a];
-			save.puntuacion[a]=nuevo;
-			nuevo=aux;
+	fuente_teclado=fuente[0];
+	nueva_puntuacion[1]=nuevo_j1;
+	nueva_puntuacion[2]=nuevo_j2;
+	nueva_puntuacion[3]=nuevo_j3;
+	nueva_puntuacion[4]=nuevo_j4;
+	
+	from jugador=1 to jugadores;
+		from a=0 to 9;
+			if(nueva_puntuacion[jugador]>=save.puntuacion[a])
+				save.puntuacion[a-1]=save.puntuacion[a];
+				save.nombres[a-1]=save.nombres[a];
+				save.puntuacion[a]=nueva_puntuacion[jugador];
+				save.nombres[a]="";
+				nuevo_aspirante[jugador]=a;
+			end
+		end
+		from a=jugador to 1 step -1;
+			if(nueva_puntuacion[a]>=nueva_puntuacion[a-1])
+				nuevo_aspirante[a-1]-=1;
+			end
 		end
 	end
 	
-	x=512;
-	y=150;
-	write(fuente[0],x,y,4,"Clasificacion");
-	from a=0 to 9;
-		write_var(fuente[0],x,y+=30,4,save.puntuacion[a]);
+	from jugador=1 to jugadores;
+		if(nuevo_aspirante[jugador]>-1)
+			nueva_puntuacion[jugador]=1;
+		else	
+			nueva_puntuacion[jugador]=0;
+		end
 	end
-	while(not p[0].botones[4])
-		scroll.x0+=3;
-		frame;
+	
+	if(nuevo_aspirante[1]>-1 or nuevo_aspirante[2]>-1 or nuevo_aspirante[3]>-1 or nuevo_aspirante[4]>-1)
+		write(fuente[0],ancho_pantalla/2,70,4,"¡Nuevo record! Introduce tu nombre");
+		text_input(ancho_pantalla/2,400,15,nueva_puntuacion[1],nueva_puntuacion[2],nueva_puntuacion[3],nueva_puntuacion[4]);
+		loop
+			if(!exists(TYPE text_input)) break; end
+			scroll.x0+=3;
+			frame;
+		end
+		from jugador=1 to jugadores;
+			if(nuevo_aspirante[jugador]>-1)
+				save.nombres[nuevo_aspirante[jugador]]=texto_introducido[jugador];
+			end
+		end
+		highscores(0,0,0,0);
+	else
+		x=512;
+		write(fuente[0],x,150,4,"Clasificación");
+		frame(1500);
+		y=500;
+		from a=0 to 9;
+			write(fuente[0],x-150,y,3,10-a + "º " + save.nombres[a]);
+			write(fuente[0],x+150,y,5,save.puntuacion[a]);
+			y-=30;
+			frame(1500);
+		end
+		
+		controlador(0);
+		while(not p[0].botones[b_1])
+			scroll.x0+=3;
+			frame;
+		end
+		while(p[0].botones[b_1])
+			scroll.x0+=3;
+			frame;
+		end
+		menu(0);
 	end
-	while(p[0].botones[4])
-		scroll.x0+=3;
-		frame;
-	end
-	menu(0);
 end
+
 //-----------------------------------------------------------------------
 // proceso que crea un efecto
 //-----------------------------------------------------------------------
