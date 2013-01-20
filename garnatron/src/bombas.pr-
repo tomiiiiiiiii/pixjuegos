@@ -305,15 +305,8 @@ if(tipo==40)
 		end
 		frame;
 	end
-//	file=fpg_explosiones;
-//	graph=1;
-//	suena(s_explosion);
-//	repeat
-//		if(pausa==0) graph++; end
-//	frame;
-//	until(graph==12)
 	
-	explosion(x,y,1,200);
+	explosion(x,y,1,100);
 	if(ops.particulas==1)
 		explotalo(x,y,z,alpha,angle,file,graph,40);
 	end
@@ -411,7 +404,7 @@ REPEAT
 		advance(12);
 		if(id2=collision(type laser))
 			if(id2.graph!=50)//si no es escudo muere
-				explosion(x,y,2,75);
+				explosion(x,y,2,25);
 				break;
 			end
 		end
@@ -424,13 +417,13 @@ REPEAT
 				id2=(collision(id_nave[jugador])); 
 				if(id2)
 					id_nave[jugador].estado=-1;
-					explosion(x,y,2,75);
+					explosion(x,y,2,25);
 					return;
 				end
 			end
 		end
 		
-		if(collision(type disparo01)) explosion(x,y,2,75); break; end
+		if(collision(type disparo01)) explosion(x,y,2,25); break; end
 	end
 	FRAME;
 UNTIL (out_region(id,1))
@@ -486,7 +479,7 @@ loop
 					signal(id2,s_kill);
 				end
 				if(id2=collision(type laser))
-					explosion(id2.x,id2.y,2,300);
+					explosion(id2.x,id2.y,2,150);
 					signal(id2,s_kill);
 				end
 
@@ -505,7 +498,7 @@ loop
 						id2=(collision(id_nave[jugador])); 
 						if(id2)
 							id_nave[jugador].estado=-1;
-							explosion(x,y,2,200);
+							explosion(x,y,2,100);
 						end
 					end
 				end
@@ -551,7 +544,7 @@ loop
 				id2=(collision(id_nave[jugador])); 
 				if(id2)
 					id_nave[jugador].estado=-1;
-					explosion(x,y,2,200);
+					explosion(x,y,2,100);
 				end
 			end
 			id2=(collision(type disparo01));

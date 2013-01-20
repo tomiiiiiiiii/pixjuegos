@@ -57,7 +57,7 @@ if(tipo==1)	//nivel 1
 		if(angulo > 2*pi) angulo-=2*pi; end
 		
 		id2=(collision(type disparo01));
-		if(id2) vida_boss--; signal(id2,s_kill); explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
+		if(id2) vida_boss--; signal(id2,s_kill); explosion(id2.x,id2.y,2,25); puntos[id2.jugador]+=1; end
 
 		id2=(collision(type laser));
 		if(id2) vida_boss-=2; explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
@@ -116,7 +116,7 @@ if(tipo==2)	//nivel 2
 		if(patron>625) patron=0; end
 
 		id2=(collision(type disparo01));
-		if(id2) vida_boss--; signal(id2,s_kill); explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
+		if(id2) vida_boss--; signal(id2,s_kill); explosion(id2.x,id2.y,2,25); puntos[id2.jugador]+=1; end
 
 		id2=(collision(type laser));
 		if(id2) vida_boss-=2; explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
@@ -180,7 +180,7 @@ if(tipo==3)	//nivel 3
 		end
 
 		id2=(collision(type disparo01));
-		if(id2) vida_boss--; signal(id2,s_kill); explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
+		if(id2) vida_boss--; signal(id2,s_kill); explosion(id2.x,id2.y,2,25); puntos[id2.jugador]+=1; end
 
 		id2=(collision(type laser));
 		if(id2) vida_boss-=2; explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
@@ -236,7 +236,7 @@ if(tipo==4) //nivel 3 escudo
 		end
 		if(jugador>4) jugador=1; end
 		id2=(collision(type disparo01));
-		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
+		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,25); puntos[id2.jugador]+=1; end
 
 		id2=(collision(type laser));
 		if(id2) vida-=2; explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
@@ -299,7 +299,7 @@ if(tipo==5)	//nivel 3 escudo
 		if(jugador>4) jugador=1; end
 
 		id2=(collision(type disparo01));
-		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
+		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,25); puntos[id2.jugador]+=1; end
 
 		id2=(collision(type laser));
 		if(id2) vida-=2; explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
@@ -379,7 +379,7 @@ if(tipo==6)	//nivel 4
 		end
 
 		id2=(collision(type disparo01));
-		if(id2) vida_boss--; signal(id2,s_kill); explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
+		if(id2) vida_boss--; signal(id2,s_kill); explosion(id2.x,id2.y,2,25); puntos[id2.jugador]+=1; end
 
 		id2=(collision(type laser));
 		if(id2) vida_boss-=2; explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
@@ -428,7 +428,7 @@ if(tipo==7)	//nivel 4 ala
 		end
 
 		id2=(collision(type disparo01));
-		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
+		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,25); puntos[id2.jugador]+=1; end
 		id2=(collision(type laser));
 		if(id2) vida-=2; explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
 		
@@ -443,7 +443,6 @@ if(tipo==7)	//nivel 4 ala
 			end
 		end
 
-		if(id2) vida-=2; explosion(id2.x,id2.y,2,100); end
 		if(vida<1)
 			explosion(x+150,y,3,100);
 			from jugador=1 to jugadores;
@@ -483,7 +482,7 @@ if(tipo==8)	//nivel 4 ala
 		end
 
 		id2=(collision(type disparo01));
-		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
+		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,25); puntos[id2.jugador]+=1; end
 		id2=(collision(type laser));
 		if(id2) vida-=2; explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
 
@@ -575,7 +574,7 @@ if(tipo==9)	//nivel 5
 		if(patron>670) patron=0; end
 
 		id2=(collision(type disparo01));
-		if(id2) vida_boss--; signal(id2,s_kill); explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
+		if(id2) vida_boss--; signal(id2,s_kill); explosion(id2.x,id2.y,2,25); puntos[id2.jugador]+=1; end
 
 		id2=(collision(type laser));
 		if(id2) vida_boss-=2; explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
@@ -629,7 +628,7 @@ if(tipo==10)	//nivel 5 escudo
 		if(patron>500 and x1>0) x1-=2; end
 
 		id2=(collision(type disparo01));
-		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
+		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,25); puntos[id2.jugador]+=1; end
 
 		id2=(collision(type laser));
 		if(id2) vida-=2; explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
@@ -684,7 +683,7 @@ if(tipo==11)	//nivel 5 escudo
 		if(patron>500 and x1>0) x1-=2; end
 
 		id2=(collision(type disparo01));
-		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
+		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,25); puntos[id2.jugador]+=1; end
 
 		id2=(collision(type laser));
 		if(id2) vida-=2; explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
@@ -737,7 +736,7 @@ if(tipo==12)	//nivel 5 motor
 		if(patron==1) bomba02(-150,250,255000,100,2); end
 
 		id2=(collision(type disparo01));
-		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
+		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,25); puntos[id2.jugador]+=1; end
 
 		id2=(collision(type laser));
 		if(id2) vida-=2; explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
@@ -792,7 +791,7 @@ if(tipo==13)	//nivel 5 motor
 		if(id2)
 			vida--;
 			signal(id2,s_kill);
-			explosion(id2.x,id2.y,2,100);
+			explosion(id2.x,id2.y,2,25);
 			puntos[id2.jugador]+=1;
 		end
 
@@ -901,7 +900,7 @@ if(tipo==14)	//nivel 5.1
 		if(patron>670) patron=0; end
 
 		id2=(collision(type disparo01));
-		if(id2) vida_boss--; signal(id2,s_kill); explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
+		if(id2) vida_boss--; signal(id2,s_kill); explosion(id2.x,id2.y,2,25); puntos[id2.jugador]+=1; end
 
 		id2=(collision(type laser));
 		if(id2) vida_boss-=2; explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
@@ -977,7 +976,7 @@ Begin
 		end
 		if(naves>4) naves=1; end
 		id2=(collision(type disparo01));
-		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
+		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,25); puntos[id2.jugador]+=1; end
 
 		id2=(collision(type laser));
 		if(id2) vida-=2; explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
@@ -1054,7 +1053,7 @@ Begin
 		if(naves>4) naves=1; end
 
 		id2=(collision(type disparo01));
-		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
+		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,25); puntos[id2.jugador]+=1; end
 
 		id2=(collision(type laser));
 		if(id2) vida-=2; explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
@@ -1131,7 +1130,7 @@ Begin
 		if(naves>4) naves=1; end
 
 		id2=(collision(type disparo01));
-		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
+		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,25); puntos[id2.jugador]+=1; end
 
 		id2=(collision(type laser));
 		if(id2) vida-=2; explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
@@ -1208,7 +1207,7 @@ Begin
 		if(naves>4) naves=1; end
 
 		id2=(collision(type disparo01));
-		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
+		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,25); puntos[id2.jugador]+=1; end
 
 		id2=(collision(type laser));
 		if(id2) vida-=2; explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
@@ -1275,7 +1274,7 @@ Begin
 		end
 
 		id2=(collision(type disparo01));
-		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
+		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,25); puntos[id2.jugador]+=1; end
 		id2=(collision(type laser));
 		if(id2) vida-=2; explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
 		
@@ -1290,7 +1289,6 @@ Begin
 			end
 		end
 
-		if(id2) vida-=2; explosion(id2.x,id2.y,2,100); end
 		if(vida<1)
 			explosion(x+150,y,3,100);
 			//puntos[id2.jugador]+=500;
@@ -1340,7 +1338,7 @@ Begin
 		end
 
 		id2=(collision(type disparo01));
-		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
+		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,25); puntos[id2.jugador]+=1; end
 		id2=(collision(type laser));
 		if(id2) vida-=2; explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
 
@@ -1395,7 +1393,7 @@ Begin
 		if(pausa==0)
 		
 			id2=(collision(type disparo01));
-			if(id2) signal(id2,s_kill); explosion(id2.x,id2.y,2,100); end
+			if(id2) signal(id2,s_kill); explosion(id2.x,id2.y,2,25); end
 
 			id2=(collision(type laser));
 			if(id2) explosion(id2.x,id2.y,2,100); end
@@ -1450,7 +1448,7 @@ Begin
 			if(patron==1) bomba02(100,0,275000,100,2); end
 
 			id2=(collision(type disparo01));
-			if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
+			if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,25); puntos[id2.jugador]+=1; end
 
 			id2=(collision(type laser));
 			if(id2) vida-=2; explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
@@ -1517,7 +1515,7 @@ Begin
 			if(patron>500 and x1<0) x1+=2; angle+=700; end
 
 			id2=(collision(type disparo01));
-			if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
+			if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,25); puntos[id2.jugador]+=1; end
 
 			id2=(collision(type laser));
 			if(id2) vida-=2; explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
@@ -1584,7 +1582,7 @@ Begin
 			if(patron>500 and x1<0) x1+=2; end
 
 			id2=(collision(type disparo01));
-			if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
+			if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,25); puntos[id2.jugador]+=1; end
 
 			id2=(collision(type laser));
 			if(id2) vida-=2; explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
@@ -1651,7 +1649,7 @@ Begin
 			if(patron>500 and x1>0) x1-=2; end
 
 			id2=(collision(type disparo01));
-			if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
+			if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,25); puntos[id2.jugador]+=1; end
 
 			id2=(collision(type laser));
 			if(id2) vida-=2; explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
@@ -1718,7 +1716,7 @@ Begin
 			if(patron>500 and x1>0) x1-=2; angle-=700; end
 
 			id2=(collision(type disparo01));
-			if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
+			if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,25); puntos[id2.jugador]+=1; end
 
 			id2=(collision(type laser));
 			if(id2) vida-=2; explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
@@ -1790,7 +1788,7 @@ Begin
 			if(id2)
 				vida--;
 				signal(id2,s_kill);
-				explosion(id2.x,id2.y,2,100);
+				explosion(id2.x,id2.y,2,25);
 				puntos[id2.jugador]+=1;
 			end
 

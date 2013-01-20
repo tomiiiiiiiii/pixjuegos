@@ -169,7 +169,7 @@ begin
 			id2=(collision(type disparo01));
 			if(id2) vida--;
 				signal(id2,s_kill);
-				explosion(id2.x,id2.y,2,75);
+				explosion(id2.x,id2.y,2,25);
 				puntos[id2.jugador]+=1;
 			end
 			if(vida<1) 
@@ -290,7 +290,7 @@ begin
 				end
 		
 				id2=(collision(type disparo01));
-					if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,75);  puntos[id2.jugador]+=1; end
+					if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,25);  puntos[id2.jugador]+=1; end
 				if(vida<1) explosion(x,y,1,100); if(ops.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end puntos[id2.jugador]+=10; break; end
 			end
 			if(tipo==3)//explota
@@ -311,7 +311,7 @@ begin
 				end
 
 				id2=(collision(type disparo01));
-				if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,75);  puntos[id2.jugador]+=1; end
+				if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,25);  puntos[id2.jugador]+=1; end
 				if(vida<1)
 					explosion(x,y,1,100);
 					if(ops.particulas==1)
@@ -388,7 +388,7 @@ BEGIN
 		if(id2)
 			vida--;
 			signal(id2,s_kill);
-			explosion(id2.x,id2.y,2,75);
+			explosion(id2.x,id2.y,2,25);
 			puntos[id2.jugador]+=1;
 			if(vida<1)
 				if(size>99)

@@ -7,7 +7,7 @@
 PROGRAM Garnatron;
 import "mod_blendop";
 //import "mod_cd";
-//import "mod_debug";
+import "mod_debug";
 //import "mod_mem";
 import "mod_effects";
 import "mod_flic";
@@ -46,13 +46,13 @@ Global
 	jugadores=1;
 	id_nave[5];
 
-	vidas[4]=0,0,0,0,0;
-	escudo[4]=0,5,5,5,5;
-	poder[4]=0,1,1,1,1;
-	fuerza[4]=0,1,1,1,1;
-	energia[4]=0,20,20,20,20;
-	habil[4]=0,1,1,1,1;
-	puntos[4];
+//	vidas[5]=0,0,0,0,0;
+	escudo[5]=0,5,5,5,5;
+	poder[5]=0,1,1,1,1;
+	fuerza[5]=0,1,1,1,1;
+	energia[5]=0,20,20,20,20;
+	habil[5]=0,1,1,1,1;
+	puntos[5];
 
 	arcade_mode=0;
 
@@ -95,11 +95,11 @@ Global
 
 	struct save;
 			nivel;
-			vidas[4];
-			poder[4];
-			string nombres[9];
-			puntuacion[9];
-			puntos[4];
+//			vidas[5];
+			poder[5];
+			string nombres[10];
+			puntuacion[10];
+			puntos[5];
 		end
 		
 	vida_boss;
@@ -332,8 +332,8 @@ BEGIN
 
 	clear_screen();
 
-	historia(1);
-	//jugadores=4;
+	jugadores=4;
+	historia(2);
 	//fase(3);
 	//juego(1);
 	frame;
@@ -354,7 +354,7 @@ begin
 	clear_screen();
 	delete_text(all_text);
 	fade_off();
-	define_region(1,0,75,1024,600);
+	define_region(1,0,80,1024,608);
 	fade_on();
 	timer[2]=0;
 	
@@ -392,61 +392,112 @@ begin
 	if(cosa==2) //creditos
 		
 		pausa=1;
-		id_nave[1]=nave01(-100,384,1);
-		id_nave[1].angle=-90000;
-		while(id_nave[1].x<100)
-			id_nave[1].x+=2;
-			scroll.x0+=3;
-			frame;
+		
+		switch(jugadores)
+			case 1:
+				id_nave[1]=nave01(-450,384,1);
+				id_nave[1].angle=-90000;
+			end
+			case 2: 
+				id_nave[1]=nave01(-350,256,1);
+				id_nave[1].angle=-90000;
+				id_nave[2]=nave01(-450,512,2);
+				id_nave[2].angle=-90000;
+			end
+			case 3: 
+				id_nave[1]=nave01(-250,192,1);
+				id_nave[1].angle=-90000;
+				id_nave[2]=nave01(-350,384,2);
+				id_nave[2].angle=-90000;
+				id_nave[3]=nave01(-450,576,3);
+				id_nave[3].angle=-90000;
+			end
+			case 4:
+				id_nave[1]=nave01(-150,154,1);
+				id_nave[1].angle=-90000;
+				id_nave[2]=nave01(-250,306,2);
+				id_nave[2].angle=-90000;
+				id_nave[3]=nave01(-350,460,3);
+				id_nave[3].angle=-90000;
+				id_nave[4]=nave01(-450,614,4);
+				id_nave[4].angle=-90000;
+			end
 		end
-	
+		
 		letra("Autores",200,200,1);
 		timer[2]=0;
 		while(timer[2]<600)
-			if(id_nave[1].x<512) id_nave[1].x+=2; end
+			if(id_nave[1].x<1400)
+				from jugador=1 to jugadores;
+					id_nave[jugador].x+=1;
+				end
+			end
 			scroll.x0+=3;
 			frame;
 		end
 	
-		letra("Programado por",600,200,3);
-		letra("Carles Vicent",600,230,3);
+		letra("Programado por",800,200,3);
+		letra("Carles Vicent",800,230,3);
 		timer[2]=0;
 		while(timer[2]<400)
-			if(id_nave[1].x<512) id_nave[1].x+=2; end
+			if(id_nave[1].x<1400)
+				from jugador=1 to jugadores;
+					id_nave[jugador].x+=1;
+				end
+			end
 			scroll.x0+=3;
 			frame;
 		end
 	
-		letra("Ayudante",600,400,0);
-		letra("PiXeL",600,430,0);
+		letra("Ayudante",800,600,0);
+		letra("PiXeL",800,630,0);
 		timer[2]=0;
 		while(timer[2]<400)
+			if(id_nave[1].x<1400)
+				from jugador=1 to jugadores;
+					id_nave[jugador].x+=1;
+				end
+			end
 			scroll.x0+=3;
 			frame;
 		end
 	
-		letra("Graficos",200,400,2);
-		letra("Carles Vicent",200,430,2);
-		letra("DaniGM",200,460,2);
-	
+		letra("Graficos",200,600,2);
+		letra("Carles Vicent",200,630,2);
+		letra("DaniGM",200,660,2);
 		timer[2]=0;
 		while(timer[2]<400)
+			if(id_nave[1].x<1400)
+				from jugador=1 to jugadores;
+					id_nave[jugador].x+=1;
+				end
+			end
 			scroll.x0+=3;
 			frame;
 		end
 
-		letra("Sonido",600,200,3);
-		letra("no me acuerdo",600,230,3);
+		letra("Sonido",800,200,3);
+		letra("no me acuerdo",800,230,3);
 		timer[2]=0;
 		while(timer[2]<400)
+			if(id_nave[1].x<1400)
+				from jugador=1 to jugadores;
+					id_nave[jugador].x+=1;
+				end
+			end
 			scroll.x0+=3;
 			frame;
 		end
 	
-		letra("Musica",600,400,0);
-		letra("Danner",600,430,0);
+		letra("Musica",800,600,0);
+		letra("Danner",800,630,0);
 		timer[2]=0;
 		while(timer[2]<400)
+			if(id_nave[1].x<1400)
+				from jugador=1 to jugadores;
+					id_nave[jugador].x+=1;
+				end
+			end
 			scroll.x0+=3;
 			frame;
 		end
@@ -458,29 +509,47 @@ begin
 		letra("Ana",200,320,1);
 		timer[2]=0;
 		while(timer[2]<400)
+			if(id_nave[1].x<1400)
+				from jugador=1 to jugadores;
+					id_nave[jugador].x+=1;
+				end
+			end
 			scroll.x0+=3;
 			frame;
 		end
 
-		letra("Hecho en Bennu",600,200,3);
+		letra("Hecho en Bennu",800,200,3);
 		timer[2]=0;
 		while(timer[2]<400)
+			if(id_nave[1].x<1400)
+				from jugador=1 to jugadores;
+					id_nave[jugador].x+=1;
+				end
+			end
 			scroll.x0+=3;
 			frame;
 		end
 
-		letra("Creado por PiX Juegos",600,400,0);
+		letra("Creado por PiX Juegos",800,600,0);
 		timer[2]=0;
 		while(timer[2]<600)
-			if(id_nave[1].x<1100) id_nave[1].x+=2; end
+			if(id_nave[1].x<1400)
+				from jugador=1 to jugadores;
+					id_nave[jugador].x+=1;
+				end
+			end
 			scroll.x0+=3;
 			frame;
 		end
 
-		letra("Gracias por jugar",400,300,4);
+		letra("Gracias por jugar",500,350,4);
 		timer[2]=0;
 		while(timer[2]<600)
-			if(id_nave[1].x<1100) id_nave[1].x+=3; end
+			if(id_nave[1].x<1400)
+				from jugador=1 to jugadores;
+					id_nave[jugador].x+=1;
+				end
+			end
 			scroll.x0+=3;
 			frame;
 		end
@@ -523,7 +592,7 @@ Begin
 	if(lao==3) texto_y+=1; End
 
 	delete_text(id_texto);
-	Until(timercred=>145)
+	Until(timercred=>170)
 End
 
 
@@ -575,97 +644,69 @@ begin
 	//ponemos el menú actual
 	switch(num_menu)
 		case 0: //general
-		//	write(fuente[0],x,y+=60,4,"Jugar");
 			boton(x,y+=60,"Jugar",1);
-		//	write(fuente[0],x,y+=60,4,"Continuar");
 			boton(x,y+=60,"Continuar",2);
-		//	write(fuente[0],x,y+=60,4,"Opciones");
 			boton(x,y+=60,"Opciones",3);
-		//	write(fuente[0],x,y+=60,4,"Clasificacion");
 			boton(x,y+=60,"Clasificacion",4);
-		//	write(fuente[0],x,y+=60,4,"Ayuda");
 			boton(x,y+=60,"Ayuda",5);
-		//	write(fuente[0],x,y+=60,4,"Salir");
 			boton(x,y+=60,"Salir",6);
 			num_opciones=6;
 			volver_a_menu=0;
 		end
 		case 1: //opciones
-		//	write(fuente[0],x,y+=60,4,"Video");
 			boton(x,y+=60,"Video",1);
-		//	write(fuente[0],x,y+=60,4,"Control");
 			boton(x,y+=60,"Control",2);
 			if(ops.particulas==0)
-		//		write(fuente[0],x,y+=60,4,"Particulas: No");
 				boton(x,y+=60,"Particulas: No",3);
 			else
-		//		write(fuente[0],x,y+=60,4,"Particulas: Si");
 				boton(x,y+=60,"Particulas: Si",3);
 			end
-		//	write(fuente[0],x,y+=60,4,"Volver");
 			boton(x,y+=60,"Volver",4);
 			num_opciones=4;
 			volver_a_menu=0;
 		end
 		case 2: //video
-		//	write(fuente[0],x,y+=60,4,"Pantalla completa");
 			boton(x,y+=60,"Pantalla completa",1);
-		//	write(fuente[0],x,y+=60,4,"Ventana");
 			boton(x,y+=60,"Ventana",2);
-		//	write(fuente[0],x,y+=60,4,"Volver");
 			boton(x,y+=60,"Volver",3);
 			num_opciones=3;
 			volver_a_menu=0;
 		end
 		case 3: //control
-		//	write(fuente[0],x,y+=60,4,"Teclado");
 			boton(x,y+=60,"Teclado",1);
-		//	write(fuente[0],x,y+=60,4,"Mando");
 			boton(x,y+=60,"Mando",2);
-		//	write(fuente[0],x,y+=60,4,"Restablecer");
 			boton(x,y+=60,"Restablecer",3);
-		//	write(fuente[0],x,y+=60,4,"Volver");
 			boton(x,y+=60,"Volver",4);
 			num_opciones=4;
 			volver_a_menu=0;
 		end
 		case 4: //jugadores, juego nuevo
-		//	write(fuente[0],x,y+=60,4,"1 Jugador");
 			boton(x,y+=60,"1 Jugador",1);
-		//	write(fuente[0],x,y+=60,4,"2 Jugadores");
 			boton(x,y+=60,"2 Jugadores",2);
 			num_opciones=3;
 			if(posibles_jugadores>2)
 				num_opciones++;
-		//		write(fuente[0],x,y+=60,4,"3 Jugadores");
 				boton(x,y+=60,"3 Jugadores",3);
 			end
 			if(posibles_jugadores>3)
 				num_opciones++;
-		//		write(fuente[0],x,y+=60,4,"4 Jugadores");
 				boton(x,y+=60,"4 Jugadores",4);
 			end
-		//	write(fuente[0],x,y+=60,3,"Volver");
 			boton(x,y+=60,"Volver",num_opciones);
 			volver_a_menu=0;
 		end
 		case 5: //jugadores, continuar
-		//	write(fuente[0],x,y+=60,4,"1 Jugador");
 			boton(x,y+=60,"1 Jugador",1);
-		//	write(fuente[0],x,y+=60,4,"2 Jugadores");
 			boton(x,y+=60,"2 Jugadores",2);
 			num_opciones=3;
 			if(posibles_jugadores>2)
 				num_opciones++;
-		//		write(fuente[0],x,y+=60,4,"3 Jugadores");
 				boton(x,y+=60,"3 Jugadores",3);
 			end
 			if(posibles_jugadores>3)
 				num_opciones++;
-		//		write(fuente[0],x,y+=60,4,"4 Jugadores");
 				boton(x,y+=60,"4 Jugadores",4);
 			end
-		//	write(fuente[0],x,y+=60,3,"Volver");
 			boton(x,y+=60,"Volver",num_opciones);
 			volver_a_menu=0;
 		end
@@ -844,6 +885,14 @@ begin
 
 							frame;
 							
+							key_b_arriba=ops.teclado.arriba;
+							key_b_derecha=ops.teclado.derecha;
+							key_b_abajo=ops.teclado.abajo;
+							key_b_izquierda=ops.teclado.izquierda;
+							key_b_1=ops.teclado.disparar;
+							key_b_2=ops.teclado.bomba;
+							key_b_3=ops.teclado.cambiar;
+							
 							if(guardar)
 								guarda_opciones();
 								/*archivo=fopen(savegamedir+"ops.dat", O_WRITE);
@@ -1018,6 +1067,14 @@ begin
 							ops.gamepad.disparar=0;			//0
 							ops.gamepad.bomba=1;			//1
 							ops.gamepad.cambiar=2;			//2
+							
+							key_b_arriba=ops.teclado.arriba;
+							key_b_derecha=ops.teclado.derecha;
+							key_b_abajo=ops.teclado.abajo;
+							key_b_izquierda=ops.teclado.izquierda;
+							key_b_1=ops.teclado.disparar;
+							key_b_2=ops.teclado.bomba;
+							key_b_3=ops.teclado.cambiar;
 							
 							if(guardar)
 								guarda_opciones();
@@ -1422,6 +1479,5 @@ include "nave.pr-"
 include "bombas.pr-"
 include "bosses.pr-"
 include "enemigos.pr-"
-//include "controles.pr-"
 
 //include "../../common-src/controles.pr-";

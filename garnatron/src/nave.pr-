@@ -126,6 +126,7 @@ BEGIN
 			FRAME;
 		END
 		if(poder[jugador]>1) poder[jugador]--; end
+		explosion(x,y,3,200);
 		frame;
 END
 
