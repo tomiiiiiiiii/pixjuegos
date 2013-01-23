@@ -139,8 +139,8 @@ Global
 	string savegamedir;
 	string developerpath="/.PiXJuegos/Garnatron/";
 
-	ancho_pantalla=1920;	//1024, 1280, 1920
-	alto_pantalla=1080;		//768, 720, 1080
+	ancho_pantalla=1280;	//1024, 1280, 1920
+	alto_pantalla=720;		//768, 720, 1080
 	bpp=32;
 End
 
@@ -154,6 +154,7 @@ End
 
 include "..\..\common-src\controles.pr-";
 include "..\..\common-src\savepath.pr-";
+include "..\..\common-src\resolucioname.pr-";
 
 //-----------------------------------------------------------------------
 // introduccion del juego
@@ -165,25 +166,13 @@ BEGIN
 
 	gamepad_boton_separacion=75;
 	gamepad_boton_size=60;
-	
+
+	resolucioname(1920,1080,1);
 	if(os_id==1003)
-		scale_resolution_aspectratio = SRA_PRESERVE;
-		scale_resolution=graphic_info(0,0,g_width)*10000+graphic_info(0,0,g_height);
-		bpp=16;
-		set_mode(ancho_pantalla,alto_pantalla,bpp);
 		tactil=1;
-	else
-		if(!mode_is_ok(ancho_pantalla,alto_pantalla,32,MODE_FULLSCREEN))
-			scale_resolution=06400480; //compatible con Wii
-			if(!mode_is_ok(640,480,32,MODE_FULLSCREEN))
-				scale_resolution=03200240; //compatible con GP2X
-			end
-		end
-		if(arcade_mode==1) scale_resolution=08000600; full_screen=true; end
-		set_mode(ancho_pantalla,alto_pantalla,bpp,WAITVSYNC);
 	end
-	
-	
+	set_mode(ancho_pantalla,alto_pantalla,bpp,WAITVSYNC);
+		
 	//dump_type=-1;
 	//restore_type=-1;
 	ALPHA_STEPS=128;
