@@ -167,7 +167,7 @@ BEGIN
 	gamepad_boton_separacion=75;
 	gamepad_boton_size=60;
 
-	resolucioname(1920,1080,1);
+	resolucioname(ancho_pantalla,alto_pantalla,1);
 	if(os_id==1003)
 		tactil=1;
 	end
