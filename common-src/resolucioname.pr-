@@ -59,7 +59,7 @@ begin
 	end
 	
 	if(mode_is_ok(mi_ancho,mi_alto,bpp,MODE_FULLSCREEN))
-		scale_resolution=0;
+		scale_resolution=-1;
 		return;
 	end
 	
@@ -83,5 +83,5 @@ begin
 	
 	//por algún motivo que no alcanzo a comprender, el juego no es capaz de funcionar en ninguno de los modos 
 	// comprobados por lo que vamos a por el safe mode
-	if(scale_resolution==0) scale_resolution=03200240; end
+	if(scale_resolution==-1) scale_resolution=03200240; end
 end
