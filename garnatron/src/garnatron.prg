@@ -46,7 +46,6 @@ Global
 	jugadores=1;
 	id_nave[5];
 
-//	vidas[5]=0,0,0,0,0;
 	escudo[5]=0,5,5,5,5;
 	poder[5]=0,1,1,1,1;
 	fuerza[5]=0,1,1,1,1;
@@ -94,13 +93,12 @@ Global
 	//------ fin controles.pr-
 
 	struct save;
-			nivel;
-//			vidas[5];
-			poder[5];
-			string nombres[10]="PoX", "PeX", "PaX", "PuX", "PiX", "Nico", "Ana", "Nibler337", "PiXeL", "Carles Vicent";
-			puntuacion[10]=10000,20000,30000,40000,50000,60000,70000,80000,90000,100000;
-			puntos[5];
-		end
+		nivel;
+		poder[5];
+		string nombres[10]="PoX", "PeX", "PaX", "PuX", "PiX", "Nico", "Ana", "Nibbler337", "PiXeL", "Carles Vicent";
+		puntuacion[10]=1000,2000,3000,4000,5000,6000,7000,8000,9000,10000;
+		puntos[5];
+	end
 		
 	vida_boss;
 	id_boss01;
@@ -132,7 +130,7 @@ Global
 
 	s_aceptar;
 	s_mover;
-	s_cancelar;
+	s_cambiar_arma;
 
 	archivo;
 
@@ -141,8 +139,8 @@ Global
 	string savegamedir;
 	string developerpath="/.PiXJuegos/Garnatron/";
 
-	ancho_pantalla=1024;
-	alto_pantalla=768;
+	ancho_pantalla=1920;	//1024, 1280, 1920
+	alto_pantalla=1080;		//768, 720, 1080
 	bpp=32;
 End
 
@@ -172,21 +170,19 @@ BEGIN
 		scale_resolution_aspectratio = SRA_PRESERVE;
 		scale_resolution=graphic_info(0,0,g_width)*10000+graphic_info(0,0,g_height);
 		bpp=16;
-		set_mode(1024,768,bpp);
+		set_mode(ancho_pantalla,alto_pantalla,bpp);
+		tactil=1;
 	else
-		if(!mode_is_ok(1024,768,32,MODE_FULLSCREEN))
+		if(!mode_is_ok(ancho_pantalla,alto_pantalla,32,MODE_FULLSCREEN))
 			scale_resolution=06400480; //compatible con Wii
 			if(!mode_is_ok(640,480,32,MODE_FULLSCREEN))
 				scale_resolution=03200240; //compatible con GP2X
 			end
 		end
 		if(arcade_mode==1) scale_resolution=08000600; full_screen=true; end
-		set_mode(1024,768,bpp,WAITVSYNC);
+		set_mode(ancho_pantalla,alto_pantalla,bpp,WAITVSYNC);
 	end
 	
-	if(os_id==1003)
-		tactil=1;
-	end
 	
 	//dump_type=-1;
 	//restore_type=-1;
@@ -195,8 +191,8 @@ BEGIN
 	//imagen cargando
 	file=fpg_menu;
 	graph=1;
-	x=512;
-	y=384;
+	x=ancho_pantalla/2;
+	y=alto_pantalla/2;
 	z=10;
 
 	frame;
@@ -267,9 +263,11 @@ BEGIN
 		savegamedir="/data/data/com.pixjuegos.garnatron/files";
 	end
 	
+	carga_opciones();
+	
 	if(guardar)
-		guarda_opciones();
-/*		if(file_exists(savegamedir+"ops.dat"))
+/*		guarda_opciones();
+		if(file_exists(savegamedir+"ops.dat"))
 			archivo=fopen(savegamedir+"ops.dat",o_read);
 			fread(archivo,ops);
 			fclose(archivo);
@@ -292,7 +290,7 @@ BEGIN
 	
 	if(ops.p_completa) 
 		full_screen=true;
-		set_mode(1024,768,32,WAITVSYNC);
+		set_mode(ancho_pantalla,alto_pantalla,bpp,WAITVSYNC);
 	end
 	
 	if(arcade_mode==1)
@@ -344,11 +342,9 @@ begin
 	clear_screen();
 	delete_text(all_text);
 	fade_off();
-	define_region(1,0,80,1024,608);
+	define_region(1,0,80,ancho_pantalla,alto_pantalla-160);
 	fade_on();
 	timer[2]=0;
-	
-	
 	
 	if(cosa==1)
 	
@@ -363,7 +359,7 @@ begin
 			frame;
 		end
 
-		letra("PiX Juegos  presenta",512,384,4);
+		letra("PiX Juegos  presenta",ancho_pantalla/2,alto_pantalla/2,4);
 		timer[2]=0;
 		while(timer[2]<600)
 			if(scan_code) 
@@ -384,40 +380,40 @@ begin
 		pausa=1;
 		switch(jugadores)
 			case 1:
-				id_nave[1]=nave01(-450,384,1);
+				id_nave[1]=nave01(-450,alto_pantalla/2,1);
 				id_nave[1].angle=-90000;
 				escudo[1]=5;
 			end
 			case 2: 
-				id_nave[1]=nave01(-350,256,1);
+				id_nave[1]=nave01(-350,alto_pantalla/3,1);
 				id_nave[1].angle=-90000;
 				escudo[1]=5;
-				id_nave[2]=nave01(-450,512,2);
+				id_nave[2]=nave01(-450,2*alto_pantalla/3,2);
 				id_nave[2].angle=-90000;
 				escudo[2]=5;
 			end
 			case 3: 
-				id_nave[1]=nave01(-250,192,1);
+				id_nave[1]=nave01(-250,alto_pantalla/4,1);
 				id_nave[1].angle=-90000;
 				escudo[1]=5;
-				id_nave[2]=nave01(-350,384,2);
+				id_nave[2]=nave01(-350,alto_pantalla/2,2);
 				id_nave[2].angle=-90000;
 				escudo[2]=5;
-				id_nave[3]=nave01(-450,576,3);
+				id_nave[3]=nave01(-450,3*alto_pantalla/4,3);
 				id_nave[3].angle=-90000;
 				escudo[3]=5;
 			end
 			case 4:
-				id_nave[1]=nave01(-150,154,1);
+				id_nave[1]=nave01(-150,alto_pantalla/5,1);
 				id_nave[1].angle=-90000;
 				escudo[1]=5;
-				id_nave[2]=nave01(-250,306,2);
+				id_nave[2]=nave01(-250,2*alto_pantalla/5,2);
 				id_nave[2].angle=-90000;
 				escudo[2]=5;
-				id_nave[3]=nave01(-350,460,3);
+				id_nave[3]=nave01(-350,3*alto_pantalla/5,3);
 				id_nave[3].angle=-90000;
 				escudo[3]=5;
-				id_nave[4]=nave01(-450,614,4);
+				id_nave[4]=nave01(-450,4*alto_pantalla/5,4);
 				id_nave[4].angle=-90000;
 				escudo[4]=5;
 			end
@@ -426,7 +422,7 @@ begin
 		letra("Autores",200,200,1);
 		timer[2]=0;
 		while(timer[2]<600)
-			if(id_nave[1].x<1400)
+			if(id_nave[1].x<1600)
 				from jugador=1 to jugadores;
 					id_nave[jugador].x+=1;
 				end
@@ -435,11 +431,11 @@ begin
 			frame;
 		end
 	
-		letra("Programado por",800,200,3);
-		letra("Carles Vicent",800,230,3);
+		letra("Programado por",ancho_pantalla-200,200,3);
+		letra("Carles Vicent",ancho_pantalla-200,230,3);
 		timer[2]=0;
 		while(timer[2]<400)
-			if(id_nave[1].x<1400)
+			if(id_nave[1].x<1600)
 				from jugador=1 to jugadores;
 					id_nave[jugador].x+=1;
 				end
@@ -448,11 +444,11 @@ begin
 			frame;
 		end
 	
-		letra("Ayudante",800,600,0);
-		letra("PiXeL",800,630,0);
+		letra("Ayudante",ancho_pantalla-200,alto_pantalla-200,0);
+		letra("PiXeL",ancho_pantalla-200,alto_pantalla-200+30,0);
 		timer[2]=0;
 		while(timer[2]<400)
-			if(id_nave[1].x<1400)
+			if(id_nave[1].x<1600)
 				from jugador=1 to jugadores;
 					id_nave[jugador].x+=1;
 				end
@@ -461,12 +457,12 @@ begin
 			frame;
 		end
 	
-		letra("Graficos",200,600,2);
-		letra("Carles Vicent",200,630,2);
-		letra("DaniGM",200,660,2);
+		letra("Graficos",200,alto_pantalla-200,2);
+		letra("Carles Vicent",200,alto_pantalla-200+30,2);
+		letra("DaniGM",200,alto_pantalla-200+60,2);
 		timer[2]=0;
 		while(timer[2]<400)
-			if(id_nave[1].x<1400)
+			if(id_nave[1].x<1600)
 				from jugador=1 to jugadores;
 					id_nave[jugador].x+=1;
 				end
@@ -475,11 +471,11 @@ begin
 			frame;
 		end
 
-		letra("Sonido",800,200,3);
-		letra("no me acuerdo",800,230,3);
+		letra("Sonido",ancho_pantalla-200,200,3);
+		letra("no me acuerdo",ancho_pantalla-200,230,3);
 		timer[2]=0;
 		while(timer[2]<400)
-			if(id_nave[1].x<1400)
+			if(id_nave[1].x<1600)
 				from jugador=1 to jugadores;
 					id_nave[jugador].x+=1;
 				end
@@ -488,11 +484,11 @@ begin
 			frame;
 		end
 	
-		letra("Musica",800,600,0);
-		letra("Danner",800,630,0);
+		letra("Musica",ancho_pantalla-200,alto_pantalla-200,0);
+		letra("Danner",ancho_pantalla-200,alto_pantalla-200+30,0);
 		timer[2]=0;
 		while(timer[2]<400)
-			if(id_nave[1].x<1400)
+			if(id_nave[1].x<1600)
 				from jugador=1 to jugadores;
 					id_nave[jugador].x+=1;
 				end
@@ -508,7 +504,7 @@ begin
 		letra("Ana",200,320,1);
 		timer[2]=0;
 		while(timer[2]<400)
-			if(id_nave[1].x<1400)
+			if(id_nave[1].x<1600)
 				from jugador=1 to jugadores;
 					id_nave[jugador].x+=1;
 				end
@@ -517,10 +513,10 @@ begin
 			frame;
 		end
 
-		letra("Hecho en Bennu",800,200,3);
+		letra("Hecho en Bennu",ancho_pantalla-200,200,3);
 		timer[2]=0;
 		while(timer[2]<400)
-			if(id_nave[1].x<1400)
+			if(id_nave[1].x<1600)
 				from jugador=1 to jugadores;
 					id_nave[jugador].x+=1;
 				end
@@ -529,10 +525,10 @@ begin
 			frame;
 		end
 
-		letra("Creado por PiX Juegos",800,600,0);
+		letra("Creado por PiX Juegos",ancho_pantalla-200,alto_pantalla-200,0);
 		timer[2]=0;
 		while(timer[2]<600)
-			if(id_nave[1].x<1400)
+			if(id_nave[1].x<1600)
 				from jugador=1 to jugadores;
 					id_nave[jugador].x+=1;
 				end
@@ -541,10 +537,10 @@ begin
 			frame;
 		end
 
-		letra("Gracias por jugar",500,350,4);
+		letra("Gracias por jugar",ancho_pantalla/2,alto_pantalla/2,4);
 		timer[2]=0;
 		while(timer[2]<600)
-			if(id_nave[1].x<1400)
+			if(id_nave[1].x<1600)
 				from jugador=1 to jugadores;
 					id_nave[jugador].x+=1;
 				end
@@ -616,15 +612,15 @@ begin
 	clear_screen();
 	delete_text(all_text);
 	file=fpg_menu;
-	define_region(1,0,0,1024,768);
-	sombra(9,512,75,file,2);
-	objeto(512,75,9,file,100,16);
+	define_region(1,0,0,ancho_pantalla,alto_pantalla);
+	sombra(9,ancho_pantalla/2,75,file,2);
+	objeto(ancho_pantalla/2,75,9,file,100,16);
 	controlador(0);
 	controlador(1);
 	
 	//modo arcade
 	if(arcade_mode==1)
-		write(fuente[0],512,500,4,"Pulsa disparo para empezar");
+		write(fuente[0],ancho_pantalla/2,alto_pantalla/2,4,"Pulsa disparo para empezar");
 		while(not p[0].botones[4] or not p[1].botones[4])
 			scroll.x0+=3;
 			if(p[0].botones[7] or p[1].botones[7]) exit(); end
@@ -637,7 +633,7 @@ begin
 	
 	z=-20;
 	graph=0;
-	x=512;
+	x=ancho_pantalla/2;
 	y=200;
 	
 	//ponemos el menú actual
@@ -711,7 +707,7 @@ begin
 		end
 	end
 	
-	x=512;
+	x=ancho_pantalla/2;
 	y=800;
 	
 	loop
@@ -798,12 +794,12 @@ begin
 						case 1: 
 							full_screen=true;
 							ops.p_completa=1;
-							set_mode(1024,768,32,WAITVSYNC);
+							set_mode(ancho_pantalla,alto_pantalla,bpp,WAITVSYNC);
 						end
 						case 2: 
 							full_screen=false;
 							ops.p_completa=0;
-							set_mode(1024,768,32,WAITVSYNC);
+							set_mode(ancho_pantalla,alto_pantalla,bpp,WAITVSYNC);
 						end
 						case 3:
 							menu(1);
@@ -818,7 +814,7 @@ begin
 							clear_screen();
 							delete_text(all_text);
 							
-							id_texto=write(fuente[0],512,400,4,"Pulse tecla para arriba");
+							id_texto=write(fuente[0],ancho_pantalla/2,400,4,"Pulse tecla para arriba");
 							repeat
 								ops.teclado.arriba=scan_code;
 								frame;
@@ -827,7 +823,7 @@ begin
 							while(scan_code<>0) frame; scroll.x0+=3; end
 							delete_text(id_texto);
 	
-							id_texto=write(fuente[0],512,400,4,"Pulse una tecla para derecha");
+							id_texto=write(fuente[0],ancho_pantalla/2,400,4,"Pulse una tecla para derecha");
 							Repeat
 								ops.teclado.derecha=scan_code;
 								frame;
@@ -836,7 +832,7 @@ begin
 							while(scan_code<>0) frame; scroll.x0+=3; end
 							delete_text(id_texto);
 
-							id_texto=write(fuente[0],512,400,4,"Pulse una tecla para abajo");
+							id_texto=write(fuente[0],ancho_pantalla/2,400,4,"Pulse una tecla para abajo");
 							Repeat
 								ops.teclado.abajo=scan_code;
 								frame;
@@ -845,7 +841,7 @@ begin
 							while(scan_code<>0) frame; scroll.x0+=3; end
 							delete_text(id_texto);
 	
-							id_texto=write(fuente[0],512,400,4,"Pulse una tecla para izquierda");
+							id_texto=write(fuente[0],ancho_pantalla/2,400,4,"Pulse una tecla para izquierda");
 							Repeat
 								ops.teclado.izquierda=scan_code;
 								frame;
@@ -854,7 +850,7 @@ begin
 							while(scan_code<>0) frame; scroll.x0+=3; end
 							delete_text(id_texto);
 	
-							id_texto=write(fuente[0],512,400,4,"Pulse una tecla para diparar");
+							id_texto=write(fuente[0],ancho_pantalla/2,400,4,"Pulse una tecla para diparar");
 							Repeat
 								ops.teclado.disparar=scan_code;
 								frame;
@@ -863,7 +859,7 @@ begin
 							while(scan_code<>0) frame; scroll.x0+=3; end
 							delete_text(id_texto);
 
-							id_texto=write(fuente[0],512,400,4,"Pulse una tecla para disparar una bomba");
+							id_texto=write(fuente[0],ancho_pantalla/2,400,4,"Pulse una tecla para disparar una bomba");
 							Repeat
 								ops.teclado.bomba=scan_code;
 								frame;
@@ -872,7 +868,7 @@ begin
 							while(scan_code<>0) frame; scroll.x0+=3; end
 							delete_text(id_texto);
 
-							id_texto=write(fuente[0],512,400,4,"Pulse una tecla para cambiar arma");
+							id_texto=write(fuente[0],ancho_pantalla/2,400,4,"Pulse una tecla para cambiar arma");
 							Repeat
 								ops.teclado.cambiar=scan_code;
 								frame;
@@ -992,7 +988,7 @@ begin
 							end
 							delete_text(id_texto);
 ---------------------------------------------------------	*/
-							id_texto=write(fuente[0],512,400,4,"Pulsa un boton para disparar");
+							id_texto=write(fuente[0],ancho_pantalla/2,400,4,"Pulsa un boton para disparar");
 							repeat
 								from a=0 to 11;
 									if(get_joy_button(0,a))
@@ -1009,7 +1005,7 @@ begin
 							end
 							delete_text(id_texto);
 
-							id_texto=write(fuente[0],512,400,4,"Pulsa un boton para disparar una bomba");
+							id_texto=write(fuente[0],ancho_pantalla/2,400,4,"Pulsa un boton para disparar una bomba");
 							repeat
 								from a=0 to 11;
 									if(get_joy_button(0,a))
@@ -1026,7 +1022,7 @@ begin
 							end
 							delete_text(id_texto);
 
-							id_texto=write(fuente[0],512,400,4,"Pulsa un boton para cambiar arma");
+							id_texto=write(fuente[0],ancho_pantalla/2,400,4,"Pulsa un boton para cambiar arma");
 							repeat
 								from a=0 to 11;
 									if(get_joy_button(0,a))
@@ -1148,18 +1144,6 @@ begin
 end
 
 
-process logo(graph);
-begin
-	file=fpg_menu;
-	x=1200;
-	y=300;
-	z=-10;
-	loop
-		x+=(x-500)/-10;
-		frame;
-	end
-end
-
 //-----------------------------------------------------------------------
 // proceso que crea un boton
 //-----------------------------------------------------------------------
@@ -1194,8 +1178,8 @@ begin
 	controlador(0);
 	file=fpg_menu;
 	graph=4;
-	x=512;
-	y=384;
+	x=ancho_pantalla/2;
+	y=alto_pantalla/2;
 	while(not p[0].botones[4])
 		scroll.x0+=3;
 		frame;
@@ -1216,6 +1200,10 @@ begin
 	end
 	frame;
 end
+
+//-----------------------------------------------------------------------
+// proceso highscores
+//-----------------------------------------------------------------------
 
 process highscores(nuevo_j1,nuevo_j2,nuevo_j3,nuevo_j4);
 
@@ -1274,15 +1262,27 @@ begin
 		end
 		highscores(0,0,0,0);
 	else
-		x=512;
+		x=ancho_pantalla/2;
 		write(fuente[0],x,150,4,"Clasificación");
-		frame(1500);
+		
+		timer[2]=0;
+		while(timer[2]<50)
+			scroll.x0+=3;
+			frame;
+		end
+		
+		
 		y=500;
 		from a=0 to 9;
 			write(fuente[0],x-150,y,3,10-a + "º " + save.nombres[a]);
 			write(fuente[0],x+150,y,5,save.puntuacion[a]);
 			y-=30;
-			frame(1500);
+			scroll.x0+=3;
+			timer[2]=0;
+			while(timer[2]<50)
+				scroll.x0+=3;
+				frame;
+			end
 		end
 		
 		controlador(0);
@@ -1395,7 +1395,7 @@ Private
 	l;
 	id_sonido;
 Begin
-	l=(father.x*255)/1024;
+	l=(father.x*255)/ancho_pantalla;
 	id_sonido=play_wav(sonido,0); 
 	set_panning(id_sonido,255-l,l);
 	Frame;
@@ -1413,14 +1413,14 @@ if(tipo==1)
 	graph=1;
 	suena(s_explosion);
 	repeat
-		if(pausa==0) graph++; end
+		if(pausa==0) graph++; alpha-=10; end
 	frame;
 	until(graph==12)
 end
 if(tipo==2)
 	graph=20;
 	repeat
-		if(pausa==0) graph++; end
+		if(pausa==0) graph++; alpha-=10; end
 	frame;
 	until(graph==31)
 end
@@ -1428,7 +1428,7 @@ if(tipo==3)
 	graph=1;
 	suena(s_explosion_grande);
 	repeat
-		if(pausa==0) graph++; size+=20; end
+		if(pausa==0) graph++; alpha-=10; size+=20; end
 	frame;
 	until(graph==12)
 end
@@ -1436,9 +1436,9 @@ if(tipo==4)
 	graph=1;
 	suena(s_explosion_grande);
 	sombra(41,x,y,file,4);
-	sombra(40,512,384,file,3);
+	sombra(40,ancho_pantalla/2,alto_pantalla/2,file,3);
 	repeat
-		if(pausa==0) graph++; size+=20; end
+		if(pausa==0) graph++; alpha-=10; size+=20; end
 	frame;
 	until(graph==12)
 end

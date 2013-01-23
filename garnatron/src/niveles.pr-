@@ -29,8 +29,8 @@ Begin
 	delete_text(all_text);
 	let_me_alone();
 	controlador(0);
-	x=512;
-	y=384;
+	x=ancho_pantalla/2;
+	y=alto_pantalla/2;
 	z=-100;
 	save.nivel=nivel;
 	from jugador=1 to 4;
@@ -44,7 +44,7 @@ Begin
 	end	
 	
 	ctype=c_screen;
-	define_region(1,0,0,1024,768);
+	define_region(1,0,0,ancho_pantalla,alto_pantalla);
 	pausa=1;
 	n=1;
 	from jugador=1 to 4;
@@ -59,7 +59,6 @@ Begin
 	musica(1);
 	graph=20;
 	direccion=1;
-	size=100;
 
 	id_texto=write(fuente[0],x,y,4,"AREA: "+nivel);
 	
@@ -76,7 +75,7 @@ Begin
 	graph=0;
 	switch(jugadores)
 		case 1:
-			id_nave[1]=nave01(512,800,1);
+			id_nave[1]=nave01(ancho_pantalla/2,800,1);
 			marcador(1);
 		end
 		case 2: 
@@ -88,7 +87,7 @@ Begin
 		case 3: 
 			id_nave[1]=nave01(256,800,1);
 			marcador(1);
-			id_nave[2]=nave01(512,800,2);
+			id_nave[2]=nave01(ancho_pantalla/2,800,2);
 			marcador(2);
 			id_nave[3]=nave01(768,800,3);
 			marcador(3);
@@ -125,13 +124,12 @@ Begin
 			if(pausa==0)
 				pausa=1;
 				graph=20;
-				size=100;
 				direccion=1;
 				id_texto=write(fuente[0],x,y,4,"¿Salir de la partida?");
-				boton(512,500,"",1);
-				id_texto1=write(fuente[0],512,500,4,"No");
-				boton(512,550,"",2);
-				id_texto2=write(fuente[0],512,550,4,"Si");
+				boton(ancho_pantalla/2,500,"",1);
+				id_texto1=write(fuente[0],ancho_pantalla/2,500,4,"No");
+				boton(ancho_pantalla/2,550,"",2);
+				id_texto2=write(fuente[0],ancho_pantalla/2,550,4,"Sí");
 				opcion=1;
 			else
 				pausa=0;
@@ -270,7 +268,6 @@ Begin
 				if(jefe==1 and vida_boss<1) 
 					graph=20;
 					direccion=1;
-					size=200;
 					id_texto=write(fuente[0],x,y,4,"AREA: 1");
 					id_texto1=write(fuente[0],x-5,y+15,4,"completada");
 					timer[2]=0;
@@ -363,7 +360,6 @@ Begin
 				if(jefe==1 and vida_boss<1) 
 					graph=20;
 					direccion=1;
-					size=200;
 					id_texto=write(fuente[0],x,y,4,"AREA: 2");
 					id_texto1=write(fuente[0],x-5,y+15,4,"completada");
 					timer[2]=0;
@@ -427,7 +423,6 @@ Begin
 					while(timer[2]<100) frame; end 
 					graph=20;
 					direccion=1;
-					size=200;
 					id_texto=write(fuente[0],x,y,4,"AREA: 3");
 					id_texto1=write(fuente[0],x-5,y+15,4,"completada");
 					timer[2]=0;
@@ -523,7 +518,6 @@ Begin
 					while(timer[2]<100) frame; end
 					graph=20;
 					direccion=1;
-					size=200;
 					id_texto=write(fuente[0],x,y,4,"AREA: 4");
 					id_texto1=write(fuente[0],x-5,y+15,4,"completada");
 					timer[2]=0;
@@ -551,7 +545,6 @@ Begin
 					while(timer[2]<100) frame; end
 					graph=20;
 					direccion=1;
-					size=200;
 					id_texto=write(fuente[0],x,y,4,"AREA: FINAL");
 					id_texto1=write(fuente[0],x-5,y+15,4,"completada");
 					timer[2]=0;
@@ -569,12 +562,11 @@ Begin
 			end
 			
 			if(!exists(id_nave[1]) and !exists(id_nave[2]) and !exists(id_nave[3]) and !exists(id_nave[4]))
-				delete_text(all_text);
+//				delete_text(all_text);
 				graph=20;
 				direccion=1;
-				size=200;
-				id_texto=write(fuente[0],x,y,4,"Fin de");
-				id_texto1=write(fuente[0],x-5,y+15,4,"la partida");
+				id_texto=write(fuente[0],x,y-7,4,"Fin de");
+				id_texto1=write(fuente[0],x-5,y+7,4,"la partida");
 				timer[2]=0;
 				while(timer[2]<500)
 					if(direccion==1) graph++; else graph--; end
@@ -583,7 +575,7 @@ Begin
 					scroll.y0-=5;
 					frame;
 				end
-				menu(0);
+				highscores(puntos[1],puntos[2],puntos[3],puntos[4]);
 				break;
 			end
 		end
@@ -632,31 +624,29 @@ string linea;
 
 datos_nivel[500][6];
 /*------------------------------------------------------------------
-struct datos_nivel[00];
-	n;
-	objeto_nivel; //0:enemigo,1:bono,2:asteroide,3:mina,5:jefe;
-	x;
-	y;
-	tipo;
-	patron;
-end
+	distancia
+	0:enemigo,1:bono,2:asteroide,3:mina,5:jefe;
+	x
+	y
+	tipo
+	patron
 -----------------------------------------------------------------------*/
 Begin
-	if(os_id==1003) juego(nivel); return; end
+//	if(os_id==1003) juego(nivel); return; end
 	file=fpg_menu;
 	fade_off();
 	delete_text(all_text);
 	let_me_alone();
 	controlador(0);
-	x=512;
-	y=384;
+	x=ancho_pantalla/2;
+	y=alto_pantalla/2;
 	z=-100;
 	save.nivel=nivel;
 	from jugador=1 to 4;
 		save.puntos[jugador]=puntos[jugador];
 		save.poder[jugador]=poder[jugador];
 	end
-//	say("----------------------------------------------before fuck");
+
 	if(guardar)
 		archivo=fopen(savegamedir+"save.dat",o_write);
 		fwrite(archivo,save);
@@ -664,8 +654,7 @@ Begin
 	end
 
 	//carga el archivo del nivel
-//	say("----------------------------------------------fuck");
-	archivo=fopen("./niveles/nivel"+nivel+".txt",O_READ);
+	archivo=fopen("./niveles/nivel"+nivel+".csv",O_READ);
 	while(!feof(archivo))
 		linea=fgets(archivo);  
 		from j=0 to 5;
@@ -674,9 +663,9 @@ Begin
 		i++;
 	end
 	fclose(archivo);
-	say("----------------------------------------------fuckthewhat!");
+	say("----------------------------------------------nivel cargado");
 	ctype=c_screen;
-	define_region(1,0,0,1024,768);
+	define_region(1,0,0,ancho_pantalla,alto_pantalla);
 	pausa=1;
 	n=0;
 	from jugador=1 to 4;
@@ -691,7 +680,6 @@ Begin
 	musica(1);
 	graph=20;
 	direccion=1;
-	size=100;
 
 	id_texto=write(fuente[0],x,y,4,"AREA: "+nivel);
 
@@ -708,31 +696,31 @@ Begin
 	graph=0;
 	switch(jugadores)
 		case 1:
-			id_nave[1]=nave01(512,800,1);
+			id_nave[1]=nave01(ancho_pantalla/2,800,1);
 			marcador(1);
 		end
 		case 2: 
-			id_nave[1]=nave01(341,800,1);
+			id_nave[1]=nave01(ancho_pantalla/3,800,1);
 			marcador(1);
-			id_nave[2]=nave01(642,800,2);
+			id_nave[2]=nave01(2*ancho_pantalla/3,800,2);
 			marcador(2);
 		end
 		case 3: 
-			id_nave[1]=nave01(256,800,1);
+			id_nave[1]=nave01(ancho_pantalla/4,800,1);
 			marcador(1);
-			id_nave[2]=nave01(512,800,2);
+			id_nave[2]=nave01(ancho_pantalla/2,800,2);
 			marcador(2);
-			id_nave[3]=nave01(768,800,3);
+			id_nave[3]=nave01(3*ancho_pantalla/4,800,3);
 			marcador(3);
 		end
 		case 4:
-			id_nave[1]=nave01(205,800,1);
+			id_nave[1]=nave01(ancho_pantalla/5,800,1);
 			marcador(1);
-			id_nave[2]=nave01(410,800,2);
+			id_nave[2]=nave01(2*ancho_pantalla/5,800,2);
 			marcador(2);
-			id_nave[3]=nave01(615,800,3);
+			id_nave[3]=nave01(3*ancho_pantalla/5,800,3);
 			marcador(3);
-			id_nave[4]=nave01(820,800,4);
+			id_nave[4]=nave01(4*ancho_pantalla/5,800,4);
 			marcador(4);
 		end
 	end
@@ -759,13 +747,12 @@ Begin
 			if(pausa==0)
 				pausa=1;
 				graph=20;
-				size=100;
 				direccion=1;
 				id_texto=write(fuente[0],x,y,4,"¿Salir de la partida?");
-				boton(512,500,"",1);
-				id_texto1=write(fuente[0],512,500,4,"No");
-				boton(512,550,"",2);
-				id_texto2=write(fuente[0],512,550,4,"Si");
+				boton(ancho_pantalla/2,500,"",1);
+				id_texto1=write(fuente[0],ancho_pantalla/2,500,4,"No");
+				boton(ancho_pantalla/2,550,"",2);
+				id_texto2=write(fuente[0],ancho_pantalla/2,550,4,"Si");
 				opcion=1;
 			else
 				pausa=0;
@@ -807,16 +794,16 @@ Begin
 			
 				switch(datos_nivel[n][1])
 					case 0:
-						enemigo(datos_nivel[n][2],datos_nivel[n][3],datos_nivel[n][4],datos_nivel[n][5]);
+						enemigo((datos_nivel[n][2]*ancho_pantalla)/100,datos_nivel[n][3],datos_nivel[n][4],datos_nivel[n][5]);
 					end
 					case 1:
-						bono(datos_nivel[n][2],datos_nivel[n][3],datos_nivel[n][4]);
+						bono((datos_nivel[n][2]*ancho_pantalla)/100,datos_nivel[n][3],datos_nivel[n][4]);
 					end
 					case 2:
-						asteroide(datos_nivel[n][2],datos_nivel[n][3],datos_nivel[n][4],datos_nivel[n][5]);
+						asteroide((datos_nivel[n][2]*ancho_pantalla)/100,datos_nivel[n][3],datos_nivel[n][4],datos_nivel[n][5]);
 					end
 					case 3:
-						mina(datos_nivel[n][2],datos_nivel[n][3],datos_nivel[n][4]);
+						mina((datos_nivel[n][2]*ancho_pantalla)/100,datos_nivel[n][3],datos_nivel[n][4]);
 					end
 					case 5:
 						id_boss01=boss(datos_nivel[n][4]);
@@ -831,7 +818,6 @@ Begin
 			if(jefe==1 and not exists(id_boss01)) 
 				graph=20;
 				direccion=1;
-				size=100;
 
 				id_texto=write(fuente[0],x,y,4,"AREA: "+nivel);
 				id_texto1=write(fuente[0],x-5,y+15,4,"completada");
@@ -852,12 +838,11 @@ Begin
 			end
 
 			if(!exists(id_nave[1]) and !exists(id_nave[2]) and !exists(id_nave[3]) and !exists(id_nave[4]))
-				delete_text(all_text);
+//				delete_text(all_text);
 				graph=20;
 				direccion=1;
-				size=100;
-				id_texto=write(fuente[0],x,y,4,"Fin de");
-				id_texto1=write(fuente[0],x-5,y+15,4,"la partida");
+				id_texto=write(fuente[0],x,y-7,4,"Fin de");
+				id_texto1=write(fuente[0],x-5,y+7,4,"la partida");
 				timer[2]=0;
 				while(timer[2]<500)
 					if(direccion==1) graph++; else graph--; end
@@ -866,7 +851,7 @@ Begin
 					scroll.y0-=5;
 					frame;
 				end
-				menu(0);
+				highscores(puntos[1],puntos[2],puntos[3],puntos[4]);
 				break;
 			end
 		end

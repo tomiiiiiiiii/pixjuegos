@@ -42,15 +42,15 @@ BEGIN
 					end
 				end
 			*/	
-				if(x>874) x=874; end
+				if(x>ancho_pantalla-150) x=ancho_pantalla-150; end
 				if(x<150) x=150; end
 				if(y<100) y=100; end
-				if(y>700) y=700; end
+				if(y>alto_pantalla-70) y=alto_pantalla-70; end
 
-				if(acelx>0 and not p[jugador].botones[1] and x<942) acelx--; end
+				if(acelx>0 and not p[jugador].botones[1] and x<ancho_pantalla-150) acelx--; end
 				if(acelx<0 and not p[jugador].botones[0] and x>70) acelx++; end
 				if(acely<0 and not p[jugador].botones[2] and y>150) acely++; end
-				if(acely>0 and not p[jugador].botones[3] and y<690) acely--; end
+				if(acely>0 and not p[jugador].botones[3] and y<alto_pantalla-70) acely--; end
 
 				x+=acelx; y+=acely;
 				if(acelx==0)
@@ -144,19 +144,19 @@ z=-100; file=fpg_nave;
 switch (jugador)
 		case 1:
 			x=50; y=50; graph=26;
-			write_var(fuente[1],100,35,3,puntos2);
+			write_var(fuente[jugador],100,35,3,puntos2);
 		end
 		case 2:
-			x=974; y=50; flags=1; graph=27;
-			write_var(fuente[2],924,35,5,puntos2);
+			x=ancho_pantalla-50; y=50; flags=1; graph=27;
+			write_var(fuente[jugador],ancho_pantalla-100,35,5,puntos2);
 		end
 		case 3:
-			x=50; y=716; flags=2; graph=28;
-			write_var(fuente[3],100,731,3,puntos2);
+			x=50; y=alto_pantalla-50; flags=2; graph=28;
+			write_var(fuente[jugador],100,alto_pantalla-35,3,puntos2);
 		end
 		case 4:
-			x=974; y=716; flags=3; graph=29;
-			write_var(fuente[4],924,731,5,puntos2);
+			x=ancho_pantalla-50; y=alto_pantalla-50; flags=3; graph=29;
+			write_var(fuente[jugador],ancho_pantalla-100,alto_pantalla-35,5,puntos2);
 		end
 	end
 
@@ -171,10 +171,6 @@ loop
 		time++;
 		if(time>125 and energia[jugador]<20) energia[jugador]++; time=0; end
 
-/*		if(direccion==1) graph++; else graph--; end
-		if(graph==20) direccion=1; end
-		if(graph==44) direccion=0; end
-*/
 		if(p[jugador].botones[6] and gatillo==0) habil[jugador]++; gatillo=1; sombra(graph,x,y,file,5); end
 		if(not p[jugador].botones[6] and gatillo==1) gatillo=0; end
 		if(habil[jugador]>6) habil[jugador]=1; end
@@ -213,13 +209,13 @@ begin
 			x=50; y=50;
 		end
 		case 2:
-			x=974; y=50;
+			x=ancho_pantalla-50; y=50;
 		end
 		case 3:
-			x=50; y=716;
+			x=50; y=alto_pantalla-50;
 		end
 		case 4:
-			x=974; y=716;
+			x=ancho_pantalla-50; y=alto_pantalla-50;
 		end
 	end
 	loop
@@ -248,13 +244,13 @@ begin
 			x=50; y=200;
 		end
 		case 2:
-			x=974; y=200; flags=1;
+			x=ancho_pantalla-50; y=200; flags=1;
 		end
 		case 3:
-			x=50; y=566; flags=2;
+			x=50; y=alto_pantalla-50; flags=2;
 		end
 		case 4:
-			x=974; y=566; flags=3;
+			x=ancho_pantalla-50; y=alto_pantalla-50; flags=3;
 		end
 	end
 	loop
@@ -293,7 +289,7 @@ switch (jugador)
 		x1=28;
 	end
 	case 2:
-		x=974; y=200; flags=1;
+		x=ancho_pantalla-50; y=200; flags=1;
 		y1[4]=-13;
 		y1[3]=13;
 		y1[2]=39;
@@ -302,7 +298,7 @@ switch (jugador)
 		x1=-28;
 	end
 	case 3:
-		x=50; y=566; flags=2;
+		x=50; y=alto_pantalla-50; flags=2;
 		y1[4]=13;
 		y1[3]=-13;
 		y1[2]=-39;
@@ -311,7 +307,7 @@ switch (jugador)
 		x1=28;
 	end
 	case 4:
-		x=974; y=566; flags=3;
+		x=ancho_pantalla-50; y=alto_pantalla-50; flags=3;
 		y1[4]=13;
 		y1[3]=-13;
 		y1[2]=-39;

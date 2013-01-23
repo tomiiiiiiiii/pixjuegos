@@ -176,12 +176,12 @@ if(tipo==10)
 	graph=11;
 	angle=pi/2;
 	loop
-	if(pausa==0)
-		y-=30;
-		if(size<100) size+=10; end
-		if(out_region(id,1)) break; end
-	end
-	frame;
+		if(pausa==0)
+			y-=30;
+			if(size<100) size+=10; end
+			if(out_region(id,1)) break; end
+		end
+		frame;
 	end
 end
 if(tipo==11)
@@ -190,15 +190,15 @@ if(tipo==11)
 	angle=pi/2;
 	size=10;
 	loop
-	if(pausa==0)
-		y-=30; 
-		x=id2.x+get_distx(angulo,100);
-		angulo+=10000;
-		if(size<100) size+=10; end
-		if(angulo<pi) z=id2.z+1; else z=id2.z-1; end 
-		if(y<-50) break; end
-	end
-	frame;
+		if(pausa==0)
+			y-=30; 
+			x=id2.x+get_distx(angulo,100);
+			angulo+=10000;
+			if(size<100) size+=10; end
+			if(angulo<pi) z=id2.z+1; else z=id2.z-1; end 
+			if(y<-50) break; end
+		end
+		frame;
 	end
 end
 if(tipo==12)
@@ -207,15 +207,15 @@ if(tipo==12)
 	angle=pi/2;
 	size=10;
 	loop
-	if(pausa==0)
-		y-=30; 
-		x=id2.x+get_distx(angulo,100);
-		angulo+=10000;
-		if(size<100) size+=10; end
-		if(angulo<pi) z=id2.z+1; else z=id2.z-1; end 
-		if(y<-50) break; end
-	end
-	frame;
+		if(pausa==0)
+			y-=30; 
+			x=id2.x+get_distx(angulo,100);
+			angulo+=10000;
+			if(size<100) size+=10; end
+			if(angulo<pi) z=id2.z+1; else z=id2.z-1; end 
+			if(y<-50) break; end
+		end
+		frame;
 	end
 end
 if(tipo==20)
