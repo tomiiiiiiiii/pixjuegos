@@ -454,7 +454,7 @@ if(tipo==2)
 	graph=70;
 end
 if(tipo==3)
-	graph=50;
+	graph=51;
 	max_size=size;
 	size=0;
 end

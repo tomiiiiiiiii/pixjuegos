@@ -212,7 +212,7 @@ if(tipo==3)	//nivel 3
 	end
 end
 
-if(tipo==6)	//nivel 4 
+if(tipo==4)	//nivel 4 
 	graph=30; x=ancho_pantalla/2; y=-100; vida_boss=1500; patron=1; x1=x; angulo=pi/2;
 	barra_boss();
 //	id_boss02=boss(7);
@@ -289,115 +289,8 @@ if(tipo==6)	//nivel 4
 	frame;
 	end
 end
-if(tipo==7)	//nivel 4 ala
-	graph=31; vida=500; z=father.z+1; priority=-2;
-	loop
-	if(pausa==0)
-		y=father.y;
-		x=father.x;
-	
-		patron++;
-		if(patron>40)
-			patron=0;
-			mina(x+200,y+50,1);
-			suena(s_misil);
-		end
 
-		id2=(collision(type disparo01));
-		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,25); puntos[id2.jugador]+=1; end
-		id2=(collision(type laser));
-		if(id2) vida-=2; explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
-		
-		from jugador=1 to 4;
-			if(exists(id_nave[jugador]))
-				if(collision(id_nave[jugador]))
-					if(id_nave[jugador].flags<>4)
-						explosion(id_nave[jugador].x,id_nave[jugador].y,3,200);
-					end
-					id_nave[jugador].estado=-1;
-				end
-			end
-		end
-
-		if(vida<1)
-			explosion(x+150,y,3,100);
-			from jugador=1 to jugadores;
-				if(exists(id_nave[jugador]))
-					puntos[jugador]+=500;
-				end
-			end
-			if(ops.particulas==1)
-				explotalo(x,y,z,alpha,angle,file,graph,40);
-			end
-			break;
-		end
-		if(vida_boss<500)
-			explosion(x+150,y,3,100);
-			if(ops.particulas==1)
-				explotalo(x,y,z,alpha,angle,file,graph,40);
-			end
-			break;
-		end
-	end
-	frame;
-	end
-end
-if(tipo==8)	//nivel 4 ala
-	graph=32; vida=500; z=father.z+1; priority=-2;
-	loop
-	if(pausa==0)
-
-		y=father.y;
-		x=father.x;
-
-		patron++;
-		if(patron>40)
-			patron=0;
-			mina(x-200,y+50,1);
-			suena(s_misil);
-		end
-
-		id2=(collision(type disparo01));
-		if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,25); puntos[id2.jugador]+=1; end
-		id2=(collision(type laser));
-		if(id2) vida-=2; explosion(id2.x,id2.y,2,100); puntos[id2.jugador]+=1; end
-
-		from jugador=1 to 4;
-			if(exists(id_nave[jugador]))
-				if(collision(id_nave[jugador]))
-					if(id_nave[jugador].flags<>4)
-						explosion(id_nave[jugador].x,id_nave[jugador].y,3,200);
-					end
-					id_nave[jugador].estado=-1;
-				end
-			end
-		end
-
-		if(vida<1)
-			explosion(x-150,y,3,100);
-			from jugador=1 to jugadores;
-				if(exists(id_nave[jugador]))
-					puntos[jugador]+=500;
-				end
-			end
-			if(ops.particulas==1)
-				explotalo(x,y,z,alpha,angle,file,graph,40);
-			end
-			break;
-		end
-		if(vida_boss<500)
-			explosion(x-150,y,3,100);
-			if(ops.particulas==1)
-				explotalo(x,y,z,alpha,angle,file,graph,40);
-			end
-			break;
-		end
-	end
-	frame;
-	end
-end
-
-if(tipo==14)	//nivel 5.1
+if(tipo==5)
 	graph=50; x=ancho_pantalla/2; y=-500; patron=0; vida_boss=2000; x1=x; angulo=pi/2;
 
 	barra_boss();
@@ -420,41 +313,41 @@ if(tipo==14)	//nivel 5.1
 
 		if(not exists(id_boss02) and not exists(id_boss03))
 			if(patron==25 or patron==50 or patron==75 or patron==100 or patron==125 or patron==150 or patron==175)
-				disparo02(x-100,y+100,255000,3);
-				disparo02(x-100,y+100,260000,3);
-				disparo02(x-100,y+100,265000,3);
-				disparo02(x-100,y+100,270000,3);
-				disparo02(x+100,y+100,270000,3);
-				disparo02(x+100,y+100,275000,3);
-				disparo02(x+100,y+100,280000,3);
-				disparo02(x+100,y+100,285000,3);
+				disparo02(x-100,y,255000,3);
+				disparo02(x-100,y,260000,3);
+				disparo02(x-100,y,265000,3);
+				disparo02(x-100,y,270000,3);
+				disparo02(x+100,y,270000,3);
+				disparo02(x+100,y,275000,3);
+				disparo02(x+100,y,280000,3);
+				disparo02(x+100,y,285000,3);
 				suena(s_laser3);
 			end
 		end
 		
 		if(not exists(id_boss04) and not exists(id_boss05))
 			if(patron==200 or patron==225 or patron==250 or patron==275 or patron==475 or patron==500 or patron==525 or patron==550 or patron==575)
-				disparo02(x-100,y+100,255000,3);
-				disparo02(x-100,y+100,260000,3);
-				disparo02(x-100,y+100,265000,3);
-				disparo02(x-100,y+100,270000,3);
-				disparo02(x+100,y+100,270000,3);
-				disparo02(x+100,y+100,275000,3);
-				disparo02(x+100,y+100,280000,3);
-				disparo02(x+100,y+100,285000,3);
+				disparo02(x-100,y,255000,3);
+				disparo02(x-100,y,260000,3);
+				disparo02(x-100,y,265000,3);
+				disparo02(x-100,y,270000,3);
+				disparo02(x+100,y,270000,3);
+				disparo02(x+100,y,275000,3);
+				disparo02(x+100,y,280000,3);
+				disparo02(x+100,y,285000,3);
 				suena(s_laser3);
 			end
 		end
 		
 		if(patron==600 or patron==625 or patron==650)
-			disparo02(x-100,y+100,255000,3);
-			disparo02(x-100,y+100,260000,3);
-			disparo02(x-100,y+100,265000,3);
-			disparo02(x-100,y+100,270000,3);
-			disparo02(x+100,y+100,270000,3);
-			disparo02(x+100,y+100,275000,3);
-			disparo02(x+100,y+100,280000,3);
-			disparo02(x+100,y+100,285000,3);
+			disparo02(x-100,y,255000,3);
+			disparo02(x-100,y,260000,3);
+			disparo02(x-100,y,265000,3);
+			disparo02(x-100,y,270000,3);
+			disparo02(x+100,y,270000,3);
+			disparo02(x+100,y,275000,3);
+			disparo02(x+100,y,280000,3);
+			disparo02(x+100,y,285000,3);
 			suena(s_laser3);
 		end
 
@@ -516,11 +409,11 @@ Private
 
 Begin
 	file=fpg_bosses;
-	graph=21; vida=200; z-=51;
+	graph=21; vida=500; z-=51;
 	loop
 	if(pausa==0)
-		y=father.y-104;
-		x=father.x-85;
+		y=father.y-42;
+		x=father.x-52;
 		if(exists(id_nave[naves]))
 			angulo=get_angle(id_nave[naves]);
 		else
@@ -591,11 +484,11 @@ Private
 
 Begin
 	file=fpg_bosses;
-	graph=22; vida=200; z-=51;
+	graph=22; vida=500; z-=51;
 	loop
 	if(pausa==0)
-		y=father.y-104;
-		x=father.x+95;
+		y=father.y-42;
+		x=father.x+52;
 		
 		//angulo=get_angle(id_nave[1]);
 		if(exists(id_nave[naves]))
@@ -668,11 +561,11 @@ Private
 
 Begin
 	file=fpg_bosses;
-	graph=23; vida=200; z-=51;
+	graph=23; vida=500; z-=51;
 	loop
 	if(pausa==0)
-		y=father.y+104;
-		x=father.x-90;
+		y=father.y+47;
+		x=father.x-52;
 		
 		//angulo=get_angle(id_nave[1]);
 		if(exists(id_nave[naves]))
@@ -745,11 +638,11 @@ Private
 
 Begin
 	file=fpg_bosses;
-	graph=24; vida=200; z-=51;
+	graph=24; vida=500; z-=51;
 	loop
 	if(pausa==0)
-		y=father.y+104;
-		x=father.x+90;
+		y=father.y+48;
+		x=father.x+52;
 		
 		//angulo=get_angle(id_nave[1]);
 		if(exists(id_nave[naves]))

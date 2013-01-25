@@ -151,10 +151,10 @@ begin
 			end
 			if(tipo==6) //cañon
 
-				y+=4;
+				y+=2;
 				x=x1+get_distx(angulo,100);
 				angulo+=2000;
-				y=y+get_disty(angulo2,5);
+				y=y+get_disty(angulo2,10);
 				angulo2+=3000;
 			end
 			if(tipo==7) //escudo
@@ -240,7 +240,7 @@ begin
 		vida=5;
 	elseif(tipo==3)
 		vida=15;
-		graph=35;
+		graph=30;
 	end
 	x1=x;
 	loop
@@ -251,8 +251,8 @@ begin
 					if(direccion==1) graph++; end
 					if(direccion==-1) graph--; end
 				end
-				if(graph>33) direccion=-1; graph=33; end
-				if(graph<31) direccion=1; graph=31; end
+				if(graph>33) direccion=-1; graph=34; end
+				if(graph<31) direccion=1; graph=32; end
 
 				y+=3;
 				x=+x1+get_distx(angulo,15);	
@@ -297,6 +297,22 @@ begin
 				y+=2;
 				from jugador=1 to 4;
 					if(exists(id_nave[jugador]))
+						if(get_dist(id_nave[jugador])>300)
+							graph=30;
+							break;
+						end
+					end
+				end
+				from jugador=1 to 4;
+					if(exists(id_nave[jugador]))
+						if(get_dist(id_nave[jugador])<300)
+							graph=31;
+							break;
+						end
+					end
+				end
+				from jugador=1 to 4;
+					if(exists(id_nave[jugador]))
 						if(get_dist(id_nave[jugador])<100)
 							explosion(x,y,1,100);
 							if(ops.particulas==1)
@@ -309,7 +325,7 @@ begin
 						end
 					end
 				end
-
+				
 				id2=(collision(type disparo01));
 				if(id2) vida--; signal(id2,s_kill); explosion(id2.x,id2.y,2,25);  puntos[id2.jugador]+=1; end
 				if(vida<1)
@@ -343,7 +359,7 @@ end
 // asteroides que caen de la parte superior de la pantalla
 //-----------------------------------------------------------------------
 
-PROCESS asteroide(x,y,size,angulo)
+PROCESS asteroide(x,y,tamany,angulo)
 
 private
 vida;
@@ -351,22 +367,32 @@ id2;
 
 BEGIN
 	z-=15;
-	graph=21;
 	region=1;
 	file=fpg_enemigos;
-	if(size>99) vida=20; end
-	if(size>49 and size<100) vida=10; end
-	if(size<50) vida=5; end
+	switch(tamany)
+		case 1:
+			graph=rand(1,3);
+			vida=7;
+		end
+		case 2:
+			graph=rand(5,8);
+			vida=15;
+		end
+		case 3:
+			graph=rand(11,13);
+			vida=30;
+		end
+	end
 	loop
 		if(pausa==0)
 
-			x+=get_distx(angulo,4);
-			y+=get_disty(angulo,4);
+			x+=get_distx(angulo,7-tamany);
+			y+=get_disty(angulo,7-tamany);
 
 		end		
 		id2=(collision(type laser));
 		if(id2)
-			if(size>99)
+			if(tamany==3)
 				puntos[id2.jugador]+=30;
 			else 
 				puntos[id2.jugador]+=10;
@@ -382,7 +408,7 @@ BEGIN
 			explosion(id2.x,id2.y,2,25);
 			puntos[id2.jugador]+=1;
 			if(vida<1)
-				if(size>99)
+				if(tamany==3)
 					puntos[id2.jugador]+=30;
 				else 
 					puntos[id2.jugador]+=10;
@@ -390,21 +416,21 @@ BEGIN
 			end
 		end
 		if(vida<1)
-			if(size>30)
-				asteroide(x,y,size/3,pi/2);
-				asteroide(x,y,size/3,pi*5/4);
-				asteroide(x,y,size/3,pi*7/4);
-				explosion(x,y,1,150);
+			if(tamany>1)
+				asteroide(x,y,tamany-1,pi/2);
+				asteroide(x,y,tamany-1,pi*5/4);
+				asteroide(x,y,tamany-1,pi*7/4);
+				explosion(x,y,1,200);
 				if(ops.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,20); end
 				break;
 			else
-				explosion(x,y,1,50);
+				explosion(x,y,1,100);
 				if(ops.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end
 				break;
 			end
 
 		end
-		if(y>alto_pantalla+200 or x<-30 or x>ancho_pantalla+100 or y<-200) break; end
+		if(y>alto_pantalla+200 or x<-200 or x>ancho_pantalla+200 or y<-200) break; end
 		from jugador=1 to 4;
 			if(exists(id_nave[jugador]))
 				if(collision(id_nave[jugador]))

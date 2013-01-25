@@ -60,27 +60,28 @@ Global
 
 	struct ops;
 		struct teclado;	//controles teclado
-			arriba;		
-			derecha;
-			abajo;
-			izquierda;
-			disparar;
-			bomba;
-			cambiar;
+			arriba=72;			//Arriba
+			derecha=77;			//Derecha
+			abajo=80;			//Abajo
+			izquierda=75;		//Izquierda
+			disparar=30;		//A
+			bomba=31;			//S
+			cambiar=32;			//D
 		end
 		struct gamepad	//controles gamepad
 			arriba;		
 			derecha;
 			abajo;
 			izquierda;
-			disparar;
-			bomba;
-			cambiar;
+			disparar=0;			//0
+			bomba=1;			//1
+			cambiar=2;			//2
 		end
-		particulas;
+		particulas=1;
 		p_completa;
+		resolucion;
 	end
-
+	
 	//------ inicio controles.pr-
 		njoys;
 		posibles_jugadores;
@@ -93,8 +94,8 @@ Global
 	//------ fin controles.pr-
 
 	struct save;
-		nivel;
-		poder[5];
+		nivel=1;
+		poder[5]=0,1,1,1,1;
 		string nombres[10]="PoX", "PeX", "PaX", "PuX", "PiX", "Nico", "Ana", "Nibbler337", "PiXeL", "Carles Vicent";
 		puntuacion[10]=1000,2000,3000,4000,5000,6000,7000,8000,9000,10000;
 		puntos[5];
@@ -139,8 +140,8 @@ Global
 	string savegamedir;
 	string developerpath="/.PiXJuegos/Garnatron/";
 
-	ancho_pantalla=1280;	//1024, 1280, 1920
-	alto_pantalla=720;		//768, 720, 1080
+	ancho_pantalla;	//1024, 1280, 1920
+	alto_pantalla;		//768, 720, 1080
 	bpp=32;
 End
 
@@ -163,21 +164,90 @@ BEGIN
 	if(argc>0) if(argv[1]=="arcade") arcade_mode=1; end end
 	
 	set_fps(40,10);
+	
+	//--------------------------------------------------Cargando opciones
+	
+	if(os_id<1000)
+		if(os_id==0) //windows
+			savegamedir=getenv("APPDATA")+developerpath;
+			if(savegamedir==developerpath) //windows 9x/me
+				savegamedir=cd();
+			else
+				crear_jerarquia(savegamedir);
+			end
+		end
+		if(os_id==1) //linux
+			savegamedir=getenv("HOME")+developerpath;
+			crear_jerarquia(savegamedir);
+		end
+	end
+	if(os_id==1003)
+		savegamedir="/data/data/com.pixjuegos.garnatron/files";
+		tactil=1;
+		ops.particulas=0;
+	end
+	if(arcade_mode==1)
+		ops.p_completa=1;
+		ops.particulas=0;
+	end
+	
+	carga_opciones();
+	
+	if(guardar)
+		guarda_opciones();
+		if(file_exists(savegamedir+"save.dat"))
+			archivo=fopen(savegamedir+"save.dat",o_read);
+			fread(archivo,save);
+			fclose(archivo);
+		end
+	end
 
+	//-------------------------------------------------Iniciando variables
+	
 	gamepad_boton_separacion=75;
 	gamepad_boton_size=60;
+	
+	key_b_arriba=ops.teclado.arriba;		//Arriba
+	key_b_derecha=ops.teclado.derecha;		//Derecha
+	key_b_abajo=ops.teclado.abajo;			//Abajo
+	key_b_izquierda=ops.teclado.izquierda;	//Izquierda
+	key_b_1=ops.teclado.disparar;			//A
+	key_b_2=ops.teclado.bomba;				//S
+	key_b_3=ops.teclado.cambiar;			//D
 
-	resolucioname(ancho_pantalla,alto_pantalla,1);
-	if(os_id==1003)
-		tactil=1;
-	end
-	set_mode(ancho_pantalla,alto_pantalla,bpp,WAITVSYNC);
-		
 	//dump_type=-1;
 	//restore_type=-1;
 	ALPHA_STEPS=128;
+	
+	//-----------------------------------------------------------------Panalla
+	
+	switch(ops.resolucion)
+		case 0:
+			ancho_pantalla=1024;
+			alto_pantalla=768;
+			resolucioname(ancho_pantalla,alto_pantalla,0);
+		end
+		case 1:
+			ancho_pantalla=1280;
+			alto_pantalla=720;
+			resolucioname(ancho_pantalla,alto_pantalla,1);
+		end
+		case 2:
+			ancho_pantalla=1920;
+			alto_pantalla=1080;
+			resolucioname(ancho_pantalla,alto_pantalla,1);
+		end
+	end
+	
+	if(ops.p_completa) 
+		full_screen=true;
+		set_mode(ancho_pantalla,alto_pantalla,bpp,WAITVSYNC);
+	else
+		full_screen=false;
+		set_mode(ancho_pantalla,alto_pantalla,bpp,WAITVSYNC);
+	end
 
-	//imagen cargando
+	//----------------------------------------------------------imagen cargando
 	file=fpg_menu;
 	graph=1;
 	x=ancho_pantalla/2;
@@ -185,6 +255,7 @@ BEGIN
 	z=10;
 
 	frame;
+	//--------------------------------------------------------Cargando archivos
 	fpg_menu=load_fpg("./fpg/menu.fpg"); frame;
 	fpg_nave=load_fpg("./fpg/nave.fpg"); frame;
 	fpg_bombas=load_fpg("./fpg/bombas.fpg"); frame;
@@ -211,80 +282,6 @@ BEGIN
 	fuente[4]=load_fnt(".\fnt\garna4.fnt"); frame;
 
 	say("----------------- FNTS CARGADOS!");
-	
-	ops.teclado.arriba=72;			//Arriba
-	ops.teclado.derecha=77;			//Derecha
-	ops.teclado.abajo=80;			//Abajo
-	ops.teclado.izquierda=75;		//Izquierda
-	ops.teclado.disparar=30;		//A
-	ops.teclado.bomba=31;			//S
-	ops.teclado.cambiar=32;			//D
-	
-	ops.gamepad.disparar=0;			//0
-	ops.gamepad.bomba=1;			//1
-	ops.gamepad.cambiar=2;			//2
-	
-	if(os_id==1003)
-		ops.particulas=0;
-	else
-		ops.particulas=1;				//sistema de patículas activado
-	end
-
-	save.nivel=1;	
-	save.poder[0]=1;
-	save.poder[1]=1;
-	
-	if(os_id<1000)
-		if(os_id==0) //windows
-			savegamedir=getenv("APPDATA")+developerpath;
-			if(savegamedir==developerpath) //windows 9x/me
-				savegamedir=cd();
-			else
-				crear_jerarquia(savegamedir);
-			end
-		end
-		if(os_id==1) //linux
-			savegamedir=getenv("HOME")+developerpath;
-			crear_jerarquia(savegamedir);
-		end
-	end
-	if(os_id==1003)
-		savegamedir="/data/data/com.pixjuegos.garnatron/files";
-	end
-	
-	carga_opciones();
-	
-	if(guardar)
-/*		guarda_opciones();
-		if(file_exists(savegamedir+"ops.dat"))
-			archivo=fopen(savegamedir+"ops.dat",o_read);
-			fread(archivo,ops);
-			fclose(archivo);
-		end*/
-		
-		if(file_exists(savegamedir+"save.dat"))
-			archivo=fopen(savegamedir+"save.dat",o_read);
-			fread(archivo,save);
-			fclose(archivo);
-		end
-	end
-
-	key_b_arriba=ops.teclado.arriba;			//Arriba
-	key_b_derecha=ops.teclado.derecha;		//Derecha
-	key_b_abajo=ops.teclado.abajo;			//Abajo
-	key_b_izquierda=ops.teclado.izquierda;		//Izquierda
-	key_b_1=ops.teclado.disparar;		//A
-	key_b_2=ops.teclado.bomba;			//S
-	key_b_3=ops.teclado.cambiar;		//D
-	
-	if(ops.p_completa) 
-		full_screen=true;
-		set_mode(ancho_pantalla,alto_pantalla,bpp,WAITVSYNC);
-	end
-	
-	if(arcade_mode==1)
-		ops.particulas=0;
-	end
 	
 	frame;
 
@@ -652,8 +649,11 @@ begin
 		case 2: //video
 			boton(x,y+=60,"Pantalla completa",1);
 			boton(x,y+=60,"Ventana",2);
-			boton(x,y+=60,"Volver",3);
-			num_opciones=3;
+			boton(x,y+=60,"1024x768",3);
+			boton(x,y+=60,"1280x720",4);
+			boton(x,y+=60,"1920x1080",5);
+			boton(x,y+=60,"Volver",6);
+			num_opciones=6;
 			volver_a_menu=0;
 		end
 		case 3: //control
@@ -747,25 +747,19 @@ begin
 							ayuda();
 						end
 						case 6:
-							if(guardar)
-								guarda_opciones();
-/*								archivo=fopen(savegamedir+"ops.dat", O_WRITE);
-								fwrite(archivo,opciones);
-								fclose(archivo);*/
-							end
 							exit();
 						end
 					end
 				end
 				case 1: //opciones
 					switch(opcion_actual)
-						case 1:
+						case 1:	//video
 							menu(2);
 						end
-						case 2:
+						case 2:	//controles
 							menu(3);
 						end
-						case 3:
+						case 3:	//particulas
 							if(ops.particulas==0)
 								ops.particulas=1;
 							else
@@ -773,7 +767,10 @@ begin
 							end
 							menu(1);
 						end
-						case 4:
+						case 4:	//volver
+							if(guardar)
+								guarda_opciones();
+							end
 							menu(0);
 						end
 					end
@@ -791,13 +788,34 @@ begin
 							set_mode(ancho_pantalla,alto_pantalla,bpp,WAITVSYNC);
 						end
 						case 3:
+							ops.resolucion=0;
+							ancho_pantalla=1024;
+							alto_pantalla=768;
+							set_mode(ancho_pantalla,alto_pantalla,bpp,WAITVSYNC);
+							menu(2);
+						end
+						case 4:
+							ops.resolucion=1;
+							ancho_pantalla=1280;
+							alto_pantalla=720;
+							set_mode(ancho_pantalla,alto_pantalla,bpp,WAITVSYNC);
+							menu(2);
+						end
+						case 5:
+							ops.resolucion=2;
+							ancho_pantalla=1920;
+							alto_pantalla=1080;
+							set_mode(ancho_pantalla,alto_pantalla,bpp,WAITVSYNC);
+							menu(2);
+						end
+						case 6:
 							menu(1);
 						end
 					end
 				end
 				case 3: //control
 					switch(opcion_actual)
-						case 1: 
+						case 1: //teclado
 							
 							let_me_alone();
 							clear_screen();
@@ -879,13 +897,10 @@ begin
 							
 							if(guardar)
 								guarda_opciones();
-								/*archivo=fopen(savegamedir+"ops.dat", O_WRITE);
-								fwrite(archivo,opciones);
-								fclose(archivo);*/
 							end
 							menu(1);
 						end
-						case 2: 
+						case 2: //gamepad
 							let_me_alone();
 							clear_screen();
 							delete_text(all_text);
@@ -1032,13 +1047,10 @@ begin
 							
 							if(guardar)
 								guarda_opciones();
-								/*archivo=fopen(savegamedir+"ops.dat", O_WRITE);
-								fwrite(archivo,opciones);
-								fclose(archivo);*/
 							end
 							menu(1);
 						end
-						case 3:
+						case 3: //restabecer
 
 							ops.teclado.arriba=72;			//Arriba
 							ops.teclado.derecha=77;			//Derecha
@@ -1062,9 +1074,6 @@ begin
 							
 							if(guardar)
 								guarda_opciones();
-								/*archivo=fopen(savegamedir+"ops.dat", O_WRITE);
-								fwrite(archivo,opciones);
-								fclose(archivo);*/
 							end
 							menu(1);
 						end
@@ -1470,7 +1479,6 @@ Begin
 		end
 	end
 	a=c;
-//	size=200;
 	graph=new_map(ancho*2,alto*2,32);
 	while(tiempo<frames)
 		drawing_color(0);
@@ -1509,5 +1517,3 @@ include "nave.pr-"
 include "bombas.pr-"
 include "bosses.pr-"
 include "enemigos.pr-"
-
-//include "../../common-src/controles.pr-";
