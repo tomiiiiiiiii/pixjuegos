@@ -82,7 +82,7 @@ Begin
 		y=p[jugador].id.y;
 		frame;
 	end
-	explotalo(x,y,z,size,file,graph,60);
+	explotalo(x,y,z,alpha,size,file,graph,60);
 End
 
 Process item_ancla();

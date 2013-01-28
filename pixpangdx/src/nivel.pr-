@@ -18,7 +18,7 @@ Private
 Begin
 	x1=-1;
 	y1=-1;
-	graph=punto_verde=new_map(10,10,bits);
+	graph=punto_verde=new_map(10,10,bpp);
 	micolor=color.verde;
 	drawing_color(micolor);
 	drawing_map(0,graph);
@@ -231,7 +231,7 @@ Begin
 	end
 	
 	if(mapa_durezas>0 and map_exists(0,mapa_durezas)) unload_map(0,mapa_durezas); end
-	mapa_durezas=new_map(resolucion_x,resolucion_y,bits);
+	mapa_durezas=new_map(resolucion_x,resolucion_y,16);
 	drawing_map(0,mapa_durezas);
 	drawing_color(color.negro);
 	draw_box(0,0,resolucion_x,resolucion_y);
@@ -305,7 +305,7 @@ End
 
 Process raton();
 Begin
-	graph=new_map(5,5,bits);
+	graph=new_map(5,5,bpp);
 	drawing_map(0,graph);
 	draw_box(0,0,5,5);
 	drawing_map(0,mapa_durezas);
@@ -340,14 +340,14 @@ Begin
 	write(0,0,y+=40,2,"");
 	write(0,0,y+=40,2,"");
 	write(0,0,y+=40,2,"");
-	
 	/**/
 
 	loop 
 		if(key_event(_F1,key_up)) personaje(1);personaje(2); end
 		if(key_event(_F2,key_up)) if(ready) ready=0; else ready=1; end end
 		if(key_event(_F3,key_up)) item_reloj(5); end
-		if(key_event(_F4,key_up)) if(full_screen==1) full_screen=0; else full_screen=1; end set_mode(resolucion_x,resolucion_y,bits,WAITVSYNC); end
+		if(key_event(_F4,key_up)) if(full_screen==1) full_screen=0; else full_screen=1; end set_mode(resolucion_x,resolucion_y,bpp,WAITVSYNC); end
+		if(key_event(_ESC,key_up)) exit(); end
 		if(key_event(_F10,key_up)) guarda_nivel("niveltemp.pang"); end
 		frame; 
 	end

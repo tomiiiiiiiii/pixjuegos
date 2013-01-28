@@ -14,6 +14,14 @@ Const
 End
 
 Global
+	struct joy_profiles[10];
+		string name="";
+		_b_1=0;
+		_b_2=1;
+		_b_3=2;
+		_b_salir=8;
+	end
+
 	graph_dedo;
 	graph_boton_1;
 	graph_boton_2;
@@ -23,7 +31,6 @@ Global
 	graph_boton_derecha;
 	graph_boton_arriba;
 	graph_boton_abajo;
-	
 	
 	id_gamepad;
 	gamepad_boton_separacion=40;
@@ -178,10 +185,10 @@ Begin
 				If(joy_getbutton(joysticks[p[jugador].control],19) or joy_getbutton(joysticks[p[jugador].control],9)) p[jugador].botones[b_salir]=1; End
 				if(key(key_b_salir)) p[jugador].botones[b_salir]=1; end
 			else
-				If(get_joy_button(joysticks[p[jugador].control],0)) p[jugador].botones[4]=1; End
-				If(get_joy_button(joysticks[p[jugador].control],1)) p[jugador].botones[5]=1; End
-				If(get_joy_button(joysticks[p[jugador].control],2)) p[jugador].botones[6]=1; End
-				If(get_joy_button(joysticks[p[jugador].control],8)) p[jugador].botones[7]=1; End
+				If(get_joy_button(joysticks[p[jugador].control],joy_profiles[joysticks[p[jugador].control]]._b_1)) p[jugador].botones[4]=1; End
+				If(get_joy_button(joysticks[p[jugador].control],joy_profiles[joysticks[p[jugador].control]]._b_2)) p[jugador].botones[5]=1; End
+				If(get_joy_button(joysticks[p[jugador].control],joy_profiles[joysticks[p[jugador].control]]._b_3)) p[jugador].botones[6]=1; End
+				If(get_joy_button(joysticks[p[jugador].control],joy_profiles[joysticks[p[jugador].control]]._b_salir)) p[jugador].botones[7]=1; End
 			end
 		End
 		Frame;
@@ -203,6 +210,14 @@ Begin
 		if(joy_numbuttons(i)=>2)
 			posibles_jugadores++;
 			joysticks[posibles_jugadores]=i;
+			joy_profiles[i].name=lcase(JOY_NAME(i));
+			//say(joy_profiles[posibles_jugadores].name);
+			if(find(joy_profiles[i].name,"xbox")=>0)
+				joy_profiles[i]._b_1=0;
+				joy_profiles[i]._b_2=2;
+				joy_profiles[i]._b_3=1;
+				joy_profiles[i]._b_salir=6;
+			end
 		end
 	end
 	
@@ -614,5 +629,3 @@ begin
 	end
 	unload_map(0,graph);
 end
-
-

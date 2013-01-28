@@ -10,10 +10,16 @@ Const
 	reduccion_bolas_size=22;
 	
 	tamanyo_bloque_min=30;
-	bits=16;
 
 	app_data=1;
+
 Global
+	bpp=32;
+	ancho_pantalla;
+	alto_pantalla;
+	
+	arcade_mode;
+	
 	area_juego_x;
 	area_juego_y;
 	borde_arriba;

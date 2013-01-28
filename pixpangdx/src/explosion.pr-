@@ -32,7 +32,7 @@ Begin
 		end
 	end
 	a=c;
-	graph=new_map(ancho*8,alto*8,bits);
+	graph=new_map(ancho*8,alto*8,bpp);
 	while(tiempo<frames)
 		from c=0 to a;
 			map_put_pixel(0,graph,particula[c].pos_x+(ancho*8/2),particula[c].pos_y+(alto*8/2),particula[c].pixel);

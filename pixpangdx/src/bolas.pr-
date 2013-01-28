@@ -213,12 +213,12 @@ Begin
 		
 		if(id_jugador=collision(type disparo)) if(id_jugador.accion!=-1) id_jugador.accion=-1; break; end end
 		if((((dinamita and tamanyo>20) or bola_pang) and primera_caida) or collision(type bomba)) break; end
-		frame;
-		//frame(velocidad_bolas);
+		//frame;
+		frame(velocidad_bolas);
 	end
 	
 	if(tipo==5 and bola_pang==0) //bola pang
-		explotalo(x,y,z,size,file,graph,60);
+		explotalo(x,y,z,alpha,size,file,graph,60);
 		graph=0;
 		bola_pang=1;
 		while(bolas>1) frame; end

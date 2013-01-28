@@ -8,6 +8,8 @@ Private
 	fuerza_ataque;
 	invencibilidad;
 	pulsando_abajo;
+	recibiendo_combo;
+	diferencia_combo;
 Begin
 	ctype=coordenadas;
 	p[jugador].juega=1;
@@ -187,6 +189,11 @@ Begin
 		end
 		
 		if(herida==0)
+			if(diferencia_combo>0) 
+				diferencia_combo--; 
+			else
+				recibiendo_combo=0;
+			end
 			if(altura==0) //EN EL SUELO
 				if((accion==quieto or accion==camina))
 					//ataque suelo o lanzar objeto
@@ -323,13 +330,33 @@ Begin
 				end
 				p[jugador].vida-=herida;
 				if(herida<20 and altura==0)
-					sonido(1,0);
-					accion=herido_leve;
-					herida=15; //más retraso
-					if(flags==1)
-						x_inc=herida*0.8;
+					if(recibiendo_combo<3)
+						recibiendo_combo++;
+						diferencia_combo=20;
+						sonido(1,0);
+						accion=herido_leve;
+						herida=7; //más retraso
+/*						if(flags==1)
+							x_inc=herida*0.8;
+						else
+							x_inc=-herida*0.8;
+						end*/
 					else
-						x_inc=-herida*0.8;
+						recibiendo_combo=0;
+						diferencia_combo=0;
+						sonido(2,0);
+						accion=herido_grave;
+						if(herida>15)
+							gravedad=-herida;
+						else
+							gravedad=-15;
+						end
+						if(flags==1)
+							x_inc=herida/4;
+						else
+							x_inc=-herida/4;
+						end
+						altura=-1;
 					end
 				else
 					sonido(2,0);

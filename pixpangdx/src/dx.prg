@@ -33,6 +33,9 @@ include "main.pr-";
 //manejador de teclas, por SplinterGU 2010
 include "key_event.pr-";
 
+//resolucioname
+include "../../common-src/resolucioname.pr-";
+
 //centralización de joysticks y teclados
 include "../../common-src/controles.pr-";
 
@@ -52,7 +55,7 @@ include "disparo.pr-";
 include "items.pr-";
 
 //explosión bien bonita creada por Carles
-include "explosion.pr-";
+include "../../common-src/explosion.pr-";
 
 //cosas que no caben en otros sitios: grafico, prepara_grafico, dibuja_fondo
 include "misc.pr-";
