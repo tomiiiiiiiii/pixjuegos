@@ -209,7 +209,7 @@ begin
 				puntos[id2.jugador]+=10;
 				break;
 			end
-			if(y>800)
+			if(y>alto_pantalla+100)
 				break;
 			end
 		end
@@ -258,7 +258,7 @@ begin
 				x=+x1+get_distx(angulo,15);	
 				angulo+=3000;
 
-				if(y>800) break; end
+				if(y>alto_pantalla+100) break; end
 			end
 			if(tipo==2)//persigue
 				from jugador=1 to 4;
@@ -339,7 +339,7 @@ begin
 					end
 					break;
 				end
-				if(y>800) break; end
+				if(y>alto_pantalla+100) break; end
 			end
 			from jugador=1 to 4;
 				if(exists(id_nave[jugador]))
