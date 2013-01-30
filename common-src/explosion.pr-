@@ -30,8 +30,11 @@ Begin
 		end
 	end
 	a=c;
+	graph=new_map(ancho*8,alto*8,16);
 	while(tiempo<frames)
-		graph=new_map(ancho*8,alto*8,16);
+		drawing_color(0);
+		drawing_map(file,graph);
+		draw_box(0,0,ancho*2,alto*2);
 		from c=0 to a;
 			map_put_pixel(0,graph,particula[c].pos_x+(ancho*8/2),particula[c].pos_y+(alto*8/2),particula[c].pixel);
 			map_put_pixel(0,graph,particula[c].pos_x+(ancho*8/2)+1,particula[c].pos_y+(alto*8/2),particula[c].pixel);
@@ -43,6 +46,6 @@ Begin
 		end
 		tiempo++;
 		frame;
-		unload_map(0,graph);
 	end
+	unload_map(0,graph);
 end
