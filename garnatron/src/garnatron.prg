@@ -154,6 +154,7 @@ Local
 End
 
 include "..\..\common-src\controles.pr-";
+include "..\..\common-src\input_text.pr-";
 include "..\..\common-src\savepath.pr-";
 include "..\..\common-src\resolucioname.pr-";
 
