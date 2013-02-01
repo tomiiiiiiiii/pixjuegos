@@ -39,8 +39,8 @@ Begin
 	
 	from jugador=1 to jugadores;
 		if(texto_jugadores[jugador])
-			write(fuente_teclado,(ancho_pantalla/2)-(longitud_max*15),20*jugador+100,5,"jugador "+jugador);
-			write_var(fuente_teclado,ancho_pantalla/2,20*jugador+100,5,texto_introducido[jugador]);
+			write(fuente_teclado,(ancho_pantalla/2)-1,20*jugador+100,5,"jugador "+jugador);
+			write_var(fuente_teclado,(ancho_pantalla/2)+1,20*jugador+100,3,texto_introducido[jugador]);
 			cursor(x1,y1,jugador,longitud_max);
 		end
 	end
@@ -181,10 +181,10 @@ begin
 		y=y1-(filas_cadena*size_fuente/2)+(size_fuente/2)+(size_fuente*(posicion/((len(cadena)+2)/filas_cadena)));
 		
 		if(posicion==len(cadena)+1)
-			letra_selecionada=write(fuente_teclado,(ancho_pantalla/2)+1,(20*jugador)+100,3,"Fin");
+			letra_selecionada=write(fuente_teclado,(ancho_pantalla/2)+text_width(fuente_teclado,texto_introducido[jugador])+1,(20*jugador)+100,3,"Fin");
 		else
 			if(len(texto_introducido[jugador])<longitud_max)
-				letra_selecionada=write(fuente_teclado,(ancho_pantalla/2)+1,(20*jugador)+100,3,cadena[posicion]);
+				letra_selecionada=write(fuente_teclado,(ancho_pantalla/2)+text_width(fuente_teclado,texto_introducido[jugador])+1,(20*jugador)+100,3,cadena[posicion]);
 			end
 		end
 		while(p[jugador].botones[b_derecha] or p[jugador].botones[b_izquierda] or p[jugador].botones[b_arriba] or p[jugador].botones[b_abajo] or p[jugador].botones[b_1] or p[jugador].botones[b_2])

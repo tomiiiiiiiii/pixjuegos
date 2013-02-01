@@ -251,8 +251,8 @@ begin
 					if(direccion==1) graph++; end
 					if(direccion==-1) graph--; end
 				end
-				if(graph>33) direccion=-1; graph=34; end
-				if(graph<31) direccion=1; graph=32; end
+				if(graph>34) direccion=-1; graph=34; end
+				if(graph<32) direccion=1; graph=32; end
 
 				y+=3;
 				x=+x1+get_distx(angulo,15);	
