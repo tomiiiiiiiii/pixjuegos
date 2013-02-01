@@ -440,10 +440,6 @@ Begin
 	
 	ready=1;
 	loop
-		if(key(_n)) 
-			while(key(_n)) frame; end
-			nivel_superado(); 
-		end
 		if(p[jugador].botones[B_SALIR])
 			ready=0;
 			while(p[jugador].botones[B_SALIR])
@@ -462,15 +458,6 @@ Begin
 			end
 			ready=1;
 			j=0;
-		end
-		if(key(_1))
-			from i=1 to 4;
-				p[i].objeto=CONTRATO;
-				jugador=i;
-				ayudante();
-			end
-			jugador=0;
-			while(key(_1)) frame; end
 		end
 		
 		if(exists(id_jefe))
