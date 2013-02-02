@@ -314,8 +314,8 @@ Begin
 			if(matabolas==1 OR rota==1) break; end
 
 			if(reloj==0)
-				If(p[1].estrella==0 and p[1].id>0 and collision(p[1].id)) if(matando==10) p[1].muere=1; If(p[1].proteccion==1) Break; End matando=0; else matando++; end End
-				If(p[2].estrella==0 and p[2].id>0 and collision(p[2].id)) if(matando==10) p[2].muere=1; If(p[2].proteccion==1) Break; End matando=0; else matando++; end End
+				If(p[1].estrella==0 and collision(p[1].id)) if(matando==margen_novato) p[1].muere=1; If(p[1].proteccion==1) Break; End matando=0; else matando++; end End
+				If(p[2].estrella==0 and collision(p[2].id)) if(matando==margen_novato) p[2].muere=1; If(p[2].proteccion==1) Break; End matando=0; else matando++; end End
 			end
 			If((!collision(p[1].id)) and (!collision(p[2].id))) matando=0; End
 			If((p[1].estrella==1) and p[1].id>0 and (collision(p[1].id)==1)) p[1].bolas++; break; end

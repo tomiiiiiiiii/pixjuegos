@@ -531,6 +531,7 @@ Process marcador(num_puerta);
 Private
 	id_caja;
 	pagado;
+	i;
 Begin
 	if(num_puerta<=6)
 		x=-10+num_puerta*45;
@@ -541,6 +542,8 @@ Begin
 	z=-11;
 	graph=25;
 	loop
+		if(i++==20) i=0; end
+		if(i<11) flags=0; else flags=1; end
 		y=85-puertas[num_puerta].distancia/3;
 		if(puertas[num_puerta].pagado and pagado==0) pagado=1; grafico(22,x,85,-15); end
 		if(puertas[num_puerta].tipo!=0)

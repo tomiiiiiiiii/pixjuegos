@@ -4,12 +4,12 @@ Process fantasma();
 Private
 	lao;
 	temporizador=-40;
-	bolasmax=7;
 	id_sombra;
 	id_disp;
 	id_fondo;
 	id_col;
 Begin
+	i=7;
 	contaor=5;
 	vidajefefuera=0;
 	ready=0;
@@ -33,12 +33,12 @@ Begin
 		if(x>700) lao=1; end
 		if(x<100) lao=0; end
 		if(temporizador<41) temporizador++; end
-		if(bolasmax>0 and temporizador>30 and bolas<12) bolasmax--; temporizador=0; fantasma_bola(rand(1,16)); end
-		if(bolasmax==0)
+		if(i>0 and temporizador>30 and bolas<12) i--; temporizador=0; fantasma_bola(rand(1,16)); end
+		if(i==0)
 			if(id_col=collision(type disparos))
 				id_col.accion=-1;
 				contaor--;
-				bolasmax=7;
+				i=7;
 				suena(16);
 				frame(400);
 			end
@@ -137,27 +137,25 @@ Begin
 	file=fpg_jefe;
 	graph=5;
 	loop
-		from alpha=0 to 200;
-			if(exists(father))
-				x=father.x;
-				y=father.y;
-				flags=father.flags;
-			else
-				return;
-			end
-			frame;
+		if(exists(father))
+			x=father.x;
+			y=father.y;
+			flags=father.flags;
+		else
+			return;
 		end
-		from alpha=200 to 0;
-			if(exists(father))
-				x=father.x;
-				y=father.y;
-				flags=father.flags;
-			else
-				return;
+		if(father.i==0)
+			if(alpha<255)
+				alpha+=4;
 			end
-			frame;
+		else
+			if(i==0)
+				if(alpha<120) alpha++; else i=1; end
+			else
+				if(alpha>5) alpha--; else i=0; end
+			end
 		end
-		frame(12000);
+		frame;
 	end
 End
 

@@ -24,7 +24,6 @@ import "mod_sys";
 import "mod_regex";
 import "mod_key";
 
-
 //comentar las dos siguientes líneas para Wii
 #ifndef ANDROID
  #ifndef WII
@@ -49,6 +48,7 @@ Global
 	dur_muelle;
 	ancho_pantalla=1280;
 	alto_pantalla=720;
+	bpp=32;
 	ancho_nivel;
 	alto_nivel;
 	Struct ops; 
@@ -146,7 +146,10 @@ Local
 	mov_y;
 	tipo;
 	mata;
+	bajando_rapido;
 End
+
+include "../../common-src/controles.pr-";
 
 function int csv_int(string estring,int num_campo);
 private
@@ -192,7 +195,7 @@ end
 
 Process prota(jugador);
 Private 
-	pulsando;
+	pulsando[3];
 	x_destino;
 	y_destino;
 	string animacion;
@@ -223,7 +226,7 @@ Begin
 		while(ready==0) frame; end
 		if(p[jugador].botones[1]) //la inercia sube al ir hacia la derecha
 			flags=0;
-			if(p[jugador].botones[4])
+			if(p[jugador].botones[b_2])
 				if(inercia<20) inercia+=2; end
 			else
 				if(inercia<10) inercia+=2; end
@@ -231,17 +234,15 @@ Begin
 		end
 		if(p[jugador].botones[0]) //la inercia baja al ir hacia la izquierda
 			flags=1;
-			if(p[jugador].botones[4])
+			if(p[jugador].botones[b_2])
 				if(inercia>-20) inercia-=2; end
 			else
 				if(inercia>-10) inercia-=2; end
 			end
 		end
-
-
 		
 		//salto: suena el sonido correspondiente y se aplica la gravedad, y el salto gradual si saltamos poco 
-		if(p[jugador].botones[5] and pulsando==0 and (saltando==0 or (powerup==3 and tiempo_powerup>0 and doble_salto==0)))
+		if(p[jugador].botones[b_1] and pulsando[1]==0 and (saltando==0 or (powerup==3 and tiempo_powerup>0 and doble_salto==0)))
 			if(saltando==0)
 				saltando=1; 
 				sonido(5,jugador);
@@ -252,21 +253,34 @@ Begin
 			end
 			saltogradual=1; 
 			gravedad=-15; 
-			pulsando=1; 
+			pulsando[1]=1; 
 		end
-				
+		
+		if(p[jugador].botones[b_3] and saltando!=0 and pulsando[2]==0)
+			bajando_rapido=1;
+			gravedad=60;
+			pulsando[2]=1;
+		end
+		
+		if(!p[jugador].botones[b_3]) pulsando[2]=0; end
+		if(bajando_rapido and gravedad>40)
+			sombra(100);
+			inercia=0;
+			gravedad=60;
+		end
+		
 		//gestión del salto gradual
-		if(p[jugador].botones[5] and saltogradual<5 and saltogradual!=0) 
+		if(p[jugador].botones[b_1] and saltogradual<5 and saltogradual!=0)
 			gravedad-=4; 
 			saltogradual++; 
 		end
 		
 		//fin del salto gradual
-		if(saltogradual>0 and p[jugador].botones[5]==0 and gravedad<-10 and accion!="lanzado")
+		if(saltogradual>0 and p[jugador].botones[b_1]==0 and gravedad<-10 and accion!="lanzado")
 			saltogradual=0; 
 			gravedad=-10; 
 		end
-		if(!p[jugador].botones[5] and pulsando==1) pulsando=0; saltogradual=0; end
+		if(!p[jugador].botones[b_1] and pulsando[1]==1) pulsando[1]=0; saltogradual=0; end
 		
 		//ha llegado al final del nivel
 		if(x>ancho_nivel) 
@@ -313,7 +327,7 @@ Begin
 		end
 
 		//si caemos demasiado rápido, lo frenamos
-		if(gravedad>40) gravedad=40; end
+		if(gravedad>40 and !bajando_rapido) gravedad=40; end
 		
 		//gestión de movimiento horizontal
 		if(powerup==5)
@@ -352,6 +366,7 @@ Begin
 		
 		//comprobamos si estamos tocando el suelo
 		if(toca_suelo())
+			bajando_rapido=0;
 			if(accion=="lanzado") accion=""; end 
 			if(gravedad>0)
 				gravedad=0;
@@ -730,10 +745,10 @@ Begin
 		end
 		
 		if(alpha==255 and (id_colision=collision(type prota))) //chocamos con el prota
-			if(id_colision.y<y-(alto/2) and id_colision.saltando==1 and tipo!=5 and tipo!=6 and tipo!=9 and tipo!=10 and id_colision.accion!="muerte") //si el prota está más arriba, el malo muere. a menos que sean spikis o sus huevos! y que no esté muriendo el prota xD
+			if((id_colision.y<y-(alto/2) or id_colision.bajando_rapido==1) and id_colision.saltando==1 and tipo!=5 and tipo!=6 and tipo!=9 and tipo!=10 and id_colision.accion!="muerte") //si el prota está más arriba, el malo muere. a menos que sean spikis o sus huevos! y que no esté muriendo el prota xD
 				p[id_colision.jugador].enemigosmatados++;
 				p[id_colision.jugador].combo++;
-				if(p[id_colision.jugador].botones[5])
+				if(p[id_colision.jugador].botones[b_1] or p[id_colision.jugador].botones[b_3])
 					id_colision.gravedad=-30; //rebota mucho el prota
 				else
 					id_colision.gravedad=-20; //rebota el prota
@@ -745,10 +760,10 @@ Begin
 				frame;
 				break; //suicidamos al malo
 			else //el prota chocó por debajo de la altura del enemigo
-				if(id_colision.powerup==1) 
+				if(id_colision.powerup==1)
 					p[id_colision.jugador].enemigosmatados++;
 					p[id_colision.jugador].combo++;
-					if(p[id_colision.jugador].botones[5])
+					if(p[id_colision.jugador].botones[b_1] or p[id_colision.jugador].botones[b_3])
 						id_colision.gravedad=-30; //rebota mucho el prota
 					else
 						id_colision.gravedad=-20; //rebota el prota
@@ -934,9 +949,10 @@ PRIVATE
 	string linea;
 BEGIN
 	id_carganivel=id;
+	from i=1 to 4; posiciones[i]=0; end
+	
 	if(num_nivel!=1)
 		from i=1 to 4;
-			posiciones[i]=0;
 			if(p[i].total_mayorcombo<p[i].mejorcombo) p[i].total_mayorcombo=p[i].mejorcombo; end
 			p[i].total_monedas+=p[i].monedas;
 			p[i].total_powerups+=p[i].powerupscogidos;
@@ -1050,7 +1066,69 @@ BEGIN
 			pos_x=x*tilesize;
 			pos_y=y*tilesize;
 			tile=map_get_pixel(0,mapa,x,y);
-			if(tile==tiles[0]) MAP_PUT(fpg_tiles,mapa_scroll,1,pos_x+(tilesize/2),pos_y+(tilesize/2)); end
+			if(tile==tiles[0])
+				if(map_get_pixel(0,mapa,x,y-1)==tiles[0] or y==0)
+					if(map_get_pixel(0,mapa,x+1,y)==tiles[0])
+						if(map_get_pixel(0,mapa,x,y+1)==tiles[0])
+							if(map_get_pixel(0,mapa,x-1,y)==tiles[0])
+								MAP_PUT(fpg_tiles,mapa_scroll,26,pos_x+(tilesize/2),pos_y+(tilesize/2));
+							else
+								MAP_PUT(fpg_tiles,mapa_scroll,25,pos_x+(tilesize/2),pos_y+(tilesize/2));
+							end
+						else
+							if(map_get_pixel(0,mapa,x-1,y)==tiles[0])
+								MAP_PUT(fpg_tiles,mapa_scroll,30,pos_x+(tilesize/2),pos_y+(tilesize/2));
+							else
+								MAP_PUT(fpg_tiles,mapa_scroll,29,pos_x+(tilesize/2),pos_y+(tilesize/2));
+							end
+						end
+					else
+						if(map_get_pixel(0,mapa,x,y+1)==tiles[0])
+							if(map_get_pixel(0,mapa,x-1,y)==tiles[0])
+								MAP_PUT(fpg_tiles,mapa_scroll,27,pos_x+(tilesize/2),pos_y+(tilesize/2));
+							else
+								MAP_PUT(fpg_tiles,mapa_scroll,28,pos_x+(tilesize/2),pos_y+(tilesize/2));
+							end
+						else
+							if(map_get_pixel(0,mapa,x-1,y)==tiles[0])
+								MAP_PUT(fpg_tiles,mapa_scroll,31,pos_x+(tilesize/2),pos_y+(tilesize/2));
+							else
+								MAP_PUT(fpg_tiles,mapa_scroll,35,pos_x+(tilesize/2),pos_y+(tilesize/2));
+							end
+						end
+					end
+				else
+					if(map_get_pixel(0,mapa,x+1,y)==tiles[0])
+						if(map_get_pixel(0,mapa,x,y+1)==tiles[0])
+							if(map_get_pixel(0,mapa,x-1,y)==tiles[0])
+								MAP_PUT(fpg_tiles,mapa_scroll,22,pos_x+(tilesize/2),pos_y+(tilesize/2));
+							else
+								MAP_PUT(fpg_tiles,mapa_scroll,21,pos_x+(tilesize/2),pos_y+(tilesize/2));
+							end
+						else
+							if(map_get_pixel(0,mapa,x-1,y)==tiles[0])
+								MAP_PUT(fpg_tiles,mapa_scroll,32,pos_x+(tilesize/2),pos_y+(tilesize/2));
+							else
+								MAP_PUT(fpg_tiles,mapa_scroll,34,pos_x+(tilesize/2),pos_y+(tilesize/2));
+							end
+						end
+					else
+						if(map_get_pixel(0,mapa,x,y+1)==tiles[0])
+							if(map_get_pixel(0,mapa,x-1,y)==tiles[0])
+								MAP_PUT(fpg_tiles,mapa_scroll,23,pos_x+(tilesize/2),pos_y+(tilesize/2));
+							else
+								MAP_PUT(fpg_tiles,mapa_scroll,33,pos_x+(tilesize/2),pos_y+(tilesize/2));
+							end
+						else
+							if(map_get_pixel(0,mapa,x-1,y)==tiles[0])
+								MAP_PUT(fpg_tiles,mapa_scroll,36,pos_x+(tilesize/2),pos_y+(tilesize/2));
+							else
+								MAP_PUT(fpg_tiles,mapa_scroll,24,pos_x+(tilesize/2),pos_y+(tilesize/2));
+							end
+						end
+					end
+				end
+			end
 			if(tile==tiles[1]) MAP_PUT(fpg_tiles,mapa_scroll,2,pos_x+(tilesize/2),pos_y+(tilesize/2)); end
 			if(tile==tiles[2]) MAP_PUT(fpg_tiles,mapa_scroll,3,pos_x+(tilesize/2),pos_y+(tilesize/2)); end
 			if(tile==tiles[3]) MAP_PUT(fpg_tiles,mapa_scroll,4,pos_x+(tilesize/2),pos_y+(tilesize/2)); end
@@ -1094,57 +1172,6 @@ BEGIN
 			y++; x=0;
 		end
 	until(y=>alto-3)
-
-//BURRADA TEMPORAL PARA PRUEBAS CON MEMORIA DE LA WII
-if(os_id!=os_wii)
-	//EMPEZAMOS A PINTAR COSAS WACHIS!!!
-	from y=0 to alto;
-		from x=0 to ancho;
-			//arriba
-			if(map_get_pixel(0,mapa,x,y)==tiles[0])
-				if(map_get_pixel(0,mapa,x,y-1)!=tiles[0])
-					from j=0 to tilesize;
-						from i=0 to tilesize/12;
-							map_put_pixel(0,mapa_scroll,(x*tilesize)+j,(y*tilesize)+i,rgb(134,86,10));
-						end
-					end
-				end
-			end
-			//izquierda
-			if(map_get_pixel(0,mapa,x,y)==tiles[0])
-				if(map_get_pixel(0,mapa,x-1,y)!=tiles[0])
-					from j=0 to tilesize;
-						from i=0 to tilesize/12;
-							map_put_pixel(0,mapa_scroll,(x*tilesize)+i,(y*tilesize)+j,rgb(134,86,10));
-						end
-					end
-				end
-			end
-			//derecha
-			if(map_get_pixel(0,mapa,x,y)==tiles[0])
-				if(map_get_pixel(0,mapa,x+1,y)!=tiles[0])
-					from j=0 to tilesize;
-						from i=0 to tilesize/12;
-							map_put_pixel(0,mapa_scroll,((x+1)*tilesize)-i,(y*tilesize)+j,rgb(67,43,5));
-						end
-					end
-				end
-			end
-			//abajo
-			if(map_get_pixel(0,mapa,x,y)==tiles[0])
-				if(map_get_pixel(0,mapa,x,y+1)!=tiles[0])
-					from j=0 to tilesize;
-						from i=0 to tilesize/12;
-							map_put_pixel(0,mapa_scroll,(x*tilesize)+j,((y+1)*tilesize)-i,rgb(67,43,5));
-						end
-					end
-				end
-			end
-		end
-	end
-	//FIN DE PINTAR COSAS WACHIS!!!
-//BURRADA TEMPORAL PARA PRUEBAS CON MEMORIA DE LA WII
-end //FIN IF WII
 
 //NUEVO: LISTA DE OBJETOS EN UN FICHERO APARTE
 	if(fexists(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".obj"))
@@ -1570,6 +1597,7 @@ include "explosion.pr-";
 
 include "../../common-src/savepath.pr-";
 include "../../common-src/lenguaje.pr-";
+include "../../common-src/resolucioname.pr-";
 
 //PROCESS MAIN
 Begin
@@ -1611,7 +1639,7 @@ Begin
 	set_fps(0,0); //imágenes por segundo
 	probar_pantalla();
 
-	set_mode(ancho_pantalla,alto_pantalla,16); //resolución y colores
+	set_mode(ancho_pantalla,alto_pantalla,bpp); //resolución y colores
 
 	fpg_premios=load_fpg("fpg/premios.fpg"); //cargar el mapa de tiles
 	fpg_enemigos=load_fpg("fpg/enemigos.fpg"); //cargar el mapa de tiles
@@ -2156,8 +2184,6 @@ Function tile_a_coordenada(pos_tile);
 Begin
 	return (pos_tile*tilesize)+(tilesize/2);
 End
-
-include "../../common-src/controles.pr-";
 
 //stubs necesarios temporalmente para Wii
 #ifdef WII

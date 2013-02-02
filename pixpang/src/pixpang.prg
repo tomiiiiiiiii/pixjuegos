@@ -39,19 +39,19 @@ Global
 	
 	string fichero_lng[30];
 	Struct ops;
-		int lenguaje; 	// 0 = castellano, 1 = inglés
-		int op_music=1;
-		int op_sombras=1;
-		int op_sonido=1;
-		int ventana=0;
-		int dificultad=1; //la normal
+		lenguaje; 	// 0 = castellano, 1 = inglés
+		op_music=1;
+		op_sombras=1;
+		op_sonido=1;
+		ventana=0;
+		dificultad=1; //la normal
 	End
 	Struct pantalla;
-		Int bx[200];
-		Int by[200];
-		Int btipo[200];
-		Int br[200];
-		Int btime;
+		bx[200];
+		by[200];
+		btipo[200];
+		br[200];
+		btime;
 	End
 	
 	ancho_pantalla=800;
@@ -74,93 +74,94 @@ Global
 		control;
 		id;
 		fpg;
-		vidafuera;
 		personaje;
 	end
 	joysticks[10];
 	
-	int players;
-	int ganando;
-	int animglobal;
-	int ready;
-	int prisa;
-	//int escenario;
-	int fnt1;
-	int fnt2;
-	int fnt3;
-	int fnt4;
-	int reloj;
-	int relojarena;
-	int dinamita;
-	int time_puesto=120;
-	int bolas;
-	int matabolas;
-	int velocidad=200;
-	int graph_fondo;
-	int num_disp;
-	int bola_estrella=0;
+	players;
+	ganando;
+	animglobal;
+	ready;
+	prisa;
+	//escenario;
+	fnt1;
+	fnt2;
+	fnt3;
+	fnt4;
+	reloj;
+	relojarena;
+	dinamita;
+	time_puesto=120;
+	bolas;
+	matabolas;
+	velocidad=200;
+	graph_fondo;
+	num_disp;
+	bola_estrella=0;
         String prompt="_";
         String entry;
 	inputText;
-	int iniciando;
-	int cont;
-	int zbolas;
-	int parpadea;
-	int modo_juego;
-	int segundos;
-	int mundo;
-	int id_titulo;
-	int id_lang;
-	int cocos;
-	int borrar;
-	int id_bolas[400];
-	int mundo_alcanzado;
-	int partida_rapida;
-	int vidajefefuera;
-	int secs;
-	int screenshot;
-	int mapadurezas;
+	iniciando;
+	cont;
+	zbolas;
+	parpadea;
+	modo_juego;
+	segundos;
+	mundo;
+	id_titulo;
+	id_lang;
+	cocos;
+	borrar;
+	id_bolas[400];
+	mundo_alcanzado;
+	partida_rapida;
+	vidajefefuera;
+	secs;
+	screenshot;
+	mapadurezas;
 // sonidos
 	s[16];
 // cosas raras
-	Int contaor;
-	int cheto_diox;
-	int cheto_epilepsia;
-	int cheto_borracho;
-	int cheto_ayudante;
-	int cheto_salto;
-	int cheto_viejuno;
-	int cheto_choca;
-	int cheto_avaricioso;
-	int jefe=0;
-	int pixel_mola;
-	int raton;
-	int transicion;
-	int fpg_lang;
-	int fpg_jefe;
-	int fpg_menu;
-	int fpg_menu2;
-	int fpg_bloquesmask;
-	int img_pixpang;
-	int txt_fondos[1];
-	int filerecs;
-	int ahora_toca;
-	int color_texto[8];
-	int que_toca;
-	int tour_levels;
+	contaor;
+	cheto_diox;
+	cheto_epilepsia;
+	cheto_borracho;
+	cheto_ayudante;
+	cheto_salto;
+	cheto_viejuno;
+	cheto_choca;
+	cheto_avaricioso;
+	jefe=0;
+	pixel_mola;
+	raton;
+	transicion;
+	fpg_lang;
+	fpg_jefe;
+	fpg_menu;
+	fpg_menu2;
+	fpg_bloquesmask;
+	img_pixpang;
+	txt_fondos[1];
+	filerecs;
+	ahora_toca;
+	color_texto[8];
+	que_toca;
+	tour_levels;
+	
+	margen_novato;
 	// COMPATIBILIDAD CON XP/VISTA/LINUX (usuarios)
 	string savegamedir;
 	string developerpath="/.PiXJuegos/PiXPang/";
 	
-	int cancion_cargada;
+	cancion_cargada;
 
 End
 
 Local
-	int i;
-	int j;
-	int ancho;
-	int alto;
+	i;
+	j;
+	ancho;
+	alto;
 	jugador;
 	accion;
 End
@@ -398,8 +399,6 @@ Begin
 	Loop
 		from i=1 to 2;
 			If(p[i].vidas>99) p[i].vidas=99; End
-			If(p[i].muere=>3) p[i].muere++; End
-			If(p[i].muere=>35) p[i].muere=2; Break; End
 			z=-1;
 		end
 		Frame;
@@ -412,24 +411,29 @@ Begin
 	graph=921;
 	z=-3;
 	y=550;	
-	p[jugador].vidafuera=0;
-	
 	if(jugador==1)
-		from x=-50 to 50 step 2; frame; end
+		x=-50;
 	else
+		x=850;
 		flags=1;
-		from x=850 to 750 step -2; frame; end
 	end
-	
-	While(p[jugador].vidafuera==0)
+
+	Loop
+		if(jugador==1)
+			if(p[1].muere==0)
+				if(x<50) x+=2; end
+			else
+				if(x>-50) x-=2; end
+			end
+		else
+			if(p[2].muere==0)
+				if(x>750) x-=2; end
+			else
+				if(x<850) x+=2; end
+			end
+		end
 		Frame;
 	End
-	
-	if(jugador==1)
-		from x=50 to -50 step -2; frame; end
-	else
-		from x=750 to 850 step 2; frame; end
-	end
 End
 
 Process vidajefe();
@@ -498,17 +502,24 @@ Begin
 End
 
 Process tiempo_nivel(segs);
+Private
+	txt_tiempo;
 Begin
 	If(segs==-1) Return; End
 	segs=segs*60;
-	write_int(fnt2,460,539,4,OFFSET segundos);
+	txt_tiempo=write_int(fnt2,460,539,4,OFFSET segundos);
 	Loop
 		If(ready==1 AND reloj==0) segs--; End
 		segundos=segs/60;
 		If(segundos<21 AND prisa==0) prisa=1; hayprisa(); End
-		If(segs<10 AND (p[1].muere==0 OR p[2].muere==0)) p[1].muere=1; p[2].muere=1; ready=0; End
+		If(segs<1) break; End
 		Frame;
 	End
+	p[1].muere=1;
+	p[2].muere=1;
+	ready=0;
+	delete_text(txt_tiempo);
+	write(fnt2,460,539,4,"0");
 End
 
 Process hayprisa();
@@ -953,9 +964,7 @@ Begin
 	p[1].disparos[1]=0; p[1].disparos[2]=0; // reinicia p[1].disparos
 	p[2].disparos[1]=0; p[2].disparos[2]=0; // reinicia p[2].disparos
 	bolas=0; // indica q no hay bolas en pantalla
-	If(modo_juego==1) panic_mode(); End
-	
-	If(modo_juego==2) musica(-1); tour_mode(); End
+	If(modo_juego==2) musica(-1); end
 	
 	If(p[1].vidas=>0 AND p[2].vidas<0 AND players==3) players=1; End
 	If(p[2].vidas=>0 AND p[1].vidas<0 AND players==3) players=2; End
@@ -964,7 +973,7 @@ Begin
 		case 2:	p[2].id=muneco(2); end
 		case 3:	p[1].id=muneco(1); p[2].id=muneco(2); end
 	end
-	if(jefe!=0 and ops.dificultad<2) 
+	if(jefe!=0 and ops.dificultad<2)
 		p[1].proteccion=1;
 		p[2].proteccion=1;
 		p[1].arma=2;
@@ -975,6 +984,7 @@ Begin
 	anim_global();
 	marcadores();
 	timer[9]=0;
+	jugar();
 	While(timer[9]<70) Frame; End
 	if(modo_juego==2) tiempo_nivel(pantalla.btime); end
 	if(jefe==0) readyando(); else
@@ -1025,172 +1035,6 @@ Begin
 	While(timer[9]<500 AND !p[0].botones[4]) Frame; end
 	modo_juego=0;
 	menu();
-End
-
-Process panic_mode();
-Private
-	txt_pausa;
-	txt_fps;
-	kindabolas;
-Begin
-	dump_type=0;
-	restore_type=0;
-	p[1].arma=2;
-	p[2].arma=2;
-	modo_juego=1;    
-	controlador(0);
-	Loop
-		If(pixel_mola==1 and ready==1)
-			If(key(_m) AND raton==0) coloca_raton(); End
-			If(key(_x)) matabolas=1; Else matabolas=0; End
-			If(key(_r) AND reloj==0) reloj=1; itemreloj(5); End
-			If(key(_f) AND txt_fps==0) txt_fps=write_int(fnt1,0,0,0,&fps); End
-			If(key(_n)) nube(); End
-		End
-		mundo=(p[1].bolas+p[2].bolas)/5;
-		if(mundo>99) mundo=99; end
-		If(p[0].botones[7]) while(p[0].botones[7]) frame; end menu(); End
-		If((p[1].bolas+p[2].bolas)>100 AND rand(0,200)==0) nube(); End
-		If(bolas=>13 AND prisa==0) prisa=1; hayprisa(); End
-		If(bolas<8 AND prisa==1) prisa=0; timer[8]=0; musica(5); End
-		If(key(_d) AND key(_b) AND key(_g)) pixel_mola=1; End
-		If(mundo==99 AND bolas==0 AND ready==1) ganar(); Return; End
-		if(key(_p) and ready==1)
-			txt_pausa=write(fnt1,400,300,4,"PAUSA");
-			suena(8);
-			ready=0;
-			frame(3000);
-			while(key(_p)) frame; end
-			while(!key(_p)) frame; end
-			while(key(_p)) frame; end
-			delete_text(txt_pausa);
-			ready=1;
-			suena(2);
-		end
-		If((timer[7]>1000 OR (bolas<5 and rand(0,1000)==0)) and jefe==0 AND (ganando==0 AND ready==1 AND p[1].bolas+p[2].bolas<500 and bola_estrella==0 and matabolas==0)) 
-			timer[7]=0; 
-			If(prisa==1) prisa=0; timer[8]=0; musica(5); End 
-			if(p[1].bolas+p[2].bolas<200) kindabolas=rand(0,2); else kindabolas=rand(0,4); end 
-			If(kindabolas==0) bola(rand(60,740),150,5,rand(0,1)); end 
-			If(kindabolas==1) bola(rand(60,740),150,12,rand(0,1)); End 
-			If(kindabolas==2) bola(rand(60,740),150,9,rand(0,1)); End 
-			If(kindabolas==3) bola(rand(60,740),150,16,rand(0,1)); end 
-			If(kindabolas==4) bola(-100,150,19,rand(0,1)); bola(900,150,rand(19,22),rand(0,1)); end
-		End
-		If(key(_alt) AND key(_x)) exit(0,0); End
-		If(zbolas<-200) zbolas=-1; End
-		If(players==3)
-			If(p[1].muere==2 AND p[2].muere==0) p[1].muere=0; If(p[1].vidas<0) inicio(); Else p[1].id=muneco(1); End End
-			If(p[2].muere==2 AND p[1].muere==0) p[2].muere=0; If(p[2].vidas<0) inicio(); Else p[2].id=muneco(2); End End
-			If(p[1].muere==2 AND p[2].muere==2 AND (p[1].vidas=>0 OR p[2].vidas=>0)) inicio(); End
-			If(p[1].muere==2 AND p[1].vidas<0 AND p[2].muere==2 AND p[2].vidas<0) gameover(); End
-		End
-		If(players==2)
-			If(p[2].muere==2 AND p[2].vidas=>0 AND iniciando==0) inicio(); End
-			If(p[2].muere==2 AND p[2].vidas<0) gameover(); End
-		End
-		If(players==1)
-			If(p[1].muere==2 AND p[1].vidas=>0 AND iniciando==0) inicio(); End
-			If(p[1].muere==2 AND p[1].vidas<0) gameover(); End
-		End           
-		If(relojarena==0 and jefe==0) 
-			switch(ops.dificultad)
-				case 0:
-					velocidad=450-(p[1].bolas/3+p[2].bolas/3); 
-				end
-				case 1:
-					velocidad=400-(p[1].bolas/3+p[2].bolas/3); 
-				end
-				case 2:
-					velocidad=350-(p[1].bolas/3+p[2].bolas/3); 
-				end
-				case 3:
-					velocidad=300-(p[1].bolas/3+p[2].bolas/3); 
-				end
-			end
-		End
-		Frame;
-	End                
-End
-
-Process tour_mode();
-Private
-	txt_pausa;
-	txt_fps;
-	avaricioso;
-Begin
-	dump_type=0;
-	restore_type=0;
-	p[1].bolas=0;
-	p[2].bolas=0;
-	modo_juego=2;
-	cocos=0;
-	controlador(0);
-	Loop
-		If(pixel_mola==1 and ready==1)
-			If(key(_m) AND raton==0) coloca_raton(); End
-			If(key(_x)) matabolas=1; Else matabolas=0; End
-			If(key(_r) AND reloj==0) reloj=1; itemreloj(5); End
-			if(key(_e) and p[1].estrella==0) while(key(_e)) frame; end estrella(); end
-			If(key(_c)) cocodrilo(rand(0,1)); End
-			If(key(_v)) volador(); End
-			If(key(_f) AND txt_fps==0) txt_fps=write_int(fnt1,0,0,0,&fps); End
-		End
-		if(cheto_avaricioso) if(avaricioso<20) avaricioso++; else cocodrilo(rand(0,1)); avaricioso=0; end end
-		If(p[0].botones[7]) while(p[0].botones[7]) frame; end menu(); end
-		If(players==1 AND p[2].botones[4]) players=3; suena(6); p[2].vidas=10; faderaro(-2); frame; inicio(); End
-		If(players==2 AND p[1].botones[4]) players=3; suena(6); p[1].vidas=10; faderaro(-2); frame; inicio(); End
-		If(key(_d) AND key(_b) AND key(_g)) pixel_mola=1; End
-		if(key(_p) and ready==1) 
-			txt_pausa=write(fnt1,400,300,4,"PAUSA");
-			suena(8);
-			ready=0;
-			frame(3000);
-			while(key(_p)) frame; end
-			while(!key(_p)) frame; end
-			while(key(_p)) frame; end
-			delete_text(txt_pausa);
-			ready=1;
-			suena(2);
-		end
-		If(bolas==0 AND ready==1 and jefe==0) ganar(); Break; End
-		If(key(_alt) AND key(_x)) exit(0,0); End
-		If(zbolas<-200) zbolas=-1; End
-		If(cocos<3 and rand(0,2000)==0 and jefe==0) If(rand(0,1)==0) cocodrilo(rand(0,1)); Else volador(); End End
-		If(players==3)
-			If(p[1].muere==2 AND p[2].muere==2 AND (p[1].vidas=>0 OR p[2].vidas=>0) AND iniciando==0) musica(-1); faderaro(-2); frame; inicio(); End
-			If(p[1].muere==2 AND p[1].vidas<0 AND p[2].muere==2 AND p[2].vidas<0) gameover(); End
-		End
-		If(players==2)
-			If(p[2].muere==2 AND p[2].vidas=>0 AND iniciando==0) musica(-1); faderaro(-2); frame; inicio(); End
-			If(p[2].muere==2 AND p[2].vidas<0) gameover(); End
-		End
-		If(players==1)
-			If(p[1].muere==2 AND p[1].vidas=>0 AND iniciando==0) musica(-1); faderaro(-2); frame; inicio(); End
-			If(p[1].muere==2 AND p[1].vidas<0) gameover(); End
-		End
-		If(relojarena==0) 
-			if(p[1].estrella)
-				velocidad=100;
-			else
-				switch(ops.dificultad)			
-					case 0:
-						velocidad=400;
-					end
-					case 1:
-						velocidad=300;
-					end
-					case 2:
-						velocidad=250;
-					end
-					case 3:
-						velocidad=200;
-					end
-				end
-			end
-		End
-		Frame;
-	End
 End
 
 Process grafico_alpha(x,y,graph,flags);
@@ -1869,3 +1713,155 @@ Begin
 End
 
 include "demo.pr-";
+
+Function todos_muertos();
+Begin
+End
+
+Function revive_muertos();
+Begin
+
+End
+
+Process jugar();
+Private
+	txt_pausa;
+	txt_fps;
+	kindabolas;
+	avaricioso;
+Begin
+	dump_type=0;
+	restore_type=0;
+	if(modo_juego==1) //panic mode
+		p[1].arma=2;
+		p[2].arma=2;
+	else //tour mode
+		p[1].bolas=0;
+		p[2].bolas=0;
+	end
+	cocos=0;
+	controlador(0);
+	margen_novato=(5-ops.dificultad)*2;
+	Loop
+		If(pixel_mola==1 and ready==1)
+			If(key(_m) AND raton==0) coloca_raton(); End
+			If(key(_x)) matabolas=1; Else matabolas=0; End
+			If(key(_r) AND reloj==0) reloj=1; itemreloj(5); End
+			if(key(_e) and p[1].estrella==0) while(key(_e)) frame; end estrella(); end
+			If(key(_c)) cocodrilo(rand(0,1)); End
+			If(key(_v)) volador(); End
+			If(key(_n)) nube(); End
+			If(key(_f) AND txt_fps==0) txt_fps=write_int(fnt1,0,0,0,&fps); End
+
+		End
+		from i=1 to 2;
+			if(!exists(p[i].id))
+				p[i].muere=2; 
+			end
+		end
+		if(modo_juego==1) //panic mode
+			mundo=(p[1].bolas+p[2].bolas)/5;
+			if(mundo>99) mundo=99; end
+			If(mundo>30 AND rand(0,200)==0) nube(); End
+			If(bolas=>13 AND prisa==0) prisa=1; hayprisa(); End
+			If(bolas<8 AND prisa==1) prisa=0; timer[8]=0; musica(5); End
+			If(mundo==99 AND bolas==0 AND ready==1) ganar(); Return; End
+			If((bolas==0 OR timer[7]>1000 OR (bolas<5 and rand(0,1000)==0)) and jefe==0 AND (ganando==0 AND ready==1 AND p[1].bolas+p[2].bolas<500 and bola_estrella==0 and matabolas==0)) 
+				timer[7]=0; 
+				If(prisa==1) prisa=0; timer[8]=0; musica(5); End 
+				if(mundo>20) kindabolas=rand(0,2); else kindabolas=rand(0,4); end 
+				If(kindabolas==0) bola(rand(60,740),150,5,rand(0,1)); end 
+				If(kindabolas==1) bola(rand(60,740),150,12,rand(0,1)); End 
+				If(kindabolas==2) bola(rand(60,740),150,9,rand(0,1)); End 
+				If(kindabolas==3) bola(rand(60,740),150,16,rand(0,1)); end 
+				If(kindabolas==4) bola(-100,150,19,rand(0,1)); bola(900,150,rand(19,22),rand(0,1)); end
+			End
+			If(players==3)
+				If(p[1].muere==2 AND p[2].muere==0) p[1].muere=0; If(p[1].vidas<0) inicio(); Else p[1].id=muneco(1); End End
+				If(p[2].muere==2 AND p[1].muere==0) p[2].muere=0; If(p[2].vidas<0) inicio(); Else p[2].id=muneco(2); End End
+				If(p[1].muere==2 AND p[2].muere==2 AND (p[1].vidas=>0 OR p[2].vidas=>0)) inicio(); End
+				If(p[1].muere==2 AND p[1].vidas<0 AND p[2].muere==2 AND p[2].vidas<0) gameover(); End
+			End
+			If(players==2)
+				If(p[2].muere==2 AND p[2].vidas=>0 AND iniciando==0) inicio(); End
+				If(p[2].muere==2 AND p[2].vidas<0) gameover(); End
+			End
+			If(players==1)
+				If(p[1].muere==2 AND p[1].vidas=>0 AND iniciando==0) inicio(); End
+				If(p[1].muere==2 AND p[1].vidas<0) gameover(); End
+			End           
+			If(relojarena==0 and jefe==0) 
+				switch(ops.dificultad)
+					case 0:
+						velocidad=450-(p[1].bolas/3+p[2].bolas/3); 
+					end
+					case 1:
+						velocidad=400-(p[1].bolas/3+p[2].bolas/3); 
+					end
+					case 2:
+						velocidad=350-(p[1].bolas/3+p[2].bolas/3); 
+					end
+					case 3:
+						velocidad=300-(p[1].bolas/3+p[2].bolas/3); 
+					end
+				end
+			End
+		else //tour mode
+			if(cheto_avaricioso) if(avaricioso<20) avaricioso++; else cocodrilo(rand(0,1)); avaricioso=0; end end
+			If(players==1 AND p[2].botones[4]) players=3; suena(6); p[2].vidas=10; faderaro(-2); frame; inicio(); End
+			If(players==2 AND p[1].botones[4]) players=3; suena(6); p[1].vidas=10; faderaro(-2); frame; inicio(); End
+			If(bolas==0 AND ready==1 and jefe==0) ganar(); Break; End
+			If(cocos<3 and rand(0,2000)==0 and jefe==0) If(rand(0,1)==0) cocodrilo(rand(0,1)); Else volador(); End End
+			If(players==3)
+				If(p[1].muere==2 AND p[2].muere==2 AND (p[1].vidas=>0 OR p[2].vidas=>0) AND iniciando==0) musica(-1); faderaro(-2); frame; inicio(); End
+				If(p[1].muere==2 AND p[1].vidas<0 AND p[2].muere==2 AND p[2].vidas<0) gameover(); End
+			End
+			If(players==2)
+				If(p[2].muere==2 AND p[2].vidas=>0 AND iniciando==0) musica(-1); faderaro(-2); frame; inicio(); End
+				If(p[2].muere==2 AND p[2].vidas<0) gameover(); End
+			End
+			If(players==1)
+				If(p[1].muere==2 AND p[1].vidas=>0 AND iniciando==0) musica(-1); faderaro(-2); frame; inicio(); End
+				If(p[1].muere==2 AND p[1].vidas<0) gameover(); End
+			End
+			If(relojarena==0) 
+				if(p[1].estrella)
+					velocidad=100;
+				else
+					switch(ops.dificultad)			
+						case 0:
+							velocidad=400;
+						end
+						case 1:
+							velocidad=300;
+						end
+						case 2:
+							velocidad=250;
+						end
+						case 3:
+							velocidad=200;
+						end
+					end
+				end
+			End
+
+		end
+		if(key(_p) and ready==1)
+			txt_pausa=write(fnt1,400,300,4,"PAUSA");
+			suena(8);
+			ready=0;
+			frame(3000);
+			while(key(_p)) frame; end
+			while(!key(_p)) frame; end
+			while(key(_p)) frame; end
+			delete_text(txt_pausa);
+			ready=1;
+			suena(2);
+		end
+		If(key(_d) AND key(_b) AND key(_g)) pixel_mola=1; End
+		If(p[0].botones[7]) while(p[0].botones[7]) frame; end menu(); end
+		If(key(_alt) AND key(_x)) exit(0,0); End
+		If(zbolas<-200) zbolas=-1; End
+		Frame;
+	End
+End

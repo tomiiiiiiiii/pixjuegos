@@ -9,6 +9,7 @@ Private
 	escaleras;
 	subiendo;
 	parpadeas=120;
+	margen_novato;
 	disparando;
 	cont_1;
 	y_statico;
@@ -265,7 +266,6 @@ Begin
 		If(parpadeas<120) parpadeas++; flags-=4; End
 	End
 	ready=0;
-	p[jugador].vidafuera=1;
 	parpadeo();
 	timer[2]=0;
 	While(timer[2]<50) Frame; End
@@ -284,6 +284,6 @@ Begin
 	End
 	suena(5);
 	p[jugador].vidas--;
-	p[jugador].muere=3;
 	If(players==3) ready=1; itemreloj(3); End
+	frame(2000);
 End

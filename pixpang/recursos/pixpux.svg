@@ -14,7 +14,7 @@
    height="297mm"
    id="svg4454"
    version="1.1"
-   inkscape:version="0.48.0 r9654"
+   inkscape:version="0.48.2 r9819"
    sodipodi:docname="pixpux.svg">
   <defs
      id="defs4456">
@@ -66,16 +66,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.7071068"
-     inkscape:cx="-5.8294844"
-     inkscape:cy="166.06575"
+     inkscape:zoom="0.50000001"
+     inkscape:cx="-292.79795"
+     inkscape:cy="226.38829"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      showguides="true"
      inkscape:guide-bbox="true"
-     inkscape:window-width="1280"
-     inkscape:window-height="738"
+     inkscape:window-width="1366"
+     inkscape:window-height="706"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1" />
@@ -87,7 +87,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -6449,5 +6449,110 @@
            sodipodi:nodetypes="cccccccc" />
       </g>
     </g>
+    <image
+       y="897.08502"
+       x="-521.50208"
+       id="image4006"
+       xlink:href="file:///Z:/pixpang/fpg-sources/puxxmas/511.png"
+       height="94"
+       width="67" />
+    <image
+       y="902.86218"
+       x="-409.99997"
+       id="image4017"
+       xlink:href="file:///Z:/pixpang/fpg-sources/puxxmas/512.png"
+       height="94"
+       width="67" />
+    <image
+       y="908.86218"
+       x="-300.99997"
+       id="image4028"
+       xlink:href="file:///Z:/pixpang/fpg-sources/puxxmas/513.png"
+       height="94"
+       width="67" />
+    <image
+       y="896.86218"
+       x="-195.49998"
+       id="image4116"
+       xlink:href="file:///Z:/pixpang/fpg-sources/puxxmas/921.png"
+       height="100"
+       width="94" />
+    <image
+       y="790.36218"
+       x="-162.99995"
+       id="image4127"
+       xlink:href="file:///Z:/pixpang/fpg-sources/puxxmas/400.png"
+       height="41"
+       width="25" />
+    <image
+       y="616.86218"
+       x="-639"
+       id="image4138"
+       xlink:href="file:///Z:/pixpang/fpg-sources/puxxmas/501.png"
+       height="94"
+       width="67" />
+    <image
+       y="759.86218"
+       x="-646"
+       id="image4149"
+       xlink:href="file:///Z:/pixpang/fpg-sources/puxxmas/502.png"
+       height="94"
+       width="67" />
+    <image
+       y="759.25916"
+       x="-301.83554"
+       id="image4160"
+       xlink:href="file:///Z:/pixpang/fpg-sources/puxxmas/503.png"
+       height="94"
+       width="67" />
+    <image
+       y="759.87439"
+       x="-408.92596"
+       id="image4171"
+       xlink:href="file:///Z:/pixpang/fpg-sources/puxxmas/504.png"
+       height="94"
+       width="67" />
+    <image
+       y="762.70282"
+       x="-516.78888"
+       id="image4182"
+       xlink:href="file:///Z:/pixpang/fpg-sources/puxxmas/505.png"
+       height="94"
+       width="67" />
+    <image
+       y="620.57794"
+       x="-409.41986"
+       id="image4193"
+       xlink:href="file:///Z:/pixpang/fpg-sources/puxxmas/506.png"
+       height="94"
+       width="67" />
+    <image
+       y="623.39417"
+       x="-523.83661"
+       id="image4204"
+       xlink:href="file:///Z:/pixpang/fpg-sources/puxxmas/507.png"
+       height="94"
+       width="90" />
+    <image
+       y="624.85864"
+       x="-296.04877"
+       id="image4215"
+       xlink:href="file:///Z:/pixpang/fpg-sources/puxxmas/508.png"
+       height="94"
+       width="67" />
+    <image
+       y="661.27893"
+       x="-187.15179"
+       id="image4226"
+       xlink:href="file:///Z:/pixpang/fpg-sources/puxxmas/509.png"
+       height="67"
+       width="94" />
+    <image
+       y="898.02008"
+       x="-651.8183"
+       id="image4237"
+       xlink:href="file:///Z:/pixpang/fpg-sources/puxxmas/510.png"
+       height="94"
+       width="67" />
   </g>
 </svg>

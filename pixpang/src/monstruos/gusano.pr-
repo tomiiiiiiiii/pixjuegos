@@ -31,7 +31,6 @@ Begin
 	angle=270000;	//mira hacia abajo
 	patron=1;	//iniciamos la ia
 	readyando();
-	while(ready==0) frame; end
 	while(contaor>0)
 		velocidad=400;	//no se que es
 		while(ready==0 or reloj==1) frame; end
