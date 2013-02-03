@@ -20,9 +20,13 @@ import "mod_sys";
 import "mod_text";
 import "mod_timers";
 import "mod_video";
+import "mod_wm";
 
 Global
 	arcade_mode=0;
+
+	ancho_pantalla=800;
+	alto_pantalla=600;
 	
 	opcion=1;
 	
