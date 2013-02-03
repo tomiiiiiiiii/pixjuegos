@@ -224,8 +224,9 @@ Begin
 	id_txt1=write(0,15,10,0,txt1);
 	id_txt2=write(0,15,35,0,txt2);
 	id_txt3=write(0,15,60,0,txt3);
-	while(scan_code!=0) frame; end
-	while(scan_code==0) frame; end
+	controlador(0);
+	while(p[0].botones[5]) frame; end
+	while(!p[0].botones[5]) frame; end
 	delete_text(id_txt1);
 	delete_text(id_txt2);
 	delete_text(id_txt3);

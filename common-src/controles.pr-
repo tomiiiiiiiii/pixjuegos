@@ -199,8 +199,8 @@ Begin
 			joy_profiles[i].name=lcase(JOY_NAME(i));
 			//say(joy_profiles[posibles_jugadores].name);
 			if(find(joy_profiles[i].name,"xbox")=>0)
-				joy_profiles[i]._b_1=0;
-				joy_profiles[i]._b_2=2;
+				joy_profiles[i]._b_1=2;
+				joy_profiles[i]._b_2=0;
 				joy_profiles[i]._b_3=1;
 				joy_profiles[i]._b_salir=6;
 			end

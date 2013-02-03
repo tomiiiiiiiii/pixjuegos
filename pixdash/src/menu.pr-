@@ -53,22 +53,22 @@ begin
 		x=400;
 		y=300;
 		write(fuente_peq,400,300,4,"Pulsa disparo para jugar");
-		while(p[0].botones[4] or p[0].botones[5] or p[0].botones[6]) frame; end
+		while(p[0].botones[b_2] or p[0].botones[b_1] or p[0].botones[6]) frame; end
 		repeat
 			if(p[0].botones[7]) exit(); end
 			frame; 
-		until(p[0].botones[4] or p[0].botones[5] or p[0].botones[6])
-		while(p[0].botones[4] or p[0].botones[5] or p[0].botones[6]) frame; end
+		until(p[0].botones[b_2] or p[0].botones[b_1] or p[0].botones[6])
+		while(p[0].botones[b_2] or p[0].botones[b_1] or p[0].botones[6]) frame; end
 		
 		alpha=0;
 		delete_text(all_text);
 		put_screen(fpg_menu,201);
-		while(p[0].botones[4] or p[0].botones[5] or p[0].botones[6]) frame; end
+		while(p[0].botones[b_2] or p[0].botones[b_1] or p[0].botones[6]) frame; end
 		repeat
 			if(p[0].botones[7]) exit(); end
 			frame; 
-		until(p[0].botones[4] or p[0].botones[5] or p[0].botones[6])
-		while(p[0].botones[4] or p[0].botones[5] or p[0].botones[6]) frame; end	
+		until(p[0].botones[b_2] or p[0].botones[b_1] or p[0].botones[6])
+		while(p[0].botones[b_2] or p[0].botones[b_1] or p[0].botones[6]) frame; end	
 		clear_screen();
 		alpha=255;
 		
@@ -110,7 +110,7 @@ begin
 			keytime--;
 		end
 		//elige algo
-		if(p[0].botones[4] and keytime==0)
+		if(p[0].botones[b_2] and keytime==0)
 			delete_text(all_text);
 			if(ops.sonido==1)
 				sonido(3,0);
@@ -263,9 +263,9 @@ begin
 	z=50;
 	keytime=10;
 	controlador(0);	
-	while(p[0].botones[4]) frame; end
+	while(p[0].botones[b_2]) frame; end
 	loop
-		if(p[0].botones[5] or (graph==200 and p[0].botones[4]))
+		if(p[0].botones[b_1] or (graph==200 and p[0].botones[b_2]))
 			sonido(1,0);
 			let_me_alone();
 			menu();
@@ -273,7 +273,7 @@ begin
 		end
 		//ayuda y tal
 		if(graph>=20 and graph<=22)
-			if(p[0].botones[4] and keytime==0)
+			if(p[0].botones[b_2] and keytime==0)
 				graph++;
 				if(graph==22)
 					sonido(1,0);
@@ -324,7 +324,7 @@ begin
 	//write(fuente_peq,x,y+=60,3,"Resolucion");
 	
 	loop
-		if(p[0].botones[4])
+		if(p[0].botones[b_2])
 			if(tecenter==0)
 				if(elecc==0)
 					if(full_screen==0)
@@ -425,7 +425,7 @@ begin
 	from i=0 to 20; elep(); end
 	tecenter=1;
 	loop
-		if(p[0].botones[4])
+		if(p[0].botones[b_2])
 			if(tecenter==0)
 				if(elecc==0)
 					jugadores=1;
@@ -526,7 +526,7 @@ begin
 			elegir_paquete_niveles();
 			return;
 		end
-		if(p[0].botones[4])
+		if(p[0].botones[b_2])
 			if(tecenter==0)
 				paqueteniveles=nombres_paquetes[elecc+1];
 				if(elecc==num_paquetes) pedir_nuevos_niveles(); return; end
@@ -664,7 +664,7 @@ if(nuevosniveles!=0)
 	from i=0 to 20; elep(); end
 	tecenter=1;
 	loop
-		if(p[0].botones[4])
+		if(p[0].botones[b_2])
 			if(tecenter==0)
 				let_me_alone();
 				sonido(3,0);

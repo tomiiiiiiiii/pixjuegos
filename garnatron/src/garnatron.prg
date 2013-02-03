@@ -710,11 +710,11 @@ begin
 		y_objetivo=200+(opcion_actual*60);
 		if(y!=y_objetivo) y+=(y_objetivo-y)/2; end
 
-		if(p[0].botones[4])
+		if(p[0].botones[5])
 			
 			suena(s_aceptar);
 			
-			while(p[0].botones[4]) scroll.x0+=3; frame; end
+			while(p[0].botones[5]) scroll.x0+=3; frame; end
 			switch(num_menu)
 				case 0: //general
 					switch(opcion_actual)
@@ -1113,12 +1113,12 @@ begin
 				end
 			end
 		end
-		if(p[0].botones[5] and volver_a_menu!=num_menu)
+		if(p[0].botones[4] and volver_a_menu!=num_menu)
 			delete_text(all_text);
 			
 			suena(s_aceptar);
 			
-			while(p[0].botones[4]) scroll.x0+=3; frame; end
+			while(p[0].botones[5]) scroll.x0+=3; frame; end
 			menu(volver_a_menu);
 			
 		end

@@ -2551,7 +2551,7 @@ Begin
 		if(y<p[jugador].id.y) y++; end
 		frame;
 	end
-	while(p[jugador].botones[B_1]) frame; end
+	while(p[jugador].botones[B_2]) frame; end
 	loop
 		if(p[jugador].botones[B_ARRIBA]) 
 			accion=ARRIBA; //ATAQUE
@@ -2563,8 +2563,8 @@ Begin
 			accion=IZQUIERDA; //DEFENSA
 		end
 		
-		if(p[jugador].botones[B_1] and accion!=-1)
-			while(p[jugador].botones[B_1]) frame; end
+		if(p[jugador].botones[B_2] and accion!=-1)
+			while(p[jugador].botones[B_2]) frame; end
 			switch(accion)
 				case ARRIBA: 
 					p[jugador].ataque++; 

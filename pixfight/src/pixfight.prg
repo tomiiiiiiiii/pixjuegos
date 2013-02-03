@@ -111,6 +111,9 @@ type ClientData_t
 end;
 //------------------------- FIN CONSTANTES RED   
 Global
+	ancho_pantalla;
+	alto_pantalla;
+	bpp;
 	//RED
    int                       id_servidor = 0;
    int                       nConectados = 0;
@@ -166,6 +169,7 @@ Local
 	j;
 	foo;
 	var;
+
 Begin
 	//full_screen=true;
 	if(!mode_is_ok(1024,600,16,MODE_FULLSCREEN))
@@ -180,7 +184,8 @@ Begin
 	set_mode(1024,600,16);
 	cargar_fpgs();
 	configurar_controles();
-	p[1].personaje=7; p[1].control=0; personaje(1);
+	p[1].personaje=7;
+	personaje(1);
 
 //	personaje(3);
 //	personaje(4);

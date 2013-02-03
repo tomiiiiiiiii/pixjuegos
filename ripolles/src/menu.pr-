@@ -107,11 +107,11 @@ begin
 			angle=0;
 		end
 
-		if(p[0].botones[4] or key(_enter))
+		if(p[0].botones[b_2] or key(_enter))
 			if(ops.sonido==1)
 				sonido(13,0);
 			end
-			while(p[0].botones[4] or key(_enter)) frame; end
+			while(p[0].botones[b_2] or key(_enter)) frame; end
 			if(num_menu==0 and opcion_actual==1 and posibles_jugadores==1) //si solo hay un posible jugador, no se elige el número de jugadores
 				jugadores=1;
 				num_menu=1;
@@ -192,12 +192,12 @@ begin
 				end
 			end
 		end
-		if((p[0].botones[5] or key(_esc)) and volver_a_menu!=num_menu)
+		if((p[0].botones[b_1] or key(_esc)) and volver_a_menu!=num_menu)
 			delete_text(all_text);
 			if(ops.sonido==1)
 				sonido(11,0);
 			end
-			while(p[0].botones[5] or key(_esc)) frame; end
+			while(p[0].botones[b_1] or key(_esc)) frame; end
 			menu(volver_a_menu);
 			return;
 		end
@@ -242,7 +242,11 @@ end
 
 Process titulo();
 Begin
-	x=ancho_pantalla-240;
+	if(panoramico)
+		x=ancho_pantalla-240;
+	else
+		x=ancho_pantalla-180;
+	end
 	y=324;
 	z=-100;
 	file=fpg_menu;
@@ -266,14 +270,14 @@ begin
 	while(i==1)
 		graph++;
 		from alpha=0 to 255 step 40; frame; end
-		while(!p[0].botones[5] and !p[0].botones[4] and !p[0].botones[6] and !key(_enter) and !key(_esc)) frame; end
-		if(p[0].botones[5] or key(_esc) or graphic_info(fpg_menu,graph+1,G_WIDTH)<1) 
+		while(!p[0].botones[b_1] and !p[0].botones[b_2] and !p[0].botones[6] and !key(_enter) and !key(_esc)) frame; end
+		if(p[0].botones[b_1] or key(_esc) or graphic_info(fpg_menu,graph+1,G_WIDTH)<1) 
 			sonido(13,0); 
 			i=0; 
 		else
 			sonido(12,0);
 		end
-		while(p[0].botones[5] or p[0].botones[4] or p[0].botones[6] or key(_enter) or key(_esc)) frame; end
+		while(p[0].botones[b_1] or p[0].botones[b_2] or p[0].botones[6] or key(_enter) or key(_esc)) frame; end
 		from alpha=255 to 0 step -40; frame; end
 		frame;
 	end

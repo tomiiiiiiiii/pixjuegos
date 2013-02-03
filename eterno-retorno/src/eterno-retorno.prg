@@ -194,11 +194,11 @@ End
 
 Function rolear_jefes();
 Begin
-	from i=0 to 6;
+/*	from i=0 to 6;
 		jefes_salas[i][0]=1;
 		jefes_salas[i][1]=1;
 		jefes_salas[i][2]=0;
-	end
+	end*/
 End
 
 Function rolear_premios();
@@ -255,6 +255,18 @@ Begin
 	y=200;
 	z=-10;
 	ctype=p[1].id.ctype;
+	if(jefes_salas[jugador-10][1]==0)
+		if(jugador!=10)
+			premio(premios_salas[id_mazmorra-1][1],premios_salas[id_mazmorra-1][2]);
+		else
+			premio(2,100);
+			if(victorias=>7)
+				puerta(9);
+			end
+		end
+		jefes_muertos[id_mazmorra-1]=1;
+		return;
+	end
 	if(jodido)
 		switch(jugador-10)
 			case 1: x=80; y=600; end

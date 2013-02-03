@@ -49,22 +49,22 @@ begin
 	
 	if(arcade_mode)
 		write(fnt2,400,300,4,"Pulsa disparo para jugar");
-		while(p[0].botones[4] or p[0].botones[5] or p[0].botones[6]) frame; end
-		while(!(p[0].botones[4] or p[0].botones[5] or p[0].botones[6])) 
+		while(p[0].botones[b_2] or p[0].botones[b_1] or p[0].botones[6]) frame; end
+		while(!(p[0].botones[b_2] or p[0].botones[b_1] or p[0].botones[6])) 
 			if(p[0].botones[7]) exit(); end
 			frame; 
 		end
-		while(p[0].botones[4] or p[0].botones[5] or p[0].botones[6]) frame; end
+		while(p[0].botones[b_2] or p[0].botones[b_1] or p[0].botones[6]) frame; end
 		
 		delete_text(all_text);
 		file=fpg_menu2;
 		graph=6;
-		while(p[0].botones[4] or p[0].botones[5] or p[0].botones[6]) frame; end
-		while(!(p[0].botones[4] or p[0].botones[5] or p[0].botones[6])) 
+		while(p[0].botones[b_2] or p[0].botones[b_1] or p[0].botones[6]) frame; end
+		while(!(p[0].botones[b_2] or p[0].botones[b_1] or p[0].botones[6])) 
 			if(p[0].botones[7]) exit(); end
 			frame; 
 		end
-		while(p[0].botones[4] or p[0].botones[5] or p[0].botones[6]) frame; end
+		while(p[0].botones[b_2] or p[0].botones[b_1] or p[0].botones[6]) frame; end
 		
 		//ayuda?
 		delete_text(all_text);
@@ -99,7 +99,7 @@ begin
 		end
 		//elige algo
 		if(key(_c)) chetos(); return; end
-		if(p[0].botones[4] and keytime==0)
+		if(p[0].botones[b_2] and keytime==0)
 			if(ops.op_sonido==1)
 				suena(3);
 			end
@@ -191,7 +191,7 @@ begin
 	from i=0 to 20; elep(); end
 	tecenter=1;
 	loop
-		if(p[0].botones[4])
+		if(p[0].botones[b_2])
 			if(tecenter==0)
 				if(elecc==0)
 					players=1;
@@ -263,7 +263,7 @@ begin
 	from i=0 to 20; elep(); end
 	tecenter=1;
 	loop
-		if(p[0].botones[4])
+		if(p[0].botones[b_2])
 			if(tecenter==0)
 				if(elecc==0)
 					players=1;
@@ -335,7 +335,7 @@ begin
 	from i=0 to 20; elep(); end
 	tecenter=1;
 	loop
-		if(p[0].botones[4])
+		if(p[0].botones[b_2])
 			if(tecenter==0)
 				if(elecc==0)
 					modo_juego=1;
@@ -485,9 +485,9 @@ begin
 	z=50;
 	keytime=10;
 	controlador(0);	
-	while(p[0].botones[4]) frame; end
+	while(p[0].botones[b_2]) frame; end
 	loop
-		if(p[0].botones[5] or (graph==200 and p[0].botones[4]))
+		if(p[0].botones[b_1] or (graph==200 and p[0].botones[b_2]))
 			suena(1);
 			let_me_alone();
 			menu();
@@ -505,7 +505,7 @@ begin
 				guarda_opciones();
 				exit(0);
 			end
-			if(p[0].botones[4] and keytime==0)
+			if(p[0].botones[b_2] and keytime==0)
 				graph++;
 				if(graph==22)
 					suena(1);
@@ -560,7 +560,7 @@ begin
 				ponimgn(240,360,100,253,fpg_menu);
 			end
 		end
-		if(p[0].botones[4])
+		if(p[0].botones[b_2])
 			if(tecenter==0)
 				if(elecc==0)
 					if(full_screen==0)
@@ -649,7 +649,7 @@ begin
 	from i=0 to 20; elep(); end
 	tecenter=1;
 	loop
-		if(p[0].botones[4])
+		if(p[0].botones[b_2])
 			if(tecenter==0)
 				if(elecc==0)
 					ops.lenguaje=0;
@@ -739,7 +739,7 @@ begin
 			keytime--;
 		end
 		//elige algo
-		if(p[0].botones[4] and keytime==0)
+		if(p[0].botones[b_2] and keytime==0)
 			keytime=10;
 			if(ops.op_sonido==1)
 				suena(3);

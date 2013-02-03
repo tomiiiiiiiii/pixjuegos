@@ -226,7 +226,7 @@ Begin
 		while(ready==0) frame; end
 		if(p[jugador].botones[1]) //la inercia sube al ir hacia la derecha
 			flags=0;
-			if(p[jugador].botones[b_2])
+			if(p[jugador].botones[b_1])
 				if(inercia<20) inercia+=2; end
 			else
 				if(inercia<10) inercia+=2; end
@@ -234,7 +234,7 @@ Begin
 		end
 		if(p[jugador].botones[0]) //la inercia baja al ir hacia la izquierda
 			flags=1;
-			if(p[jugador].botones[b_2])
+			if(p[jugador].botones[b_1])
 				if(inercia>-20) inercia-=2; end
 			else
 				if(inercia>-10) inercia-=2; end
@@ -242,7 +242,7 @@ Begin
 		end
 		
 		//salto: suena el sonido correspondiente y se aplica la gravedad, y el salto gradual si saltamos poco 
-		if(p[jugador].botones[b_1] and pulsando[1]==0 and (saltando==0 or (powerup==3 and tiempo_powerup>0 and doble_salto==0)))
+		if(p[jugador].botones[b_2] and pulsando[1]==0 and (saltando==0 or (powerup==3 and tiempo_powerup>0 and doble_salto==0)))
 			if(saltando==0)
 				saltando=1; 
 				sonido(5,jugador);
@@ -270,17 +270,17 @@ Begin
 		end
 		
 		//gestión del salto gradual
-		if(p[jugador].botones[b_1] and saltogradual<5 and saltogradual!=0)
+		if(p[jugador].botones[b_2] and saltogradual<5 and saltogradual!=0)
 			gravedad-=4; 
 			saltogradual++; 
 		end
 		
 		//fin del salto gradual
-		if(saltogradual>0 and p[jugador].botones[b_1]==0 and gravedad<-10 and accion!="lanzado")
+		if(saltogradual>0 and p[jugador].botones[b_2]==0 and gravedad<-10 and accion!="lanzado")
 			saltogradual=0; 
 			gravedad=-10; 
 		end
-		if(!p[jugador].botones[b_1] and pulsando[1]==1) pulsando[1]=0; saltogradual=0; end
+		if(!p[jugador].botones[b_2] and pulsando[1]==1) pulsando[1]=0; saltogradual=0; end
 		
 		//ha llegado al final del nivel
 		if(x>ancho_nivel) 
@@ -748,7 +748,7 @@ Begin
 			if((id_colision.y<y-(alto/2) or id_colision.bajando_rapido==1) and id_colision.saltando==1 and tipo!=5 and tipo!=6 and tipo!=9 and tipo!=10 and id_colision.accion!="muerte") //si el prota está más arriba, el malo muere. a menos que sean spikis o sus huevos! y que no esté muriendo el prota xD
 				p[id_colision.jugador].enemigosmatados++;
 				p[id_colision.jugador].combo++;
-				if(p[id_colision.jugador].botones[b_1] or p[id_colision.jugador].botones[b_3])
+				if(p[id_colision.jugador].botones[b_2] or p[id_colision.jugador].botones[b_3])
 					id_colision.gravedad=-30; //rebota mucho el prota
 				else
 					id_colision.gravedad=-20; //rebota el prota
@@ -763,7 +763,7 @@ Begin
 				if(id_colision.powerup==1)
 					p[id_colision.jugador].enemigosmatados++;
 					p[id_colision.jugador].combo++;
-					if(p[id_colision.jugador].botones[b_1] or p[id_colision.jugador].botones[b_3])
+					if(p[id_colision.jugador].botones[b_2] or p[id_colision.jugador].botones[b_3])
 						id_colision.gravedad=-30; //rebota mucho el prota
 					else
 						id_colision.gravedad=-20; //rebota el prota
