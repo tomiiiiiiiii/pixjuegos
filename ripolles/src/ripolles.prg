@@ -224,6 +224,14 @@ Begin
 		full_screen=false;
 	end
 	
+	if(arcade_mode)
+		bpp=32;
+		scale_resolution=08000600;
+		ancho_pantalla=480;
+		alto_pantalla=360;
+		panoramico=0;
+	end
+	
 	//Pero internamente trabajaremos con esto:
 	set_mode(ancho_pantalla,alto_pantalla,bpp);
 
@@ -479,6 +487,10 @@ Begin
 	set_center(fpg_general,25,0,graphic_info(fpg_general,25,G_HEIGHT)/2);
 	set_center(fpg_general,26,0,graphic_info(fpg_general,26,G_HEIGHT)/2);
 	set_center(fpg_general,27,0,graphic_info(fpg_general,27,G_HEIGHT)/2);
+	
+	//enemigos inclusive
+	set_center(fpg_general,51,0,0);
+	set_center(fpg_general,52,0,0);
 End
 
 Process camara();

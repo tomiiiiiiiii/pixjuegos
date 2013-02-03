@@ -1,8 +1,8 @@
 @echo off
 cd src
 echo Compilando...
-..\..\bennu-win\bgdc juego.prg
-move juego.dcb ..
+..\..\bennu-win\bgdc eterno-retorno.prg
+move eterno-retorno.dcb ..
 cd ..
 
 echo Exportando...
@@ -18,14 +18,8 @@ copy wav\*.wav export\wav
 copy fnt\*.fnt export\fnt
 
 copy ..\bennu-win\*.dll export
-copy ..\bennu-win\bgdi.exe export\juego.exe
+copy ..\bennu-win\bgdi.exe export\eterno-retorno.exe
 
-copy juego.dcb export
-cd export
-echo DEBES ELEGIR EL juego.EXE
-..\..\bennu-win\pakator 
-move juego_exe_pak.exe ..\eterno-retorno.exe
-cd ..
+copy eterno-retorno.dcb export
 echo LISTO!!
 exit
-pause

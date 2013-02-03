@@ -4,8 +4,8 @@ call ..\utils\entorno.bat eterno-retorno
 rd /s /q export
 echo Compilando...
 cd src
-..\..\bennu-win-old\bgdc -DTACTIL=1 eternoretorno.prg
-move eternoretorno.dcb ..\main.dcb
+..\..\bennu-win-old\bgdc -DTACTIL=1 eterno-retorno.prg
+move eterno-retorno.dcb ..\main.dcb
 cd ..
 pause
 

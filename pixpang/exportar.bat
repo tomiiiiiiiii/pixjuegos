@@ -32,9 +32,5 @@ copy ..\bennu-win\bgdi.exe export\pixpang.exe
 copy pixpang.dcb export
 cd export
 echo DEBES ELEGIR EL PIXpang.EXE
-..\..\utils\pakator 
-move pixpang_exe_pak.exe ..\
-cd ..
 echo LISTO!!
 exit
-pause

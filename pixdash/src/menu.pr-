@@ -44,7 +44,7 @@ begin
 	file=fpg_menu;
 	let_me_alone();
 	controlador(0);
-	if(ops.musica and !is_playing_song()) play_song(load_song("menu.ogg"),-1); end
+	if(ops.musica and !is_playing_song()) play_song(load_song("1.ogg"),-1); end
 	graph=1;
 	x=120;
 	y=65;

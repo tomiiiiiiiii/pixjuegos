@@ -1,6 +1,8 @@
 rd /s /q ..\release
 mkdir ..\release
 
+copy run.bat ..\release
+
 start /wait exportar.bat
 move export ..\release\arcade
 pause
@@ -28,4 +30,19 @@ pause
 cd ..\garnatron
 start /wait exportar.bat
 move export ..\release\garnatron
+pause
+
+cd ..\eterno-retorno
+start /wait exportar.bat
+move export ..\release\eterno-retorno
+pause
+
+cd ..\ripolles
+start /wait exportar.bat
+move export ..\release\ripolles
+pause
+
+cd ..\eterno-retorno-3
+start /wait exportar.bat
+move export ..\release\eterno-retorno-3
 pause

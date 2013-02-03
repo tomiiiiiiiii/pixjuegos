@@ -23,7 +23,5 @@ echo DEBES ELEGIR EL ripolles.EXE
 ..\..\bennu-win\pakator 
 move ripolles_exe_pak.exe ..\ripolles.exe
 cd ..
-rd /s /q export
 echo LISTO!!
 exit
-pause

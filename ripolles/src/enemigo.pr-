@@ -4,16 +4,17 @@ Private
 	e; //id enemigo
 	o; //id objetivo
 	piensa;
-	se_defiende;
-	ataca_en_aire;
-	sabe_saltar;
+	huye=1;
+	se_defiende=0;
+	sabe_saltar=0;
+	max_vida;
 Begin
 	from i=0 to 7; p[jugador].botones[i]=0;	end
 	e=personaje(jugador,tipo);
 	e.x=x;
 	e.y_base=y;
 	e.flags=flags;
-	
+	max_vida=p[jugador].vida;
 	while(!exists(id_camara)) frame; end
 	from alpha=0 to 255 step 25; frame; end
 	
@@ -30,8 +31,7 @@ Begin
 	end
 	
 	if(tipo==5) from alpha=0 to 255 step 4; frame; end end
-	
-	if(tipo==2 or tipo==5) se_defiende=1; end
+	if(tipo==2 or tipo==5) se_defiende=1; huye=0; end
 	if(tipo==4 or tipo==5) sabe_saltar=1; end
 	loop
 		if(mata_enemigos and tipo>0)
@@ -75,7 +75,7 @@ Begin
 										p[jugador].botones[b_derecha]=1;
 									end
 								else //si está bastante cerca, puede que no queramos ir directamente hacia él
-									if(o.x_inc!=0) //prota en movimiento
+									if(o.x_inc!=0 and huye==1) //prota en movimiento
 										//IA patrocinada por los fantasmas del Super Mario World
 										//si vienen a por nosotros, huímos, sino, atacamos
 										if(lado_jugador(objetivo)) //prota a la izquierda
@@ -127,9 +127,36 @@ Begin
 				end
 			end
 		end
+		if(e.herida>0)
+			muestra_vida((p[jugador].vida*100)/max_vida);
+		end
 		if(e.accion==muere)
 			return;
 		end
 		frame;
 	end	
+End
+
+Process muestra_vida(size_x);
+Begin
+	ctype=c_scroll;
+	x=father.x;
+	y=father.y-60;
+	z=-500;
+	file=fpg_general;
+	graph=52;
+	size_y=150;
+	muestra_vida2();
+	frame;
+End
+
+Process muestra_vida2();
+Begin
+	ctype=c_scroll;
+	x=father.x;
+	y=father.y;
+	file=fpg_general;
+	graph=51;
+	z=father.z+1;
+	frame;
 End

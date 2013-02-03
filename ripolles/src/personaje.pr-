@@ -112,7 +112,10 @@ Begin
 		if(p[jugador].vida<1 or (tipo>0 and ganando))
 			p[jugador].vida=0;
 			if(accion!=muere)
-				gravedad=-20; 
+				gravedad=-20;
+				if(abs(x_inc)<7)
+					if(flags==1) x_inc=7; else x_inc=-7; end
+				end
 				//x_inc; 
 			end
 			accion=muere; herida+=100; 
@@ -152,6 +155,7 @@ Begin
 					altura+=gravedad;
 					gravedad++;
 				end
+				sombra();
 				frame; 
 			end
 		end
@@ -336,11 +340,6 @@ Begin
 						sonido(1,0);
 						accion=herido_leve;
 						herida=7; //más retraso
-/*						if(flags==1)
-							x_inc=herida*0.8;
-						else
-							x_inc=-herida*0.8;
-						end*/
 					else
 						recibiendo_combo=0;
 						diferencia_combo=0;
@@ -351,6 +350,7 @@ Begin
 						else
 							gravedad=-15;
 						end
+						if(herida<20) herida=20; end
 						if(flags==1)
 							x_inc=herida/4;
 						else

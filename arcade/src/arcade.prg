@@ -40,7 +40,7 @@ Global
 	joysticks[10];
 	sonidos[1];
 
-	num_juegos=6;
+	num_juegos=8;
 	
 	cancion;
 Local
@@ -132,6 +132,8 @@ Begin
 		case 4: juego="pixfrogger"; end
 		case 5: juego="pixdash"; end
 		case 6: juego="eterno-retorno"; end
+		case 7: juego="ripolles"; end
+		case 8: juego="eterno-retorno-3"; end
 	end
 	say(juego);
 	exit();

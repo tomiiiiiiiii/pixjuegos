@@ -226,7 +226,7 @@ Begin
 	gamepad_boton_size=80;
 	gamepad_botones=2;
 
-	full_screen=0; //DEBUG
+	//full_screen=0; //DEBUG
 	set_mode(1280,720,bpp);
 	
 	configurar_controles();
