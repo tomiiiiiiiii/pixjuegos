@@ -96,6 +96,7 @@
 		frame;
 	end	
 	*/
+	
 	//entra en la cocina y pone el café
 	put_screen(fpg_cutscenes,3);
 	flags=0;
@@ -189,9 +190,22 @@
 	fade_off(); while(fading) frame; end
 	//esta en la ventana, la mira, ve que la ciudad está en llamas
 	id_por_delante.graph=20; //mira por la ventana
-	fade_on(); while(fading) frame; end
-	frame(10000);
+	id_mano=por_delante(23);
+	id_taza=por_delante(24);
+	fade_on();
+	from i=530 to 320 step -3;
+		id_mano.z=-105;
+		id_mano.x=240;
+		id_mano.y=i;
+		id_taza.z=id_mano.z+1;
+		id_taza.x=id_mano.x+100;
+		id_taza.y=id_mano.y-40;
+		frame;
+	end
+	//frame(10000); 
+	id_mano.graph=0; id_taza.graph=0;
 	id_por_delante.graph=5; //ve la ciudad en llamas
 	frame(10000);
 	id_por_delante.graph=21; //se asusta y se dispone a beber de su café
+	id_mano.graph=23; id_taza.graph=24;
 	frame(10000);

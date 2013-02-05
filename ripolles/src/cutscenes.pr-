@@ -1,6 +1,8 @@
 Process cutscene_principio();
 Private
 	id_por_delante;
+	id_mano;
+	id_taza;
 	id_sonido;
 Begin
 	if(ops.truco_pato==1)
@@ -10,13 +12,22 @@ Begin
 
 	include "cutscene_compartido.pr-";
 
+	id_mano.graph=0;
+	id_taza.graph=0;
 	id_por_delante.graph=6; //ve un nuevo detalle, su estatua la está destruyendo
 	frame(10000);
 	sonido(22,0);
+	id_mano.graph=23; id_taza.graph=25;
+	id_taza.x=350;
 	id_por_delante.graph=26; //se acojona y se le cae el café
-	frame(10000);
+	from i=id_taza.y to 500 step 4;
+		id_taza.y=i;
+		frame;
+	end
+	//frame(10000);
 	fade_off(); while(fading) frame; end
-	
+	id_taza.accion=-1;
+	id_mano.accion=-1;	
 	//en la habitación del armario, va hacia el armario
 	fade_on();
 	put_screen(fpg_cutscenes,7);
@@ -62,7 +73,7 @@ Begin
 	//de la puerta de la calle hacia fuera
 	put_screen(fpg_cutscenes,9);
 	flags=0;
-	id_por_delante.graph=0;
+	id_por_delante.graph=109;
 	y=180;
 	from x=120 to 800 step 8;
 		if(anim<2)
@@ -84,23 +95,41 @@ Process cutscene_final();
 Private
 	id_por_delante;
 	id_sonido;
+	id_mano;
+	id_taza;
 Begin
 	delete_text(all_text);
+
 	include "cutscene_compartido.pr-";
 	
+	id_mano.graph=0;
+	id_taza.graph=0;
 	id_por_delante.graph=10; //ve un nuevo detalle, la estatua de tombatossals está destruyendo la ciudad
 	frame(10000);
 	sonido(22,0);
+	id_mano.graph=23; 
+	id_taza.graph=24;
 	id_por_delante.graph=27; //cara de DA FUQ?
-	frame(20000);
+	from i=320 to 500 step 4;
+		id_mano.z=-105;
+		id_mano.x=240;
+		id_mano.y=i;
+		id_taza.z=id_mano.z+1;
+		id_taza.x=id_mano.x+100;
+		id_taza.y=id_mano.y-40;
+		frame;
+	end
+	frame(3000);
+	//frame(20000);
 	fade_off(); while(fading) frame; end
-
+	id_taza.accion=-1;
+	id_mano.accion=-1;
 	//está en la ventana y se va hasta el sofá
 	put_screen(fpg_cutscenes,4);
 	flags=0;
 	id_por_delante.graph=0;
 	fade_on();
-	from x=80 to 437 step 4;
+	from x=80 to 437 step 3;
 		if(anim<4)
 			anim++;
 		else

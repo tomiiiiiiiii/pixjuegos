@@ -227,9 +227,9 @@ Begin
 	if(arcade_mode)
 		bpp=32;
 		scale_resolution=08000600;
-		ancho_pantalla=480;
+		/*ancho_pantalla=480;
 		alto_pantalla=360;
-		panoramico=0;
+		panoramico=0;*/
 	end
 	
 	//Pero internamente trabajaremos con esto:
@@ -269,13 +269,19 @@ Begin
 	fade_off();
 	while(fading) frame; end
 	
-	/*jugadores=1;
-	nivel=4;
-	modo_juego=modo_historia;
-	jugar();
+	if(key(_j))
+		jugadores=1;
+		nivel=1;
+		modo_juego=modo_historia;
+		jugar();
+		return;
+	end
 	
-	cutscene_final();
-	return;*/
+	if(key(_p))
+		cutscene_final();
+		return;
+	end
+	
 	//iniciamos el menú
 	menu(-1);
 	return;

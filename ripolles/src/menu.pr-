@@ -19,15 +19,42 @@ begin
 		logo(2);
 		scroll[0].camera=mueve_fondo();
 	end
-
+	
 	guarda_opciones();
 	
+	fade_on();
+
+	if(arcade_mode and num_menu<1)
+		write(fnt_menu,320,180,4,"Pulsa disparo para jugar");
+		while(p[0].botones[b_2]) frame; end
+		while(!p[0].botones[b_2])
+			if(p[0].botones[b_salir]) exit(); end
+			frame; 
+		end
+		while(p[0].botones[b_2]) frame; end
+		
+		delete_text(all_text);
+		graph=211;
+		x=320;
+		y=180;
+		z=-100;
+		from alpha=0 to 255 step 20; frame; end
+		while(p[0].botones[b_2]) frame; end
+		while(!p[0].botones[b_2])
+			if(p[0].botones[b_salir]) exit(); end
+			frame; 
+		end
+		while(p[0].botones[b_2]) frame; end
+		from alpha=255 to 0 step -20; frame; end
+		num_menu=1;
+	end
+	
+	//lapiz superchulo
 	z=-20;
 	graph=50;
 	x=60;
 	y=20;
-	
-	fade_on();
+	alpha=255;
 	
 	//ponemos el menú actual
 	switch(num_menu)
@@ -297,7 +324,11 @@ End
 Process estado_opcion(y,tipo);
 Begin
 	file=fpg_general;
-	x=616;
+	if(panoramico)
+		x=616;
+	else
+		x=456;
+	end
 	z=-512;
 	switch(tipo) //con lo fácil que hubiera sido utilizar punteros...
 		case 1: graph=41+ops.ventana; end
