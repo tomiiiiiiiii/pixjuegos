@@ -19,4 +19,3 @@ copy ..\bennu-win\bgdi.exe export\arcade.exe
 copy arcade.dcb export
 echo LISTO!!
 exit
-pause
