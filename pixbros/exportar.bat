@@ -28,4 +28,3 @@ move pixbros_exe_pak.exe ..\
 cd ..
 echo LISTO!!
 exit
-pause

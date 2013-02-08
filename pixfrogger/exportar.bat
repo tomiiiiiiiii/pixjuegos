@@ -24,4 +24,3 @@ move pixfrogger_exe_pak.exe ..\pixfrogger.exe
 cd ..
 echo LISTO!!
 exit
-pause
