@@ -47,24 +47,25 @@ global
 	elecc;
 	elecy;
 	scroll_y;
-	rana_id[8];
-	rana_juega[8];
-	rana_viva[8];
-	rana_puntos[8];
+	rana_id[32];
+	rana_juega[32];
+	rana_viva[32];
+	rana_puntos[32];
 	puntos_win=10;
 	llegada;
 	fnt_puntos;
+	fnt_textos;
 	music;
 	njoys;
 	buzz;
 	string joyname;
-	buzz_joy;
-	buzz_joy2;
+	buzz_joys[8];
 	wavs[50];
-	boton[9]; //0: cualquier boton,1-8: ranas,9:salir
+	boton[32]; //0: cualquier boton,1-8: ranas,9:salir
 	posibles_jugadores;
 	id_camara;
 	num_jugadores=0;
+	distancia_sombra=10;
 	
 	ancho_pantalla=1280;
 	alto_pantalla=1024;
@@ -131,7 +132,16 @@ begin
 
 		//detectamos buzzers
 		detecta_buzzers();
-			
+
+		//TEST DEBUG:
+		posibles_jugadores=32;
+		ops.dificultad=4;
+		
+		//seteamos la distancia hasta la meta bien lejos en caso de muchos jugadores
+		if(posibles_jugadores=>16)
+			pos_inicio=500;
+		end
+		
 		//detectamos el lenguaje a utilizar (en/es)
 		switch(lenguaje_sistema())
 			case "es": ops.lenguaje=0; end
@@ -170,21 +180,33 @@ begin
 	
 	//cargamos los recursos a utilizar durante todo el juego
 	carga_sonidos();
-	fpg_general=load_fpg("fpg/pixfrogger-"+version+portrait_txt+".fpg");
-	fnt_puntos=load_fnt("fnt/puntos-"+version+".fnt");
-
-	if(version=="hd" and fpg_general==-1)
-		version="md";
-		fpg_general=load_fpg("fpg/pixfrogger-"+version+portrait_txt+".fpg");
-		fnt_puntos=load_fnt("fnt/puntos-"+version+".fnt");
-	end
-
-	if(version=="md" and fpg_general==-1)
-		version="ld";
-		fpg_general=load_fpg("fpg/pixfrogger-"+version+portrait_txt+".fpg");
-		fnt_puntos=load_fnt("fnt/puntos-"+version+".fnt");
-	end
 	
+	if(posibles_jugadores=>16)
+		distancia_sombra=4;
+		version="ld";
+		fpg_general=load_fpg("fpg/pixfrogger-ld-32players.fpg");
+		fnt_puntos=load_fnt("fnt/puntos-ld.fnt");
+		fnt_textos=load_fnt("fnt/textos.fnt");
+	else
+		fpg_general=load_fpg("fpg/pixfrogger-"+version+portrait_txt+".fpg");
+		fnt_puntos=load_fnt("fnt/puntos-"+version+".fnt");
+
+		if(version=="hd" and fpg_general==-1)
+			version="md";
+			fpg_general=load_fpg("fpg/pixfrogger-"+version+portrait_txt+".fpg");
+			fnt_puntos=load_fnt("fnt/puntos-"+version+".fnt");
+		end
+
+		if(version=="md" and fpg_general==-1)
+			version="ld";
+			fpg_general=load_fpg("fpg/pixfrogger-"+version+portrait_txt+".fpg");
+			fnt_puntos=load_fnt("fnt/puntos-"+version+".fnt");
+		end
+	end
+
+	if(version=="md") distancia_sombra=7; end
+	if(version=="ld") distancia_sombra=4; end
+		
 	if(free_version)
 		while(timer[0]<600) frame; end
 	end
@@ -198,16 +220,18 @@ begin
 	num_caminos=(alto_pantalla/alto_camino)+2;
 	
 	//empezamos, ponemos el logo
-	//logo_pixjuegos();
-	
-	//ponemos el menú directamente
-	if(ops.musica)
-		play_song(music,-1);
-	end
 	if(!tactil)
-		menu();
+		logo_pixjuegos();
 	else
-		menu_tactil();
+		//ponemos el menú directamente
+		if(ops.musica)
+			play_song(music,-1);
+		end
+		if(!tactil)
+			menu();
+		else
+			menu_tactil();
+		end
 	end
 end
 
@@ -304,7 +328,7 @@ Private
 	cambia_menu=1;
 	jugadores=1;
 Begin
-	from i=0 to 8; rana_puntos[i]=0; end
+	from i=0 to posibles_jugadores; rana_puntos[i]=0; end
 	delete_text(all_text);
 	primera_ronda=1;
 	dump_type=0; restore_type=0;
@@ -329,7 +353,7 @@ Begin
 	
 	loop
 		num_jugadores=0;
-		from i=1 to 8;
+		from i=1 to posibles_jugadores;
 			if(rana_juega[i]) num_jugadores++; end
 		end
 
@@ -432,7 +456,7 @@ Begin
 				end
 			end
 			if(menu_actual==2) //jugar: opciones
-				from i=0 to 8; rana_juega[i]=0; end
+				from i=0 to posibles_jugadores; rana_juega[i]=0; end
 				pon_boton_menu(ancho_pantalla/2,((alto_pantalla/7)*1)-(alto_pantalla/14),641,100,255,0,1); //jugadores
 				tactil_elige_rana(1); tactil_elige_rana(2);
 				
@@ -745,16 +769,33 @@ function detecta_buzzers();
 Begin
 	//encontramos buzzers
 	njoys=number_joy();
+	posibles_jugadores=4;
+	
 	if(njoys>0)
 		from i=0 to njoys-1;
 			joyname=lcase(JOY_NAME(i));
 			if(find(joyname,"buzz")=>0)
 				buzz++;
 				if(buzz==1)
-					buzz_joy=i;
+					buzz_joys[1]=i;
+					posibles_jugadores=8;
 				elseif(buzz==2)
-					buzz_joy2=i;
-					break; //ya tenemos bastantes...
+					buzz_joys[2]=i;
+				elseif(buzz==3)
+					buzz_joys[3]=i;
+				elseif(buzz==4)
+					buzz_joys[4]=i;
+					posibles_jugadores=16;
+				elseif(buzz==5)
+					buzz_joys[5]=i;
+				elseif(buzz==6)
+					buzz_joys[6]=i;
+				elseif(buzz==7)
+					buzz_joys[7]=i;
+				elseif(buzz==8)
+					buzz_joys[8]=i;
+					posibles_jugadores=32;
+					break; //YA TENEMOS BASTANTES (32 jugadores :|, redios)
 				end
 			end
 		end
@@ -826,7 +867,7 @@ private
 	tec2;
 begin
 	delete_text(all_text);
-	from i=1 to 8; rana_viva[i]=0; rana_puntos[i]=0; end
+	from i=1 to posibles_jugadores; rana_viva[i]=0; rana_puntos[i]=0; end
 	elecc=0;
 	primera_ronda=1;
 	dump_type=0; restore_type=0;
@@ -1128,7 +1169,7 @@ private
 	j;
 begin
 	jue=0;
-	from j=0 to 8;
+	from j=0 to posibles_jugadores;
 		rana_juega[j]=0;
 	end
 	x=ancho_pantalla/2;
@@ -1140,8 +1181,6 @@ begin
 	end
 	z=100;
 	if(!exists(type controlador)) controlador(0); end
-	if(buzz>0 and panoramico) posibles_jugadores=8; else posibles_jugadores=4; end
-
 	panoramico=1;
 	loop
 		dand++;
@@ -1195,6 +1234,8 @@ begin
 			case 2:	x=(ancho_pantalla/16)*3+((ancho_pantalla/16)*jugador*2); end
 			case 4:	x=(ancho_pantalla/16)*3+((ancho_pantalla/16)*jugador*2); end
 			case 8:	x=(ancho_pantalla/32)*2.5+((ancho_pantalla/32)*jugador*3); end
+			case 16: x=(ancho_pantalla/64)*2.5+((ancho_pantalla/64)*jugador*3); end
+			case 32: x=(ancho_pantalla/128)*2.5+((ancho_pantalla/128)*jugador*3); end
 		end
 	else
 		switch(posibles_jugadores)
@@ -1226,7 +1267,6 @@ begin
 	scroll_y=0;
 	priority=1;
 	delete_text(all_text);
-	//write_int(fnt_puntos,0,0,0,&fps);
 	indicador();
 	dump_type=-1;
 	restore_type=-1;
@@ -1240,7 +1280,7 @@ begin
 	end
 	while(exists(father)) frame; end
 	num_jugadores=0;
-	from i=1 to 8;
+	from i=1 to posibles_jugadores;
 		if(rana_juega[i]) num_jugadores++; end
 	end
 	if(primera_ronda and num_jugadores>0)
@@ -1378,6 +1418,9 @@ begin
 				end
 			else
 				//gana la ronda
+				if(posibles_jugadores=>16)
+					gana_rana_player();
+				End
 				gana_rana(ganador);
 				gana_rana_you_win();
 			end
@@ -1467,8 +1510,8 @@ begin
 	end
 
 	while(exists(father))
-		x=father.x+10;
-		y=father.y+10;
+		x=father.x+distancia_sombra;
+		y=father.y+distancia_sombra;
 
 		//ranas
 		if(father.graph>=50 and father.graph=<80)
@@ -1502,12 +1545,26 @@ begin
 		case 8:
 			x=(ancho_pantalla/2)-(alto_camino)-(alto_camino*6)+(alto_camino*(jugador)*1.5);
 		end
+		case 16:
+			x=(ancho_pantalla/2)-(alto_camino)-(alto_camino*12)+(alto_camino*(jugador)*1.5);
+		end
+		case 32:
+			x=(ancho_pantalla/2)-(alto_camino*0.75)-(alto_camino*18)+(alto_camino*(jugador)*1.25);
+		end
 	end
 	
-	if(rana_puntos[jugador]!=0) write_int(fnt_puntos,x,alto_pantalla-(alto_camino/2),4,&rana_puntos[jugador]); end
+	if(rana_puntos[jugador]!=0) 
+		write_int(fnt_puntos,x,alto_pantalla-(alto_camino/2),4,&rana_puntos[jugador]); 
+	end
 	
 	z=-100;
 	gr=50+((jugador-1)*2);
+	if(posibles_jugadores<=8)
+		gr=50+((jugador-1)*2);
+	else
+		graph=gr=50+(rand(0,3)*2);
+		num_jugador();
+	end
 	ctype=c_scroll;
 	pos_y=pos_inicio-1;
 	y=(alto_camino*pos_inicio)-(alto_camino/2);
@@ -1515,7 +1572,7 @@ begin
 	rana_viva[jugador]=1;
 	graph=gr;
 
-	if(!tactil)
+	if(!tactil and posibles_jugadores<16)
 		sombra();
 	end
 	
@@ -1530,7 +1587,7 @@ begin
 			pos_y--;
 		end
 		if(pos_y==meta) llegada=jugador; end
-		if(!humano and retraso==0 and ready)
+		if(humano==0 and retraso==0 and ready)
 			if(rand(0,5)<ops.dificultad or ops.dificultad==4)
 				y-=alto_camino;
 				if(!collision_box(type vehiculo))
@@ -1904,26 +1961,62 @@ Begin
 			end
 			
 			if(buzz==1)
-				if(get_joy_button(buzz_joy,0)) boton[1]=1; end
-				if(get_joy_button(buzz_joy,5)) boton[2]=1; end
-				if(get_joy_button(buzz_joy,10)) boton[3]=1; end
-				if(get_joy_button(buzz_joy,15)) boton[4]=1; end
+				if(get_joy_button(buzz_joys[1],0)) boton[1]=1; end
+				if(get_joy_button(buzz_joys[1],5)) boton[2]=1; end
+				if(get_joy_button(buzz_joys[1],10)) boton[3]=1; end
+				if(get_joy_button(buzz_joys[1],15)) boton[4]=1; end
 				if(key(_q)) boton[5]=1; end
 				if(key(_z)) boton[6]=1; end
 				if(key(_p)) boton[7]=1; end
 				if(key(_up)) boton[8]=1; end
 			end
-			if(buzz==2)
-				if(get_joy_button(buzz_joy,0)) boton[1]=1; end
-				if(get_joy_button(buzz_joy,5)) boton[2]=1; end
-				if(get_joy_button(buzz_joy,10)) boton[3]=1; end
-				if(get_joy_button(buzz_joy,15)) boton[4]=1; end
-				if(get_joy_button(buzz_joy2,0)) boton[5]=1; end
-				if(get_joy_button(buzz_joy2,5)) boton[6]=1; end
-				if(get_joy_button(buzz_joy2,10)) boton[7]=1; end
-				if(get_joy_button(buzz_joy2,15)) boton[8]=1; end
+			if(buzz=>2)
+				if(get_joy_button(buzz_joys[1],0)) boton[1]=1; end
+				if(get_joy_button(buzz_joys[1],5)) boton[2]=1; end
+				if(get_joy_button(buzz_joys[1],10)) boton[3]=1; end
+				if(get_joy_button(buzz_joys[1],15)) boton[4]=1; end
+				if(get_joy_button(buzz_joys[2],0)) boton[5]=1; end
+				if(get_joy_button(buzz_joys[2],5)) boton[6]=1; end
+				if(get_joy_button(buzz_joys[2],10)) boton[7]=1; end
+				if(get_joy_button(buzz_joys[2],15)) boton[8]=1; end
 			end
-
+			if(buzz=>3)
+				if(get_joy_button(buzz_joys[3],0)) boton[9]=1; end
+				if(get_joy_button(buzz_joys[3],5)) boton[10]=1; end
+				if(get_joy_button(buzz_joys[3],10)) boton[11]=1; end
+				if(get_joy_button(buzz_joys[3],15)) boton[12]=1; end
+			end
+			if(buzz=>4)
+				if(get_joy_button(buzz_joys[4],0)) boton[13]=1; end
+				if(get_joy_button(buzz_joys[4],5)) boton[14]=1; end
+				if(get_joy_button(buzz_joys[4],10)) boton[15]=1; end
+				if(get_joy_button(buzz_joys[4],15)) boton[16]=1; end
+			end
+			if(buzz=>5)
+				if(get_joy_button(buzz_joys[5],0)) boton[17]=1; end
+				if(get_joy_button(buzz_joys[5],5)) boton[18]=1; end
+				if(get_joy_button(buzz_joys[5],10)) boton[19]=1; end
+				if(get_joy_button(buzz_joys[5],15)) boton[20]=1; end
+			end
+			if(buzz=>6)
+				if(get_joy_button(buzz_joys[6],0)) boton[21]=1; end
+				if(get_joy_button(buzz_joys[6],5)) boton[22]=1; end
+				if(get_joy_button(buzz_joys[6],10)) boton[23]=1; end
+				if(get_joy_button(buzz_joys[6],15)) boton[24]=1; end
+			end
+			if(buzz=>7)
+				if(get_joy_button(buzz_joys[7],0)) boton[25]=1; end
+				if(get_joy_button(buzz_joys[7],5)) boton[26]=1; end
+				if(get_joy_button(buzz_joys[7],10)) boton[27]=1; end
+				if(get_joy_button(buzz_joys[7],15)) boton[28]=1; end
+			end
+			if(buzz=>8)
+				if(get_joy_button(buzz_joys[8],0)) boton[29]=1; end
+				if(get_joy_button(buzz_joys[8],5)) boton[30]=1; end
+				if(get_joy_button(buzz_joys[8],10)) boton[31]=1; end
+				if(get_joy_button(buzz_joys[8],15)) boton[32]=1; end
+			end
+			
 			//teclado
 			if(buzz==0)
 				if(key(_q)) boton[1]=1; end
@@ -1960,7 +2053,7 @@ Begin
 			set_mode(ancho_pantalla,alto_pantalla,bpp);
 		end
 		
-		from i=1 to 8;
+		from i=1 to posibles_jugadores;
 			if(boton[i]) boton[0]=1; break; end
 		end
 		frame;
@@ -2005,7 +2098,11 @@ End
 
 Process gana_rana(jugador);
 Begin
-	graph=500+jugador;
+	if(posibles_jugadores<16)
+		graph=500+jugador;
+	else
+		graph=write_in_map(fnt_textos,jugador,4);
+	end
 	x=ancho_pantalla/2;
 	y=(alto_pantalla/8)*3;
 	z=-50;
@@ -2064,4 +2161,32 @@ Function salir();
 Begin
 	guarda_opciones();
 	exit();
+End
+
+Process num_jugador();
+Begin
+	jugador=father.jugador;
+	ctype=c_scroll;
+	if(father.graph==52)
+		set_text_color(rgb(0,0,0));
+	else
+		set_text_color(rgb(255,255,255));
+	end
+	graph=write_in_map(0,jugador,4);
+	loop
+		if(!exists(father)) break; end
+		x=father.x;
+		if(father.graph%2==1)
+			y=father.y;
+		else
+			y=father.y+4;
+		end
+		z=father.z-1;
+		frame;
+	end
+End
+
+Process gana_rana_player();
+Begin
+	
 End
