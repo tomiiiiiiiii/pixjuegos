@@ -1,7 +1,7 @@
 Program ripolles;
 
 import "mod_blendop";
-//import "mod_debug";
+import "mod_debug";
 import "mod_dir";
 import "mod_draw";
 import "mod_file";
@@ -57,6 +57,9 @@ Const
 End
 
 Global
+
+	good_vs_evil=1;
+	
 	puntos;
 
 	arcade_mode;
@@ -355,6 +358,9 @@ Begin
 	start_scroll(0,fpg_nivel,1,0,0,8);
 	id_camara=scroll[0].camera=camara();
 	
+	if(good_vs_evil)
+		jugadores=2;
+	end
 	from i=1 to jugadores;
 		personaje(i,0);
 	end

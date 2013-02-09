@@ -1,7 +1,7 @@
 @echo off
 rem @echo off
 set bits=%1
-if "%bits%"==""; set bits=32
+if "%bits%"==""; set bits=16
 ECHO CREANDO FPGS...
 cd fpg-sources
 copy ..\..\utils\pxlfpg.dcb . /y

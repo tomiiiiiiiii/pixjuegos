@@ -35,7 +35,7 @@ Private
 	fuente;
 Begin
 	fuente=load_fnt("fnt/"+fntname+".fnt");
-	from x=1 to 999;
+	from x=1 to 9999;
 		graph=get_glyph(fuente,x);
 		if(graph>0)
 			save_png(0,graph,x+".png");

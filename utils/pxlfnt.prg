@@ -36,7 +36,7 @@ Private
 Begin
 	chdir(fntname);
 	fuente=fnt_new(CHARSET_ISO8859,argv[1]);
-	from x=0 to 999;
+	from x=0 to 9999;
 		If(file_exists(itoa(x)+".png"))
 			glyph_set(fuente,x,0,load_png(itoa(x)+".png"));
 		end

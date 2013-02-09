@@ -2067,9 +2067,9 @@ Begin
 					graph=graph_base+16;
 				else
 					switch(direccion)
-						case ARRIBA: graph=graph_base+16; end
+						case ARRIBA: graph=graph_base+26; end
 						case DERECHA: graph=graph_base+21; end
-						case ABAJO: graph=graph_base+26; end
+						case ABAJO: graph=graph_base+16; end
 						case IZQUIERDA: graph=graph_base+21; flags=1; end
 					end
 				end
@@ -2632,13 +2632,17 @@ Private
 	angulo;
 Begin
 	if(exists(id_mira))
+		x=father.x;
+		y=father.y;
 		angulo=get_angle(id_mira);
-		if(angulo<45000) direccion=1;
-		elseif(angulo<135000) direccion=0;
-		elseif(angulo<225000) direccion=3;
-		elseif(angulo<320000) direccion=2;
-		else direccion=1;
+		if(angulo<0) angulo+=360000; end
+		if(angulo<45000) direccion=DERECHA;
+		elseif(angulo<135000) direccion=ARRIBA;
+		elseif(angulo<225000) direccion=IZQUIERDA;
+		elseif(angulo<320000) direccion=ABAJO;
+		else direccion=DERECHA;
 		end
+		father.direccion=direccion;
 	end
 End
 
