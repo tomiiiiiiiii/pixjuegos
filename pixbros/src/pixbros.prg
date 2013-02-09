@@ -1,7 +1,7 @@
 Program pixbros;
 
 import "mod_blendop";
-//import "mod_debug";
+import "mod_debug";
 import "mod_dir";
 import "mod_draw";
 import "mod_file";

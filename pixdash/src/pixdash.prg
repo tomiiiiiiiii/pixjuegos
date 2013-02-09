@@ -1066,6 +1066,21 @@ BEGIN
 			pos_x=x*tilesize;
 			pos_y=y*tilesize;
 			tile=map_get_pixel(0,mapa,x,y);
+			if(tile!=tiles[0] and tile!=tiles[1] and tile!=tiles[2] and tile!=tiles[3] and map_get_pixel(0,mapa,x,y+1)==tiles[0] and y!=alto-4)
+				if(map_get_pixel(0,mapa,x+1,y+1)==tiles[0])
+					if(map_get_pixel(0,mapa,x-1,y+1)==tiles[0])
+						MAP_PUT(fpg_tiles,mapa_scroll,38,pos_x+(tilesize/2),pos_y+(tilesize/2));
+					else
+						MAP_PUT(fpg_tiles,mapa_scroll,37,pos_x+(tilesize/2),pos_y+(tilesize/2));
+					end
+				else
+					if(map_get_pixel(0,mapa,x-1,y+1)==tiles[0])
+						MAP_PUT(fpg_tiles,mapa_scroll,39,pos_x+(tilesize/2),pos_y+(tilesize/2));
+					else
+						MAP_PUT(fpg_tiles,mapa_scroll,40,pos_x+(tilesize/2),pos_y+(tilesize/2));
+					end
+				end
+			end
 			if(tile==tiles[0])
 				if(map_get_pixel(0,mapa,x,y-1)==tiles[0] or y==0)
 					if(map_get_pixel(0,mapa,x+1,y)==tiles[0])
