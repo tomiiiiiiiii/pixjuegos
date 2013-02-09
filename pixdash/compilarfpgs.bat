@@ -4,7 +4,7 @@ if "%bits%"==""; set bits=16
 ECHO CREANDO FPGS...
 cd fpg-sources
 copy ..\..\utils\pxlfpg.dcb . /y
-..\..\bennu-win\bgdi pxlfpg %bits% enemigos menu powerups pix pux pax pex moneda tiles premios general
+..\..\bennu-win\bgdi pxlfpg %bits% enemigos menu powerups pix pux pax pex moneda tiles tiles2 tiles3 tiles4 tiles5 premios general
 del /f pxlfpg.dcb
 
 cd ..\fpg
