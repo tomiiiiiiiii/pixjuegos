@@ -215,34 +215,10 @@ Begin
 	graph=1;
 	ctype=c_scroll; //las corrdenadas son del scroll, no de la pantalla
 	switch(jugador) // los gráficos de cada jugador
-		case 1: 
-			if(file_exists(savegamedir+"niveles\"+paqueteniveles+"\pix.fpg"))  // FIN DE LA COMPETICION
-				file=load_fpg(savegamedir+"niveles\"+paqueteniveles+"\pix.fpg");
-			else
-				file=load_fpg("fpg/pix.fpg");
-			end
-		end
-		case 2: 
-			if(file_exists(savegamedir+"niveles\"+paqueteniveles+"\pux.fpg"))  // FIN DE LA COMPETICION
-				file=load_fpg(savegamedir+"niveles\"+paqueteniveles+"\pux.fpg");
-			else
-				file=load_fpg("fpg/pux.fpg");
-			end
-		end
-		case 3: 
-			if(file_exists(savegamedir+"niveles\"+paqueteniveles+"\pax.fpg"))  // FIN DE LA COMPETICION
-				file=load_fpg(savegamedir+"niveles\"+paqueteniveles+"\pax.fpg");
-			else
-				file=load_fpg("fpg/pax.fpg");
-			end
-		end
-		case 4: 
-			if(file_exists(savegamedir+"niveles\"+paqueteniveles+"\pex.fpg"))  // FIN DE LA COMPETICION
-				file=load_fpg(savegamedir+"niveles\"+paqueteniveles+"\pex.fpg");
-			else
-				file=load_fpg("fpg/pex.fpg");
-			end
-		end
+		case 1: file=load_fpg("fpg/pix.fpg"); end
+		case 2: file=load_fpg("fpg/pux.fpg"); end
+		case 3: file=load_fpg("fpg/pax.fpg"); end
+		case 4: file=load_fpg("fpg/pex.fpg"); end
 	end
 	ancho=18;
 	alto=29;
