@@ -5,7 +5,7 @@ echo Compilando...
 move pixfrogger.dcb ..
 pause
 cd ..
-..\bennu-win\bgdi pixfrogger.dcb arcade
+..\bennu-win\bgdi pixfrogger.dcb
 
 pause
 exit

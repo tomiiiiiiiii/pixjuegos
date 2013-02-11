@@ -4,6 +4,9 @@ echo Compilando...
 ..\..\bennu-win\bgdc arcade.prg
 move arcade.dcb ..
 cd ..
+
+call compilarfpgs.bat
+
 echo Exportando...
 mkdir export
 mkdir export\fpg
