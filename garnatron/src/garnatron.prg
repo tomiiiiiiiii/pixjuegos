@@ -22,7 +22,7 @@ import "mod_key";
 import "mod_map";
 import "mod_math";
 import "mod_mouse";
-import "mod_multi";
+//import "mod_multi"; //ya la carga controles si es necesaria
 import "mod_proc";
 import "mod_rand";
 import "mod_regex";
