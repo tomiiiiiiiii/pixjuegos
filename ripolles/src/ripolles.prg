@@ -57,8 +57,7 @@ Const
 End
 
 Global
-
-	good_vs_evil=1;
+	good_vs_evil=0;
 	
 	puntos;
 
@@ -161,6 +160,7 @@ Global
 	modo_supervivencia=2;
 	modo_matajefes=3;
 	modo_battleroyale=4;
+	modo_good_vs_evil=5;
 End
 
 Local
@@ -1450,6 +1450,7 @@ Begin
 	sin_bandos=0;
 	fuego_amigo=0;
 	ganando=0;
+	good_vs_evil=0;
 	from i=1 to 10;
 		p[i].vidas=5;
 	end

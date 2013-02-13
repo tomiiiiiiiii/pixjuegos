@@ -106,6 +106,10 @@ begin
 				write(fnt_menu,x,y+=distancia_opciones,3,"Modo Battle Royale");
 				num_opciones++;
 			end
+			if(jugadores==4)
+				write(fnt_menu,x,y+=distancia_opciones,3,"Modo Good VS Evil");
+				num_opciones++;
+			end
 			volver_a_menu=0;
 		end
 	end
@@ -207,6 +211,10 @@ begin
 				end
 				case 3: //modo de juego
 					modo_juego=opcion_actual;
+					if(modo_juego==modo_good_vs_evil)
+						modo_juego=modo_historia;
+						good_vs_evil=1;
+					end
 					fade_off();
 					while(fading) frame; end
 					delete_text(all_text);
