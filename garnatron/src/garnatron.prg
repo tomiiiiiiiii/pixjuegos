@@ -187,10 +187,7 @@ BEGIN
 		tactil=1;
 		ops.particulas=0;
 	end
-	if(arcade_mode==1)
-		ops.p_completa=1;
-		ops.particulas=0;
-	end
+	
 	
 	carga_opciones();
 	
@@ -203,6 +200,11 @@ BEGIN
 		end
 	end
 
+	if(arcade_mode==1)
+		ops.p_completa=1;
+		ops.particulas=0;
+	end
+	
 	//-------------------------------------------------Iniciando variables
 	
 	gamepad_boton_separacion=75;
