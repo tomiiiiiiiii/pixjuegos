@@ -14,7 +14,7 @@ mkdir export\wav
 copy fpg\*.fpg export\fpg
 copy ogg\*.ogg export\ogg
 copy wav\*.wav export\wav
-copy niveles\*.txt export\niveles
+copy niveles\*.csv export\niveles
 copy fnt\*.fnt export\fnt
 copy ..\bennu-win\*.dll export
 copy ..\bennu-win\bgdi.exe export\garnatron.exe

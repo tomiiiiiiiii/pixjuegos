@@ -39,7 +39,7 @@ echo Copiando el juego...
 copy fpg\*.fpg export\assets\fpg /y
 copy ogg\*.ogg export\assets\ogg /y
 copy wav\*.wav export\assets\wav /y
-copy niveles\*.txt export\assets\niveles /y
+copy niveles\*.csv export\assets\niveles /y
 copy fnt\*.fnt export\assets\fnt /y
 copy main.dcb export\assets /y
 echo Exportado correctamente. Ahora se instalará en el móvil...
