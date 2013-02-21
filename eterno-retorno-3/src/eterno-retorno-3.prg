@@ -474,13 +474,16 @@ Begin
 		num_personajes();
 		join_in();
 		if(todos_muertos())
-			fade(50,50,50,4);
+			delete_text(all_text);
+			frame(3000);
+			controlador(0);
 			set_fps(15,0);
-			graph=49; 
+			fade_music_off(500); 
 			mensaje("GAME OVER");
-			from alpha=255 to 0 step -5; frame; end 
-			fade_music_off(100); 
-			while(!key(_esc)) frame; end
+			while(exists(type mensaje)) frame; end
+			from alpha=100 to 0 step -5; frame; end 
+			while(is_playing_song()) frame; end
+			//while(!key(_esc) and !p[0].botones[b_salir]) frame; end
 			exit();
 		end
 		frame;

@@ -138,7 +138,7 @@ begin
 	put_screen(0,3);
 	
 	if(arcade_mode)
-		write(0,320,240,4,"Pulsa disparo para jugar");
+		write(0,320,240,4,"Pulsa el boton 1 para jugar");
 		while(get_joy_button(0,0)) frame; end
 		while(!get_joy_button(0,0)) 
 			if(get_joy_button(0,8) or key(_esc)) exit(); end

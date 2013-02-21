@@ -220,31 +220,31 @@ Begin
 			Else
 				If(parpadeas==120)
 					If((cheto_diox==1 OR cheto_borracho==1) AND ((segundos>0 and modo_juego==2) or modo_juego==1))
-					ready=0;
-					parpadeo();
-					suena(4);
-					grav=rand(50,250);
-					While(y<464)
-						If(ops.op_sombras==1) sombra(graph,x,y,flags,1); End
-						If(flags==0) x+=12; End
-						If(flags==1) x-=12; End
-						If(x=>755) flags=1; End
-						If(x=<45) flags=0; End
-						graph=508;
-						grav-=5;
-						y-=grav/10;
-						l=(x*255)/800;
-						set_panning(snd_muere,255-l,l);
-						Frame;
+						ready=0;
+						parpadeo();
+						suena(4);
+						grav=rand(50,250);
+						While(y<650)
+							If(ops.op_sombras==1) sombra(graph,x,y,flags,1); End
+							If(flags==0) x+=12; End
+							If(flags==1) x-=12; End
+							If(x=>755) flags=1; End
+							If(x=<45) flags=0; End
+							graph=508;
+							grav-=5;
+							y-=grav/10;
+							l=(x*255)/800;
+							set_panning(snd_muere,255-l,l);
+							Frame;
+						End
+						y=y_statico;
+						ready=1;
+						grav=0;
+						itemreloj(3);
+						p[jugador].muere=0;
+					Else
+						Break;
 					End
-					y=y_statico;
-					ready=1;
-					grav=0;
-					itemreloj(3);
-					p[jugador].muere=0;
-				Else
-					Break;
-				End
 				Else
 					p[jugador].muere=0;
 				End
@@ -271,7 +271,7 @@ Begin
 	While(timer[2]<50) Frame; End
 	suena(4);
 	grav=rand(50,250);
-	While(y<480)
+	While(y<650)
 		If(ops.op_sombras==1) sombra(graph,x,y,flags,1); End
 		If(flags==0) x+=12; End
 		If(flags==1) x-=12; End

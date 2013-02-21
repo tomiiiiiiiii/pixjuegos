@@ -1,10 +1,10 @@
-global
+Global
 	elecc;
 	elecy;
 	pr1;
 	pr2;
 	pr3;
-end
+End
 
 process menu();
 private
@@ -27,13 +27,13 @@ begin
 	if(arcade_mode)
 		put_screen(fpg_menu,1);
 		graph=0;
-		write(fnt_intro,320,240,4,"Pulsa disparo para jugar");
-		while(p[0].botones[4] or p[0].botones[5] or p[0].botones[6]) frame; end
-		while(!(p[0].botones[4] or p[0].botones[5] or p[0].botones[6])) 
-			if(p[0].botones[7]) exit(); end
+		write(fnt_intro,320,240,4,"Pulsa el boton 2 para empezar");
+		while(p[0].botones[b_2]) frame; end
+		while(!p[0].botones[b_2])
+			if(p[0].botones[b_salir]) exit(); end
 			frame; 
 		end
-		while(p[0].botones[4] or p[0].botones[5] or p[0].botones[6]) frame; end
+		while(p[0].botones[b_2]) frame; end
 		
 		delete_text(all_text);
 		put_screen(fpg_menu2,21);
@@ -347,7 +347,7 @@ begin
 	end
 	id_controlador=controlador(jugador);
 	p[jugador].juega=0;
-	while(p[jugador].botones[5]==0)
+	while(p[jugador].botones[b_2]==0)
 		if(timer[0]>500) signal(id_controlador,s_kill); return; end
 		frame;
 	end

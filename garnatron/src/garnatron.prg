@@ -609,14 +609,14 @@ begin
 	
 	//modo arcade
 	if(arcade_mode==1)
-		write(fuente[0],ancho_pantalla/2,alto_pantalla/2,4,"Pulsa disparo para empezar");
-		while(not p[0].botones[4] or not p[1].botones[4])
+		write(fuente[0],ancho_pantalla/2,alto_pantalla/2,4,"Pulsa el boton 2 para empezar");
+		while(not p[0].botones[b_2])
 			scroll.x0+=3;
-			if(p[0].botones[7] or p[1].botones[7]) exit(); end
+			if(p[0].botones[b_salir]) exit(); end
 			frame;
 		end
 		
-		while(p[0].botones[4] or p[1].botones[4]) scroll.x0+=3; frame; end
+		while(p[0].botones[b_2]) scroll.x0+=3; frame; end
 		ayuda();
 	end
 	

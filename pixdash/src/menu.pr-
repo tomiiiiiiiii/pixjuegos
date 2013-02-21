@@ -52,23 +52,23 @@ begin
 	if(arcade_mode)
 		x=400;
 		y=300;
-		write(fuente_peq,400,300,4,"Pulsa disparo para jugar");
-		while(p[0].botones[b_2] or p[0].botones[b_1] or p[0].botones[6]) frame; end
+		write(fuente_peq,400,300,4,"Pulsa el boton 2 para jugar");
+		while(p[0].botones[b_2]) frame; end
 		repeat
-			if(p[0].botones[7]) exit(); end
+			if(p[0].botones[b_salir]) exit(); end
 			frame; 
-		until(p[0].botones[b_2] or p[0].botones[b_1] or p[0].botones[6])
-		while(p[0].botones[b_2] or p[0].botones[b_1] or p[0].botones[6]) frame; end
+		until(p[0].botones[b_2])
+		while(p[0].botones[b_2]) frame; end
 		
 		alpha=0;
 		delete_text(all_text);
 		put_screen(fpg_menu,201);
-		while(p[0].botones[b_2] or p[0].botones[b_1] or p[0].botones[6]) frame; end
+		while(p[0].botones[b_2]) frame; end
 		repeat
-			if(p[0].botones[7]) exit(); end
+			if(p[0].botones[b_salir]) exit(); end
 			frame; 
-		until(p[0].botones[b_2] or p[0].botones[b_1] or p[0].botones[6])
-		while(p[0].botones[b_2] or p[0].botones[b_1] or p[0].botones[6]) frame; end	
+		until(p[0].botones[b_2])
+		while(p[0].botones[b_2]) frame; end	
 		clear_screen();
 		alpha=255;
 		

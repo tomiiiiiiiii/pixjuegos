@@ -48,23 +48,23 @@ begin
 	y=300;
 	
 	if(arcade_mode)
-		write(fnt2,400,300,4,"Pulsa disparo para jugar");
-		while(p[0].botones[b_2] or p[0].botones[b_1] or p[0].botones[6]) frame; end
-		while(!(p[0].botones[b_2] or p[0].botones[b_1] or p[0].botones[6])) 
-			if(p[0].botones[7]) exit(); end
+		write(fnt2,400,300,4,"Pulsa el boton 2 para jugar");
+		while(p[0].botones[b_2]) frame; end
+		while(!p[0].botones[b_2]) 
+			if(p[0].botones[b_salir]) exit(); end
 			frame; 
 		end
-		while(p[0].botones[b_2] or p[0].botones[b_1] or p[0].botones[6]) frame; end
+		while(p[0].botones[b_2]) frame; end
 		
 		delete_text(all_text);
 		file=fpg_menu2;
 		graph=6;
-		while(p[0].botones[b_2] or p[0].botones[b_1] or p[0].botones[6]) frame; end
-		while(!(p[0].botones[b_2] or p[0].botones[b_1] or p[0].botones[6])) 
-			if(p[0].botones[7]) exit(); end
+		while(p[0].botones[b_2]) frame; end
+		while(!p[0].botones[b_2])
+			if(p[0].botones[b_salir]) exit(); end
 			frame; 
 		end
-		while(p[0].botones[b_2] or p[0].botones[b_1] or p[0].botones[6]) frame; end
+		while(p[0].botones[b_2]) frame; end
 		
 		//ayuda?
 		delete_text(all_text);
