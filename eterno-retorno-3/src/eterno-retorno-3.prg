@@ -327,7 +327,7 @@ Begin
 	end
 	
 	from i=1 to 8;
-		p[i].vida=100;
+		p[i].vida+=100;
 		p[i].id=0;
 		p[i].xp_siguiente=p[i].xp_anterior*1.25;
 	end
@@ -383,9 +383,9 @@ Begin
 	k=0;
 	from i=1 to size_mapa;
 		from j=1 to size_mapa;
-			if(!(i==centro and j==centro))
+			if(zonas[i][j].tipo!=1)
 				from x=1 to 5;
-					enemigos[k].id=enemigo(rand(1280*(i-1),1280*i),rand(720*(j-1),720*j),zonas[i][j].tipo-1,k++);
+					enemigos[k].id=enemigo((1280*(i-1))+640,(720*(j-1))+360,zonas[i][j].tipo-1,k++);
 				end
 			end
 		end
@@ -445,7 +445,7 @@ Begin
 			while(p[jugador].botones[B_SALIR])
 				mensaje_rapido("Mantén la tecla ESC o el botón BACK para salir");
 				j++;
-				if(j==180) exit(); end
+				if(j==120) exit(); end
 				frame;
 			end
 			while(!p[jugador].botones[B_SALIR])
@@ -1447,7 +1447,7 @@ Begin
 				y=id_col.y-40;
 				frame; 
 			end
-			y+=60;
+			y+=40;
 			graph=0;
 			if(tipo==2 and num==CONTRATO) ayudante(); end
 			if(i==0) break; end
@@ -1913,36 +1913,40 @@ Begin
 		end
 	end
 
+	while(!exists(id_camara)) frame; end
+
 	//si es jefe, lo chutamos
 	if(soy_jefe)
 		enemigos[num_enemigo].vida=enemigos[num_enemigo].vida*10;
 		enemigos[num_enemigo].ataque=enemigos[num_enemigo].ataque*2;
 		enemigos[num_enemigo].velocidad=enemigos[num_enemigo].velocidad*1.5;
 		enemigos[num_enemigo].experiencia=enemigos[num_enemigo].experiencia*4;
+		while(en_pantalla())
+			x=rand(0,num_zonas)*1280;
+			y=rand(0,num_zonas)*720;
+		end
 	end
 	
 	//calculo de vida real
-	enemigos[num_enemigo].vida=enemigos[num_enemigo].vida*((1+jugadores)*nivel*0.4);
+	enemigos[num_enemigo].vida=enemigos[num_enemigo].vida*(((1+jugadores)/2)*nivel*0.4);
 
 	//calculo de stats dependiendo del nivel
 	enemigos[num_enemigo].ataque=enemigos[num_enemigo].ataque+(enemigos[num_enemigo].ataque*nivel*0.5);
 	enemigos[num_enemigo].vida=enemigos[num_enemigo].vida+(enemigos[num_enemigo].vida*nivel*0.5);
 	enemigos[num_enemigo].defensa=enemigos[num_enemigo].defensa+(enemigos[num_enemigo].defensa*nivel*0.5);
 	enemigos[num_enemigo].velocidad=(enemigos[num_enemigo].velocidad-2)+(nivel/2);
-	enemigos[num_enemigo].experiencia=enemigos[num_enemigo].experiencia+((nivel-1)*0.4);
-	
+	enemigos[num_enemigo].experiencia=enemigos[num_enemigo].experiencia*((nivel-1)*0.4);
+
+	//aplicamos una velocidad mínima
 	if(enemigos[num_enemigo].velocidad<2) enemigos[num_enemigo].velocidad=2; end
-	
-	ataque=enemigos[num_enemigo].ataque;
-	
 	inc_max=enemigos[num_enemigo].velocidad;
 	
-	while(!exists(id_camara)) frame; end
+	ataque=enemigos[num_enemigo].ataque;
 	
 	loop
 		x=rand(x_orig-620,x_orig+620);
 		y=rand(y_orig-340,y_orig+340);
-		if(!comprueba_dureza(x,y) and !en_pantalla()) break; end
+		if(!comprueba_dureza(x,y)) break; end
 	end
 		
 	while(!estoy_visible())
@@ -1998,10 +2002,11 @@ Begin
 				ultimo_atacante=id_colision.jugador;
 				accion=HERIDO; 
 				knockback=10+(inc_max*5);
-				if(knockback>20) knockback=0; end
+				if(knockback>20) knockback=20; end
+				if(knockback<5) knockback=20; end
 								
 				if(enemigos[num_enemigo].resistencia==id_colision.tipo_ataque and id_colision.tipo_ataque!=0)
-					knockback=knockback/2;
+//					knockback=knockback/2;
 					//No recibe daño, pero si KNOCKBACK
 				else
 					i=id_colision.ataque-enemigos[num_enemigo].defensa;
@@ -2026,7 +2031,7 @@ Begin
 				accion=HERIDO;
 				enemigos[num_enemigo].vida-=id_colision.ataque;
 				vida_quitada(id_colision.ataque,0);
-				knockback=30;
+				knockback=40;
 			end	
 			
 			if(id_colision=collision(type enemigo))
@@ -2386,7 +2391,7 @@ Begin
 		end
 		p[jugador].id.accion=CON_OBJETO;
 		mensaje("Jugador "+jugador+" sube nivel");
-		id_camara.jugador=i;
+		id_camara.jugador=jugador;
 		ready=0;
 		i=elige_stats(j);
 		while(exists(i)) frame; end
