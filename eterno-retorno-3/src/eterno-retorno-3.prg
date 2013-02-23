@@ -1935,7 +1935,7 @@ Begin
 	enemigos[num_enemigo].vida=enemigos[num_enemigo].vida+(enemigos[num_enemigo].vida*nivel*0.5);
 	enemigos[num_enemigo].defensa=enemigos[num_enemigo].defensa+(enemigos[num_enemigo].defensa*nivel*0.5);
 	enemigos[num_enemigo].velocidad=(enemigos[num_enemigo].velocidad-2)+(nivel/2);
-	enemigos[num_enemigo].experiencia=enemigos[num_enemigo].experiencia*((nivel-1)*0.4);
+	enemigos[num_enemigo].experiencia=enemigos[num_enemigo].experiencia*(nivel*0.4);
 
 	//aplicamos una velocidad mínima
 	if(enemigos[num_enemigo].velocidad<2) enemigos[num_enemigo].velocidad=2; end
