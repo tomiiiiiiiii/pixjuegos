@@ -4,6 +4,9 @@ echo Compilando...
 ..\..\bennu-win\bgdc ripolles.prg
 move ripolles.dcb ..
 cd ..
+
+call ..\scripts\descomprimefpgs.bat
+
 echo Exportando...
 mkdir export
 mkdir export\fpg

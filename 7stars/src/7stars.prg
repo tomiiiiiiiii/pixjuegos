@@ -62,13 +62,13 @@ include "../../common-src/controles.pr-";
 include "../../common-src/resolucioname.pr-";
 	
 begin
-full_screen=false;
-resolucioname(1024,768,0);
-set_mode(1024,768,bpp);
-set_fps(30,0);
-fuente=load_fnt("./fnt/fuente.fnt");
-load_fpg("./fpg/ficher.fpg");
-menu();
+	full_screen=false;
+	resolucioname(1024,768,0);
+	set_mode(1024,768,bpp);
+	set_fps(30,0);
+	fuente=load_fnt("fnt/fuente.fnt");
+	load_fpg("fpg/ficher.fpg");
+	menu();
 end
 
 //menu

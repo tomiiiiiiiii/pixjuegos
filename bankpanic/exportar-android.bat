@@ -9,16 +9,8 @@ move bp.dcb ..\main.dcb
 cd ..
 pause
 
-echo Compilando fpgs....
-cd fpg-sources
-copy /y ..\..\utils\pxlfpg.dcb .
-..\..\bennu-win\bgdi pxlfpg 16 bp
-
-del /f pxlfpg.dcb
-cd ..\fpg
-ren bp.fpg bp.fpg.gz
-..\..\utils\gzip -d bp.fpg.gz
-cd ..
+call compilarfpgs.bat 16
+call ..\scripts\descomprimefpgs.bat
 
 echo Exportando...
 mkdir export

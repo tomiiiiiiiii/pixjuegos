@@ -10,12 +10,16 @@ Private
 	pulsando_abajo;
 	recibiendo_combo;
 	diferencia_combo;
+	se_defiende=0;
+	sabe_saltar=0;
 Begin
 	ctype=coordenadas;
 	p[jugador].juega=1;
 	p[jugador].identificador=id;
 	
 	if(tipo==0)
+		se_defiende=1;
+		sabe_saltar=1;
 		switch(modo_juego)
 			case modo_historia:
 				x=50+50*jugador;
@@ -72,28 +76,30 @@ Begin
 				inercia_max_y=1;
 				fuerza_ataque=10;
 				file=fpg_enemigo1; 
-				p[jugador].vida=(50*jugadores)/1.2;
+				p[jugador].vida=50;
 			end
 			case 2:
 				inercia_max_x=4;
 				inercia_max_y=2;
 				fuerza_ataque=15;
 				file=fpg_enemigo2; 
-				p[jugador].vida=(80*jugadores)/1.2;
+				p[jugador].vida=80;
+				se_defiende=1;
 			end
 			case 3:
 				inercia_max_x=2;
 				inercia_max_y=2;
 				fuerza_ataque=20;
 				file=fpg_enemigo3; 
-				p[jugador].vida=(100*jugadores)/1.2;
+				p[jugador].vida=100;
 			end
 			case 4:
 				inercia_max_x=5;
 				inercia_max_y=3;
 				fuerza_ataque=25;
 				file=fpg_enemigo4; 
-				p[jugador].vida=(120*jugadores)/1.2;
+				p[jugador].vida=120;
+				sabe_saltar=1;
 			end
 			case 5: //EVIL RIPOLLES
 				inercia_max_x=7;
@@ -101,7 +107,16 @@ Begin
 				fuerza_ataque=20;
 				file=fpg_enemigo5;
 				p[jugador].vida=300;
+				se_defiende=1;
+				sabe_saltar=1;
 			end
+		end
+		if(jugadores>1)
+			p[jugador].vida+=p[jugador].vida*(jugadores*0.2);
+		end
+		if(good_vs_evil)
+			fuerza_ataque=fuerza_ataque/3;
+			p[jugador].vida=p[jugador].vida*0.7;
 		end
 	end
 	accion=quieto;
@@ -204,7 +219,7 @@ Begin
 					if(p[jugador].botones[b_1] and pulsando_ataque1==0)
 						pulsando_ataque1=1;
 						if(lleva_objeto==0)
-							if(p[jugador].botones[b_3] and p[jugador].vida>30)
+							if(p[jugador].botones[b_3] and p[jugador].vida>30 and tipo==0)
 								accion=ataca_area;
 								sonido(3,3);
 								if(invencibilidad==0)
@@ -255,7 +270,7 @@ Begin
 					end
 					
 					//defenderse
-					if(p[jugador].botones[b_3] and !p[jugador].botones[b_1])
+					if(p[jugador].botones[b_3] and !p[jugador].botones[b_1] and se_defiende)
 						accion=defiende;
 						if(lleva_objeto)
 							objeto(x,y_base,altura-100,lleva_objeto,0);
@@ -265,7 +280,7 @@ Begin
 				end
 														
 				//salto
-				if(p[jugador].botones[b_2] and (accion==quieto or accion==camina))
+				if(p[jugador].botones[b_2] and (accion==quieto or accion==camina) and sabe_saltar)
 					if(pulsando_salto==0)
 						pulsando_salto=1;
 						gravedad=-24;
@@ -444,7 +459,7 @@ Begin
 			end
 		end		
 		
-		//gestión de los ataques (puntos de colisión de los ataques
+		//gestión de los ataques (puntos de colisión de los ataques)
 		if(accion==ataca_suelo)
 			if(anim<4)
 				ataque(x+(15*hacia_que_lado),y-15,fpg_general,1,fuerza_ataque,20);

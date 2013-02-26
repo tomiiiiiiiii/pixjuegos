@@ -4,6 +4,9 @@ echo Compilando...
 ..\..\bennu-win\bgdc -g dx.prg
 move dx.dcb ..
 cd ..
+
+call compilarfpgs.bat 32
+
 echo Exportando...
 mkdir export
 mkdir export\fpg

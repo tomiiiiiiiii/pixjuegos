@@ -10,12 +10,10 @@ cd ..
 pause
 
 echo Compilando fpgs....
-start /wait compilarfpgs.bat 16
+call compilarfpgs.bat 16
 
-cd fpg
-ren *.fpg *.fpg.gz
-..\..\utils\gzip -d *.fpg.gz
-cd ..
+call ..\scripts\descomprimefpgs.bat
+ren durezas.fpg.gz durezas.fpg
 
 echo Exportando...
 mkdir export

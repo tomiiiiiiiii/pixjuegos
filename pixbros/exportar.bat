@@ -4,6 +4,9 @@ echo Compilando...
 ..\..\bennu-win\bgdc pixbros.prg
 move pixbros.dcb ..
 cd ..
+
+call compilarfpgs
+
 echo Exportando...
 mkdir export
 mkdir export\fpg

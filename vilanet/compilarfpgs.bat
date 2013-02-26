@@ -1,6 +1,4 @@
 @echo off
-ECHO CREANDO FPGS...
-cd fpg-sources
-copy /y ..\..\utils\pxlfpg.dcb .
-..\..\bennu-win\bgdi pxlfpg 16 vilanet
-del /f pxlfpg.dcb
+set bits=%1
+if "%bits%"==""; set bits=32
+call ..\scripts\compilarfpgs.bat %bits% vilanet

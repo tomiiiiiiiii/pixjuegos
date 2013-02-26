@@ -10,12 +10,7 @@ cd ..
 pause
 
 call compilarfpgs 16
-
-
-cd ..\fpg
-ren *.fpg *.fpg.gz
-..\..\utils\gzip -d *.fpg.gz
-cd ..
+call ..\scripts\descomprimefpgs.bat
 
 echo Exportando...
 mkdir export

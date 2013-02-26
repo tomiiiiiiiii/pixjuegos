@@ -10,6 +10,7 @@ cd ..
 pause
 
 call compilarfpgs 16
+call ..\scripts\descomprimefpgs.bat
 
 echo Exportando...
 mkdir export

@@ -10,19 +10,8 @@ cd ..
 pause
 
 echo Compilando fpgs....
-cd fpg-sources
-copy /y ..\..\utils\pxlfpg.dcb .
-..\..\bennu-win\bgdi pxlfpg 16 pixfrogger-hd-portrait pixfrogger-md-portrait pixfrogger-ld-portrait
-
-del /f pxlfpg.dcb
-cd ..\fpg
-ren pixfrogger-hd-portrait.fpg pixfrogger-hd-portrait.fpg.gz
-ren pixfrogger-md-portrait.fpg pixfrogger-md-portrait.fpg.gz
-ren pixfrogger-ld-portrait.fpg pixfrogger-ld-portrait.fpg.gz
-..\..\utils\gzip -d pixfrogger-hd-portrait.fpg.gz
-..\..\utils\gzip -d pixfrogger-md-portrait.fpg.gz
-..\..\utils\gzip -d pixfrogger-ld-portrait.fpg.gz
-cd ..
+call compilarfpgs.bat 16
+call ..\scripts\descomprimefpgs.bat
 
 echo Compilando fnts...
 cd fnt-sources

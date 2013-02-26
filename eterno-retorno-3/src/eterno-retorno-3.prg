@@ -329,7 +329,7 @@ Begin
 	from i=1 to 8;
 		p[i].vida+=100;
 		p[i].id=0;
-		p[i].xp_siguiente=p[i].xp_anterior*1.25;
+		p[i].xp_siguiente=p[i].xp_anterior*1.05;
 	end
 	
 	id_camara=0;
@@ -551,7 +551,7 @@ Begin
 		sube_nivel();
 		ataque=p[jugador].ataque;
 		defensa=p[jugador].defensa;
-		inc_max=(p[jugador].velocidad/3)+4;
+		inc_max=(p[jugador].velocidad/9)+4;
 		suerte=p[jugador].suerte;
 		
 		if(accion==QUIETO)
@@ -1920,7 +1920,7 @@ Begin
 		enemigos[num_enemigo].vida=enemigos[num_enemigo].vida*10;
 		enemigos[num_enemigo].ataque=enemigos[num_enemigo].ataque*2;
 		enemigos[num_enemigo].velocidad=enemigos[num_enemigo].velocidad*1.5;
-		enemigos[num_enemigo].experiencia=enemigos[num_enemigo].experiencia*4;
+		enemigos[num_enemigo].experiencia=enemigos[num_enemigo].experiencia*10;
 		while(en_pantalla())
 			x=rand(0,num_zonas)*1280;
 			y=rand(0,num_zonas)*720;
@@ -1934,8 +1934,8 @@ Begin
 	enemigos[num_enemigo].ataque=enemigos[num_enemigo].ataque+(enemigos[num_enemigo].ataque*nivel*0.5);
 	enemigos[num_enemigo].vida=enemigos[num_enemigo].vida+(enemigos[num_enemigo].vida*nivel*0.5);
 	enemigos[num_enemigo].defensa=enemigos[num_enemigo].defensa+(enemigos[num_enemigo].defensa*nivel*0.5);
-	enemigos[num_enemigo].velocidad=(enemigos[num_enemigo].velocidad-2)+(nivel/2);
-	enemigos[num_enemigo].experiencia=enemigos[num_enemigo].experiencia*(nivel*0.4);
+	enemigos[num_enemigo].velocidad=(enemigos[num_enemigo].velocidad-2)+(nivel/8);
+	enemigos[num_enemigo].experiencia=enemigos[num_enemigo].experiencia*(nivel*0.8);
 
 	//aplicamos una velocidad mínima
 	if(enemigos[num_enemigo].velocidad<2) enemigos[num_enemigo].velocidad=2; end
@@ -1982,9 +1982,9 @@ Begin
 			if(tipo==TORO)
 				if(exists(id_personaje))
 					if(abs(id_personaje.x-x)<30)
-						inc_max=enemigos[num_enemigo].velocidad*2;
+						inc_max=enemigos[num_enemigo].velocidad*1.5;
 					elseif(abs(id_personaje.y-y)<30)
-						inc_max=enemigos[num_enemigo].velocidad*2;
+						inc_max=enemigos[num_enemigo].velocidad*1.5;
 					end
 				else
 					inc_max=enemigos[num_enemigo].velocidad;

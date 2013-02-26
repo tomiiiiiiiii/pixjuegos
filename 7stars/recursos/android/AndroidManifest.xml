@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="com.pixjuegos.7stars"
+      package="com.pixjuegos.sevenstars"
       android:versionCode="1"
       android:versionName="1.0"
 	  android:installLocation="auto">
         <application android:label="@string/app_name" android:icon="@drawable/icon" android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
-        <activity android:name="7stars"
+        <activity android:name="sevenstars"
                   android:label="@string/app_name"
                   android:screenOrientation="landscape">
             <intent-filter>

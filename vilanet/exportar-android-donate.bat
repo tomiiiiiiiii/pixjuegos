@@ -9,23 +9,8 @@ move vilanet.dcb ..\main.dcb
 cd ..
 pause
 
-echo Compilando fpgs....
-cd fpg-sources
-copy /y ..\..\utils\pxlfpg.dcb .
-..\..\bennu-win\bgdi pxlfpg 16 vilanet
-
-del /f pxlfpg.dcb
-cd ..\fpg
-ren vilanet.fpg vilanet.fpg.gz
-..\..\utils\gzip -d vilanet.fpg.gz
-cd ..
-
-rem echo Compilando fnts...
-rem cd fnt-sources
-rem copy ..\..\utils\pxlfnt.dcb . /y
-rem ..\..\bennu-win\bgdi pxlfnt 16 puntos-hd puntos-ld puntos-md
-rem del /f pxlfnt.dcb
-rem cd ..
+call compilarfpgs.bat 16
+call ..\scripts\descomprimefpgs.bat
 
 echo Exportando...
 mkdir export

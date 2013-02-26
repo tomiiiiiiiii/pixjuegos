@@ -4,6 +4,8 @@ echo Compilando...
 ..\..\bennu-win\bgdc pixdash.prg
 move pixdash.dcb ..
 cd ..
+call compilarfpgs
+
 echo Exportando...
 mkdir export
 mkdir export\fpg

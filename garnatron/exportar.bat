@@ -4,6 +4,9 @@ echo Compilando...
 ..\..\bennu-win\bgdc garnatron.prg
 move garnatron.dcb ..
 cd ..
+
+call compilarfpgs
+
 echo Exportando...
 mkdir export
 mkdir export\fpg

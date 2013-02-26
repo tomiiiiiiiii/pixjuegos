@@ -44,8 +44,7 @@ Global
 	key_b_1=_A;
 	key_b_2=_S;
 	key_b_3=_D;
-	key_b_salir=_ESC;
-	
+	key_b_salir=_ESC;	
 End
 
 Process controlador(jugador);
@@ -433,4 +432,3 @@ Begin
 	draw_line(0,6*gamepad_boton_size/4,0,2*gamepad_boton_size/4);
 	draw_line(0,2*gamepad_boton_size/4,gamepad_boton_size/2,0);
 End
-

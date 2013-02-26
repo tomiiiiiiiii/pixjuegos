@@ -5,6 +5,8 @@ echo Compilando...
 ..\..\bennu-win\bgdc quizz.prg
 move quizz.dcb ..
 cd ..
+
+call compilarfpgs.bat 16
 echo Exportando...
 mkdir export
 mkdir export\fpg

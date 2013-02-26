@@ -4,6 +4,9 @@ echo Compilando...
 ..\..\bennu-win\bgdc pixfrogger.prg
 move pixfrogger.dcb ..
 cd ..
+
+call compilarfpgs
+
 echo Exportando...
 mkdir export
 mkdir export\fpg

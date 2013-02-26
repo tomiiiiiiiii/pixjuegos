@@ -4,6 +4,7 @@ echo Compilando...
 ..\..\bennu-win\bgdc vilanet.prg
 move vilanet.dcb ..
 cd ..
+call compilarfpgs
 echo Exportando...
 mkdir export
 mkdir export\fpg

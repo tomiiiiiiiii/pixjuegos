@@ -8,6 +8,7 @@ Private
 	se_defiende=0;
 	sabe_saltar=0;
 	max_vida;
+	controlado;
 Begin
 	from i=0 to 7; p[jugador].botones[i]=0;	end
 	e=personaje(jugador,tipo);
@@ -33,23 +34,7 @@ Begin
 	if(tipo==5) from alpha=0 to 255 step 4; frame; end end
 	if(tipo==2 or tipo==5) se_defiende=1; huye=0; end
 	if(tipo==4 or tipo==5) sabe_saltar=1; end
-	loop
-		if(good_vs_evil)
-			from i=3 to 3;
-				if(!exists(p[i].identificador))
-					p[i].identificador=id;
-					controlador(i);
-					while(p[jugador].vida>0)
-						from j=0 to 7;
-							p[jugador].botones[j]=p[i].botones[j]; 
-						end
-						frame;
-					end
-					return;
-				end
-			end
-		end
-		
+	loop	
 		if(mata_enemigos and tipo>0)
 			p[jugador].vida=0;
 		end
@@ -59,19 +44,41 @@ Begin
 		accion=e.accion;
 		from i=0 to 7; p[jugador].botones[i]=0;	end
 
-		
 		//recolocamos al enemigo si está muy alejado
 		if(x<id_camara.x-((ancho_pantalla/2)+150))
 			x=e.x=id_camara.x-((ancho_pantalla/2)+150);
 		elseif(x>id_camara.x+((ancho_pantalla/2)+150))
 			x=e.x=id_camara.x+((ancho_pantalla/2)+150);
 		end
-			
+		
 		objetivo=jugador_mas_cercano();
 		
 		if(renacimiento)
 			e.herida=20;
 		end
+		
+		if(good_vs_evil)
+			if(estoy_en_pantalla())
+				if(controlado==0)
+					from i=3 to 4;
+						if(!exists(p[i].identificador) and controlado==0)
+							p[i].identificador=id;
+							controlador(i);
+							controlado=i;
+						end
+					end
+				else
+					objetivo=0;
+					from j=0 to 7; p[jugador].botones[j]=p[controlado].botones[j]; end
+				end
+			else
+				if(controlado>0)
+					p[controlado].identificador=0;
+				end
+				controlado=0;
+			end
+		end
+
 		if(objetivo>0)
 			if(p[objetivo].juega)
 				o=p[objetivo].identificador;
@@ -148,6 +155,9 @@ Begin
 			muestra_vida((p[jugador].vida*100)/max_vida);
 		end
 		if(e.accion==muere)
+			if(controlado>0)
+				p[controlado].identificador=0;
+			end
 			return;
 		end
 		frame;

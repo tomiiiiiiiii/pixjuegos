@@ -5,6 +5,8 @@ echo Compilando...
 move eterno-retorno.dcb ..
 cd ..
 
+call compilarfpgs 16
+
 echo Exportando...
 mkdir export
 mkdir export\fpg

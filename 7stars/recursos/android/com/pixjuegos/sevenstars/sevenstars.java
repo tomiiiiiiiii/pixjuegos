@@ -1,4 +1,4 @@
-package com.pixjuegos.7stars;
+package com.pixjuegos.sevenstars;
 
 import org.libsdl.app.SDLActivity;
 import android.os.*;
@@ -7,7 +7,7 @@ import android.os.*;
  * A sample wrapper class that just calls SDLActivity
  */ 
 
-public class 7stars extends SDLActivity {
+public class sevenstars extends SDLActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
