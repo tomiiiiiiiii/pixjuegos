@@ -230,9 +230,7 @@ Begin
 	if(arcade_mode)
 		bpp=32;
 		scale_resolution=08000600;
-		/*ancho_pantalla=480;
-		alto_pantalla=360;
-		panoramico=0;*/
+		full_screen=true;
 	end
 	
 	//Pero internamente trabajaremos con esto:
