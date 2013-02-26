@@ -98,7 +98,7 @@ Begin
 	while(timer[0]<6000)
 		if(p[0].botones[b_izquierda]) cambiar_opcion(0); break; end
 		if(p[0].botones[b_derecha]) cambiar_opcion(1); break; end
-		if(p[0].botones[b_2]) suena(1); from size=100 to 120; alpha-=10; frame; end ejecutar(); end
+		if(p[0].botones[b_1] or p[0].botones[b_2] or p[0].botones[b_3]) suena(1); from size=100 to 120; alpha-=10; frame; end ejecutar(); end
 		if(key(_esc)) say("salir"); exit(); end
 		frame;
 	end

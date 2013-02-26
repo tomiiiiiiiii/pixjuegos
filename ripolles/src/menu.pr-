@@ -25,6 +25,7 @@ begin
 	fade_on();
 
 	if(arcade_mode and num_menu<1)
+		while(p[0].botones[b_salir]) frame; end
 		write(fnt_menu,320,180,4,"Pulsa el boton 2 para jugar");
 		while(p[0].botones[b_2]) frame; end
 		while(!p[0].botones[b_2])

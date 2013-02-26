@@ -5,7 +5,7 @@ echo Compilando...
 move ripolles.dcb ..
 cd ..
 
-call ..\scripts\descomprimefpgs.bat
+call compilafpgs 32
 
 echo Exportando...
 mkdir export
