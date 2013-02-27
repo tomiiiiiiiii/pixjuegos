@@ -608,7 +608,7 @@ begin
 	controlador(1);
 	
 	//modo arcade
-	if(arcade_mode==1)
+	if(arcade_mode==1 and num_menu==0)
 		write(fuente[0],ancho_pantalla/2,alto_pantalla/2,4,"Pulsa el boton 2 para empezar");
 		while(not p[0].botones[b_2])
 			scroll.x0+=3;
@@ -1153,7 +1153,7 @@ process boton(x,y,string texto,int a);
 
 begin
 	file=fpg_menu;
-	z=100;
+	z=-100;
 	loop
 		if(opcion==a)
 			graph=10;
@@ -1181,11 +1181,11 @@ begin
 	graph=4;
 	x=ancho_pantalla/2;
 	y=alto_pantalla/2;
-	while(not p[0].botones[4])
+	while(not p[0].botones[5])
 		scroll.x0+=3;
 		frame;
 	end
-	while(p[0].botones[4])
+	while(p[0].botones[5])
 		scroll.x0+=3;
 		frame;
 	end
@@ -1195,7 +1195,8 @@ begin
 		poder[2]=1;
 		puntos[1]=0;
 		puntos[2]=0;
-		fase(1);
+		menu(4);
+	//	fase(1);
 	else
 		menu(0);
 	end

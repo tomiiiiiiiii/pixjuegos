@@ -10,8 +10,14 @@ private acelx; acely; disparando; inmunidad=75; retardo=5; id_bomba;
 BEGIN
 	graph=1+((jugador-1) * 3);
 	file=fpg_nave;
-	controlador(jugador);
+//	controlador(jugador);
 	fuerza[jugador]=jugador;
+	if(y>alto_pantalla-70 and distancia > 0)
+		from y=y to alto_pantalla-70 step -5;
+			frame;
+		end
+	end
+	
 		LOOP
 			if(pausa==0)
 				if(inmunidad<75) inmunidad++; estado=0; flags=4; else flags=0; end
@@ -265,10 +271,10 @@ begin
 			x=ancho_pantalla-50; y=200; flags=1;
 		end
 		case 3:
-			x=50; y=alto_pantalla-50; flags=2;
+			x=50; y=alto_pantalla-200; flags=2;
 		end
 		case 4:
-			x=ancho_pantalla-50; y=alto_pantalla-50; flags=3;
+			x=ancho_pantalla-50; y=alto_pantalla-200; flags=3;
 		end
 	end
 	loop
@@ -316,7 +322,7 @@ switch (jugador)
 		x1=-28;
 	end
 	case 3:
-		x=50; y=alto_pantalla-50; flags=2;
+		x=50; y=alto_pantalla-200; flags=2;
 		y1[4]=13;
 		y1[3]=-13;
 		y1[2]=-39;
@@ -325,7 +331,7 @@ switch (jugador)
 		x1=28;
 	end
 	case 4:
-		x=ancho_pantalla-50; y=alto_pantalla-50; flags=3;
+		x=ancho_pantalla-50; y=alto_pantalla-200; flags=3;
 		y1[4]=13;
 		y1[3]=-13;
 		y1[2]=-39;
@@ -363,9 +369,6 @@ end
 
 process bono(x,y,tipo);
 
-private
-	nave;
-
 begin
 file=fpg_nave;
 if(tipo==1) graph=15; end
@@ -376,12 +379,12 @@ loop
 	if(pausa==0)
 		y+=3; angle+=3000;
 		
-		from nave=0 to 3;
-			if(exists(id_nave[nave]))
-				if(collision(id_nave[nave]))
-					if(tipo==1) escudo[nave]+=1; end
-					if(tipo==2) energia[nave]=20; end
-					if(tipo==3) poder[nave]+=1; end
+		from jugador=0 to 3;
+			if(exists(id_nave[jugador]))
+				if(collision(id_nave[jugador]))
+					if(tipo==1) escudo[jugador]+=1; end
+					if(tipo==2) energia[jugador]=20; end
+					if(tipo==3) poder[jugador]+=1; end
 					if(ops.particulas==1)
 						explotalo(x,y,z,alpha,angle,file,graph,20);
 					else

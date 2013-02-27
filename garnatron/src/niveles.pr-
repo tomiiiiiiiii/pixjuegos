@@ -29,6 +29,9 @@ Begin
 	delete_text(all_text);
 	let_me_alone();
 	controlador(0);
+	from jugador=1 to posibles_jugadores;
+		controlador(jugador);
+	end
 	x=ancho_pantalla/2;
 	y=alto_pantalla/2;
 	z=-100;
@@ -638,6 +641,9 @@ Begin
 	delete_text(all_text);
 	let_me_alone();
 	controlador(0);
+	from jugador=1 to posibles_jugadores;
+		controlador(jugador);
+	end
 	x=ancho_pantalla/2;
 	y=alto_pantalla/2;
 	z=-100;
@@ -741,6 +747,13 @@ Begin
 	end
 	pausa=0;
 	LOOP
+		from jugador=1 to posibles_jugadores;
+			if(jugador == jugadores+1 and p[jugador].botones[4] and p[jugador].botones[5])
+				id_nave[jugador]=nave01(ancho_pantalla/2,alto_pantalla+100,jugador);
+				marcador(jugador);
+				jugadores+=1;
+			end
+		end
 
 		if(p[0].botones[7] and gatillo==0)
 			gatillo=1;
@@ -779,7 +792,7 @@ Begin
 				gatillo=1;
 				opcion++;
 			end
-			if(p[0].botones[4])
+			if(p[0].botones[5])
 				if(opcion==1) opcion=0; pausa=0; graph=0; delete_text(id_texto); delete_text(id_texto1); delete_text(id_texto2); signal(type boton,s_kill); end
 				if(opcion==2) opcion=0; while(p[0].botones[4]) frame; end menu(0); break; end
 			end
