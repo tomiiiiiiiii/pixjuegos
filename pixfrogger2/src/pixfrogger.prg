@@ -25,7 +25,21 @@ import "mod_sys";
 import "mod_regex";
 import "mod_key";
 
-global
+#ifdef RED
+import "fsock";
+#endif
+
+Global
+	#ifdef RED
+		en_red=1;
+	#else
+		en_red=0;
+	#endif
+	estado_red=-1;
+	net_clients;
+	
+	
+	
 	arcade_mode=0;
 	bpp=32;
 	frameskip=1;
@@ -51,6 +65,7 @@ global
 	rana_juega[32];
 	rana_viva[32];
 	rana_puntos[32];
+	string rana_msg[32];
 	puntos_win=10;
 	llegada;
 	fnt_puntos;
@@ -98,6 +113,7 @@ Local
 	pos_y;
 	opcion;
 	id_boton;
+	no_matar;
 End //local
 
 //cosas comunes de los pixjuegos
@@ -412,7 +428,7 @@ Begin
 						frame;
 						graph=get_screen();
 						alpha=255;
-						let_me_alone();
+						net_let_me_alone();
 						juego();
 						z=-100;
 						from alpha=255 to 0 step -15; frame; end
@@ -815,7 +831,7 @@ process logo_pixjuegos();
 begin
 	//reiniciamos todo, por si las moscas
 	reset();
-	let_me_alone();
+	net_let_me_alone();
 	controlador(0);
 	
 	//boton_sonido(ancho_pantalla-30,30);	
@@ -912,20 +928,20 @@ begin
 		if(key(_enter) and keytime==0)
 			sonido(3);
 			if(elecc==0)
-				let_me_alone();
+				net_let_me_alone();
 				scroll_y=0;
 				elecpersonaje();
 				break;
 			end
 			if(elecc==1)
-				let_me_alone();
+				net_let_me_alone();
 				back(3);
 				logo_pixfrogger();
 				opcion();
 				break;
 			end
 			if(elecc==2)
-				let_me_alone();
+				net_let_me_alone();
 				back(5);
 				break;
 			end
@@ -1052,7 +1068,7 @@ begin
 	loop
 		if(boton[9])
 			while(boton[9]) frame; end
-			let_me_alone();
+			net_let_me_alone();
 			sonido(1);
 			menu();
 			break;
@@ -1061,7 +1077,7 @@ begin
 		if(graph==5 or graph==912)
 			if(key(_esc) and keytime==0)
 				sonido(3);
-				let_me_alone();
+				net_let_me_alone();
 				menu();
 				break;
 				keytime=10;
@@ -1087,7 +1103,7 @@ begin
 	tecenter=1;
 	loop
 		if(boton[9])
-			let_me_alone();
+			net_let_me_alone();
 			menu();
 			break;
 		end
@@ -1123,7 +1139,7 @@ begin
 					end
 				end
 				if(elecc==3)
-					let_me_alone();
+					net_let_me_alone();
 					stop_song();
 					while(key(_enter)) frame; end
 					elige_lenguaje();
@@ -1182,8 +1198,20 @@ begin
 	z=100;
 	if(!exists(type controlador)) controlador(0); end
 	panoramico=1;
+	if(en_red)
+		if(estado_red==2)
+			estado_red=1;
+		else
+			estado_red=0;
+		end
+	end
 	loop
-		dand++;
+		if(en_red==0 or estado_red==2)
+			dand++;
+		end
+		if(en_red and key(_space))
+			estado_red=2;
+		end
 		if(dand==100)
 			grafico_al_centro(11);
 		end
@@ -1192,7 +1220,7 @@ begin
 		end
 		if(dand==250 or (dand>100 and key(_enter)))
 			graph=get_screen();
-			let_me_alone();
+			net_let_me_alone();
 			juego();
 			z=-100;
 			from alpha=255 to 0 step -15; frame; end
@@ -1211,7 +1239,7 @@ begin
 		
 		if(boton[9])
 			while(boton[9]) frame; end
-			let_me_alone();
+			net_let_me_alone();
 			if(!tactil)
 				menu();
 			else
@@ -1259,6 +1287,9 @@ private
 	ranas_vivas;
 	botones_pulsados;
 begin
+	if(en_red)
+		estado_red=3;
+	end
 	if(tactil or primera_ronda) ready=0; end
 	
 	clear_screen();
@@ -1302,7 +1333,7 @@ begin
 				z=-3;
 				alpha=255;
 				graph=get_screen();
-				let_me_alone();
+				net_let_me_alone();
 				
 				if(tactil)
 					menu_tactil();
@@ -1340,7 +1371,7 @@ begin
 		//perdida del foco en el juego
 		if(!focus_status and tactil)
 			primera_ronda=1;
-			let_me_alone();
+			net_let_me_alone();
 			stop_scroll(0);
 			if(ops.musica)
 				fade_music_off(1000);
@@ -1385,7 +1416,7 @@ begin
 			y=alto_pantalla/2;
 			z=-3;
 			alpha=255;
-			let_me_alone();
+			net_let_me_alone();
 			stop_scroll(0);
 			delete_text(all_text);
 			
@@ -1409,7 +1440,7 @@ begin
 						frame;	
 					end
 
-					let_me_alone();
+					net_let_me_alone();
 					graph=get_screen();
 
 					menu_tactil();
@@ -1430,7 +1461,7 @@ begin
 				if(key(_enter)) break; end
 			end
 			
-			let_me_alone();
+			net_let_me_alone();
 			juego();
 			z=-10;
 			from alpha=255 to 0 step -15; frame; end
@@ -1447,7 +1478,7 @@ begin
 			x=ancho_pantalla/2;
 			y=alto_pantalla/2;
 			z=-3;
-			let_me_alone();
+			net_let_me_alone();
 			alpha=60;
 			dand=100;
 			juego();
@@ -1465,7 +1496,7 @@ begin
 			dump_type=0;
 			restore_type=0;
 			while(boton[9]) frame; end
-			let_me_alone();
+			net_let_me_alone();
 			graph=get_screen();
 			x=ancho_pantalla/2; y=alto_pantalla/2; z=-100;
 			
@@ -1535,6 +1566,10 @@ private
 begin
 	y=8000;
 	rana_id[jugador]=id;
+	if(!humano)
+		rana_viva[jugador]=0;
+		return;
+	end
 	switch(posibles_jugadores)
 		case 2:
 			x=(ancho_pantalla/2)-(alto_camino)-(alto_camino*1.5)+(alto_camino*(jugador)*1.5);
@@ -1562,7 +1597,10 @@ begin
 	if(posibles_jugadores<=8)
 		gr=50+((jugador-1)*2);
 	else
-		graph=gr=50+(rand(0,3)*2);
+		gr=48+((jugador%4)*2);
+		if(gr==48) gr=56; end
+		
+		//graph=gr=50+(rand(0,3)*2);
 		num_jugador();
 	end
 	ctype=c_scroll;
@@ -1586,7 +1624,12 @@ begin
 		if(y>id_camara.y+alto_pantalla/2)
 			pos_y--;
 		end
-		if(pos_y==meta) llegada=jugador; end
+		if(pos_y==meta and llegada==0)
+			llegada=jugador; 
+			if(en_red)
+				rana_msg[jugador]="WIN";
+			end
+		end
 		if(humano==0 and retraso==0 and ready)
 			if(rand(0,5)<ops.dificultad or ops.dificultad==4)
 				y-=alto_camino;
@@ -1616,6 +1659,9 @@ begin
 		if(retraso>2) graph=gr+1; else graph=gr; end
 		y=(pos_y*alto_camino)+(alto_camino/2);
 		frame;
+	end
+	if(en_red)
+		rana_msg[jugador]="DEA";
 	end
 	rana_golpeada(x,y,gr+1);
 	if(!tactil)
@@ -1938,6 +1984,11 @@ End
 Process controlador(en_juego);
 Private
 	num_dedos;
+
+    int socket_listen; // socket_listen to listen to requests
+    int connection=0;
+    int ipaddr, portaddr;
+
 Begin
 	if(en_juego)
 		if(tactil)
@@ -1951,7 +2002,7 @@ Begin
 	
 	loop
 		from i=0 to 9; boton[i]=0; end
-		if(!tactil)
+		if(!tactil and !en_red)
 			if(arcade_mode)
 				if(get_joy_button(0,8)) boton[9]=1; end
 				if(get_joy_button(0,0)) boton[1]=1; end
@@ -2034,7 +2085,37 @@ Begin
 
 		//tecla maestra
 		if(key(_esc)) while(key(_esc)) frame; end boton[9]=1; end
-		
+
+		#IFDEF RED
+		if(en_red)
+			//servidor
+			if(estado_red==0)
+				say("Inicio servidor...");
+				fsock_init(0); // init fsock library
+				estado_red=1; //a conectar jugadores
+				socket_listen=tcpsock_open(); // new socket
+				fsock_bind(socket_listen, 8080); // we'll listen @ port 8080
+				tcpsock_listen(socket_listen, 32); // we'll listen for 32 clients
+				fsock_fdzero(0);
+				fsock_fdset(0,socket_listen);
+			end
+			if(estado_red==1)
+				if(fsock_select(0,-1,-1,0)>0)
+					connection=tcpsock_accept(socket_listen, &ipaddr, &portaddr);
+					if(connection>0)
+						say("Nuevo cliente conectando...");
+						process_client(connection, ipaddr, portaddr);
+					end
+				end
+				fsock_fdset (0, socket_listen); // We must reinclude after using select
+			end
+
+			if(estado_red==2) //0: nada, 1: inicial, 2: espera, 3: juego
+				
+			end
+		end
+		#ENDIF
+			
 		if(tactil)
 			if(mouse.left) dedo(mouse.x,mouse.y); end
 			if(mouse.right) while(mouse.right) frame; end boton[9]=1; end
@@ -2046,7 +2127,7 @@ Begin
 				end
 			end
 		end
-		
+	
 		if(key(_alt) and key(_enter)) 
 			while(scan_code!=0) frame; end 
 			if(full_screen) full_screen=0; else full_screen=1; end
@@ -2059,6 +2140,100 @@ Begin
 		frame;
 	end
 End
+
+#IFDEF RED
+process process_client(int sock, int ipaddr, int portaddr)
+private
+    char msg[20];
+    string hdrFields[128];
+    string request[3];
+    rlen, slen, n, pos, d1, d2, cnt;
+	estado;
+begin
+	no_matar=1;
+    net_clients++;
+
+	say("Connection from ip "+ fsock_get_ipstr(&ipaddr) + ":" + portaddr);
+
+    fsock_fdzero(1);
+    fsock_fdset(1,sock);
+
+    while(!key(_esc))
+    	// As every frame is executed separately, there's no problem with this
+        if (fsock_select(1,-1,-1,0)>0 && fsock_fdisset(1,sock))
+        	// In the real world, you'd loop here until you got the full package
+            rlen=tcpsock_recv(sock,&msg,sizeof(msg));
+            if(rlen<=0)
+                break;
+            end
+			switch(estado_red)
+				//-1: reiniciando fsock
+				//0: iniciando fsock
+				
+				case 1: //entrando jugadores
+					if(msg=="CON")
+						jugador=-1;
+						from i=1 to 32;
+							if(rana_juega[i]==0)
+								jugador=i;
+								boton[jugador]=1;
+								break;
+							end
+						end
+						if(jugador!=-1)
+							estado=1;
+							msg=""+jugador;
+							say("Nuevo jugador:"+jugador);
+							//le devolvemos su número de jugador
+							tcpsock_send(sock, &msg, sizeof(msg));
+						else
+							msg="ERR";
+						end
+					elseif(msg=="WAI")
+						msg="WAI";
+					else
+						msg="NOP";
+					end
+				end
+				case 2: //cuenta atrás para jugar
+					msg="T"+timer[0];
+				end
+				case 3: //jugando
+					if(msg[0]=="B" or msg[0]=="U")
+						jugador=atoi(""+msg[1]+msg[2]);
+						if(msg[0]=="B")
+							boton[jugador]=1;
+						elseif(msg[0]=="U")
+							boton[jugador]=0;
+						end
+						if(rana_msg[jugador]!="")
+							msg=rana_msg[jugador];
+							rana_msg[jugador]="";
+						else
+							if(rana_puntos[jugador]<10)
+								msg="S0"+rana_puntos[jugador];
+							else
+								msg="S"+rana_puntos[jugador];
+							end
+						end
+					End
+				end
+			end
+			if(msg=="")
+				msg="NOP";
+			end
+			tcpsock_send(sock, &msg, sizeof(msg));
+        end
+        
+        fsock_fdset(1,sock); // We must reinclude the socket after the select
+
+        frame;
+    end
+onexit
+	fsock_close(sock); // Close the socket
+    net_clients--;
+end
+#ENDIF
 
 Process dedo(x,y);
 Begin
@@ -2090,7 +2265,7 @@ Begin
 		boton[jugador]=0;
 		if(collision_box(type dedo)) 
 			boton[jugador]=1; 
-			if(alpha<255) rana_juega[jugador]=1; let_me_alone(); juego(); return; end
+			if(alpha<255) rana_juega[jugador]=1; net_let_me_alone(); juego(); return; end
 		end
 		frame;
 	end
@@ -2189,4 +2364,13 @@ End
 Process gana_rana_player();
 Begin
 	
+End
+
+Function net_let_me_alone();
+Begin
+	while(i=get_id(0))
+		if(i.no_matar==0 and i!=father.id and i!=id)
+			signal(i,s_kill);
+		end
+	end
 End

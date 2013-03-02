@@ -133,6 +133,8 @@ Global
 	s_mover;
 	s_cambiar_arma;
 
+	cargada;
+	
 	archivo;
 
 	disparos_sonando;
@@ -474,7 +476,7 @@ begin
 		end
 	
 		letra("Musica",ancho_pantalla-200,alto_pantalla-200,0);
-		letra("Danner",ancho_pantalla-200,alto_pantalla-200+30,0);
+		letra("Chewrafa",ancho_pantalla-200,alto_pantalla-200+30,0);
 		timer[2]=0;
 		while(timer[2]<400)
 			if(id_nave[1].x<1600)
@@ -1369,22 +1371,13 @@ end
 //-----------------------------------------------------------------------
 
 PROCESS musica(cancion);
-PRIVATE
-cargada;
-
 BEGIN
-FADE_MUSIC_OFF(0); 
-timer[1]=0;
-unload_song(cargada);
-	if(cancion==1)
-	cargada=load_song("./ogg/02.ogg");	//moto
-	end
-	if(cancion==2)
-	cargada=load_song("./ogg/02.ogg");	//batalla
-	end
-	
+	FADE_MUSIC_OFF(0); 
+	timer[1]=0;
+	unload_song(cargada);
+	cargada=load_song("./ogg/"+cancion+".ogg");	
 	play_song(cargada,-1);
-frame;
+	frame;
 END
 
 //-----------------------------------------------------------------------

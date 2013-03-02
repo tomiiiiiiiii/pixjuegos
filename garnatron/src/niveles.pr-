@@ -59,7 +59,7 @@ Begin
 	opcion=0;
 	distancia=0;
 
-	musica(1);
+	musica(3);
 	graph=20;
 	direccion=1;
 
@@ -683,7 +683,7 @@ Begin
 	opcion=0;
 	distancia=0;
 
-	musica(1);
+	musica(3);
 	graph=20;
 	direccion=1;
 
@@ -794,7 +794,7 @@ Begin
 			end
 			if(p[0].botones[5])
 				if(opcion==1) opcion=0; pausa=0; graph=0; delete_text(id_texto); delete_text(id_texto1); delete_text(id_texto2); signal(type boton,s_kill); end
-				if(opcion==2) opcion=0; while(p[0].botones[4]) frame; end menu(0); break; end
+				if(opcion==2) opcion=0; while(p[0].botones[5]) frame; end menu(0); break; end
 			end
 
 		end
@@ -821,7 +821,7 @@ Begin
 					case 5:
 						id_boss01=boss(datos_nivel[n][4]);
 						jefe=1;
-						musica(2);
+						musica(1);
 					end
 				end
 				n++;
