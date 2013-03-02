@@ -17,6 +17,7 @@ import "mod_wm"
 import "mod_time"
 import "mod_regex"
 import "mod_say"
+import "mod_sys"
 import "mod_multi"
 import "mod_mouse"
 
@@ -29,6 +30,7 @@ GLOBAL
 	fpg_general;
 	jugador;
 	puntos;
+	txt_puntos;
 End;
 
 PROCESS main();
@@ -42,11 +44,11 @@ Begin
 	
 	carga_sonidos();
 	
-	fuente=load_fnt("puntos-md.fnt");
+	fuente=load_fnt("textos2.fnt");
 	fpg_general=load_fpg("pixfrogger-md.fpg");
 	
 	fsock_init(0); // init fsock library
-    write(0, 0, 0, 0, "Toca la pantalla para unirte a la partida");
+    write(fuente, width/2, height/2, 4, "TOCA PARA JUGAR");
     while(!key(_esc) or (os_id==1003 and focus_status!=1))
         if(multi_info(0,"ACTIVE")>0 or mouse.left)
 			delete_text(all_text);
@@ -59,21 +61,21 @@ end;
 
 Process mi_rana();
 Begin
-	x=width/4;
-	y=height/4;
-	size=175;
+	x=width/2;
+	y=(height/4)*3;
 	graph=500+(jugador%4);
 	if(graph==500) graph=504; end
 	
-	write(fuente,(width/4)*3,height/4,4,jugador);
-	write_int(fuente,width/2,height/4,4,&puntos);
+	write(fuente,20,50,0,"Jugador: "+jugador);
+	txt_puntos=write(fuente,20,120,0,"Victorias: "+puntos);
+
+	sonido(4);
 	
-	from alpha=0 to 255 step 10; size-=3; frame; end
 	loop
 		if(multi_info(0, "ACTIVE") > 0)
-			angle-=6000;
+			alpha=255;
 		else
-			angle=0;
+			alpha=128;
 		end
 		frame;
 	end
@@ -92,12 +94,14 @@ begin
     socket=tcpsock_open(); // new socket
 	say("Creando socket...");
     if(tcpsock_connect(socket,"192.168.1.148","8080")!=0)
-        say("No se ha podido conectar con el servidor.");
-        return;
+        mensaje("Sin conexion");
+		while(exists(son)) frame; end
+        exit();
     end
 	say("Socket creado...");
 
-    while(!key(_esc) or (os_id==1003 and focus_status!=1))
+    while(focus_status==1)
+		msg="";
 		if(esperando==0)
 			if(estado==0)
 				dat="CON";
@@ -105,10 +109,6 @@ begin
 				say("Conectando...");
 			end
 			if(estado==1)
-				dat="WAI";
-				tcpsock_send(socket, &dat, len(dat));
-			end
-			if(estado==2)
 				if(multi_info(0,"ACTIVE")>0) //pulsa el botón
 					if(jugador<10)
 						dat="B0"+itoa(jugador);
@@ -133,40 +133,30 @@ begin
         rlen=tcpsock_recv(socket, &msg, sizeof(msg));
         if(rlen>0)
 			esperando=0;
-			switch(estado)
-				case 0: //conectando
-					if(msg!="ERR")
-						jugador=atoi(msg);
-						say("Jugador adquirido: "+msg);
-						mi_rana();
-						estado=2;
-					else
-						say("No se ha podido conectar");
-					end
+			if(estado==0)
+				if(msg!="ERR")
+					jugador=atoi(msg);
+					say("Jugador adquirido: "+msg);
+					mi_rana();
+					estado=1;
+				else
+					say("No se ha podido conectar");
 				end
-				case 1: //esperando para jugar
-					if(msg=="WAI")
-						//-- a seguir esperando
-					else
-						/*if(msg[0]=="T")
-						timer[0]=atoi(substr(msg,1));
-						segundos_restantes=(1000-timer[0])/60;
-						*/
-					end					
+			else //ESTAMOS DENTRO
+				if(msg=="DEA")
+					has_muerto();
 				end
-				case 2: //jugando
-					if(msg=="DEA")
-						has_muerto();
-					end
-					if(msg=="WIN")
-						has_ganado();
-					end
-					if(msg=="FIN")
-						game_over();
-					end
-					if(msg[0]=="S")
-						puntos=atoi(substr(msg,1));
-					end
+				if(msg=="WIN")
+					puntos++;
+					delete_text(txt_puntos);
+					txt_puntos=write(fuente,20,120,0,"Victorias: "+puntos);
+					has_ganado();
+				end
+				if(msg=="FIN")
+					game_over();
+				end
+				if(msg[0]=="P") //play_wav xD
+					sonido(atoi(substr(msg,1)));
 				end
 			end
         end
@@ -177,21 +167,39 @@ onexit
 	fsock_quit(); // Now close the fsock lib
 end
 
+Process mensaje(string texto);
+Begin
+	graph=write_in_map(fuente,texto,4);
+	y=(height/2)-50;
+	x=width/2;
+	from alpha=0 to 255 step 10; y+=2; frame; end
+	frame(5000);
+	from alpha=255 to 0 step -10; y+=2; frame; end
+	unload_map(0,graph);
+End
+
 Process has_muerto();
 Begin
 	//sonido croac
 	sonido(4);
+	mensaje("Has muerto");
 End
 
 Process has_ganado();
 Begin
 	//fanfarría del ganador
 	sonido(7);
+	mensaje("Has ganado");
 End
 
 Process game_over();
 Begin
 	//gracias por jugar
+	let_me_alone();
+	delete_text(all_text);
+	mensaje("Gracias por jugar");
+	while(exists(son)) frame; end
+	exec(_P_NOWAIT, "market://details?id=com.pixjuegos.pixfrogger", 0, 0);
 	exit();
 End
 

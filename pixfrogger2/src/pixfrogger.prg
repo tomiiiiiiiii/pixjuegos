@@ -77,6 +77,7 @@ Global
 	buzz_joys[8];
 	wavs[50];
 	boton[32]; //0: cualquier boton,1-8: ranas,9:salir
+	boton_salir;
 	posibles_jugadores;
 	id_camara;
 	num_jugadores=0;
@@ -150,8 +151,10 @@ begin
 		detecta_buzzers();
 
 		//TEST DEBUG:
-		posibles_jugadores=32;
-		ops.dificultad=4;
+		if(en_red)
+			posibles_jugadores=32;
+			ops.dificultad=4;
+		end
 		
 		//seteamos la distancia hasta la meta bien lejos en caso de muchos jugadores
 		if(posibles_jugadores=>16)
@@ -373,7 +376,7 @@ Begin
 			if(rana_juega[i]) num_jugadores++; end
 		end
 
-		if(boton[9])
+		if(boton_salir)
 			if(menu_actual!=1)
 				cambia_menu=1; sonido(1);
 			else
@@ -888,13 +891,16 @@ begin
 	primera_ronda=1;
 	dump_type=0; restore_type=0;
 	put_screen(0,3);
+	if(en_red and estado_red>0)
+		estado_red=-1;
+	end
 	if(!exists(type controlador)) controlador(0); end
 	if(arcade_mode)
 		//modo arcade
 		write(0,ancho_pantalla/2,alto_pantalla/2,4,"Pulsa el botón 1 para jugar");
 		while(boton[0]) frame; end
 		while(!boton[0]) 
-			if(boton[9]) salir(); end
+			if(boton_salir) salir(); end
 			frame; 
 		end
 		delete_text(all_text);
@@ -903,7 +909,7 @@ begin
 		put_screen(0,6);
 		while(boton[0]) frame; end
 		while(!boton[0]) 
-			if(boton[9]) salir(); end
+			if(boton_salir) salir(); end
 			frame; 
 		end
 		while(boton[0]) frame; end
@@ -1066,8 +1072,8 @@ begin
 	if(graph==5 and ops.lenguaje==1) graph=912; end
 	if(!exists(type controlador)) controlador(0); end
 	loop
-		if(boton[9])
-			while(boton[9]) frame; end
+		if(boton_salir)
+			while(boton_salir) frame; end
 			net_let_me_alone();
 			sonido(1);
 			menu();
@@ -1102,7 +1108,7 @@ begin
 	scroll_y=-100;
 	tecenter=1;
 	loop
-		if(boton[9])
+		if(boton_salir)
 			net_let_me_alone();
 			menu();
 			break;
@@ -1183,6 +1189,7 @@ process elecpersonaje()
 private
 	dand;
 	j;
+	continua;
 begin
 	jue=0;
 	from j=0 to posibles_jugadores;
@@ -1199,18 +1206,19 @@ begin
 	if(!exists(type controlador)) controlador(0); end
 	panoramico=1;
 	if(en_red)
-		if(estado_red==2)
-			estado_red=1;
-		else
+		if(estado_red==-1)
 			estado_red=0;
+		else
+			estado_red=1;
 		end
 	end
 	loop
-		if(en_red==0 or estado_red==2)
+		if(en_red==0 or continua==1)
 			dand++;
 		end
-		if(en_red and key(_space))
-			estado_red=2;
+		if(en_red and key(_space) and continua==0)
+			continua=1;
+			dand=100;
 		end
 		if(dand==100)
 			grafico_al_centro(11);
@@ -1237,8 +1245,8 @@ begin
 			end
 		end
 		
-		if(boton[9])
-			while(boton[9]) frame; end
+		if(boton_salir)
+			while(boton_salir) frame; end
 			net_let_me_alone();
 			if(!tactil)
 				menu();
@@ -1286,9 +1294,11 @@ private
 	ranas_vivas_antes;
 	ranas_vivas;
 	botones_pulsados;
+	j;
 begin
 	if(en_red)
-		estado_red=3;
+		estado_red=2;
+		primera_ronda=1;
 	end
 	if(tactil or primera_ronda) ready=0; end
 	
@@ -1326,8 +1336,9 @@ begin
 			from i=1 to posibles_jugadores;
 				if(boton[i]) botones_pulsados++; end
 			end
-			if(boton[9])
-				while(boton[9]) frame; end
+			if(key(_enter)) botones_pulsados=100; end 
+			if(boton_salir)
+				while(boton_salir) frame; end
 				x=ancho_pantalla/2;
 				y=alto_pantalla/2;
 				z=-3;
@@ -1351,11 +1362,21 @@ begin
 			timer[0]=0;
 			graph=650+i;
 			sonido(5);
+			if(en_red)
+				from j=1 to 32;
+					rana_msg[j]="P5";
+				end
+			end	
 			while(timer[0]<100) alpha-=4; size++; frame; end
 			size=100;
 			alpha=255;
 		end
 		sonido(6);
+		if(en_red)
+			from j=1 to 32;
+				rana_msg[j]="P6";
+			end
+		end
 		graph=650;
 		primera_ronda=0;
 	end
@@ -1403,6 +1424,10 @@ begin
 			from i=1 to posibles_jugadores;
 				if(rana_viva[i]==1) ganador=i; end
 			end
+
+			if(en_red)
+				rana_msg[ganador]="WIN";
+			end
 			
 			//delete_text(all_text);
 						
@@ -1436,7 +1461,7 @@ begin
 					pon_boton_menu(ancho_pantalla/2,((alto_pantalla/7)*6)-(alto_pantalla/14),604,100,255,4,4); //salir
 					
 					while(opcion!=4)
-						if(boton[9]) while(boton[9]) frame; end break; end
+						if(boton_salir) while(boton_salir) frame; end break; end
 						frame;	
 					end
 
@@ -1449,7 +1474,7 @@ begin
 				end
 			else
 				//gana la ronda
-				if(posibles_jugadores=>16)
+				if(posibles_jugadores>8)
 					gana_rana_player();
 				End
 				gana_rana(ganador);
@@ -1492,10 +1517,10 @@ begin
 		ranas_vivas_antes=ranas_vivas;
 		
 		//botón esc, salir
-		if(boton[9])
+		if(boton_salir)
 			dump_type=0;
 			restore_type=0;
-			while(boton[9]) frame; end
+			while(boton_salir) frame; end
 			net_let_me_alone();
 			graph=get_screen();
 			x=ancho_pantalla/2; y=alto_pantalla/2; z=-100;
@@ -1566,10 +1591,6 @@ private
 begin
 	y=8000;
 	rana_id[jugador]=id;
-/*	if(!humano)
-		rana_viva[jugador]=0;
-		return;
-	end*/
 	switch(posibles_jugadores)
 		case 2:
 			x=(ancho_pantalla/2)-(alto_camino)-(alto_camino*1.5)+(alto_camino*(jugador)*1.5);
@@ -1615,6 +1636,11 @@ begin
 	end
 	
 	loop
+		if(!humano and en_red and key(_k))
+			rana_viva[jugador]=0;
+			return;
+		end
+	
 		if(retraso>0)
 			retraso--;
 		end
@@ -2004,9 +2030,10 @@ Begin
 		if(!en_red)
 			from i=0 to 9; boton[i]=0; end
 		end
+		boton_salir=0;
 		if(!tactil and !en_red)
 			if(arcade_mode)
-				if(get_joy_button(0,8)) boton[9]=1; end
+				if(get_joy_button(0,8)) boton_salir=1; end
 				if(get_joy_button(0,0)) boton[1]=1; end
 				if(get_joy_button(0,3)) boton[2]=1; end
 				if(get_joy_button(1,0)) boton[3]=1; end
@@ -2086,7 +2113,7 @@ Begin
 		end
 
 		//tecla maestra
-		if(key(_esc)) while(key(_esc)) frame; end boton[9]=1; end
+		if(key(_esc)) while(key(_esc)) frame; end boton_salir=1; end
 
 		#IFDEF RED
 		if(en_red)
@@ -2097,7 +2124,7 @@ Begin
 				estado_red=1; //a conectar jugadores
 				socket_listen=tcpsock_open(); // new socket
 				fsock_bind(socket_listen, 8080); // we'll listen @ port 8080
-				tcpsock_listen(socket_listen, 32); // we'll listen for 32 clients
+				tcpsock_listen(socket_listen, posibles_jugadores); // we'll listen for 32 clients
 				fsock_fdzero(0);
 				fsock_fdset(0,socket_listen);
 			end
@@ -2111,17 +2138,13 @@ Begin
 				end
 				fsock_fdset (0, socket_listen); // We must reinclude after using select
 			end
-
-			if(estado_red==2) //0: nada, 1: inicial, 2: espera, 3: juego
-				
-			end
 		end
 		#ENDIF
 			
 		if(tactil)
 			if(mouse.left) dedo(mouse.x,mouse.y); end
-			if(mouse.right) while(mouse.right) frame; end boton[9]=1; end
-			if(scan_code==102 and os_id==1003) while(scan_code!=0) frame; end boton[9]=1; end
+			if(mouse.right) while(mouse.right) frame; end boton_salir=1; end
+			if(scan_code==102 and os_id==1003) while(scan_code!=0) frame; end boton_salir=1; end
 
 			for(i=0; i<10; i++)
 				if(multi_info(i, "ACTIVE") > 0)
@@ -2155,12 +2178,12 @@ begin
 	no_matar=1;
     net_clients++;
 
-	say("Connection from ip "+ fsock_get_ipstr(&ipaddr) + ":" + portaddr);
+	say("Connection from ip "+ fsock_get_ipstr(ipaddr) + ":" + portaddr);
 
     fsock_fdzero(1);
     fsock_fdset(1,sock);
 
-    while(!key(_esc))
+    while(msg!="FIN")
     	// As every frame is executed separately, there's no problem with this
         if (fsock_select(1,-1,-1,0)>0 && fsock_fdisset(1,sock))
         	// In the real world, you'd loop here until you got the full package
@@ -2168,11 +2191,10 @@ begin
             if(rlen<=0)
                 break;
             end
-			switch(estado_red)
-				//-1: reiniciando fsock
-				//0: iniciando fsock
-				
-				case 1: //entrando jugadores
+			if(estado_red==-1) //-1: finalizando fsock
+				msg="FIN";
+			else
+				if(estado_red==1) //permite conexiones
 					if(msg=="CON")
 						jugador=-1;
 						from i=1 to 32;
@@ -2184,42 +2206,31 @@ begin
 						end
 						if(jugador!=-1)
 							estado=1;
-							msg=""+jugador;
+							msg=""+jugador; //le devolvemos su número de jugador
 							say("Nuevo jugador:"+jugador);
-							//le devolvemos su número de jugador
-							tcpsock_send(sock, &msg, sizeof(msg));
 						else
 							msg="ERR";
 						end
-					elseif(msg=="WAI")
-						msg="WAI";
-					else
-						msg="NOP";
 					end
 				end
-				case 2: //cuenta atrás para jugar
-					msg="T"+timer[0];
-				end
-				case 3: //jugando
-					if(msg[0]=="B" or msg[0]=="U")
-						jugador=atoi(""+msg[1]+msg[2]);
-						if(msg[0]=="B")
-							boton[jugador]=1;
-						elseif(msg[0]=="U")
-							boton[jugador]=0;
-						end
-						if(rana_msg[jugador]!="")
-							msg=rana_msg[jugador];
-							rana_msg[jugador]="";
+				if(msg[0]=="B" or msg[0]=="U")
+					jugador=atoi(""+msg[1]+msg[2]);
+					if(msg[0]=="B")
+						boton[jugador]=1;
+					elseif(msg[0]=="U")
+						boton[jugador]=0;
+					end
+					if(rana_msg[jugador]!="")
+						msg=rana_msg[jugador];
+						rana_msg[jugador]="";
+					else
+						if(rana_puntos[jugador]<10)
+							msg="S0"+rana_puntos[jugador];
 						else
-							if(rana_puntos[jugador]<10)
-								msg="S0"+rana_puntos[jugador];
-							else
-								msg="S"+rana_puntos[jugador];
-							end
+							msg="S"+rana_puntos[jugador];
 						end
-					End
-				end
+					end
+				End
 			end
 			if(msg=="")
 				msg="NOP";
