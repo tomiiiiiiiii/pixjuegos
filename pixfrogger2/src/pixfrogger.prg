@@ -1566,10 +1566,10 @@ private
 begin
 	y=8000;
 	rana_id[jugador]=id;
-	if(!humano)
+/*	if(!humano)
 		rana_viva[jugador]=0;
 		return;
-	end
+	end*/
 	switch(posibles_jugadores)
 		case 2:
 			x=(ancho_pantalla/2)-(alto_camino)-(alto_camino*1.5)+(alto_camino*(jugador)*1.5);
@@ -2001,7 +2001,9 @@ Begin
 	end
 	
 	loop
-		from i=0 to 9; boton[i]=0; end
+		if(!en_red)
+			from i=0 to 9; boton[i]=0; end
+		end
 		if(!tactil and !en_red)
 			if(arcade_mode)
 				if(get_joy_button(0,8)) boton[9]=1; end

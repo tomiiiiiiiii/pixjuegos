@@ -7,18 +7,18 @@ cd src
 ..\..\bennu-win-old\bgdc client.prg
 move client.dcb ..\main.dcb
 cd ..
-rem pause
+pause
 
-rem echo Compilando fpgs....
-rem call compilarfpgs.bat 16
-rem call ..\scripts\descomprimefpgs.bat
+echo Compilando fpgs....
+call compilarfpgs.bat 16
+call ..\scripts\descomprimefpgs.bat
 
-rem echo Compilando fnts...
-rem cd fnt-sources
-rem copy ..\..\utils\pxlfnt.dcb . /y
-rem ..\..\bennu-win\bgdi pxlfnt 16 puntos-md
-rem del /f pxlfnt.dcb
-rem cd ..
+echo Compilando fnts...
+cd fnt-sources
+copy ..\..\utils\pxlfnt.dcb . /y
+..\..\bennu-win\bgdi pxlfnt 16 puntos-md
+del /f pxlfnt.dcb
+cd ..
 
 echo Exportando...
 mkdir export

@@ -36,14 +36,14 @@ Begin
     // Get the real screen resolution we're running at
     width = graphic_info(0, 0, G_WIDTH);
     height = graphic_info(0, 0, G_HEIGHT);
-    set_mode(width, height, 32);
+    //set_mode(width, height, 16);
 	set_title("Mini BennuGD Client");
 	set_fps(25,1);
 	
 	carga_sonidos();
 	
 	fuente=load_fnt("puntos-md.fnt");
-	fpg_general=load_fnt("pixfrogger-md.fpg");
+	fpg_general=load_fpg("pixfrogger-md.fpg");
 	
 	fsock_init(0); // init fsock library
     write(0, 0, 0, 0, "Toca la pantalla para unirte a la partida");
