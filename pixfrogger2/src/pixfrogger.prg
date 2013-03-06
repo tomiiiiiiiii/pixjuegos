@@ -412,7 +412,7 @@ Begin
 							inicio_cliente();
 							return;
 						#else
-							exec(_P_NOWAIT, "market://details?id=com.pixjuegos.pixfrogger", 0, 0);						
+							exec(_P_NOWAIT, "market://details?id=com.pixjuegos.pixfrogger.free", 0, 0);						
 							salir(); 
 						#endif
 					end
@@ -1739,15 +1739,13 @@ Begin
 	end
 End
 
-process vehiculo(pos_y)
+process vehiculo(pos_y,x,tipo,x_inc)
 private
 	gr;
 	id_col;
-	tipo;
-	x_inc;
 begin
 	ctype=c_scroll;
-	tipo=rand(0,3);
+	//tipo=rand(0,3);
 	if(tipo==0 or tipo==1)
 		gr=rand(100,104);
 	end
@@ -1756,23 +1754,8 @@ begin
 	end
 	flags=tipo;
 	graph=gr;
-	y=-50;
-	x=rand(-alto_camino*4,(ancho_pantalla)+alto_camino*4);
 	y=(pos_y*alto_camino)+(alto_camino/2);
 	z=-10;
-	if(tipo==0 or tipo==1)
-		switch(version)
-			case "hd": x_inc=rand(12,17); end
-			case "md": x_inc=rand(8,12); end
-			case "ld": x_inc=rand(5,8); end
-		end
-	else
-		switch(version)
-			case "hd": x_inc=7; end
-			case "md": x_inc=5; end
-			case "ld": x_inc=3; end
-		end
-	end
 	if(!tactil)
 		sombra();
 	end
@@ -1781,12 +1764,14 @@ begin
 		if(tipo==0 or tipo==2)
 			x+=x_inc;
 			if(x>ancho_pantalla+(alto_camino*4))
-				x=-alto_camino*4;
+				//x=-alto_camino*4;
+				x-=ancho_pantalla+(alto_camino*8);
 			end
 		else
 			x-=x_inc;
 			if(x<-alto_camino*4)
-				x=ancho_pantalla+(alto_camino*4);
+				//x=ancho_pantalla+(alto_camino*4);
+				x+=ancho_pantalla+(alto_camino*8);
 			end
 		end		
 		frame;
@@ -1809,6 +1794,10 @@ begin
 end
 
 process camino(pos_y)
+Private
+	pos_x;
+	tipo;
+	x_inc;
 Begin
 	z=50;
 	x=ancho_pantalla/2;
@@ -1859,7 +1848,27 @@ Begin
 				elseif(anterior_camino==200 or anterior_camino==202 or anterior_camino==204 or anterior_camino==205)
 					graph=203;
 				end
-				vehiculo(pos_y);
+				pos_x=rand(0,ancho_pantalla);
+				tipo=rand(0,3);
+				if(tipo==0 or tipo==1)
+					switch(version)
+						case "hd": x_inc=rand(12,17); end
+						case "md": x_inc=rand(8,12); end
+						case "ld": x_inc=rand(5,8); end
+					end
+				else
+					switch(version)
+						case "hd": x_inc=7; end
+						case "md": x_inc=5; end
+						case "ld": x_inc=3; end
+					end
+				end
+				vehiculo(pos_y,pos_x,tipo,x_inc);
+				if(posibles_jugadores>8)
+					vehiculo(pos_y,pos_x+(ancho_pantalla/3),tipo,x_inc);
+					vehiculo(pos_y,pos_x-(ancho_pantalla/3),tipo,x_inc);
+				end
+
 			end
 			anterior_camino=graph;
 		end
