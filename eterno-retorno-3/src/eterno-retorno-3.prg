@@ -140,7 +140,7 @@ Global
 		armas[2];
 		objeto;
 	end
-	struct enemigos[900];
+	struct enemigos[2000];
 		vida;
 		id;
 		tipo;
@@ -175,7 +175,7 @@ Global
 	size_mapa;
 	centro;
 	num_zonas;
-	struct zonas[12][12];
+	struct zonas[50][50];
 		tipo=2;
 		premio;
 		id;
