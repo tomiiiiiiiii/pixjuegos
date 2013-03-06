@@ -2178,7 +2178,7 @@ begin
 	no_matar=1;
     net_clients++;
 
-	say("Connection from ip "+ fsock_get_ipstr(ipaddr) + ":" + portaddr);
+	//say("Connection from ip "+ fsock_get_ipstr(ipaddr) + ":" + portaddr);
 
     fsock_fdzero(1);
     fsock_fdset(1,sock);
