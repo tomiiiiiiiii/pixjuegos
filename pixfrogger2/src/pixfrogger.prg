@@ -104,6 +104,7 @@ Global
 	// COMPATIBILIDAD CON XP/VISTA/LINUX (usuarios)
 	string savegamedir;
 	string developerpath="/.PiXJuegos/PiXFrogger/";
+		
 End //global
 
 Local
@@ -406,9 +407,14 @@ Begin
 					case 2: cambia_menu=3; end
 					case 3: cambia_menu=4; end
 					case 4: salir(); end
-					case 5: //donate???!!! :O
-						exec(_P_NOWAIT, "market://details?id=com.pixjuegos.pixfrogger", 0, 0);						
-						salir(); 
+					case 5: //donate/network
+						#ifdef RED
+							inicio_cliente();
+							return;
+						#else
+							exec(_P_NOWAIT, "market://details?id=com.pixjuegos.pixfrogger", 0, 0);						
+							salir(); 
+						#endif
 					end
 				end
 			end
@@ -470,7 +476,10 @@ Begin
 				pon_boton_menu(ancho_pantalla/2,((alto_pantalla/7)*4)-(alto_pantalla/14),601,100,255,1,2); //jugar
 				pon_boton_menu(ancho_pantalla/2,((alto_pantalla/7)*5)-(alto_pantalla/14),603,100,255,3,3); //creditos
 				pon_boton_menu(ancho_pantalla/2,((alto_pantalla/7)*6)-(alto_pantalla/14),604,100,255,4,4); //salir
-				if(free_version)
+				if(free_version and !en_red)
+					pon_boton_menu(ancho_pantalla/2,((alto_pantalla/7)*7)-(alto_pantalla/14),606,100,255,5,4); //netplay
+				end
+				if(en_red)
 					pon_boton_menu(ancho_pantalla/2,((alto_pantalla/7)*7)-(alto_pantalla/14),605,100,255,5,4); //donate
 				end
 			end
@@ -2117,26 +2126,30 @@ Begin
 
 		#IFDEF RED
 		if(en_red)
-			//servidor
-			if(estado_red==0)
-				say("Inicio servidor...");
-				fsock_init(0); // init fsock library
-				estado_red=1; //a conectar jugadores
-				socket_listen=tcpsock_open(); // new socket
-				fsock_bind(socket_listen, 8080); // we'll listen @ port 8080
-				tcpsock_listen(socket_listen, posibles_jugadores); // we'll listen for 32 clients
-				fsock_fdzero(0);
-				fsock_fdset(0,socket_listen);
-			end
-			if(estado_red==1)
-				if(fsock_select(0,-1,-1,0)>0)
-					connection=tcpsock_accept(socket_listen, &ipaddr, &portaddr);
-					if(connection>0)
-						say("Nuevo cliente conectando...");
-						process_client(connection, ipaddr, portaddr);
-					end
+			if(tactil)
+				//cliente
+			else
+				//servidor
+				if(estado_red==0)
+					say("Inicio servidor...");
+					fsock_init(0); // init fsock library
+					estado_red=1; //a conectar jugadores
+					socket_listen=tcpsock_open(); // new socket
+					fsock_bind(socket_listen, 8080); // we'll listen @ port 8080
+					tcpsock_listen(socket_listen, posibles_jugadores); // we'll listen for 32 clients
+					fsock_fdzero(0);
+					fsock_fdset(0,socket_listen);
 				end
-				fsock_fdset (0, socket_listen); // We must reinclude after using select
+				if(estado_red==1)
+					if(fsock_select(0,-1,-1,0)>0)
+						connection=tcpsock_accept(socket_listen, &ipaddr, &portaddr);
+						if(connection>0)
+							say("Nuevo cliente conectando...");
+							process_client(connection, ipaddr, portaddr);
+						end
+					end
+					fsock_fdset (0, socket_listen); // We must reinclude after using select
+				end
 			end
 		end
 		#ENDIF
@@ -2387,3 +2400,8 @@ Begin
 		end
 	end
 End
+
+//------------- CLIENTE PIXFROGGER EMBEBIDO EN EL PROPIO JUEGO
+#ifdef RED
+	include "net-client.pr-";
+#endif
