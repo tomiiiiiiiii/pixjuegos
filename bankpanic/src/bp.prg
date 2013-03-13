@@ -43,9 +43,8 @@ Global
 	disparando;
 	sonidos[6];
 	map_cargando;
-	
-	ogg_intro;
-	ogg_juego;
+
+	cancion;
 	
 	ancho_pantalla;
 	alto_pantalla;
@@ -72,8 +71,7 @@ Begin
 	sonidos[2]=load_wav("2.wav");
 	sonidos[3]=load_wav("3.wav");
 	sonidos[4]=load_wav("4.wav");
-	ogg_juego=load_song("1.ogg");
-	ogg_intro=load_song("2.ogg");
+	cancion=load_song("ogg/1.it");
 	while(timer[0]<200) frame; end
 	fade_off();
 	while(fading) frame; end
@@ -93,7 +91,7 @@ Begin
 	fade_on();
 	while(fading) frame; end
 	delete_text(all_text);
-	play_song(ogg_intro,-1);
+	play_song(cancion,-1);
 	put_screen(0,903);
 	if(os_id==1003)
 		write(fnt,320,190,4,"Touch to play");
@@ -125,7 +123,6 @@ Private
 Begin
 	let_me_alone();
 	delete_text(all_text);
-	play_song(ogg_juego,-1);
 	ready=1;
 	pausa=0;
 	moviendo=0;
