@@ -35,6 +35,7 @@ echo Copiando recursos de android...
 copy recursos\android-free\hdpi.png export\res\drawable-hdpi\icon.png /y
 copy recursos\android-free\ldpi.png export\res\drawable-ldpi\icon.png /y
 copy recursos\android-free\mdpi.png export\res\drawable-mdpi\icon.png /y
+copy recursos\android-free\xhdpi.png export\res\drawable-xhdpi\icon.png /y
 
 copy recursos\android-free\strings.xml export\res\values\strings.xml /y
 copy recursos\android-free\AndroidManifest.xml export\ /y
