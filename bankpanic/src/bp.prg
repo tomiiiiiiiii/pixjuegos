@@ -273,22 +273,26 @@ Begin
 		if(mouse.left)
 			if(frames_pulsado==0)
 				mouse_x_origen=mouse.x;
-				if(mouse.x<214)
-					disparo(120,240);
-				elseif(mouse.x<426) 
-					disparo(320,240);
-				else 
-					disparo(520,240); 
+				if(mouse.y<305)
+					if(mouse.x<214)
+						disparo(120,240);
+					elseif(mouse.x<426) 
+						disparo(320,240);
+					else 
+						disparo(520,240); 
+					end
 				end
 			end
 			frames_pulsado++;
 		else
 			if(frames_pulsado>0)
 				//gestos!!
-				if(mouse.x<mouse_x_origen-100)
-					mueve_derecha=1;
-				elseif(mouse.x>mouse_x_origen+100)
-					mueve_izquierda=1;
+				if(mouse.y>305)
+					if(mouse.x<mouse_x_origen-100)
+						mueve_derecha=1;
+					elseif(mouse.x>mouse_x_origen+100)
+						mueve_izquierda=1;
+					end
 				end
 			end
 			frames_pulsado=0;
