@@ -39,7 +39,7 @@ echo Copiando el juego...
 copy loading.png export\assets /y
 copy fnt\*.fnt export\assets\fnt /y
 copy fpg\*.fpg export\assets\fpg /y
-copy ogg\*.ogg export\assets\ogg /y
+copy ogg\*.it export\assets\ogg /y
 copy wav\*.wav export\assets\wav /y
 copy main.dcb export\assets /y
 
