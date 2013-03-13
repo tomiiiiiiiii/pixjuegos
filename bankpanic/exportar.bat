@@ -10,6 +10,7 @@ mkdir export\fpg
 mkdir export\fnt
 mkdir export\ogg
 mkdir export\wav
+copy loading.png export\
 copy fpg\*.fpg export\fpg
 copy fnt\*.fnt export\fnt
 copy ogg\*.it export\ogg
