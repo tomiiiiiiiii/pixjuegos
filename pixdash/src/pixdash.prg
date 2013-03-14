@@ -5,7 +5,6 @@ import "mod_draw";
 import "mod_grproc";
 import "mod_map";
 import "mod_mouse";
-//import "mod_multi"; //ya la carga controles si es necesaria
 import "mod_proc";
 import "mod_rand";
 import "mod_say";

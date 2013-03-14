@@ -18,7 +18,7 @@ ren durezas.fpg.gz durezas.fpg
 echo Exportando...
 mkdir export
 echo Copiando base de bennu-android...
-xcopy /r/e/y ..\bennu-android .\export
+xcopy /r/e/y ..\bennu-android-4.1 .\export
 
 rem echo Generamos local.properties
 rem echo sdk.dir=%dirbase%/utils/android-sdk > export\local.properties

@@ -568,6 +568,7 @@ class _SDLSurface extends SDLSurface implements View.OnGenericMotionListener {
     public boolean onGenericMotion(View v, MotionEvent event) {
         int actionPointerIndex = event.getActionIndex();
         int action = event.getActionMasked();
+		int keyCode;
         
         if ( (event.getSource() & InputDevice.SOURCE_MOUSE) != 0 ) {
             float x = event.getX(actionPointerIndex) / mWidth;
@@ -594,7 +595,42 @@ class _SDLSurface extends SDLSurface implements View.OnGenericMotionListener {
                     int id = SDLActivity.getJoyId( event.getDeviceId() );
                     float x = event.getAxisValue(MotionEvent.AXIS_X, actionPointerIndex);
                     float y = event.getAxisValue(MotionEvent.AXIS_Y, actionPointerIndex);
-                    SDLActivity.onNativeJoy(id, action, x, y);
+					
+					keyCode = 0;
+					if( x < -0.2 ) {
+						keyCode = KeyEvent.KEYCODE_DPAD_LEFT;
+					} else { 
+						if ( x > 0.2 ) {
+							keyCode = KeyEvent.KEYCODE_DPAD_RIGHT;
+						} else {
+							if ( x == 0 ) {
+								SDLActivity.onNativeKeyUp(KeyEvent.KEYCODE_DPAD_LEFT);
+								SDLActivity.onNativeKeyUp(KeyEvent.KEYCODE_DPAD_RIGHT);
+							}
+						}
+					}
+					if( keyCode != 0 ) {
+						SDLActivity.onNativeKeyDown(keyCode);
+					}
+
+					keyCode = 0;
+					if( y < -0.2 ) {
+						keyCode = KeyEvent.KEYCODE_DPAD_UP;
+					} else { 
+						if ( y > 0.2 ) {
+							keyCode = KeyEvent.KEYCODE_DPAD_DOWN;
+						} else {
+							if ( y == 0 ) {
+								SDLActivity.onNativeKeyUp(KeyEvent.KEYCODE_DPAD_DOWN);
+								SDLActivity.onNativeKeyUp(KeyEvent.KEYCODE_DPAD_UP);
+							}
+						}
+					}
+					if( keyCode != 0 ) {
+						SDLActivity.onNativeKeyDown(keyCode);
+					}
+					
+                    //SDLActivity.onNativeJoy(id, action, x, y);
                     
                     break;
             }
@@ -737,10 +773,71 @@ class SDLSurface extends SurfaceView implements SurfaceHolder.Callback,
         }else if ( (event.getSource() & InputDevice.SOURCE_GAMEPAD) != 0 ||
                    (event.getSource() & InputDevice.SOURCE_DPAD) != 0 ) {
             int id = SDLActivity.getJoyId( event.getDeviceId() );
+			
             if (event.getAction() == KeyEvent.ACTION_DOWN) {
-                SDLActivity.onNativePadDown(id, keyCode);
+				switch (keyCode) {
+					/*case KeyEvent.KEYCODE_DPAD_DOWN:
+						break;
+					case KeyEvent.KEYCODE_DPAD_UP:
+						break;
+					case KeyEvent.KEYCODE_DPAD_LEFT:
+						break;
+					case KeyEvent.KEYCODE_DPAD_RIGHT:
+						break;*/
+					case KeyEvent.KEYCODE_BUTTON_X:
+						keyCode = KeyEvent.KEYCODE_A;
+						break;
+					case KeyEvent.KEYCODE_BUTTON_A:
+						keyCode = KeyEvent.KEYCODE_S;
+						break;
+					case KeyEvent.KEYCODE_BUTTON_B:
+						keyCode = KeyEvent.KEYCODE_D;
+						break;
+					case KeyEvent.KEYCODE_BUTTON_Y:
+						keyCode = KeyEvent.KEYCODE_S;
+						break;
+					case KeyEvent.KEYCODE_BUTTON_SELECT:
+						keyCode = KeyEvent.KEYCODE_BACK;
+						break;
+					case KeyEvent.KEYCODE_BUTTON_START:
+						keyCode = KeyEvent.KEYCODE_BACK;
+						break;
+				}
+				SDLActivity.onNativeKeyDown(keyCode);
+                //SDLActivity.onNativePadDown(id, keyCode);
+				//Log.v("SDL", "pad up: " + keyCode);
             } else if (event.getAction() == KeyEvent.ACTION_UP) {
-                SDLActivity.onNativePadUp(id, keyCode);
+				switch (keyCode) {
+					/*case KeyEvent.KEYCODE_DPAD_DOWN:
+						break;
+					case KeyEvent.KEYCODE_DPAD_UP:
+						break;
+					case KeyEvent.KEYCODE_DPAD_LEFT:
+						break;
+					case KeyEvent.KEYCODE_DPAD_RIGHT:
+						break;*/
+					case KeyEvent.KEYCODE_BUTTON_X:
+						keyCode = KeyEvent.KEYCODE_A;
+						break;
+					case KeyEvent.KEYCODE_BUTTON_A:
+						keyCode = KeyEvent.KEYCODE_S;
+						break;
+					case KeyEvent.KEYCODE_BUTTON_B:
+						keyCode = KeyEvent.KEYCODE_D;
+						break;
+					case KeyEvent.KEYCODE_BUTTON_Y:
+						keyCode = KeyEvent.KEYCODE_S;
+						break;
+					case KeyEvent.KEYCODE_BUTTON_SELECT:
+						keyCode = KeyEvent.KEYCODE_BACK;
+						break;
+					case KeyEvent.KEYCODE_BUTTON_START:
+						keyCode = KeyEvent.KEYCODE_BACK;
+						break;
+				}
+				SDLActivity.onNativeKeyUp(keyCode);
+                //SDLActivity.onNativePadUp(id, keyCode);
+				//Log.v("SDL", "pad down: " + keyCode);
             }
         }
 

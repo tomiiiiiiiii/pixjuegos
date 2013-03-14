@@ -1,8 +1,12 @@
 Program pixpang;
 
-import "mod_image";
+#IFDEF image
+	import "mod_image";
+#ENDIF
 
-import "mod_debug";
+#IFDEF debug
+	import "mod_debug";
+#ENDIF
 import "mod_dir";
 import "mod_draw";
 import "mod_file";
@@ -206,11 +210,20 @@ Begin
 		ops.op_sombras=0;
 		scale_resolution=03200240; set_mode(800,600,16); 
 	elseif(os_id==1003) //android
-		ops.op_sombras=0;
-		scale_resolution_aspectratio = SRA_PRESERVE;
+		//ops.op_sombras=1;
+		//scale_resolution_aspectratio = SRA_PRESERVE;
+		ops.lenguaje=0;
 		scale_resolution=graphic_info(0,0,g_width)*10000+graphic_info(0,0,g_height);
 		say("---------- THIS IS MAY SCALE!!!!:"+SCALE_RESOLUTION);
+		#IFNDEF TACTIL
+		if(ops.ventana==1)
+			set_mode(800,520,16);
+		else
+			set_mode(800,600,16);
+		end
+		#ELSE
 		set_mode(800,600,16);
+		#ENDIF
 	else
 		set_mode(800,600,32,WAITVSYNC);
 	end
@@ -833,18 +846,18 @@ Begin
 	y=260;
 	z=512;
 	Loop
-		If(p[1].bolas+p[2].bolas=>0 AND cont==0) texto_fondos("1.Ashura"); png_fondo=load_image(".\fondos\3.jpg"); cont=1; End
-		If(p[1].bolas+p[2].bolas=>50 AND cont==1) If(p[1].bolas+p[2].bolas<100) texto_fondos("2.Alejandro"); png_fondo=load_image(".\fondos\1.jpg"); End  cambiado=0; cont=2; End // alejo
-		If(p[1].bolas+p[2].bolas=>100 AND cont==2) If(p[1].bolas+p[2].bolas<150) texto_fondos("3.HH Sigmar MC"); png_fondo=load_image(".\fondos\2.jpg"); End cambiado=0; cont=3; End // carlos
-		If(p[1].bolas+p[2].bolas=>150 AND cont==3) If(p[1].bolas+p[2].bolas<200) texto_fondos("4.Donan"); png_fondo=load_image(".\fondos\10.jpg"); End cambiado=0; cont=4; End // carlos
-		If(p[1].bolas+p[2].bolas=>200 AND cont==4) If(p[1].bolas+p[2].bolas<250) texto_fondos("5.Donan 2"); png_fondo=load_image(".\fondos\4.jpg"); End cambiado=0; cont=5; End // donan
-		If(p[1].bolas+p[2].bolas=>250 AND cont==5) If(p[1].bolas+p[2].bolas<300) texto_fondos("6.Donan 3"); png_fondo=load_image(".\fondos\5.jpg"); End cambiado=0; cont=6; End // donan
-		If(p[1].bolas+p[2].bolas=>300 AND cont==6) If(p[1].bolas+p[2].bolas<350) texto_fondos("7.SiNk!"); png_fondo=load_image(".\fondos\6.jpg"); End cambiado=0; cont=7; End // carlos166
-		If(p[1].bolas+p[2].bolas=>350 AND cont==7) If(p[1].bolas+p[2].bolas<400) texto_fondos("8.Wakroo"); png_fondo=load_image(".\fondos\7.jpg"); End cambiado=0; cont=8; End // carlos166
-		If(p[1].bolas+p[2].bolas=>400 AND cont==8) If(p[1].bolas+p[2].bolas<450) texto_fondos("9.Wakroo 2"); png_fondo=load_image(".\fondos\8.jpg"); End cambiado=0; cont=9; End // santi
-		If(p[1].bolas+p[2].bolas=>450 AND cont==9) If(p[1].bolas+p[2].bolas<500) texto_fondos("10.Wakroo 3"); png_fondo=load_image(".\fondos\9.jpg"); End cambiado=0; cont=10; End // dani el negro
-		If(p[1].bolas+p[2].bolas=>500 AND cont==10) If(p[1].bolas+p[2].bolas<550) texto_fondos("11.Aryadna y Emilio"); png_fondo=load_image(".\fondos\30.jpg"); End cambiado=0; cont=11; End // donan 3
-		If(p[1].bolas+p[2].bolas=>550 AND cont==11) If(p[1].bolas+p[2].bolas<600) texto_fondos("12.???????"); png_fondo=load_image(".\fondos\11.jpg"); End cambiado=0; cont=12; End // ???
+		If(p[1].bolas+p[2].bolas=>0 AND cont==0) texto_fondos("1.Ashura"); png_fondo=load_image("fondos/3.jpg"); cont=1; End
+		If(p[1].bolas+p[2].bolas=>50 AND cont==1) If(p[1].bolas+p[2].bolas<100) texto_fondos("2.Alejandro"); png_fondo=load_image("fondos/1.jpg"); End  cambiado=0; cont=2; End // alejo
+		If(p[1].bolas+p[2].bolas=>100 AND cont==2) If(p[1].bolas+p[2].bolas<150) texto_fondos("3.HH Sigmar MC"); png_fondo=load_image("fondos/2.jpg"); End cambiado=0; cont=3; End // carlos
+		If(p[1].bolas+p[2].bolas=>150 AND cont==3) If(p[1].bolas+p[2].bolas<200) texto_fondos("4.Donan"); png_fondo=load_image("fondos/10.jpg"); End cambiado=0; cont=4; End // carlos
+		If(p[1].bolas+p[2].bolas=>200 AND cont==4) If(p[1].bolas+p[2].bolas<250) texto_fondos("5.Donan 2"); png_fondo=load_image("fondos/4.jpg"); End cambiado=0; cont=5; End // donan
+		If(p[1].bolas+p[2].bolas=>250 AND cont==5) If(p[1].bolas+p[2].bolas<300) texto_fondos("6.Donan 3"); png_fondo=load_image("fondos/5.jpg"); End cambiado=0; cont=6; End // donan
+		If(p[1].bolas+p[2].bolas=>300 AND cont==6) If(p[1].bolas+p[2].bolas<350) texto_fondos("7.SiNk!"); png_fondo=load_image("fondos/6.jpg"); End cambiado=0; cont=7; End // carlos166
+		If(p[1].bolas+p[2].bolas=>350 AND cont==7) If(p[1].bolas+p[2].bolas<400) texto_fondos("8.Wakroo"); png_fondo=load_image("fondos/7.jpg"); End cambiado=0; cont=8; End // carlos166
+		If(p[1].bolas+p[2].bolas=>400 AND cont==8) If(p[1].bolas+p[2].bolas<450) texto_fondos("9.Wakroo 2"); png_fondo=load_image("fondos/8.jpg"); End cambiado=0; cont=9; End // santi
+		If(p[1].bolas+p[2].bolas=>450 AND cont==9) If(p[1].bolas+p[2].bolas<500) texto_fondos("10.Wakroo 3"); png_fondo=load_image("fondos/9.jpg"); End cambiado=0; cont=10; End // dani el negro
+		If(p[1].bolas+p[2].bolas=>500 AND cont==10) If(p[1].bolas+p[2].bolas<550) texto_fondos("11.Aryadna y Emilio"); png_fondo=load_image("fondos/30.jpg"); End cambiado=0; cont=11; End // donan 3
+		If(p[1].bolas+p[2].bolas=>550 AND cont==11) If(p[1].bolas+p[2].bolas<600) texto_fondos("12.???????"); png_fondo=load_image("fondos/11.jpg"); End cambiado=0; cont=12; End // ???
 		if(jefe!=0)
 			If(exists(id_fondo)) signal(id_fondo,s_kill); End
 			return;
@@ -886,29 +899,29 @@ Process fondos_tour();
 Private
 	png_fond;
 Begin
-	If(mundo==0) png_fond=load_image(".\fondos\31.jpg"); End
-	If(mundo==1) png_fond=load_image(".\fondos\29.jpg"); End
-	If(mundo==2) png_fond=load_image(".\fondos\28.jpg"); End  
-	If(mundo==3) png_fond=load_image(".\fondos\27.jpg"); End  
-	If(mundo==4) png_fond=load_image(".\fondos\26.jpg"); End  
-	If(mundo==5) png_fond=load_image(".\fondos\25.jpg"); End  
-	If(mundo==6) png_fond=load_image(".\fondos\24.jpg"); End  
-	If(mundo==7) png_fond=load_image(".\fondos\23.jpg"); End  
-	If(mundo==8) png_fond=load_image(".\fondos\22.jpg"); End
-	If(mundo==9) png_fond=load_image(".\fondos\21.jpg"); End  
-	If(mundo==10) png_fond=load_image(".\fondos\20.jpg"); End
-	If(mundo==11) png_fond=load_image(".\fondos\19.jpg"); End  
-	If(mundo==12) png_fond=load_image(".\fondos\18.jpg"); End  
-	If(mundo==13) png_fond=load_image(".\fondos\17.jpg"); End  
-	If(mundo==14) png_fond=load_image(".\fondos\16.jpg"); End  
-	If(mundo==15) png_fond=load_image(".\fondos\15.jpg"); End
-	If(mundo==16) png_fond=load_image(".\fondos\14.jpg"); End  
-	If(mundo==17) png_fond=load_image(".\fondos\13.jpg"); End 
-	If(mundo==18) png_fond=load_image(".\fondos\12.jpg"); End  
-	If(mundo==19) png_fond=load_image(".\fondos\11.jpg"); End  
-	If(mundo>19) png_fond=load_image(".\fondos\"+itoa(mundo+12)+".jpg"); End
+	If(mundo==0) png_fond=load_image("fondos/31.jpg"); End
+	If(mundo==1) png_fond=load_image("fondos/29.jpg"); End
+	If(mundo==2) png_fond=load_image("fondos/28.jpg"); End  
+	If(mundo==3) png_fond=load_image("fondos/27.jpg"); End  
+	If(mundo==4) png_fond=load_image("fondos/26.jpg"); End  
+	If(mundo==5) png_fond=load_image("fondos/25.jpg"); End  
+	If(mundo==6) png_fond=load_image("fondos/24.jpg"); End  
+	If(mundo==7) png_fond=load_image("fondos/23.jpg"); End  
+	If(mundo==8) png_fond=load_image("fondos/22.jpg"); End
+	If(mundo==9) png_fond=load_image("fondos/21.jpg"); End  
+	If(mundo==10) png_fond=load_image("fondos/20.jpg"); End
+	If(mundo==11) png_fond=load_image("fondos/19.jpg"); End  
+	If(mundo==12) png_fond=load_image("fondos/18.jpg"); End  
+	If(mundo==13) png_fond=load_image("fondos/17.jpg"); End  
+	If(mundo==14) png_fond=load_image("fondos/16.jpg"); End  
+	If(mundo==15) png_fond=load_image("fondos/15.jpg"); End
+	If(mundo==16) png_fond=load_image("fondos/14.jpg"); End  
+	If(mundo==17) png_fond=load_image("fondos/13.jpg"); End 
+	If(mundo==18) png_fond=load_image("fondos/12.jpg"); End  
+	If(mundo==19) png_fond=load_image("fondos/11.jpg"); End  
+	If(mundo>19) png_fond=load_image("fondos/"+itoa(mundo+12)+".jpg"); End
 	//If(mundo=>100 AND mod_custom==1) png_fond=load_image(".\custom\fondos\"+itoa(mundo-99)+".jpg"); End
-	If(png_fond<1) png_fond=load_image(".\fondos\"+rand(1,42)+".jpg"); End
+	If(png_fond<1) png_fond=load_image("fondos/"+rand(1,42)+".jpg"); End
 	pon_fondo(png_fond);
 	Frame;
 End
@@ -1304,9 +1317,9 @@ Begin
 	if(mundo==14) jefe=4; end
 	if(mundo==19) jefe=5; end
 	if(mundo==79) jefe=6; end
-	If((num=>0 and num<100) and jefe==0) load(".\tour\"+num+".pang",pantalla); end
+	If((num=>0 and num<100) and jefe==0) load("tour/"+num+".pang",pantalla); end
 	If(jefe!=0) 
-		load(".\tour\mostro.pang",pantalla); 
+		load("tour/mostro.pang",pantalla); 
 	end
 	if(jefe==0) fondos_tour(); end
 
@@ -1480,7 +1493,15 @@ Private
 Begin
 	if(ops.op_sombras==0) return; end
 	x=400;
+	#IFNDEF TACTIL
+	if(ops.ventana)
+		y=260;
+	else
+		y=300;
+	end
+	#ELSE
 	y=300;
+	#ENDIF
 	z=-512;
 	if(graphh>0) graph=graphh; else
 		If(graphh==0) graph=920; End
@@ -1865,3 +1886,10 @@ Begin
 		Frame;
 	End
 End
+
+#IFNDEF image
+Function load_image(string fichero);
+Begin
+	return load_png(regex_replace("jpg","png",fichero));
+End
+#ENDIF

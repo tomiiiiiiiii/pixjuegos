@@ -56,6 +56,7 @@ Private
 	axis_y;
 Begin
 	priority=10;
+	#IFDEF TACTIL
 	if(os_id==1003 and jugador==1 and p[1].control==0 and posibles_jugadores==1)
 		if(ancho_pantalla==0 or alto_pantalla==0)
 			ancho_pantalla=graphic_info(0,0,g_width);
@@ -68,6 +69,7 @@ Begin
 			id_gamepad=gamepad_virtual();
 		end
 	End
+	#ENDIF
 	
 	Loop
 		if(os_id==1003 and !focus_status) //en android, si estamos en 2º plano, nos vamos al aire

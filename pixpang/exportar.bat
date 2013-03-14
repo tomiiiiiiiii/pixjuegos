@@ -24,7 +24,6 @@ copy ogg\monstruos\*.* export\ogg\monstruos
 copy wav\*.wav export\wav
 copy fnt\*.fnt export\fnt
 copy tour\*.pang export\tour
-copy fondos\*.png export\fondos
 copy fondos\*.jpg export\fondos
 copy fondos\monstruos\*.png export\fondos\monstruos
 copy ..\bennu-win\*.dll export

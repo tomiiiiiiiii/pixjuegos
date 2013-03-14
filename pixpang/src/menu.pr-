@@ -20,7 +20,7 @@ begin
 		id_bolas[i]=0;
 		i++;
 	end
-	While(file_exists("./tour/"+itoa(tour_levels+1)+".pang"))
+	While(file_exists("tour/"+itoa(tour_levels+1)+".pang"))
 		tour_levels++;
 	End
 	delete_text(all_text);
@@ -563,14 +563,23 @@ begin
 		if(p[0].botones[b_2])
 			if(tecenter==0)
 				if(elecc==0)
-					if(full_screen==0)
-						full_screen=1;
-						ops.ventana=0;
-						set_mode(800,600,32,WAITVSYNC);
+					if(os_id==1003)
+						if(ops.ventana==0) ops.ventana=1; else ops.ventana=0; end
+						if(ops.ventana==1)
+							set_mode(800,520,16);
+						else
+							set_mode(800,600,16);
+						end
 					else
-						full_screen=0;
-						ops.ventana=1;
-						set_mode(800,600,32,WAITVSYNC);
+						if(full_screen==0)
+							full_screen=1;
+							ops.ventana=0;
+							set_mode(800,600,32,WAITVSYNC);
+						else
+							full_screen=0;
+							ops.ventana=1;
+							set_mode(800,600,32,WAITVSYNC);
+						end
 					end
 				end
 				if(elecc==1)

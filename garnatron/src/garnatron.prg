@@ -7,7 +7,9 @@
 PROGRAM Garnatron;
 import "mod_blendop";
 //import "mod_cd";
+#IFDEF debug
 import "mod_debug";
+#ENDIF
 //import "mod_mem";
 import "mod_effects";
 import "mod_flic";
@@ -261,30 +263,30 @@ BEGIN
 
 	frame;
 	//--------------------------------------------------------Cargando archivos
-	fpg_menu=load_fpg("./fpg/menu.fpg"); frame;
-	fpg_nave=load_fpg("./fpg/nave.fpg"); frame;
-	fpg_bombas=load_fpg("./fpg/bombas.fpg"); frame;
-	fpg_enemigos=load_fpg("./fpg/enemigos.fpg"); frame;
-	fpg_bosses=load_fpg("./fpg/bosses.fpg"); frame;
-	fpg_explosiones=load_fpg("./fpg/explosiones.fpg"); frame;
+	fpg_menu=load_fpg("fpg/menu.fpg"); frame;
+	fpg_nave=load_fpg("fpg/nave.fpg"); frame;
+	fpg_bombas=load_fpg("fpg/bombas.fpg"); frame;
+	fpg_enemigos=load_fpg("fpg/enemigos.fpg"); frame;
+	fpg_bosses=load_fpg("fpg/bosses.fpg"); frame;
+	fpg_explosiones=load_fpg("fpg/explosiones.fpg"); frame;
 
 	say("----------------- FPGS CARGADOS!");
 	
-	s_disparo=load_wav("./wav/laser.wav"); frame;
-	s_laser1=load_wav("./wav/laser9.wav"); frame;
-	s_laser2=load_wav("./wav/onda01.wav"); frame;
-	s_laser3=load_wav("./wav/laser6.wav"); frame;
-	s_misil=load_wav("./wav/bomba5.wav"); frame;
-	s_explosion=load_wav("./wav/explos.wav"); frame;
-	s_explosion_grande=load_wav("./wav/explosg.wav"); frame;
+	s_disparo=load_wav("wav/laser.wav"); frame;
+	s_laser1=load_wav("wav/laser9.wav"); frame;
+	s_laser2=load_wav("wav/onda01.wav"); frame;
+	s_laser3=load_wav("wav/laser6.wav"); frame;
+	s_misil=load_wav("wav/bomba5.wav"); frame;
+	s_explosion=load_wav("wav/explos.wav"); frame;
+	s_explosion_grande=load_wav("wav/explosg.wav"); frame;
 
 	say("----------------- WAVS CARGADOS!");
 	
-	fuente[0]=load_fnt(".\fnt\fuente.fnt"); frame;
-	fuente[1]=load_fnt(".\fnt\garna1.fnt"); frame;
-	fuente[2]=load_fnt(".\fnt\garna2.fnt"); frame;
-	fuente[3]=load_fnt(".\fnt\garna3.fnt"); frame;
-	fuente[4]=load_fnt(".\fnt\garna4.fnt"); frame;
+	fuente[0]=load_fnt("fnt/fuente.fnt"); frame;
+	fuente[1]=load_fnt("fnt/garna1.fnt"); frame;
+	fuente[2]=load_fnt("fnt/garna2.fnt"); frame;
+	fuente[3]=load_fnt("fnt/garna3.fnt"); frame;
+	fuente[4]=load_fnt("fnt/garna4.fnt"); frame;
 
 	say("----------------- FNTS CARGADOS!");
 	
@@ -1375,7 +1377,7 @@ BEGIN
 	FADE_MUSIC_OFF(0); 
 	timer[1]=0;
 	unload_song(cargada);
-	cargada=load_song("./ogg/"+cancion+".ogg");	
+	cargada=load_song("ogg/"+cancion+".ogg");	
 	play_song(cargada,-1);
 	frame;
 END

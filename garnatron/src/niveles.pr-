@@ -635,7 +635,6 @@ datos_nivel[500][6];
 	patron
 -----------------------------------------------------------------------*/
 Begin
-//	if(os_id==1003) juego(nivel); return; end
 	file=fpg_menu;
 	fade_off();
 	delete_text(all_text);
@@ -660,13 +659,15 @@ Begin
 	end
 
 	//carga el archivo del nivel
-	archivo=fopen("./niveles/nivel"+nivel+".csv",O_READ);
+	archivo=fopen("niveles/nivel"+nivel+".csv",O_READ);
 	while(!feof(archivo))
 		linea=fgets(archivo);  
+		if(find(linea,"fin")>-1) break; end
 		from j=0 to 5;
 			datos_nivel[i][j]=hasta_la_coma(linea,j);
 		end
 		i++;
+		say("Cargando nivel, línea "+i);
 	end
 	fclose(archivo);
 	say("----------------------------------------------nivel cargado");

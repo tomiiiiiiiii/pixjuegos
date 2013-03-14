@@ -4,31 +4,32 @@ call ..\utils\entorno.bat garnatron
 rd /s /q export
 echo Compilando...
 cd src
-..\..\bennu-win-old\bgdc garnatron.prg
+..\..\bennu-win\bgdc garnatron.prg
 move garnatron.dcb ..\main.dcb
 cd ..
 pause
 
 call compilarfpgs.bat 16
-
 call ..\scripts\descomprimefpgs.bat
 
 echo Exportando...
 mkdir export
 
 echo Copiando base de bennu-android...
-xcopy /r/e/y ..\bennu-android .\export
+xcopy /r/e/y ..\bennu-android-4.1 .\export
 
 echo Creando carpetas...
 mkdir export\assets\fpg
 mkdir export\assets\ogg
 mkdir export\assets\fnt
 mkdir export\assets\wav
+mkdir export\assets\niveles
 
 echo Copiando recursos de android...
 copy recursos\android\hdpi.png export\res\drawable-hdpi\icon.png /y
 copy recursos\android\ldpi.png export\res\drawable-ldpi\icon.png /y
 copy recursos\android\mdpi.png export\res\drawable-mdpi\icon.png /y
+copy recursos\android\xhdpi.png export\res\drawable-xhdpi\icon.png /y
 
 copy recursos\android\strings.xml export\res\values\strings.xml /y
 copy recursos\android\AndroidManifest.xml export\ /y

@@ -1,7 +1,9 @@
 Program ripolles;
 
 import "mod_blendop";
-import "mod_debug";
+#IFDEF DEBUG
+	import "mod_debug";
+#ENDIF
 import "mod_dir";
 import "mod_draw";
 import "mod_file";
