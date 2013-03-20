@@ -142,7 +142,11 @@ if(tipo==6)	//lanzallamas
 				y=father.y-30;
 				time++;
 				if(time<20) size+=6; end
-				if(time>20) laser(x,y,60,id); end
+				if(time>20 and time<41) laser(x,y,60,id); end
+				if(time>40 and time<61) laser(x,y,61,id); end
+				if(time>60 and time<81) laser(x,y,60,id); end
+				if(time>80 and time<101) laser(x,y,61,id); end
+				if(time>100 and time<126) laser(x,y,60,id); end
 				if(time==25) suena(s_laser2); end
 				if(time>125) break; end
 			else
@@ -322,6 +326,7 @@ if(tipo==50)
 		if(pausa==0)
 			x=id_nave[jugador].x;
 			y=id_nave[jugador].y;
+			id_nave[jugador].inmunidad=0;
 			n++;
 			if(size<150) size+=10; end
 			if(n>120) break; end
@@ -361,6 +366,22 @@ end
 
 if(tipo==60)
 	graph=61;
+	angle=pi/2;
+	z=16;
+	size=0;
+	loop
+		if(pausa==0)
+			size+=10;
+			z-=1;
+			advance(30);
+			if(size>100) break; end
+		end
+		frame;
+	end
+end
+
+if(tipo==61)
+	graph=62;
 	angle=pi/2;
 	z=16;
 	size=0;
@@ -464,12 +485,22 @@ loop
 			x=father.x+x1;
 			y=father.y+y1;
 			time++;
-			if(tipo==1 or tipo==2)
-				if(time>20) laser02(x,y,angle,size,tipo); end
+			if(tipo==1)
+				if(time>20) laser02(x,y,angle,size,10); end
 				if(time==25) suena(s_laser2); end
 				if	(time>125) break; end
 			end
-
+			
+			if(tipo==2)
+				if(time>20 and time<41) laser02(x,y,angle,size,20); end
+				if(time>40 and time<61) laser02(x,y,angle,size,21); end
+				if(time>60 and time<81) laser02(x,y,angle,size,20); end
+				if(time>80 and time<101) laser02(x,y,angle,size,21); end
+				if(time>100 and time<126) laser02(x,y,angle,size,20); end
+				if(time==25) suena(s_laser2); end
+				if	(time>125) break; end
+			end
+			
 			if(tipo==3)	//escudo
 				if(size<max_size) size+=max_size/20; end
 
@@ -526,11 +557,17 @@ priority=-2;
 z-=14;
 file=fpg_bombas;
 region=1;
-if(tipo==1)
+if(tipo==10)
 	graph=41;
 end
-if(tipo==2)
+if(tipo==20)
 	graph=71;
+	size_max=size_y;
+	size=0;
+	size_y=100;
+end
+if(tipo==21)
+	graph=72;
 	size_max=size_y;
 	size=0;
 	size_y=100;
@@ -551,7 +588,7 @@ loop
 			if(id2) signal(id2,s_kill); explosion(id2.x,id2.y,2,100); end
 		end
 		
-		if(tipo==1)
+		if(tipo==10)
 			if(exists(father))
 				x1=father.x;
 				y1=father.y;
@@ -564,14 +601,21 @@ loop
 			end
 			avance+=50;
 		end
-		if(tipo==2)
+		if(tipo==20)
 			size+=10;
 			z-=1;
 			x=x1+get_distx(angle,avance);
 			y=y1+get_disty(angle,avance);
 			avance+=30;
 			if(size>size_max) break; end
-		
+		end
+		if(tipo==21)
+			size+=10;
+			z-=1;
+			x=x1+get_distx(angle,avance);
+			y=y1+get_disty(angle,avance);
+			avance+=30;
+			if(size>size_max) break; end
 		end
 
 		if(out_region(id,1)) break; end

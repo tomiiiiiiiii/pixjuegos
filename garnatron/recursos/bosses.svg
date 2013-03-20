@@ -14,7 +14,7 @@
    height="297mm"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.0 r9654"
+   inkscape:version="0.48.2 r9819"
    sodipodi:docname="bosses.svg">
   <defs
      id="defs4">
@@ -244,9 +244,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.90509668"
-     inkscape:cx="523.17847"
-     inkscape:cy="-185.59444"
+     inkscape:zoom="0.16"
+     inkscape:cx="2043.6416"
+     inkscape:cy="783.2934"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -257,7 +257,8 @@
      inkscape:window-height="706"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
-     inkscape:window-maximized="1">
+     inkscape:window-maximized="1"
+     inkscape:snap-grids="false">
     <sodipodi:guide
        orientation="1,0"
        position="174.75639,838.42661"
@@ -373,7 +374,7 @@
        height="470"
        x="1460"
        y="32.362183"
-       inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\bosses\10.png"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\garnatron\fpg-sources\bosses\10.png"
        inkscape:export-xdpi="47.872341"
        inkscape:export-ydpi="47.872341" />
     <rect
@@ -749,7 +750,10 @@
        sodipodi:nodetypes="ccccccccc" />
     <g
        transform="matrix(-1,0,0,1,2790.125,2.9894441e-6)"
-       id="g4441-2-2">
+       id="g4441-2-2"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\garnatron\fpg-sources\bosses\10.png"
+       inkscape:export-xdpi="47.872341"
+       inkscape:export-ydpi="47.872341">
       <path
          sodipodi:nodetypes="cccccc"
          inkscape:connector-curvature="0"
@@ -777,7 +781,10 @@
     </g>
     <g
        transform="translate(690.125,-1.055605e-8)"
-       id="g4441-1">
+       id="g4441-1"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\garnatron\fpg-sources\bosses\10.png"
+       inkscape:export-xdpi="47.872341"
+       inkscape:export-ydpi="47.872341">
       <path
          sodipodi:nodetypes="cccccc"
          inkscape:connector-curvature="0"
@@ -805,7 +812,10 @@
     </g>
     <g
        transform="translate(690.125,-1.055605e-8)"
-       id="g4464-6">
+       id="g4464-6"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\garnatron\fpg-sources\bosses\10.png"
+       inkscape:export-xdpi="47.872341"
+       inkscape:export-ydpi="47.872341">
       <path
          sodipodi:nodetypes="ccccccccc"
          inkscape:connector-curvature="0"
@@ -857,7 +867,10 @@
     </g>
     <g
        id="g4150-46-3"
-       transform="translate(620.125,-69.999997)">
+       transform="translate(620.125,-69.999997)"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\garnatron\fpg-sources\bosses\10.png"
+       inkscape:export-xdpi="47.872341"
+       inkscape:export-ydpi="47.872341">
       <path
          sodipodi:nodetypes="ccccc"
          inkscape:connector-curvature="0"
@@ -884,268 +897,11 @@
          sodipodi:nodetypes="ccccc" />
     </g>
     <g
-       id="g4150-4-7"
-       transform="translate(620.125,-29.999997)">
-      <path
-         sodipodi:nodetypes="ccccc"
-         inkscape:connector-curvature="0"
-         id="path3018-3-1-3-9-2-8-7"
-         d="m 1110,442.36219 10,5 -10,-50.00001 -10,-4.99999 z"
-         style="fill:#b3b3b3;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <path
-         style="fill:#777777;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-         d="m 1120,447.36219 10,-5 10,-50 -10,4.99999 z"
-         id="path4144-4-9"
-         inkscape:connector-curvature="0"
-         sodipodi:nodetypes="ccccc" />
-      <path
-         sodipodi:nodetypes="ccccccc"
-         inkscape:connector-curvature="0"
-         id="path3020-1-7-5-9-7-1-9"
-         d="m 1115,442.36219 5,5 5,-5 5,-45.00001 -10,-10 -10,10 z"
-         style="fill:#0000ff;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path4010-5-8-6-9-3-5"
-         d="m 1119,391.36218 -7,7 5,44 2,2 z"
-         style="opacity:1;fill:#ffffff;stroke:none;fill-opacity:0.58823532"
-         sodipodi:nodetypes="ccccc" />
-    </g>
-    <g
-       id="g4150-5"
-       transform="translate(620.125,10.000003)">
-      <path
-         sodipodi:nodetypes="ccccc"
-         inkscape:connector-curvature="0"
-         id="path3018-3-1-3-9-2-9"
-         d="m 1110,442.36219 10,5 -10,-50.00001 -10,-4.99999 z"
-         style="fill:#b3b3b3;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <path
-         style="fill:#777777;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-         d="m 1120,447.36219 10,-5 10,-50 -10,4.99999 z"
-         id="path4144-41"
-         inkscape:connector-curvature="0"
-         sodipodi:nodetypes="ccccc" />
-      <path
-         sodipodi:nodetypes="ccccccc"
-         inkscape:connector-curvature="0"
-         id="path3020-1-7-5-9-7-7"
-         d="m 1115,442.36219 5,5 5,-5 5,-45.00001 -10,-10 -10,10 z"
-         style="fill:#0000ff;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path4010-5-8-6-9-6"
-         d="m 1119,391.36218 -7,7 5,44 2,2 z"
-         style="opacity:1;fill:#ffffff;stroke:none;fill-opacity:0.58823532"
-         sodipodi:nodetypes="ccccc" />
-    </g>
-    <g
-       transform="translate(690.125,-1.055605e-8)"
-       id="g4474-7">
-      <path
-         sodipodi:nodetypes="ccccc"
-         inkscape:connector-curvature="0"
-         id="path3005-0-03-1-2"
-         d="m 1050,162.36218 -10,20 10,20 10,-20 z"
-         style="fill:#cccccc;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <path
-         sodipodi:nodetypes="ccccc"
-         inkscape:connector-curvature="0"
-         id="path3007-6-17-5-5"
-         d="m 1050,172.36218 -5,10 5,10 5,-10 z"
-         style="fill:#00ff00;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <path
-         transform="matrix(0.63356965,0,0,0.63356965,1445.5212,185.37947)"
-         d="m -617.96084,26.80481 c 0,3.347351 -2.82663,6.060915 -6.31345,6.060915 -3.48683,0 -6.31346,-2.713564 -6.31346,-6.060915 0,-3.347352 2.82663,-6.060916 6.31346,-6.060916 3.48682,0 6.31345,2.713564 6.31345,6.060916 z"
-         sodipodi:ry="6.0609155"
-         sodipodi:rx="6.3134532"
-         sodipodi:cy="26.80481"
-         sodipodi:cx="-624.27429"
-         id="path4585-4-2-5"
-         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
-         sodipodi:type="arc" />
-      <path
-         sodipodi:nodetypes="ccccccc"
-         inkscape:connector-curvature="0"
-         id="path4368-8-8-6"
-         d="m 1050,162.36218 0,10 5,10 -5,10 0,10 10,-20 z"
-         style="fill:#000000;fill-opacity:0.22926827;stroke:none" />
-      <path
-         sodipodi:nodetypes="ccccc"
-         inkscape:connector-curvature="0"
-         id="path4368-2-1"
-         d="m 1047,182.36218 3,-7 -1,7 1,7 z"
-         style="fill:#ffffff;fill-opacity:0.80769228;stroke:none" />
-    </g>
-    <g
-       transform="translate(690.125,-1.055605e-8)"
-       id="g4481-1">
-      <path
-         sodipodi:nodetypes="ccccc"
-         inkscape:connector-curvature="0"
-         id="path3005-0-7-0-7-7"
-         d="m 1050,122.36218 -10,20 10,20 10,-20 z"
-         style="fill:#cccccc;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <path
-         sodipodi:nodetypes="ccccc"
-         inkscape:connector-curvature="0"
-         id="path3007-6-1-5-6-7"
-         d="m 1050,132.36218 -5,10 5,10 5,-10 z"
-         style="fill:#00ff00;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <path
-         transform="matrix(0.65996653,0,0,0.65996653,1462.0001,144.67191)"
-         d="m -617.96084,26.80481 c 0,3.347351 -2.82663,6.060915 -6.31345,6.060915 -3.48683,0 -6.31346,-2.713564 -6.31346,-6.060915 0,-3.347352 2.82663,-6.060916 6.31346,-6.060916 3.48682,0 6.31345,2.713564 6.31345,6.060916 z"
-         sodipodi:ry="6.0609155"
-         sodipodi:rx="6.3134532"
-         sodipodi:cy="26.80481"
-         sodipodi:cx="-624.27429"
-         id="path4585-1-3-9"
-         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
-         sodipodi:type="arc" />
-      <path
-         sodipodi:nodetypes="ccccccc"
-         inkscape:connector-curvature="0"
-         id="path4368-8-8-3-3"
-         d="m 1050,122.36218 0,10 5,10 -5,10 0,10 10,-20 z"
-         style="fill:#000000;fill-opacity:0.22926827;stroke:none" />
-      <path
-         sodipodi:nodetypes="ccccc"
-         inkscape:connector-curvature="0"
-         id="path4368-2-2-9"
-         d="m 1047,142.36218 3,-7 -1,7 1,7 z"
-         style="fill:#ffffff;fill-opacity:0.80769228;stroke:none" />
-    </g>
-    <g
-       transform="translate(690.125,-1.055605e-8)"
-       id="g4488-8">
-      <path
-         sodipodi:nodetypes="ccccc"
-         inkscape:connector-curvature="0"
-         id="path3005-0-0-2-1-9"
-         d="m 1050,82.362183 -10,19.999997 10,20 10,-20 z"
-         style="fill:#cccccc;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <path
-         sodipodi:nodetypes="ccccc"
-         inkscape:connector-curvature="0"
-         id="path3007-6-18-8-4-3"
-         d="m 1050,92.362183 -5,9.999997 5,10 5,-10 z"
-         style="fill:#00ff00;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <path
-         transform="matrix(0.65996653,0,0,0.65996653,1462.0001,104.67191)"
-         d="m -617.96084,26.80481 c 0,3.347351 -2.82663,6.060915 -6.31345,6.060915 -3.48683,0 -6.31346,-2.713564 -6.31346,-6.060915 0,-3.347352 2.82663,-6.060916 6.31346,-6.060916 3.48682,0 6.31345,2.713564 6.31345,6.060916 z"
-         sodipodi:ry="6.0609155"
-         sodipodi:rx="6.3134532"
-         sodipodi:cy="26.80481"
-         sodipodi:cx="-624.27429"
-         id="path4585-2-7"
-         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
-         sodipodi:type="arc" />
-      <path
-         sodipodi:nodetypes="ccccccc"
-         inkscape:connector-curvature="0"
-         id="path4368-8-8-2-9"
-         d="m 1050,82.362183 0,10 5,9.999997 -5,10 0,10 10,-20 z"
-         style="fill:#000000;fill-opacity:0.22926827;stroke:none" />
-      <path
-         sodipodi:nodetypes="ccccc"
-         inkscape:connector-curvature="0"
-         id="path4368-2-26-4"
-         d="m 1047,102.36218 3,-6.999994 -1,6.999994 1,7 z"
-         style="fill:#ffffff;fill-opacity:0.80769228;stroke:none" />
-    </g>
-    <g
-       transform="translate(690.125,-1.055605e-8)"
-       id="g4495-8">
-      <path
-         sodipodi:nodetypes="ccccccc"
-         inkscape:connector-curvature="0"
-         id="path3016-5-1-5"
-         d="m 1050,82.362183 -15,-30 10,5 5,-20 5,20 10,-5 z"
-         style="fill:#cccccc;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <path
-         sodipodi:nodetypes="ccccc"
-         inkscape:connector-curvature="0"
-         id="path3007-9-0-2-1"
-         d="m 1050,57.362183 -5,5 5,10 5,-10 z"
-         style="fill:#00ff00;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <path
-         transform="matrix(0.63357107,0,0,0.63357107,1445.5222,65.379431)"
-         d="m -617.96084,26.80481 c 0,3.347351 -2.82663,6.060915 -6.31345,6.060915 -3.48683,0 -6.31346,-2.713564 -6.31346,-6.060915 0,-3.347352 2.82663,-6.060916 6.31346,-6.060916 3.48682,0 6.31345,2.713564 6.31345,6.060916 z"
-         sodipodi:ry="6.0609155"
-         sodipodi:rx="6.3134532"
-         sodipodi:cy="26.80481"
-         sodipodi:cx="-624.27429"
-         id="path4585-3-2-7"
-         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
-         sodipodi:type="arc" />
-      <path
-         sodipodi:nodetypes="cccccccc"
-         inkscape:connector-curvature="0"
-         id="path4368-8-8-2-6-2"
-         d="m 1050,37.362183 0,20 5,5 -5,10 0,10 15,-30 -10,5 z"
-         style="fill:#000000;fill-opacity:0.22926827;stroke:none" />
-      <path
-         sodipodi:nodetypes="ccccc"
-         inkscape:connector-curvature="0"
-         id="path4368-2-9-2"
-         d="m 1047,62.362183 3,-3 -1,3 1,7 z"
-         style="fill:#ffffff;fill-opacity:0.80769228;stroke:none" />
-    </g>
-    <g
-       transform="translate(690.125,-1.055605e-8)"
-       id="g4454-3">
-      <path
-         sodipodi:nodetypes="ccccccc"
-         inkscape:connector-curvature="0"
-         id="path4026-7"
-         d="m 1056,486.36218 -1,6 -5,-3 -5,3 -1,-6 6,3 z"
-         style="fill:#666666;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
-      <path
-         sodipodi:nodetypes="cccccccccc"
-         inkscape:connector-curvature="0"
-         id="path2985-1-23-4-0"
-         d="m 1072,477.36218 -10,21 0,-19 -5,-3 3,-21 10,0 21,-15 -13,26 -11,2 z"
-         style="fill:#ffff00;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <path
-         sodipodi:nodetypes="cccccccccc"
-         inkscape:connector-curvature="0"
-         id="path2985-1-2-4-3-6"
-         d="m 1028,477.36218 10,21 0,-19 5,-3 -2,-22 -11,0 -21,-14 13,26 11,2 z"
-         style="fill:#ffff00;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <path
-         sodipodi:nodetypes="ccccccc"
-         inkscape:connector-curvature="0"
-         id="path3963-6-1-9"
-         d="m 1044,486.36218 6,3 6,-3 4,-34 -10,-5 -10,5 z"
-         style="fill:#b3b3b3;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-      <path
-         sodipodi:nodetypes="ccccc"
-         inkscape:connector-curvature="0"
-         id="path4229-3-2-1"
-         d="m 1043,456.36218 7,4 7,-4 -7,11 z"
-         style="fill:#00ff00;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
-      <path
-         sodipodi:nodetypes="cccc"
-         inkscape:connector-curvature="0"
-         id="path4390-2-3-0"
-         d="m 1011.875,443.36218 11.3469,20.86846 6.7263,1.35646 z"
-         style="fill:#ffffff;fill-opacity:0.81951216;stroke:none" />
-      <path
-         sodipodi:nodetypes="cccc"
-         inkscape:connector-curvature="0"
-         id="path4390-3-0-3-3"
-         d="m 1037,493.36218 -4,-22 -3,6 z"
-         style="fill:#ffffff;fill-opacity:0.81951216000000005;stroke:none;" />
-      <path
-         sodipodi:nodetypes="ccccc"
-         inkscape:connector-curvature="0"
-         id="path4368-8-1-2"
-         d="m 1060,452.36218 -10,-5 0,42 5,3 z"
-         style="fill:#000000;fill-opacity:0.22926827;stroke:none" />
-    </g>
-    <g
        transform="translate(691,-1.0233374)"
-       id="g4432-2-1-7">
+       id="g4432-2-1-7"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\garnatron\fpg-sources\bosses\10.png"
+       inkscape:export-xdpi="47.872341"
+       inkscape:export-ydpi="47.872341">
       <path
          inkscape:transform-center-y="-16.921666"
          inkscape:transform-center-x="-89.747399"
@@ -1193,7 +949,10 @@
     </g>
     <g
        transform="matrix(-1,0,0,1,2795,-0.99999738)"
-       id="g4432-2-1-7-5">
+       id="g4432-2-1-7-5"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\garnatron\fpg-sources\bosses\10.png"
+       inkscape:export-xdpi="47.872341"
+       inkscape:export-ydpi="47.872341">
       <path
          inkscape:transform-center-y="-16.921666"
          inkscape:transform-center-x="-89.747399"
@@ -1995,6 +1754,1543 @@
        id="path6516"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cccc" />
+    <rect
+       style="fill:#999999;fill-opacity:0;stroke:none"
+       id="rect4263-8-17"
+       width="565"
+       height="470"
+       x="1460"
+       y="32.362183"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\garnatron\fpg-sources\bosses\10.png"
+       inkscape:export-xdpi="47.872341"
+       inkscape:export-ydpi="47.872341" />
+    <rect
+       style="fill:#999999;fill-opacity:0;stroke:none"
+       id="rect4263-8-6"
+       width="565"
+       height="470"
+       x="2177.2273"
+       y="32.362183"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\garnatron\fpg-sources\bosses\11.png"
+       inkscape:export-xdpi="47.872341"
+       inkscape:export-ydpi="47.872341" />
+    <g
+       transform="matrix(-1,0,0,1,3507.3522,2.6171874e-6)"
+       id="g4441-2-2-6"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\garnatron\fpg-sources\bosses\11.png"
+       inkscape:export-xdpi="47.872341"
+       inkscape:export-ydpi="47.872341">
+      <path
+         sodipodi:nodetypes="cccccc"
+         inkscape:connector-curvature="0"
+         id="path4456-1-5-0-3-1"
+         d="M 1126.4427,332.16143 1085,317.36218 l -15,-55 15,-25 60.6356,62.47438 z"
+         style="fill:#0000ff;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cccccc"
+         inkscape:connector-curvature="0"
+         id="path4460-8-5-3-0-8"
+         d="m 1090,252.36218 -10,15 15,40 23.3615,10.15204 L 1130,297.36218 z"
+         style="fill:#ffff00;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="ccccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-8-2-1-2-1-49"
+         d="m 1085,267.36218 5,-15 -10,15 15,40 25,10 -20,-15 z"
+         style="fill:#000000;fill-opacity:0.22926827;stroke:none" />
+      <path
+         sodipodi:nodetypes="ccccccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-8-2-1-0-0-8-6"
+         d="m 1075,267.36218 15,-25 -5,-5 -15,25 15,55 40,15 0,-5 -35,-15 z"
+         style="fill:#000000;fill-opacity:0.22926827;stroke:none" />
+    </g>
+    <g
+       transform="translate(1407.3522,-3.8281246e-7)"
+       id="g4441-1-3"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\garnatron\fpg-sources\bosses\11.png"
+       inkscape:export-xdpi="47.872341"
+       inkscape:export-ydpi="47.872341">
+      <path
+         sodipodi:nodetypes="cccccc"
+         inkscape:connector-curvature="0"
+         id="path4456-1-5-6-7"
+         d="M 1126.4427,332.16143 1085,317.36218 l -15,-55 15,-25 60.6356,62.47438 z"
+         style="fill:#0000ff;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cccccc"
+         inkscape:connector-curvature="0"
+         id="path4460-8-5-7-8"
+         d="m 1090,252.36218 -10,15 15,40 23.3615,10.15204 L 1130,297.36218 z"
+         style="fill:#ffff00;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="ccccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-8-2-1-8-8"
+         d="m 1085,267.36218 5,-15 -10,15 15,40 25,10 -20,-15 z"
+         style="fill:#000000;fill-opacity:0.22926827;stroke:none" />
+      <path
+         sodipodi:nodetypes="ccccccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-8-2-1-0-07-2"
+         d="m 1075,267.36218 15,-25 -5,-5 -15,25 15,55 40,15 0,-5 -35,-15 z"
+         style="fill:#000000;fill-opacity:0.22926827;stroke:none" />
+    </g>
+    <g
+       transform="translate(1407.3522,-3.8281246e-7)"
+       id="g4464-6-9"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\garnatron\fpg-sources\bosses\11.png"
+       inkscape:export-xdpi="47.872341"
+       inkscape:export-ydpi="47.872341">
+      <path
+         sodipodi:nodetypes="ccccccccc"
+         inkscape:connector-curvature="0"
+         id="path4006-7-2-3-1"
+         d="m 1030,262.36218 -15,55 35,15 35,-15 -15,-55 -5,-50 -15,-10 -15,10 z"
+         style="fill:#cccccc;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="cccc"
+         inkscape:connector-curvature="0"
+         id="path3884-50-4-6-3"
+         d="m 1005,202.36218 c 15,10 20,10 30,10 l -5,50 c -14.4765,-14.83721 -25,-40 -25,-60 z"
+         style="fill:#999999;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="cccc"
+         inkscape:connector-curvature="0"
+         id="path3884-50-5-4-1-5"
+         d="m 1095,202.36218 c -15,10 -20,10 -30,10 l 5,50 c 14.4765,-14.83721 25,-40 25,-60 z"
+         style="fill:#999999;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="ccccccc"
+         inkscape:connector-curvature="0"
+         id="path4068-8-9"
+         d="m 1040,317.36218 -15,-5 10,-40 5,-55 5,-5 0,65 z"
+         style="fill:#999999;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="ccccccc"
+         inkscape:connector-curvature="0"
+         id="path4068-2-3-8"
+         d="m 1060,317.36218 15,-5 -10,-40 -5,-55 -5,-5 0,65 z"
+         style="fill:#999999;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cccccc"
+         inkscape:connector-curvature="0"
+         id="path4348-0-4"
+         d="m 1050,202.36218 15,10 5,50 15,55 -35,15 c 6.5588,-57.94508 5.3008,-85.51132 0,-130 z"
+         style="fill:#000000;fill-opacity:0.33170734;stroke:none" />
+      <path
+         sodipodi:nodetypes="cccc"
+         inkscape:connector-curvature="0"
+         id="path4368-9-0"
+         d="m 1005,202.36218 c 3.7016,2.4658 10.8078,8.47063 15,10 -1.7727,17.88433 4.7347,36.073 10,50 -10,-10 -21.3672,-33.72339 -25,-60 z"
+         style="fill:#ffffff;fill-opacity:0.4182692;stroke:none" />
+      <path
+         sodipodi:nodetypes="cccc"
+         inkscape:connector-curvature="0"
+         id="path4368-8-83-7"
+         d="m 1095,202.36218 c -3.7016,2.4658 -10.8077,8.47063 -15,10 1.6864,17.45872 -3.7158,37.73857 -10,50 11.1111,-10.82727 21.3672,-33.72339 25,-60 z"
+         style="fill:#000000;fill-opacity:0.22926827;stroke:none" />
+    </g>
+    <g
+       id="g4150-46-3-6"
+       transform="translate(1337.3522,-69.999997)"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\garnatron\fpg-sources\bosses\11.png"
+       inkscape:export-xdpi="47.872341"
+       inkscape:export-ydpi="47.872341">
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path3018-3-1-3-9-2-4-6-3"
+         d="m 1110,442.36219 10,5 -10,-50.00001 -10,-4.99999 z"
+         style="fill:#b3b3b3;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         style="fill:#777777;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         d="m 1120,447.36219 10,-5 10,-50 -10,4.99999 z"
+         id="path4144-7-2-6"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="ccccc" />
+      <path
+         sodipodi:nodetypes="ccccccc"
+         inkscape:connector-curvature="0"
+         id="path3020-1-7-5-9-7-6-0-1"
+         d="m 1115,442.36219 5,5 5,-5 5,-45.00001 -10,-10 -10,10 z"
+         style="fill:#0000ff;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path4010-5-8-6-9-2-1-5"
+         d="m 1119,391.36218 -7,7 5,44 2,2 z"
+         style="fill:#ffffff;fill-opacity:0.58823529;stroke:none"
+         sodipodi:nodetypes="ccccc" />
+    </g>
+    <g
+       transform="matrix(-0.94091784,-0.33863493,-0.33863493,0.94091784,3548.4913,405.97591)"
+       id="g4432-2-1-7-5-6"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\garnatron\fpg-sources\bosses\11.png"
+       inkscape:export-xdpi="47.872341"
+       inkscape:export-ydpi="47.872341">
+      <path
+         inkscape:transform-center-y="-16.921666"
+         inkscape:transform-center-x="-89.747399"
+         sodipodi:nodetypes="ccccccccccccc"
+         inkscape:connector-curvature="0"
+         id="path3862-8-0-5-3-1-4-5-7-4-1"
+         d="m 1130,347.36218 -5,10 25,20 0,-30.02334 180,-109.97666 -5,-20 -20,20 -105,20 -5,-15 -30,30 -35,20 c -17.7455,10.7725 -19.9906,24.13418 -10,40 z"
+         style="fill:#0000ff;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path4458-4-7-7-4-6-8-8"
+         d="m 1275,257.36218 -85,15 -50,25 c -25,15 -10,25 0,40 z"
+         style="fill:#ffff00;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-8-2-8-0-6-0-9"
+         d="m 1275,257.36218 -135,70 -10,-5 10,15 z"
+         style="fill:#000000;fill-opacity:0.22926827;stroke:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-8-2-1-1-5-9-2-1-8"
+         d="m 1149,375.36218 -17,-13 15,8 2,-22 z"
+         style="fill:#ffffff;fill-opacity:0.66666667;stroke:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-8-2-1-1-0-0-5-9-8-41"
+         d="m 1193,251.36218 -26,21 27,-27 5,12 z"
+         style="fill:#ffffff;fill-opacity:0.66666667;stroke:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-8-2-1-1-7-2-0-1-5-4"
+         d="m 1328,236.36218 -54,32 50,-32 1,-14 z"
+         style="fill:#ffffff;fill-opacity:0.66666667;stroke:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-8-2-1-1-1-8-3-9-5-3"
+         d="m 1190,277.36218 -45,20 45,-24 65,-11 z"
+         style="fill:#ffffff;fill-opacity:0.66666667;stroke:none" />
+    </g>
+    <rect
+       style="fill:#999999;fill-opacity:0;stroke:none"
+       id="rect4263-8-9"
+       width="565"
+       height="470"
+       x="2867.8254"
+       y="32.362183"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\garnatron\fpg-sources\bosses\12.png"
+       inkscape:export-xdpi="47.872341"
+       inkscape:export-ydpi="47.872341" />
+    <g
+       transform="matrix(-1,0,0,1,4197.9503,2.6171874e-6)"
+       id="g4441-2-2-8"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\garnatron\fpg-sources\bosses\12.png"
+       inkscape:export-xdpi="47.872341"
+       inkscape:export-ydpi="47.872341">
+      <path
+         sodipodi:nodetypes="cccccc"
+         inkscape:connector-curvature="0"
+         id="path4456-1-5-0-3-8"
+         d="M 1126.4427,332.16143 1085,317.36218 l -15,-55 15,-25 60.6356,62.47438 z"
+         style="fill:#0000ff;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cccccc"
+         inkscape:connector-curvature="0"
+         id="path4460-8-5-3-0-0"
+         d="m 1090,252.36218 -10,15 15,40 23.3615,10.15204 L 1130,297.36218 z"
+         style="fill:#ffff00;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="ccccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-8-2-1-2-1-8"
+         d="m 1085,267.36218 5,-15 -10,15 15,40 25,10 -20,-15 z"
+         style="fill:#000000;fill-opacity:0.22926827;stroke:none" />
+      <path
+         sodipodi:nodetypes="ccccccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-8-2-1-0-0-8-7"
+         d="m 1075,267.36218 15,-25 -5,-5 -15,25 15,55 40,15 0,-5 -35,-15 z"
+         style="fill:#000000;fill-opacity:0.22926827;stroke:none" />
+    </g>
+    <g
+       transform="translate(2097.9503,-3.8281246e-7)"
+       id="g4441-1-7"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\garnatron\fpg-sources\bosses\12.png"
+       inkscape:export-xdpi="47.872341"
+       inkscape:export-ydpi="47.872341">
+      <path
+         sodipodi:nodetypes="cccccc"
+         inkscape:connector-curvature="0"
+         id="path4456-1-5-6-8"
+         d="M 1126.4427,332.16143 1085,317.36218 l -15,-55 15,-25 60.6356,62.47438 z"
+         style="fill:#0000ff;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cccccc"
+         inkscape:connector-curvature="0"
+         id="path4460-8-5-7-3"
+         d="m 1090,252.36218 -10,15 15,40 23.3615,10.15204 L 1130,297.36218 z"
+         style="fill:#ffff00;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="ccccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-8-2-1-8-83"
+         d="m 1085,267.36218 5,-15 -10,15 15,40 25,10 -20,-15 z"
+         style="fill:#000000;fill-opacity:0.22926827;stroke:none" />
+      <path
+         sodipodi:nodetypes="ccccccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-8-2-1-0-07-7"
+         d="m 1075,267.36218 15,-25 -5,-5 -15,25 15,55 40,15 0,-5 -35,-15 z"
+         style="fill:#000000;fill-opacity:0.22926827;stroke:none" />
+    </g>
+    <g
+       transform="translate(2097.9503,-3.8281246e-7)"
+       id="g4464-6-10"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\garnatron\fpg-sources\bosses\12.png"
+       inkscape:export-xdpi="47.872341"
+       inkscape:export-ydpi="47.872341">
+      <path
+         sodipodi:nodetypes="ccccccccc"
+         inkscape:connector-curvature="0"
+         id="path4006-7-2-3-73"
+         d="m 1030,262.36218 -15,55 35,15 35,-15 -15,-55 -5,-50 -15,-10 -15,10 z"
+         style="fill:#cccccc;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="cccc"
+         inkscape:connector-curvature="0"
+         id="path3884-50-4-6-4"
+         d="m 1005,202.36218 c 15,10 20,10 30,10 l -5,50 c -14.4765,-14.83721 -25,-40 -25,-60 z"
+         style="fill:#999999;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="cccc"
+         inkscape:connector-curvature="0"
+         id="path3884-50-5-4-1-9"
+         d="m 1095,202.36218 c -15,10 -20,10 -30,10 l 5,50 c 14.4765,-14.83721 25,-40 25,-60 z"
+         style="fill:#999999;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="ccccccc"
+         inkscape:connector-curvature="0"
+         id="path4068-8-6"
+         d="m 1040,317.36218 -15,-5 10,-40 5,-55 5,-5 0,65 z"
+         style="fill:#999999;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="ccccccc"
+         inkscape:connector-curvature="0"
+         id="path4068-2-3-5"
+         d="m 1060,317.36218 15,-5 -10,-40 -5,-55 -5,-5 0,65 z"
+         style="fill:#999999;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cccccc"
+         inkscape:connector-curvature="0"
+         id="path4348-0-1"
+         d="m 1050,202.36218 15,10 5,50 15,55 -35,15 c 6.5588,-57.94508 5.3008,-85.51132 0,-130 z"
+         style="fill:#000000;fill-opacity:0.33170734;stroke:none" />
+      <path
+         sodipodi:nodetypes="cccc"
+         inkscape:connector-curvature="0"
+         id="path4368-9-09"
+         d="m 1005,202.36218 c 3.7016,2.4658 10.8078,8.47063 15,10 -1.7727,17.88433 4.7347,36.073 10,50 -10,-10 -21.3672,-33.72339 -25,-60 z"
+         style="fill:#ffffff;fill-opacity:0.4182692;stroke:none" />
+      <path
+         sodipodi:nodetypes="cccc"
+         inkscape:connector-curvature="0"
+         id="path4368-8-83-9"
+         d="m 1095,202.36218 c -3.7016,2.4658 -10.8077,8.47063 -15,10 1.6864,17.45872 -3.7158,37.73857 -10,50 11.1111,-10.82727 21.3672,-33.72339 25,-60 z"
+         style="fill:#000000;fill-opacity:0.22926827;stroke:none" />
+    </g>
+    <g
+       id="g4150-46-3-68"
+       transform="translate(2027.9503,-69.999997)"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\garnatron\fpg-sources\bosses\12.png"
+       inkscape:export-xdpi="47.872341"
+       inkscape:export-ydpi="47.872341">
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path3018-3-1-3-9-2-4-6-34"
+         d="m 1110,442.36219 10,5 -10,-50.00001 -10,-4.99999 z"
+         style="fill:#b3b3b3;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         style="fill:#777777;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         d="m 1120,447.36219 10,-5 10,-50 -10,4.99999 z"
+         id="path4144-7-2-8"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="ccccc" />
+      <path
+         sodipodi:nodetypes="ccccccc"
+         inkscape:connector-curvature="0"
+         id="path3020-1-7-5-9-7-6-0-4"
+         d="m 1115,442.36219 5,5 5,-5 5,-45.00001 -10,-10 -10,10 z"
+         style="fill:#0000ff;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path4010-5-8-6-9-2-1-9"
+         d="m 1119,391.36218 -7,7 5,44 2,2 z"
+         style="fill:#ffffff;fill-opacity:0.58823529;stroke:none"
+         sodipodi:nodetypes="ccccc" />
+    </g>
+    <g
+       id="g4150-4-7-9"
+       transform="matrix(0.98487866,-0.17324559,0.17324559,0.98487866,1975.8027,173.74318)"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\garnatron\fpg-sources\bosses\12.png"
+       inkscape:export-xdpi="47.872341"
+       inkscape:export-ydpi="47.872341">
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path3018-3-1-3-9-2-8-7-25"
+         d="m 1110,442.36219 10,5 -10,-50.00001 -10,-4.99999 z"
+         style="fill:#b3b3b3;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         style="fill:#777777;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         d="m 1120,447.36219 10,-5 10,-50 -10,4.99999 z"
+         id="path4144-4-9-5"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="ccccc" />
+      <path
+         sodipodi:nodetypes="ccccccc"
+         inkscape:connector-curvature="0"
+         id="path3020-1-7-5-9-7-1-9-3"
+         d="m 1115,442.36219 5,5 5,-5 5,-45.00001 -10,-10 -10,10 z"
+         style="fill:#0000ff;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path4010-5-8-6-9-3-5-3"
+         d="m 1119,391.36218 -7,7 5,44 2,2 z"
+         style="fill:#ffffff;fill-opacity:0.58823529;stroke:none"
+         sodipodi:nodetypes="ccccc" />
+    </g>
+    <g
+       id="g4150-5-3"
+       transform="matrix(0.98291803,0.18404385,-0.18404385,0.98291803,2127.7036,-185.67944)"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\garnatron\fpg-sources\bosses\12.png"
+       inkscape:export-xdpi="47.872341"
+       inkscape:export-ydpi="47.872341">
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path3018-3-1-3-9-2-9-7"
+         d="m 1110,442.36219 10,5 -10,-50.00001 -10,-4.99999 z"
+         style="fill:#b3b3b3;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         style="fill:#777777;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         d="m 1120,447.36219 10,-5 10,-50 -10,4.99999 z"
+         id="path4144-41-4"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="ccccc" />
+      <path
+         sodipodi:nodetypes="ccccccc"
+         inkscape:connector-curvature="0"
+         id="path3020-1-7-5-9-7-7-3"
+         d="m 1115,442.36219 5,5 5,-5 5,-45.00001 -10,-10 -10,10 z"
+         style="fill:#0000ff;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path4010-5-8-6-9-6-8"
+         d="m 1119,391.36218 -7,7 5,44 2,2 z"
+         style="fill:#ffffff;fill-opacity:0.58823529;stroke:none"
+         sodipodi:nodetypes="ccccc" />
+    </g>
+    <g
+       transform="translate(2097.9503,-3.8281246e-7)"
+       id="g4454-3-5"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\garnatron\fpg-sources\bosses\12.png"
+       inkscape:export-xdpi="47.872341"
+       inkscape:export-ydpi="47.872341">
+      <path
+         sodipodi:nodetypes="ccccccc"
+         inkscape:connector-curvature="0"
+         id="path4026-7-8"
+         d="m 1056,486.36218 -1,6 -5,-3 -5,3 -1,-6 6,3 z"
+         style="fill:#666666;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cccccccccc"
+         inkscape:connector-curvature="0"
+         id="path2985-1-23-4-0-6"
+         d="m 1072,477.36218 -10,21 0,-19 -5,-3 3,-21 10,0 21,-15 -13,26 -11,2 z"
+         style="fill:#ffff00;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="cccccccccc"
+         inkscape:connector-curvature="0"
+         id="path2985-1-2-4-3-6-26"
+         d="m 1028,477.36218 10,21 0,-19 5,-3 -2,-22 -11,0 -21,-14 13,26 11,2 z"
+         style="fill:#ffff00;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="ccccccc"
+         inkscape:connector-curvature="0"
+         id="path3963-6-1-9-5"
+         d="m 1044,486.36218 6,3 6,-3 4,-34 -10,-5 -10,5 z"
+         style="fill:#b3b3b3;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path4229-3-2-1-3"
+         d="m 1043,456.36218 7,4 7,-4 -7,11 z"
+         style="fill:#00ff00;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cccc"
+         inkscape:connector-curvature="0"
+         id="path4390-2-3-0-9"
+         d="m 1011.875,443.36218 11.3469,20.86846 6.7263,1.35646 z"
+         style="fill:#ffffff;fill-opacity:0.81951216;stroke:none" />
+      <path
+         sodipodi:nodetypes="cccc"
+         inkscape:connector-curvature="0"
+         id="path4390-3-0-3-3-24"
+         d="m 1037,493.36218 -4,-22 -3,6 z"
+         style="fill:#ffffff;fill-opacity:0.81951216;stroke:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-8-1-2-6"
+         d="m 1060,452.36218 -10,-5 0,42 5,3 z"
+         style="fill:#000000;fill-opacity:0.22926827;stroke:none" />
+    </g>
+    <g
+       transform="translate(2098.8253,-1.0233374)"
+       id="g4432-2-1-7-1"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\garnatron\fpg-sources\bosses\12.png"
+       inkscape:export-xdpi="47.872341"
+       inkscape:export-ydpi="47.872341">
+      <path
+         inkscape:transform-center-y="-16.921666"
+         inkscape:transform-center-x="-89.747399"
+         sodipodi:nodetypes="ccccccccccccc"
+         inkscape:connector-curvature="0"
+         id="path3862-8-0-5-3-1-4-5-7-8"
+         d="m 1130,347.36218 -5,10 25,20 0,-30.02334 180,-109.97666 -5,-20 -20,20 -105,20 -5,-15 -30,30 -35,20 c -17.7455,10.7725 -19.9906,24.13418 -10,40 z"
+         style="fill:#0000ff;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path4458-4-7-7-4-6-2"
+         d="m 1275,257.36218 -85,15 -50,25 c -25,15 -10,25 0,40 z"
+         style="fill:#ffff00;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-8-2-8-0-6-1"
+         d="m 1275,257.36218 -135,70 -10,-5 10,15 z"
+         style="fill:#000000;fill-opacity:0.22926827;stroke:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-8-2-1-1-5-9-2-19"
+         d="m 1149,375.36218 -17,-13 15,8 2,-22 z"
+         style="fill:#ffffff;fill-opacity:0.66666667;stroke:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-8-2-1-1-0-0-5-9-7"
+         d="m 1193,251.36218 -26,21 27,-27 5,12 z"
+         style="fill:#ffffff;fill-opacity:0.66666667;stroke:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-8-2-1-1-7-2-0-1-62"
+         d="m 1328,236.36218 -54,32 50,-32 1,-14 z"
+         style="fill:#ffffff;fill-opacity:0.66666667;stroke:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-8-2-1-1-1-8-3-9-9"
+         d="m 1190,277.36218 -45,20 45,-24 65,-11 z"
+         style="fill:#ffffff;fill-opacity:0.66666667;stroke:none" />
+    </g>
+    <g
+       transform="matrix(-1,0,0,1,4202.8253,-0.99999738)"
+       id="g4432-2-1-7-5-5"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\garnatron\fpg-sources\bosses\12.png"
+       inkscape:export-xdpi="47.872341"
+       inkscape:export-ydpi="47.872341">
+      <path
+         inkscape:transform-center-y="-16.921666"
+         inkscape:transform-center-x="-89.747399"
+         sodipodi:nodetypes="ccccccccccccc"
+         inkscape:connector-curvature="0"
+         id="path3862-8-0-5-3-1-4-5-7-4-2"
+         d="m 1130,347.36218 -5,10 25,20 0,-30.02334 180,-109.97666 -5,-20 -20,20 -105,20 -5,-15 -30,30 -35,20 c -17.7455,10.7725 -19.9906,24.13418 -10,40 z"
+         style="fill:#0000ff;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path4458-4-7-7-4-6-8-0"
+         d="m 1275,257.36218 -85,15 -50,25 c -25,15 -10,25 0,40 z"
+         style="fill:#ffff00;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-8-2-8-0-6-0-0"
+         d="m 1275,257.36218 -135,70 -10,-5 10,15 z"
+         style="fill:#000000;fill-opacity:0.22926827;stroke:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-8-2-1-1-5-9-2-1-3"
+         d="m 1149,375.36218 -17,-13 15,8 2,-22 z"
+         style="fill:#ffffff;fill-opacity:0.66666667;stroke:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-8-2-1-1-0-0-5-9-8-9"
+         d="m 1193,251.36218 -26,21 27,-27 5,12 z"
+         style="fill:#ffffff;fill-opacity:0.66666667;stroke:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-8-2-1-1-7-2-0-1-5-1"
+         d="m 1328,236.36218 -54,32 50,-32 1,-14 z"
+         style="fill:#ffffff;fill-opacity:0.66666667;stroke:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-8-2-1-1-1-8-3-9-5-8"
+         d="m 1190,277.36218 -45,20 45,-24 65,-11 z"
+         style="fill:#ffffff;fill-opacity:0.66666667;stroke:none" />
+    </g>
+    <g
+       transform="matrix(0.94091784,-0.33863493,0.33863493,0.94091784,1361.6023,405.97591)"
+       id="g4432-2-1-7-5-6-1"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\garnatron\fpg-sources\bosses\11.png"
+       inkscape:export-xdpi="47.872341"
+       inkscape:export-ydpi="47.872341">
+      <path
+         inkscape:transform-center-y="-16.921666"
+         inkscape:transform-center-x="-89.747399"
+         sodipodi:nodetypes="ccccccccccccc"
+         inkscape:connector-curvature="0"
+         id="path3862-8-0-5-3-1-4-5-7-4-1-9"
+         d="m 1130,347.36218 -5,10 25,20 0,-30.02334 180,-109.97666 -5,-20 -20,20 -105,20 -5,-15 -30,30 -35,20 c -17.7455,10.7725 -19.9906,24.13418 -10,40 z"
+         style="fill:#0000ff;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path4458-4-7-7-4-6-8-8-5"
+         d="m 1275,257.36218 -85,15 -50,25 c -25,15 -10,25 0,40 z"
+         style="fill:#ffff00;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-8-2-8-0-6-0-9-3"
+         d="m 1275,257.36218 -135,70 -10,-5 10,15 z"
+         style="fill:#000000;fill-opacity:0.22926827;stroke:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-8-2-1-1-5-9-2-1-8-2"
+         d="m 1149,375.36218 -17,-13 15,8 2,-22 z"
+         style="fill:#ffffff;fill-opacity:0.66666667;stroke:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-8-2-1-1-0-0-5-9-8-41-5"
+         d="m 1193,251.36218 -26,21 27,-27 5,12 z"
+         style="fill:#ffffff;fill-opacity:0.66666667;stroke:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-8-2-1-1-7-2-0-1-5-4-2"
+         d="m 1328,236.36218 -54,32 50,-32 1,-14 z"
+         style="fill:#ffffff;fill-opacity:0.66666667;stroke:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-8-2-1-1-1-8-3-9-5-3-5"
+         d="m 1190,277.36218 -45,20 45,-24 65,-11 z"
+         style="fill:#ffffff;fill-opacity:0.66666667;stroke:none" />
+    </g>
+    <g
+       transform="matrix(0.99679579,-0.07998845,0.07998845,0.99679579,677.36637,84.472784)"
+       id="g4474-7-7-9"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\garnatron\fpg-sources\bosses\10.png"
+       inkscape:export-xdpi="47.872341"
+       inkscape:export-ydpi="47.872341">
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path3005-0-03-1-2-9-3"
+         d="m 1050,162.36218 -10,20 10,20 10,-20 z"
+         style="fill:#cccccc;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path3007-6-17-5-5-5-4"
+         d="m 1050,172.36218 -5,10 5,10 5,-10 z"
+         style="fill:#00ff00;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         transform="matrix(0.63356965,0,0,0.63356965,1445.5212,185.37947)"
+         d="m -617.96084,26.80481 c 0,3.347351 -2.82663,6.060915 -6.31345,6.060915 -3.48683,0 -6.31346,-2.713564 -6.31346,-6.060915 0,-3.347352 2.82663,-6.060916 6.31346,-6.060916 3.48682,0 6.31345,2.713564 6.31345,6.060916 z"
+         sodipodi:ry="6.0609155"
+         sodipodi:rx="6.3134532"
+         sodipodi:cy="26.80481"
+         sodipodi:cx="-624.27429"
+         id="path4585-4-2-5-4-7"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         sodipodi:nodetypes="ccccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-8-8-6-3-4"
+         d="m 1050,162.36218 0,10 5,10 -5,10 0,10 10,-20 z"
+         style="fill:#000000;fill-opacity:0.22926827;stroke:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-2-1-1-5"
+         d="m 1047,182.36218 3,-7 -1,7 1,7 z"
+         style="fill:#ffffff;fill-opacity:0.80769228;stroke:none" />
+    </g>
+    <g
+       transform="matrix(0.97507812,-0.22186179,0.22186179,0.97507812,676.60867,235.79366)"
+       id="g4481-1-2-9"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\garnatron\fpg-sources\bosses\10.png"
+       inkscape:export-xdpi="47.872341"
+       inkscape:export-ydpi="47.872341">
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path3005-0-7-0-7-7-3-3"
+         d="m 1050,122.36218 -10,20 10,20 10,-20 z"
+         style="fill:#cccccc;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path3007-6-1-5-6-7-3-5"
+         d="m 1050,132.36218 -5,10 5,10 5,-10 z"
+         style="fill:#00ff00;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         transform="matrix(0.65996653,0,0,0.65996653,1462.0001,144.67191)"
+         d="m -617.96084,26.80481 c 0,3.347351 -2.82663,6.060915 -6.31345,6.060915 -3.48683,0 -6.31346,-2.713564 -6.31346,-6.060915 0,-3.347352 2.82663,-6.060916 6.31346,-6.060916 3.48682,0 6.31345,2.713564 6.31345,6.060916 z"
+         sodipodi:ry="6.0609155"
+         sodipodi:rx="6.3134532"
+         sodipodi:cy="26.80481"
+         sodipodi:cx="-624.27429"
+         id="path4585-1-3-9-4-7"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         sodipodi:nodetypes="ccccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-8-8-3-3-1-9"
+         d="m 1050,122.36218 0,10 5,10 -5,10 0,10 10,-20 z"
+         style="fill:#000000;fill-opacity:0.22926827;stroke:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-2-2-9-1-5"
+         d="m 1047,142.36218 3,-7 -1,7 1,7 z"
+         style="fill:#ffffff;fill-opacity:0.80769228;stroke:none" />
+    </g>
+    <g
+       transform="matrix(0.91342609,-0.40700463,0.40700463,0.91342609,718.70197,436.77929)"
+       id="g4488-8-3-4"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\garnatron\fpg-sources\bosses\10.png"
+       inkscape:export-xdpi="47.872341"
+       inkscape:export-ydpi="47.872341">
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path3005-0-0-2-1-9-8-5"
+         d="m 1050,82.362183 -10,19.999997 10,20 10,-20 z"
+         style="fill:#cccccc;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path3007-6-18-8-4-3-7-9"
+         d="m 1050,92.362183 -5,9.999997 5,10 5,-10 z"
+         style="fill:#00ff00;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         transform="matrix(0.65996653,0,0,0.65996653,1462.0001,104.67191)"
+         d="m -617.96084,26.80481 c 0,3.347351 -2.82663,6.060915 -6.31345,6.060915 -3.48683,0 -6.31346,-2.713564 -6.31346,-6.060915 0,-3.347352 2.82663,-6.060916 6.31346,-6.060916 3.48682,0 6.31345,2.713564 6.31345,6.060916 z"
+         sodipodi:ry="6.0609155"
+         sodipodi:rx="6.3134532"
+         sodipodi:cy="26.80481"
+         sodipodi:cx="-624.27429"
+         id="path4585-2-7-4-0"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         sodipodi:nodetypes="ccccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-8-8-2-9-2-1"
+         d="m 1050,82.362183 0,10 5,9.999997 -5,10 0,10 10,-20 z"
+         style="fill:#000000;fill-opacity:0.22926827;stroke:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-2-26-4-7-5"
+         d="m 1047,102.36218 3,-6.999994 -1,6.999994 1,7 z"
+         style="fill:#ffffff;fill-opacity:0.80769228;stroke:none" />
+    </g>
+    <g
+       transform="matrix(0.83407538,-0.55165048,0.55165048,0.83407538,789.46567,593.92028)"
+       id="g4495-8-7-3"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\garnatron\fpg-sources\bosses\10.png"
+       inkscape:export-xdpi="47.872341"
+       inkscape:export-ydpi="47.872341">
+      <path
+         sodipodi:nodetypes="ccccccc"
+         inkscape:connector-curvature="0"
+         id="path3016-5-1-5-9-2"
+         d="m 1050,82.362183 -15,-30 10,5 5,-20 5,20 10,-5 z"
+         style="fill:#cccccc;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path3007-9-0-2-1-3-1"
+         d="m 1050,57.362183 -5,5 5,10 5,-10 z"
+         style="fill:#00ff00;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         transform="matrix(0.63357107,0,0,0.63357107,1445.5222,65.379431)"
+         d="m -617.96084,26.80481 c 0,3.347351 -2.82663,6.060915 -6.31345,6.060915 -3.48683,0 -6.31346,-2.713564 -6.31346,-6.060915 0,-3.347352 2.82663,-6.060916 6.31346,-6.060916 3.48682,0 6.31345,2.713564 6.31345,6.060916 z"
+         sodipodi:ry="6.0609155"
+         sodipodi:rx="6.3134532"
+         sodipodi:cy="26.80481"
+         sodipodi:cx="-624.27429"
+         id="path4585-3-2-7-1-5"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         sodipodi:nodetypes="cccccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-8-8-2-6-2-9-1"
+         d="m 1050,37.362183 0,20 5,5 -5,10 0,10 15,-30 -10,5 z"
+         style="fill:#000000;fill-opacity:0.22926827;stroke:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-2-9-2-8-0"
+         d="m 1047,62.362183 3,-3 -1,3 1,7 z"
+         style="fill:#ffffff;fill-opacity:0.80769228;stroke:none" />
+    </g>
+    <g
+       transform="matrix(0.9974017,0.07204058,-0.07204058,0.9974017,2115.133,-75.12936)"
+       id="g4474-7-5"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\garnatron\fpg-sources\bosses\12.png"
+       inkscape:export-xdpi="47.872341"
+       inkscape:export-ydpi="47.872341">
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path3005-0-03-1-2-0"
+         d="m 1050,162.36218 -10,20 10,20 10,-20 z"
+         style="fill:#cccccc;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path3007-6-17-5-5-0"
+         d="m 1050,172.36218 -5,10 5,10 5,-10 z"
+         style="fill:#00ff00;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         transform="matrix(0.63356965,0,0,0.63356965,1445.5212,185.37947)"
+         d="m -617.96084,26.80481 c 0,3.347351 -2.82663,6.060915 -6.31345,6.060915 -3.48683,0 -6.31346,-2.713564 -6.31346,-6.060915 0,-3.347352 2.82663,-6.060916 6.31346,-6.060916 3.48682,0 6.31345,2.713564 6.31345,6.060916 z"
+         sodipodi:ry="6.0609155"
+         sodipodi:rx="6.3134532"
+         sodipodi:cy="26.80481"
+         sodipodi:cx="-624.27429"
+         id="path4585-4-2-5-57"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         sodipodi:nodetypes="ccccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-8-8-6-2"
+         d="m 1050,162.36218 0,10 5,10 -5,10 0,10 10,-20 z"
+         style="fill:#000000;fill-opacity:0.22926827;stroke:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-2-1-6"
+         d="m 1047,182.36218 3,-7 -1,7 1,7 z"
+         style="fill:#ffffff;fill-opacity:0.80769228;stroke:none" />
+    </g>
+    <g
+       transform="matrix(0.97589418,0.21824421,-0.21824421,0.97589418,2162.0177,-226.73683)"
+       id="g4481-1-6"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\garnatron\fpg-sources\bosses\12.png"
+       inkscape:export-xdpi="47.872341"
+       inkscape:export-ydpi="47.872341">
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path3005-0-7-0-7-7-01"
+         d="m 1050,122.36218 -10,20 10,20 10,-20 z"
+         style="fill:#cccccc;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path3007-6-1-5-6-7-12"
+         d="m 1050,132.36218 -5,10 5,10 5,-10 z"
+         style="fill:#00ff00;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         transform="matrix(0.65996653,0,0,0.65996653,1462.0001,144.67191)"
+         d="m -617.96084,26.80481 c 0,3.347351 -2.82663,6.060915 -6.31345,6.060915 -3.48683,0 -6.31346,-2.713564 -6.31346,-6.060915 0,-3.347352 2.82663,-6.060916 6.31346,-6.060916 3.48682,0 6.31345,2.713564 6.31345,6.060916 z"
+         sodipodi:ry="6.0609155"
+         sodipodi:rx="6.3134532"
+         sodipodi:cy="26.80481"
+         sodipodi:cx="-624.27429"
+         id="path4585-1-3-9-92"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         sodipodi:nodetypes="ccccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-8-8-3-3-3"
+         d="m 1050,122.36218 0,10 5,10 -5,10 0,10 10,-20 z"
+         style="fill:#000000;fill-opacity:0.22926827;stroke:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-2-2-9-72"
+         d="m 1047,142.36218 3,-7 -1,7 1,7 z"
+         style="fill:#ffffff;fill-opacity:0.80769228;stroke:none" />
+    </g>
+    <g
+       transform="matrix(0.90723096,0.42063283,-0.42063283,0.90723096,2259.1496,-431.91949)"
+       id="g4488-8-7"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\garnatron\fpg-sources\bosses\12.png"
+       inkscape:export-xdpi="47.872341"
+       inkscape:export-ydpi="47.872341">
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path3005-0-0-2-1-9-4"
+         d="m 1050,82.362183 -10,19.999997 10,20 10,-20 z"
+         style="fill:#cccccc;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path3007-6-18-8-4-3-3"
+         d="m 1050,92.362183 -5,9.999997 5,10 5,-10 z"
+         style="fill:#00ff00;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         transform="matrix(0.65996653,0,0,0.65996653,1462.0001,104.67191)"
+         d="m -617.96084,26.80481 c 0,3.347351 -2.82663,6.060915 -6.31345,6.060915 -3.48683,0 -6.31346,-2.713564 -6.31346,-6.060915 0,-3.347352 2.82663,-6.060916 6.31346,-6.060916 3.48682,0 6.31345,2.713564 6.31345,6.060916 z"
+         sodipodi:ry="6.0609155"
+         sodipodi:rx="6.3134532"
+         sodipodi:cy="26.80481"
+         sodipodi:cx="-624.27429"
+         id="path4585-2-7-2"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         sodipodi:nodetypes="ccccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-8-8-2-9-7"
+         d="m 1050,82.362183 0,10 5,9.999997 -5,10 0,10 10,-20 z"
+         style="fill:#000000;fill-opacity:0.22926827;stroke:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-2-26-4-9"
+         d="m 1047,102.36218 3,-6.999994 -1,6.999994 1,7 z"
+         style="fill:#ffffff;fill-opacity:0.80769228;stroke:none" />
+    </g>
+    <g
+       transform="matrix(0.83854321,0.54483509,-0.54483509,0.83854321,2342.1258,-557.90401)"
+       id="g4495-8-6"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\garnatron\fpg-sources\bosses\12.png"
+       inkscape:export-xdpi="47.872341"
+       inkscape:export-ydpi="47.872341">
+      <path
+         sodipodi:nodetypes="ccccccc"
+         inkscape:connector-curvature="0"
+         id="path3016-5-1-5-7"
+         d="m 1050,82.362183 -15,-30 10,5 5,-20 5,20 10,-5 z"
+         style="fill:#cccccc;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path3007-9-0-2-1-9"
+         d="m 1050,57.362183 -5,5 5,10 5,-10 z"
+         style="fill:#00ff00;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         transform="matrix(0.63357107,0,0,0.63357107,1445.5222,65.379431)"
+         d="m -617.96084,26.80481 c 0,3.347351 -2.82663,6.060915 -6.31345,6.060915 -3.48683,0 -6.31346,-2.713564 -6.31346,-6.060915 0,-3.347352 2.82663,-6.060916 6.31346,-6.060916 3.48682,0 6.31345,2.713564 6.31345,6.060916 z"
+         sodipodi:ry="6.0609155"
+         sodipodi:rx="6.3134532"
+         sodipodi:cy="26.80481"
+         sodipodi:cx="-624.27429"
+         id="path4585-3-2-7-17"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         sodipodi:nodetypes="cccccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-8-8-2-6-2-6"
+         d="m 1050,37.362183 0,20 5,5 -5,10 0,10 15,-30 -10,5 z"
+         style="fill:#000000;fill-opacity:0.22926827;stroke:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-2-9-2-1"
+         d="m 1047,62.362183 3,-3 -1,3 1,7 z"
+         style="fill:#ffffff;fill-opacity:0.80769228;stroke:none" />
+    </g>
+    <g
+       transform="translate(1407.4723,-0.28600675)"
+       id="g4474-7-8"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\garnatron\fpg-sources\bosses\11.png"
+       inkscape:export-xdpi="47.872341"
+       inkscape:export-ydpi="47.872341">
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path3005-0-03-1-2-5"
+         d="m 1050,162.36218 -10,20 10,20 10,-20 z"
+         style="fill:#cccccc;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path3007-6-17-5-5-52"
+         d="m 1050,172.36218 -5,10 5,10 5,-10 z"
+         style="fill:#00ff00;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         transform="matrix(0.63356965,0,0,0.63356965,1445.5212,185.37947)"
+         d="m -617.96084,26.80481 c 0,3.347351 -2.82663,6.060915 -6.31345,6.060915 -3.48683,0 -6.31346,-2.713564 -6.31346,-6.060915 0,-3.347352 2.82663,-6.060916 6.31346,-6.060916 3.48682,0 6.31345,2.713564 6.31345,6.060916 z"
+         sodipodi:ry="6.0609155"
+         sodipodi:rx="6.3134532"
+         sodipodi:cy="26.80481"
+         sodipodi:cx="-624.27429"
+         id="path4585-4-2-5-09"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         sodipodi:nodetypes="ccccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-8-8-6-8"
+         d="m 1050,162.36218 0,10 5,10 -5,10 0,10 10,-20 z"
+         style="fill:#000000;fill-opacity:0.22926827;stroke:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-2-1-5"
+         d="m 1047,182.36218 3,-7 -1,7 1,7 z"
+         style="fill:#ffffff;fill-opacity:0.80769228;stroke:none" />
+    </g>
+    <g
+       transform="translate(1407.4723,-0.28600675)"
+       id="g4481-1-9"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\garnatron\fpg-sources\bosses\11.png"
+       inkscape:export-xdpi="47.872341"
+       inkscape:export-ydpi="47.872341">
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path3005-0-7-0-7-7-35"
+         d="m 1050,122.36218 -10,20 10,20 10,-20 z"
+         style="fill:#cccccc;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path3007-6-1-5-6-7-7"
+         d="m 1050,132.36218 -5,10 5,10 5,-10 z"
+         style="fill:#00ff00;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         transform="matrix(0.65996653,0,0,0.65996653,1462.0001,144.67191)"
+         d="m -617.96084,26.80481 c 0,3.347351 -2.82663,6.060915 -6.31345,6.060915 -3.48683,0 -6.31346,-2.713564 -6.31346,-6.060915 0,-3.347352 2.82663,-6.060916 6.31346,-6.060916 3.48682,0 6.31345,2.713564 6.31345,6.060916 z"
+         sodipodi:ry="6.0609155"
+         sodipodi:rx="6.3134532"
+         sodipodi:cy="26.80481"
+         sodipodi:cx="-624.27429"
+         id="path4585-1-3-9-8"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         sodipodi:nodetypes="ccccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-8-8-3-3-6"
+         d="m 1050,122.36218 0,10 5,10 -5,10 0,10 10,-20 z"
+         style="fill:#000000;fill-opacity:0.22926827;stroke:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-2-2-9-4"
+         d="m 1047,142.36218 3,-7 -1,7 1,7 z"
+         style="fill:#ffffff;fill-opacity:0.80769228;stroke:none" />
+    </g>
+    <g
+       transform="translate(1407.4723,-0.28600675)"
+       id="g4488-8-5"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\garnatron\fpg-sources\bosses\11.png"
+       inkscape:export-xdpi="47.872341"
+       inkscape:export-ydpi="47.872341">
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path3005-0-0-2-1-9-0"
+         d="m 1050,82.362183 -10,19.999997 10,20 10,-20 z"
+         style="fill:#cccccc;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path3007-6-18-8-4-3-74"
+         d="m 1050,92.362183 -5,9.999997 5,10 5,-10 z"
+         style="fill:#00ff00;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         transform="matrix(0.65996653,0,0,0.65996653,1462.0001,104.67191)"
+         d="m -617.96084,26.80481 c 0,3.347351 -2.82663,6.060915 -6.31345,6.060915 -3.48683,0 -6.31346,-2.713564 -6.31346,-6.060915 0,-3.347352 2.82663,-6.060916 6.31346,-6.060916 3.48682,0 6.31345,2.713564 6.31345,6.060916 z"
+         sodipodi:ry="6.0609155"
+         sodipodi:rx="6.3134532"
+         sodipodi:cy="26.80481"
+         sodipodi:cx="-624.27429"
+         id="path4585-2-7-6"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         sodipodi:nodetypes="ccccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-8-8-2-9-21"
+         d="m 1050,82.362183 0,10 5,9.999997 -5,10 0,10 10,-20 z"
+         style="fill:#000000;fill-opacity:0.22926827;stroke:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-2-26-4-97"
+         d="m 1047,102.36218 3,-6.999994 -1,6.999994 1,7 z"
+         style="fill:#ffffff;fill-opacity:0.80769228;stroke:none" />
+    </g>
+    <g
+       transform="translate(1407.4723,-0.28600675)"
+       id="g4495-8-71"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\garnatron\fpg-sources\bosses\11.png"
+       inkscape:export-xdpi="47.872341"
+       inkscape:export-ydpi="47.872341">
+      <path
+         sodipodi:nodetypes="ccccccc"
+         inkscape:connector-curvature="0"
+         id="path3016-5-1-5-0"
+         d="m 1050,82.362183 -15,-30 10,5 5,-20 5,20 10,-5 z"
+         style="fill:#cccccc;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path3007-9-0-2-1-7"
+         d="m 1050,57.362183 -5,5 5,10 5,-10 z"
+         style="fill:#00ff00;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         transform="matrix(0.63357107,0,0,0.63357107,1445.5222,65.379431)"
+         d="m -617.96084,26.80481 c 0,3.347351 -2.82663,6.060915 -6.31345,6.060915 -3.48683,0 -6.31346,-2.713564 -6.31346,-6.060915 0,-3.347352 2.82663,-6.060916 6.31346,-6.060916 3.48682,0 6.31345,2.713564 6.31345,6.060916 z"
+         sodipodi:ry="6.0609155"
+         sodipodi:rx="6.3134532"
+         sodipodi:cy="26.80481"
+         sodipodi:cx="-624.27429"
+         id="path4585-3-2-7-5"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         sodipodi:nodetypes="cccccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-8-8-2-6-2-47"
+         d="m 1050,37.362183 0,20 5,5 -5,10 0,10 15,-30 -10,5 z"
+         style="fill:#000000;fill-opacity:0.22926827;stroke:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-2-9-2-3"
+         d="m 1047,62.362183 3,-3 -1,3 1,7 z"
+         style="fill:#ffffff;fill-opacity:0.80769228;stroke:none" />
+    </g>
+    <g
+       transform="translate(1407.4723,-0.28600675)"
+       id="g4474-7-7-90"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\garnatron\fpg-sources\bosses\11.png"
+       inkscape:export-xdpi="47.872341"
+       inkscape:export-ydpi="47.872341">
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path3005-0-03-1-2-9-8"
+         d="m 1050,162.36218 -10,20 10,20 10,-20 z"
+         style="fill:#cccccc;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path3007-6-17-5-5-5-7"
+         d="m 1050,172.36218 -5,10 5,10 5,-10 z"
+         style="fill:#00ff00;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         transform="matrix(0.63356965,0,0,0.63356965,1445.5212,185.37947)"
+         d="m -617.96084,26.80481 c 0,3.347351 -2.82663,6.060915 -6.31345,6.060915 -3.48683,0 -6.31346,-2.713564 -6.31346,-6.060915 0,-3.347352 2.82663,-6.060916 6.31346,-6.060916 3.48682,0 6.31345,2.713564 6.31345,6.060916 z"
+         sodipodi:ry="6.0609155"
+         sodipodi:rx="6.3134532"
+         sodipodi:cy="26.80481"
+         sodipodi:cx="-624.27429"
+         id="path4585-4-2-5-4-3"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         sodipodi:nodetypes="ccccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-8-8-6-3-1"
+         d="m 1050,162.36218 0,10 5,10 -5,10 0,10 10,-20 z"
+         style="fill:#000000;fill-opacity:0.22926827;stroke:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-2-1-1-8"
+         d="m 1047,182.36218 3,-7 -1,7 1,7 z"
+         style="fill:#ffffff;fill-opacity:0.80769228;stroke:none" />
+    </g>
+    <g
+       transform="translate(1407.4723,-0.28600675)"
+       id="g4481-1-2-2"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\garnatron\fpg-sources\bosses\11.png"
+       inkscape:export-xdpi="47.872341"
+       inkscape:export-ydpi="47.872341">
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path3005-0-7-0-7-7-3-7"
+         d="m 1050,122.36218 -10,20 10,20 10,-20 z"
+         style="fill:#cccccc;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path3007-6-1-5-6-7-3-9"
+         d="m 1050,132.36218 -5,10 5,10 5,-10 z"
+         style="fill:#00ff00;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         transform="matrix(0.65996653,0,0,0.65996653,1462.0001,144.67191)"
+         d="m -617.96084,26.80481 c 0,3.347351 -2.82663,6.060915 -6.31345,6.060915 -3.48683,0 -6.31346,-2.713564 -6.31346,-6.060915 0,-3.347352 2.82663,-6.060916 6.31346,-6.060916 3.48682,0 6.31345,2.713564 6.31345,6.060916 z"
+         sodipodi:ry="6.0609155"
+         sodipodi:rx="6.3134532"
+         sodipodi:cy="26.80481"
+         sodipodi:cx="-624.27429"
+         id="path4585-1-3-9-4-2"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         sodipodi:nodetypes="ccccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-8-8-3-3-1-7"
+         d="m 1050,122.36218 0,10 5,10 -5,10 0,10 10,-20 z"
+         style="fill:#000000;fill-opacity:0.22926827;stroke:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-2-2-9-1-1"
+         d="m 1047,142.36218 3,-7 -1,7 1,7 z"
+         style="fill:#ffffff;fill-opacity:0.80769228;stroke:none" />
+    </g>
+    <g
+       transform="translate(1407.4723,-0.28600675)"
+       id="g4488-8-3-0"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\garnatron\fpg-sources\bosses\11.png"
+       inkscape:export-xdpi="47.872341"
+       inkscape:export-ydpi="47.872341">
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path3005-0-0-2-1-9-8-6"
+         d="m 1050,82.362183 -10,19.999997 10,20 10,-20 z"
+         style="fill:#cccccc;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path3007-6-18-8-4-3-7-5"
+         d="m 1050,92.362183 -5,9.999997 5,10 5,-10 z"
+         style="fill:#00ff00;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         transform="matrix(0.65996653,0,0,0.65996653,1462.0001,104.67191)"
+         d="m -617.96084,26.80481 c 0,3.347351 -2.82663,6.060915 -6.31345,6.060915 -3.48683,0 -6.31346,-2.713564 -6.31346,-6.060915 0,-3.347352 2.82663,-6.060916 6.31346,-6.060916 3.48682,0 6.31345,2.713564 6.31345,6.060916 z"
+         sodipodi:ry="6.0609155"
+         sodipodi:rx="6.3134532"
+         sodipodi:cy="26.80481"
+         sodipodi:cx="-624.27429"
+         id="path4585-2-7-4-1"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         sodipodi:nodetypes="ccccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-8-8-2-9-2-0"
+         d="m 1050,82.362183 0,10 5,9.999997 -5,10 0,10 10,-20 z"
+         style="fill:#000000;fill-opacity:0.22926827;stroke:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-2-26-4-7-1"
+         d="m 1047,102.36218 3,-6.999994 -1,6.999994 1,7 z"
+         style="fill:#ffffff;fill-opacity:0.80769228;stroke:none" />
+    </g>
+    <g
+       transform="translate(1407.4723,-0.28600675)"
+       id="g4495-8-7-4"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\garnatron\fpg-sources\bosses\11.png"
+       inkscape:export-xdpi="47.872341"
+       inkscape:export-ydpi="47.872341">
+      <path
+         sodipodi:nodetypes="ccccccc"
+         inkscape:connector-curvature="0"
+         id="path3016-5-1-5-9-6"
+         d="m 1050,82.362183 -15,-30 10,5 5,-20 5,20 10,-5 z"
+         style="fill:#cccccc;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path3007-9-0-2-1-3-5"
+         d="m 1050,57.362183 -5,5 5,10 5,-10 z"
+         style="fill:#00ff00;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         transform="matrix(0.63357107,0,0,0.63357107,1445.5222,65.379431)"
+         d="m -617.96084,26.80481 c 0,3.347351 -2.82663,6.060915 -6.31345,6.060915 -3.48683,0 -6.31346,-2.713564 -6.31346,-6.060915 0,-3.347352 2.82663,-6.060916 6.31346,-6.060916 3.48682,0 6.31345,2.713564 6.31345,6.060916 z"
+         sodipodi:ry="6.0609155"
+         sodipodi:rx="6.3134532"
+         sodipodi:cy="26.80481"
+         sodipodi:cx="-624.27429"
+         id="path4585-3-2-7-1-7"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         sodipodi:nodetypes="cccccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-8-8-2-6-2-9-6"
+         d="m 1050,37.362183 0,20 5,5 -5,10 0,10 15,-30 -10,5 z"
+         style="fill:#000000;fill-opacity:0.22926827;stroke:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-2-9-2-8-4"
+         d="m 1047,62.362183 3,-3 -1,3 1,7 z"
+         style="fill:#ffffff;fill-opacity:0.80769228;stroke:none" />
+    </g>
+    <g
+       id="g4150-4-7-0-1"
+       transform="matrix(0.98802844,0.15427188,-0.15427188,0.98802844,694.64157,-194.0919)"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\garnatron\fpg-sources\bosses\10.png"
+       inkscape:export-xdpi="47.872341"
+       inkscape:export-ydpi="47.872341">
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path3018-3-1-3-9-2-8-7-1-1"
+         d="m 1110,442.36219 10,5 -10,-50.00001 -10,-4.99999 z"
+         style="fill:#b3b3b3;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         style="fill:#777777;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         d="m 1120,447.36219 10,-5 10,-50 -10,4.99999 z"
+         id="path4144-4-9-59-2"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="ccccc" />
+      <path
+         sodipodi:nodetypes="ccccccc"
+         inkscape:connector-curvature="0"
+         id="path3020-1-7-5-9-7-1-9-32-3"
+         d="m 1115,442.36219 5,5 5,-5 5,-45.00001 -10,-10 -10,10 z"
+         style="fill:#0000ff;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path4010-5-8-6-9-3-5-6-0"
+         d="m 1119,391.36218 -7,7 5,44 2,2 z"
+         style="fill:#ffffff;fill-opacity:0.58823529;stroke:none"
+         sodipodi:nodetypes="ccccc" />
+    </g>
+    <g
+       id="g4150-5-0-0"
+       transform="matrix(0.97876786,-0.20497193,0.20497193,0.97876786,555.57927,252.92975)"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\garnatron\fpg-sources\bosses\10.png"
+       inkscape:export-xdpi="47.872341"
+       inkscape:export-ydpi="47.872341">
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path3018-3-1-3-9-2-9-1-1"
+         d="m 1110,442.36219 10,5 -10,-50.00001 -10,-4.99999 z"
+         style="fill:#b3b3b3;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         style="fill:#777777;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         d="m 1120,447.36219 10,-5 10,-50 -10,4.99999 z"
+         id="path4144-41-43-6"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="ccccc" />
+      <path
+         sodipodi:nodetypes="ccccccc"
+         inkscape:connector-curvature="0"
+         id="path3020-1-7-5-9-7-7-31-7"
+         d="m 1115,442.36219 5,5 5,-5 5,-45.00001 -10,-10 -10,10 z"
+         style="fill:#0000ff;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path4010-5-8-6-9-6-3-5"
+         d="m 1119,391.36218 -7,7 5,44 2,2 z"
+         style="fill:#ffffff;fill-opacity:0.58823529;stroke:none"
+         sodipodi:nodetypes="ccccc" />
+    </g>
+    <g
+       transform="translate(692.11147,1.726044)"
+       id="g4454-3-8-7"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\garnatron\fpg-sources\bosses\10.png"
+       inkscape:export-xdpi="47.872341"
+       inkscape:export-ydpi="47.872341">
+      <path
+         sodipodi:nodetypes="ccccccc"
+         inkscape:connector-curvature="0"
+         id="path4026-7-32-0"
+         d="m 1056,486.36218 -1,6 -5,-3 -5,3 -1,-6 6,3 z"
+         style="fill:#666666;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cccccccccc"
+         inkscape:connector-curvature="0"
+         id="path2985-1-23-4-0-82-2"
+         d="m 1072,477.36218 -10,21 0,-19 -5,-3 3,-21 10,0 21,-15 -13,26 -11,2 z"
+         style="fill:#ffff00;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="cccccccccc"
+         inkscape:connector-curvature="0"
+         id="path2985-1-2-4-3-6-5-0"
+         d="m 1028,477.36218 10,21 0,-19 5,-3 -2,-22 -11,0 -21,-14 13,26 11,2 z"
+         style="fill:#ffff00;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="ccccccc"
+         inkscape:connector-curvature="0"
+         id="path3963-6-1-9-55-5"
+         d="m 1044,486.36218 6,3 6,-3 4,-34 -10,-5 -10,5 z"
+         style="fill:#b3b3b3;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path4229-3-2-1-9-3"
+         d="m 1043,456.36218 7,4 7,-4 -7,11 z"
+         style="fill:#00ff00;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cccc"
+         inkscape:connector-curvature="0"
+         id="path4390-2-3-0-57-6"
+         d="m 1011.875,443.36218 11.3469,20.86846 6.7263,1.35646 z"
+         style="fill:#ffffff;fill-opacity:0.81951216;stroke:none" />
+      <path
+         sodipodi:nodetypes="cccc"
+         inkscape:connector-curvature="0"
+         id="path4390-3-0-3-3-5-8"
+         d="m 1037,493.36218 -4,-22 -3,6 z"
+         style="fill:#ffffff;fill-opacity:0.81951216;stroke:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-8-1-2-3-7"
+         d="m 1060,452.36218 -10,-5 0,42 5,3 z"
+         style="fill:#000000;fill-opacity:0.22926827;stroke:none" />
+    </g>
+    <g
+       id="g4150-4-7"
+       transform="translate(1337.5002,-29.283519)"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\garnatron\fpg-sources\bosses\11.png"
+       inkscape:export-xdpi="47.872341"
+       inkscape:export-ydpi="47.872341">
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path3018-3-1-3-9-2-8-7"
+         d="m 1110,442.36219 10,5 -10,-50.00001 -10,-4.99999 z"
+         style="fill:#b3b3b3;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         style="fill:#777777;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         d="m 1120,447.36219 10,-5 10,-50 -10,4.99999 z"
+         id="path4144-4-9"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="ccccc" />
+      <path
+         sodipodi:nodetypes="ccccccc"
+         inkscape:connector-curvature="0"
+         id="path3020-1-7-5-9-7-1-9"
+         d="m 1115,442.36219 5,5 5,-5 5,-45.00001 -10,-10 -10,10 z"
+         style="fill:#0000ff;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path4010-5-8-6-9-3-5"
+         d="m 1119,391.36218 -7,7 5,44 2,2 z"
+         style="fill:#ffffff;fill-opacity:0.58823529;stroke:none"
+         sodipodi:nodetypes="ccccc" />
+    </g>
+    <g
+       id="g4150-5"
+       transform="translate(1337.5002,10.716481)"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\garnatron\fpg-sources\bosses\11.png"
+       inkscape:export-xdpi="47.872341"
+       inkscape:export-ydpi="47.872341">
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path3018-3-1-3-9-2-9"
+         d="m 1110,442.36219 10,5 -10,-50.00001 -10,-4.99999 z"
+         style="fill:#b3b3b3;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         style="fill:#777777;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         d="m 1120,447.36219 10,-5 10,-50 -10,4.99999 z"
+         id="path4144-41"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="ccccc" />
+      <path
+         sodipodi:nodetypes="ccccccc"
+         inkscape:connector-curvature="0"
+         id="path3020-1-7-5-9-7-7"
+         d="m 1115,442.36219 5,5 5,-5 5,-45.00001 -10,-10 -10,10 z"
+         style="fill:#0000ff;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path4010-5-8-6-9-6"
+         d="m 1119,391.36218 -7,7 5,44 2,2 z"
+         style="fill:#ffffff;fill-opacity:0.58823529;stroke:none"
+         sodipodi:nodetypes="ccccc" />
+    </g>
+    <g
+       transform="translate(1407.5002,0.71647802)"
+       id="g4454-3"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\garnatron\fpg-sources\bosses\11.png"
+       inkscape:export-xdpi="47.872341"
+       inkscape:export-ydpi="47.872341">
+      <path
+         sodipodi:nodetypes="ccccccc"
+         inkscape:connector-curvature="0"
+         id="path4026-7"
+         d="m 1056,486.36218 -1,6 -5,-3 -5,3 -1,-6 6,3 z"
+         style="fill:#666666;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cccccccccc"
+         inkscape:connector-curvature="0"
+         id="path2985-1-23-4-0"
+         d="m 1072,477.36218 -10,21 0,-19 -5,-3 3,-21 10,0 21,-15 -13,26 -11,2 z"
+         style="fill:#ffff00;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="cccccccccc"
+         inkscape:connector-curvature="0"
+         id="path2985-1-2-4-3-6"
+         d="m 1028,477.36218 10,21 0,-19 5,-3 -2,-22 -11,0 -21,-14 13,26 11,2 z"
+         style="fill:#ffff00;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="ccccccc"
+         inkscape:connector-curvature="0"
+         id="path3963-6-1-9"
+         d="m 1044,486.36218 6,3 6,-3 4,-34 -10,-5 -10,5 z"
+         style="fill:#b3b3b3;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path4229-3-2-1"
+         d="m 1043,456.36218 7,4 7,-4 -7,11 z"
+         style="fill:#00ff00;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cccc"
+         inkscape:connector-curvature="0"
+         id="path4390-2-3-0"
+         d="m 1011.875,443.36218 11.3469,20.86846 6.7263,1.35646 z"
+         style="fill:#ffffff;fill-opacity:0.81951216;stroke:none" />
+      <path
+         sodipodi:nodetypes="cccc"
+         inkscape:connector-curvature="0"
+         id="path4390-3-0-3-3"
+         d="m 1037,493.36218 -4,-22 -3,6 z"
+         style="fill:#ffffff;fill-opacity:0.81951216;stroke:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path4368-8-1-2"
+         d="m 1060,452.36218 -10,-5 0,42 5,3 z"
+         style="fill:#000000;fill-opacity:0.22926827;stroke:none" />
+    </g>
   </g>
   <g
      inkscape:groupmode="layer"

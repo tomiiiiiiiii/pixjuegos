@@ -154,6 +154,7 @@ Local
 	estado;
 	patron;
 	id_texto;
+	inmunidad;
 	i,j; //para controles.pr-
 End
 
@@ -169,7 +170,7 @@ BEGIN
 	if(argc>0) if(argv[1]=="arcade") arcade_mode=1; end end
 	
 	set_fps(40,10);
-	
+	set_title("Garnatron");
 	//--------------------------------------------------Cargando opciones
 	
 	if(os_id<1000)
@@ -299,7 +300,6 @@ BEGIN
 	musica(1);
 	graph=2;
 	
-	
 	say("----------------- INICIALIZANDO COSICAS!");
 	
 	from alpha=0 to 255 step 10; frame; end
@@ -315,7 +315,7 @@ BEGIN
 
 	//jugadores=4;
 	historia(1);
-	//fase(3);
+	//fase(5);
 	//juego(1);
 	frame;
 
@@ -369,6 +369,7 @@ begin
 	end
 
 	if(cosa==2) //creditos
+		musica(1);
 		escapable();
 		pausa=1;
 		switch(jugadores)
@@ -549,7 +550,7 @@ begin
 end
 
 //-----------------------------------------------------------------------
-// proceso escapable por PiXeL, pulsa escape i va al menu
+// proceso escapable por PiXeL, pulsa escape y va al menu
 //-----------------------------------------------------------------------
 
 process escapable();
@@ -1214,9 +1215,9 @@ end
 process highscores(nuevo_j1,nuevo_j2,nuevo_j3,nuevo_j4);
 
 private
-a;
-nueva_puntuacion[5];
-nuevo_aspirante[5]=0,-1,-1,-1,-1;
+	a;
+	nueva_puntuacion[5];
+	nuevo_aspirante[5]=0,-1,-1,-1,-1;
 
 begin
 	let_me_alone();
@@ -1266,6 +1267,11 @@ begin
 				save.nombres[nuevo_aspirante[jugador]]=texto_introducido[jugador];
 			end
 		end
+		if(guardar)
+			archivo=fopen(savegamedir+"save.dat",o_write);
+			fwrite(archivo,save);
+			fclose(archivo);
+		end
 		highscores(0,0,0,0);
 	else
 		x=ancho_pantalla/2;
@@ -1292,11 +1298,11 @@ begin
 		end
 		
 		controlador(0);
-		while(not p[0].botones[b_1])
+		while(not p[0].botones[b_2])
 			scroll.x0+=3;
 			frame;
 		end
-		while(p[0].botones[b_1])
+		while(p[0].botones[b_2])
 			scroll.x0+=3;
 			frame;
 		end

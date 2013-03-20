@@ -141,7 +141,7 @@ begin
 		if(p[jugador].botones[b_abajo])
 			posicion+=((len(cadena)+2)/filas_cadena);
 		end
-		if(p[jugador].botones[b_1])
+		if(p[jugador].botones[b_2])
 			if(posicion==len(cadena)+1) //Fin
 				break;
 			elseif(posicion==len(cadena)) //Borra
@@ -152,7 +152,7 @@ begin
 				end
 			end
 		end
-		if(p[jugador].botones[b_2])
+		if(p[jugador].botones[b_1])
 			texto_introducido[jugador]=substr(texto_introducido[jugador],0,len(texto_introducido[jugador])-1);
 		end
 		

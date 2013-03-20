@@ -5,11 +5,12 @@
 
 PROCESS nave01(x,y, jugador)
 
-private acelx; acely; disparando; inmunidad=75; retardo=5; id_bomba;
+private acelx; acely; disparando;  retardo=5; id_bomba;
 
 BEGIN
 	graph=1+((jugador-1) * 3);
 	file=fpg_nave;
+	inmunidad=75;
 //	controlador(jugador);
 	fuerza[jugador]=jugador;
 	if(y>alto_pantalla-70 and distancia > 0)
@@ -165,7 +166,7 @@ private gatillo; direccion=1; time; puntos2;
 begin
 z=-100; file=fpg_nave;
 
-switch (jugador)
+	switch (jugador)
 		case 1:
 			x=50; y=50; graph=26;
 			write_var(fuente[jugador],100,35,3,puntos2);
@@ -184,34 +185,34 @@ switch (jugador)
 		end
 	end
 
-barra_energia(jugador);
-barra_escudo(jugador);
-habilidad(jugador);
+	barra_energia(jugador);
+	barra_escudo(jugador);
+	habilidad(jugador);
 
-puntos2=puntos[jugador];
-loop
-	if(pausa==0)
+	puntos2=puntos[jugador];
+	loop
+		if(pausa==0)
 
-		time++;
-		if(time>125 and energia[jugador]<20) energia[jugador]++; time=0; end
+			time++;
+			if(time>125 and energia[jugador]<20) energia[jugador]++; time=0; end
 
-		if(p[jugador].botones[6] and gatillo==0) habil[jugador]++; gatillo=1; sombra(graph,x,y,file,5); end
-		if(not p[jugador].botones[6] and gatillo==1) gatillo=0; end
-		if(habil[jugador]>6) habil[jugador]=1; end
-		if(habil[jugador]<1) habil[jugador]=6; end
-		if(escudo[jugador]>5) escudo[jugador]=5; end
-		if(poder[jugador]>6) poder[jugador]=6; end
-		if(energia[jugador]>20) energia[jugador]=20; end
-		if(puntos[jugador]>puntos2)
-			if(((puntos[jugador]-puntos2)/10)>0)
-				puntos2+=((puntos[jugador]-puntos2)/10);
-			else
-				puntos2+=1;
+			if(p[jugador].botones[6] and gatillo==0) habil[jugador]++; gatillo=1; sombra(graph,x,y,file,5); end
+			if(not p[jugador].botones[6] and gatillo==1) gatillo=0; end
+			if(habil[jugador]>6) habil[jugador]=1; end
+			if(habil[jugador]<1) habil[jugador]=6; end
+			if(escudo[jugador]>5) escudo[jugador]=5; end
+			if(poder[jugador]>6) poder[jugador]=6; end
+			if(energia[jugador]>20) energia[jugador]=20; end
+			if(puntos[jugador]>puntos2)
+				if(((puntos[jugador]-puntos2)/10)>0)
+					puntos2+=((puntos[jugador]-puntos2)/10);
+				else
+					puntos2+=1;
+				end
 			end
 		end
+		frame;
 	end
-	frame;
-end
 end
 
 //-----------------------------------------------------------------------
@@ -282,6 +283,7 @@ begin
 			if(energia[jugador]>energia2) energia2++; end
 			if(energia[jugador]<energia2) energia2--; end
 			graph=energia2+40;
+			if(graph>60) graph=60; end
 		end
 		frame;
 	end
@@ -357,6 +359,7 @@ loop
 		end
 
 		graph=escudo[jugador]+20;
+		if(graph>25) graph=25; end
 		escudo_ant=escudo[jugador];
 	end
 	frame;

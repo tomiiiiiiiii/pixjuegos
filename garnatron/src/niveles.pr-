@@ -822,7 +822,7 @@ Begin
 					case 5:
 						id_boss01=boss(datos_nivel[n][4]);
 						jefe=1;
-						musica(1);
+						musica(2);
 					end
 				end
 				n++;

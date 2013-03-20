@@ -14,7 +14,7 @@
    height="297mm"
    id="svg2"
    sodipodi:version="0.32"
-   inkscape:version="0.48.0 r9654"
+   inkscape:version="0.48.2 r9819"
    sodipodi:docname="garna2.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
    version="1.1">
@@ -1629,6 +1629,127 @@
          stdDeviation="0.1125"
          id="feGaussianBlur5047" />
     </filter>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient5792-7"
+       id="radialGradient5798-1"
+       cx="877.56946"
+       cy="1862.6526"
+       fx="877.56946"
+       fy="1862.6526"
+       r="49.069378"
+       gradientTransform="matrix(-1.5460247,0.06458348,-0.06235009,-1.4925605,2686.4503,3538.0584)"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       id="linearGradient5792-7">
+      <stop
+         style="stop-color:#ffff71;stop-opacity:1;"
+         offset="0"
+         id="stop5794-40" />
+      <stop
+         style="stop-color:#ff6600;stop-opacity:1;"
+         offset="1"
+         id="stop5796-9" />
+    </linearGradient>
+    <radialGradient
+       r="49.069378"
+       fy="1862.6526"
+       fx="877.56946"
+       cy="1862.6526"
+       cx="877.56946"
+       gradientTransform="matrix(-1.6011954,-0.00511688,0.00477383,-1.4938546,2609.8379,3771.6358)"
+       gradientUnits="userSpaceOnUse"
+       id="radialGradient3809"
+       xlink:href="#linearGradient5792-7"
+       inkscape:collect="always" />
+    <radialGradient
+       r="49.069378"
+       fy="1862.6526"
+       fx="877.56946"
+       cy="1862.6526"
+       cx="877.56946"
+       gradientTransform="matrix(-1.6011954,-0.00511688,0.00477383,-1.4938546,2609.8379,3771.6358)"
+       gradientUnits="userSpaceOnUse"
+       id="radialGradient3809-8"
+       xlink:href="#linearGradient5792-7-5"
+       inkscape:collect="always" />
+    <linearGradient
+       id="linearGradient5792-7-5">
+      <stop
+         style="stop-color:#ffff71;stop-opacity:1;"
+         offset="0"
+         id="stop5794-40-7" />
+      <stop
+         style="stop-color:#ff6600;stop-opacity:1;"
+         offset="1"
+         id="stop5796-9-8" />
+    </linearGradient>
+    <radialGradient
+       r="49.069378"
+       fy="1862.6526"
+       fx="877.56946"
+       cy="1862.6526"
+       cx="877.56946"
+       gradientTransform="matrix(-1.5460247,0.06458348,-0.06235009,-1.4925605,3206.4224,3545.4976)"
+       gradientUnits="userSpaceOnUse"
+       id="radialGradient3745-7"
+       xlink:href="#linearGradient4608-9"
+       inkscape:collect="always" />
+    <linearGradient
+       id="linearGradient4608-9">
+      <stop
+         id="stop4610-9"
+         offset="0"
+         style="stop-color:#00ffff;stop-opacity:1;" />
+      <stop
+         id="stop4612-4"
+         offset="1"
+         style="stop-color:#0000c8;stop-opacity:1;" />
+    </linearGradient>
+    <radialGradient
+       r="49.069378"
+       fy="1862.6526"
+       fx="877.56946"
+       cy="1862.6526"
+       cx="877.56946"
+       gradientTransform="matrix(-1.5460247,0.06458348,-0.06235009,-1.4925605,3204.4503,3693.1062)"
+       gradientUnits="userSpaceOnUse"
+       id="radialGradient3877"
+       xlink:href="#linearGradient4608-9"
+       inkscape:collect="always" />
+    <radialGradient
+       r="49.069378"
+       fy="1862.6526"
+       fx="877.56946"
+       cy="1862.6526"
+       cx="877.56946"
+       gradientTransform="matrix(-1.6011954,-0.00511688,0.00477383,-1.4938546,2609.8379,3771.6358)"
+       gradientUnits="userSpaceOnUse"
+       id="radialGradient3809-1"
+       xlink:href="#linearGradient5792-7-2"
+       inkscape:collect="always" />
+    <linearGradient
+       id="linearGradient5792-7-2">
+      <stop
+         style="stop-color:#ffff71;stop-opacity:1;"
+         offset="0"
+         id="stop5794-40-0" />
+      <stop
+         style="stop-color:#ff6600;stop-opacity:1;"
+         offset="1"
+         id="stop5796-9-7" />
+    </linearGradient>
+    <radialGradient
+       r="49.069378"
+       fy="1862.6526"
+       fx="877.56946"
+       cy="1862.6526"
+       cx="877.56946"
+       gradientTransform="matrix(-1.6011954,-0.00511688,0.00477383,-1.4938546,3129.8379,3761.6358)"
+       gradientUnits="userSpaceOnUse"
+       id="radialGradient3911"
+       xlink:href="#linearGradient4608-9"
+       inkscape:collect="always" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -1637,9 +1758,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.044194174"
-     inkscape:cx="-4346.1005"
-     inkscape:cy="-429.9267"
+     inkscape:zoom="0.25"
+     inkscape:cx="445.82266"
+     inkscape:cy="169.87308"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showguides="true"
@@ -6717,5 +6838,23 @@
        inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\garnatron\fpg-sources\enemigos\30.png"
        inkscape:export-xdpi="97.832214"
        inkscape:export-ydpi="97.832214" />
+    <path
+       style="fill:url(#radialGradient3809);fill-opacity:1;stroke:#ff6800;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 1145,997.36218 c 15.3978,-4.73866 13.9853,-19.80703 0,-25 15,-5 25.3483,-15.0514 15,-20 10,0 24.5008,-7.49978 6.5,-17.99998 83.9911,0.7817 90.9759,102.0423 0,101.5 21.8499,-16.5586 3.5,-18.5 -6.5,-18.5 15,-10 0,-15 -15,-20.00002 z"
+       id="path5248-4"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccccc"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\garnatron\fpg-sources\bombas\62.png"
+       inkscape:export-xdpi="136.84488"
+       inkscape:export-ydpi="136.84488" />
+    <path
+       style="fill:url(#radialGradient3911);fill-opacity:1;stroke:#0000c7;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 1665,987.3622 c 15.3978,-4.7387 13.9853,-19.80705 0,-25.00002 15,-5 25.3483,-15.0514 15,-20 10,0 24.5008,-7.49978 6.5,-17.99998 83.9911,0.7817 90.9759,102.0423 0,101.5 21.8499,-16.5586 3.5,-18.5 -6.5,-18.5 15,-9.99998 0,-15 -15,-20 z"
+       id="path5248-4-4"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccccc"
+       inkscape:export-filename="C:\Users\Propietario\Desktop\PiXJuegos\garnatron\fpg-sources\bombas\72.png"
+       inkscape:export-xdpi="136.84488"
+       inkscape:export-ydpi="136.84488" />
   </g>
 </svg>

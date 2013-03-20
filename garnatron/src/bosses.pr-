@@ -34,6 +34,7 @@ private
 	x1;
 	angulo;
 	angulo2;
+	patron2;
 
 begin
 z-=50;
@@ -96,9 +97,18 @@ if(tipo==2)	//nivel 2
 	loop
 	if(pausa==0)
 		patron++;
+		patron2++;
 		x=x1+get_distx(angulo,300);
 		angulo+=1000;
 
+		if(patron2>30)
+			graph++;
+			if(graph>13)
+				graph=10;
+			end
+			patron2=0;
+		end
+		
 		if(patron==25 or patron==50 or patron==75 or patron==100 or patron==125 or patron==150 or patron==175 or patron==200 or patron==225 or patron==250 or patron==275 or patron==300 or patron==325 or patron==350 or patron==375 or patron==400 or patron==425 or patron==450 or patron==475)
 			disparo02(x-50,y+5,235000,2);
 			disparo02(x-40,y+5,240000,2);
@@ -110,8 +120,7 @@ if(tipo==2)	//nivel 2
 			disparo02(x+50,y+5,305000,2);
 			suena(s_laser3);
 		end
-
-
+		
 		if(patron==500) bomba02(0,120,3*pi/2,100,2); end
 		if(patron>625) patron=0; end
 
@@ -176,6 +185,17 @@ if(tipo==3)	//nivel 3
 			suena(s_misil);
 			patron=0;
 		end
+		
+		if(!exists(id_boss02) and !exists(id_boss03))
+			patron2++;
+		end
+
+		if(patron2>200) 
+			bomba02(60,-40,45000,75,2);
+			bomba02(-60,-40,135000,75,2);
+			patron2=0;
+		end
+		
 
 		id2=(collision(type disparo01));
 		if(id2) vida_boss--; signal(id2,s_kill); explosion(id2.x,id2.y,2,25); puntos[id2.jugador]+=1; end
@@ -313,45 +333,58 @@ if(tipo==5)
 
 		if(not exists(id_boss02) and not exists(id_boss03))
 			if(patron==25 or patron==50 or patron==75 or patron==100 or patron==125 or patron==150 or patron==175)
-				disparo02(x-100,y,255000,3);
-				disparo02(x-100,y,260000,3);
-				disparo02(x-100,y,265000,3);
-				disparo02(x-100,y,270000,3);
-				disparo02(x+100,y,270000,3);
-				disparo02(x+100,y,275000,3);
-				disparo02(x+100,y,280000,3);
-				disparo02(x+100,y,285000,3);
+				disparo02(x-120,y-50,255000,3);
+				disparo02(x-120,y-50,260000,3);
+				disparo02(x-120,y-50,265000,3);
+				disparo02(x-120,y-50,270000,3);
+				disparo02(x+120,y-50,270000,3);
+				disparo02(x+120,y-50,275000,3);
+				disparo02(x+120,y-50,280000,3);
+				disparo02(x+120,y-50,285000,3);
 				suena(s_laser3);
 			end
 		end
 		
 		if(not exists(id_boss04) and not exists(id_boss05))
 			if(patron==200 or patron==225 or patron==250 or patron==275 or patron==475 or patron==500 or patron==525 or patron==550 or patron==575)
-				disparo02(x-100,y,255000,3);
-				disparo02(x-100,y,260000,3);
-				disparo02(x-100,y,265000,3);
-				disparo02(x-100,y,270000,3);
-				disparo02(x+100,y,270000,3);
-				disparo02(x+100,y,275000,3);
-				disparo02(x+100,y,280000,3);
-				disparo02(x+100,y,285000,3);
+				disparo02(x-120,y-50,255000,3);
+				disparo02(x-120,y-50,260000,3);
+				disparo02(x-120,y-50,265000,3);
+				disparo02(x-120,y-50,270000,3);
+				disparo02(x+120,y-50,270000,3);
+				disparo02(x+120,y-50,275000,3);
+				disparo02(x+120,y-50,280000,3);
+				disparo02(x+120,y-50,285000,3);
 				suena(s_laser3);
 			end
 		end
 		
-		if(patron==600 or patron==625 or patron==650)
-			disparo02(x-100,y,255000,3);
-			disparo02(x-100,y,260000,3);
-			disparo02(x-100,y,265000,3);
-			disparo02(x-100,y,270000,3);
-			disparo02(x+100,y,270000,3);
-			disparo02(x+100,y,275000,3);
-			disparo02(x+100,y,280000,3);
-			disparo02(x+100,y,285000,3);
+		if(patron==600)
+			disparo02(x,y-50,245000,3);
+			disparo02(x,y-50,255000,3);
 			suena(s_laser3);
 		end
-
-		if(patron>670) patron=0; end
+		if(patron==620)
+			disparo02(x,y-50,255000,3);
+			disparo02(x,y-50,265000,3);
+			suena(s_laser3);
+		end
+		if(patron==640)
+			disparo02(x,y-50,265000,3);
+			disparo02(x,y-50,275000,3);
+			suena(s_laser3);
+		end
+		if(patron==660)
+			disparo02(x,y-50,275000,3);
+			disparo02(x,y-50,285000,3);
+			suena(s_laser3);
+		end
+		if(patron==680)
+			disparo02(x,y-50,285000,3);
+			disparo02(x,y-50,295000,3);
+			suena(s_laser3);
+		end
+		if(patron>680) patron=0; end
 
 		id2=(collision(type disparo01));
 		if(id2) vida_boss--; signal(id2,s_kill); explosion(id2.x,id2.y,2,25); puntos[id2.jugador]+=1; end

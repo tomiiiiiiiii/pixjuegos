@@ -178,6 +178,7 @@ begin
 					explotalo(x,y,z,alpha,angle,file,graph,40);
 				end
 				puntos[id2.jugador]+=10;
+				energia[id2.jugador]+=1;
 				break;
 			end
 			from jugador=1 to 4;
@@ -198,6 +199,7 @@ begin
 					explotalo(x,y,z,alpha,angle,file,graph,40);
 				end
 				puntos[id2.jugador]+=10;
+				energia[id2.jugador]+=1;
 				break;
 			end
 			id2=(collision(type bomba));
@@ -207,6 +209,7 @@ begin
 					explotalo(x,y,z,alpha,angle,file,graph,40);
 				end
 				puntos[id2.jugador]+=10;
+				energia[id2.jugador]+=1;
 				break;
 			end
 			if(y>alto_pantalla+100)
@@ -334,6 +337,7 @@ begin
 						explotalo(x,y,z,alpha,angle,file,graph,40);
 					end
 					puntos[id2.jugador]+=10;
+					energia[id2.jugador]+=1;
 					from angle=0 to 2*pi step pi/6;
 						disparo02(x,y,angle,3);
 					end
@@ -385,10 +389,8 @@ BEGIN
 	end
 	loop
 		if(pausa==0)
-
 			x+=get_distx(angulo,7-tamany);
 			y+=get_disty(angulo,7-tamany);
-
 		end		
 		id2=(collision(type laser));
 		if(id2)
@@ -397,6 +399,7 @@ BEGIN
 			else 
 				puntos[id2.jugador]+=10;
 			end
+			energia[id2.jugador]+=1;
 			explosion(x,y,1,50);
 			if(ops.particulas==1) explotalo(x,y,z,alpha,angle,file,graph,40); end
 			break;
@@ -413,6 +416,7 @@ BEGIN
 				else 
 					puntos[id2.jugador]+=10;
 				end
+				energia[id2.jugador]+=1;
 			end
 		end
 		if(vida<1)
