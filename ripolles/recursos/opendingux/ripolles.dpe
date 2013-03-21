@@ -1,0 +1,13 @@
+#!/bin/sh
+LD_LIBRARY_PATH_BAK=$LD_LIBRARY_PATH
+PATH_BAK=$PATH
+
+export LD_LIBRARY_PATH=./bgd-runtime:$LD_LIBRARY_PATH
+export PATH=./bgd-runtime:$PATH
+
+bgdi ripolles.dcb
+
+sync
+
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH_BAK
+PATH=$PATH_BAK

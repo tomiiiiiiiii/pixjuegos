@@ -644,8 +644,54 @@ class SDLSurface extends SurfaceView implements SurfaceHolder.Callback,
             }
             return false;
         }
+	
+		if (event.getAction() == KeyEvent.ACTION_DOWN) {
+			switch (keyCode) {
+				case KeyEvent.KEYCODE_BUTTON_X:
+					keyCode = KeyEvent.KEYCODE_A;
+					break;
+				case KeyEvent.KEYCODE_BUTTON_A:
+					keyCode = KeyEvent.KEYCODE_S;
+					break;
+				case KeyEvent.KEYCODE_BUTTON_B:
+					keyCode = KeyEvent.KEYCODE_D;
+					break;
+				case KeyEvent.KEYCODE_BUTTON_Y:
+					keyCode = KeyEvent.KEYCODE_S;
+					break;
+				case KeyEvent.KEYCODE_BUTTON_SELECT:
+					keyCode = KeyEvent.KEYCODE_BACK;
+					break;
+				case KeyEvent.KEYCODE_BUTTON_START:
+					keyCode = KeyEvent.KEYCODE_BACK;
+					break;
+			}
+			SDLActivity.onNativeKeyDown(keyCode);
+		} else if (event.getAction() == KeyEvent.ACTION_UP) {
+			switch (keyCode) {
+				case KeyEvent.KEYCODE_BUTTON_X:
+					keyCode = KeyEvent.KEYCODE_A;
+					break;
+				case KeyEvent.KEYCODE_BUTTON_A:
+					keyCode = KeyEvent.KEYCODE_S;
+					break;
+				case KeyEvent.KEYCODE_BUTTON_B:
+					keyCode = KeyEvent.KEYCODE_D;
+					break;
+				case KeyEvent.KEYCODE_BUTTON_Y:
+					keyCode = KeyEvent.KEYCODE_S;
+					break;
+				case KeyEvent.KEYCODE_BUTTON_SELECT:
+					keyCode = KeyEvent.KEYCODE_BACK;
+					break;
+				case KeyEvent.KEYCODE_BUTTON_START:
+					keyCode = KeyEvent.KEYCODE_BACK;
+					break;
+			}
+			SDLActivity.onNativeKeyUp(keyCode);
+		}
 
-        if (event.getAction() == KeyEvent.ACTION_DOWN) {
+/*        if (event.getAction() == KeyEvent.ACTION_DOWN) {
             //Log.v("SDL", "key down: " + keyCode);
             SDLActivity.onNativeKeyDown(keyCode);
             return true;
@@ -654,7 +700,7 @@ class SDLSurface extends SurfaceView implements SurfaceHolder.Callback,
             //Log.v("SDL", "key up: " + keyCode);
             SDLActivity.onNativeKeyUp(keyCode);
             return true;
-        }
+        }*/
         
         return false;
     }

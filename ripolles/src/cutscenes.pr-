@@ -5,7 +5,7 @@ Private
 	id_taza;
 	id_sonido;
 Begin
-	if(ops.truco_pato==1)
+	if(ops.truco_pato==1 or pocos_recursos)
 		jugar();
 		return;
 	end

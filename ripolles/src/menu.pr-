@@ -7,6 +7,9 @@ private
 	volver_a_menu;
 	distancia_opciones=50;
 begin
+	if(fpg_menu<1)
+		fpg_menu=load_fpg("fpg/menu.fpg");
+	end
 	file=fpg_menu;
 	delete_text(all_text);
 	if(num_menu==-1)

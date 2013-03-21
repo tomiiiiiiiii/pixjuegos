@@ -52,9 +52,14 @@ begin
 	end
 
 	if(os_id==1010) //pandora
-		frame;
 		bpp=16;
 		scale_resolution=08000480;
+		return;
+	end
+	
+	if(os_id==1001) //psp
+		scale_resolution=04800272;
+		bpp=16;
 		return;
 	end
 	

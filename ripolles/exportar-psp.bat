@@ -5,7 +5,7 @@ echo Compilando...
 move ripolles.dcb ..
 cd ..
 
-call compilarfpgs 32
+call compilarfpgs 16
 
 echo Exportando...
 mkdir export
@@ -18,13 +18,12 @@ copy fpg\*.fpg export\fpg
 copy ogg\*.ogg export\ogg
 copy wav\*.wav export\wav
 copy fnt\*.fnt export\fnt
-copy ..\bennu-win\*.dll export
-copy ..\bennu-win\bgdi.exe export\ripolles.exe
-copy ripolles.dcb export
-cd export
-echo DEBES ELEGIR EL ripolles.EXE
-..\..\bennu-win\pakator 
-move ripolles_exe_pak.exe ..\ripolles.exe
-cd ..
+copy ..\bennu-psp\eboot.pbp export\
+copy ripolles.dcb export\eboot.dcb
+mkdir PSP
+mkdir PSP\GAME
+move export PSP\GAME\RIPOLLES
+mkdir export
+move PSP export
 echo LISTO!!
 exit

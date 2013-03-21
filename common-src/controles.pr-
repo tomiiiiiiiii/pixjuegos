@@ -37,6 +37,8 @@ Global
 	gamepad_boton_size=40;
 	gamepad_botones=3;
 	
+	no_vgamepad=0;
+	
 	key_b_izquierda=_LEFT;
 	key_b_derecha=_RIGHT;
 	key_b_arriba=_UP;
@@ -65,7 +67,7 @@ Begin
 		if(graph_dedo<1)
 			pinta_gamepad();			
 		end
-		if(!exists(id_gamepad))
+		if(!exists(id_gamepad) and no_vgamepad==0)
 			id_gamepad=gamepad_virtual();
 		end
 	End
@@ -205,6 +207,12 @@ Begin
 				joy_profiles[i]._b_3=1;
 				joy_profiles[i]._b_salir=6;
 			end
+			if(find(joy_profiles[i].name,"psp")=>0)
+				joy_profiles[i]._b_1=3;
+				joy_profiles[i]._b_2=2;
+				joy_profiles[i]._b_3=1;
+				joy_profiles[i]._b_salir=6;
+			end
 		end
 	end
 	
@@ -253,6 +261,12 @@ Begin
 		p[1].control=1;
 		posibles_jugadores=1;
 	end
+
+	if(os_id==1001) //psp
+		p[1].control=1;
+		posibles_jugadores=1;
+		//y punto
+	end
 	
 	if(os_id==os_wii) //wii
 		joysticks[0]=0;
@@ -294,6 +308,10 @@ Begin
 	
 	priority=8;
 	loop
+		if(key(_a) or key(_s) or key(_d))
+			no_vgamepad=1;
+			return;
+		end
 		if(mouse.left) dedo(mouse.x,mouse.y); end
 #IFDEF TACTIL
 		for(i=0; i<10; i++)

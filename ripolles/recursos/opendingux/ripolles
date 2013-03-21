@@ -1,0 +1,7 @@
+title=La pesadilla de Ripolles
+icon=skin:icons/games/alice.png
+exec=/boot/local/games/ripolles/ripolles.dpe
+manual=/boot/local/games/alice/readme.txt
+clock=336
+gamma=100
+backlight=100

@@ -59,6 +59,7 @@ Const
 End
 
 Global
+	pocos_recursos=0;
 	good_vs_evil=0;
 	
 	puntos;
@@ -218,6 +219,12 @@ Begin
 	elseif(os_id==1010) //pandora
 		scale_resolution=08000480;
 		bpp=16;
+	elseif(os_id==1001) //psp
+		scale_resolution=04800272;
+		alto_pantalla=360;
+		ancho_pantalla=633;
+		pocos_recursos=1;
+		bpp=16;
 	else
 		scale_resolution=12800720;
 		//graph_mode=mode_2xscale;
@@ -305,11 +312,13 @@ End
 
 Function carga_fpgs();
 Begin
-	fpg_pato=load_fpg("fpg/pato.fpg");
 	fpg_ripolles1=load_fpg("fpg/ripolles1.fpg");
-	fpg_ripolles2=load_fpg("fpg/ripolles2.fpg");
-	fpg_ripolles3=load_fpg("fpg/ripolles3.fpg");
-	fpg_ripolles4=load_fpg("fpg/ripolles4.fpg");
+	fpg_pato=load_fpg("fpg/pato.fpg");
+	if(posibles_jugadores>1) //ahorro de recursos!
+		fpg_ripolles2=load_fpg("fpg/ripolles2.fpg");
+		fpg_ripolles3=load_fpg("fpg/ripolles3.fpg");
+		fpg_ripolles4=load_fpg("fpg/ripolles4.fpg");
+	end
 	fpg_enemigo1=load_fpg("fpg/enemigo1.fpg");
 	fpg_enemigo2=load_fpg("fpg/enemigo2.fpg");
 	fpg_enemigo3=load_fpg("fpg/enemigo3.fpg");
@@ -323,6 +332,9 @@ End
 Process jugar();
 Begin
 	let_me_alone();
+	if(pocos_recursos)
+		unload_fpg(fpg_menu);
+	end
 	set_fps(30,5);
 	clear_screen();
 	delete_text(all_text);
