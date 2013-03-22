@@ -58,7 +58,6 @@ Global
 	arcade_mode=0;
 
 	guardar=1;
-	tactil=0;
 
 	struct ops;
 		struct teclado;	//controles teclado
@@ -189,7 +188,6 @@ BEGIN
 	end
 	if(os_id==1003)
 		savegamedir="/data/data/com.pixjuegos.garnatron/files";
-		tactil=1;
 		ops.particulas=0;
 	end
 	
@@ -229,21 +227,27 @@ BEGIN
 	
 	//-----------------------------------------------------------------Panalla
 	
-	switch(ops.resolucion)
-		case 0:
-			ancho_pantalla=1024;
-			alto_pantalla=768;
-			resolucioname(ancho_pantalla,alto_pantalla,0);
-		end
-		case 1:
-			ancho_pantalla=1280;
-			alto_pantalla=720;
-			resolucioname(ancho_pantalla,alto_pantalla,1);
-		end
-		case 2:
-			ancho_pantalla=1920;
-			alto_pantalla=1080;
-			resolucioname(ancho_pantalla,alto_pantalla,1);
+	if(os_id==1003)
+		ancho_pantalla=1024;
+		alto_pantalla=552;
+		resolucioname(ancho_pantalla,alto_pantalla,1);
+	else
+		switch(ops.resolucion)
+			case 0:
+				ancho_pantalla=1024;
+				alto_pantalla=768;
+				resolucioname(ancho_pantalla,alto_pantalla,0);
+			end
+			case 1:
+				ancho_pantalla=1280;
+				alto_pantalla=720;
+				resolucioname(ancho_pantalla,alto_pantalla,1);
+			end
+			case 2:
+				ancho_pantalla=1920;
+				alto_pantalla=1080;
+				resolucioname(ancho_pantalla,alto_pantalla,1);
+			end
 		end
 	end
 	
@@ -1380,10 +1384,10 @@ end
 
 PROCESS musica(cancion);
 BEGIN
-	FADE_MUSIC_OFF(0); 
+	//FADE_MUSIC_OFF(0); 
 	timer[1]=0;
 	unload_song(cargada);
-	cargada=load_song("ogg/"+cancion+".ogg");	
+	cargada=load_song("ogg/"+cancion+".ogg");
 	play_song(cargada,-1);
 	frame;
 END

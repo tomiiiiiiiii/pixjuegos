@@ -667,6 +667,7 @@ class SDLSurface extends SurfaceView implements SurfaceHolder.Callback,
 					break;
 			}
 			SDLActivity.onNativeKeyDown(keyCode);
+			return true;
 		} else if (event.getAction() == KeyEvent.ACTION_UP) {
 			switch (keyCode) {
 				case KeyEvent.KEYCODE_BUTTON_X:
@@ -689,6 +690,7 @@ class SDLSurface extends SurfaceView implements SurfaceHolder.Callback,
 					break;
 			}
 			SDLActivity.onNativeKeyUp(keyCode);
+			return true;
 		}
 
 /*        if (event.getAction() == KeyEvent.ACTION_DOWN) {

@@ -359,7 +359,7 @@ Process musica(cancion); //
 Private
 	string formato="ogg";
 Begin
-	if(os_id!=os_win32 and os_id!=os_linux) formato="mp3"; end
+	if(os_id!=os_win32 and os_id!=os_linux and os_id!=1003) formato="mp3"; end
 
 	/*If(cancion==-1)
 		if(is_playing_song()) 

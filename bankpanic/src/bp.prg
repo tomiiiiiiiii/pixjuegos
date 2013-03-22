@@ -98,9 +98,9 @@ Begin
 	else
 		write(fnt,320,190,4,"Touch to play or press Enter");
 	end
-	while(!mouse.left and !key(_enter))
+	while(!mouse.left and !key(_enter) and !key(_a) and !key(_s) and !key(_d))
 		if(scan_code==102 or key(_esc)) exit(); end
-		if(!focus_status)
+		if(!focus_status and os_id==1003)
 			let_me_alone();
 			fade_music_off(500);
 			while(is_playing_song()) frame; end

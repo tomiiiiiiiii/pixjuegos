@@ -48,6 +48,7 @@ begin
 		frame;
 		bpp=16;
 		scale_resolution=graphic_info(0,0,g_width)*10000+graphic_info(0,0,g_height);
+		say("---Escala: "+scale_resolution);
 		return;
 	end
 

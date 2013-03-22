@@ -4,7 +4,7 @@ call ..\utils\entorno.bat 7stars
 rd /s /q export
 echo Compilando...
 cd src
-..\..\bennu-win-old\bgdc 7stars.prg
+..\..\bennu-win-old\bgdc -D TACTIL=1 7stars.prg
 move 7stars.dcb ..\main.dcb
 cd ..
 pause

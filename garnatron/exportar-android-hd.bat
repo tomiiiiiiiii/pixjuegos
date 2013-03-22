@@ -4,7 +4,7 @@ call ..\utils\entorno.bat garnatron
 rd /s /q export
 echo Compilando...
 cd src
-..\..\bennu-win\bgdc garnatron.prg
+..\..\bennu-win\bgdc -D TACTIL garnatron.prg
 move garnatron.dcb ..\main.dcb
 cd ..
 pause
@@ -16,7 +16,7 @@ echo Exportando...
 mkdir export
 
 echo Copiando base de bennu-android...
-xcopy /r/e/y ..\bennu-android-4.1 .\export
+xcopy /r/e/y ..\bennu-android .\export
 
 echo Creando carpetas...
 mkdir export\assets\fpg

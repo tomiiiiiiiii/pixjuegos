@@ -4,7 +4,7 @@ call ..\utils\entorno.bat pixpang
 rd /s /q export
 echo Compilando...
 cd src
-..\..\bennu-win\bgdc pixpang.prg
+..\..\bennu-win\bgdc -D TACTIL=1 pixpang.prg
 move pixpang.dcb ..\main.dcb
 cd ..
 pause
@@ -16,7 +16,7 @@ call ..\scripts\descomprimefpgs.bat
 echo Exportando...
 mkdir export
 echo Copiando base de bennu-android...
-xcopy /r/e/y ..\bennu-android-4.1 .\export
+xcopy /r/e/y ..\bennu-android .\export
 
 rem echo Generamos local.properties
 rem echo sdk.dir=%dirbase%/utils/android-sdk > export\local.properties
