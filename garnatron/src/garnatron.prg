@@ -228,9 +228,23 @@ BEGIN
 	//-----------------------------------------------------------------Panalla
 	
 	if(os_id==1003)
-		ancho_pantalla=1024;
-		alto_pantalla=552;
-		resolucioname(ancho_pantalla,alto_pantalla,1);
+		//archos gamepad:
+		//ancho_pantalla=1024;
+		//alto_pantalla=552;
+		
+		//android
+		
+		//si tiene un tamaño suficiente, lo ejecutamos con su resolución nativa
+		if(graphic_info(0,0,g_width)>800 and graphic_info(0,0,g_height)>550)
+			ancho_pantalla=graphic_info(0,0,g_width);
+			alto_pantalla=graphic_info(0,0,g_height);
+		else //sino, escalado
+			ancho_pantalla=1280;
+			alto_pantalla=720;
+			scale_resolution=graphic_info(0,0,g_width)*10000+graphic_info(0,0,g_height);
+		end
+		ops.p_completa=1;
+		//resolucioname(ancho_pantalla,alto_pantalla,1);
 	else
 		switch(ops.resolucion)
 			case 0:
@@ -251,7 +265,7 @@ BEGIN
 		end
 	end
 	
-	if(ops.p_completa) 
+	if(ops.p_completa)
 		full_screen=true;
 		set_mode(ancho_pantalla,alto_pantalla,bpp,WAITVSYNC);
 	else
@@ -603,7 +617,7 @@ private
 	pulsando;
 	volver_a_menu;
 	a;
-	
+
 begin
 	
 	let_me_alone();
@@ -632,18 +646,29 @@ begin
 	z=-20;
 	graph=0;
 	x=ancho_pantalla/2;
-	y=200;
+	if(alto_pantalla<600)
+		y=120;
+	else
+		y=200;
+	end
 	
 	//ponemos el menú actual
 	switch(num_menu)
 		case 0: //general
 			boton(x,y+=60,"Jugar",1);
 			boton(x,y+=60,"Continuar",2);
-			boton(x,y+=60,"Opciones",3);
-			boton(x,y+=60,"Clasificacion",4);
-			boton(x,y+=60,"Ayuda",5);
-			boton(x,y+=60,"Salir",6);
-			num_opciones=6;
+			if(os_id!=1003)
+				boton(x,y+=60,"Opciones",3);
+				boton(x,y+=60,"Clasificacion",4);
+				boton(x,y+=60,"Ayuda",5);
+				boton(x,y+=60,"Salir",6);
+				num_opciones=6;
+			else
+				boton(x,y+=60,"Clasificacion",3);
+				boton(x,y+=60,"Ayuda",4);
+				boton(x,y+=60,"Salir",5);
+				num_opciones=5;
+			end
 			volver_a_menu=0;
 		end
 		case 1: //opciones
@@ -728,6 +753,7 @@ begin
 			while(p[0].botones[5]) scroll.x0+=3; frame; end
 			switch(num_menu)
 				case 0: //general
+					if(os_id==1003 and opcion_actual>2) opcion_actual++; end //en Android no hay menú de opciones
 					switch(opcion_actual)
 						case 1:
 							if(posibles_jugadores>1)
@@ -1190,6 +1216,9 @@ begin
 	graph=4;
 	x=ancho_pantalla/2;
 	y=alto_pantalla/2;
+	if(alto_pantalla<720)
+		size=70;
+	end
 	while(not p[0].botones[5])
 		scroll.x0+=3;
 		frame;

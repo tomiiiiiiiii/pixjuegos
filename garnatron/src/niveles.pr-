@@ -120,31 +120,31 @@ Begin
 	graph=0;
 	switch(jugadores)
 		case 1:
-			id_nave[1]=nave01(ancho_pantalla/2,800,1);
+			id_nave[1]=nave01(ancho_pantalla/2,alto_pantalla+100,1);
 			marcador(1);
 		end
 		case 2: 
-			id_nave[1]=nave01(ancho_pantalla/3,800,1);
+			id_nave[1]=nave01(ancho_pantalla/3,alto_pantalla+100,1);
 			marcador(1);
-			id_nave[2]=nave01(2*ancho_pantalla/3,800,2);
+			id_nave[2]=nave01(2*ancho_pantalla/3,alto_pantalla+100,2);
 			marcador(2);
 		end
 		case 3: 
-			id_nave[1]=nave01(ancho_pantalla/4,800,1);
+			id_nave[1]=nave01(ancho_pantalla/4,alto_pantalla+100,1);
 			marcador(1);
-			id_nave[2]=nave01(ancho_pantalla/2,800,2);
+			id_nave[2]=nave01(ancho_pantalla/2,alto_pantalla+100,2);
 			marcador(2);
-			id_nave[3]=nave01(3*ancho_pantalla/4,800,3);
+			id_nave[3]=nave01(3*ancho_pantalla/4,alto_pantalla+100,3);
 			marcador(3);
 		end
 		case 4:
-			id_nave[1]=nave01(ancho_pantalla/5,800,1);
+			id_nave[1]=nave01(ancho_pantalla/5,alto_pantalla+100,1);
 			marcador(1);
-			id_nave[2]=nave01(2*ancho_pantalla/5,800,2);
+			id_nave[2]=nave01(2*ancho_pantalla/5,alto_pantalla+100,2);
 			marcador(2);
-			id_nave[3]=nave01(3*ancho_pantalla/5,800,3);
+			id_nave[3]=nave01(3*ancho_pantalla/5,alto_pantalla+100,3);
 			marcador(3);
-			id_nave[4]=nave01(4*ancho_pantalla/5,800,4);
+			id_nave[4]=nave01(4*ancho_pantalla/5,alto_pantalla+100,4);
 			marcador(4);
 		end
 	end
@@ -180,10 +180,10 @@ Begin
 				graph=20;
 				direccion=1;
 				id_texto=write(fuente[0],x,y,4,"¿Salir de la partida?");
-				boton(ancho_pantalla/2,500,"",1);
-				id_texto1=write(fuente[0],ancho_pantalla/2,500,4,"No");
-				boton(ancho_pantalla/2,550,"",2);
-				id_texto2=write(fuente[0],ancho_pantalla/2,550,4,"Si");
+				boton(ancho_pantalla/2,400,"",1);
+				id_texto1=write(fuente[0],ancho_pantalla/2,400,4,"No");
+				boton(ancho_pantalla/2,450,"",2);
+				id_texto2=write(fuente[0],ancho_pantalla/2,450,4,"Si");
 				opcion=1;
 			else
 				pausa=0;

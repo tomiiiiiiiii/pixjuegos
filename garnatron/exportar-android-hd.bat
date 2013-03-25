@@ -47,6 +47,5 @@ copy fnt\*.fnt export\assets\fnt /y
 copy main.dcb export\assets /y
 echo Exportado correctamente. Ahora se instalará en el móvil...
 cd export
-cmd /c if exist c:\pixjuegos.keystore ant release install
-cmd /c if not exist c:\pixjuegos.keystore ant debug install
+call ..\..\scripts\genera-apk.bat
 pause
