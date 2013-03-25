@@ -56,6 +56,5 @@ copy main.dcb export\assets /y
 echo Exportado correctamente. Ahora se instalará en el móvil...
 pause
 cd export
-if exist c:\pixjuegos.keystore call ant release install
-if not exist c:\pixjuegos.keystore call ant debug install
+call ..\..\scripts\genera-apk.bat
 pause
