@@ -214,7 +214,12 @@ Begin
 		scale_resolution_aspectratio = SRA_PRESERVE;
 		bpp=16;	
 	elseif(os_id==1003 or os_id==os_ios) //móviles
-		scale_resolution=graphic_info(0,0,g_width)*10000+graphic_info(0,0,g_height);
+		if(graphic_info(0,0,g_width)==1024 and graphic_info(0,0,g_height)==552)
+			ancho_pantalla=665; //archos gamepad
+			alto_pantalla=360;
+		else
+			scale_resolution=graphic_info(0,0,g_width)*10000+graphic_info(0,0,g_height);
+		end
 		bpp=16;	
 	elseif(os_id==1010) //pandora
 		scale_resolution=08000480;

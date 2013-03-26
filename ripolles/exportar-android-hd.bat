@@ -49,6 +49,5 @@ echo Exportado correctamente. Ahora se instalará en el móvil...
 
 
 cd export
-cmd /c if exist c:\pixjuegos.keystore ant release install
-cmd /c if not exist c:\pixjuegos.keystore ant debug install
+..\..\scripts\genera-apk.bat
 pause

@@ -215,15 +215,13 @@ Begin
 		ops.lenguaje=0;
 		scale_resolution=graphic_info(0,0,g_width)*10000+graphic_info(0,0,g_height);
 		say("---------- THIS IS MAY SCALE!!!!:"+SCALE_RESOLUTION);
-		#IFNDEF TACTIL
 		if(ops.ventana==1)
+			scale_resolution_aspectratio=SRA_STRETCH;
 			set_mode(800,520,16);
 		else
+			scale_resolution_aspectratio=SRA_PRESERVE;
 			set_mode(800,600,16);
 		end
-		#ELSE
-		set_mode(800,600,16);
-		#ENDIF
 	else
 		set_mode(800,600,32,WAITVSYNC);
 	end
