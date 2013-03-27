@@ -20,9 +20,6 @@ begin
 		id_bolas[i]=0;
 		i++;
 	end
-	While(file_exists("tour/"+itoa(tour_levels+1)+".pang"))
-		tour_levels++;
-	End
 	delete_text(all_text);
 //	clear_screen();
 	p[1].vidas=10;

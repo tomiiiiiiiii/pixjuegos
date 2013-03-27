@@ -194,7 +194,7 @@ Begin
 	
 	savepath();
 	if(os_id==1003)
-		savegamedir="/data/data/com.pixjuegos.pixpang/files";
+		savegamedir="/data/data/com.pixjuegos.pixpang/files/";
 	end
 	carga_opciones();
 	full_screen=!ops.ventana;
@@ -263,8 +263,31 @@ Begin
 	//fondotemporal=load_png("fondos/temporal.png");
 //
 	carga_sonidos();
-	set_fps(60,9);
 	
+	if(ops.lenguaje==0)
+		fpg_menu2=load_fpg("fpg/menu-es.fpg");
+		fpg_lang=load_fpg("fpg/eng.fpg");
+	else
+		fpg_menu2=load_fpg("fpg/menu-en.fpg");
+		fpg_lang=load_fpg("fpg/eng.fpg");
+	end
+
+	While(file_exists("tour/"+itoa(tour_levels+1)+".pang"))
+		tour_levels++;
+	End
+	
+	set_fps(60,2);
+	
+	if(os_id==1003)
+		if(file_exists(savegamedir+"turbo.dat"))
+			load(savegamedir+"turbo.dat",mundo);
+			fremove(savegamedir+"turbo.dat");
+			modo_juego=2;
+			players=1; 
+			inicio();
+			return;
+		end
+	end
 	logo_pixjuegos();
 End
 
@@ -1588,13 +1611,6 @@ End
 
 process logo_pixjuegos();
 begin
-	if(ops.lenguaje==0)
-		fpg_menu2=load_fpg("fpg/menu-es.fpg");
-		fpg_lang=load_fpg("fpg/eng.fpg");
-	else
-		fpg_menu2=load_fpg("fpg/menu-en.fpg");
-		fpg_lang=load_fpg("fpg/eng.fpg");
-	end
 	delete_text(0);
 	graph=951;
 	x=400;
@@ -1891,3 +1907,12 @@ Begin
 	return load_png(regex_replace("jpg","png",fichero));
 End
 #ENDIF
+
+Function salir_android();
+Begin
+	if(modo_juego==2)
+		save(savegamedir+"turbo.dat",mundo);
+	end
+	frame(500);
+	exit();
+End
