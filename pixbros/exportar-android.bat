@@ -4,7 +4,7 @@ call ..\utils\entorno.bat pixbros
 rd /s /q export
 echo Compilando...
 cd src
-..\..\bennu-win-old\bgdc pixbros.prg
+..\..\bennu-win\bgdc -D TACTIL=1 pixbros.prg
 move pixbros.dcb ..\main.dcb
 cd ..
 pause
@@ -50,6 +50,5 @@ copy niveles\*.lvl export\assets\niveles /y
 copy main.dcb export\assets /y
 echo Exportado correctamente. Ahora se instalará en el móvil...
 cd export
-if exist c:\pixjuegos.keystore call ant release install
-if not exist c:\pixjuegos.keystore call ant debug install
+..\..\scripts\genera-apk.bat
 pause

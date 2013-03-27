@@ -1,7 +1,9 @@
 Program pixbros;
 
 import "mod_blendop";
-import "mod_debug";
+#IFDEF DEBUG
+	import "mod_debug";
+#ENDIF
 import "mod_dir";
 import "mod_draw";
 import "mod_file";
@@ -179,8 +181,8 @@ Begin
 			scale_resolution_aspectratio = SRA_PRESERVE;
 			scale_resolution=(graphic_info(0,0,g_width)*10000)+graphic_info(0,0,g_height);
 		//end
-		gamepad_boton_separacion=70;
-		gamepad_boton_size=60;
+		gamepad_boton_separacion=50;
+		gamepad_boton_size=50;
 		gamepad_botones=2;
 	end
 	set_mode(640,480,bitscolor);

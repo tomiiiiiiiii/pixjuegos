@@ -157,6 +157,8 @@ Global
 			flags;
 		end
 	end
+
+	partida_cargada;
 	
 	//modos de juego (alguno puede variar al ser desbloqueable)
 	modo_historia=1;
@@ -200,6 +202,9 @@ Begin
 	if(argc>0) if(argv[1]=="arcade") arcade_mode=1; end end
 
 	savepath();
+	if(os_id==1003)
+		savegamedir="/data/data/com.pixjuegos.ripolles/files/";
+	end
 	carga_opciones();
 
 	//La resolución del monitor será esta:
@@ -284,16 +289,8 @@ Begin
 	fade_off();
 	while(fading) frame; end
 	
-	if(key(_j))
-		jugadores=1;
-		nivel=1;
-		modo_juego=modo_historia;
-		jugar();
-		return;
-	end
-	
-	if(key(_p))
-		cutscene_final();
+	if(os_id==1003 and file_exists(savegamedir+"turbo.dat"))
+		carga_partida_rapida();
 		return;
 	end
 	
@@ -345,7 +342,9 @@ Begin
 	delete_text(all_text);
 	ganando=0;
 	en_emboscada=0;
-	anterior_emboscada=0;
+	if(partida_cargada==0)
+		anterior_emboscada=0;
+	end
 	enemigos=0;
 	enemigos_matados=0;
 	if(fpg_nivel>0) unload_fpg(fpg_nivel); end
@@ -368,7 +367,7 @@ Begin
 			matajefes();
 		end
 	end
-
+	
 	ancho_nivel=graphic_info(fpg_nivel,1,G_WIDTH);
 	alto_nivel=graphic_info(fpg_nivel,1,G_HEIGHT);
 	
@@ -377,13 +376,20 @@ Begin
 	
 	if(good_vs_evil)
 		jugadores=2;
+		p[3].juega=0;
+		p[4].juega=0;
 	end
-	from i=1 to jugadores;
-		personaje(i,0);
+	
+	from i=1 to posibles_jugadores;
+		if(p[i].juega==1)
+			personaje(i,0);
+		end
 	end
 
 	fade_on();
 	while(fading) frame; end
+
+	partida_cargada=1;
 	
 	loop
 		averigua_jugadores();
@@ -393,6 +399,7 @@ Begin
 		
 /*		if(key(_space)) set_fps(60,0); end
 		if(key(_n)) set_fps(30,0); end*/
+		
 		if(p[1].botones[b_salir] or key(_esc)) menu(-1); end
 		if(key(_1))
 			if(p[1].juega==0) personaje(1,0); end
@@ -532,9 +539,13 @@ Begin
 		loop frame; end 
 	end
 
-	from i=1 to 30;
-		if(emboscada[en_emboscada+1].enemigo[i].tipo!=0)			
-			enemigo(10+i,emboscada[en_emboscada+1].enemigo[i].tipo,emboscada[en_emboscada+1].enemigo[i].pos_x,emboscada[en_emboscada+1].enemigo[i].pos_y,emboscada[en_emboscada+1].x_evento,emboscada[en_emboscada+1].enemigo[i].flags);
+	if(partida_cargada)
+		x=emboscada[anterior_emboscada].min_x;
+	else
+		from i=1 to 30;
+			if(emboscada[en_emboscada+1].enemigo[i].tipo!=0)
+				enemigo(10+i,emboscada[en_emboscada+1].enemigo[i].tipo,emboscada[en_emboscada+1].enemigo[i].pos_x,emboscada[en_emboscada+1].enemigo[i].pos_y,emboscada[en_emboscada+1].x_evento,emboscada[en_emboscada+1].enemigo[i].flags);
+			end
 		end
 	end
 	
@@ -546,7 +557,7 @@ Begin
 		suma_x=0;
 		j=0;
 		from i=1 to 4;
-			if(p[i].juega)
+			if(exists(p[i].identificador))
 				suma_x+=p[i].identificador.x;
 				j++;
 			end
@@ -1185,7 +1196,7 @@ Private
 	max_x;
 Begin
 	from i=1 to 4;
-		if(p[i].juega)
+		if(exists(p[i].identificador))
 			if(p[i].identificador.x>max_x)
 				j=i;
 				max_x=p[i].identificador.x;
@@ -1694,6 +1705,53 @@ End
 
 Function salir_android();
 Begin
-	//guardar_partida_instantanea();
+	if(modo_juego==modo_historia)
+		guarda_partida_rapida();
+	end
+	frame(500);
 	exit();
+End
+
+Function guarda_partida_rapida();
+Private
+	struct partida;
+		p1_vidas;
+		p1_vida;
+		nivel;
+		anterior_emboscada;
+	end
+Begin
+	partida.nivel=nivel;
+	partida.anterior_emboscada=anterior_emboscada;
+	partida.p1_vidas=p[1].vidas;
+	partida.p1_vida=p[1].vida;
+
+	save(savegamedir+"turbo.dat",partida);
+	return;
+End
+
+
+Function carga_partida_rapida();
+Private
+	struct partida;
+		p1_vidas;
+		p1_vida;
+		nivel;
+		anterior_emboscada;
+	end
+Begin
+	load(savegamedir+"turbo.dat",partida);
+	fremove(savegamedir+"turbo.dat");
+
+	partida_cargada=1;
+	nivel=partida.nivel;
+	p[1].vidas=partida.p1_vidas;
+	p[1].vida=partida.p1_vida;
+	anterior_emboscada=partida.anterior_emboscada;
+
+	jugadores=1;
+	p[1].juega=1;
+	modo_juego=modo_historia;
+	jugar();
+	return;
 End

@@ -149,6 +149,7 @@ begin
 			while(p[0].botones[b_2] or key(_enter)) frame; end
 			if(num_menu==0 and opcion_actual==1 and posibles_jugadores==1) //si solo hay un posible jugador, no se elige el número de jugadores
 				jugadores=1;
+				p[1].juega=1;
 				num_menu=1;
 			end
 			switch(num_menu)
@@ -165,6 +166,9 @@ begin
 				end
 				case 1: //jugar
 					jugadores=opcion_actual;
+					from i=1 to opcion_actual;
+						p[i].juega=1;
+					end
 					menu(3);
 					return;
 				end
