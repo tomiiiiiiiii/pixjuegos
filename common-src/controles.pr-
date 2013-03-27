@@ -78,7 +78,7 @@ Begin
 			let_me_alone();
 			fade_music_off(500);
 			while(is_playing_song()) frame; end
-			exit();
+			salir_android();
 		end
 
 		if(!exists(father)) return; end

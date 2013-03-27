@@ -1744,3 +1744,9 @@ Begin
 	while(timer[0]<500) frame; end
 	from alpha=255 to 0 step -5; frame; end
 End
+
+Function salir_android();
+Begin
+	//guardar_partida_instantanea();
+	exit();
+End

@@ -2210,3 +2210,9 @@ function editor_de_niveles(); begin end
 #ifdef ANDROID
 function editor_de_niveles(); begin end
 #endif
+
+Function salir_android();
+Begin
+	//guardar_partida_instantanea();
+	exit();
+End

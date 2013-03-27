@@ -73,3 +73,9 @@ Begin
 	alpha=rand(20,200);
 	frame(1000);
 End
+
+Function salir_android();
+Begin
+	//guardar_partida_instantanea();
+	exit();
+End

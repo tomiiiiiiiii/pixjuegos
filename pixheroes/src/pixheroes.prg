@@ -1057,3 +1057,9 @@ include "tblast.pix";
 include "transicion.pix";
 
 include "../../common-src/controles.pr-";
+
+Function salir_android();
+Begin
+	//guardar_partida_instantanea();
+	exit();
+End

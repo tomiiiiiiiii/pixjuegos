@@ -2669,3 +2669,9 @@ Begin
 	if(father.y_inc>father.inc_max) father.y_inc=father.inc_max; end
 	if(father.y_inc<-father.inc_max) father.y_inc=-father.inc_max; end
 End
+
+Function salir_android();
+Begin
+	//guardar_partida_instantanea();
+	exit();
+End

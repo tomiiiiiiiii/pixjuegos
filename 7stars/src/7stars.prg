@@ -912,3 +912,9 @@ begin
   	frame;
 	end
 end
+
+Function salir_android();
+Begin
+	//nada especial
+	exit();
+End

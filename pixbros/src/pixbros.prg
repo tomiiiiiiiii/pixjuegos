@@ -2089,3 +2089,9 @@ Private
 	num_muneco=3;
 	include "muneco_general.pr-";
 End
+
+Function salir_android();
+Begin
+	//guardar_partida_instantanea();
+	exit();
+End

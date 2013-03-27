@@ -1691,3 +1691,9 @@ Begin
 	from alpha=255 to 0 step -24; y+=2; frame; end
 	unload_map(0,graph);
 End
+
+Function salir_android();
+Begin
+	//guardar_partida_instantanea();
+	exit();
+End

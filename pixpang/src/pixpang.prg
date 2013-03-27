@@ -185,7 +185,7 @@ Begin
 	if(argc>0) if(argv[1]=="arcade") arcade_mode=1; end end
 
 	gamepad_boton_separacion=50;
-	gamepad_boton_size=80;
+	gamepad_boton_size=50;
 	
 	borrar=new_map(1,1,8);
 	Alpha_steps=64;

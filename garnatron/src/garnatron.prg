@@ -1555,3 +1555,9 @@ include "nave.pr-"
 include "bombas.pr-"
 include "bosses.pr-"
 include "enemigos.pr-"
+
+Function salir_android();
+Begin
+	//guardar_partida_instantanea();
+	exit();
+End
