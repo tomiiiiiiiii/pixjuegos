@@ -180,10 +180,10 @@ Begin
 				graph=20;
 				direccion=1;
 				id_texto=write(fuente[0],x,y,4,"¿Salir de la partida?");
-				boton(ancho_pantalla/2,400,"",1);
-				id_texto1=write(fuente[0],ancho_pantalla/2,400,4,"No");
-				boton(ancho_pantalla/2,450,"",2);
-				id_texto2=write(fuente[0],ancho_pantalla/2,450,4,"Si");
+				boton(ancho_pantalla/2,480,"",1);
+				id_texto1=write(fuente[0],ancho_pantalla/2,480,4,"No");
+				boton(ancho_pantalla/2,530,"",2);
+				id_texto2=write(fuente[0],ancho_pantalla/2,530,4,"Si");
 				opcion=1;
 			else
 				pausa=0;

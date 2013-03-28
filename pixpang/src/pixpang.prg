@@ -60,6 +60,7 @@ Global
 	
 	ancho_pantalla=800;
 	alto_pantalla=600;
+	bpp=32;
 	
 	njoys;
 	posibles_jugadores;
@@ -173,6 +174,7 @@ End
 include "../../common-src/lenguaje.pr-";
 include "../../common-src/savepath.pr-";
 include "../../common-src/controles.pr-";
+include "../../common-src/explosion.pr-";
 	
 Private
     lee_archivo;
@@ -208,8 +210,10 @@ Begin
 	
 	if(os_id==9) //caanoo
 		ops.op_sombras=0;
-		scale_resolution=03200240; set_mode(800,600,16); 
+		scale_resolution=03200240; 
+		bpp=16;
 	elseif(os_id==1003) //android
+		bpp=16;
 		//ops.op_sombras=1;
 		//scale_resolution_aspectratio = SRA_PRESERVE;
 		ops.lenguaje=0;
@@ -217,14 +221,14 @@ Begin
 		say("---------- THIS IS MAY SCALE!!!!:"+SCALE_RESOLUTION);
 		if(ops.ventana==1)
 			scale_resolution_aspectratio=SRA_STRETCH;
-			set_mode(800,520,16);
+			alto_pantalla=520;
 		else
 			scale_resolution_aspectratio=SRA_PRESERVE;
-			set_mode(800,600,16);
+			alto_pantalla=600;
 		end
-	else
-		set_mode(800,600,32,WAITVSYNC);
 	end
+	
+	set_mode(ancho_pantalla,alto_pantalla,bpp);
 	
 	load_fpg("fpg/pixpang.fpg");
 	fpg_menu=load_fpg("fpg/menu.fpg");
@@ -1660,57 +1664,6 @@ process shell(string crap);
 begin
 end
 
-Process explotalo(x,y,z,alpha,angle,file,graffico,frames);
-Private
-	a;
-	b;
-	c;
-	tiempo;
-	struct particula[10000];
-		pixel;
-		pos_x;
-		pos_y;
-		vel_y;
-		vel_x;
-	end
-Begin
-	if(!ready) return; end
-	ancho=graphic_info(file,graffico,g_width);
-	alto=graphic_info(file,graffico,g_height);
-	from b=0 to alto-1 step 5;
-		from a=0 to ancho-1 step 5;
-			if(map_get_pixel(file,graffico,a,b)!=0)
-				particula[c].pixel=map_get_pixel(file,graffico,a,b);
-				
-				particula[c].pos_x=a-(ancho/2);
-				particula[c].pos_y=b-(alto/2);
-				particula[c].vel_x=((a-(ancho/2))/12)+rand(-1,1);
-				particula[c].vel_y=((b-(alto/2))/12)+rand(-1,1);
-				
-			//	particula[c].vel_x=(a-(ancho/2))/12;
-			//	particula[c].vel_y=(b-(alto/2))/12;
-				
-				c++;
-			end
-		end
-	end
-	a=c;
-	while(tiempo<frames)
-		graph=new_map(ancho*8,alto*8,32);
-		from c=0 to a;
-			map_put_pixel(0,graph,particula[c].pos_x+(ancho*8/2),particula[c].pos_y+(alto*8/2),particula[c].pixel);
-			map_put_pixel(0,graph,particula[c].pos_x+(ancho*8/2)+1,particula[c].pos_y+(alto*8/2),particula[c].pixel);
-			map_put_pixel(0,graph,particula[c].pos_x+(ancho*8/2),particula[c].pos_y+(alto*8/2)+1,particula[c].pixel);
-			map_put_pixel(0,graph,particula[c].pos_x+(ancho*8/2)+1,particula[c].pos_y+(alto*8/2)+1,particula[c].pixel);
-			particula[c].pos_x+=particula[c].vel_x;
-			particula[c].pos_y+=particula[c].vel_y+tiempo-10;		
-		end
-		tiempo++;
-		frame;
-		unload_map(0,graph);
-	end
-end
-
 Process texto_fondos(String creador);
 Private
 	timr;
@@ -1916,3 +1869,4 @@ Begin
 	frame(500);
 	exit();
 End
+

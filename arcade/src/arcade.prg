@@ -197,3 +197,6 @@ Begin
 	end
 	if(tipo==1 or tipo==3) actual(); end
 End
+
+Function salir_android();
+Begin End

@@ -329,3 +329,7 @@ Begin
 		unload_map(0,graph);
 	end
 End
+
+Function salir_android();
+Begin
+End

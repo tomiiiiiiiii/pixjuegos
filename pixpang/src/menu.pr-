@@ -564,22 +564,21 @@ begin
 						if(ops.ventana==0) ops.ventana=1; else ops.ventana=0; end
 						if(ops.ventana==1)
 							scale_resolution_aspectratio=SRA_STRETCH;
-							set_mode(800,520,16);
+							alto_pantalla=520;
 						else
 							scale_resolution_aspectratio=SRA_PRESERVE;
-							set_mode(800,600,16);
+							alto_pantalla=600;
 						end
 					else
 						if(full_screen==0)
 							full_screen=1;
 							ops.ventana=0;
-							set_mode(800,600,32,WAITVSYNC);
 						else
 							full_screen=0;
 							ops.ventana=1;
-							set_mode(800,600,32,WAITVSYNC);
 						end
 					end
+					set_mode(alto_pantalla,ancho_pantalla,bpp);
 				end
 				if(elecc==1)
 					if(ops.op_sonido==1)

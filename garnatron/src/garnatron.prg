@@ -267,10 +267,10 @@ BEGIN
 	
 	if(ops.p_completa)
 		full_screen=true;
-		set_mode(ancho_pantalla,alto_pantalla,bpp,WAITVSYNC);
+		set_mode(ancho_pantalla,alto_pantalla,bpp);
 	else
 		full_screen=false;
-		set_mode(ancho_pantalla,alto_pantalla,bpp,WAITVSYNC);
+		set_mode(ancho_pantalla,alto_pantalla,bpp);
 	end
 
 	//----------------------------------------------------------imagen cargando
@@ -818,32 +818,32 @@ begin
 						case 1: 
 							full_screen=true;
 							ops.p_completa=1;
-							set_mode(ancho_pantalla,alto_pantalla,bpp,WAITVSYNC);
+							set_mode(ancho_pantalla,alto_pantalla,bpp);
 						end
 						case 2: 
 							full_screen=false;
 							ops.p_completa=0;
-							set_mode(ancho_pantalla,alto_pantalla,bpp,WAITVSYNC);
+							set_mode(ancho_pantalla,alto_pantalla,bpp);
 						end
 						case 3:
 							ops.resolucion=0;
 							ancho_pantalla=1024;
 							alto_pantalla=768;
-							set_mode(ancho_pantalla,alto_pantalla,bpp,WAITVSYNC);
+							set_mode(ancho_pantalla,alto_pantalla,bpp);
 							menu(2);
 						end
 						case 4:
 							ops.resolucion=1;
 							ancho_pantalla=1280;
 							alto_pantalla=720;
-							set_mode(ancho_pantalla,alto_pantalla,bpp,WAITVSYNC);
+							set_mode(ancho_pantalla,alto_pantalla,bpp);
 							menu(2);
 						end
 						case 5:
 							ops.resolucion=2;
 							ancho_pantalla=1920;
 							alto_pantalla=1080;
-							set_mode(ancho_pantalla,alto_pantalla,bpp,WAITVSYNC);
+							set_mode(ancho_pantalla,alto_pantalla,bpp);
 							menu(2);
 						end
 						case 6:
