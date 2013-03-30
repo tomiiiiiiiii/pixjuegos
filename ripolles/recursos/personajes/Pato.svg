@@ -1328,6 +1328,197 @@
        id="linearGradient11092"
        xlink:href="#linearGradient8324-1-0-8-9-4-5"
        inkscape:collect="always" />
+    <linearGradient
+       id="linearGradient5730-3-8-7">
+      <stop
+         style="stop-color:#cccccc;stop-opacity:1;"
+         offset="0"
+         id="stop5732-52-58-4" />
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="1"
+         id="stop5734-4-38-0" />
+    </linearGradient>
+    <linearGradient
+       y2="444.58545"
+       x2="126.7965"
+       y1="506.44928"
+       x1="235.68938"
+       gradientTransform="matrix(0.81004851,0.40318709,0.58636286,-0.55699486,-2298.5929,1201.5143)"
+       gradientUnits="userSpaceOnUse"
+       id="linearGradient10971-0-2"
+       xlink:href="#linearGradient8324-1-0-8-9-40-3"
+       inkscape:collect="always" />
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient8324-1-0-8-9-40-3">
+      <stop
+         style="stop-color:#ff0000;stop-opacity:1;"
+         offset="0"
+         id="stop8326-9-8-6-2-71-2" />
+      <stop
+         style="stop-color:#ff0000;stop-opacity:0;"
+         offset="1"
+         id="stop8328-1-5-4-9-6-2" />
+    </linearGradient>
+    <linearGradient
+       gradientTransform="matrix(-0.12553697,-0.99208894,0.99208894,-0.12553697,-2617.8475,1271.2025)"
+       y2="467.4426"
+       x2="186.08221"
+       y1="467.4426"
+       x1="233.85031"
+       gradientUnits="userSpaceOnUse"
+       id="linearGradient8364-6"
+       xlink:href="#linearGradient8324-4-8"
+       inkscape:collect="always" />
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient8324-4-8">
+      <stop
+         style="stop-color:#ff0000;stop-opacity:1;"
+         offset="0"
+         id="stop8326-4-5" />
+      <stop
+         style="stop-color:#ff0000;stop-opacity:0;"
+         offset="1"
+         id="stop8328-5-7" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient5730-3-1-1"
+       id="linearGradient7188-32-6"
+       x1="493.63031"
+       y1="984.67096"
+       x2="493.56219"
+       y2="978.98883"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       id="linearGradient5730-3-1-1">
+      <stop
+         style="stop-color:#cccccc;stop-opacity:1;"
+         offset="0"
+         id="stop5732-52-57-8" />
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="1"
+         id="stop5734-4-23-9" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient5730-3-39-31">
+      <stop
+         style="stop-color:#cccccc;stop-opacity:1;"
+         offset="0"
+         id="stop5732-52-15-9" />
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="1"
+         id="stop5734-4-6-8" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient5730-3-41-0"
+       id="linearGradient8233-5"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-302.90047,264.71016)"
+       x1="431.69122"
+       y1="982.70093"
+       x2="430.77792"
+       y2="977.16522" />
+    <linearGradient
+       id="linearGradient5730-3-41-0">
+      <stop
+         style="stop-color:#cccccc;stop-opacity:1;"
+         offset="0"
+         id="stop5732-52-96-9" />
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="1"
+         id="stop5734-4-7-0" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient5730-3-39-9"
+       id="linearGradient8163-2"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.98008526,-0.19857715,0.19857715,0.98008526,-626.69445,393.39405)"
+       x1="431.69122"
+       y1="982.70093"
+       x2="430.77792"
+       y2="977.16522" />
+    <linearGradient
+       id="linearGradient5730-3-39-9">
+      <stop
+         style="stop-color:#cccccc;stop-opacity:1;"
+         offset="0"
+         id="stop5732-52-15-1" />
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="1"
+         id="stop5734-4-6-35" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient5730-3-5-9-8"
+       id="linearGradient6337-6-3-9"
+       gradientUnits="userSpaceOnUse"
+       x1="431.69122"
+       y1="982.70093"
+       x2="430.77792"
+       y2="977.16522"
+       gradientTransform="translate(134.3205,2.4082626)" />
+    <linearGradient
+       id="linearGradient5730-3-5-9-8">
+      <stop
+         style="stop-color:#cccccc;stop-opacity:1;"
+         offset="0"
+         id="stop5732-52-2-8-4" />
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="1"
+         id="stop5734-4-2-6-0" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient5730-3-11-6"
+       id="linearGradient6337-56-7"
+       gradientUnits="userSpaceOnUse"
+       x1="431.69122"
+       y1="982.70093"
+       x2="430.77792"
+       y2="977.16522"
+       gradientTransform="translate(96.56535,2.99389)" />
+    <linearGradient
+       id="linearGradient5730-3-11-6">
+      <stop
+         style="stop-color:#cccccc;stop-opacity:1;"
+         offset="0"
+         id="stop5732-52-27-3" />
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="1"
+         id="stop5734-4-37-6" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient5730-3-11-6-1"
+       id="linearGradient6337-56-7-4"
+       gradientUnits="userSpaceOnUse"
+       x1="431.69122"
+       y1="982.70093"
+       x2="430.77792"
+       y2="977.16522"
+       gradientTransform="translate(96.56535,2.99389)" />
+    <linearGradient
+       id="linearGradient5730-3-11-6-1">
+      <stop
+         style="stop-color:#cccccc;stop-opacity:1;"
+         offset="0"
+         id="stop5732-52-27-3-4" />
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="1"
+         id="stop5734-4-37-6-3" />
+    </linearGradient>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -1336,9 +1527,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.979899"
-     inkscape:cx="-1390.8702"
-     inkscape:cy="70.824147"
+     inkscape:zoom="1.4"
+     inkscape:cx="-1963.503"
+     inkscape:cy="-16.569387"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -1668,6 +1859,42 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(0,-952.36218)">
+    <path
+       style="fill:#a05a2c;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m -2109.6946,1171.1618 c 1.5814,5.5319 7.8311,15.1248 8.8393,22.8572 -0.9891,2.7016 -3.0076,6.9109 -9.375,4.9106 l -8.9323,-15.4908 c -0.6027,-5.0595 -3.9238,-8.3825 -0.3534,-14.0627 0.7143,0 9.8214,1.7857 9.8214,1.7857 z"
+       id="path3022-6-6-4"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccccc"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\pato\181.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#333333;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m -2110.2086,1198.9438 c -0.5476,2.3453 -0.521,3.872 1.8509,6.1077 3.7387,1.6158 12.3114,-4.7231 15.562,-7.2684 -1.8875,-3.4024 -4.5044,-3.8911 -7.5274,-3.9791 -3.2738,3.1 -5.4978,4.282 -9.8855,5.1398 z"
+       id="path3016-6-7-8"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\pato\181.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#2c5aa0;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m -2113.5828,1147.827 c 0.3781,0.2055 5.2722,-1.2087 5.5573,-1.4803 1.8889,-1.7984 0.7564,7.8376 10.542,0.8137 l 1.6936,9.6909 c -13.1257,8.5508 -11.4327,-0.9586 -11.9802,0.775 z"
+       id="path3008-6-4-2-9"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cscccc"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\pato\181.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#ffccaa;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m -2100.3614,1155.1974 c 3.5844,4.8715 13.0919,0.037 8.3302,-6.1777 -4.7616,-6.2146 -11.9144,1.3064 -8.3302,6.1777 z"
+       id="path3004-0-1-7-9"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="zzz"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\pato\181.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <path
        style="fill:url(#linearGradient10971-7);fill-opacity:1;stroke:none"
        d="m -1764.7561,1014.215 c 0.1068,-17.91411 53.4152,-23.25593 112.1998,3.8538 l -13.1091,-3.095 11.7138,7.974 -14.8974,-4.9498 8.7056,7.8701 c -40.4541,-19.6861 -86.482,-18.0434 -86.1991,-9.8824 0.3949,11.3896 -18.4884,10.7865 -18.4136,-1.7707 z"
@@ -8735,6 +8962,529 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="scccccss"
        inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\pato\83.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#a05a2c;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m -2217.5436,1046.259 -9.8272,-0.099 c -0.8196,-4.9082 -0.4703,-22.4134 0.094,-28.2184 0,0 13.2106,-0.8362 13.9137,-0.7101 -3.6746,27.126 -1.2536,23.9536 -4.1807,29.0274 z"
+       id="path3022-2-7-3-2"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\pato\171.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#2c5aa0;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m -2211.4798,1001.8386 c 0.2842,0.3229 4.9428,-11.25157 5.3366,-11.24776 3.6008,0.0345 10.1784,-0.8602 16.0908,-10.79605 l 6.8229,5.46826 c -4.4736,11.46962 -17.2131,15.09765 -22.7129,15.91435 z"
+       id="path3008-49-5-7"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cscccc"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\pato\171.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#ffccaa;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m -2190.0399,982.90055 c 3.5414,7.073 13.8188,0.34091 10.0919,-5.83226 -3.7269,-6.17289 -13.633,-1.24068 -10.0919,5.83226 z"
+       id="path3002-34-7-9"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="zzz"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\pato\171.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#a05a2c;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m -2215.9967,1023.582 c -0.2629,1.3742 0.2433,2.4744 1.0391,3.4714 l 8.6467,-3.3159 -6.4225,2.7572 c -1.193,5.0624 2.8138,8.22 6.749,7.5048 5.447,-0.9424 15.767,-12.6892 5.4618,-16.9622 -3.401,-1.4102 -12.4504,-0.7961 -14.7067,1.54"
+       id="path3012-4-49-8-8-3-54"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccccsc"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\pato\171.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#2c5aa0;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m -2208.069,1000.3977 c 3.4434,1.3091 3.0423,-0.03 3.0278,0.6995 l 1.6172,15.7428 c -8.102,1.8559 -18.0148,2.6352 -27.6654,1.2379 l 2.0308,-17.9196 -2.0425,-9.01796 6.7133,-3.05985 15.2683,-0.33343 3.6594,1.82983 1.6141,0.878"
+       id="path3010-12-7-3"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccccccccc"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\pato\171.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#2c5aa0;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m -2230.1343,990.75575 c -13.9524,6.05736 -12.4591,17.96215 -0.2682,19.37465 0.3232,-2.1097 0.7709,-5.4328 1.0891,-7.5683 -1.1657,-1.4765 0.5257,-2.4634 0.8806,-2.71368"
+       id="path3006-83-3-1"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\pato\171.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#333333;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m -2227.6212,1043.1986 c -1.9145,1.6658 -3.7034,3.9775 -2.6174,6.844 2.1996,3.6263 17.5378,9.3268 17.7376,3.6362 1.2331,-3.4808 -0.1956,-5.6177 -4.3681,-7.818 -4.4662,0.618 -6.6837,-0.8082 -10.7521,-2.6622 z"
+       id="path3016-97-1-1-2"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\pato\171.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#333333;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m -2209.7587,1026.8895 c -4.1909,-1.4177 -6.1134,0.099 -7.8137,2.6722 0.5182,3.2312 3.0146,9.5209 5.3188,12.4039 1.9397,2.5122 7.0702,0.087 7.3663,-3.5172 -0.8518,-4.6056 -2.1265,-7.6856 -4.8711,-11.5584 z"
+       id="path3014-1-2-2-3"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\pato\171.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <g
+       transform="matrix(0.98591334,-0.16725698,0.16725698,0.98591334,-2866.825,97.523485)"
+       id="g7481-4-3"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\pato\171.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path2998-36-3-7-4-7-4"
+         d="m 503.85282,969.07228 c 0.88086,2.8103 -0.26942,12.0616 -0.26942,12.0616 -7.95638,4.2166 -10.3277,8.23848 -18.60951,4.49488 l -1.22103,-14.00058 c 4.69504,-4.4111 10.79128,-6.3347 20.09996,-2.5559 z"
+         style="fill:#ffccaa;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="path3018-973-5-7-6-26-1"
+         d="m 497.50403,972.31878 c 1.83815,-0.696 3.17036,-0.3787 4.51751,-0.091"
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cccccc"
+         inkscape:connector-curvature="0"
+         id="path3000-6-7-2-5-9-1"
+         d="m 489.2058,968.81028 3.1871,-0.036 2.28873,11.99549 c 2.32189,-1.2151 5.95114,-2.14194 9.10967,-1.77554 0.23164,13.03261 -10.27216,10.2516 -12.18127,5.45335 z"
+         style="fill:url(#linearGradient7188-32-6);fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="path3425-5-58-4-5-10-3"
+         d="m 498.25932,982.89171 c 2.11928,1.16145 3.62105,0.0203 4.78609,-0.2756"
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="ccccccccc"
+         inkscape:connector-curvature="0"
+         id="path3423-5-6-2-6-9-17-8"
+         d="m 489.53138,970.93518 -0.99647,7.50574 -2.25885,-1.83395 c 0,0 -2.94488,5.42174 -3.54509,6.59124 l 0.34039,-5.56844 -2.68541,0.35884 2.68058,-3.85682 6.34863,-7.02501 z"
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\recursos\pato.png"
+         sodipodi:nodetypes="cccscsc"
+         inkscape:connector-curvature="0"
+         id="path4950-3-3-0-7"
+         d="m 479.5009,975.57662 c 9.42056,-4.67066 16.72559,-5.65364 26.92071,-4.60742 -0.97071,-1.47098 -1.97991,-2.92482 -3.92963,-3.9599 0,0 -3.20962,-7.35079 -3.55999,-7.49392 -4.30808,-1.75968 -16.58915,2.74328 -15.59377,3.20791 0,0 -0.54769,7.52077 -0.90218,7.85734 -1.94128,1.84312 -3.26853,5.26452 -2.93514,4.99599 z"
+         style="fill:#00aa44;stroke:#000000;stroke-width:1.01602042px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\recursos\pato.png"
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="path4952-61-5-6-4"
+         d="m 501.6415,967.86726 c -3.27721,-1.44484 -15.81199,1.65298 -15.20487,2.02635"
+         style="fill:none;stroke:#000000;stroke-width:1.01602042px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\recursos\pato.png"
+         d="m 433.79738,17.893538 c 0,0.575325 -0.3392,1.041719 -0.75762,1.041719 -0.41841,0 -0.75761,-0.466394 -0.75761,-1.041719 0,-0.575326 0.3392,-1.04172 0.75761,-1.04172 0.41842,0 0.75762,0.466394 0.75762,1.04172 z"
+         sodipodi:ry="1.0417198"
+         sodipodi:rx="0.75761443"
+         sodipodi:cy="17.893538"
+         sodipodi:cx="433.03976"
+         id="path7181-0-6-7-9-2"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         sodipodi:type="arc"
+         transform="translate(67.401538,954.96245)" />
+    </g>
+    <path
+       style="fill:url(#linearGradient8364-6);fill-opacity:1;stroke:none"
+       d="m -2178.4781,976.3015 c -3.652,-8.28684 -17.0586,-5.10076 -13.0937,4.48228 5.8249,14.07868 4.651,28.18262 5.8588,42.27802 l 4.297,-12.5255 2.5973,14.7076 2.8994,-15.1292 3.799,11.7361 c -1.0072,-14.396 0.1391,-30.80718 -6.3578,-45.5493 z"
+       id="path8322-2-7"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sscccccs"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\pato\171.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#333333;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m -2077.8141,1035.7173 c -2.1948,-1.274 -4.9604,-2.2205 -7.3226,-0.2671 -2.7217,3.2528 -3.1638,19.61 2.2865,17.9615 3.6926,0.043 5.2536,-1.9992 5.9885,-6.6587 -2.027,-4.0273 -1.3933,-6.5866 -0.9524,-11.0357 z"
+       id="path3016-97-0"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\pato\172.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#2c5aa0;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m -2074.8582,1004.9342 c 0.242,0.3558 0.2856,-0.8154 0.6565,-0.9474 2.7862,-0.992 7.6016,-4.56481 19.1387,-4.64891 l -0.7845,9.01221 c -10.1174,0.6816 -14.7132,6.2774 -18.3294,7.9573 z"
+       id="path3008-6-6"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cscccc"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\pato\172.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#000000;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m -2072.5951,1014.3686 c -0.2269,2.2471 -0.8427,2.2329 -0.886,2.961 l 1.0408,14.3209 c -8.1687,1.5356 -18.1045,1.9241 -27.6926,0.148 l 2.7346,-17.8258 -2.668,-9.6271 6.9178,-1.9896 16.1625,0 2.2362,1.2722 0.6971,0.2658"
+       id="path3010-1-1"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccccccccc"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\pato\172.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#333333;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m -2089.4383,1037.2005 c -3.6799,-2.4559 -5.93,-1.4901 -8.2393,0.5545 -0.3375,3.255 0.4425,9.977 1.9203,13.3589 1.2219,2.9294 6.8058,1.9173 8.0264,-1.4867 0.3716,-4.6689 -0.061,-7.9742 -1.7073,-12.4262 z"
+       id="path3014-1-3"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\pato\172.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#ffccaa;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m -2060.8531,1004.9507 c 0.9563,5.972 11.6222,6.0267 10.2341,-1.6785 -1.388,-7.70501 -11.1904,-4.29331 -10.2341,1.6785 z"
+       id="path3004-0-8"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="zzz"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\pato\172.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <image
+       y="1006.7415"
+       x="-2093.1528"
+       id="image7276-6-3-9"
+       xlink:href="file:///C:/Users/Propietario/Desktop/TomLogo.png"
+       height="16.369335"
+       width="16.571426"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\pato\172.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#2c5aa0;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m -2071.9228,1004.0542 c -1.0087,-0.9802 -3.6731,-2.7001 -5.5373,-2.9935 -2.8617,11.2733 -0.4581,16.3814 0.5082,27.8161 2.948,0.916 5.5456,2.0681 8.166,2.595 l -2.2588,-18.5672"
+       id="path4930-0-3-57-8-3"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\pato\172.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#a05a2c;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m -2077.4537,1025.5913 c -7.8366,0.4162 -9.9006,15.0778 -4.9726,7.4852 -1.1434,2.0466 -2.1336,2.8328 -2.8747,8.3744 1.1081,5.0817 4.8065,7.9323 8.048,5.5892 4.5072,-3.2004 10.9395,-22.0405 -0.2007,-21.4488 z"
+       id="path3012-4-49-1-97-4"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="scccs"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\pato\172.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#2c5aa0;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m -2092.3053,1001.5004 c 4.6168,6.4005 2.8856,21.5961 1.9311,28.1907 -3.4435,0.5238 -7.4278,1.3984 -10.3947,2.8137 l 3.4832,-19.7196 -0.6721,-9.7948 z"
+       id="path4930-3-8-59-4"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccccc"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\pato\172.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#a05a2c;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m -2093.38,1032.6352 c -1.1434,2.0466 -2.1335,2.8328 -2.8746,8.3744 1.1081,5.0817 4.8065,7.9323 8.0479,5.5892 4.5072,-3.2004 10.9396,-22.0405 -0.2007,-21.4488 -3.6765,0.1953 -9.7432,3.66 -10.7706,6.741 0.077,1.4946 3.0494,6.1447 5.798,0.7442 z"
+       id="path3012-4-49-2-6"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccscc"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\pato\172.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#2c5aa0;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m -2097.1613,1003.5132 c -6.4894,-4.12541 -15.028,-4.88331 -17.9417,-4.64061 -1.8422,0.1534 -1.1878,6.40861 -0.7198,10.36671 6.7799,-0.9253 13.2995,2.9354 19.3294,5.1617"
+       id="path3006-4-1-76-0"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cscc"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\pato\172.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#ffccaa;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m -2121.1848,1006.2728 c 2.6438,7.4551 13.6717,2.0391 10.7329,-4.5458 -2.9389,-6.58471 -13.3767,-2.90931 -10.7329,4.5458 z"
+       id="path3002-35-6"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="zzz"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\pato\172.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <g
+       id="g8222-6"
+       transform="matrix(0.97971766,0.20038291,-0.20038291,0.97971766,-1965.7051,-247.12969)"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\pato\172.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <path
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\recursos\pato.png"
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path2998-488-3-81-1"
+         d="m 139.57302,1226.8781 c 1.51523,2.5254 3.54823,12.9492 3.54823,12.9492 -6.87701,6.0494 -12.13845,13.2005 -17.58707,9.2512 l -4.90152,-15.0031 c 3.52993,-5.3888 9.00515,-8.6882 18.94036,-7.1973 z"
+         style="fill:#ffccaa;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\recursos\pato.png"
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="path3018-171-0-76-8"
+         d="m 127.92114,1233.8287 c 1.83854,-0.695 3.17062,-0.3772 4.51768,-0.089"
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\recursos\pato.png"
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="path3020-15-0-0-4"
+         d="m 136.92586,1233.4716 c 1.07483,-0.6623 2.35344,-0.917 4.09926,-0.2372"
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\recursos\pato.png"
+         sodipodi:nodetypes="ccccccc"
+         inkscape:connector-curvature="0"
+         id="path3000-276-5-8-9"
+         d="m 121.25504,1235.504 1.75037,-1.497 6.09734,8.6611 c 4.0251,-2.6849 8.11025,-2.8288 12.14897,-1.0245 l 1.09922,-4.6946 c 5.48867,13.7677 -12.28556,15.94 -15.11503,9.5094 z"
+         style="fill:url(#linearGradient8233-5);fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\recursos\pato.png"
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="path3425-68-4-78-6"
+         d="m 133.00929,1243.8941 c 2.32206,0.9877 4.04023,0.805 6.07143,-0.1786"
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\recursos\pato.png"
+         sodipodi:nodetypes="cccscsc"
+         inkscape:connector-curvature="0"
+         id="path4950-3-6-3"
+         d="m 117.38005,1236.6611 c 9.42056,-4.6706 16.72559,-5.6536 26.92071,-4.6074 -0.97071,-1.471 -1.97991,-2.9248 -3.92963,-3.9599 0,0 -3.20962,-7.3508 -3.55999,-7.4939 -4.30808,-1.7597 -16.58915,2.7433 -15.59377,3.2079 0,0 -0.54769,7.5208 -0.90218,7.8574 -1.94128,1.8431 -3.26853,5.2645 -2.93514,4.9959 z"
+         style="fill:#00aa44;stroke:#000000;stroke-width:1.01602042px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\recursos\pato.png"
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="path4952-61-8-7"
+         d="m 139.25279,1228.4161 c -3.27721,-1.4449 -15.81199,1.653 -15.20487,2.0263"
+         style="fill:none;stroke:#000000;stroke-width:1.01602042px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\recursos\pato.png"
+         transform="translate(-302.83733,1216.5041)"
+         d="m 433.79738,17.893538 c 0,0.575325 -0.3392,1.041719 -0.75762,1.041719 -0.41841,0 -0.75761,-0.466394 -0.75761,-1.041719 0,-0.575326 0.3392,-1.04172 0.75761,-1.04172 0.41842,0 0.75762,0.466394 0.75762,1.04172 z"
+         sodipodi:ry="1.0417198"
+         sodipodi:rx="0.75761443"
+         sodipodi:cy="17.893538"
+         sodipodi:cx="433.03976"
+         id="path7181-7-0-8"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\recursos\pato.png"
+         d="m 433.79738,17.893538 c 0,0.575325 -0.3392,1.041719 -0.75762,1.041719 -0.41841,0 -0.75761,-0.466394 -0.75761,-1.041719 0,-0.575326 0.3392,-1.04172 0.75761,-1.04172 0.41842,0 0.75762,0.466394 0.75762,1.04172 z"
+         sodipodi:ry="1.0417198"
+         sodipodi:rx="0.75761443"
+         sodipodi:cy="17.893538"
+         sodipodi:cx="433.03976"
+         id="path7181-0-6-0-8"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         sodipodi:type="arc"
+         transform="translate(-293.80909,1216.0938)" />
+    </g>
+    <path
+       style="fill:#000000;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m -2107.146,1157.0516 c -0.2269,2.2471 -0.8427,2.2329 -0.886,2.961 l 1.0408,14.3209 c -8.1687,1.5356 -18.1045,1.9241 -27.6925,0.148 l 2.7345,-17.8258 -2.1323,-10.6985 6.3822,-0.9183 16.1624,0 3.3734,0.8227 -1.8838,1.9348"
+       id="path3010-4-7-0"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccccccccc"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\pato\181.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <image
+       y="1150.5455"
+       x="-2128.2622"
+       id="image7276-6-6-5-8"
+       xlink:href="file:///C:/Users/Propietario/Desktop/TomLogo.png"
+       height="16.369335"
+       width="16.571426"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\pato\181.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#2c5aa0;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m -2107.3778,1146.174 c -2,-1.5862 -4.0527,-2.4332 -5.9283,-2.6472 -2.8617,11.2733 -0.1456,20.8903 0.8207,32.325 2.948,0.916 4.429,0.01 6.0673,-1.0702 l -0.8456,-15.4583 c 0.8988,-0.6513 0.7163,-1.7985 0.6065,-2.9541"
+       id="path4930-0-5-2-8"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccccc"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\pato\181.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <g
+       transform="translate(-2652.4791,157.56229)"
+       id="g7272-31-5-1"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\pato\181.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <path
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\recursos\pato.png"
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path2998-488-3-87-09-0"
+         d="m 539.03884,965.16181 c 1.51523,2.52538 3.54823,12.94924 3.54823,12.94924 -6.87701,6.0494 -12.13845,13.20047 -17.58707,9.25113 l -4.90152,-15.00303 c 3.52993,-5.38883 9.00515,-8.68826 18.94036,-7.19734 z"
+         style="fill:#ffccaa;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\recursos\pato.png"
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="path3018-171-0-18-4-7"
+         d="m 527.38696,972.11246 c 1.83854,-0.69505 3.17062,-0.3772 4.51768,-0.0893"
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\recursos\pato.png"
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="path3020-15-0-08-7-3"
+         d="m 536.39168,971.75531 c 1.07483,-0.66225 2.35344,-0.91695 4.09926,-0.23721"
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\recursos\pato.png"
+         sodipodi:nodetypes="ccccccc"
+         inkscape:connector-curvature="0"
+         id="path3000-276-5-24-8-4"
+         d="m 520.72086,973.78772 1.75037,-1.49699 6.09734,8.66106 c 4.0251,-2.68491 8.11025,-2.82873 12.14897,-1.02444 l 1.09922,-4.69465 c 5.48867,13.76776 -12.28556,15.94 -15.11503,9.50939 z"
+         style="fill:url(#linearGradient6337-56-7-4);fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\recursos\pato.png"
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="path3425-68-4-89-3-9"
+         d="m 532.47511,982.17783 c 2.32206,0.98768 4.04023,0.80498 6.07143,-0.17857"
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\recursos\pato.png"
+         sodipodi:nodetypes="cccscsc"
+         inkscape:connector-curvature="0"
+         id="path4950-3-66-5-6"
+         d="m 516.84587,974.94487 c 9.42056,-4.67066 16.72559,-5.65364 26.92071,-4.60742 -0.97071,-1.47098 -1.97991,-2.92482 -3.92963,-3.9599 0,0 -3.20962,-7.35079 -3.55999,-7.49392 -4.30808,-1.75968 -16.58915,2.74328 -15.59377,3.20791 0,0 -0.54769,7.52077 -0.90218,7.85734 -1.94128,1.84312 -3.26853,5.26452 -2.93514,4.99599 z"
+         style="fill:#00aa44;stroke:#000000;stroke-width:1.01602042px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\recursos\pato.png"
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="path4952-61-88-1-5"
+         d="m 538.71861,966.6998 c -3.27721,-1.44484 -15.81199,1.65298 -15.20487,2.02635"
+         style="fill:none;stroke:#000000;stroke-width:1.01602042px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\recursos\pato.png"
+         transform="translate(96.628485,954.78786)"
+         d="m 433.79738,17.893538 c 0,0.575325 -0.3392,1.041719 -0.75762,1.041719 -0.41841,0 -0.75761,-0.466394 -0.75761,-1.041719 0,-0.575326 0.3392,-1.04172 0.75761,-1.04172 0.41842,0 0.75762,0.466394 0.75762,1.04172 z"
+         sodipodi:ry="1.0417198"
+         sodipodi:rx="0.75761443"
+         sodipodi:cy="17.893538"
+         sodipodi:cx="433.03976"
+         id="path7181-7-7-20-1"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\recursos\pato.png"
+         d="m 433.79738,17.893538 c 0,0.575325 -0.3392,1.041719 -0.75762,1.041719 -0.41841,0 -0.75761,-0.466394 -0.75761,-1.041719 0,-0.575326 0.3392,-1.04172 0.75761,-1.04172 0.41842,0 0.75762,0.466394 0.75762,1.04172 z"
+         sodipodi:ry="1.0417198"
+         sodipodi:rx="0.75761443"
+         sodipodi:cy="17.893538"
+         sodipodi:cx="433.03976"
+         id="path7181-0-6-02-1-0"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         sodipodi:type="arc"
+         transform="translate(105.65673,954.37749)" />
+    </g>
+    <path
+       style="fill:#2c5aa0;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m -2128.096,1144.3274 c 4.6169,6.4005 3.0336,21.1053 2.0791,27.6999 -7.2316,-3.5168 -7.3232,4.2133 -10.0962,3.4831 l 3.0368,-19.8982 -0.6721,-9.7948 z"
+       id="path4930-3-8-5-7-3"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccccc"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\pato\181.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#333333;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m -2124.6921,1179.688 c -3.6799,-2.4559 -5.93,-1.4901 -8.2394,0.5545 -0.3375,3.255 0.4426,9.977 1.9203,13.3589 1.222,2.9294 6.8059,1.9173 8.0265,-1.4867 0.3715,-4.6689 -0.061,-7.9742 -1.7073,-12.4262 z"
+       id="path3014-1-2-9-6"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\pato\181.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#a05a2c;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m -2128.2713,1175.3755 c -1.1434,2.0466 -2.1336,2.8328 -2.8746,8.3744 1.108,5.0817 4.8064,7.9323 8.0479,5.5892 4.5072,-3.2004 10.9395,-22.0405 -0.2007,-21.4488 -3.6765,0.1953 -9.7432,3.66 -10.7706,6.741 0.077,1.4946 3.0493,6.1447 5.798,0.7442 z"
+       id="path3012-4-49-8-8-0-8"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccscc"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\pato\181.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#2c5aa0;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m -2133.2959,1145.697 c -8.8407,1.4919 -15.1771,15.8555 -8.0718,15.8795 1.8485,0.01 4.4462,1.0481 6.8498,-2.1313 -5.5317,-4.0278 -4.6206,0.7019 3.2677,-3.2423"
+       id="path3006-1-1-7"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cscc"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\pato\181.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#ffccaa;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m -2140.0864,1159.5916 c 2.6438,7.4552 13.6717,2.0391 10.7329,-4.5457 -2.9388,-6.5847 -13.3767,-2.9093 -10.7329,4.5457 z"
+       id="path3002-39-4-7"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="zzz"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\pato\181.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
   </g>
