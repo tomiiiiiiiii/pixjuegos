@@ -685,6 +685,8 @@ Begin
 		else
 			if(father.accion==ataca_aire)
 				father.animacion=ataca_aire;
+			elseif(father.accion==ataca_uppercut)
+				father.animacion=ataca_uppercut;
 			else
 				father.animacion=salta;
 			end
@@ -800,6 +802,9 @@ Begin
 				father.graph=22;
 			end
 		end
+		case ataca_uppercut:
+			father.graph=171;
+		end
 		case ataca_suelo:
 			if(anim<4) 
 				father.graph=31;
@@ -812,7 +817,11 @@ Begin
 			father.graph=42;
 		end
 		case defiende:
-			father.graph=51;
+			if(father.altura==0)
+				father.graph=51;
+			else
+				father.graph=181;
+			end
 		end
 		case herido_leve:
 			father.graph=61;
@@ -967,7 +976,7 @@ Begin
 				if(!((jugador>10 and id_col.jugador>10 and id_col.jugador!=0) or (jugador<10 and id_col.jugador<10 and id_col.jugador!=0)) or fuego_amigo) //esta línea evita el fuego amigo
 					if(en_rango(z,id_col.z,id_col.rango))
 						//if(father.accion==defiende and ((father.flags==0 and x<id_col.x) or (father.flags==1 and x>id_col.x)))
-						if(father.accion==defiende and ((father.flags==0 and x<id_col.x) or (father.flags==1 and x>id_col.x)))
+						if(father.accion==defiende)
 							//destello();
 							if(id_col.x>x)
 								father.x_inc=-5;

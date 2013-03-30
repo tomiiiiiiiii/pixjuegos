@@ -8,10 +8,12 @@ Private
 	fuerza_ataque;
 	invencibilidad;
 	pulsando_abajo;
+	pulsando_arriba;
 	recibiendo_combo;
 	diferencia_combo;
 	se_defiende=0;
 	sabe_saltar=0;
+	retraso_movimiento_defensa;
 Begin
 	ctype=coordenadas;
 	p[jugador].juega=1;
@@ -194,8 +196,6 @@ Begin
 		
 		if(accion==defiende and !p[jugador].botones[b_3])
 			accion=quieto;
-			x_inc=0;
-			y_inc=0;
 		end
 		
 		if(p[jugador].botones[b_abajo])
@@ -203,9 +203,19 @@ Begin
 		else
 			pulsando_abajo=0;
 		end
+		
+		if(p[jugador].botones[b_arriba])
+			pulsando_arriba++;
+		else
+			pulsando_arriba=0;
+		end
+		
 		if(tipo>0 and tipo<5) //evitamos que los enemigos puedan hacer un "ataque fuerte", salvo evil ripo
 			pulsando_abajo=5;
+			pulsando_arriba=5;
 		end
+		
+		if(retraso_movimiento_defensa>0) retraso_movimiento_defensa--; end
 		
 		if(herida==0)
 			if(diferencia_combo>0) 
@@ -214,6 +224,38 @@ Begin
 				recibiendo_combo=0;
 			end
 			if(altura==0) //EN EL SUELO
+				if(accion==defiende and tipo==0) //esquivar
+					if(x_inc==0 and y_inc==0 and gravedad==0 and retraso_movimiento_defensa==0)
+						//movimiento
+						if(p[jugador].botones[b_arriba] xor p[jugador].botones[b_abajo])
+							if(p[jugador].botones[b_arriba])
+								y_inc-=10;
+								gravedad=-15;
+								altura=1;
+								retraso_movimiento_defensa=30;
+							else //abajo
+								y_inc=10;
+								gravedad=-15;
+								altura=1;
+								retraso_movimiento_defensa=30;
+							end
+						end
+						
+						if(p[jugador].botones[b_izquierda] xor p[jugador].botones[b_derecha])
+							if(p[jugador].botones[b_izquierda])
+								x_inc-=10;
+								gravedad=-10;
+								altura=1;
+								retraso_movimiento_defensa=30;
+							else //derecha
+								x_inc+=10;
+								gravedad=-10;
+								altura=1;
+								retraso_movimiento_defensa=30;
+							end
+						end
+					end
+				end
 				if((accion==quieto or accion==camina))
 					//ataque suelo o lanzar objeto
 					if(p[jugador].botones[b_1] and pulsando_ataque1==0)
@@ -240,6 +282,10 @@ Begin
 									sonido(3,0);
 									if(p[jugador].botones[b_abajo] and pulsando_abajo<3)
 										accion=ataca_fuerte;
+									elseif(p[jugador].botones[b_arriba] and pulsando_arriba<3)
+										accion=ataca_uppercut;
+										gravedad=-20;
+										altura=1;
 									else
 										accion=ataca_suelo;
 									end
@@ -259,6 +305,7 @@ Begin
 							y_inc+=3;
 						end
 					end
+					
 					if(p[jugador].botones[b_izquierda] xor p[jugador].botones[b_derecha])
 						if(p[jugador].botones[b_izquierda])
 							x_inc-=3;
@@ -295,20 +342,20 @@ Begin
 				
 			else //EN EL AIRE (SALTO)
 				//ataque aereo
-				if(p[jugador].botones[b_1]) 
-					if(pulsando_ataque1==0)
-						pulsando_ataque1=1;
-						if(lleva_objeto==0)
-							accion=ataca_aire;
-							sonido(3,0);
-						else
-							accion=lanza_objeto;
-							sonido(3,0);
+				if(accion==quieto or accion==camina or accion==salta)
+					if(p[jugador].botones[b_1]) 
+						if(pulsando_ataque1==0)
+							pulsando_ataque1=1;
+							if(lleva_objeto==0)
+								accion=ataca_aire;
+								sonido(3,0);
+							else
+								accion=lanza_objeto;
+								sonido(3,0);
+							end
 						end
 					end
-				end
 
-				if(accion!=ataca_aire)
 					if(p[jugador].botones[b_arriba] xor p[jugador].botones[b_abajo])
 						if(p[jugador].botones[b_arriba])
 							y_inc-=1;
@@ -439,7 +486,7 @@ Begin
 					objeto_portado(x+(-30*hacia_que_lado),y-25,lleva_objeto);
 				else
 					if(anim==4)
-						objeto(x,y_base,altura-100,lleva_objeto,x_inc+(10*hacia_que_lado));
+						objeto(x,y_base,altura-80,lleva_objeto,x_inc+(10*hacia_que_lado));
 						lleva_objeto=0;
 					end
 				end
@@ -476,6 +523,15 @@ Begin
 			end
 			if(anim==15)
 				accion=quieto; 
+			end
+		end
+		if(accion==ataca_uppercut)
+			y_inc=0;
+			if(flags) x_inc=-3; else x_inc=3; end
+			if(gravedad<0)
+				ataque(x+(40*hacia_que_lado),y,fpg_general,3,fuerza_ataque*1.7,20);
+			else
+				accion=quieto;
 			end
 		end
 		if(accion==ataca_aire)
