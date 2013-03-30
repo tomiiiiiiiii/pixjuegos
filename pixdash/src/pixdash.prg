@@ -969,22 +969,22 @@ BEGIN
 		end
 	else //nivel 1:
 		i=1;
-		while(fexists(savegamedir+"niveles\"+paqueteniveles+"\"+i+".wav"));
-			sonidos_niveles[i]=load_wav(savegamedir+"niveles\"+paqueteniveles+"\"+i+".wav");
+		while(fexists(savegamedir+"niveles/"+paqueteniveles+"/"+i+".wav"));
+			sonidos_niveles[i]=load_wav(savegamedir+"niveles/"+paqueteniveles+"/"+i+".wav");
 			i++;
 		end
 	end
-	
-	if(fexists(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".txt"))
+
+	if(fexists(savegamedir+"niveles/"+paqueteniveles+"/nivel"+num_nivel+".txt"))
 		i=1;
-		fichero=fopen(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".txt",O_READ);	
+		fichero=fopen(savegamedir+"niveles/"+paqueteniveles+"/nivel"+num_nivel+".txt",O_READ);
 		nivel_titulo=fgets(fichero);
 		nivel_descripcion=fgets(fichero);
 		fclose(fichero);
 		i=0;
 	end
 
-	if(!file_exists(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".png"))  // FIN DE LA COMPETICION
+	if(!file_exists(savegamedir+"niveles/"+paqueteniveles+"/nivel"+num_nivel+".png"))  // FIN DE LA COMPETICION
 		if(jugadores>1)
 			pon_resultados();
 		else
@@ -1022,11 +1022,11 @@ BEGIN
 	end
 #else
 	#ifdef ANDROID
-		if(fexists(savegamedir+"niveles\"+paqueteniveles+"\fondo"+num_nivel+".jpg.png"))
+/*		if(fexists(savegamedir+"niveles\"+paqueteniveles+"\fondo"+num_nivel+".jpg.png"))
 			fondo=load_png(savegamedir+"niveles\"+paqueteniveles+"\fondo"+num_nivel+".jpg.png"); //cargar el fondo. ponemos .jpg.png para saber que viene de un jpg
 		else
 			fondo=load_png("fondos\fondo"+rand(1,5)+".jpg.png"); //cargar el fondo
-		end
+		end*/
 	#else
 		if(fexists(savegamedir+"niveles\"+paqueteniveles+"\fondo"+num_nivel+".jpg"))
 			fondo=load_image(savegamedir+"niveles\"+paqueteniveles+"\fondo"+num_nivel+".jpg"); //cargar el fondo
@@ -1035,7 +1035,6 @@ BEGIN
 		end
 	#endif
 #endif
-
 
 	if(fexists(savegamedir+"niveles\"+paqueteniveles+"\tiles.fpg"))
 		fpg_tiles=load_fpg(savegamedir+"niveles\"+paqueteniveles+"\tiles.fpg");
@@ -1056,7 +1055,7 @@ BEGIN
 	ancho_nivel=ancho*tilesize;
 	
 	max_num_enemigos=(alto_nivel*ancho_nivel)/100000;
-
+	
 	//BURRADA TEMPORAL PARA PRUEBAS CON MEMORIA DE LA WII
 	if(os_id!=os_wii)
 		mapa_scroll=new_map(ancho*tilesize,(alto-3)*tilesize,16);
@@ -1186,12 +1185,15 @@ BEGIN
 			y++; x=0;
 		end
 	until(y=>alto-3)
-
-//NUEVO: LISTA DE OBJETOS EN UN FICHERO APARTE
+	
+	//NUEVO: LISTA DE OBJETOS EN UN FICHERO APARTE
 	if(fexists(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".obj"))
 		fp=fopen(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".obj",O_READ);
 		while(!feof(fp))
 			linea=fgets(fp);
+			if(hasta_la_coma(linea,0)=="FIN")
+				break;
+			end
 			if(hasta_la_coma(linea,0)=="plataforma")
 				plataforma(tile_a_coordenada(csv_int(linea,1)),tile_a_coordenada(csv_int(linea,2)),csv_int(linea,3),tile_a_coordenada(csv_int(linea,4)),csv_int(linea,5),csv_int(linea,6));
 			end
@@ -1285,10 +1287,10 @@ BEGIN
 	timer[0]=0;
 	timer[1]=0; //para contrarreloj
 	if(ops.musica)
-		if(fexists(savegamedir+"niveles\"+paqueteniveles+"\mundo.ogg")) //si existe cancion de mundo
+		if(fexists(savegamedir+"niveles/"+paqueteniveles+"/mundo.ogg")) //si existe cancion de mundo
 			if(!is_playing_song())
 				cancion_mundo=1;
-				play_song(load_song(savegamedir+"niveles\"+paqueteniveles+"\mundo.ogg"),-1);
+				play_song(load_song(savegamedir+"niveles/"+paqueteniveles+"/mundo.ogg"),-1);
 			end
 		else
 			if(fexists(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".ogg")) //si existe 

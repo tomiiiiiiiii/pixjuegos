@@ -42,7 +42,11 @@ begin
 	if(!is_playing_song()) musica(4); end
 	graph=1;
 	x=400;
-	y=300;
+	if(panoramico)
+		y=220;
+	else
+		y=300;
+	end
 	
 	if(arcade_mode)
 		write(fnt2,400,300,4,"Pulsa el boton 2 para jugar");
@@ -82,7 +86,7 @@ begin
 	if(file_exists(savegamedir+"partida.dat")); continuable=1; end
 	graph=1;
 	x=400;
-	y=300;
+	//y=300;
 	keytime=10;
 	loop
 		if(elecc==6)
@@ -127,9 +131,7 @@ begin
 			end
 			if(elecc==4)
  				if(os_id==0)
- 					shell("http://pixjuegos.com");
- 				else
-					shell("x-www-browser http://pixjuegos.com &");
+					exec(_P_NOWAIT, "http://www.pixjuegos.com", 0, 0);
  				end
 				guarda_opciones();
 				exit(0);
@@ -492,16 +494,6 @@ begin
 		end
 		//ayuda y tal
 		if(graph>=20 and graph<=22)
-			if(key(_f))
-				suena(1);
- 				if(os_id==0)
- 					shell("http://foro.pixjuegos.com");
- 				else
-					shell("x-www-browser http://foro.pixjuegos.com &");
- 				end
-				guarda_opciones();
-				exit(0);
-			end
 			if(p[0].botones[b_2] and keytime==0)
 				graph++;
 				if(graph==22)
@@ -564,10 +556,12 @@ begin
 						if(ops.ventana==0) ops.ventana=1; else ops.ventana=0; end
 						if(ops.ventana==1)
 							scale_resolution_aspectratio=SRA_STRETCH;
-							alto_pantalla=520;
+							alto_pantalla=518;
+							panoramico=1;
 						else
 							scale_resolution_aspectratio=SRA_PRESERVE;
 							alto_pantalla=600;
+							panoramico=0;
 						end
 					else
 						if(full_screen==0)

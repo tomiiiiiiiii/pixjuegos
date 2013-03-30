@@ -7,13 +7,14 @@ cd src
 ..\..\bennu-win-old\bgdc -DANDROID=1 pixdash.prg
 move pixdash.dcb ..\main.dcb
 cd ..
-pause
 
 echo Compilando fpgs....
 call compilarfpgs.bat 16
 
 call ..\scripts\descomprimefpgs.bat
+cd fpg
 ren durezas.fpg.gz durezas.fpg
+cd ..
 
 echo Exportando...
 mkdir export
@@ -58,8 +59,7 @@ cd ..
 xcopy /r/e/y niveles export\assets\niveles
 copy main.dcb export\assets /y
 echo Exportado correctamente. Ahora se instalará en el móvil...
-pause
+
 cd export
-if exist c:\pixjuegos.keystore call ant release install
-if not exist c:\pixjuegos.keystore call ant debug install
+..\..\scripts\genera-apk.bat
 pause

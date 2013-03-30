@@ -59,8 +59,9 @@ Global
 	End
 	
 	ancho_pantalla=800;
-	alto_pantalla=600;
+	alto_pantalla=518;
 	bpp=32;
+	panoramico=1;
 	
 	njoys;
 	posibles_jugadores;
@@ -197,6 +198,7 @@ Begin
 	savepath();
 	if(os_id==1003)
 		savegamedir="/data/data/com.pixjuegos.pixpang/files/";
+		ops.ventana=1;
 	end
 	carga_opciones();
 	full_screen=!ops.ventana;
@@ -214,17 +216,17 @@ Begin
 		bpp=16;
 	elseif(os_id==1003) //android
 		bpp=16;
-		//ops.op_sombras=1;
-		//scale_resolution_aspectratio = SRA_PRESERVE;
 		ops.lenguaje=0;
+		ops.op_sombras=0;
 		scale_resolution=graphic_info(0,0,g_width)*10000+graphic_info(0,0,g_height);
-		say("---------- THIS IS MAY SCALE!!!!:"+SCALE_RESOLUTION);
 		if(ops.ventana==1)
 			scale_resolution_aspectratio=SRA_STRETCH;
-			alto_pantalla=520;
+			alto_pantalla=518;
+			panoramico=1;
 		else
 			scale_resolution_aspectratio=SRA_PRESERVE;
 			alto_pantalla=600;
+			panoramico=0;
 		end
 	end
 	
@@ -301,26 +303,41 @@ include "bola.pr-";
 
 Process marcadores();
 Begin
-	If(modo_juego==2) 
-		grafico(350,539,403,-1,0,fpg_lang); 
-		write(fnt1,400,560,1,"Level    "+itoa(mundo+1));
-	End
-	vidas();
-	If(players==1)
-	    If(modo_juego==2) armap1(); grafico(234,560,402,-1,0,0); End
-	    If(modo_juego==2) grafico(666,560,404,-1,1,fpg_lang); End 
-		write_int(fnt1,190,540,5,&p[1].puntos); 
+	if(panoramico)
+		If(modo_juego==2)
+			muestra_nivel_panoramico();
+		End
+		vidas();
+		If(players==1 or players==3)
+			If(modo_juego==2) armap1(); End
+			write_int(fnt1,45,35,0,&p[1].puntos); 
+		end
+		If(players==2 or players==3)
+			If(modo_juego==2) armap2(); End
+			write_int(fnt1,755,35,2,&p[2].puntos);
+		End
+	else
+		If(modo_juego==2) 
+			grafico(350,539,403,-1,0,fpg_lang); 
+			write(fnt1,400,560,1,"Level    "+itoa(mundo+1));
+		End
+		vidas();
+		If(players==1)
+			If(modo_juego==2) armap1(); grafico(234,560,402,-1,0,0); End
+			If(modo_juego==2) grafico(666,560,404,-1,1,fpg_lang); End 
+			write_int(fnt1,190,540,5,&p[1].puntos); 
+		end
+		If(players==2)
+			If(modo_juego==2) armap2(); grafico(566,560,402,-1,0,0); End
+			grafico(134,560,404,-1,1,fpg_lang); 
+			write_int(fnt1,615,540,3,&p[2].puntos);
+		End
+		If(players==3)
+			If(modo_juego==2) armap1(); armap2(); grafico(234,560,402,-1,0,0); grafico(566,560,402,-1,0,0); End
+			write_int(fnt1,190,540,5,&p[1].puntos); 
+			write_int(fnt1,615,540,3,&p[2].puntos);
+		End
 	end
-	If(players==2)
-	    If(modo_juego==2) armap2(); grafico(566,560,402,-1,0,0); End
-	    grafico(134,560,404,-1,1,fpg_lang); 
-		write_int(fnt1,615,540,3,&p[2].puntos);
-	End
-	If(players==3)
-	    If(modo_juego==2) armap1(); armap2(); grafico(234,560,402,-1,0,0); grafico(566,560,402,-1,0,0); End
-		write_int(fnt1,190,540,5,&p[1].puntos); 
-		write_int(fnt1,615,540,3,&p[2].puntos);
-	End
 	escenario();
 End
 
@@ -343,21 +360,47 @@ Begin
 	End
 End
 
+Process grafico_size(x,y,graph,z,intparpadeo,file,size);
+Private
+	exgraph;
+Begin
+	exgraph=graph;
+	Loop
+		if(ops.op_sombras==0)
+			If(intparpadeo==1) If(graph==exgraph) graph=borrar; Else graph=exgraph; End End
+		else
+			if(intparpadeo==1) 
+				graph=exgraph;
+				from alpha=255 to 0 step -3; frame; end
+				from alpha=0 to 255 step 3; frame; end
+			end
+		end
+	Frame(2000);
+	End
+End
+
 Process escenario();
 Begin
 	x=400;
-	y=300;
-	grafico(400,559,7,1,0,0);
-	If(modo_juego==1 OR modo_juego==-1) 
-		grafico(400,300,2,2,0,0);
-		write(fnt2,300,540,3,"Level ");
-		write_int(fnt2,460,540,3,&mundo);
+	y=262;
+	if(!panoramico)
+		grafico(400,559,7,1,0,0);
+	end
+	If(modo_juego==1 OR modo_juego==-1)
+		grafico(400,262,2,2,0,0);
+		if(panoramico)
+			write(fnt1,340,40,3,"Level ");
+			write_int(fnt1,440,40,3,&mundo);
+		else
+			write(fnt2,300,540,3,"Level ");
+			write_int(fnt2,460,540,3,&mundo);
+		end
 	    If(modo_juego==1) 
 			barra_nivel(); 
 		End
 	End
 	If(modo_juego==2) 
-		grafico(400,300,1,2,0,0);
+		grafico(400,262,1,2,0,0);
 	End
 	Loop
 		Frame;
@@ -368,16 +411,28 @@ Process barra_nivel();
 Private
    energia=0;
 Begin
-   graph=444;
-   set_center(file,graph,0,15);
-   // Se asignan las coordenadas
-   x=305; y=580; z=0;
-   grafico(400,580,443,-1,0,0);
-   Loop
-	  size_x=(((p[1].bolas+p[2].bolas))-((mundo)*5))*20;
-	  if(size_x>100) size_x=100; end
-      Frame;
-   End
+	graph=444;
+	set_center(file,graph,0,15);
+
+	if(panoramico)
+		y=70;
+		size_y=50;
+		grafico_size(400,y,443,-1,0,0,50);
+		x=351; 
+	else
+		y=580;
+		grafico(400,y,443,-1,0,0);
+		x=305; 
+	end
+	z=0;
+	Loop
+		size_x=(((p[1].bolas+p[2].bolas))-((mundo)*5))*20;
+		if(size_x>100) size_x=100; end
+		if(panoramico)
+			size_x=size_x/2;
+		end
+		Frame;
+	End
 End
 
 Process musica(cancion); //
@@ -422,18 +477,33 @@ End
 
 Process vidas();
 Begin
-    caravida(1);
+	if(panoramico)
+		if(players==1 or players==3)
+			write(fnt1,50,60,0,"x");
+			write_int(fnt1,70,60,0,&p[1].vidas);
+		end
+		if(players==2 or players==3)
+			write(fnt1,50,60,2,"x");
+			write_int(fnt1,70,60,2,&p[2].vidas);
+		end
+	else
+		if(players==1 or players==3)
+			write(fnt2,106,548,0,"x"); 
+			write_int(fnt2,136,548,0,&p[1].vidas); 
+		end
+		if(players==2 or players==3)
+			write(fnt2,694,548,2,"x");
+			write_int(fnt2,664,548,2,&p[2].vidas); 
+		end
+	end
+	
 	if(players==1 or players==3)
 		caravida(1);
-		write(fnt2,106,548,0,"x"); 
-		write_int(fnt2,136,548,0,&p[1].vidas); 
 	end
 	if(players==2 or players==3)
 		caravida(2);
-		write(fnt2,694,548,2,"x");
-		write_int(fnt2,664,548,2,&p[2].vidas); 
 	end
-		
+	
 	Loop
 		from i=1 to 2;
 			If(p[i].vidas>99) p[i].vidas=99; End
@@ -448,26 +518,51 @@ Begin
 	file=p[jugador].fpg;
 	graph=921;
 	z=-3;
-	y=550;	
+	if(panoramico)
+		size=50;
+		y=60;
+	else
+		y=550;
+	end
 	if(jugador==1)
 		x=-50;
 	else
 		x=850;
-		flags=1;
 	end
-
+	//frame(5000);
 	Loop
-		if(jugador==1)
-			if(p[1].muere==0)
-				if(x<50) x+=2; end
+		if(panoramico and collision(type muneco))
+			alpha=100;
+		else
+			if(alpha==100) alpha=255; end
+		end
+		if(panoramico)
+			if(jugador==1)
+				if(p[1].muere==0)
+					if(x<30) x+=2; end
+				else
+					if(x>-50) x-=2; end
+				end
 			else
-				if(x>-50) x-=2; end
+				if(p[2].muere==0)
+					if(x>780) x-=2; end
+				else
+					if(x<850) x+=2; end
+				end
 			end
 		else
-			if(p[2].muere==0)
-				if(x>750) x-=2; end
+			if(jugador==1)
+				if(p[1].muere==0)
+					if(x<50) x+=2; end
+				else
+					if(x>-50) x-=2; end
+				end
 			else
-				if(x<850) x+=2; end
+				if(p[2].muere==0)
+					if(x>750) x-=2; end
+				else
+					if(x<850) x+=2; end
+				end
 			end
 		end
 		Frame;
@@ -569,8 +664,14 @@ End
 
 Process armap1(); //1=normal, 2=2 tiros, 3=gancho, 4=metralleta
 Begin
-	x=234;
-	y=560;
+	if(panoramico)
+		x=125;
+		y=79;
+		size=45;
+	else
+		x=234;
+		y=560;
+	end
 	z=-2;
 	Loop
 		If(p[1].arma==1) 
@@ -592,7 +693,11 @@ End
 Process armap2(); //1=normal, 2=2 tiros, 3=gancho, 4=metralleta
 Begin
 	x=566;
-	y=560;
+	if(panoramico)
+		y=60;
+	else
+		y=560;
+	end
 	z=-2;
 	Loop
 		If(p[2].arma==1) 
@@ -1518,15 +1623,7 @@ Private
 Begin
 	if(ops.op_sombras==0) return; end
 	x=400;
-	#IFNDEF TACTIL
-	if(ops.ventana)
-		y=260;
-	else
-		y=300;
-	end
-	#ELSE
-	y=300;
-	#ENDIF
+	y=alto_pantalla/2;
 	z=-512;
 	if(graphh>0) graph=graphh; else
 		If(graphh==0) graph=920; End
@@ -1618,7 +1715,7 @@ begin
 	delete_text(0);
 	graph=951;
 	x=400;
-	y=300;
+	y=alto_pantalla/2;
 	z=-10;
 	controlador(0);
 	from alpha=50 to 255 step 5; 
@@ -1660,9 +1757,9 @@ include "monstruos/fmars.pr-";
 include "monstruos/gusano.pr-";
 include "monstruos/maskara.pr-";
 
-process shell(string crap);
+/*process shell(string crap);
 begin
-end
+end*/
 
 Process texto_fondos(String creador);
 Private
@@ -1870,3 +1967,12 @@ Begin
 	exit();
 End
 
+Process muestra_nivel_panoramico();
+Begin
+	graph=write_in_map(fnt1,"Level    "+itoa(mundo+1),4);
+	x=400;
+	y=60;
+	from alpha=0 to 255 step 10; frame; end
+	frame(15000);
+	from alpha=255 to 0 step -10; frame; end
+End

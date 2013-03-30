@@ -44,6 +44,7 @@ Const
 	salta_objeto=12;
 	lanza_objeto=13;
 	ataca_fuerte=14;
+	ataca_uppercut=15;
 	muere=-1;
 	
 	//objetos
@@ -61,6 +62,8 @@ End
 Global
 	pocos_recursos=0;
 	good_vs_evil=0;
+
+	jukeboxing=0;
 	
 	puntos;
 
@@ -1296,7 +1299,11 @@ Begin
 			timer[1]=0;
 			while(timer[1]<40) frame; end
 			anterior_cancion=i;
-			play_song(load_song("ogg/"+i+"."+formato),-1);
+			if(exists(type menu))
+				play_song(load_song("ogg/"+i+"."+formato),0);
+			else
+				play_song(load_song("ogg/"+i+"."+formato),-1);
+			end
 		end
 	else
 		anterior_cancion=0;

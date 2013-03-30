@@ -32,7 +32,7 @@ begin
 	unload_map(0,durezas);
 	num_enemigos=0;
 	delete_text(all_text);
-	set_mode(800,600,16,WAITVSYNC); //resolución y colores	    
+	set_mode(800,600,16); //resolución y colores	    
 	i=0;
 	from i=1 to 4;
 		p[i].puntos=0;
@@ -331,11 +331,11 @@ begin
 					if(full_screen==0)
 						full_screen=1;
 						ops.pantalla_completa=1;
-						set_mode(800,600,16,WAITVSYNC);
+						set_mode(800,600,16);
 					else
 						full_screen=0;
 						ops.pantalla_completa=0;
-						set_mode(800,600,16,WAITVSYNC);
+						set_mode(800,600,16);
 					end
 				end
 				if(elecc==1)
@@ -352,7 +352,7 @@ begin
 						stop_song();
 					else
 						ops.musica=1;
-						play_song(load_song("menu.ogg"),-1);
+						play_song(load_song("1.ogg"),-1);
 					end
 				end
 /*				if(elecc==3)
@@ -362,7 +362,7 @@ begin
 					if(ops.resolucion==0) ops.resolucion=06400480; end
 					if(ops.resolucion==-1) ops.resolucion=0; end
 					scale_resolution=ops.resolucion;
-					set_mode(800,600,16,WAITVSYNC);
+					set_mode(800,600,16);
 				end*/
 			end
 			tecenter=1;
@@ -491,23 +491,42 @@ private
 begin
 	let_me_alone();
 	delete_text(all_text);
-	//chdir(savegamedir+"niveles");
 	i=1;
-	if(os_id==os_win32)
-		dir_handle=diropen(savegamedir+"niveles/*.");
+	if(os_id==1003)
+		nombres_paquetes[1]="1-tutorial";
+		nombres_paquetes[2]="2-facil";
+		nombres_paquetes[3]="3-normal";
+		nombres_paquetes[4]="4-dificil";
+		nombres_paquetes[5]="5-hardcore";
+		num_paquetes=5;
 	else
-		dir_handle=diropen(savegamedir+"niveles/*");
-	end
-	//while((carpeta=glob("*")) != "")
-	while((carpeta=dirread(dir_handle)) != "")
-		if((carpeta!=".") and (carpeta!="..") and fexists(savegamedir+"niveles/"+carpeta+"/nivel1.png") and fileinfo.directory)
-			nombres_paquetes[i++]=carpeta;
+		if(os_id==os_win32)
+			dir_handle=diropen(savegamedir+"niveles/*.");
+		else
+			dir_handle=diropen(savegamedir+"niveles/*");
 		end
-    End
-	dirclose(dir_handle);
-	chdir(dir_juego);
-	carpeta=glob("*.*"); //ANTIBUG?
-	num_paquetes=i-1;
+		if(dir_handle==0) 
+			say("DEBUG: No se ha encontrado ningún nivel");
+			exit(); 
+		end
+		while((carpeta=dirread(dir_handle)) != "")
+			if((carpeta!=".") and (carpeta!="..") and fileinfo.directory)
+				if(os_id==1003)
+					if(fexists("niveles/"+carpeta+"/nivel1.png"))
+						nombres_paquetes[i++]=carpeta;
+					end
+				else
+					if(fexists(savegamedir+"niveles/"+carpeta+"/nivel1.png"))
+						nombres_paquetes[i++]=carpeta;
+					end
+				end
+			end
+		End
+		dirclose(dir_handle);
+		chdir(dir_juego);
+		carpeta=glob("*.*"); //ANTIBUG?
+		num_paquetes=i-1;
+	end
 	x=100;
 	y=125;
 	from i=1 to num_paquetes; write(fuente_peq,x,y,3,nombres_paquetes[i]); y+=30; end
@@ -531,7 +550,7 @@ begin
 			if(tecenter==0)
 				paqueteniveles=nombres_paquetes[elecc+1];
 				if(elecc==num_paquetes) pedir_nuevos_niveles(); return; end
-				set_mode(ancho_pantalla,alto_pantalla,16,WAITVSYNC);
+				set_mode(ancho_pantalla,alto_pantalla,bpp);
 				carga_nivel();
 			end
 			tecenter=1;

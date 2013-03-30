@@ -349,7 +349,7 @@ Begin
 	If(peq_izq==1 and matabolas==0 and jefe==0) if(reloj==0) itemreloj(1); else secs+=60; end End
 	If(tamano!=1 AND tamano!=6 AND tamano!=10 and tamano!=13 and tamano!=17 and tamano!=18 and tamano!=19 and tamano!=20 and tamano!=21 and tamano!=22) if(cheto_borracho==0 or matabolas==1 or dinamita==1) bola(x-(ancho_bola/4),y,tamano-1,1); bola(x+(ancho_bola/4),y,tamano-1,0); else if(rand(0,3)==0 and tamano<17) bola(x-(ancho_bola/4),y,tamano,1); bola(x+(ancho_bola/4),y,tamano,0); else bola(x-(ancho_bola/4),y,tamano-1,1); bola(x+(ancho_bola/4),y,tamano-1,0); End End End
 	If(tamano==1 OR tamano==6 OR tamano==10 or tamano==13) size=0; End
-	explotalo(x,y,z,alpha,0,file,graph,60);
+	if(ops.op_sombras) explotalo(x,y,z,alpha,0,file,graph,60); end
 	suena(2);
 	bolas--;
 	id_bolas[contator]=0;
