@@ -187,7 +187,8 @@ BEGIN
 		end
 	end
 	if(os_id==1003)
-		savegamedir="/data/data/com.pixjuegos.garnatron/files";
+		savegamedir="/data/data/com.pixjuegos.garnatron/files/";
+		mkdir(savegamedir);
 		ops.particulas=0;
 	end
 	

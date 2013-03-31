@@ -159,7 +159,8 @@ Begin
 
 	savepath();
 	if(os_id==1003)
-		savegamedir="/data/data/com.pixjuegos.pixbros/files";
+		savegamedir="/data/data/com.pixjuegos.pixbros/files/";
+		mkdir(savegamedir);
 	end
 	carga_opciones();
 	full_screen=!ops.ventana;

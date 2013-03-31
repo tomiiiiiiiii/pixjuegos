@@ -207,6 +207,7 @@ Begin
 	savepath();
 	if(os_id==1003)
 		savegamedir="/data/data/com.pixjuegos.ripolles/files/";
+		mkdir(savegamedir);
 	end
 	carga_opciones();
 

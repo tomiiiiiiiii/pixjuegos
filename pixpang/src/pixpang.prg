@@ -198,6 +198,7 @@ Begin
 	savepath();
 	if(os_id==1003)
 		savegamedir="/data/data/com.pixjuegos.pixpang/files/";
+		mkdir(savegamedir);
 		ops.ventana=1;
 	end
 	carga_opciones();

@@ -131,10 +131,11 @@ begin
 		tactil=1;
 		bpp=16;
 		if(free_version)
-			savegamedir="/data/data/com.pixjuegos.pixfrogger.free/files";
+			savegamedir="/data/data/com.pixjuegos.pixfrogger.free/files/";
 		else
-			savegamedir="/data/data/com.pixjuegos.pixfrogger/files";
+			savegamedir="/data/data/com.pixjuegos.pixfrogger/files/";
 		end
+		mkdir(savegamedir);
 	else
 		savepath();
 	end

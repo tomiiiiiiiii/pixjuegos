@@ -101,6 +101,7 @@ begin
 		//elige algo
 		if(key(_c)) chetos(); return; end
 		if(p[0].botones[b_2] and keytime==0)
+			while(p[0].botones[b_2]) frame; end
 			if(ops.op_sonido==1)
 				suena(3);
 			end
