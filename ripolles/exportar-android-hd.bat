@@ -4,7 +4,7 @@ call ..\utils\entorno.bat ripolles
 rd /s /q export
 echo Compilando...
 cd src
-..\..\bennu-win-old\bgdc -DTACTIL=1 ripolles.prg
+..\..\bennu-win\bgdc -DTACTIL=1 ripolles.prg
 move ripolles.dcb ..\main.dcb
 cd ..
 pause

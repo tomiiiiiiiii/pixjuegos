@@ -4,7 +4,7 @@ call ..\utils\entorno.bat ripolles
 rd /s /q export
 echo Compilando...
 cd src
-..\..\bennu-win-unstable\bgdc ripolles.prg
+..\..\bennu-win\bgdc ripolles.prg
 move ripolles.dcb ..\main.dcb
 cd ..
 pause
@@ -16,7 +16,7 @@ echo Exportando...
 mkdir export
 
 echo Copiando base de bennu-android...
-xcopy /r/e/y ..\bennu-android-4.1 .\export
+xcopy /r/e/y ..\bennu-android .\export
 
 echo Creando carpetas...
 mkdir export\assets\fpg
@@ -32,8 +32,8 @@ copy recursos\android\xhdpi.png export\res\drawable-xhdpi\icon.png /y
 copy recursos\android\ouya_icon.png export\res\drawable-xhdpi\ouya_icon.png /y
 
 copy recursos\android\strings.xml export\res\values\strings.xml /y
-copy recursos\android\AndroidManifest.ouya.xml export\AndroidManifest.xml /y
-copy recursos\android\default.ouya.properties export\default.properties /y
+copy recursos\android\AndroidManifest.xml export\ /y
+
 copy recursos\android\build.xml export\ /y
 
 mkdir export\src\com
@@ -50,6 +50,7 @@ echo Exportado correctamente. Ahora se instalará en el móvil...
 
 
 cd export
-cmd /c if exist c:\pixjuegos.keystore ant release install
-cmd /c if not exist c:\pixjuegos.keystore ant debug install
+
+
+..\..\scripts\genera-apk.bat
 pause
