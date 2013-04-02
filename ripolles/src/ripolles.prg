@@ -45,6 +45,7 @@ Const
 	lanza_objeto=13;
 	ataca_fuerte=14;
 	ataca_uppercut=15;
+	corre=16;
 	muere=-1;
 	
 	//objetos
@@ -508,8 +509,8 @@ Begin
 		frame; 
 	end
 	controlador(i);
-	while(p[i].botones[b_1]) frame; end
-	while(!p[i].botones[b_1]) frame; end
+	while(p[i].botones[b_1] or p[i].botones[b_2] or p[i].botones[b_3]) frame; end
+	while(!(p[i].botones[b_1] or p[i].botones[b_2] or p[i].botones[b_3])) frame; end
 	from alpha=255 to 0 step -20; y+=4; frame; end
 	menu(-1);
 End
@@ -680,6 +681,14 @@ Begin
 				father.animacion=camina;
 			end
 		end
+		if(father.accion==corre)
+			if(father.lleva_objeto>0)
+				father.animacion=camina_objeto;
+			else
+				father.animacion=camina;
+			end
+		end
+
 	else //en el aire
 		if(father.lleva_objeto>0)
 			father.animacion=salta_objeto;

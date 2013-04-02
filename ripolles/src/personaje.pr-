@@ -9,6 +9,7 @@ Private
 	invencibilidad;
 	pulsando_abajo;
 	pulsando_arriba;
+	no_pulsando_lado;
 	recibiendo_combo;
 	diferencia_combo;
 	se_defiende=0;
@@ -137,6 +138,7 @@ Begin
 			end
 			accion=muere; herida+=100; 
 		end
+		
 		if(tipo==0 and lleva_objeto!=0 and accion==quieto)
 			if(lleva_objeto==1 or lleva_objeto==4) //coca o rollo
 				if(lleva_objeto==4)
@@ -153,7 +155,7 @@ Begin
 				lleva_objeto=0;
 			end
 		end
-		//if(modo_juego==modo_battleroyale and jugadores==1) //ganador
+			
 		if(ganando and tipo==0)
 			graph=161;
 			accion=quieto;
@@ -176,6 +178,7 @@ Begin
 				frame; 
 			end
 		end
+
 		if(flags==0)
 			hacia_que_lado=1;
 		else
@@ -198,6 +201,11 @@ Begin
 			accion=quieto;
 		end
 		
+		//cuando se mueve defendiéndose, da pequeños golpes para mejorar la escapada
+		if(accion==defiende and altura>0)
+			ataque(x,y,file,graph,1,20);
+		end
+		
 		if(p[jugador].botones[b_abajo])
 			pulsando_abajo++;
 		else
@@ -210,9 +218,17 @@ Begin
 			pulsando_arriba=0;
 		end
 		
-		if(tipo>0 and tipo<5) //evitamos que los enemigos puedan hacer un "ataque fuerte", salvo evil ripo
+		//para permitir correr
+		if(p[jugador].botones[b_izquierda] or p[jugador].botones[b_derecha])
+			if(no_pulsando_lado<2) no_pulsando_lado++; end
+		else
+			if(no_pulsando_lado>0) no_pulsando_lado--; end
+		end
+		
+		if(tipo>0 and tipo<5) //evitamos que los enemigos puedan hacer ataques especiales o correr, salvo evil ripo
 			pulsando_abajo=5;
 			pulsando_arriba=5;
+			no_pulsando_lado=5;
 		end
 		
 		if(retraso_movimiento_defensa>0) retraso_movimiento_defensa--; end
@@ -256,7 +272,7 @@ Begin
 						end
 					end
 				end
-				if((accion==quieto or accion==camina))
+				if((accion==quieto or accion==camina or accion==corre))
 					//ataque suelo o lanzar objeto
 					if(p[jugador].botones[b_1] and pulsando_ataque1==0)
 						pulsando_ataque1=1;
@@ -307,6 +323,9 @@ Begin
 					end
 					
 					if(p[jugador].botones[b_izquierda] xor p[jugador].botones[b_derecha])
+						if(no_pulsando_lado==1 and accion==camina)
+							accion=corre; 
+						end
 						if(p[jugador].botones[b_izquierda])
 							x_inc-=3;
 							flags=1;
@@ -327,7 +346,7 @@ Begin
 				end
 														
 				//salto
-				if(p[jugador].botones[b_2] and (accion==quieto or accion==camina) and sabe_saltar)
+				if(p[jugador].botones[b_2] and (accion==quieto or accion==camina or accion==corre) and sabe_saltar)
 					if(pulsando_salto==0)
 						pulsando_salto=1;
 						gravedad=-24;
@@ -342,7 +361,7 @@ Begin
 				
 			else //EN EL AIRE (SALTO)
 				//ataque aereo
-				if(accion==quieto or accion==camina or accion==salta)
+				if(accion==quieto or accion==camina or accion==corre or accion==salta)
 					if(p[jugador].botones[b_1]) 
 						if(pulsando_ataque1==0)
 							pulsando_ataque1=1;
@@ -384,9 +403,14 @@ Begin
 					y+=gravedad;
 				end
 			end
+			
 			//no herido, común de suelo y aire
 			if(accion!=herido_leve and accion!=herido_grave and accion!=muere)
-				inercia_maxima(inercia_max_x,inercia_max_y); 
+				if(accion==corre or altura>0)
+					inercia_maxima(inercia_max_x*2,inercia_max_y*2); 
+				else
+					inercia_maxima(inercia_max_x,inercia_max_y); 
+				end
 			end
 		else //está siendo herido
 			if(accion!=herido_leve and accion!=herido_grave and accion!=muere) //escisión!
@@ -460,8 +484,12 @@ Begin
 		
 		if(herida==0 and altura==0)
 			if(accion==quieto and (x_inc!=0 or y_inc!=0))
-				accion=camina;
-			elseif(accion==camina and x_inc==0 and y_inc==0)
+				if(abs(x_inc)>inercia_max_x)
+					accion=corre;
+				else
+					accion=camina;
+				end
+			elseif((accion==camina or accion==corre) and x_inc==0 and y_inc==0)
 				accion=quieto;
 			end
 		end
@@ -527,7 +555,7 @@ Begin
 		end
 		if(accion==ataca_uppercut)
 			y_inc=0;
-			if(flags) x_inc=-3; else x_inc=3; end
+			if(flags) x_inc-=2; else x_inc+=2; end
 			if(gravedad<0)
 				ataque(x+(40*hacia_que_lado),y,fpg_general,3,fuerza_ataque*1.7,20);
 			else
