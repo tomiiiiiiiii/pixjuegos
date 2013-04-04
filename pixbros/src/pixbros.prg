@@ -196,6 +196,11 @@ Begin
 		gamepad_boton_size=50;
 		gamepad_botones=2;
 	end
+	
+	//DEBUG
+	scale_resolution=12800720;
+	scale_resolution_aspectratio=SRA_PRESERVE;
+	
 	set_mode(640,480,bpp);
 	set_fps(40,9);
 	frame;
@@ -459,18 +464,32 @@ begin
 		end
       	if(p[0].botones[b_salir] and ready)
 			while(p[0].botones[b_salir]) frame; end
-			if(ops.lenguaje==0)
-				txt_pausa[1]=write(fnt_intro,320,220,4,"PAUSE");
-				txt_pausa[2]=write(fnt_intro,320,260,4,"Press Button 3 to exit");
-			else
-				txt_pausa[1]=write(fnt_intro,320,220,4,"PAUSA");
-				txt_pausa[2]=write(fnt_intro,320,260,4,"Pulsa el botón 3 para salir");
-			end
+			#IFDEF TACTIL
+				if(ops.lenguaje==0)
+					txt_pausa[1]=write(fnt_intro,320,220,4,"PAUSE");
+					txt_pausa[2]=write(fnt_intro,320,260,4,"Press Button 2 to exit");
+				else
+					txt_pausa[1]=write(fnt_intro,320,220,4,"PAUSA");
+					txt_pausa[2]=write(fnt_intro,320,260,4,"Pulsa el botón 2 para salir");
+				end
+			#ELSE
+				if(ops.lenguaje==0)
+					txt_pausa[1]=write(fnt_intro,320,220,4,"PAUSE");
+					txt_pausa[2]=write(fnt_intro,320,260,4,"Press Button 3 to exit");
+				else
+					txt_pausa[1]=write(fnt_intro,320,220,4,"PAUSA");
+					txt_pausa[2]=write(fnt_intro,320,260,4,"Pulsa el botón 3 para salir");
+				end
+			#ENDIF
 			sonido(1);
 			ready=0;
 			frame(3000);
 			while(!p[0].botones[b_salir])
-				if(p[0].botones[b_3]) while(p[0].botones[3]) frame; end menu(); end
+				#IFDEF TACTIL
+					if(p[0].botones[b_2]) while(p[0].botones[b_2]) frame; end menu(); end
+				#ELSE
+					if(p[0].botones[b_3]) while(p[0].botones[b_3]) frame; end menu(); end
+				#ENDIF
 				frame; 
 			end
 			while(p[0].botones[b_salir]) frame; end

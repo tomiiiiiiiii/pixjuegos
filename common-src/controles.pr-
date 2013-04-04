@@ -80,7 +80,7 @@ Begin
 			while(is_playing_song()) frame; end
 			salir_android();
 		end
-
+		
 		if(!exists(father)) return; end
 		from i=0 to 7; p[jugador].botones[i]=0;	end		
 		if(p[jugador].control==-2) //GLOBAL: Para menús y tal
