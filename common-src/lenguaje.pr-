@@ -33,6 +33,7 @@ begin
 		env_lang=getenv("LANG");
 		env_lang=""+env_lang[0]+env_lang[1];
 		id_lenguaje=env_lang;
+		say("Lenguaje detectado: "+env_lang);
 		//-------------------
 	end
 	if(os_id==os_caanoo)

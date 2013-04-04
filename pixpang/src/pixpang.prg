@@ -59,9 +59,9 @@ Global
 	End
 	
 	ancho_pantalla=800;
-	alto_pantalla=518;
+	alto_pantalla=600;
 	bpp=32;
-	panoramico=1;
+	panoramico=0;
 	
 	njoys;
 	posibles_jugadores;
@@ -209,6 +209,10 @@ Begin
 		default: ops.lenguaje=1; end
 	end
 	
+	if(os_id==1003) //android en inglés HELL YES
+		ops.lenguaje=1;
+	end
+	
 	if(ops.ventana==0 or arcade_mode==1) Full_screen=true; else full_screen=false; end
 	
 	if(os_id==9) //caanoo
@@ -230,6 +234,11 @@ Begin
 			panoramico=0;
 		end
 	end
+
+	//DEBUG:
+	panoramico=1;
+	alto_pantalla=518;
+	scale_resolution=12800720;
 	
 	set_mode(ancho_pantalla,alto_pantalla,bpp);
 	
@@ -1811,7 +1820,7 @@ End
 
 Process jugar();
 Private
-	txt_pausa;
+	txt_pausa[2];
 	txt_fps;
 	kindabolas;
 	avaricioso;
@@ -1932,20 +1941,31 @@ Begin
 			End
 
 		end
-		if(key(_p) and ready==1)
-			txt_pausa=write(fnt1,400,300,4,"PAUSA");
+		If(key(_d) AND key(_b) AND key(_g)) pixel_mola=1; End
+//		If(p[0].botones[7]) while(p[0].botones[7]) frame; end menu(); end
+		If(p[0].botones[7] and ready==1)
+			while(p[0].botones[7]) frame; end
+			if(ops.lenguaje==0)
+				txt_pausa[1]=write(fnt2,400,270,4,"PAUSA");
+				txt_pausa[2]=write(fnt1,400,320,4,"Pulsa el botón 3 para salir");
+			else
+				txt_pausa[1]=write(fnt2,400,270,4,"PAUSE");
+				txt_pausa[2]=write(fnt1,400,320,4,"Press Button 3 to exit");
+			end
 			suena(8);
 			ready=0;
 			frame(3000);
-			while(key(_p)) frame; end
-			while(!key(_p)) frame; end
-			while(key(_p)) frame; end
-			delete_text(txt_pausa);
-			ready=1;
+			while(!p[0].botones[b_salir])
+				if(p[0].botones[b_3])	while(p[0].botones[3]) frame; end menu(); end
+				frame; 
+			end
+			while(p[0].botones[7]) frame; end
+			delete_text(txt_pausa[1]);
+			delete_text(txt_pausa[2]);
 			suena(2);
+			ready=1;
 		end
-		If(key(_d) AND key(_b) AND key(_g)) pixel_mola=1; End
-		If(p[0].botones[7]) while(p[0].botones[7]) frame; end menu(); end
+
 		If(key(_alt) AND key(_x)) exit(0,0); End
 		If(zbolas<-200) zbolas=-1; End
 		Frame;
