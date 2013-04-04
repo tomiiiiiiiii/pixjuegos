@@ -30,6 +30,7 @@ Begin
 		end
 	End
 	Loop
+		while(!ready) frame; end
 		Switch(tipo)
 			case 1: /*patrón: 
 						0 aterriza
@@ -307,6 +308,7 @@ Begin
 		end
 	end
 	loop
+		while(!ready) frame; end
 		switch(tipo)
 			case 1:
 				grav++;

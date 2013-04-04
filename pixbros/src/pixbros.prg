@@ -48,7 +48,7 @@ End
 Global
 	arcade_mode=0;
 	
-	bitscolor=32;
+	bpp=32;
 	njoys;
 	posibles_jugadores;
 	debuj;
@@ -172,21 +172,31 @@ Begin
 		case "fr": ops.lenguaje=4; lang_suffix="fr"; end
 		default: ops.lenguaje=0; lang_suffix="en"; end
 	end	
+
+	if(os_id==1003)
+		ops.lenguaje=0; lang_suffix="en";
+	end
 	
-	if(os_id==os_caanoo or os_id==os_wii or os_id==1003) bitscolor=16; end
+	if(os_id==os_caanoo or os_id==os_wii or os_id==1003) bpp=16; end
 	if(os_id==os_caanoo) scale_resolution=03200240; end
 	if(arcade_mode) full_screen=true; scale_resolution=08000600; end
 	if(os_id==1003)
 		frame;
-		//if(graphic_info(0,0,g_height)!=480) 
-			scale_resolution_aspectratio = SRA_PRESERVE;
-			scale_resolution=(graphic_info(0,0,g_width)*10000)+graphic_info(0,0,g_height);
-		//end
+		scale_resolution_aspectratio = SRA_PRESERVE;
+		scale_resolution=(graphic_info(0,0,g_width)*10000)+graphic_info(0,0,g_height);
+
+		full_screen=1;
+		if(ops.ventana==0)
+			scale_resolution_aspectratio=SRA_STRETCH;
+		else
+			scale_resolution_aspectratio=SRA_PRESERVE;
+		end
+		
 		gamepad_boton_separacion=50;
 		gamepad_boton_size=50;
 		gamepad_botones=2;
 	end
-	set_mode(640,480,bitscolor);
+	set_mode(640,480,bpp);
 	set_fps(40,9);
 	frame;
 
@@ -273,6 +283,7 @@ private
 	ii;
 	screenshotpantalla;
 	lineas_recorridas;
+	txt_pausa[2];
 begin
 	stop_wav(-1);
 	x=320;
@@ -414,7 +425,7 @@ begin
 	end
 	
 	loop
-		if(ready==1)
+		if(ready)
 			if(posibles_jugadores>1)
 				if(p[1].juega==0 and p[1].botones[4]==1 and p[1].botones[5]==1) elecpersonaje_ingame(1); end
 				if(p[2].juega==0 and posibles_jugadores and p[2].botones[4]==1 and p[2].botones[5]==1) elecpersonaje_ingame(2); end
@@ -446,12 +457,27 @@ begin
 			frame(3000);
 			game_over();
 		end
-      	if(p[0].botones[7])
-			while(p[0].botones[7]) frame; end
-			let_me_alone();
-			clear_screen();
-			menu();
-			return;
+      	if(p[0].botones[b_salir] and ready)
+			while(p[0].botones[b_salir]) frame; end
+			if(ops.lenguaje==0)
+				txt_pausa[1]=write(fnt_intro,320,220,4,"PAUSE");
+				txt_pausa[2]=write(fnt_intro,320,260,4,"Press Button 3 to exit");
+			else
+				txt_pausa[1]=write(fnt_intro,320,220,4,"PAUSA");
+				txt_pausa[2]=write(fnt_intro,320,260,4,"Pulsa el botón 3 para salir");
+			end
+			sonido(1);
+			ready=0;
+			frame(3000);
+			while(!p[0].botones[b_salir])
+				if(p[0].botones[b_3]) while(p[0].botones[3]) frame; end menu(); end
+				frame; 
+			end
+			while(p[0].botones[b_salir]) frame; end
+			delete_text(txt_pausa[1]);
+			delete_text(txt_pausa[2]);
+			sonido(2);
+			ready=1;
 	    end
 		if(key(_k) and debuj)
 			matabichos=1;
@@ -648,6 +674,10 @@ Begin
 	y=id_enemigo.y+id_enemigo.alto/2-alto/2-1;
 	alpha=0;
 	loop
+		while(!ready) 
+			boladenievegraph(graf);
+			frame; 
+		end
 		if(nieve<0) nieve=0; end
 		if(nieve>8) nieve=8; end
 		alpha=0;
@@ -1001,6 +1031,7 @@ Begin
 	alto=graphic_info(file,graph,g_height);
 
 	loop
+		while(!ready) frame; end
 		duracion++;
 		if(duracion>tiempo_burbujas-120)
 			burbujaroja((120-(tiempo_burbujas-duracion))*2);
@@ -1736,6 +1767,7 @@ Begin
 		end
 	end
 	loop
+		while(!ready) frame; end
 		tiempoitem++;
 		if(tiempoitem>240)
 			alpha=255-(tiempoitem-240)*4;
