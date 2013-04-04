@@ -197,10 +197,6 @@ Begin
 		gamepad_botones=2;
 	end
 	
-	//DEBUG
-	scale_resolution=12800720;
-	scale_resolution_aspectratio=SRA_PRESERVE;
-	
 	set_mode(640,480,bpp);
 	set_fps(40,9);
 	frame;
