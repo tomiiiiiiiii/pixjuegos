@@ -468,7 +468,20 @@ begin
 					txt_pausa[1]=write(fnt_intro,320,220,4,"PAUSA");
 					txt_pausa[2]=write(fnt_intro,320,260,4,"Pulsa el botón 2 para salir");
 				end
-			#ELSE
+			#ENDIF
+			
+			#IFDEF OUYA
+				if(ops.lenguaje==0)
+					txt_pausa[1]=write(fnt_intro,320,220,4,"PAUSE");
+					txt_pausa[2]=write(fnt_intro,320,260,4,"Press Button A to exit");
+				else
+					txt_pausa[1]=write(fnt_intro,320,220,4,"PAUSA");
+					txt_pausa[2]=write(fnt_intro,320,260,4,"Pulsa el botón A para salir");
+				end
+			#ENDIF
+			
+			//SOY IDIOTA, ESTO ESTÁ MAL:
+			if(txt_pausa[1]<1)
 				if(ops.lenguaje==0)
 					txt_pausa[1]=write(fnt_intro,320,220,4,"PAUSE");
 					txt_pausa[2]=write(fnt_intro,320,260,4,"Press Button 3 to exit");
@@ -476,7 +489,8 @@ begin
 					txt_pausa[1]=write(fnt_intro,320,220,4,"PAUSA");
 					txt_pausa[2]=write(fnt_intro,320,260,4,"Pulsa el botón 3 para salir");
 				end
-			#ENDIF
+			end
+
 			sonido(1);
 			ready=0;
 			frame(3000);

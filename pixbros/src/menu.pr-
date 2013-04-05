@@ -28,21 +28,21 @@ begin
 		put_screen(fpg_menu,1);
 		graph=0;
 		write(fnt_intro,320,240,4,"Pulsa el boton 2 para empezar");
-		while(p[0].botones[b_2]) frame; end
-		while(!p[0].botones[b_2])
+		while(p[0].botones[b_aceptar]) frame; end
+		while(!p[0].botones[b_aceptar])
 			if(p[0].botones[b_salir]) exit(); end
 			frame; 
 		end
-		while(p[0].botones[b_2]) frame; end
+		while(p[0].botones[b_aceptar]) frame; end
 		
 		delete_text(all_text);
 		put_screen(fpg_menu2,21);
-		while(p[0].botones[4] or p[0].botones[5] or p[0].botones[6]) frame; end
-		while(!(p[0].botones[4] or p[0].botones[5] or p[0].botones[6])) 
-			if(p[0].botones[7]) exit(); end
+		while(p[0].botones[b_1] or p[0].botones[b_2] or p[0].botones[b_3]) frame; end
+		while(!(p[0].botones[b_1] or p[0].botones[b_2] or p[0].botones[b_3])) 
+			if(p[0].botones[b_salir]) exit(); end
 			frame; 
 		end
-		while(p[0].botones[4] or p[0].botones[5] or p[0].botones[6]) frame; end
+		while(p[0].botones[b_1] or p[0].botones[b_2] or p[0].botones[b_3]) frame; end
 		
 		put_screen(fpg_menu,1);
 
@@ -72,7 +72,7 @@ begin
 			keytime--;
 		end
 		//elige algo
-		if((p[0].botones[5] or key(_enter)) and keytime==0)
+		if((p[0].botones[b_aceptar] or key(_enter)) and keytime==0)
 			if(ops.sonido==1)
 				sonido(3);
 			end
@@ -104,14 +104,14 @@ begin
 				break;
 			end
 			if(elecc==5)
+				guarda_opciones();
  				if(os_id==0 or os_id==os_wii)
  					shell("http://pixjuegos.com");
 				elseif(os_id==1003)
-					exec(_P_NOWAIT, "market://search?q=pub:PiX Juegos", 0, 0);
+					exec(_P_NOWAIT, "http://www.pixjuegos.com", 0, 0);
  				else
 					shell("x-www-browser http://pixjuegos.com &");
  				end
-				guarda_opciones();
 				exit(0);
 			end
 			if(elecc==6)
@@ -244,9 +244,9 @@ begin
 	if(njoys=>1) controlador(2); end
 	if(njoys=>2) controlador(3); end
 
-	while(p[0].botones[5]) frame; end
+	while(p[0].botones[b_aceptar]) frame; end
 	loop
-		if(p[0].botones[4])
+		if(p[0].botones[b_cancelar])
 			sonido(1);
 			let_me_alone();
 			menu();
@@ -254,7 +254,7 @@ begin
 		end
 		//ayuda y tal
 		if((graph>=20 and graph<=22) or (graph=>200 and graph<=202))
-			if(p[0].botones[5] and keytime==0)
+			if(p[0].botones[b_aceptar] and keytime==0)
 				graph++;
 				if(graph==22 or graph==202)
 					sonido(1);
@@ -349,7 +349,7 @@ begin
 	end
 	id_controlador=controlador(jugador);
 	p[jugador].juega=0;
-	while(p[jugador].botones[b_2]==0)
+	while(p[jugador].botones[b_aceptar]==0)
 		if(timer[0]>500) signal(id_controlador,s_kill); return; end
 		frame;
 	end
@@ -430,8 +430,8 @@ begin
 			end
 		end
 		frame;
-	until(p[jugador].botones[5]);
-	while(p[jugador].botones[5]) frame; end
+	until(p[jugador].botones[b_aceptar]);
+	while(p[jugador].botones[b_aceptar]) frame; end
 	signal(id_controlador,s_kill);
 	p[jugador].muneco=personaje_elegido;
 	sonido(3);
@@ -503,7 +503,7 @@ begin
 	file=fpg_menu;
 	elecc=0;
 	jugador=1;
-	controlador(1);
+	controlador(0);
 	back(1);
 	lista(30);
 	logo(105);
@@ -520,7 +520,7 @@ begin
 		if(ops.dificultad==2)
 			ponimgn(130,300,100,252);
 		end
-		if(p[1].botones[5] or p[2].botones[5] or p[3].botones[5])
+		if(p[0].botones[b_aceptar])
 			if(tecenter==0)
 				if(elecc==0)
 					if(os_id==1003)
@@ -677,8 +677,8 @@ begin
 			end
 		end
 		frame;
-	until(p[jugador].botones[5])
-	while(p[jugador].botones[5]) frame; end
+	until(p[jugador].botones[b_aceptar])
+	while(p[jugador].botones[b_aceptar]) frame; end
 
 	p[jugador].muneco=personaje_elegido;
 	p[jugador].juega=1;
@@ -758,7 +758,7 @@ begin
 		return;
 	end
 	loop
-		if(p[0].botones[5])
+		if(p[0].botones[b_aceptar])
 			if(tecenter==0)
 				if(elecc==0) ops.lenguaje=0; lang_suffix="en"; end
 				if(elecc==1) ops.lenguaje=1; lang_suffix="es"; end
@@ -768,7 +768,7 @@ begin
 				fpg_menu2=load_fpg("fpg/menu-"+lang_suffix+".fpg");
 				fpg_intro=load_fpg("fpg/intro-"+lang_suffix+".fpg");
 				tecenter=1;
-				while(p[0].botones[5]) frame; end
+				while(p[0].botones[b_aceptar]) frame; end
 				return;
 			end
 		else

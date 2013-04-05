@@ -4,7 +4,7 @@ call ..\utils\entorno.bat pixbros
 rd /s /q export
 echo Compilando...
 cd src
-..\..\bennu-win\bgdc pixbros.prg
+..\..\bennu-win\bgdc -D OUYA=1 pixbros.prg
 move pixbros.dcb ..\main.dcb
 cd ..
 pause

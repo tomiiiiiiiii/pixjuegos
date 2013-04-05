@@ -14,6 +14,13 @@ Const
 End
 
 Global
+	b_aceptar=b_2;
+	#IFDEF OUYA
+		b_cancelar=b_3;
+	#ELSE
+		b_cancelar=b_1;
+	#ENDIF
+
 	struct joy_profiles[10];
 		string name="";
 		_b_1=0;

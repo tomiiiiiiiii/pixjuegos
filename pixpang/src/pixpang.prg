@@ -209,10 +209,6 @@ Begin
 		default: ops.lenguaje=1; end
 	end
 	
-	if(os_id==1003) //android en inglés HELL YES
-		ops.lenguaje=1;
-	end
-	
 	if(ops.ventana==0 or arcade_mode==1) Full_screen=true; else full_screen=false; end
 	
 	if(os_id==9) //caanoo
@@ -221,7 +217,7 @@ Begin
 		bpp=16;
 	elseif(os_id==1003) //android
 		bpp=16;
-		ops.lenguaje=0;
+		ops.lenguaje=1;
 		ops.op_sombras=0;
 		scale_resolution=graphic_info(0,0,g_width)*10000+graphic_info(0,0,g_height);
 		if(ops.ventana==1)
@@ -234,11 +230,6 @@ Begin
 			panoramico=0;
 		end
 	end
-
-	//DEBUG:
-	panoramico=1;
-	alto_pantalla=518;
-	scale_resolution=12800720;
 	
 	set_mode(ancho_pantalla,alto_pantalla,bpp);
 	
@@ -294,16 +285,17 @@ Begin
 	
 	set_fps(60,2);
 	
-	if(os_id==1003)
-		if(file_exists(savegamedir+"turbo.dat"))
-			load(savegamedir+"turbo.dat",mundo);
-			fremove(savegamedir+"turbo.dat");
-			modo_juego=2;
-			players=1; 
-			inicio();
-			return;
-		end
+	#IFDEF TACTIL
+	if(file_exists(savegamedir+"turbo.dat"))
+		load(savegamedir+"turbo.dat",mundo);
+		fremove(savegamedir+"turbo.dat");
+		modo_juego=2;
+		players=1; 
+		inicio();
+		return;
 	end
+	#ENDIF
+
 	logo_pixjuegos();
 End
 
@@ -650,7 +642,11 @@ Private
 Begin
 	If(segs==-1) Return; End
 	segs=segs*60;
-	txt_tiempo=write_int(fnt2,460,539,4,OFFSET segundos);
+	if(panoramico)
+		txt_tiempo=write_int(fnt2,400,55,4,OFFSET segundos);
+	else
+		txt_tiempo=write_int(fnt2,460,539,4,OFFSET segundos);
+	end
 	Loop
 		If(ready==1 AND reloj==0) segs--; End
 		segundos=segs/60;
@@ -662,14 +658,18 @@ Begin
 	p[2].muere=1;
 	ready=0;
 	delete_text(txt_tiempo);
-	write(fnt2,460,539,4,"0");
+	if(panoramico)
+		write(fnt2,400,55,4,"0");
+	else
+		write(fnt2,460,539,4,"0");
+	end
 End
 
 Process hayprisa();
 Begin
 	if(jefe==0) musica(24); end
 	if(modo_juego==1 and jefe==0 and bola_estrella==0) bola(rand(60,740),0,17,rand(0,1)); end
-	If(modo_juego==2) grafico(348,538,103,-2,0,fpg_lang); End
+	If(modo_juego==2 and !panoramico) grafico(348,538,103,-2,0,fpg_lang); End
 End
 
 Process armap1(); //1=normal, 2=2 tiros, 3=gancho, 4=metralleta
@@ -1945,13 +1945,23 @@ Begin
 //		If(p[0].botones[7]) while(p[0].botones[7]) frame; end menu(); end
 		If(p[0].botones[7] and ready==1)
 			while(p[0].botones[7]) frame; end
-			if(ops.lenguaje==0)
-				txt_pausa[1]=write(fnt2,400,270,4,"PAUSA");
-				txt_pausa[2]=write(fnt1,400,320,4,"Pulsa el botón 3 para salir");
-			else
-				txt_pausa[1]=write(fnt2,400,270,4,"PAUSE");
-				txt_pausa[2]=write(fnt1,400,320,4,"Press Button 3 to exit");
-			end
+			#IFDEF OUYA
+				if(ops.lenguaje==0)
+					txt_pausa[1]=write(fnt2,400,270,4,"PAUSA");
+					txt_pausa[2]=write(fnt1,400,320,4,"Pulsa el botón A para salir");
+				else
+					txt_pausa[1]=write(fnt2,400,270,4,"PAUSE");
+					txt_pausa[2]=write(fnt1,400,320,4,"Press Button A to exit");
+				end
+			#ELSE
+				if(ops.lenguaje==0)
+					txt_pausa[1]=write(fnt2,400,270,4,"PAUSA");
+					txt_pausa[2]=write(fnt1,400,320,4,"Pulsa el botón 3 para salir");
+				else
+					txt_pausa[1]=write(fnt2,400,270,4,"PAUSE");
+					txt_pausa[2]=write(fnt1,400,320,4,"Press Button 3 to exit");
+				end
+			#ENDIF
 			suena(8);
 			ready=0;
 			frame(3000);
@@ -1981,10 +1991,12 @@ End
 
 Function salir_android();
 Begin
-	if(modo_juego==2)
-		save(savegamedir+"turbo.dat",mundo);
-	end
-	frame(500);
+	#IFDEF TACTIL
+		if(modo_juego==2)
+			save(savegamedir+"turbo.dat",mundo);
+		end
+		frame(500);
+	#ENDIF
 	exit();
 End
 
@@ -1992,7 +2004,7 @@ Process muestra_nivel_panoramico();
 Begin
 	graph=write_in_map(fnt1,"Level    "+itoa(mundo+1),4);
 	x=400;
-	y=60;
+	y=90;
 	from alpha=0 to 255 step 10; frame; end
 	frame(15000);
 	from alpha=255 to 0 step -10; frame; end

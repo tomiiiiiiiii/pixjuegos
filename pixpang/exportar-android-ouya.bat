@@ -4,7 +4,7 @@ call ..\utils\entorno.bat pixpang
 rd /s /q export
 echo Compilando...
 cd src
-..\..\bennu-win\bgdc pixpang.prg
+..\..\bennu-win\bgdc -D OUYA=1 pixpang.prg
 move pixpang.dcb ..\main.dcb
 cd ..
 pause
