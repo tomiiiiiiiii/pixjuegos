@@ -340,6 +340,10 @@ if(tipo==50)
 				disparo01(id2.x,id2.y,angulo);
 				signal(id2,s_kill);
 			end
+			if(n mod 5 == 0)
+				graph++;
+			end
+			if(graph>52) graph=50; end
 		end
 		frame;
 	end
@@ -475,7 +479,7 @@ if(tipo==2)
 	graph=70;
 end
 if(tipo==3)
-	graph=51;
+	graph=80;
 	max_size=size;
 	size=0;
 end
@@ -521,7 +525,12 @@ loop
 					alpha-=20;
 					size+=20;
 				end
-					
+				
+				if(time mod 5 == 0)
+					graph++;
+				end
+				if(graph>82) graph=80; end
+				
 				if(alpha<0) break; end
 				
 				from jugador=1 to 4;

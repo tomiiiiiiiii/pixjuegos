@@ -97,9 +97,12 @@ Global
 	struct save;
 		nivel=1;
 		poder[5]=0,1,1,1,1;
-		string nombres[10]="PoX", "PeX", "PaX", "PuX", "PiX", "Nico", "Ana", "Nibbler337", "PiXeL", "Carles Vicent";
-		puntuacion[10]=1000,2000,3000,4000,5000,6000,7000,8000,9000,10000;
 		puntos[5];
+	end
+	
+	struct puntuaciones[10];
+		string nombres;
+		puntos;
 	end
 		
 	vida_boss;
@@ -201,8 +204,14 @@ BEGIN
 			archivo=fopen(savegamedir+"save.dat",o_read);
 			fread(archivo,save);
 			fclose(archivo);
+		else
+			archivo=fopen(savegamedir+"save.dat",o_write);
+			fwrite(archivo,save);
+			fclose(archivo);
 		end
 	end
+	//-------------------------------- lee puntuaciones
+	lee_puntuaciones();
 
 	if(arcade_mode==1)
 		ops.p_completa=1;
@@ -335,7 +344,6 @@ BEGIN
 	//jugadores=4;
 	historia(1);
 	//fase(5);
-	//juego(1);
 	frame;
 
 end
@@ -563,7 +571,7 @@ begin
 		end
 
 		delete_text(all_text);
-		highscores(puntos[1],puntos[2],puntos[3],puntos[4]);
+		nuevo_highscore(puntos[1],puntos[2],puntos[3],puntos[4]);
 	end
 
 end
@@ -576,7 +584,7 @@ process escapable();
 Begin
 	controlador(0);
 	loop
-		if(p[0].botones[7]) while(p[0].botones[7]) frame; end highscores(puntos[1],puntos[2],puntos[3],puntos[4]); end
+		if(p[0].botones[7]) while(p[0].botones[7]) frame; end nuevo_highscore(puntos[1],puntos[2],puntos[3],puntos[4]); end
 		frame;
 	end
 End
@@ -780,7 +788,7 @@ begin
 							menu(1);
 						end
 						case 4: 
-							highscores(0,0,0,0);
+							highscores();
 						end
 						case 5:
 							ayuda();
@@ -1242,107 +1250,6 @@ begin
 	frame;
 end
 
-//-----------------------------------------------------------------------
-// proceso highscores
-//-----------------------------------------------------------------------
-
-process highscores(nuevo_j1,nuevo_j2,nuevo_j3,nuevo_j4);
-
-private
-	a;
-	nueva_puntuacion[5];
-	nuevo_aspirante[5]=0,-1,-1,-1,-1;
-
-begin
-	let_me_alone();
-	delete_text(all_text);
-	
-	fuente_teclado=fuente[0];
-	nueva_puntuacion[1]=nuevo_j1;
-	nueva_puntuacion[2]=nuevo_j2;
-	nueva_puntuacion[3]=nuevo_j3;
-	nueva_puntuacion[4]=nuevo_j4;
-	
-	from jugador=1 to jugadores;
-		from a=0 to 9;
-			if(nueva_puntuacion[jugador]>=save.puntuacion[a])
-				save.puntuacion[a-1]=save.puntuacion[a];
-				save.nombres[a-1]=save.nombres[a];
-				save.puntuacion[a]=nueva_puntuacion[jugador];
-				save.nombres[a]="";
-				nuevo_aspirante[jugador]=a;
-			end
-		end
-		from a=jugador to 1 step -1;
-			if(nueva_puntuacion[a]>=nueva_puntuacion[a-1])
-				nuevo_aspirante[a-1]-=1;
-			end
-		end
-	end
-	
-	from jugador=1 to jugadores;
-		if(nuevo_aspirante[jugador]>-1)
-			nueva_puntuacion[jugador]=1;
-		else	
-			nueva_puntuacion[jugador]=0;
-		end
-	end
-	
-	if(nuevo_aspirante[1]>-1 or nuevo_aspirante[2]>-1 or nuevo_aspirante[3]>-1 or nuevo_aspirante[4]>-1)
-		write(fuente[0],ancho_pantalla/2,70,4,"¡Nuevo record! Introduce tu nombre");
-		text_input(ancho_pantalla/2,400,15,nueva_puntuacion[1],nueva_puntuacion[2],nueva_puntuacion[3],nueva_puntuacion[4]);
-		loop
-			if(!exists(TYPE text_input)) break; end
-			scroll.x0+=3;
-			frame;
-		end
-		from jugador=1 to jugadores;
-			if(nuevo_aspirante[jugador]>-1)
-				save.nombres[nuevo_aspirante[jugador]]=texto_introducido[jugador];
-			end
-		end
-		if(guardar)
-			archivo=fopen(savegamedir+"save.dat",o_write);
-			fwrite(archivo,save);
-			fclose(archivo);
-		end
-		highscores(0,0,0,0);
-	else
-		x=ancho_pantalla/2;
-		write(fuente[0],x,150,4,"Clasificación");
-		
-		timer[2]=0;
-		while(timer[2]<50)
-			scroll.x0+=3;
-			frame;
-		end
-		
-		
-		y=500;
-		from a=0 to 9;
-			write(fuente[0],x-150,y,3,10-a + "º " + save.nombres[a]);
-			write(fuente[0],x+150,y,5,save.puntuacion[a]);
-			y-=30;
-			scroll.x0+=3;
-			timer[2]=0;
-			while(timer[2]<50)
-				scroll.x0+=3;
-				frame;
-			end
-		end
-		
-		controlador(0);
-		while(not p[0].botones[b_2])
-			scroll.x0+=3;
-			frame;
-		end
-		while(p[0].botones[b_2])
-			scroll.x0+=3;
-			frame;
-		end
-		menu(0);
-	end
-end
 
 //-----------------------------------------------------------------------
 // proceso que crea un efecto
@@ -1556,6 +1463,7 @@ include "nave.pr-"
 include "bombas.pr-"
 include "bosses.pr-"
 include "enemigos.pr-"
+include "puntuaciones.pr-"
 
 Function salir_android();
 Begin

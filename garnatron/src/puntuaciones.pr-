@@ -1,0 +1,177 @@
+//-----------------------------------------------------------------------
+// proceso highscores
+//-----------------------------------------------------------------------
+
+process highscores();
+
+private
+	a;
+
+begin
+	let_me_alone();
+	delete_text(all_text);
+	
+	x=ancho_pantalla/2;
+	write(fuente[0],x,150,4,"Clasificación");
+	
+	timer[2]=0;
+	while(timer[2]<50)
+		scroll.x0+=3;
+		frame;
+	end
+	
+	y=500;
+	from a=9 to 0;
+		write(fuente[0],x-150,y,3,a+1 + "º " + puntuaciones[a].nombres);
+		write(fuente[0],x+150,y,5,puntuaciones[a].puntos);
+		y-=30;
+		scroll.x0+=3;
+		timer[2]=0;
+		while(timer[2]<50)
+			scroll.x0+=3;
+			frame;
+		end
+	end
+	
+	controlador(0);
+	while(not p[0].botones[b_2])
+		scroll.x0+=3;
+		frame;
+	end
+	while(p[0].botones[b_2])
+		scroll.x0+=3;
+		frame;
+	end
+	menu(0);
+end
+
+
+
+//-----------------------------------------------------------------------
+// proceso nuevo highscore
+//-----------------------------------------------------------------------
+
+process nuevo_highscore(nuevo_j1,nuevo_j2,nuevo_j3,nuevo_j4);
+
+private
+	a;
+	nueva_puntuacion[5];
+	nuevo_aspirante[5]=0,-1,-1,-1,-1;
+
+begin
+	let_me_alone();
+	delete_text(all_text);
+	
+	fuente_teclado=fuente[0];
+	nueva_puntuacion[1]=nuevo_j1;
+	nueva_puntuacion[2]=nuevo_j2;
+	nueva_puntuacion[3]=nuevo_j3;
+	nueva_puntuacion[4]=nuevo_j4;
+	
+	from jugador=1 to jugadores;
+		from a=0 to 9;
+			if(nueva_puntuacion[jugador]>=puntuaciones[a].puntos)
+				puntuaciones[a-1].puntos=puntuaciones[a].puntos;
+				puntuaciones[a-1].nombres=puntuaciones[a].nombres;
+				puntuaciones[a].puntos=nueva_puntuacion[jugador];
+				puntuaciones[a].nombres="";
+				nuevo_aspirante[jugador]=a;
+			end
+		end
+		from a=jugador to 1 step -1;
+			if(nueva_puntuacion[a]>=nueva_puntuacion[a-1])
+				nuevo_aspirante[a-1]-=1;
+			end
+		end
+	end
+	
+	from jugador=1 to jugadores;
+		if(nuevo_aspirante[jugador]>-1)
+			nueva_puntuacion[jugador]=1;
+		else	
+			nueva_puntuacion[jugador]=0;
+		end
+	end
+	
+	if(nuevo_aspirante[1]>-1 or nuevo_aspirante[2]>-1 or nuevo_aspirante[3]>-1 or nuevo_aspirante[4]>-1)
+		write(fuente[0],ancho_pantalla/2,70,4,"¡Nuevo record! Introduce tu nombre");
+		text_input(ancho_pantalla/2,400,15,nueva_puntuacion[1],nueva_puntuacion[2],nueva_puntuacion[3],nueva_puntuacion[4]);
+		loop
+			if(!exists(TYPE text_input)) break; end
+			scroll.x0+=3;
+			frame;
+		end
+		from jugador=1 to jugadores;
+			if(nuevo_aspirante[jugador]>-1)
+				puntuaciones[nuevo_aspirante[jugador]].nombres=texto_introducido[jugador];
+			end
+		end
+//		if(guardar)
+//			archivo=fopen(savegamedir+"save.dat",o_write);
+//			fwrite(archivo,save);
+//			fclose(archivo);
+//		end
+		highscores();
+	else
+		highscores();
+	end
+end
+
+//-----------------------------------------------------------------------
+// proceso leer archivo
+//-----------------------------------------------------------------------
+
+Function lee_puntuaciones();
+
+Private
+	string linea;
+
+Begin
+	archivo=fopen("puntuaciones.csv",O_READ);
+	while(!feof(archivo))
+		linea=fgets(archivo);  
+		if(find(linea,"fin")>-1) break; end
+		
+		puntuaciones[i].nombres=hasta_la_barra(linea,1);
+		puntuaciones[i].puntos=atoi(hasta_la_barra(linea,2));
+		
+//		from j=0 to 1;
+//			datos_nivel[i][j]=hasta_la_barra(linea,j);
+//		end
+		
+		i++;
+		say("Leyendo puntuacion, línea "+i +" "+puntuaciones[i].nombres);
+	end
+	fclose(archivo);
+end
+
+
+//-----------------------------------------------------------------------
+// proceso escribir archivo
+//-----------------------------------------------------------------------
+
+//-----------------------------------------------------------------------
+// funcion hasta la barra
+//-----------------------------------------------------------------------
+
+Function hasta_la_barra(string estring,int num_campo);
+private
+	string temp;
+	w;
+	campo_actual;
+begin
+	from w=0 to len(estring);
+		if(estring[w]!="|")
+			temp+=""+estring[w];
+		else
+			if(campo_actual==num_campo)
+				break;
+			else
+				temp="";
+				campo_actual++;
+			end
+		end
+	end
+	//return atoi(temp);
+	return temp;
+end
