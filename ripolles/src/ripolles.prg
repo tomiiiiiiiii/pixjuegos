@@ -61,6 +61,8 @@ Const
 End
 
 Global
+	ready=0;
+
 	pocos_recursos=0;
 	good_vs_evil=0;
 
@@ -72,7 +74,8 @@ Global
 	
 	string savegamedir;
 	string developerpath="/.PiXJuegos/Ripolles/";
-
+	string lang_suffix="";
+	
 	anterior_cancion;
 
 	panoramico=1;
@@ -94,6 +97,7 @@ Global
 	end
 	
 	Struct ops;
+		lenguaje=-1;
 		musica=1;
 		sonido=1;
 		ventana=1;
@@ -120,6 +124,7 @@ Global
 	fpg_enemigo5;
 	fpg_jefe;
 	fpg_cutscenes;
+	fpg_lang;
 	fnt_menu;
 	fnt_tiempo;
 	wavs[50];
@@ -167,9 +172,9 @@ Global
 	//modos de juego (alguno puede variar al ser desbloqueable)
 	modo_historia=1;
 	modo_supervivencia=2;
-	modo_matajefes=3;
-	modo_battleroyale=4;
-	modo_good_vs_evil=5;
+	modo_matajefes=-1;
+	modo_battleroyale=-1;
+	modo_good_vs_evil=-1;
 End
 
 Local
@@ -194,6 +199,7 @@ End
 
 include "../../common-src/controles.pr-";
 include "../../common-src/savepath.pr-";
+include "../../common-src/lenguaje.pr-";
 include "jefe1.pr-";
 include "jefe4.pr-";
 include "niveles.pr-";
@@ -206,11 +212,27 @@ Begin
 	if(argc>0) if(argv[1]=="arcade") arcade_mode=1; end end
 
 	savepath();
+	
 	if(os_id==1003)
 		savegamedir="/data/data/com.pixjuegos.ripolles/files/";
 		mkdir(savegamedir);
 	end
+	
 	carga_opciones();
+	
+	if(ops.lenguaje==-1)
+		switch(lenguaje_sistema())
+			case "es": ops.lenguaje=1; end
+			default: ops.lenguaje=0; end
+		end	
+	end
+
+	if(os_id==1003) ops.lenguaje=0; end
+	
+	switch(ops.lenguaje)
+		case 1: lang_suffix="es"; end
+		default: lang_suffix="en"; end
+	end
 
 	//La resolución del monitor será esta:
 	if(os_id==os_caanoo or os_id==os_dingux_a320 or os_id==os_gp2x or os_id==os_gp2x_wiz or os_id==os_gp32 or os_id==os_dc)
@@ -294,10 +316,12 @@ Begin
 	fade_off();
 	while(fading) frame; end
 	
-	if(os_id==1003 and file_exists(savegamedir+"turbo.dat"))
+	#IFDEF TACTIL
+	if(file_exists(savegamedir+"turbo.dat"))
 		carga_partida_rapida();
 		return;
 	end
+	#ENDIF
 	
 	//iniciamos el menú
 	menu(-1);
@@ -334,9 +358,12 @@ Begin
 	fpg_general=load_fpg("fpg/general.fpg");
 	fpg_objetos=load_fpg("fpg/objetos.fpg");
 	fpg_menu=load_fpg("fpg/menu.fpg");
+	fpg_lang=load_fpg("fpg/"+lang_suffix+".fpg");
 End
 
 Process jugar();
+Private
+	txt_pausa[2];
 Begin
 	let_me_alone();
 	if(pocos_recursos)
@@ -396,16 +423,65 @@ Begin
 
 	partida_cargada=1;
 	
+	ready=1;
+	
+	controlador(0);
+	
 	loop
 		averigua_jugadores();
 		if(jugadores==0 or (modo_juego==modo_battleroyale and jugadores==1) or (ganando==1 and modo_juego==modo_historia))
 			break;
 		end
 		
-/*		if(key(_space)) set_fps(60,0); end
-		if(key(_n)) set_fps(30,0); end*/
-		
-		if(p[1].botones[b_salir] or key(_esc)) menu(-1); end
+      	if(p[0].botones[b_salir] and ready)
+			while(p[0].botones[b_salir]) frame; end
+			
+			#IFDEF OUYA
+				switch(ops.lenguaje)
+					case 0:
+						txt_pausa[1]=write(fnt_menu,ancho_pantalla/2,(alto_pantalla/2)-30,4,"PAUSE");
+						txt_pausa[2]=write(fnt_menu,ancho_pantalla/2,alto_pantalla/2,4,"Press Button A to exit");
+					end
+					case 1:
+						txt_pausa[1]=write(fnt_menu,ancho_pantalla/2,(alto_pantalla/2)-30,4,"PAUSA");
+						txt_pausa[2]=write(fnt_menu,ancho_pantalla/2,alto_pantalla/2,4,"Pulsa el botón A para salir");
+					end
+					case 2:
+						txt_pausa[1]=write(fnt_menu,ancho_pantalla/2,(alto_pantalla/2)-30,4,"PAUSA");
+						txt_pausa[2]=write(fnt_menu,ancho_pantalla/2,alto_pantalla/2,4,"Pulsa el botón A para salir");
+					end
+				end
+			#ELSE
+				switch(ops.lenguaje)
+					case 0:
+						txt_pausa[1]=write(fnt_menu,ancho_pantalla/2,(alto_pantalla/2)-30,4,"PAUSE");
+						txt_pausa[2]=write(fnt_menu,ancho_pantalla/2,alto_pantalla/2,4,"Press Button 3 to exit");
+					end
+					case 1:
+						txt_pausa[1]=write(fnt_menu,ancho_pantalla/2,(alto_pantalla/2)-30,4,"PAUSA");
+						txt_pausa[2]=write(fnt_menu,ancho_pantalla/2,alto_pantalla/2,4,"Pulsa el botón 3 para salir");
+					end
+					case 2:
+						txt_pausa[1]=write(fnt_menu,ancho_pantalla/2,(alto_pantalla/2)-30,4,"PAUSA");
+						txt_pausa[2]=write(fnt_menu,ancho_pantalla/2,alto_pantalla/2,4,"Pulsa el botón 3 para salir");
+					end
+				end
+			#ENDIF
+
+			sonido(1,0);
+			ready=0;
+			frame(3000);
+			while(!p[0].botones[b_salir])
+				if(p[0].botones[b_3]) while(p[0].botones[b_3]) frame; end menu(-1); end
+				frame; 
+			end
+			while(p[0].botones[b_salir]) frame; end
+			delete_text(txt_pausa[1]);
+			delete_text(txt_pausa[2]);
+			sonido(2,0);
+			ready=1;
+		end
+
 		if(key(_1))
 			if(p[1].juega==0) personaje(1,0); end
 			p[1].vida=100;
@@ -430,6 +506,9 @@ Begin
 		end
 		frame;
 	end
+
+	ready=0;
+	
 	if(jugadores>0)
 		ganando=1;
 	end
@@ -459,11 +538,13 @@ Begin
 			end
 		end
 	end
+
 	x=ancho_pantalla/2;
 	y=(alto_pantalla/2)-(13*4);
 	z=-256;
-	file=fpg_general;
+	file=fpg_lang;
 	i=0;
+
 	if(modo_juego==modo_battleroyale)
 		if(ops.truco_fuego_amigo<0)
 			ops.truco_fuego_amigo++; //jugador secreto Pato disponible
@@ -475,7 +556,7 @@ Begin
 		end
 	
 		from i=1 to 9;
-			if(p[i].juega) 
+			if(p[i].juega)
 				graph=30+i; 
 				if(graph==31 and ops.truco_pato==1) graph=36; end
 				break; 
@@ -559,6 +640,7 @@ Begin
 	//y_base=alto_nivel-alto_pantalla;
 	
 	loop
+		while(!ready) frame; end
 		suma_x=0;
 		j=0;
 		from i=1 to 4;
@@ -647,7 +729,11 @@ Begin
 	alpha=father.alpha;
 	angle=father.angle;
 	flags=father.flags;
-	while(alpha>0) alpha-=50; frame; end
+	while(alpha>0)
+		while(!ready) frame; end
+		alpha-=50; 
+		frame; 
+	end
 End
 
 Function inercia_maxima(max_x,max_y);
@@ -1070,6 +1156,7 @@ Begin
 	end
 	ctype=coordenadas;
 	frame;
+	while(!ready) frame; end
 End
 
 Process objeto(x,y_base,altura,graph,x_inc);
@@ -1083,6 +1170,7 @@ Begin
 	ctype=coordenadas;
 	while(!exists(id_camara)) frame; end
 	loop
+		while(!ready) frame; end
 		//al poco de lanzarlo dejará de estar asociado al jugador y podrá dañar al mismo y a los compañeros
 		if(jugador>0)
 			j++;
@@ -1132,6 +1220,7 @@ Begin
 	alpha=father.alpha+altura-50;
 	size=100+(altura/3);
 	frame;
+	while(!ready) frame; end
 End
 
 Process sombra_objeto();
@@ -1146,6 +1235,7 @@ Begin
 	alpha=father.alpha+altura-50;
 	size=100+(altura/3);
 	frame;
+	while(!ready) frame; end
 End
 
 Function jugador_mas_cercano();
@@ -1250,6 +1340,7 @@ Begin
 	flags=1;
 	alpha=255;
 	while(x>id_camara.x-ancho_pantalla)
+		while(!ready) frame; end
 		x-=20;
 		ataque(x,y+65,file,graph,30,38);
 		if(anim==2) 
@@ -1285,6 +1376,7 @@ Begin
 	flags=1;
 	alpha=255;
 	while(x>id_camara.x-ancho_pantalla)
+		while(!ready) frame; end
 		x-=20;
 		y--;
 		ataque(x,y+65,file,graph,30,38);
@@ -1395,7 +1487,11 @@ Begin
 	graph=rand(4,7);
 	efecto_golpe2();
 	angle=rand(0,3)*90000;
-	from alpha=255 to 0 step -30; size+=6; frame; end
+	from alpha=255 to 0 step -30; 
+		while(!ready) frame; end
+		size+=6; 
+		frame; 
+	end
 End
 
 Process efecto_golpe2();
@@ -1411,10 +1507,16 @@ Begin
 	end
 	size=40;
 	angle=rand(0,3)*90000;
-	from alpha=255 to 0 step -30; size+=6; frame; end
+	from alpha=255 to 0 step -30; 
+		while(!ready) frame; end
+		size+=6; 
+		frame; 
+	end
 End
 
 Process supervivencia();
+Private
+	timer_not_ready;
 Begin
 	fpg_nivel=load_fpg("nivel_survival1.fpg");
 	from i=1 to jugadores; p[i].vidas=0; end
@@ -1424,6 +1526,13 @@ Begin
 	from i=1 to jugadores; p[i].vidas=0; end
 	
 	loop
+		if(!ready)
+			timer_not_ready=timer[0];
+			while(!ready) 
+				timer[0]=timer_not_ready;
+				frame; 
+			end
+		end
 		if(jugadores>0)
 			if(enemigos<(timer[0]/1000/jugadores)+1)
 				i=10;
@@ -1459,6 +1568,7 @@ Begin
 	x=320;
 	y=330;
 	loop
+		while(!ready) frame; end
 		if(jugadores==0) return; end
 		tiempo=timer[0];
 		decimas=tiempo; while(decimas=>100) decimas-=100; end
@@ -1694,6 +1804,7 @@ End
 
 Process nivel_superado();
 Begin
+	ready=0;
 	graph=write_in_map(fnt_menu,"Nivel "+nivel+" superado",4);
 	x=ancho_pantalla/2;
 	y=(alto_pantalla/3)-34;
@@ -1731,10 +1842,12 @@ End
 
 Function salir_android();
 Begin
+	#IFDEF TACTIL
 	if(modo_juego==modo_historia)
 		guarda_partida_rapida();
 	end
 	frame(500);
+	#ENDIF
 	exit();
 End
 

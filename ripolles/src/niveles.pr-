@@ -427,6 +427,7 @@ Process nivel1_eventos();
 Begin
 	while(!exists(id_camara)) frame; end
 	loop
+		while(!ready) frame; end
 		if(id_camara.x>1600 and id_camara.x<4200)
 			if(i==0)
 				tram(id_camara.x);
@@ -443,6 +444,7 @@ Process nivel4_eventos();
 Begin
 	while(!exists(id_camara)) frame; end
 	loop
+		while(!ready) frame; end
 		if(exists(type jefe4)) return; end
 		if(id_camara.x>6000 and id_camara.x<9270)
 			if(i==0)

@@ -127,6 +127,7 @@ Begin
 	frame;
 	
 	loop
+		while(!ready) frame; end
 		if(p[jugador].vida<1 or (tipo>0 and ganando))
 			p[jugador].vida=0;
 			if(accion!=muere)
@@ -366,7 +367,12 @@ Begin
 						if(pulsando_ataque1==0)
 							pulsando_ataque1=1;
 							if(lleva_objeto==0)
-								accion=ataca_aire;
+								if(p[jugador].botones[b_arriba] and pulsando_arriba<3 and gravedad<0)
+									accion=ataca_uppercut;
+									gravedad=-20;
+								else
+									accion=ataca_aire;
+								end
 								sonido(3,0);
 							else
 								accion=lanza_objeto;

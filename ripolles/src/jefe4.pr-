@@ -28,6 +28,7 @@ Begin
 	from alpha=0 to 255 step 10; frame; end
 	marcador_jefe();
 	while(p[jugador].vida>0)
+		while(!ready) frame; end
 		if(i==0)
 			for(j=0;j++;j<30)
 				if(anim<4)
@@ -105,6 +106,7 @@ Begin
 	graph=31;
 	alpha=0;
 	loop
+		while(!ready) frame; end
 		if(alpha<255) 
 			alpha+=2; 
 		else
@@ -155,6 +157,7 @@ Begin
 	if(flags_inversas) flags=1; end
 	from alpha=0 to 255 step 10; frame; end
 	while(p[jugador].vida>0)
+		while(!ready) frame; end
 		flags=father.flags;
 		if(flags)
 			x=father.x-x_plus;
@@ -283,6 +286,7 @@ Begin
 
 	from alpha=0 to 255 step 10; frame; end
 	while(p[jugador].vida>0)
+		while(!ready) frame; end
 		y=father.y+145;
 		z=father.z+1;
 		flags=father.flags;

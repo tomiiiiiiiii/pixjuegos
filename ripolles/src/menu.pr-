@@ -32,12 +32,12 @@ begin
 	if(arcade_mode and num_menu<1)
 		while(p[0].botones[b_salir]) frame; end
 		write(fnt_menu,320,180,4,"Pulsa el boton 2 para jugar");
-		while(p[0].botones[b_2]) frame; end
-		while(!p[0].botones[b_2])
+		while(p[0].botones[b_aceptar]) frame; end
+		while(!p[0].botones[b_aceptar])
 			if(p[0].botones[b_salir]) exit(); end
 			frame; 
 		end
-		while(p[0].botones[b_2]) frame; end
+		while(p[0].botones[b_aceptar]) frame; end
 		
 		delete_text(all_text);
 		graph=221;
@@ -45,12 +45,12 @@ begin
 		y=180;
 		z=-100;
 		from alpha=0 to 255 step 20; frame; end
-		while(p[0].botones[b_2]) frame; end
-		while(!p[0].botones[b_2])
+		while(p[0].botones[b_aceptar]) frame; end
+		while(!p[0].botones[b_aceptar])
 			if(p[0].botones[b_salir]) exit(); end
 			frame; 
 		end
-		while(p[0].botones[b_2]) frame; end
+		while(p[0].botones[b_aceptar]) frame; end
 		from alpha=255 to 0 step -20; frame; end
 		num_menu=1;
 	end
@@ -66,55 +66,143 @@ begin
 	switch(num_menu)
 		case 0: //general
 			titulo();
-			write(fnt_menu,x,y+=distancia_opciones,3,"Jugar");
-			write(fnt_menu,x,y+=distancia_opciones,3,"Opciones");
-			write(fnt_menu,x,y+=distancia_opciones,3,"Ayuda");
-			write(fnt_menu,x,y+=distancia_opciones,3,"Creditos");
-			write(fnt_menu,x,y+=distancia_opciones,3,"Salir");
+			switch(ops.lenguaje)
+				case 0:
+					write(fnt_menu,x,y+=distancia_opciones,3,"Play");
+					write(fnt_menu,x,y+=distancia_opciones,3,"Options");
+					write(fnt_menu,x,y+=distancia_opciones,3,"Help");
+					write(fnt_menu,x,y+=distancia_opciones,3,"Credits");
+					write(fnt_menu,x,y+=distancia_opciones,3,"Exit");
+				end
+				case 1:
+					write(fnt_menu,x,y+=distancia_opciones,3,"Jugar");
+					write(fnt_menu,x,y+=distancia_opciones,3,"Opciones");
+					write(fnt_menu,x,y+=distancia_opciones,3,"Ayuda");
+					write(fnt_menu,x,y+=distancia_opciones,3,"Creditos");
+					write(fnt_menu,x,y+=distancia_opciones,3,"Salir");
+				end
+				case 2:
+					write(fnt_menu,x,y+=distancia_opciones,3,"Jugar");
+					write(fnt_menu,x,y+=distancia_opciones,3,"Opciones");
+					write(fnt_menu,x,y+=distancia_opciones,3,"Ayuda");
+					write(fnt_menu,x,y+=distancia_opciones,3,"Creditos");
+					write(fnt_menu,x,y+=distancia_opciones,3,"Salir");
+				end
+			end
 			num_opciones=5;
 			volver_a_menu=0;
 		end
 		case 1: //jugar
-			write(fnt_menu,x,y+=distancia_opciones,3,"1 jugador");
 			num_opciones=1;
-			if(posibles_jugadores>1) write(fnt_menu,x,y+=distancia_opciones,3,"2 jugadores"); num_opciones++; end
-			if(posibles_jugadores>2) write(fnt_menu,x,y+=distancia_opciones,3,"3 jugadores"); num_opciones++; end
-			if(posibles_jugadores>3) write(fnt_menu,x,y+=distancia_opciones,3,"4 jugadores"); num_opciones++; end
+			switch(ops.lenguaje)
+				case 0:
+					write(fnt_menu,x,y+=distancia_opciones,3,"1 player");
+					if(posibles_jugadores>1) write(fnt_menu,x,y+=distancia_opciones,3,"2 players"); num_opciones++; end
+					if(posibles_jugadores>2) write(fnt_menu,x,y+=distancia_opciones,3,"3 players"); num_opciones++; end
+					if(posibles_jugadores>3) write(fnt_menu,x,y+=distancia_opciones,3,"4 players"); num_opciones++; end
+				end
+				case 1:
+					write(fnt_menu,x,y+=distancia_opciones,3,"1 jugador");
+					if(posibles_jugadores>1) write(fnt_menu,x,y+=distancia_opciones,3,"2 jugadores"); num_opciones++; end
+					if(posibles_jugadores>2) write(fnt_menu,x,y+=distancia_opciones,3,"3 jugadores"); num_opciones++; end
+					if(posibles_jugadores>3) write(fnt_menu,x,y+=distancia_opciones,3,"4 jugadores"); num_opciones++; end
+				end
+				case 2:
+					write(fnt_menu,x,y+=distancia_opciones,3,"1 jugador");
+					if(posibles_jugadores>1) write(fnt_menu,x,y+=distancia_opciones,3,"2 jugadores"); num_opciones++; end
+					if(posibles_jugadores>2) write(fnt_menu,x,y+=distancia_opciones,3,"3 jugadores"); num_opciones++; end
+					if(posibles_jugadores>3) write(fnt_menu,x,y+=distancia_opciones,3,"4 jugadores"); num_opciones++; end
+				end
+			end
 			volver_a_menu=0;
 		end
 		case 2: //opciones
-			write(fnt_menu,x,y+=distancia_opciones,3,"Pantalla completa"); estado_opcion(y,1);
-			write(fnt_menu,x,y+=distancia_opciones,3,"Sonido"); estado_opcion(y,2);
-			write(fnt_menu,x,y+=distancia_opciones,3,"Musica"); estado_opcion(y,3);
-			num_opciones=3;
-			if(ops.truco_pato=>0) write(fnt_menu,x,y+=distancia_opciones,3,"Jugar con Pato"); estado_opcion(y,4); num_opciones++; end
-			if(ops.truco_fuego_amigo=>0) write(fnt_menu,x,y+=distancia_opciones,3,"Fuego amigo"); estado_opcion(y,5); num_opciones++; end
-			if(ops.truco_sin_bandos=>0)write(fnt_menu,x,y+=distancia_opciones,3,"Sin bandos"); estado_opcion(y,6); num_opciones++; end
+			switch(ops.lenguaje)
+				case 0:
+					write(fnt_menu,x,y+=distancia_opciones,3,"Full screen"); estado_opcion(y,1);
+					write(fnt_menu,x,y+=distancia_opciones,3,"Sound"); estado_opcion(y,2);
+					write(fnt_menu,x,y+=distancia_opciones,3,"Music"); estado_opcion(y,3);
+					num_opciones=3;
+					if(ops.truco_pato=>0) write(fnt_menu,x,y+=distancia_opciones,3,"Play as Pato"); estado_opcion(y,4); num_opciones++; end
+					if(ops.truco_fuego_amigo=>0) write(fnt_menu,x,y+=distancia_opciones,3,"Friendly fire"); estado_opcion(y,5); num_opciones++; end
+					if(ops.truco_sin_bandos=>0)write(fnt_menu,x,y+=distancia_opciones,3,"No bands"); estado_opcion(y,6); num_opciones++; end
+				end
+				case 1:
+					write(fnt_menu,x,y+=distancia_opciones,3,"Pantalla completa"); estado_opcion(y,1);
+					write(fnt_menu,x,y+=distancia_opciones,3,"Sonido"); estado_opcion(y,2);
+					write(fnt_menu,x,y+=distancia_opciones,3,"Musica"); estado_opcion(y,3);
+					num_opciones=3;
+					if(ops.truco_pato=>0) write(fnt_menu,x,y+=distancia_opciones,3,"Jugar con Pato"); estado_opcion(y,4); num_opciones++; end
+					if(ops.truco_fuego_amigo=>0) write(fnt_menu,x,y+=distancia_opciones,3,"Fuego amigo"); estado_opcion(y,5); num_opciones++; end
+					if(ops.truco_sin_bandos=>0)write(fnt_menu,x,y+=distancia_opciones,3,"Sin bandos"); estado_opcion(y,6); num_opciones++; end
+				end
+				case 2:
+					write(fnt_menu,x,y+=distancia_opciones,3,"Pantalla completa"); estado_opcion(y,1);
+					write(fnt_menu,x,y+=distancia_opciones,3,"Sonido"); estado_opcion(y,2);
+					write(fnt_menu,x,y+=distancia_opciones,3,"Musica"); estado_opcion(y,3);
+					num_opciones=3;
+					if(ops.truco_pato=>0) write(fnt_menu,x,y+=distancia_opciones,3,"Jugar con Pato"); estado_opcion(y,4); num_opciones++; end
+					if(ops.truco_fuego_amigo=>0) write(fnt_menu,x,y+=distancia_opciones,3,"Fuego amigo"); estado_opcion(y,5); num_opciones++; end
+					if(ops.truco_sin_bandos=>0)write(fnt_menu,x,y+=distancia_opciones,3,"Sin bandos"); estado_opcion(y,6); num_opciones++; end
+				end
+			end
 			volver_a_menu=0;
 		end
 		case 3: //modos de juego
-			num_opciones=0;
-			write(fnt_menu,x,y+=distancia_opciones,3,"Modo historia");
-			num_opciones++;
-			write(fnt_menu,x,y+=distancia_opciones,3,"Modo supervivencia");
-			num_opciones++;
+			num_opciones=2;
+			switch(ops.lenguaje)
+				case 0:
+					write(fnt_menu,x,y+=distancia_opciones,3,"Story mode");
+					write(fnt_menu,x,y+=distancia_opciones,3,"Survival mode");
+				end
+				case 1:
+					write(fnt_menu,x,y+=distancia_opciones,3,"Modo historia");
+					write(fnt_menu,x,y+=distancia_opciones,3,"Modo supervivencia");
+				end
+				case 2:
+				end
+			end
 			if(ops.truco_matajefes)
-				modo_matajefes=3;
-				write(fnt_menu,x,y+=distancia_opciones,3,"Modo matajefes");
-				num_opciones++;
+				modo_matajefes=++num_opciones;
+				switch(ops.lenguaje)
+					case 0:
+						write(fnt_menu,x,y+=distancia_opciones,3,"Boss rush mode");
+					end
+					case 1:
+						write(fnt_menu,x,y+=distancia_opciones,3,"Modo matajefes");
+					end
+					case 2:
+						write(fnt_menu,x,y+=distancia_opciones,3,"Modo matajefes");
+					end
+				end
 			end
 			if(jugadores>1)
-				if(ops.truco_matajefes)
-					modo_battleroyale=4;
-				else
-					modo_battleroyale=3;
+				modo_battleroyale=++num_opciones;
+				switch(ops.lenguaje)
+					case 0:
+						write(fnt_menu,x,y+=distancia_opciones,3,"Battle Royale mode");
+					end
+					case 1:
+						write(fnt_menu,x,y+=distancia_opciones,3,"Modo Battle Royale");
+					end
+					case 2:
+						write(fnt_menu,x,y+=distancia_opciones,3,"Modo Battle Royale");
+					end
 				end
-				write(fnt_menu,x,y+=distancia_opciones,3,"Modo Battle Royale");
-				num_opciones++;
 			end
 			if(jugadores==4)
-				write(fnt_menu,x,y+=distancia_opciones,3,"Modo Good VS Evil");
-				num_opciones++;
+				modo_good_vs_evil=++num_opciones;
+				switch(ops.lenguaje)
+					case 0:
+						write(fnt_menu,x,y+=distancia_opciones,3,"Good VS Evil mode");
+					end
+					case 1:
+						write(fnt_menu,x,y+=distancia_opciones,3,"Modo Good VS Evil");
+					end
+					case 2:
+						write(fnt_menu,x,y+=distancia_opciones,3,"Modo Good VS Evil");
+					end
+				end
 			end
 			volver_a_menu=0;
 		end
@@ -162,11 +250,11 @@ begin
 			angle=0;
 		end
 
-		if(p[0].botones[b_2] or key(_enter))
+		if(p[0].botones[b_aceptar] or key(_enter))
 			if(ops.sonido==1)
 				sonido(13,0);
 			end
-			while(p[0].botones[b_2] or key(_enter)) frame; end
+			while(p[0].botones[b_aceptar] or key(_enter)) frame; end
 			if(num_menu==0 and opcion_actual==1 and posibles_jugadores==1) //si solo hay un posible jugador, no se elige el número de jugadores
 				jugadores=1;
 				p[1].juega=1;
@@ -255,12 +343,12 @@ begin
 				end
 			end
 		end
-		if((p[0].botones[b_1] or key(_esc)) and volver_a_menu!=num_menu)
+		if((p[0].botones[b_cancelar] or key(_esc)) and volver_a_menu!=num_menu)
 			delete_text(all_text);
 			if(ops.sonido==1)
 				sonido(11,0);
 			end
-			while(p[0].botones[b_1] or key(_esc)) frame; end
+			while(p[0].botones[b_cancelar] or key(_esc)) frame; end
 			menu(volver_a_menu);
 			return;
 		end
@@ -312,7 +400,7 @@ Begin
 	end
 	y=324;
 	z=-100;
-	file=fpg_menu;
+	file=fpg_lang;
 	graph=1;
 	from alpha=0 to 255 step 40; y-=4; frame; end
 	while(exists(father))
@@ -326,21 +414,21 @@ begin
 	x=ancho_pantalla/2;
 	y=alto_pantalla/2;
 	z=-512;
-	file=fpg_menu;
+	file=fpg_lang;
 	i=1;
 	graph--;
 	if(!panoramico) size=75; end
 	while(i==1)
 		graph++;
 		from alpha=0 to 255 step 40; frame; end
-		while(!p[0].botones[b_1] and !p[0].botones[b_2] and !p[0].botones[6] and !key(_enter) and !key(_esc)) frame; end
-		if(p[0].botones[b_1] or key(_esc) or graphic_info(fpg_menu,graph+1,G_WIDTH)<1) 
+		while(!p[0].botones[b_cancelar] and !p[0].botones[b_aceptar] and !p[0].botones[6] and !key(_enter) and !key(_esc)) frame; end
+		if(p[0].botones[b_cancelar] or key(_esc) or graphic_info(file,graph+1,G_WIDTH)<1) 
 			sonido(13,0); 
 			i=0; 
 		else
 			sonido(12,0);
 		end
-		while(p[0].botones[b_1] or p[0].botones[b_2] or p[0].botones[6] or key(_enter) or key(_esc)) frame; end
+		while(p[0].botones[b_cancelar] or p[0].botones[b_aceptar] or p[0].botones[6] or key(_enter) or key(_esc)) frame; end
 		from alpha=255 to 0 step -40; frame; end
 		frame;
 	end
@@ -349,9 +437,11 @@ end
 
 process mueve_fondo();
 Begin
+	gravedad=30;
 	loop
-		x-=3;
-		y-=3;
+		x-=3+gravedad/2;
+		y-=3+gravedad/2;
+		if(gravedad>0) gravedad--; end
 		frame;
 	end
 End

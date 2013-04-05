@@ -20,6 +20,7 @@ Begin
 	mano(x+180,y-15,0);
 	mano(x+120,y+5,0);
 	while(p[jugador].vida>0)
+		while(!ready) frame; end
 		if(herida==0)
 			graph=1;
 			alpha=255;
@@ -73,6 +74,7 @@ Begin
 	graph=75;
 	alpha=0;
 	loop
+		while(!ready) frame; end
 		if(alpha<255) 
 			alpha+=2; 
 		else
@@ -94,6 +96,7 @@ Begin
 	jugador=100;
 	from alpha=0 to 255 step 10; frame; end
 	while(exists(father))
+		while(!ready) frame; end
 		animacion=accion;
 		if(p[jugador].vida=<0)
 			graph=51;
