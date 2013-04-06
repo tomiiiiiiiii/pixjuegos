@@ -1147,7 +1147,11 @@ begin
 	delete_text(all_text);
 	controlador(0);
 	file=fpg_menu;
-	graph=4;
+	if(ops.lenguaje==0)
+		graph=5;
+	else
+		graph=4;
+	end
 	x=ancho_pantalla/2;
 	y=alto_pantalla/2;
 	if(alto_pantalla<720)
