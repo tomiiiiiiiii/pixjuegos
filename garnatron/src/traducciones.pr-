@@ -23,7 +23,7 @@ Begin
 		textos[19]="Press a button for shooting";
 		textos[20]="Press a button for dropping a bomb";
 		textos[21]="Press a button for weapon change";
-		textos[22]="Play";
+		textos[22]="New game";
 		textos[23]="Continue";
 		textos[24]="Options";
 		textos[25]="High scores";
@@ -77,7 +77,7 @@ Begin
 		textos[19]="Pulsa un boton para disparar";
 		textos[20]="Pulsa un boton para disparar una bomba";
 		textos[21]="Pulsa un boton para cambiar arma";
-		textos[22]="Jugar";
+		textos[22]="Nuevo juego";
 		textos[23]="Continuar";
 		textos[24]="Opciones";
 		textos[25]="Clasificacion";

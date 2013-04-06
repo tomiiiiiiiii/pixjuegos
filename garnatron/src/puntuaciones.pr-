@@ -20,6 +20,8 @@ begin
 		frame;
 	end
 	
+	controlador(0);
+	
 	y=500;
 	from a=9 to 0;
 		write(fuente[0],x-150,y,3,a+1 + "º " + puntuaciones[a].nombres);
@@ -27,18 +29,22 @@ begin
 		y-=30;
 		scroll.x0+=3;
 		timer[2]=0;
-		while(timer[2]<50)
-			scroll.x0+=3;
+		while(timer[2]<50 and !p[0].botones[b_aceptar] and !p[0].botones[b_cancelar])
+			if(!p[0].botones[b_aceptar]) scroll.x0+=3; end
 			frame;
 		end
+		if(p[0].botones[b_cancelar]) menu(0); end
 	end
 	
-	controlador(0);
-	while(not p[0].botones[b_2])
+	while(p[0].botones[b_aceptar] or p[0].botones[b_cancelar])
 		scroll.x0+=3;
 		frame;
 	end
-	while(p[0].botones[b_2])
+	while(not p[0].botones[b_aceptar] and not p[0].botones[b_cancelar])
+		scroll.x0+=3;
+		frame;
+	end
+	while(p[0].botones[b_aceptar] or p[0].botones[b_cancelar])
 		scroll.x0+=3;
 		frame;
 	end
