@@ -84,10 +84,8 @@ Begin
 			datos_nivel[i][j]=hasta_la_coma(linea,j);
 		end
 		i++;
-		say("Cargando nivel, línea "+i);
 	end
 	fclose(archivo);
-	say("----------------------------------------------nivel cargado");
 	ctype=c_screen;
 	define_region(1,0,0,ancho_pantalla,alto_pantalla);
 	pausa=1;
@@ -105,7 +103,7 @@ Begin
 	graph=20;
 	direccion=1;
 
-	id_texto=write(fuente[0],x,y,4,"AREA: "+nivel);
+	id_texto=write(fuente[0],x,y,4,textos[44]+nivel);
 
 	fade_on();
 	timer[2]=0;
@@ -150,14 +148,14 @@ Begin
 	end
 	
 	from jugador=1 to jugadores;
-		while(id_nave[jugador].y>500)
+		while(id_nave[jugador].y>alto_pantalla-200)
 			id_nave[jugador].y-=10;
 			scroll.y0-=3;
 			frame;
 		end
 	end
 	from jugador=1 to jugadores;
-		while(id_nave[jugador].y<650)
+		while(id_nave[jugador].y<alto_pantalla-100)
 			id_nave[jugador].y+=7;
 			scroll.y0-=4;
 			frame;
@@ -179,11 +177,11 @@ Begin
 				pausa=1;
 				graph=20;
 				direccion=1;
-				id_texto=write(fuente[0],x,y,4,"¿Salir de la partida?");
+				id_texto=write(fuente[0],x,y,4,textos[45]);
 				boton(ancho_pantalla/2,alto_pantalla/2 + 100,"",1);
-				id_texto1=write(fuente[0],ancho_pantalla/2,alto_pantalla/2 + 100,4,"No");
+				id_texto1=write(fuente[0],ancho_pantalla/2,alto_pantalla/2 + 100,4,textos[31]);
 				boton(ancho_pantalla/2,alto_pantalla/2 + 150,"",2);
-				id_texto2=write(fuente[0],ancho_pantalla/2,alto_pantalla/2 + 150,4,"Si");
+				id_texto2=write(fuente[0],ancho_pantalla/2,alto_pantalla/2 + 150,4,textos[32]);
 				opcion=1;
 			else
 				pausa=0;
@@ -250,8 +248,8 @@ Begin
 				graph=20;
 				direccion=1;
 
-				id_texto=write(fuente[0],x,y,4,"AREA: "+nivel);
-				id_texto1=write(fuente[0],x-5,y+15,4,"completada");
+				id_texto=write(fuente[0],x,y,4,textos[44]+nivel);
+				id_texto1=write(fuente[0],x-5,y+15,4,textos[46]);
 				timer[2]=0;
 				while(timer[2]<500)
 					if(direccion==1) graph++; else graph--; end
@@ -272,8 +270,8 @@ Begin
 //				delete_text(all_text);
 				graph=20;
 				direccion=1;
-				id_texto=write(fuente[0],x,y-7,4,"Fin de");
-				id_texto1=write(fuente[0],x-5,y+7,4,"la partida");
+				id_texto=write(fuente[0],x,y-7,4,textos[47]);
+				id_texto1=write(fuente[0],x-5,y+7,4,textos[48]);
 				timer[2]=0;
 				while(timer[2]<500)
 					if(direccion==1) graph++; else graph--; end

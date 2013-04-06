@@ -12,7 +12,7 @@ begin
 	delete_text(all_text);
 	
 	x=ancho_pantalla/2;
-	write(fuente[0],x,150,4,"Clasificación");
+	write(fuente[0],x,150,4,textos[49]);
 	
 	timer[2]=0;
 	while(timer[2]<50)
@@ -71,16 +71,21 @@ begin
 	from jugador=1 to jugadores;
 		from a=0 to 9;
 			if(nueva_puntuacion[jugador]>=puntuaciones[a].puntos)
-				puntuaciones[a-1].puntos=puntuaciones[a].puntos;
-				puntuaciones[a-1].nombres=puntuaciones[a].nombres;
+				from j=8 to a step -1;
+					puntuaciones[j+1].puntos=puntuaciones[j].puntos;
+					puntuaciones[j+1].nombres=puntuaciones[j].nombres;
+				end
 				puntuaciones[a].puntos=nueva_puntuacion[jugador];
 				puntuaciones[a].nombres="";
 				nuevo_aspirante[jugador]=a;
+				break;
 			end
 		end
-		from a=jugador to 1 step -1;
-			if(nueva_puntuacion[a]>=nueva_puntuacion[a-1])
-				nuevo_aspirante[a-1]-=1;
+		if(jugador>1)
+			from a=jugador to 2 step -1;
+				if(nuevo_aspirante[a]<=nuevo_aspirante[a-1])
+					nuevo_aspirante[a-1]+=1;
+				end
 			end
 		end
 	end
@@ -94,7 +99,7 @@ begin
 	end
 	
 	if(nuevo_aspirante[1]>-1 or nuevo_aspirante[2]>-1 or nuevo_aspirante[3]>-1 or nuevo_aspirante[4]>-1)
-		write(fuente[0],ancho_pantalla/2,70,4,"¡Nuevo record! Introduce tu nombre");
+		write(fuente[0],ancho_pantalla/2,70,4,textos[50]);
 		text_input(ancho_pantalla/2,400,15,nueva_puntuacion[1],nueva_puntuacion[2],nueva_puntuacion[3],nueva_puntuacion[4]);
 		loop
 			if(!exists(TYPE text_input)) break; end
@@ -106,43 +111,13 @@ begin
 				puntuaciones[nuevo_aspirante[jugador]].nombres=texto_introducido[jugador];
 			end
 		end
-//		if(guardar)
-//			archivo=fopen(savegamedir+"save.dat",o_write);
-//			fwrite(archivo,save);
-//			fclose(archivo);
-//		end
+
+		guarda_puntuaciones();
+		
 		highscores();
 	else
 		highscores();
 	end
-end
-
-//-----------------------------------------------------------------------
-// proceso leer archivo
-//-----------------------------------------------------------------------
-
-Function lee_puntuaciones();
-
-Private
-	string linea;
-
-Begin
-	archivo=fopen("puntuaciones.csv",O_READ);
-	while(!feof(archivo))
-		linea=fgets(archivo);  
-		if(find(linea,"fin")>-1) break; end
-		
-		puntuaciones[i].nombres=hasta_la_barra(linea,1);
-		puntuaciones[i].puntos=atoi(hasta_la_barra(linea,2));
-		
-//		from j=0 to 1;
-//			datos_nivel[i][j]=hasta_la_barra(linea,j);
-//		end
-		
-		i++;
-		say("Leyendo puntuacion, línea "+i +" "+puntuaciones[i].nombres);
-	end
-	fclose(archivo);
 end
 
 
@@ -150,11 +125,23 @@ end
 // proceso escribir archivo
 //-----------------------------------------------------------------------
 
+Function guarda_puntuaciones();
+Private
+	string linea;
+Begin
+	archivo=fopen(savegamedir+"puntuaciones.csv",O_WRITE);
+	from i=1 to 10;
+		fputs(archivo,i+"|"+puntuaciones[i-1].nombres+"|"+puntuaciones[i-1].puntos);
+	end
+	fputs(archivo,"fin");
+	fclose(archivo);
+end
+
 //-----------------------------------------------------------------------
 // funcion hasta la barra
 //-----------------------------------------------------------------------
 
-Function hasta_la_barra(string estring,int num_campo);
+Function string hasta_la_barra(string estring,int num_campo);
 private
 	string temp;
 	w;
@@ -174,4 +161,50 @@ begin
 	end
 	//return atoi(temp);
 	return temp;
+end
+
+//-----------------------------------------------------------------------
+// proceso leer archivo
+//-----------------------------------------------------------------------
+
+Function lee_puntuaciones();
+Private
+	string linea;
+
+Begin
+	if(file_exists(savegamedir+"puntuaciones.csv"))
+		archivo=fopen(savegamedir+"puntuaciones.csv",O_READ);
+	
+		while(!feof(archivo))
+			linea=fgets(archivo);
+			if(find(linea,"fin")>-1) break; end
+			
+			puntuaciones[i].nombres=hasta_la_barra(linea,1);
+			puntuaciones[i].puntos=atoi(hasta_la_barra(linea,2));
+						
+			i++;
+		end
+		fclose(archivo);
+	else
+		puntuaciones[0].nombres="Carles";
+		puntuaciones[0].puntos=10000;
+		puntuaciones[1].nombres="PiXeL";
+		puntuaciones[1].puntos=9000;
+		puntuaciones[2].nombres="Nibbler337";
+		puntuaciones[2].puntos=8000;
+		puntuaciones[3].nombres="Ana";
+		puntuaciones[3].puntos=7000;
+		puntuaciones[4].nombres="Chewrafa";
+		puntuaciones[4].puntos=6000;
+		puntuaciones[5].nombres="Nico";
+		puntuaciones[5].puntos=5000;
+		puntuaciones[6].nombres="PiX";
+		puntuaciones[6].puntos=4000;
+		puntuaciones[7].nombres="PuX";
+		puntuaciones[7].puntos=3000;
+		puntuaciones[8].nombres="PaX";
+		puntuaciones[8].puntos=2000;
+		puntuaciones[9].nombres="PeX";
+		puntuaciones[9].puntos=1000;
+	end
 end

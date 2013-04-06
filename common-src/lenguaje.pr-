@@ -11,7 +11,12 @@ begin
 	//PODEMOS ADIVINAR EL LENGUAJE! :D
 	if(os_id==os_win32) //windows
 		//qué lenguaje lleva este windows?
-		if(!fexists(getenv("TEMP")+"\lang.txt")) exec(1,"language.bat",0,0); end
+		if(!fexists(getenv("TEMP")+"\lang.txt")) 
+			fp=fopen(getenv("TEMP")+"\language.bat",O_WRITE);
+			fputs(fp,"reg query HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\Nls\Language /v Default | findstr Default > %TEMP%\lang.txt");
+			fclose(fp);
+			exec(_P_WAIT,getenv("TEMP")+"\language.bat",0,0); 
+		end
 		fp=fopen(getenv("TEMP")+"\lang.txt",O_READ);
 		if(fp) 
 			cadena_lenguaje=fgets(fp);
@@ -33,8 +38,6 @@ begin
 		env_lang=getenv("LANG");
 		env_lang=""+env_lang[0]+env_lang[1];
 		id_lenguaje=env_lang;
-		say("Lenguaje detectado: "+env_lang);
-		//-------------------
 	end
 	if(os_id==os_caanoo)
 		fp=fopen("/mnt/ubifs/usr/gp2x/common.ini",O_READ);

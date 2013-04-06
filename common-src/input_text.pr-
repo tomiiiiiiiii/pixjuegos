@@ -12,6 +12,7 @@ Global
 	filas_cadena=6;	//filas en las que se dividira la cadena(la última debe estar completa)
 	string texto_introducido[5]; //aqui esta el texto que se introduce
 	fuente_teclado;	//Fuente del text_input
+	string lang_txts[4]; //textos traducidos del input
 end
 
 //-----------------------------------------------------------------------
@@ -23,6 +24,22 @@ private
 	posicion;
 	texto_jugadores[5];
 Begin
+
+	switch(ops.lenguaje)
+		case 0: //eng
+			lang_txts[0]="Player ";
+			lang_txts[1]="End";
+			lang_txts[2]="Del";
+		end
+		case 1: //esp
+			lang_txts[0]="Jugador ";
+			lang_txts[1]="Fin";
+			lang_txts[2]="Bor";		
+		end
+		case 2: //??
+		end
+	end
+
 	graph=new_map(((len(cadena)+2)/filas_cadena)*size_fuente,filas_cadena*size_fuente,bpp);
 	drawing_map(0,graph);
 	drawing_color(rgb(0,255,0));
@@ -39,7 +56,7 @@ Begin
 	
 	from jugador=1 to jugadores;
 		if(texto_jugadores[jugador])
-			write(fuente_teclado,(ancho_pantalla/2)-1,20*jugador+100,5,"jugador "+jugador+":");
+			write(fuente_teclado,(ancho_pantalla/2)-1,20*jugador+100,5,lang_txts[0]+jugador+":");
 			write_var(fuente_teclado,(ancho_pantalla/2)+1,20*jugador+100,3,texto_introducido[jugador]);
 			cursor(x1,y1,jugador,longitud_max);
 		end
@@ -48,9 +65,9 @@ Begin
 	for(y=(size_fuente/2);y<((filas_cadena*size_fuente)+(size_fuente/2));y+=size_fuente)
 		for(x=(size_fuente/2);x<((((len(cadena)+2)/filas_cadena)*size_fuente)+(size_fuente/2));x+=size_fuente)
 			if(posicion==len(cadena)+1)
-				write(fuente_teclado,x+x1-(((len(cadena)+2)/filas_cadena)*size_fuente/2),y+y1-(filas_cadena*size_fuente/2),4,"Fin");
+				write(fuente_teclado,x+x1-(((len(cadena)+2)/filas_cadena)*size_fuente/2),y+y1-(filas_cadena*size_fuente/2),4,lang_txts[1]);
 			elseif(posicion==len(cadena))
-				write(fuente_teclado,x+x1-((((len(cadena)+2)/filas_cadena))*size_fuente/2),y+y1-(filas_cadena*size_fuente/2),4,"Bor");
+				write(fuente_teclado,x+x1-((((len(cadena)+2)/filas_cadena))*size_fuente/2),y+y1-(filas_cadena*size_fuente/2),4,lang_txts[2]);
 			else
 				write(fuente_teclado,x+x1-(((len(cadena)+2)/filas_cadena)*size_fuente/2),y+y1-(filas_cadena*size_fuente/2),4,cadena[posicion]);
 			end
@@ -156,23 +173,28 @@ begin
 			texto_introducido[jugador]=substr(texto_introducido[jugador],0,len(texto_introducido[jugador])-1);
 		end
 		
-		if(mouse.y < father.y+(filas_cadena*size_fuente/2) and mouse.y > father.y-(filas_cadena*size_fuente/2) and mouse.x < father.x+(((len(cadena)+2)/filas_cadena)*size_fuente/2) and mouse.x > father.x-(((len(cadena)+2)/filas_cadena)*size_fuente/2))
-			posicion=((( (mouse.y-father.y+(filas_cadena*size_fuente/2))/size_fuente)*((len(cadena)+2)/filas_cadena)) + ((mouse.x-father.x+(((len(cadena)+2)/filas_cadena)*size_fuente/2))/(size_fuente) ));
-		end
-		
-		if(mouse.left and pulsando==0) //Modo táctil
-			if(posicion==len(cadena)+1) //Fin
-				break;
-			elseif(posicion==len(cadena)) //Borra
-				texto_introducido[jugador]=substr(texto_introducido[jugador],0,len(texto_introducido[jugador])-1);
-			else //Escribe
-				if(len(texto_introducido[jugador])<longitud_max)
-					texto_introducido[jugador]+=""+cadena[posicion];
-				end
+		// -- RATÓN:
+		if(jugadores==1)
+			if(mouse.y < father.y+(filas_cadena*size_fuente/2) and mouse.y > father.y-(filas_cadena*size_fuente/2) and mouse.x < father.x+(((len(cadena)+2)/filas_cadena)*size_fuente/2) and mouse.x > father.x-(((len(cadena)+2)/filas_cadena)*size_fuente/2))
+				posicion=((( (mouse.y-father.y+(filas_cadena*size_fuente/2))/size_fuente)*((len(cadena)+2)/filas_cadena)) + ((mouse.x-father.x+(((len(cadena)+2)/filas_cadena)*size_fuente/2))/(size_fuente) ));
 			end
-			pulsando=1;
+			
+			if(mouse.left and pulsando==0) //Modo táctil
+				if(posicion==len(cadena)+1) //Fin
+					break;
+				elseif(posicion==len(cadena)) //Borra
+					texto_introducido[jugador]=substr(texto_introducido[jugador],0,len(texto_introducido[jugador])-1);
+				else //Escribe
+					if(len(texto_introducido[jugador])<longitud_max)
+						texto_introducido[jugador]+=""+cadena[posicion];
+					end
+				end
+				pulsando=1;
+			end
+		
+			if(pulsando==1 and !mouse.left) pulsando=0; end
 		end
-		if(pulsando==1 and !mouse.left) pulsando=0; end
+		// -- FIN RATÓN
 		
 		if(posicion<0) posicion+=len(cadena)+2; end
 		if(posicion>len(cadena)+1) posicion-=len(cadena)+2; end
@@ -181,7 +203,7 @@ begin
 		y=y1-(filas_cadena*size_fuente/2)+(size_fuente/2)+(size_fuente*(posicion/((len(cadena)+2)/filas_cadena)));
 		
 		if(posicion==len(cadena)+1)
-			letra_selecionada=write(fuente_teclado,(ancho_pantalla/2)+text_width(fuente_teclado,texto_introducido[jugador])+1,(20*jugador)+100,3,"Fin");
+			letra_selecionada=write(fuente_teclado,(ancho_pantalla/2)+text_width(fuente_teclado,texto_introducido[jugador])+1,(20*jugador)+100,3,lang_txts[1]);
 		else
 			if(len(texto_introducido[jugador])<longitud_max)
 				letra_selecionada=write(fuente_teclado,(ancho_pantalla/2)+text_width(fuente_teclado,texto_introducido[jugador])+1,(20*jugador)+100,3,cadena[posicion]);

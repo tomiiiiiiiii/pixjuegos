@@ -55,6 +55,8 @@ Global
 	habil[5]=0,1,1,1,1;
 	puntos[5];
 
+	string textos[200];
+	
 	arcade_mode=0;
 
 	guardar=1;
@@ -81,6 +83,7 @@ Global
 		particulas=1;
 		p_completa;
 		resolucion;
+		lenguaje=0;
 	end
 	
 	//------ inicio controles.pr-
@@ -164,6 +167,9 @@ include "..\..\common-src\controles.pr-";
 include "..\..\common-src\input_text.pr-";
 include "..\..\common-src\savepath.pr-";
 include "..\..\common-src\resolucioname.pr-";
+include "..\..\common-src\lenguaje.pr-";
+
+include "traducciones.pr-";
 
 //-----------------------------------------------------------------------
 // introduccion del juego
@@ -195,6 +201,16 @@ BEGIN
 		ops.particulas=0;
 	end
 	
+	switch(lenguaje_sistema())
+		case "es": ops.lenguaje=1; end
+		default: ops.lenguaje=0; end
+	end	
+
+	if(os_id==1003)
+		ops.lenguaje=0;
+	end
+
+	carga_textos();
 	
 	carga_opciones();
 	
@@ -285,10 +301,14 @@ BEGIN
 
 	//----------------------------------------------------------imagen cargando
 	file=fpg_menu;
-	graph=1;
+	//graph=1;
 	x=ancho_pantalla/2;
 	y=alto_pantalla/2;
 	z=10;
+
+	fuente[0]=load_fnt("fnt/fuente.fnt"); frame;
+
+	write(fuente[0],ancho_pantalla/2,alto_pantalla/2,4,textos[51]);
 
 	frame;
 	//--------------------------------------------------------Cargando archivos
@@ -299,8 +319,6 @@ BEGIN
 	fpg_bosses=load_fpg("fpg/bosses.fpg"); frame;
 	fpg_explosiones=load_fpg("fpg/explosiones.fpg"); frame;
 
-	say("----------------- FPGS CARGADOS!");
-	
 	s_disparo=load_wav("wav/laser.wav"); frame;
 	s_laser1=load_wav("wav/laser9.wav"); frame;
 	s_laser2=load_wav("wav/onda01.wav"); frame;
@@ -308,18 +326,14 @@ BEGIN
 	s_misil=load_wav("wav/bomba5.wav"); frame;
 	s_explosion=load_wav("wav/explos.wav"); frame;
 	s_explosion_grande=load_wav("wav/explosg.wav"); frame;
-
-	say("----------------- WAVS CARGADOS!");
 	
-	fuente[0]=load_fnt("fnt/fuente.fnt"); frame;
 	fuente[1]=load_fnt("fnt/garna1.fnt"); frame;
 	fuente[2]=load_fnt("fnt/garna2.fnt"); frame;
 	fuente[3]=load_fnt("fnt/garna3.fnt"); frame;
 	fuente[4]=load_fnt("fnt/garna4.fnt"); frame;
-
-	say("----------------- FNTS CARGADOS!");
 	
 	frame;
+	delete_text(all_text);
 
 	configurar_controles();
 
@@ -327,8 +341,6 @@ BEGIN
 
 	musica(1);
 	graph=2;
-	
-	say("----------------- INICIALIZANDO COSICAS!");
 	
 	from alpha=0 to 255 step 10; frame; end
 	timer[2]=0;
@@ -379,7 +391,7 @@ begin
 			frame;
 		end
 
-		letra("PiX Juegos  presenta",ancho_pantalla/2,alto_pantalla/2,4);
+		letra(textos[0],ancho_pantalla/2,alto_pantalla/2,4);
 		timer[2]=0;
 		while(timer[2]<600)
 			if(scan_code) 
@@ -440,7 +452,7 @@ begin
 			end
 		end
 		
-		letra("Autores",200,200,1);
+		letra(textos[1],200,200,1);
 		timer[2]=0;
 		while(timer[2]<600)
 			if(id_nave[1].x<1600)
@@ -452,7 +464,7 @@ begin
 			frame;
 		end
 	
-		letra("Programado por",ancho_pantalla-200,200,3);
+		letra(textos[2],ancho_pantalla-200,200,3);
 		letra("Carles Vicent",ancho_pantalla-200,230,3);
 		timer[2]=0;
 		while(timer[2]<400)
@@ -465,7 +477,7 @@ begin
 			frame;
 		end
 	
-		letra("Ayudante",ancho_pantalla-200,alto_pantalla-200,0);
+		letra(textos[3],ancho_pantalla-200,alto_pantalla-200,0);
 		letra("PiXeL",ancho_pantalla-200,alto_pantalla-200+30,0);
 		timer[2]=0;
 		while(timer[2]<400)
@@ -478,7 +490,7 @@ begin
 			frame;
 		end
 	
-		letra("Graficos",200,alto_pantalla-200,2);
+		letra(textos[4],200,alto_pantalla-200,2);
 		letra("Carles Vicent",200,alto_pantalla-200+30,2);
 		letra("DaniGM",200,alto_pantalla-200+60,2);
 		timer[2]=0;
@@ -492,8 +504,8 @@ begin
 			frame;
 		end
 
-		letra("Sonido",ancho_pantalla-200,200,3);
-		letra("no me acuerdo",ancho_pantalla-200,230,3);
+		letra(textos[5],ancho_pantalla-200,200,3);
+		letra("DIV 2 Games Studio",ancho_pantalla-200,230,3);
 		timer[2]=0;
 		while(timer[2]<400)
 			if(id_nave[1].x<1600)
@@ -505,7 +517,7 @@ begin
 			frame;
 		end
 	
-		letra("Musica",ancho_pantalla-200,alto_pantalla-200,0);
+		letra(textos[6],ancho_pantalla-200,alto_pantalla-200,0);
 		letra("Chewrafa",ancho_pantalla-200,alto_pantalla-200+30,0);
 		timer[2]=0;
 		while(timer[2]<400)
@@ -518,7 +530,7 @@ begin
 			frame;
 		end
 		
-		letra("Gracias a:",200,200,1);
+		letra(textos[7],200,200,1);
 		letra("Pablo",200,230,1);
 		letra("Nerea",200,260,1);
 		letra("Nicolas",200,290,1);
@@ -534,7 +546,7 @@ begin
 			frame;
 		end
 
-		letra("Hecho en Bennu",ancho_pantalla-200,200,3);
+		letra(textos[8],ancho_pantalla-200,200,3);
 		timer[2]=0;
 		while(timer[2]<400)
 			if(id_nave[1].x<1600)
@@ -546,7 +558,7 @@ begin
 			frame;
 		end
 
-		letra("Creado por PiX Juegos",ancho_pantalla-200,alto_pantalla-200,0);
+		letra(textos[9],ancho_pantalla-200,alto_pantalla-200,0);
 		timer[2]=0;
 		while(timer[2]<600)
 			if(id_nave[1].x<1600)
@@ -558,7 +570,7 @@ begin
 			frame;
 		end
 
-		letra("Gracias por jugar",ancho_pantalla/2,alto_pantalla/2,4);
+		letra(textos[10],ancho_pantalla/2,alto_pantalla/2,4);
 		timer[2]=0;
 		while(timer[2]<600)
 			if(id_nave[1].x<1600)
@@ -641,7 +653,7 @@ begin
 	
 	//modo arcade
 	if(arcade_mode==1 and num_menu==0)
-		write(fuente[0],ancho_pantalla/2,alto_pantalla/2,4,"Pulsa el boton 2 para empezar");
+		write(fuente[0],ancho_pantalla/2,alto_pantalla/2,4,textos[11]);
 		while(not p[0].botones[b_2])
 			scroll.x0+=3;
 			if(p[0].botones[b_salir]) exit(); end
@@ -664,80 +676,80 @@ begin
 	//ponemos el menú actual
 	switch(num_menu)
 		case 0: //general
-			boton(x,y+=60,"Jugar",1);
-			boton(x,y+=60,"Continuar",2);
+			boton(x,y+=60,textos[22],1);
+			boton(x,y+=60,textos[23],2);
 			if(os_id!=1003)
-				boton(x,y+=60,"Opciones",3);
-				boton(x,y+=60,"Clasificacion",4);
-				boton(x,y+=60,"Ayuda",5);
-				boton(x,y+=60,"Salir",6);
+				boton(x,y+=60,textos[24],3);
+				boton(x,y+=60,textos[25],4);
+				boton(x,y+=60,textos[26],5);
+				boton(x,y+=60,textos[27],6);
 				num_opciones=6;
 			else
-				boton(x,y+=60,"Clasificacion",3);
-				boton(x,y+=60,"Ayuda",4);
-				boton(x,y+=60,"Salir",5);
+				boton(x,y+=60,textos[25],3);
+				boton(x,y+=60,textos[26],4);
+				boton(x,y+=60,textos[27],5);
 				num_opciones=5;
 			end
 			volver_a_menu=0;
 		end
 		case 1: //opciones
-			boton(x,y+=60,"Video",1);
-			boton(x,y+=60,"Control",2);
+			boton(x,y+=60,textos[28],1);
+			boton(x,y+=60,textos[29],2);
 			if(ops.particulas==0)
-				boton(x,y+=60,"Particulas: No",3);
+				boton(x,y+=60,textos[30]+textos[31],3);
 			else
-				boton(x,y+=60,"Particulas: Si",3);
+				boton(x,y+=60,textos[30]+textos[32],3);
 			end
-			boton(x,y+=60,"Volver",4);
+			boton(x,y+=60,textos[33],4);
 			num_opciones=4;
 			volver_a_menu=0;
 		end
 		case 2: //video
-			boton(x,y+=60,"Pantalla completa",1);
-			boton(x,y+=60,"Ventana",2);
-			boton(x,y+=60,"1024x768",3);
-			boton(x,y+=60,"1280x720",4);
-			boton(x,y+=60,"1920x1080",5);
-			boton(x,y+=60,"Volver",6);
+			boton(x,y+=60,textos[34],1);
+			boton(x,y+=60,textos[35],2);
+			boton(x,y+=60,textos[36],3);
+			boton(x,y+=60,textos[37],4);
+			boton(x,y+=60,textos[38],5);
+			boton(x,y+=60,textos[33],6);
 			num_opciones=6;
 			volver_a_menu=0;
 		end
 		case 3: //control
-			boton(x,y+=60,"Teclado",1);
-			boton(x,y+=60,"Mando",2);
-			boton(x,y+=60,"Restablecer",3);
-			boton(x,y+=60,"Volver",4);
+			boton(x,y+=60,textos[39],1);
+			boton(x,y+=60,textos[40],2);
+			boton(x,y+=60,textos[41],3);
+			boton(x,y+=60,textos[33],4);
 			num_opciones=4;
 			volver_a_menu=0;
 		end
 		case 4: //jugadores, juego nuevo
-			boton(x,y+=60,"1 Jugador",1);
-			boton(x,y+=60,"2 Jugadores",2);
+			boton(x,y+=60,"1 "+textos[42],1);
+			boton(x,y+=60,"2 "+textos[42],2);
 			num_opciones=3;
 			if(posibles_jugadores>2)
 				num_opciones++;
-				boton(x,y+=60,"3 Jugadores",3);
+				boton(x,y+=60,"3 "+textos[43],3);
 			end
 			if(posibles_jugadores>3)
 				num_opciones++;
-				boton(x,y+=60,"4 Jugadores",4);
+				boton(x,y+=60,"4 "+textos[43],4);
 			end
-			boton(x,y+=60,"Volver",num_opciones);
+			boton(x,y+=60,+textos[33],num_opciones);
 			volver_a_menu=0;
 		end
 		case 5: //jugadores, continuar
-			boton(x,y+=60,"1 Jugador",1);
-			boton(x,y+=60,"2 Jugadores",2);
+			boton(x,y+=60,"1 "+textos[42],1);
+			boton(x,y+=60,"2 "+textos[43],2);
 			num_opciones=3;
 			if(posibles_jugadores>2)
 				num_opciones++;
-				boton(x,y+=60,"3 Jugadores",3);
+				boton(x,y+=60,"3 "+textos[43],3);
 			end
 			if(posibles_jugadores>3)
 				num_opciones++;
-				boton(x,y+=60,"4 Jugadores",4);
+				boton(x,y+=60,"4 "+textos[43],4);
 			end
-			boton(x,y+=60,"Volver",num_opciones);
+			boton(x,y+=60,+textos[33],num_opciones);
 			volver_a_menu=0;
 		end
 	end
@@ -755,11 +767,11 @@ begin
 		y_objetivo=200+(opcion_actual*60);
 		if(y!=y_objetivo) y+=(y_objetivo-y)/2; end
 
-		if(p[0].botones[5])
+		if(p[0].botones[b_aceptar])
 			
 			suena(s_aceptar);
 			
-			while(p[0].botones[5]) scroll.x0+=3; frame; end
+			while(p[0].botones[b_aceptar]) scroll.x0+=3; frame; end
 			switch(num_menu)
 				case 0: //general
 					if(os_id==1003 and opcion_actual>2) opcion_actual++; end //en Android no hay menú de opciones
@@ -868,7 +880,7 @@ begin
 							clear_screen();
 							delete_text(all_text);
 							
-							id_texto=write(fuente[0],ancho_pantalla/2,400,4,"Pulse tecla para arriba");
+							id_texto=write(fuente[0],ancho_pantalla/2,400,4,textos[12]);
 							repeat
 								ops.teclado.arriba=scan_code;
 								frame;
@@ -877,7 +889,7 @@ begin
 							while(scan_code<>0) frame; scroll.x0+=3; end
 							delete_text(id_texto);
 	
-							id_texto=write(fuente[0],ancho_pantalla/2,400,4,"Pulse una tecla para derecha");
+							id_texto=write(fuente[0],ancho_pantalla/2,400,4,textos[13]);
 							Repeat
 								ops.teclado.derecha=scan_code;
 								frame;
@@ -886,7 +898,7 @@ begin
 							while(scan_code<>0) frame; scroll.x0+=3; end
 							delete_text(id_texto);
 
-							id_texto=write(fuente[0],ancho_pantalla/2,400,4,"Pulse una tecla para abajo");
+							id_texto=write(fuente[0],ancho_pantalla/2,400,4,textos[14]);
 							Repeat
 								ops.teclado.abajo=scan_code;
 								frame;
@@ -895,7 +907,7 @@ begin
 							while(scan_code<>0) frame; scroll.x0+=3; end
 							delete_text(id_texto);
 	
-							id_texto=write(fuente[0],ancho_pantalla/2,400,4,"Pulse una tecla para izquierda");
+							id_texto=write(fuente[0],ancho_pantalla/2,400,4,textos[15]);
 							Repeat
 								ops.teclado.izquierda=scan_code;
 								frame;
@@ -904,7 +916,7 @@ begin
 							while(scan_code<>0) frame; scroll.x0+=3; end
 							delete_text(id_texto);
 	
-							id_texto=write(fuente[0],ancho_pantalla/2,400,4,"Pulse una tecla para diparar");
+							id_texto=write(fuente[0],ancho_pantalla/2,400,4,textos[16]);
 							Repeat
 								ops.teclado.disparar=scan_code;
 								frame;
@@ -913,7 +925,7 @@ begin
 							while(scan_code<>0) frame; scroll.x0+=3; end
 							delete_text(id_texto);
 
-							id_texto=write(fuente[0],ancho_pantalla/2,400,4,"Pulse una tecla para disparar una bomba");
+							id_texto=write(fuente[0],ancho_pantalla/2,400,4,textos[17]);
 							Repeat
 								ops.teclado.bomba=scan_code;
 								frame;
@@ -922,7 +934,7 @@ begin
 							while(scan_code<>0) frame; scroll.x0+=3; end
 							delete_text(id_texto);
 
-							id_texto=write(fuente[0],ancho_pantalla/2,400,4,"Pulse una tecla para cambiar arma");
+							id_texto=write(fuente[0],ancho_pantalla/2,400,4,textos[18]);
 							Repeat
 								ops.teclado.cambiar=scan_code;
 								frame;
@@ -951,95 +963,8 @@ begin
 							let_me_alone();
 							clear_screen();
 							delete_text(all_text);
-/*	--------------------------------------------------------- Asignación de los botones de mobimiento
-							select_joy(0);
-							frame;
-							id_texto=write(fuente[0],400,400,4,"Presiona arriba y luego pulsa un boton");
 
-							while(!get_joy_button(0) and !get_joy_button(1) 
-							and !get_joy_button(2) and !get_joy_button(3)
-							and !get_joy_button(4) and !get_joy_button(5)
-							and !get_joy_button(6) and !get_joy_button(7)
-							and !get_joy_button(8) and !get_joy_button(9)
-							and !get_joy_button(10) and !get_joy_button(11)) 
-								ops.gamepad.arriba=get_joy_position(1);
-								frame;
-							end
-							while(get_joy_button(0) or get_joy_button(1) 
-							or get_joy_button(2) or get_joy_button(3)
-							or get_joy_button(4) or get_joy_button(5)
-							or get_joy_button(6) or get_joy_button(7)
-							or get_joy_button(8) or get_joy_button(9)
-							or get_joy_button(10) or get_joy_button(11))
-								frame;
-							end
-							delete_text(id_texto);
-
-							id_texto=write(fuente[0],400,400,4,"Presiona derecha y luego pulsa un boton");
-
-							while(!get_joy_button(0) and !get_joy_button(1) 
-							and !get_joy_button(2) and !get_joy_button(3)
-							and !get_joy_button(4) and !get_joy_button(5)
-							and !get_joy_button(6) and !get_joy_button(7)
-							and !get_joy_button(8) and !get_joy_button(9)
-							and !get_joy_button(10) and !get_joy_button(11))
-
-								ops.gamepad.derecha=get_joy_position(0);
-								frame;
-							end
-							while(get_joy_button(0) or get_joy_button(1) 
-							or get_joy_button(2) or get_joy_button(3)
-							or get_joy_button(4) or get_joy_button(5)
-							or get_joy_button(6) or get_joy_button(7)
-							or get_joy_button(8) or get_joy_button(9)
-							or get_joy_button(10) or get_joy_button(11))
-								frame;
-							end
-							delete_text(id_texto);
-
-							id_texto=write(fuente[0],400,400,4,"Presiona abajo y luego pulsa un boton");
-
-							while(!get_joy_button(0) and !get_joy_button(1) 
-							and !get_joy_button(2) and !get_joy_button(3)
-							and !get_joy_button(4) and !get_joy_button(5)
-							and !get_joy_button(6) and !get_joy_button(7)
-							and !get_joy_button(8) and !get_joy_button(9)
-							and !get_joy_button(10) and !get_joy_button(11))
-								ops.gamepad.abajo=get_joy_position(1);
-								frame;
-							end
-							while(get_joy_button(0) or get_joy_button(1) 
-							or get_joy_button(2) or get_joy_button(3)
-							or get_joy_button(4) or get_joy_button(5)
-							or get_joy_button(6) or get_joy_button(7)
-							or get_joy_button(8) or get_joy_button(9)
-							or get_joy_button(10) or get_joy_button(11))
-								frame;
-							end
-							delete_text(id_texto);
-
-							id_texto=write(fuente[0],400,400,4,"Presiona izquierda y luego pulsa un boton");
-					
-							while(!get_joy_button(0) and !get_joy_button(1) 
-							and !get_joy_button(2) and !get_joy_button(3)
-							and !get_joy_button(4) and !get_joy_button(5)
-							and !get_joy_button(6) and !get_joy_button(7)
-							and !get_joy_button(8) and !get_joy_button(9)
-							and !get_joy_button(10) and !get_joy_button(11))
-								ops.gamepad.izquierda=get_joy_position(0);
-								frame;
-							end
-							while(get_joy_button(0) or get_joy_button(1) 
-							or get_joy_button(2) or get_joy_button(3)
-							or get_joy_button(4) or get_joy_button(5)
-							or get_joy_button(6) or get_joy_button(7)
-							or get_joy_button(8) or get_joy_button(9)
-							or get_joy_button(10) or get_joy_button(11))
-								frame;
-							end
-							delete_text(id_texto);
----------------------------------------------------------	*/
-							id_texto=write(fuente[0],ancho_pantalla/2,400,4,"Pulsa un boton para disparar");
+							id_texto=write(fuente[0],ancho_pantalla/2,400,4,textos[19]);
 							repeat
 								from a=0 to 11;
 									if(get_joy_button(0,a))
@@ -1056,7 +981,7 @@ begin
 							end
 							delete_text(id_texto);
 
-							id_texto=write(fuente[0],ancho_pantalla/2,400,4,"Pulsa un boton para disparar una bomba");
+							id_texto=write(fuente[0],ancho_pantalla/2,400,4,textos[20]);
 							repeat
 								from a=0 to 11;
 									if(get_joy_button(0,a))
@@ -1073,7 +998,7 @@ begin
 							end
 							delete_text(id_texto);
 
-							id_texto=write(fuente[0],ancho_pantalla/2,400,4,"Pulsa un boton para cambiar arma");
+							id_texto=write(fuente[0],ancho_pantalla/2,400,4,textos[21]);
 							repeat
 								from a=0 to 11;
 									if(get_joy_button(0,a))
@@ -1159,12 +1084,12 @@ begin
 				end
 			end
 		end
-		if(p[0].botones[4] and volver_a_menu!=num_menu)
+		if(p[0].botones[b_cancelar] and volver_a_menu!=num_menu)
 			delete_text(all_text);
 			
 			suena(s_aceptar);
 			
-			while(p[0].botones[5]) scroll.x0+=3; frame; end
+			while(p[0].botones[b_aceptar]) scroll.x0+=3; frame; end
 			menu(volver_a_menu);
 			
 		end
@@ -1228,11 +1153,11 @@ begin
 	if(alto_pantalla<720)
 		size=70;
 	end
-	while(not p[0].botones[5])
+	while(not p[0].botones[b_aceptar])
 		scroll.x0+=3;
 		frame;
 	end
-	while(p[0].botones[5])
+	while(p[0].botones[b_aceptar])
 		scroll.x0+=3;
 		frame;
 	end
