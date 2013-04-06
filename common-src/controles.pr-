@@ -53,7 +53,8 @@ Global
 	key_b_1=_A;
 	key_b_2=_S;
 	key_b_3=_D;
-	key_b_salir=_ESC;	
+	key_b_salir1=_ESC;
+	key_b_salir2=_ESC;
 End
 
 Process controlador(jugador);
@@ -116,7 +117,7 @@ Begin
 			If(key(key_b_1)) p[jugador].botones[4]=1; End
 			If(key(key_b_2)) p[jugador].botones[5]=1; End
 			If(key(key_b_3)) p[jugador].botones[6]=1; End
-			if(key(key_b_salir)) p[jugador].botones[7]=1; end
+			if(key(key_b_salir1) or key(key_b_salir2)) p[jugador].botones[7]=1; end
 		End
 		If(p[jugador].control>0)  // joysticks
 			POV=joy_gethat(joysticks[p[jugador].control],0); POVx=0; POVy=0;
@@ -179,7 +180,7 @@ Begin
 				If(joy_getbutton(joysticks[p[jugador].control],5) or joy_getbutton(joysticks[p[jugador].control],21)) p[jugador].botones[b_2]=1; End
 				If(joy_getbutton(joysticks[p[jugador].control],6) or joy_getbutton(joysticks[p[jugador].control],22)) p[jugador].botones[b_3]=1; End
 				If(joy_getbutton(joysticks[p[jugador].control],19) or joy_getbutton(joysticks[p[jugador].control],9)) p[jugador].botones[b_salir]=1; End
-				if(key(key_b_salir)) p[jugador].botones[b_salir]=1; end
+				if(key(key_b_salir1) or key(key_b_salir2)) p[jugador].botones[b_salir]=1; end
 			else
 				If(get_joy_button(joysticks[p[jugador].control],joy_profiles[joysticks[p[jugador].control]]._b_1)) p[jugador].botones[4]=1; End
 				If(get_joy_button(joysticks[p[jugador].control],joy_profiles[joysticks[p[jugador].control]]._b_2)) p[jugador].botones[5]=1; End
@@ -289,7 +290,8 @@ Begin
 	end
 	
 	if(os_id==1003) //android!
-		key_b_salir=102;
+		key_b_salir1=102;
+		key_b_salir2=97;
 		if(posibles_jugadores>1) //con joysticks, sin gamepadvirtual
 			posibles_jugadores--;
 		else
