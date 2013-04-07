@@ -437,11 +437,9 @@ end
 
 process mueve_fondo();
 Begin
-	gravedad=30;
 	loop
-		x-=3+gravedad/2;
-		y-=3+gravedad/2;
-		if(gravedad>0) gravedad--; end
+		x-=3;
+		y-=3;
 		frame;
 	end
 End

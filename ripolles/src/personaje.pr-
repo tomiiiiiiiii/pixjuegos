@@ -264,11 +264,13 @@ Begin
 								gravedad=-10;
 								altura=1;
 								retraso_movimiento_defensa=30;
+								flags=0;
 							else //derecha
 								x_inc+=10;
 								gravedad=-10;
 								altura=1;
 								retraso_movimiento_defensa=30;
+								flags=1;
 							end
 						end
 					end

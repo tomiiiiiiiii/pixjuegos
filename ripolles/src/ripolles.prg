@@ -46,6 +46,7 @@ Const
 	ataca_fuerte=14;
 	ataca_uppercut=15;
 	corre=16;
+	corre_objeto=17;
 	muere=-1;
 	
 	//objetos
@@ -228,7 +229,7 @@ Begin
 	end
 
 	if(os_id==1003) ops.lenguaje=0; end
-	
+
 	switch(ops.lenguaje)
 		case 1: lang_suffix="es"; end
 		default: lang_suffix="en"; end
@@ -292,15 +293,15 @@ Begin
 	from alpha=0 to 255 step 20; frame; end
 	timer[0]=0;
 
+	//configuramos controladores
+	configurar_controles();
+	controlador(0);
+	
 	//cargamos recursos
 	carga_fpgs();
 	carga_wavs();
 	carga_fnts();
 
-	//configuramos controladores
-	configurar_controles();
-	controlador(0);
-	
 	//recolocamos el centro de los objetos
 	recoloca_centros();
 	
@@ -769,9 +770,9 @@ Begin
 		end
 		if(father.accion==corre)
 			if(father.lleva_objeto>0)
-				father.animacion=camina_objeto;
+				father.animacion=corre_objeto;
 			else
-				father.animacion=camina;
+				father.animacion=corre;
 			end
 		end
 
@@ -987,6 +988,30 @@ Begin
 				father.graph=113;
 			end
 			anim_max=30;
+		end
+		case corre:
+			if(anim<4) 
+				father.graph=191;
+			elseif(anim<8)
+				father.graph=192;
+			elseif(anim<12)
+				father.graph=193;
+			else
+				father.graph=194;
+			end
+			anim_max=16;
+		end
+		case corre_objeto:
+			if(anim<4) 
+				father.graph=201;
+			elseif(anim<8)
+				father.graph=202;
+			elseif(anim<12)
+				father.graph=203;
+			else
+				father.graph=204;
+			end
+			anim_max=16;
 		end
 		case salta_objeto:
 			if(father.gravedad<0) //sube
