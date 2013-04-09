@@ -1,5 +1,6 @@
 Global
 	string textos_intro[50];
+	grafico_texto_intro;
 End
 
 Function textos_lenguaje();
@@ -160,7 +161,7 @@ End
 Process panel_texto();
 Begin
 	x=320;
-	y=391;
+	y=400;
 	z=100;
 	file=fpg_intro;
 	graph=20;
@@ -180,43 +181,57 @@ Begin
 End
 
 Process texto_intro(lintemp1,lintemp2,lintemp3,lintemp4,lintemp5);
+Private
+	temp_graph;
 Begin
+	if(grafico_texto_intro>0)
+		unload_map(0,grafico_texto_intro);
+	end
+	grafico_texto_intro=new_map(640,160,bpp);
 	if(textos_intro[lintemp1]!="") texto_intro_linea(1,lintemp1); end
 	if(textos_intro[lintemp2]!="") texto_intro_linea(2,lintemp2); end
 	if(textos_intro[lintemp3]!="") texto_intro_linea(3,lintemp3); end
 	if(textos_intro[lintemp4]!="") texto_intro_linea(4,lintemp4); end
 	if(textos_intro[lintemp5]!="") texto_intro_linea(5,lintemp5); end
+	
+	x=320;
+	y=390;
+	temp_graph=father.graph;
+	graph=grafico_texto_intro;
+	while(father.graph==temp_graph)
+		alpha=father.alpha;
+		frame;
+	end
 End
 
 Process texto_intro_linea(pos,lintemp);
-Private
-	temp_graph;
-	abuelo;
 Begin
 	texto_intro_linea_sombra(pos,lintemp,-2,-2);
-	texto_intro_linea_sombra(pos,lintemp,2,-2);
-	texto_intro_linea_sombra(pos,lintemp,-2,2);
-	texto_intro_linea_sombra(pos,lintemp,2,2);
 	texto_intro_linea_sombra(pos,lintemp,0,-2);
-	texto_intro_linea_sombra(pos,lintemp,-2,0);
+	texto_intro_linea_sombra(pos,lintemp,2,-2);
+	texto_intro_linea_sombra(pos,lintemp,-1,-1);
+	texto_intro_linea_sombra(pos,lintemp,0,-1);
+	texto_intro_linea_sombra(pos,lintemp,1,-1);
+	
+	texto_intro_linea_sombra(pos,lintemp,-2,2);
 	texto_intro_linea_sombra(pos,lintemp,0,2);
+	texto_intro_linea_sombra(pos,lintemp,2,2);
+	texto_intro_linea_sombra(pos,lintemp,-1,1);
+	texto_intro_linea_sombra(pos,lintemp,0,1);
+	texto_intro_linea_sombra(pos,lintemp,1,1);
+	
+	texto_intro_linea_sombra(pos,lintemp,-2,0);
 	texto_intro_linea_sombra(pos,lintemp,2,0);
-	y=317+(pos*27);
+	texto_intro_linea_sombra(pos,lintemp,-2,0);
+	texto_intro_linea_sombra(pos,lintemp,2,0);
+
+	
+	y=(pos*27);
 	x=320;
 	z=-512;
 	set_text_color(rgb(255,255,255));
 	graph=write_in_map(fnt_intro,textos_intro[lintemp],4);
-	abuelo=father.father;
-	temp_graph=abuelo.graph;
-	loop
-		if(exists(abuelo))
-			alpha=abuelo.alpha;
-			if(abuelo.graph!=temp_graph) break; end
-		else
-			break;
-		end
-		frame;
-	end
+	map_put(0,grafico_texto_intro,graph,x,y);
 	unload_map(0,graph);
 	return;
 End
@@ -226,22 +241,11 @@ Private
 	temp_graph;
 	abuelo;
 Begin
-	y=317+(pos*27)+offsety;
+	y=(pos*27)+offsety;
 	x=320+offsetx;
 	z=-511;
 	set_text_color(rgb(0,42,105));
 	graph=write_in_map(fnt_intro,textos_intro[lintemp],4);
-	abuelo=father.father.father;
-	temp_graph=abuelo.graph;
-	loop
-		if(exists(abuelo))
-			alpha=abuelo.alpha;
-			if(abuelo.graph!=temp_graph) break; end
-		else
-			break;
-		end
-		frame;
-	end
+	map_put(0,grafico_texto_intro,graph,x,y);
 	unload_map(0,graph);
-	return;
 End
