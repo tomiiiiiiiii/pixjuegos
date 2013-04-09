@@ -211,7 +211,8 @@ Begin
 	fpg_pix=load_fpg("fpg/pix.fpg");
 	fpg_pux=load_fpg("fpg/pux.fpg");
 	fpg_pax=load_fpg("fpg/pax.fpg");
-	if(lang_suffix!="") fpg_intro=load_fpg("fpg/intro-"+lang_suffix+".fpg"); end
+	//if(lang_suffix!="") fpg_intro=load_fpg("fpg/intro-"+lang_suffix+".fpg"); end
+	fpg_intro=load_fpg("fpg/intro.fpg");
 	fpg_jefes=load_fpg("fpg/jefes.fpg");
 	fnt_puntos=load_fnt("fnt/puntos.fnt");
 	fnt_texto1=load_fnt("fnt/texto1.fnt");

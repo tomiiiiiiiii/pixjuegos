@@ -1,15 +1,152 @@
+Global
+	string textos_intro[50];
+End
+
+Function textos_lenguaje();
+Begin
+	switch(ops.lenguaje)
+		case 0:
+			textos_intro[1]="Once upon a time there were three";
+			textos_intro[2]="brothers who really enjoyed playing";
+			textos_intro[3]="videogames. The three of them enjoyed";
+			textos_intro[4]="the same kind of games, but each";
+			textos_intro[5]="one had their favorite game.";
+			
+			textos_intro[6]="";
+			textos_intro[7]="Pix loved Snow Bros, where you play as a";
+			textos_intro[8]="Snowman that turns enemies into";
+			textos_intro[9]="snowballs and push them away.";
+			textos_intro[10]="";
+			
+			textos_intro[11]="";
+			textos_intro[12]="Pux just couldn't get enough of Bubble";
+			textos_intro[13]="Bobble, where you're a dragon who throws"; 
+			textos_intro[14]="bubbles to lock in your enemies.";
+			textos_intro[15]="";
+			
+			textos_intro[16]="";
+			textos_intro[17]="Pax was a fanatic of Tumple Top, whose main";
+			textos_intro[18]="character is a boy that vacuums monsters.";
+			textos_intro[19]="";
+			textos_intro[20]="";
+			
+			textos_intro[21]="";
+			textos_intro[22]="One day, they began arguing about";
+			textos_intro[23]="which hero was the greatest.";
+			textos_intro[24]="";
+			textos_intro[25]="";
+			
+			textos_intro[26]="After discussing it for a while, they";
+			textos_intro[27]="realized they were all alone in the";
+			textos_intro[28]="Arcades. Just as they were leaving";
+			textos_intro[29]="a door opened behind them.";
+			textos_intro[30]="";
+			
+			textos_intro[31]="";
+			textos_intro[32]="Right behind them, A door they had";
+			textos_intro[33]="never seen before, a door that";
+			textos_intro[34]="locked a misterious room.";
+			textos_intro[35]="";
+			
+			textos_intro[36]="When they entered the room, they";
+			textos_intro[37]="saw a special arcade machine,";
+			textos_intro[38]="with no joysticks...";
+			textos_intro[39]="Only 3 start buttons on it.";
+			textos_intro[40]="";
+			
+			textos_intro[41]="";
+			textos_intro[42]="If they had known what would happen to";
+			textos_intro[43]="them, they would have never pushed";
+			textos_intro[44]="those buttons... They just dissapeared.";
+			textos_intro[45]="";
+			
+			textos_intro[46]="";
+			textos_intro[47]="";
+			textos_intro[48]="";
+			textos_intro[49]="No one knows what happened to the three brothers.";
+			textos_intro[50]="";
+		end
+		case 1:
+			textos_intro[1]="érase una vez tres hermanos a los que";
+			textos_intro[2]="les encantaba jugar a los videojuegos.";
+			textos_intro[3]="los tres tenían gustos muy parecidos,";
+			textos_intro[4]="pero cada uno tenía su favorito.";
+			textos_intro[5]="";
+			
+			textos_intro[6]="a pix le encanta el snow bros, en";
+			textos_intro[7]="el cual maneja a un muñeco de nieve";
+			textos_intro[8]="que hace bolas de nieve con los";
+			textos_intro[9]="enemigos y luego las lanza.";
+			textos_intro[10]="";
+			
+			textos_intro[11]="";
+			textos_intro[12]="pux se habrá pasado mil veces el bubble";
+			textos_intro[13]="bobble, donde maneja a un dragón que"; 
+			textos_intro[14]="dispara burbujas que encierran enemigos.";
+			textos_intro[15]="";
+			
+			textos_intro[16]="";
+			textos_intro[17]="pax es un fanático del tumble pop, en el";
+			textos_intro[18]="que encarna a un chico que absorbe";
+			textos_intro[19]="enemigos con una aspiradora.";
+			textos_intro[20]="";
+			
+			textos_intro[21]="";
+			textos_intro[22]="y un día empezaron a discutir sobre";
+			textos_intro[23]="qué héroe de dichos juegos era";
+			textos_intro[24]="el mejor de todos.";
+			textos_intro[25]="";
+			
+			textos_intro[26]="cuando dejaron de discutir se dieron";
+			textos_intro[27]="cuenta de que se habían quedado solos";
+			textos_intro[28]="en los recreativos. se iban a marchar";
+			textos_intro[29]="ya, pero de pronto...";
+			textos_intro[30]="";
+			
+			textos_intro[31]="...oyen como una puerta se abre";
+			textos_intro[32]="detrás de ellos, una puerta que";
+			textos_intro[33]="nunca habían visto, que encerraba";
+			textos_intro[34]="una misteriosa habitación.";
+			textos_intro[35]="";
+			
+			textos_intro[36]="entraron en aquella habitación y";
+			textos_intro[37]="se encontraron con una máquina";
+			textos_intro[38]="recreativa un tanto especial:";
+			textos_intro[39]="no tenía ni joysticks ni botones...";
+			textos_intro[40]="solo tenía tres botones start";
+			
+			textos_intro[41]="";
+			textos_intro[42]="si hubieran sabido lo que les iba a pasar,";
+			textos_intro[43]="nunca hubieran pulsado aquellos botones.";
+			textos_intro[44]="nada más pulsarlos, desaparecieron y...";
+			textos_intro[45]="";
+			
+			textos_intro[46]="";
+			textos_intro[47]="";
+			textos_intro[48]="";
+			textos_intro[49]="... nadie sabe que ha sido de ellos";
+			textos_intro[50]="";
+		end
+		case 2:
+		end
+	end
+End
+
 Process intro();
 Begin
 	let_me_alone();
+	textos_lenguaje();
 	file=fpg_intro;
 	x=320;
-	y=240;
+	y=160;
 	z=-2;
 	graph=1;
 	saltable();
 	musica(103);
 	timer[3]=200;
+	panel_texto();
 	while(graph!=11)
+		texto_intro(((graph-1)*5)+1,((graph-1)*5)+2,((graph-1)*5)+3,((graph-1)*5)+4,((graph-1)*5)+5);
 		timer[3]=0;
 		from alpha=0 to 255 step 20; frame; end
 		while(timer[3]<800) frame; end
@@ -20,6 +157,19 @@ Begin
 	menu();
 End
 
+Process panel_texto();
+Begin
+	x=320;
+	y=391;
+	z=100;
+	file=fpg_intro;
+	graph=20;
+	while(exists(father))
+		alpha=father.alpha;
+		frame;
+	end
+End
+
 Process saltable();
 Begin
 	controlador(0);
@@ -27,4 +177,71 @@ Begin
 		if(p[0].botones[4] or p[0].botones[5] or p[0].botones[6]) signal(father,s_kill); menu(); end
 		frame;
 	end
+End
+
+Process texto_intro(lintemp1,lintemp2,lintemp3,lintemp4,lintemp5);
+Begin
+	if(textos_intro[lintemp1]!="") texto_intro_linea(1,lintemp1); end
+	if(textos_intro[lintemp2]!="") texto_intro_linea(2,lintemp2); end
+	if(textos_intro[lintemp3]!="") texto_intro_linea(3,lintemp3); end
+	if(textos_intro[lintemp4]!="") texto_intro_linea(4,lintemp4); end
+	if(textos_intro[lintemp5]!="") texto_intro_linea(5,lintemp5); end
+End
+
+Process texto_intro_linea(pos,lintemp);
+Private
+	temp_graph;
+	abuelo;
+Begin
+	texto_intro_linea_sombra(pos,lintemp,-2,-2);
+	texto_intro_linea_sombra(pos,lintemp,2,-2);
+	texto_intro_linea_sombra(pos,lintemp,-2,2);
+	texto_intro_linea_sombra(pos,lintemp,2,2);
+	texto_intro_linea_sombra(pos,lintemp,0,-2);
+	texto_intro_linea_sombra(pos,lintemp,-2,0);
+	texto_intro_linea_sombra(pos,lintemp,0,2);
+	texto_intro_linea_sombra(pos,lintemp,2,0);
+	y=317+(pos*27);
+	x=320;
+	z=-512;
+	set_text_color(rgb(255,255,255));
+	graph=write_in_map(fnt_intro,textos_intro[lintemp],4);
+	abuelo=father.father;
+	temp_graph=abuelo.graph;
+	loop
+		if(exists(abuelo))
+			alpha=abuelo.alpha;
+			if(abuelo.graph!=temp_graph) break; end
+		else
+			break;
+		end
+		frame;
+	end
+	unload_map(0,graph);
+	return;
+End
+
+Process texto_intro_linea_sombra(pos,lintemp,offsetx,offsety);
+Private
+	temp_graph;
+	abuelo;
+Begin
+	y=317+(pos*27)+offsety;
+	x=320+offsetx;
+	z=-511;
+	set_text_color(rgb(0,42,105));
+	graph=write_in_map(fnt_intro,textos_intro[lintemp],4);
+	abuelo=father.father.father;
+	temp_graph=abuelo.graph;
+	loop
+		if(exists(abuelo))
+			alpha=abuelo.alpha;
+			if(abuelo.graph!=temp_graph) break; end
+		else
+			break;
+		end
+		frame;
+	end
+	unload_map(0,graph);
+	return;
 End
