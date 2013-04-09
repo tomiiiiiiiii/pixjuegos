@@ -273,11 +273,7 @@ begin
 			frame;
 		end
 	end
-	#IFDEF OUYA
-		menu();
-	#ELSE
-		intro();
-	#ENDIF
+	intro();
 end
 
 process nivel();
