@@ -12,7 +12,7 @@ begin
 	delete_text(all_text);
 	
 	x=ancho_pantalla/2;
-	write(fuente[0],x,150,4,textos[49]);
+	write(fuente[0],x,150,4,textos[113]);
 	
 	timer[2]=0;
 	while(timer[2]<50)

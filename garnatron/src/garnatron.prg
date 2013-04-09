@@ -55,7 +55,7 @@ Global
 	habil[5]=0,1,1,1,1;
 	puntos[5];
 
-	string textos[200];
+	string textos[500];
 	
 	arcade_mode=0;
 
@@ -308,7 +308,7 @@ BEGIN
 
 	fuente[0]=load_fnt("fnt/fuente.fnt"); frame;
 
-	write(fuente[0],ancho_pantalla/2,alto_pantalla/2,4,textos[51]);
+	write(fuente[0],ancho_pantalla/2,alto_pantalla/2,4,textos[0]);
 
 	frame;
 	//--------------------------------------------------------Cargando archivos
@@ -391,7 +391,7 @@ begin
 			frame;
 		end
 
-		letra(textos[0],ancho_pantalla/2,alto_pantalla/2,4);
+		letra(textos[10],ancho_pantalla/2,alto_pantalla/2,4);
 		timer[2]=0;
 		while(timer[2]<600)
 			if(scan_code) 
@@ -452,7 +452,7 @@ begin
 			end
 		end
 		
-		letra(textos[1],200,200,1);
+		letra(textos[11],200,200,1);
 		timer[2]=0;
 		while(timer[2]<600)
 			if(id_nave[1].x<1600)
@@ -464,7 +464,7 @@ begin
 			frame;
 		end
 	
-		letra(textos[2],ancho_pantalla-200,200,3);
+		letra(textos[12],ancho_pantalla-200,200,3);
 		letra("Carles Vicent",ancho_pantalla-200,230,3);
 		timer[2]=0;
 		while(timer[2]<400)
@@ -477,7 +477,7 @@ begin
 			frame;
 		end
 	
-		letra(textos[3],ancho_pantalla-200,alto_pantalla-200,0);
+		letra(textos[13],ancho_pantalla-200,alto_pantalla-200,0);
 		letra("PiXeL",ancho_pantalla-200,alto_pantalla-200+30,0);
 		timer[2]=0;
 		while(timer[2]<400)
@@ -490,7 +490,7 @@ begin
 			frame;
 		end
 	
-		letra(textos[4],200,alto_pantalla-200,2);
+		letra(textos[14],200,alto_pantalla-200,2);
 		letra("Carles Vicent",200,alto_pantalla-200+30,2);
 		letra("DaniGM",200,alto_pantalla-200+60,2);
 		timer[2]=0;
@@ -504,7 +504,7 @@ begin
 			frame;
 		end
 
-		letra(textos[5],ancho_pantalla-200,200,3);
+		letra(textos[15],ancho_pantalla-200,200,3);
 		letra("DIV 2 Games Studio",ancho_pantalla-200,230,3);
 		timer[2]=0;
 		while(timer[2]<400)
@@ -517,7 +517,7 @@ begin
 			frame;
 		end
 	
-		letra(textos[6],ancho_pantalla-200,alto_pantalla-200,0);
+		letra(textos[16],ancho_pantalla-200,alto_pantalla-200,0);
 		letra("Chewrafa",ancho_pantalla-200,alto_pantalla-200+30,0);
 		timer[2]=0;
 		while(timer[2]<400)
@@ -530,11 +530,24 @@ begin
 			frame;
 		end
 		
-		letra(textos[7],200,200,1);
-		letra("Pablo",200,230,1);
-		letra("Nerea",200,260,1);
-		letra("Nicolas",200,290,1);
-		letra("Ana",200,320,1);
+		letra(textos[17],200,200,1);
+		letra("Carles Vicent",200,230,1);
+		letra("PiXeL",200,260,1);
+		while(timer[2]<400)
+			if(id_nave[1].x<1600)
+				from jugador=1 to jugadores;
+					id_nave[jugador].x+=1;
+				end
+			end
+			scroll.x0+=3;
+			frame;
+		end
+		
+		letra(textos[18],200,alto_pantalla-200,2);
+		letra("Pablo",200,alto_pantalla-230,2);
+		letra("Nerea",200,alto_pantalla-260,2);
+		letra("Nicolas",200,alto_pantalla-290,2);
+		letra("Ana",200,alto_pantalla-320,2);
 		timer[2]=0;
 		while(timer[2]<400)
 			if(id_nave[1].x<1600)
@@ -546,7 +559,7 @@ begin
 			frame;
 		end
 
-		letra(textos[8],ancho_pantalla-200,200,3);
+		letra(textos[19],ancho_pantalla-200,200,3);
 		timer[2]=0;
 		while(timer[2]<400)
 			if(id_nave[1].x<1600)
@@ -558,7 +571,7 @@ begin
 			frame;
 		end
 
-		letra(textos[9],ancho_pantalla-200,alto_pantalla-200,0);
+		letra(textos[20],ancho_pantalla-200,alto_pantalla-200,0);
 		timer[2]=0;
 		while(timer[2]<600)
 			if(id_nave[1].x<1600)
@@ -570,7 +583,7 @@ begin
 			frame;
 		end
 
-		letra(textos[10],ancho_pantalla/2,alto_pantalla/2,4);
+		letra(textos[21],ancho_pantalla/2,alto_pantalla/2,4);
 		timer[2]=0;
 		while(timer[2]<600)
 			if(id_nave[1].x<1600)
@@ -653,7 +666,7 @@ begin
 	
 	//modo arcade
 	if(arcade_mode==1 and num_menu==0)
-		write(fuente[0],ancho_pantalla/2,alto_pantalla/2,4,textos[11]);
+		write(fuente[0],ancho_pantalla/2,alto_pantalla/2,4,textos[100]);
 		while(not p[0].botones[b_2])
 			scroll.x0+=3;
 			if(p[0].botones[b_salir]) exit(); end
@@ -676,80 +689,88 @@ begin
 	//ponemos el menú actual
 	switch(num_menu)
 		case 0: //general
-			boton(x,y+=60,textos[22],1);
-			boton(x,y+=60,textos[23],2);
+			boton(x,y+=60,textos[110],1);
+			boton(x,y+=60,textos[111],2);
 			if(os_id!=1003)
-				boton(x,y+=60,textos[24],3);
-				boton(x,y+=60,textos[25],4);
-				boton(x,y+=60,textos[26],5);
-				boton(x,y+=60,textos[27],6);
+				boton(x,y+=60,textos[112],3);
+				boton(x,y+=60,textos[113],4);
+				boton(x,y+=60,textos[114],5);
+				boton(x,y+=60,textos[115],6);
 				num_opciones=6;
 			else
-				boton(x,y+=60,textos[25],3);
-				boton(x,y+=60,textos[26],4);
-				boton(x,y+=60,textos[27],5);
+				boton(x,y+=60,textos[113],3);
+				boton(x,y+=60,textos[114],4);
+				boton(x,y+=60,textos[115],5);
 				num_opciones=5;
 			end
 			volver_a_menu=0;
 		end
 		case 1: //opciones
-			boton(x,y+=60,textos[28],1);
-			boton(x,y+=60,textos[29],2);
+			boton(x,y+=60,textos[130],1);
+			boton(x,y+=60,textos[131],2);
+			boton(x,y+=60,textos[132],3);
 			if(ops.particulas==0)
-				boton(x,y+=60,textos[30]+textos[31],3);
+				boton(x,y+=60,textos[133]+textos[1],4);
 			else
-				boton(x,y+=60,textos[30]+textos[32],3);
+				boton(x,y+=60,textos[133]+textos[2],4);
 			end
-			boton(x,y+=60,textos[33],4);
-			num_opciones=4;
+			boton(x,y+=60,textos[101],5);
+			num_opciones=5;
 			volver_a_menu=0;
 		end
 		case 2: //video
-			boton(x,y+=60,textos[34],1);
-			boton(x,y+=60,textos[35],2);
-			boton(x,y+=60,textos[36],3);
-			boton(x,y+=60,textos[37],4);
-			boton(x,y+=60,textos[38],5);
-			boton(x,y+=60,textos[33],6);
-			num_opciones=6;
+			boton(x,y+=60,textos[140],1);
+			boton(x,y+=60,textos[141],2);
+			boton(x,y+=60,textos[142],3);
+			boton(x,y+=60,textos[143],4);
+			boton(x,y+=60,textos[101],5);
+			num_opciones=5;
 			volver_a_menu=0;
 		end
 		case 3: //control
-			boton(x,y+=60,textos[39],1);
-			boton(x,y+=60,textos[40],2);
-			boton(x,y+=60,textos[41],3);
-			boton(x,y+=60,textos[33],4);
+			boton(x,y+=60,textos[150],1);
+			boton(x,y+=60,textos[151],2);
+			boton(x,y+=60,textos[152],3);
+			boton(x,y+=60,textos[101],4);
 			num_opciones=4;
 			volver_a_menu=0;
 		end
 		case 4: //jugadores, juego nuevo
-			boton(x,y+=60,"1 "+textos[42],1);
-			boton(x,y+=60,"2 "+textos[42],2);
+			boton(x,y+=60,"1 "+textos[120],1);
+			boton(x,y+=60,"2 "+textos[121],2);
 			num_opciones=3;
 			if(posibles_jugadores>2)
 				num_opciones++;
-				boton(x,y+=60,"3 "+textos[43],3);
+				boton(x,y+=60,"3 "+textos[121],3);
 			end
 			if(posibles_jugadores>3)
 				num_opciones++;
-				boton(x,y+=60,"4 "+textos[43],4);
+				boton(x,y+=60,"4 "+textos[121],4);
 			end
-			boton(x,y+=60,+textos[33],num_opciones);
+			boton(x,y+=60,+textos[101],num_opciones);
 			volver_a_menu=0;
 		end
 		case 5: //jugadores, continuar
-			boton(x,y+=60,"1 "+textos[42],1);
-			boton(x,y+=60,"2 "+textos[43],2);
+			boton(x,y+=60,"1 "+textos[120],1);
+			boton(x,y+=60,"2 "+textos[121],2);
 			num_opciones=3;
 			if(posibles_jugadores>2)
 				num_opciones++;
-				boton(x,y+=60,"3 "+textos[43],3);
+				boton(x,y+=60,"3 "+textos[121],3);
 			end
 			if(posibles_jugadores>3)
 				num_opciones++;
-				boton(x,y+=60,"4 "+textos[43],4);
+				boton(x,y+=60,"4 "+textos[121],4);
 			end
-			boton(x,y+=60,+textos[33],num_opciones);
+			boton(x,y+=60,+textos[101],num_opciones);
+			volver_a_menu=0;
+		end
+		case 6: //idioma
+			boton(x,y+=60,textos[170],1);
+			boton(x,y+=60,textos[171],2);
+			boton(x,y+=60,textos[172],3);
+			boton(x,y+=60,textos[101],4);
+			num_opciones=4;
 			volver_a_menu=0;
 		end
 	end
@@ -818,7 +839,10 @@ begin
 						case 2:	//controles
 							menu(3);
 						end
-						case 3:	//particulas
+						case 3:	//idioma
+							menu(6);
+						end
+						case 4:	//particulas
 							if(ops.particulas==0)
 								ops.particulas=1;
 							else
@@ -826,7 +850,7 @@ begin
 							end
 							menu(1);
 						end
-						case 4:	//volver
+						case 5:	//volver
 							if(guardar)
 								guarda_opciones();
 							end
@@ -860,14 +884,14 @@ begin
 							set_mode(ancho_pantalla,alto_pantalla,bpp);
 							menu(2);
 						end
+				//		case 5:
+				//			ops.resolucion=2;
+				//			ancho_pantalla=1920;
+				//			alto_pantalla=1080;
+				//			set_mode(ancho_pantalla,alto_pantalla,bpp);
+				//			menu(2);
+				//		end
 						case 5:
-							ops.resolucion=2;
-							ancho_pantalla=1920;
-							alto_pantalla=1080;
-							set_mode(ancho_pantalla,alto_pantalla,bpp);
-							menu(2);
-						end
-						case 6:
 							menu(1);
 						end
 					end
@@ -880,7 +904,7 @@ begin
 							clear_screen();
 							delete_text(all_text);
 							
-							id_texto=write(fuente[0],ancho_pantalla/2,400,4,textos[12]);
+							id_texto=write(fuente[0],ancho_pantalla/2,400,4,textos[160]);
 							repeat
 								ops.teclado.arriba=scan_code;
 								frame;
@@ -889,7 +913,7 @@ begin
 							while(scan_code<>0) frame; scroll.x0+=3; end
 							delete_text(id_texto);
 	
-							id_texto=write(fuente[0],ancho_pantalla/2,400,4,textos[13]);
+							id_texto=write(fuente[0],ancho_pantalla/2,400,4,textos[161]);
 							Repeat
 								ops.teclado.derecha=scan_code;
 								frame;
@@ -898,7 +922,7 @@ begin
 							while(scan_code<>0) frame; scroll.x0+=3; end
 							delete_text(id_texto);
 
-							id_texto=write(fuente[0],ancho_pantalla/2,400,4,textos[14]);
+							id_texto=write(fuente[0],ancho_pantalla/2,400,4,textos[162]);
 							Repeat
 								ops.teclado.abajo=scan_code;
 								frame;
@@ -907,7 +931,7 @@ begin
 							while(scan_code<>0) frame; scroll.x0+=3; end
 							delete_text(id_texto);
 	
-							id_texto=write(fuente[0],ancho_pantalla/2,400,4,textos[15]);
+							id_texto=write(fuente[0],ancho_pantalla/2,400,4,textos[163]);
 							Repeat
 								ops.teclado.izquierda=scan_code;
 								frame;
@@ -916,7 +940,7 @@ begin
 							while(scan_code<>0) frame; scroll.x0+=3; end
 							delete_text(id_texto);
 	
-							id_texto=write(fuente[0],ancho_pantalla/2,400,4,textos[16]);
+							id_texto=write(fuente[0],ancho_pantalla/2,400,4,textos[164]);
 							Repeat
 								ops.teclado.disparar=scan_code;
 								frame;
@@ -925,7 +949,7 @@ begin
 							while(scan_code<>0) frame; scroll.x0+=3; end
 							delete_text(id_texto);
 
-							id_texto=write(fuente[0],ancho_pantalla/2,400,4,textos[17]);
+							id_texto=write(fuente[0],ancho_pantalla/2,400,4,textos[165]);
 							Repeat
 								ops.teclado.bomba=scan_code;
 								frame;
@@ -934,7 +958,7 @@ begin
 							while(scan_code<>0) frame; scroll.x0+=3; end
 							delete_text(id_texto);
 
-							id_texto=write(fuente[0],ancho_pantalla/2,400,4,textos[18]);
+							id_texto=write(fuente[0],ancho_pantalla/2,400,4,textos[166]);
 							Repeat
 								ops.teclado.cambiar=scan_code;
 								frame;
@@ -942,7 +966,6 @@ begin
 							until(ops.teclado.cambiar<>0);
 							while(scan_code<>0) frame; scroll.x0+=3; end
 							delete_text(id_texto);
-
 
 							frame;
 							
@@ -964,7 +987,7 @@ begin
 							clear_screen();
 							delete_text(all_text);
 
-							id_texto=write(fuente[0],ancho_pantalla/2,400,4,textos[19]);
+							id_texto=write(fuente[0],ancho_pantalla/2,400,4,textos[167]);
 							repeat
 								from a=0 to 11;
 									if(get_joy_button(0,a))
@@ -981,7 +1004,7 @@ begin
 							end
 							delete_text(id_texto);
 
-							id_texto=write(fuente[0],ancho_pantalla/2,400,4,textos[20]);
+							id_texto=write(fuente[0],ancho_pantalla/2,400,4,textos[168]);
 							repeat
 								from a=0 to 11;
 									if(get_joy_button(0,a))
@@ -998,7 +1021,7 @@ begin
 							end
 							delete_text(id_texto);
 
-							id_texto=write(fuente[0],ancho_pantalla/2,400,4,textos[21]);
+							id_texto=write(fuente[0],ancho_pantalla/2,400,4,textos[169]);
 							repeat
 								from a=0 to 11;
 									if(get_joy_button(0,a))
@@ -1082,6 +1105,28 @@ begin
 						fase(save.nivel);
 					end
 				end
+				case 6: //idioma
+					switch(opcion_actual)
+						case 1:	//ingles
+							ops.lenguaje=0;
+							carga_textos();
+							menu(6);
+						end
+						case 2:	//español
+							ops.lenguaje=1;
+							carga_textos();
+							menu(6);
+						end
+						case 3:	//catalan
+							ops.lenguaje=2;
+							carga_textos();
+							menu(6);
+						end
+						case 4:	//volver
+							menu(1);
+						end
+					end
+				end
 			end
 		end
 		if(p[0].botones[b_cancelar] and volver_a_menu!=num_menu)
@@ -1147,16 +1192,42 @@ begin
 	delete_text(all_text);
 	controlador(0);
 	file=fpg_menu;
-	if(ops.lenguaje==0)
-		graph=5;
-	else
-		graph=4;
-	end
+
+	graph=5;
+
 	x=ancho_pantalla/2;
 	y=alto_pantalla/2;
-	if(alto_pantalla<720)
-		size=70;
-	end
+	
+	write(fuente[0],ancho_pantalla/2 + 360,alto_pantalla/2 - 265,4,textos[114]); //Título
+	
+	write(fuente[0],ancho_pantalla/2 - 450,alto_pantalla/2 - 275,4,textos[400]);
+	write(fuente[0],ancho_pantalla/2 - 385,alto_pantalla/2 - 250,4,textos[401]);
+	write(fuente[0],ancho_pantalla/2 - 140,alto_pantalla/2 - 270,4,textos[402]);
+	write(fuente[0],ancho_pantalla/2 - 40,alto_pantalla/2 - 250,4,textos[403]);
+	
+	write(fuente[0],ancho_pantalla/2 + 70,alto_pantalla/2 - 190,3,textos[404]);
+	write(fuente[0],ancho_pantalla/2 + 70,alto_pantalla/2 - 150,3,textos[405]);
+	write(fuente[0],ancho_pantalla/2 + 70,alto_pantalla/2 - 110,3,textos[406]);
+	write(fuente[0],ancho_pantalla/2 + 70,alto_pantalla/2 - 70,3,textos[407]);
+	write(fuente[0],ancho_pantalla/2 + 70,alto_pantalla/2 - 30,3,textos[408]);
+	
+	write(fuente[0],ancho_pantalla/2 - 450,alto_pantalla/2 + 200,3,textos[409]); //Armas
+	
+	write(fuente[0],ancho_pantalla/2 - 200,alto_pantalla/2 + 200,5,textos[410]);
+	write(fuente[0],ancho_pantalla/2 - 200,alto_pantalla/2 + 260,5,textos[411]);
+	
+	write(fuente[0],ancho_pantalla/2 + 100,alto_pantalla/2 + 200,5,textos[412]);
+	write(fuente[0],ancho_pantalla/2 + 100,alto_pantalla/2 + 260,5,textos[413]);
+	
+	write(fuente[0],ancho_pantalla/2 + 360,alto_pantalla/2 + 200,5,textos[414]);
+	write(fuente[0],ancho_pantalla/2 + 360,alto_pantalla/2 + 260,5,textos[415]);
+	
+	write(fuente[0],ancho_pantalla/2 + 70,alto_pantalla/2 + 20,400,3,textos[416]); //Bono
+	
+	write(fuente[0],ancho_pantalla/2 + 70,alto_pantalla/2 + 80,3,textos[417]);
+	write(fuente[0],ancho_pantalla/2 + 210,alto_pantalla/2 + 80,3,textos[418]);
+	write(fuente[0],ancho_pantalla/2 + 360,alto_pantalla/2 + 80,3,textos[419]);
+	
 	while(not p[0].botones[b_aceptar])
 		scroll.x0+=3;
 		frame;
@@ -1226,10 +1297,10 @@ end
 process estela(x,y,angle,file,graph);
 Begin
 	z-=10;
-		from alpha=255 to 0 step -20;
-		while(pausa!=0) frame; end
-		frame;
-		end
+	from alpha=255 to 0 step -20;
+	while(pausa!=0) frame; end
+	frame;
+	end
 end
 
 
@@ -1239,8 +1310,10 @@ end
 
 process objeto(x,y,graph,file,size,flags);
 begin
-z=-90;
-loop frame; end
+	z=-90;
+	loop 
+		frame;
+	end
 end
 
 

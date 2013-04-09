@@ -103,7 +103,7 @@ Begin
 	graph=20;
 	direccion=1;
 
-	id_texto=write(fuente[0],x,y,4,textos[44]+nivel);
+	id_texto=write(fuente[0],x,y,4,textos[200]+nivel);
 
 	fade_on();
 	timer[2]=0;
@@ -177,11 +177,11 @@ Begin
 				pausa=1;
 				graph=20;
 				direccion=1;
-				id_texto=write(fuente[0],x,y,4,textos[45]);
+				id_texto=write(fuente[0],x,y,4,textos[201]);
 				boton(ancho_pantalla/2,alto_pantalla/2 + 100,"",1);
-				id_texto1=write(fuente[0],ancho_pantalla/2,alto_pantalla/2 + 100,4,textos[31]);
+				id_texto1=write(fuente[0],ancho_pantalla/2,alto_pantalla/2 + 100,4,textos[1]);
 				boton(ancho_pantalla/2,alto_pantalla/2 + 150,"",2);
-				id_texto2=write(fuente[0],ancho_pantalla/2,alto_pantalla/2 + 150,4,textos[32]);
+				id_texto2=write(fuente[0],ancho_pantalla/2,alto_pantalla/2 + 150,4,textos[2]);
 				opcion=1;
 			else
 				pausa=0;
@@ -248,8 +248,8 @@ Begin
 				graph=20;
 				direccion=1;
 
-				id_texto=write(fuente[0],x,y,4,textos[44]+nivel);
-				id_texto1=write(fuente[0],x-5,y+15,4,textos[46]);
+				id_texto=write(fuente[0],x,y,4,textos[200]+nivel);
+				id_texto1=write(fuente[0],x-5,y+15,4,textos[202]);
 				timer[2]=0;
 				while(timer[2]<500)
 					if(direccion==1) graph++; else graph--; end
@@ -270,8 +270,8 @@ Begin
 //				delete_text(all_text);
 				graph=20;
 				direccion=1;
-				id_texto=write(fuente[0],x,y-7,4,textos[47]);
-				id_texto1=write(fuente[0],x-5,y+7,4,textos[48]);
+				id_texto=write(fuente[0],x,y-7,4,textos[203]);
+				id_texto1=write(fuente[0],x-5,y+7,4,textos[204]);
 				timer[2]=0;
 				while(timer[2]<500)
 					if(direccion==1) graph++; else graph--; end
