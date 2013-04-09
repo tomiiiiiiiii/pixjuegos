@@ -55,7 +55,7 @@ Global
 	habil[5]=0,1,1,1,1;
 	puntos[5];
 
-	string textos[500];
+	string textos[200];
 	
 	arcade_mode=0;
 
@@ -1198,35 +1198,35 @@ begin
 	x=ancho_pantalla/2;
 	y=alto_pantalla/2;
 	
-	write(fuente[0],ancho_pantalla/2 + 360,alto_pantalla/2 - 265,4,textos[114]); //Título
+	write(fuente[0],ancho_pantalla/2 + 360,alto_pantalla/2 - 245,4,textos[114]); //Título
 	
-	write(fuente[0],ancho_pantalla/2 - 450,alto_pantalla/2 - 275,4,textos[400]);
-	write(fuente[0],ancho_pantalla/2 - 385,alto_pantalla/2 - 250,4,textos[401]);
-	write(fuente[0],ancho_pantalla/2 - 140,alto_pantalla/2 - 270,4,textos[402]);
-	write(fuente[0],ancho_pantalla/2 - 40,alto_pantalla/2 - 250,4,textos[403]);
+	write(fuente[0],ancho_pantalla/2 - 430,alto_pantalla/2 - 250,4,textos[70]);
+	write(fuente[0],ancho_pantalla/2 - 350,alto_pantalla/2 - 220,4,textos[71]);
+	write(fuente[0],ancho_pantalla/2 - 170,alto_pantalla/2 - 250,4,textos[72]);
+	write(fuente[0],ancho_pantalla/2 - 90,alto_pantalla/2 - 220,4,textos[73]);
 	
-	write(fuente[0],ancho_pantalla/2 + 70,alto_pantalla/2 - 190,3,textos[404]);
-	write(fuente[0],ancho_pantalla/2 + 70,alto_pantalla/2 - 150,3,textos[405]);
-	write(fuente[0],ancho_pantalla/2 + 70,alto_pantalla/2 - 110,3,textos[406]);
-	write(fuente[0],ancho_pantalla/2 + 70,alto_pantalla/2 - 70,3,textos[407]);
-	write(fuente[0],ancho_pantalla/2 + 70,alto_pantalla/2 - 30,3,textos[408]);
+	write(fuente[0],ancho_pantalla/2 + 20,alto_pantalla/2 - 170,3,textos[74]);
+	write(fuente[0],ancho_pantalla/2 + 20,alto_pantalla/2 - 130,3,textos[75]);
+	write(fuente[0],ancho_pantalla/2 + 20,alto_pantalla/2 - 90,3,textos[76]);
+	write(fuente[0],ancho_pantalla/2 + 20,alto_pantalla/2 - 50,3,textos[77]);
+	write(fuente[0],ancho_pantalla/2 + 20,alto_pantalla/2 - 10,3,textos[78]);
 	
-	write(fuente[0],ancho_pantalla/2 - 450,alto_pantalla/2 + 200,3,textos[409]); //Armas
+	write(fuente[0],ancho_pantalla/2 - 450,alto_pantalla/2 + 180,3,textos[79]); //Armas
 	
-	write(fuente[0],ancho_pantalla/2 - 200,alto_pantalla/2 + 200,5,textos[410]);
-	write(fuente[0],ancho_pantalla/2 - 200,alto_pantalla/2 + 260,5,textos[411]);
+	write(fuente[0],ancho_pantalla/2 - 190,alto_pantalla/2 + 180,5,textos[80]);
+	write(fuente[0],ancho_pantalla/2 - 190,alto_pantalla/2 + 250,5,textos[81]);
 	
-	write(fuente[0],ancho_pantalla/2 + 100,alto_pantalla/2 + 200,5,textos[412]);
-	write(fuente[0],ancho_pantalla/2 + 100,alto_pantalla/2 + 260,5,textos[413]);
+	write(fuente[0],ancho_pantalla/2 + 90,alto_pantalla/2 + 180,5,textos[82]);
+	write(fuente[0],ancho_pantalla/2 + 90,alto_pantalla/2 + 250,5,textos[83]);
 	
-	write(fuente[0],ancho_pantalla/2 + 360,alto_pantalla/2 + 200,5,textos[414]);
-	write(fuente[0],ancho_pantalla/2 + 360,alto_pantalla/2 + 260,5,textos[415]);
+	write(fuente[0],ancho_pantalla/2 + 370,alto_pantalla/2 + 180,5,textos[84]);
+	write(fuente[0],ancho_pantalla/2 + 370,alto_pantalla/2 + 250,5,textos[85]);
 	
-	write(fuente[0],ancho_pantalla/2 + 70,alto_pantalla/2 + 20,400,3,textos[416]); //Bono
+	write(fuente[0],ancho_pantalla/2 + 20,alto_pantalla/2 + 50,400,3,textos[86]); //Bono
 	
-	write(fuente[0],ancho_pantalla/2 + 70,alto_pantalla/2 + 80,3,textos[417]);
-	write(fuente[0],ancho_pantalla/2 + 210,alto_pantalla/2 + 80,3,textos[418]);
-	write(fuente[0],ancho_pantalla/2 + 360,alto_pantalla/2 + 80,3,textos[419]);
+	write(fuente[0],ancho_pantalla/2 + 20,alto_pantalla/2 + 100,3,textos[87]);
+	write(fuente[0],ancho_pantalla/2 + 180,alto_pantalla/2 + 100,3,textos[88]);
+	write(fuente[0],ancho_pantalla/2 + 340,alto_pantalla/2 + 100,3,textos[89]);
 	
 	while(not p[0].botones[b_aceptar])
 		scroll.x0+=3;

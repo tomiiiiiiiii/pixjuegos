@@ -20,6 +20,37 @@ Begin
 			textos[21]="Thanks for playing!";
 			//high scores
 			textos[50]="New record! Input your name";
+			//niveles
+			textos[60]="AREA: ";
+			//-----
+			textos[61]="Quit";
+			textos[62]="game?";
+			//-----
+			textos[63]="completed";
+			//-----
+			textos[64]="GAME";
+			textos[65]="OVER";
+			//Instrucciones
+			textos[70]="Weapon";
+			textos[71]="Energy";
+			textos[72]="Shields";
+			textos[73]="Score";
+			textos[74]="Move: joystick / arrows";
+			textos[75]="Shoot: button 1 / a";
+			textos[76]="Shoot weapon: button 2 / s";
+			textos[77]="Change weapon: button 3 / d";
+			textos[78]="Exit: button 10 / esc";
+			textos[79]="Weapons:";
+			textos[80]="Super shoot";
+			textos[81]="Laser";
+			textos[82]="Laser wave";
+			textos[83]="Missile";
+			textos[84]="Barrier";
+			textos[85]="Laser flame";
+			textos[86]="Bonus:";
+			textos[87]="Shield";
+			textos[88]="Shoot";
+			textos[89]="Energy";
 			//menus
 			textos[100]="Press button 2 for start";
 			textos[101]="Back";
@@ -62,36 +93,7 @@ Begin
 			textos[170]="English";
 			textos[171]="Español";
 			textos[172]="Català";
-			//niveles
-			textos[200]="AREA: ";
-			//-----
-			textos[201]="Exit game?";
-			//-----
-			textos[202]="completed";
-			//-----
-			textos[203]="GAME";
-			textos[204]="OVER";
-			//Instrucciones
-			textos[400]="Weapon";
-			textos[401]="Energy";
-			textos[402]="Shields";
-			textos[403]="Score";
-			textos[404]="Move: joystick / arrows";
-			textos[405]="Shoot: button 1 / a";
-			textos[406]="Shoot weapon: button 2 / s";
-			textos[407]="Change weapon: button 3 / d";
-			textos[408]="Exit: button 10 / esc";
-			textos[409]="Weapons:";
-			textos[410]="Super shoot";
-			textos[411]="Laser";
-			textos[412]="Laser wave";
-			textos[413]="Missile";
-			textos[414]="Barrier";
-			textos[415]="Laser flame";
-			textos[416]="Bonus:";
-			textos[417]="Shield";
-			textos[418]="Shoot";
-			textos[419]="Energy";
+			
 		end
 		case 1: //español
 			textos[0]="Cargando...";
@@ -112,6 +114,37 @@ Begin
 			textos[21]="Gracias por jugar!";
 			//high scores
 			textos[50]="¡Nuevo record! Introduce tu nombre";
+			//niveles
+			textos[60]="AREA: ";
+			//-----
+			textos[61]="¿Salir de";
+			textos[62]="la partida?";
+			//-----
+			textos[63]="completada";
+			//-----
+			textos[64]="Fin del";
+			textos[65]="la partida";
+			//Instrucciones
+			textos[70]="Arma";
+			textos[71]="Energia";
+			textos[72]="Escudos";
+			textos[73]="Puntos";
+			textos[74]="Movimiento: palanca / flechas";
+			textos[75]="Disparar: botón 1 / a";
+			textos[76]="Disparar el arma: botón 2 / s";
+			textos[77]="Cambiar arma: botón 3 / d";
+			textos[78]="Exit: botón 10 / esc";
+			textos[79]="Armas:";
+			textos[80]="Super disparo";
+			textos[81]="Laser";
+			textos[82]="Onda laser";
+			textos[83]="Missil";
+			textos[84]="Barrera";
+			textos[85]="Llama laser";
+			textos[86]="Bonus:";
+			textos[87]="Escudo";
+			textos[88]="Disparo";
+			textos[89]="Energía";
 			//menus
 			textos[100]="Pulsa el boton 2 para empezar";
 			textos[101]="Volver";
@@ -154,36 +187,8 @@ Begin
 			textos[170]="English";
 			textos[171]="Español";
 			textos[172]="Català";
-			//niveles
-			textos[200]="AREA: ";
-			//-----
-			textos[201]="¿Salir de la partida?";
-			//-----
-			textos[202]="completada";
-			//-----
-			textos[203]="Fin del";
-			textos[204]="la partida";
-			//Instrucciones
-			textos[400]="Arma";
-			textos[401]="Energia";
-			textos[402]="Escudos";
-			textos[403]="Puntos";
-			textos[404]="Movimiento: palanca / flechas";
-			textos[405]="Disparar: botón 1 / a";
-			textos[406]="Disparar el arma: botón 2 / s";
-			textos[407]="Cambiar arma: botón 3 / d";
-			textos[408]="Exit: botón 10 / esc";
-			textos[409]="Armas:";
-			textos[410]="Super disparo";
-			textos[411]="Laser";
-			textos[412]="Onda laser";
-			textos[413]="Missil";
-			textos[414]="Barrera";
-			textos[415]="Llama laser";
-			textos[416]="Bonus:";
-			textos[417]="Escudo";
-			textos[418]="Disparo";
-			textos[419]="Energía";
+			
+			
 		end
 		case 2: //català
 			textos[0]="Carregant...";
@@ -194,16 +199,47 @@ Begin
 			textos[11]="Autors";
 			textos[12]="Programat per";
 			textos[13]="Ajudant";
-			textos[14]="Grafics";
+			textos[14]="Gràfics";
 			textos[15]="So";
 			textos[16]="Musica";
-			textos[17]="Traduit per";
-			textos[18]="Gracies a:";
+			textos[17]="Traduït per";
+			textos[18]="Gràcies a:";
 			textos[19]="Fet en Bennu";
 			textos[20]="Creat per PiX Juegos";
-			textos[21]="Gracies per jugar!";
+			textos[21]="Gràcies per jugar!";
 			//high scores
-			textos[50]="Nou record! Introdueix el teu nom";
+			textos[50]="Nou rècord! Introdueix el teu nom";
+			//niveles
+			textos[60]="ÀREA: ";
+			//-----
+			textos[61]="Sortir de";
+			textos[62]="la partida?";
+			//-----
+			textos[63]="Completada";
+			//-----
+			textos[64]="Fi del";
+			textos[65]="Joc";
+			//help
+			textos[70]="Arma";
+			textos[71]="Energia";
+			textos[72]="Escuts";
+			textos[73]="Punts";
+			textos[74]="Moviment: palanca / fletxes";
+			textos[75]="Disparar: botó 1 / a";
+			textos[76]="Disparar l'arma: botó 2 / s";
+			textos[77]="Canviar d'arma: botó 3 / d";
+			textos[78]="Sortir: botó 10 / esc";
+			textos[79]="Armes";
+			textos[80]="Súper tret";
+			textos[81]="Làser";
+			textos[82]="Ona làser";
+			textos[83]="Míssil";
+			textos[84]="Barrera";
+			textos[85]="Flama laser";
+			textos[86]="Millores";
+			textos[87]="Escut";
+			textos[88]="Tret";
+			textos[89]="Energia";
 			//menus
 			textos[100]="Pressiona el botó 2 per començar";
 			textos[101]="Tornar";
@@ -213,15 +249,15 @@ Begin
 			textos[112]="Opcions";
 			textos[113]="Puntuacions";
 			textos[114]="Ajuda";
-			textos[115]="Eixir";
+			textos[115]="Sortir";
 			//-----
 			textos[120]="Jugador";
 			textos[121]="Jugadors";
 			//-----
-			textos[130]="Video";
+			textos[130]="Vídeo";
 			textos[131]="Controls";
 			textos[132]="Llengua";
-			textos[133]="Particules: ";
+			textos[133]="Partícules: ";
 			//-----
 			textos[140]="Pantalla completa";
 			textos[141]="Finestra";
@@ -233,49 +269,19 @@ Begin
 			textos[152]="Valors per defecte";
 			//-----
 			textos[160]="Pressiona una tecla per pujar";
-			textos[161]="Pressiona una tecla per dreta";
+			textos[161]="Pressiona una tecla per la dreta";
 			textos[162]="Pressiona una tecla per baixar";
-			textos[163]="Pressiona una tecla per esquerra";
+			textos[163]="Pressiona una tecla per l'esquerra";
 			textos[164]="Pressiona una tecla per disparar";
 			textos[165]="Pressiona una tecla per dispara l'arma";
-			textos[166]="Pressiona una tecla per cambiar l'arma";
+			textos[166]="Pressiona una tecla per canviar l'arma";
 			textos[167]="Pressiona un botó per disparar";
 			textos[168]="Pressiona un botó per dispara l'arma";
-			textos[169]="Pressiona un botó per cambiar l'arma";
+			textos[169]="Pressiona un botó per canviar l'arma";
 			//-----
 			textos[170]="English";
 			textos[171]="Español";
 			textos[172]="Català";
-			//niveles
-			textos[200]="AREA: ";
-			//-----
-			textos[201]="Eixir de la partida?";
-			//-----
-			textos[202]="Completada";
-			//-----
-			textos[203]="Fi del";
-			textos[204]="Joc";
-			//help
-			textos[400]="Arma";
-			textos[401]="Energía";
-			textos[402]="Escuts";
-			textos[403]="Punts";
-			textos[404]="Moviment: palanca / fexes";
-			textos[405]="Disparar: botó 1 / a";
-			textos[406]="Disparar l'arma: botó 2 / s";
-			textos[407]="Cambiar d'arma: botó 3 / d";
-			textos[408]="Eixir: botó 10 / esc";
-			textos[409]="Armes";
-			textos[410]="Super tret";
-			textos[411]="Laser";
-			textos[412]="Ona laser";
-			textos[413]="Mísil";
-			textos[414]="Barrera";
-			textos[415]="Flama laser";
-			textos[416]="Bonus";
-			textos[417]="Escut";
-			textos[418]="Tret";
-			textos[419]="Energía";
 		end
 	end
 End
