@@ -119,13 +119,22 @@ begin
 		case 2: //opciones
 			switch(ops.lenguaje)
 				case 0:
-					write(fnt_menu,x,y+=distancia_opciones,3,"Full screen"); estado_opcion(y,1);
-					write(fnt_menu,x,y+=distancia_opciones,3,"Sound"); estado_opcion(y,2);
-					write(fnt_menu,x,y+=distancia_opciones,3,"Music"); estado_opcion(y,3);
-					num_opciones=3;
-					if(ops.truco_pato=>0) write(fnt_menu,x,y+=distancia_opciones,3,"Play as Pato"); estado_opcion(y,4); num_opciones++; end
-					if(ops.truco_fuego_amigo=>0) write(fnt_menu,x,y+=distancia_opciones,3,"Friendly fire"); estado_opcion(y,5); num_opciones++; end
-					if(ops.truco_sin_bandos=>0)write(fnt_menu,x,y+=distancia_opciones,3,"No bands"); estado_opcion(y,6); num_opciones++; end
+					if(os_id!=1003)
+						write(fnt_menu,x,y+=distancia_opciones,3,"Full screen"); estado_opcion(y,1);
+						write(fnt_menu,x,y+=distancia_opciones,3,"Sound"); estado_opcion(y,2);
+						write(fnt_menu,x,y+=distancia_opciones,3,"Music"); estado_opcion(y,3);
+						num_opciones=3;
+						if(ops.truco_pato=>0) write(fnt_menu,x,y+=distancia_opciones,3,"Play as Pato"); estado_opcion(y,4); num_opciones++; end
+						if(ops.truco_fuego_amigo=>0) write(fnt_menu,x,y+=distancia_opciones,3,"Friendly fire"); estado_opcion(y,5); num_opciones++; end
+						if(ops.truco_sin_bandos=>0)write(fnt_menu,x,y+=distancia_opciones,3,"No bands"); estado_opcion(y,6); num_opciones++; end
+					else
+						write(fnt_menu,x,y+=distancia_opciones,3,"Sound"); estado_opcion(y,2);
+						write(fnt_menu,x,y+=distancia_opciones,3,"Music"); estado_opcion(y,3);
+						num_opciones=2;
+						if(ops.truco_pato=>0) write(fnt_menu,x,y+=distancia_opciones,3,"Play as Pato"); estado_opcion(y,4); num_opciones++; end
+						if(ops.truco_fuego_amigo=>0) write(fnt_menu,x,y+=distancia_opciones,3,"Friendly fire"); estado_opcion(y,5); num_opciones++; end
+						if(ops.truco_sin_bandos=>0)write(fnt_menu,x,y+=distancia_opciones,3,"No bands"); estado_opcion(y,6); num_opciones++; end
+					end
 				end
 				case 1:
 					write(fnt_menu,x,y+=distancia_opciones,3,"Pantalla completa"); estado_opcion(y,1);
@@ -281,8 +290,9 @@ begin
 					return;
 				end
 				case 2: //opciones
+					if(os_id==1003) opcion_actual++; end
 					switch(opcion_actual)
-						case 1: 
+						case 1:
 							if(os_id==os_win32 or os_id==os_linux)
 								if(ops.ventana) 
 									ops.ventana=0; 
@@ -324,6 +334,7 @@ begin
 							if(ops.truco_sin_bandos) ops.truco_sin_bandos=0; else ops.truco_sin_bandos=1; end
 						end
 					end
+					if(os_id==1003) opcion_actual--; end
 				end
 				case 3: //modo de juego
 					modo_juego=opcion_actual;

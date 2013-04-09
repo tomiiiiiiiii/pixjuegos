@@ -375,9 +375,11 @@ Begin
 	delete_text(all_text);
 	ganando=0;
 	en_emboscada=0;
+
 	if(partida_cargada==0)
 		anterior_emboscada=0;
 	end
+	
 	enemigos=0;
 	enemigos_matados=0;
 	if(fpg_nivel>0) unload_fpg(fpg_nivel); end
@@ -423,6 +425,8 @@ Begin
 	while(fading) frame; end
 
 	partida_cargada=1;
+	frame;
+	partida_cargada=0;
 	
 	ready=1;
 	
@@ -551,7 +555,11 @@ Begin
 			ops.truco_fuego_amigo++; //jugador secreto Pato disponible
 			guarda_opciones();
 			if(ops.truco_fuego_amigo==0)
-				truco_descubierto("Fuego amigo desbloqueado!");
+				switch(ops.lenguaje)
+					case 0: truco_descubierto("Friendly fire unlocked!"); end
+					case 1: truco_descubierto("Fuego amigo desbloqueado!"); end
+					case 2: truco_descubierto("Fuego amigo desbloqueado!"); end
+				end
 				while(exists(type truco_descubierto)) frame; end
 			end
 		end
@@ -576,7 +584,11 @@ Begin
 		if(timer[0]>60*5) //si ha aguantado más de 5 minutos, le damos el cheto "sin bandos"
 			ops.truco_sin_bandos=0; //modo matajefes disponible
 			guarda_opciones();
-			truco_descubierto("Sin bandos desbloqueado!");
+			switch(ops.lenguaje)
+				case 0: truco_descubierto("No bands unlocked!"); end
+				case 1: truco_descubierto("Sin bandos desbloqueado!"); end
+				case 2: truco_descubierto("Sin bandos desbloqueado!"); end
+			end
 			while(exists(type truco_descubierto)) frame; end
 		end
 	end
@@ -636,7 +648,7 @@ Begin
 		end
 	end
 	
-	x_inc=7;
+	x_inc=15;
 	y_inc=5;
 	//y_base=alto_nivel-alto_pantalla;
 	
@@ -1669,6 +1681,7 @@ Begin
 	let_me_alone();
 	delete_text(all_text);
 	stop_scroll(0);
+	fpg_nivel=fpg_cutscenes=load_fpg("fpg/cutscenes.fpg");
 	pon_musica(15);
 	tv();
 	fade_on();
@@ -1690,7 +1703,12 @@ Begin
 	if(ops.truco_matajefes==0)
 		ops.truco_matajefes=1; //modo matajefes disponible
 		guarda_opciones();
-		truco_descubierto("Modo matajefes disponible!");
+		switch(ops.lenguaje)
+			case 0: truco_descubierto("Boss rush unlocked!"); end
+			case 1: truco_descubierto("Modo matajefes disponible!"); end
+			case 2: truco_descubierto("Modo matajefes disponible!"); end
+		end
+
 		while(exists(type truco_descubierto)) frame; end
  	end
 
@@ -1778,7 +1796,11 @@ Begin
 	
 	while(enemigos>0) frame; end
 	
-	truco_descubierto("Modo matajefes superado!");
+	switch(ops.lenguaje)
+		case 0: truco_descubierto("Boss rush completed!"); end
+		case 1: truco_descubierto("Modo matajefes superado!"); end
+		case 2: truco_descubierto("Modo matajefes superado!"); end
+	end
 	ganando=1;
 	timer[2]=0;
 	while(timer[2]<500) frame; end
@@ -1786,7 +1808,11 @@ Begin
 	if(ops.truco_pato<0)
 		ops.truco_pato=0; //modo matajefes disponible
 		guarda_opciones();
-		truco_descubierto("Personaje Pato desbloqueado!");
+		switch(ops.lenguaje)
+			case 0: truco_descubierto("Character PATO unlocked!"); end
+			case 1: truco_descubierto("Personaje PATO desbloqueado!"); end
+			case 2: truco_descubierto("Personaje PATO desbloqueado!"); end
+		end
 		while(exists(type truco_descubierto)) frame; end
 	end
 	menu(-1);
@@ -1801,7 +1827,11 @@ End
 
 Process muestra_nivel();
 Begin
-	graph=write_in_map(fnt_menu,"Nivel "+nivel,4);
+	switch(ops.lenguaje)
+		case 0: graph=write_in_map(fnt_menu,"Level "+nivel,4); end
+		case 1: graph=write_in_map(fnt_menu,"Nivel "+nivel,4); end
+		case 2: graph=write_in_map(fnt_menu,"Nivel "+nivel,4); end
+	end
 	x=ancho_pantalla/2;
 	y=(alto_pantalla/2)-34;
 	z=-512;
@@ -1814,9 +1844,25 @@ End
 
 Process muestra_nombre_nivel();
 Begin
-	switch(nivel)
-		case 1: graph=write_in_map(fnt_menu,"Centro",4); end
-		case 4: graph=write_in_map(fnt_menu,"Aeropuerto",4); end
+	switch(ops.lenguaje)
+		case 0: 
+			switch(nivel)
+				case 1: graph=write_in_map(fnt_menu,"Downtown",4); end
+				case 4: graph=write_in_map(fnt_menu,"Airport",4); end
+			end
+		end
+		case 1:
+			switch(nivel)
+				case 1: graph=write_in_map(fnt_menu,"Centro",4); end
+				case 4: graph=write_in_map(fnt_menu,"Aeropuerto",4); end
+			end
+		end
+		case 2:
+			switch(nivel)
+				case 1: graph=write_in_map(fnt_menu,"Centro",4); end
+				case 4: graph=write_in_map(fnt_menu,"Aeropuerto",4); end
+			end
+		end
 	end
 	x=ancho_pantalla/2;
 	y=father.y+20;
@@ -1830,7 +1876,11 @@ End
 Process nivel_superado();
 Begin
 	ready=0;
-	graph=write_in_map(fnt_menu,"Nivel "+nivel+" superado",4);
+	switch(ops.lenguaje)
+		case 0: graph=write_in_map(fnt_menu,"Level "+nivel+" completed",4); end
+		case 1: graph=write_in_map(fnt_menu,"Nivel "+nivel+" superado",4); end
+		case 2: graph=write_in_map(fnt_menu,"Nivel "+nivel+" superado",4); end
+	end
 	x=ancho_pantalla/2;
 	y=(alto_pantalla/3)-34;
 	z=-512;
