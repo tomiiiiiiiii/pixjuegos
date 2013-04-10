@@ -203,6 +203,7 @@ BEGIN
 	
 	switch(lenguaje_sistema())
 		case "es": ops.lenguaje=1; end
+		case "ca": ops.lenguaje=2; end
 		default: ops.lenguaje=0; end
 	end	
 
@@ -1206,7 +1207,7 @@ begin
 	write(fuente[0],ancho_pantalla/2 - 90,alto_pantalla/2 - 220,4,textos[73]);
 	
 	write(fuente[0],ancho_pantalla/2 + 20,alto_pantalla/2 - 170,3,textos[74]);
-	write(fuente[0],ancho_pantalla/2 + 20,alto_pantalla/2 - 130,3,textos[75]);
+	write(fuente[0],ancho_pantalla/2 + 20,alto_pantalla/2 - 130,3,textos[75]));
 	write(fuente[0],ancho_pantalla/2 + 20,alto_pantalla/2 - 90,3,textos[76]);
 	write(fuente[0],ancho_pantalla/2 + 20,alto_pantalla/2 - 50,3,textos[77]);
 	write(fuente[0],ancho_pantalla/2 + 20,alto_pantalla/2 - 10,3,textos[78]);
