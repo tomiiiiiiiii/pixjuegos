@@ -31,6 +31,7 @@ begin
 			case "10": id_lenguaje="it"; end
 			case "07": id_lenguaje="de"; end
 			case "0c": id_lenguaje="fr"; end
+			case "03": id_lenguaje="ca"; end
 		end
 	end
 	if(os_id==os_linux or os_id==1003) //linux o Android!

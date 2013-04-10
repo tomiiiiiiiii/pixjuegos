@@ -4,6 +4,69 @@ Global
 	pr1;
 	pr2;
 	pr3;
+	string textos_menu[50];
+End
+
+Function traducciones_menu();
+Begin
+	switch(ops.lenguaje)
+		case 0:
+			textos_menu[1]="new game";
+			textos_menu[2]="continue";
+			textos_menu[3]="options";
+			textos_menu[4]="help";
+			textos_menu[5]="credits";
+			textos_menu[6]="pixjuegos.com";
+			textos_menu[7]="exit";
+			textos_menu[8]="full screen";
+			textos_menu[9]="sound";
+			textos_menu[10]="music";
+			textos_menu[11]="difficulty";
+			textos_menu[12]="language";
+		end
+		case 1:
+			textos_menu[1]="nuevo juego";
+			textos_menu[2]="continuar";
+			textos_menu[3]="opciones";
+			textos_menu[4]="ayuda";
+			textos_menu[5]="créditos";
+			textos_menu[6]="pixjuegos.com";
+			textos_menu[7]="salir";
+			textos_menu[8]="pantalla completa";
+			textos_menu[9]="sonido";
+			textos_menu[10]="musica";
+			textos_menu[11]="dificultad";
+			textos_menu[12]="lenguaje";
+		end
+		case 2:
+			textos_menu[1]="nuovo gioco";
+			textos_menu[2]="continua";
+			textos_menu[3]="opzioni";
+			textos_menu[4]="aiuto";
+			textos_menu[5]="credits";
+			textos_menu[6]="pixjuegos.com";
+			textos_menu[7]="esci";
+			textos_menu[8]="schermo intero";
+			textos_menu[9]="suoni";
+			textos_menu[10]="musica";
+			textos_menu[11]="difficoltà";
+			textos_menu[12]="lingua";
+		end
+		case 3:
+			textos_menu[1]="nuovo gioco";
+			textos_menu[2]="continua";
+			textos_menu[3]="opzioni";
+			textos_menu[4]="aiuto";
+			textos_menu[5]="credits";
+			textos_menu[6]="pixjuegos.com";
+			textos_menu[7]="esci";
+			textos_menu[8]="schermo intero";
+			textos_menu[9]="suoni";
+			textos_menu[10]="musica";
+			textos_menu[11]="difficoltà";
+			textos_menu[12]="lingua";
+		end
+	end
 End
 
 process menu();
@@ -52,7 +115,7 @@ begin
 	end
 	
 	elecc=0;
-	lista(3);
+	lista(1);
 	logo(2);
 	machango();
 	from i=0 to 20;
@@ -152,13 +215,31 @@ begin
 	end
 end
 
-process lista(graph);
+process lista(tipo);
 begin
-	file=fpg_menu;
-	x=-200;
-	y=240;
-	z=-10;
-	if(graph==3 or graph==30) file=fpg_menu2; end
+	switch(tipo)
+		case 1: //menu principal
+			texto_menu(0,textos_menu[1]);
+			texto_menu(1,textos_menu[2]);
+			texto_menu(2,textos_menu[3]);
+			texto_menu(3,textos_menu[4]);
+			texto_menu(4,textos_menu[5]);
+			texto_menu(5,textos_menu[6]);
+			texto_menu(6,textos_menu[7]);
+		end
+		case 2: //opciones
+			texto_menu(0,textos_menu[8]);
+			texto_menu(1,textos_menu[9]);
+			texto_menu(2,textos_menu[10]);
+			texto_menu(3,textos_menu[11]);
+			texto_menu(4,textos_menu[12]);
+		end
+		case 3: //lenguaje
+			texto_menu(0,"english");
+			texto_menu(1,"español");
+			texto_menu(2,"català");
+		end
+	end
 	loop
 		x+=(x-150)/-10;
 		frame;
@@ -204,27 +285,7 @@ begin
 	x=20;
 	loop
 		elecy=y;
-		if(elecc==0)
-			y=65;
-		end
-		if(elecc==1)
-			y=120;
-		end
-		if(elecc==2)
-			y=180;
-		end
-		if(elecc==3)
-			y=235;
-		end
-		if(elecc==4)
-			y=295;
-		end
-		if(elecc==5)
-			y=355;
-		end
-		if(elecc==6)
-			y=410;
-		end
+		y=65+(60*elecc);
 		frame;
 	end
 end
@@ -505,7 +566,7 @@ begin
 	jugador=1;
 	controlador(0);
 	back(1);
-	lista(30);
+	lista(2);
 	logo(105);
 	machango();
 	from i=0 to 20; elep(); end
@@ -738,7 +799,7 @@ begin
 	file=fpg_menu;
 	elecc=0;
 	controlador(0);
-	lista(8);
+	lista(3);
 	machango();
 	from i=0 to 20; elep(); end
 	tecenter=1;
@@ -806,3 +867,57 @@ begin
 		frame;
 	end
 end
+
+Process texto_menu(pos,string mitexto);
+Begin
+	y=15;
+	x=5;
+	z=-512;
+	graph=new_map(320,30,bpp);
+
+	texto_menu_sombra(pos,mitexto,-2,-2);
+	texto_menu_sombra(pos,mitexto,0,-2);
+	texto_menu_sombra(pos,mitexto,2,-2);
+	texto_menu_sombra(pos,mitexto,-1,-1);
+	texto_menu_sombra(pos,mitexto,0,-1);
+	texto_menu_sombra(pos,mitexto,1,-1);
+	
+	texto_menu_sombra(pos,mitexto,-2,2);
+	texto_menu_sombra(pos,mitexto,0,2);
+	texto_menu_sombra(pos,mitexto,2,2);
+	texto_menu_sombra(pos,mitexto,-1,1);
+	texto_menu_sombra(pos,mitexto,0,1);
+	texto_menu_sombra(pos,mitexto,1,1);
+	
+	texto_menu_sombra(pos,mitexto,-2,0);
+	texto_menu_sombra(pos,mitexto,2,0);
+	texto_menu_sombra(pos,mitexto,-2,0);
+	texto_menu_sombra(pos,mitexto,2,0);
+	
+	set_text_color(rgb(255,255,255));
+	i=write_in_map(fnt_intro,mitexto,3);
+	map_put(0,graph,i,x,y);
+	unload_map(0,i);
+	
+	x=-200+rand(-100,100);
+	y=65+(pos*60);
+	set_center(0,graph,0,15);
+	loop
+		x+=(x-80)/-10;
+		frame;
+	end
+	unload_map(0,graph);
+End
+
+Function texto_menu_sombra(int pos,string mitexto,int offsetx,int offsety);
+Private
+	temp_graph;
+	abuelo;
+Begin
+	x=father.x+offsetx;
+	y=father.y+offsety;
+	set_text_color(rgb(0,42,105));
+	graph=write_in_map(fnt_intro,mitexto,3);
+	map_put(0,father.graph,graph,x,y);
+	unload_map(0,graph);
+End
