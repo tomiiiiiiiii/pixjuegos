@@ -36,6 +36,7 @@ private
 gatillo;
 id_texto1;
 id_texto2;
+id_texto3;
 direccion=1;
 jefe;
 n;
@@ -178,11 +179,11 @@ Begin
 				graph=20;
 				direccion=1;
 				id_texto=write(fuente[0],x,y-10,4,textos[61]);
-				id_texto=write(fuente[0],x-5,y+10,4,textos[62]);
+				id_texto1=write(fuente[0],x-5,y+10,4,textos[62]);
 				boton(ancho_pantalla/2,alto_pantalla/2 + 100,"",1);
-				id_texto1=write(fuente[0],ancho_pantalla/2,alto_pantalla/2 + 100,4,textos[1]);
+				id_texto2=write(fuente[0],ancho_pantalla/2,alto_pantalla/2 + 100,4,textos[1]);
 				boton(ancho_pantalla/2,alto_pantalla/2 + 150,"",2);
-				id_texto2=write(fuente[0],ancho_pantalla/2,alto_pantalla/2 + 150,4,textos[2]);
+				id_texto3=write(fuente[0],ancho_pantalla/2,alto_pantalla/2 + 150,4,textos[2]);
 				opcion=1;
 			else
 				pausa=0;
@@ -190,6 +191,7 @@ Begin
 				delete_text(id_texto);
 				delete_text(id_texto1);
 				delete_text(id_texto2);
+				delete_text(id_texto3);
 				signal(type boton,s_kill);
 			end
 		end
@@ -210,8 +212,22 @@ Begin
 				opcion++;
 			end
 			if(p[0].botones[5])
-				if(opcion==1) opcion=0; pausa=0; graph=0; delete_text(id_texto); delete_text(id_texto1); delete_text(id_texto2); signal(type boton,s_kill); end
-				if(opcion==2) opcion=0; while(p[0].botones[5]) frame; end menu(0); break; end
+				if(opcion==1)
+					opcion=0;
+					while(p[0].botones[b_aceptar]) frame; end
+					pausa=0;
+					graph=0; delete_text(id_texto);
+					delete_text(id_texto1);
+					delete_text(id_texto2);
+					delete_text(id_texto3);
+					signal(type boton,s_kill);
+				end
+				if(opcion==2)
+					opcion=0;
+					while(p[0].botones[b_aceptar]) frame; end
+					menu(0);
+					break;
+				end
 			end
 
 		end

@@ -36,7 +36,10 @@ Begin
 			lang_txts[1]="Fin";
 			lang_txts[2]="Bor";		
 		end
-		case 2: //??
+		case 2: //ca
+			lang_txts[0]="Jugador ";
+			lang_txts[1]="Fi";
+			lang_txts[2]="Esb";	
 		end
 	end
 
