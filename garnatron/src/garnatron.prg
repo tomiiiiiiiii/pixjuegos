@@ -260,16 +260,20 @@ BEGIN
 		//alto_pantalla=552;
 		
 		//android
-		
-		//si tiene un tamaño suficiente, lo ejecutamos con su resolución nativa
-		if(graphic_info(0,0,g_width)>800 and graphic_info(0,0,g_height)>550)
-			ancho_pantalla=graphic_info(0,0,g_width);
-			alto_pantalla=graphic_info(0,0,g_height);
-		else //sino, escalado
+		#IFDEF OUYA
 			ancho_pantalla=1280;
 			alto_pantalla=720;
-			scale_resolution=graphic_info(0,0,g_width)*10000+graphic_info(0,0,g_height);
-		end
+		#ELSE
+			//si tiene un tamaño suficiente, lo ejecutamos con su resolución nativa
+			if(graphic_info(0,0,g_width)>800 and graphic_info(0,0,g_height)>550)
+				ancho_pantalla=graphic_info(0,0,g_width);
+				alto_pantalla=graphic_info(0,0,g_height);
+			else //sino, escalado
+				ancho_pantalla=1280;
+				alto_pantalla=720;
+				scale_resolution=graphic_info(0,0,g_width)*10000+graphic_info(0,0,g_height);
+			end
+		#ENDIF
 		ops.p_completa=1;
 		//resolucioname(ancho_pantalla,alto_pantalla,1);
 	else

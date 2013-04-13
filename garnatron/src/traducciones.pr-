@@ -35,11 +35,19 @@ Begin
 			textos[71]="Energy";
 			textos[72]="Shields";
 			textos[73]="Score";
-			textos[74]="Move: joystick / arrows";
-			textos[75]="Shoot: button 1 / a";
-			textos[76]="Shoot weapon: button 2 / s";
-			textos[77]="Change weapon: button 3 / d";
-			textos[78]="Exit: button 10 / esc";
+			#IFDEF OUYA
+				textos[74]="Move: joystick / d-pad";
+				textos[75]="Shoot: button U";
+				textos[76]="Shoot weapon: button O";
+				textos[77]="Change weapon: button A";
+				textos[78]="Exit: menu button";
+			#ELSE
+				textos[74]="Move: joystick / arrows";
+				textos[75]="Shoot: button 1 / a";
+				textos[76]="Shoot weapon: button 2 / s";
+				textos[77]="Change weapon: button 3 / d";
+				textos[78]="Exit: button 10 / esc";
+			#ENDIF
 			textos[79]="Weapons:";
 			textos[80]="Super shoot";
 			textos[81]="Laser";
@@ -129,11 +137,19 @@ Begin
 			textos[71]="Energia";
 			textos[72]="Escudos";
 			textos[73]="Puntos";
-			textos[74]="Movimiento: palanca / flechas";
-			textos[75]="Disparar: botón 1 / a";
-			textos[76]="Disparar el arma: botón 2 / s";
-			textos[77]="Cambiar arma: botón 3 / d";
-			textos[78]="Exit: botón 10 / esc";
+			#IFDEF OUYA
+				textos[74]="Movimiento: joystick / d-pad";
+				textos[75]="Disparar: botón U";
+				textos[76]="Disparar el arma: botón O";
+				textos[77]="Cambiar arma: botón A";
+				textos[78]="Exit: botón MENÚ";
+			#ELSE
+				textos[74]="Movimiento: palanca / flechas";
+				textos[75]="Disparar: botón 1 / a";
+				textos[76]="Disparar el arma: botón 2 / s";
+				textos[77]="Cambiar arma: botón 3 / d";
+				textos[78]="Exit: botón 10 / esc";
+			#ENDIF
 			textos[79]="Armas:";
 			textos[80]="Super disparo";
 			textos[81]="Laser";
