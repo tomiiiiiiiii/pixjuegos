@@ -65,10 +65,12 @@ End
 Global
 	ready=0;
 
+	retraso_jukebox=500;
+	jukeboxing=0;
+	
 	pocos_recursos=0;
 	good_vs_evil=0;
 
-	jukeboxing=0;
 	
 	puntos;
 
@@ -439,6 +441,7 @@ Begin
 	controlador(0);
 	
 	loop
+		if(modo_juego!=modo_historia) jukebox(); end
 		averigua_jugadores();
 		if(jugadores==0 or (modo_juego==modo_battleroyale and jugadores==1) or (ganando==1 and modo_juego==modo_historia))
 			break;
@@ -1109,8 +1112,9 @@ Begin
 	alpha=0;
 	rango=20;
 	size=80;
+//	if((father.tipo==0 and father.accion!=herido_leve and father.accion!=herido_grave and father.accion!=ataca_area and father.accion!=muere) or (father.tipo!=0 and father.accion!=muere))
 	if(father.accion!=herido_leve and father.accion!=herido_grave and father.accion!=ataca_area and father.accion!=muere)
-		if(id_col=collision(type ataque))		
+		if(id_col=collision(type ataque))
 			if(id_col.jugador!=jugador)
 				if(!((jugador>10 and id_col.jugador>10 and id_col.jugador!=0) or (jugador<10 and id_col.jugador<10 and id_col.jugador!=0)) or fuego_amigo) //esta línea evita el fuego amigo
 					if(en_rango(z,id_col.z,id_col.rango))
@@ -1135,50 +1139,51 @@ Begin
 				end
 			end
 		end
-		if(id_col=collision(type cuerpo))
-			if(en_rango(z,id_col.z,rango))
-				if(id_col<id) //manda este
-					if(x<id_col.x)
-						if(id_col.father.accion!=herido_grave)
-							id_col.father.x_inc+=3;
-							id_col.father.y_inc+=2;
-							if(id_col.father.accion==quieto)
-								id_col.father.flags=1;
+		if(father.accion==defiende and father.altura==0)
+			if(id_col=collision(type cuerpo))
+				if(en_rango(z,id_col.z,rango))
+					if(id_col<id) //manda este
+						if(x<id_col.x)
+							if(id_col.father.accion!=herido_grave)
+								id_col.father.x_inc+=3;
+								id_col.father.y_inc+=2;
+								if(id_col.father.accion==quieto)
+									id_col.father.flags=1;
+								end
 							end
-						end
-						father.x_inc-=3;
-						father.y_inc-=2;
-						if(father.accion==quieto)
-							father.flags=0;
-						end
-					else
-						if(id_col.father.accion!=herido_grave)
-							id_col.father.x_inc-=3;
-							id_col.father.y_inc-=2;
-							if(id_col.father.accion==quieto)
-								id_col.father.flags=0;
+							father.x_inc-=3;
+							father.y_inc-=2;
+							if(father.accion==quieto)
+								father.flags=0;
 							end
-						end
-						father.x_inc+=3;
-						father.y_inc+=2;
-						if(father.accion==quieto)
-							father.flags=1;
+						else
+							if(id_col.father.accion!=herido_grave)
+								id_col.father.x_inc-=3;
+								id_col.father.y_inc-=2;
+								if(id_col.father.accion==quieto)
+									id_col.father.flags=0;
+								end
+							end
+							father.x_inc+=3;
+							father.y_inc+=2;
+							if(father.accion==quieto)
+								father.flags=1;
+							end
 						end
 					end
 				end
 			end
 		end
 	else
-		if(father.accion==herido_grave and father.x_inc!=0 and father.y_inc!=0)
-			ataque(x,y,fpg_general,1,abs(father.x_inc),40);
+		if(father.accion==herido_grave and father.x_inc!=0 and father.gravedad>0)
+			ataque(father.x,father.y,father.file,father.graph,abs(father.x_inc),40,1);
 		end
 	end
 	frame;
 End
 
-Process ataque(x,y,file,graph,herida,rango);
+Process ataque(x,y,file,graph,herida,rango,jugador);
 Begin
-	jugador=father.jugador;
 	flags=father.flags;
 	z=father.z;
 	priority=-1;
@@ -1246,7 +1251,7 @@ Begin
 		end
 		*/
 		if(x_inc!=0) //mientras se mueve, golpea
-			ataque(x,y,file,graph,abs(x_inc)*2,40);
+			ataque(x,y,file,graph,abs(x_inc)*2,40,jugador);
 		end
 		
 		z--;
@@ -1281,7 +1286,7 @@ Begin
 	alpha=father.alpha+altura-50;
 	size=100+(altura/3);
 	frame;
-	while(!ready) frame; end
+	while(!ready and !ganando) frame; end
 End
 
 Process sombra_objeto();
@@ -1403,7 +1408,7 @@ Begin
 	while(x>id_camara.x-ancho_pantalla)
 		while(!ready) frame; end
 		x-=20;
-		ataque(x,y+65,file,graph,30,38);
+		ataque(x,y+65,file,graph,30,38,jugador);
 		if(anim==2) 
 			anim=0;
 			if(graph==11) graph=12; else graph=11; end
@@ -1440,7 +1445,7 @@ Begin
 		while(!ready) frame; end
 		x-=20;
 		y--;
-		ataque(x,y+65,file,graph,30,38);
+		ataque(x,y+65,file,graph,30,38,jugador);
 		if(x<id_camara.x)
 			graph=14;
 			y-=3;
@@ -1595,7 +1600,7 @@ Begin
 			end
 		end
 		if(jugadores>0)
-			if(enemigos<(timer[0]/1000/jugadores)+1)
+			if(enemigos<(timer[0]/1000/jugadores)+1 and enemigos<20)
 				i=10;
 				loop
 					i++;
@@ -1992,4 +1997,26 @@ Begin
 	modo_juego=modo_historia;
 	jugar();
 	return;
+End
+
+Function jukebox();
+Begin
+	if(ops.musica)
+		if(retraso_jukebox>0) 
+			retraso_jukebox--; 
+		else
+			if(!is_playing_song() and retraso_jukebox==0)
+				jukeboxing++;
+				retraso_jukebox=500;
+				switch(jukeboxing)
+					case 1: pon_musica(1); end
+					case 2: pon_musica(11); end
+					case 3: pon_musica(12); end
+					case 4: pon_musica(13); end
+					case 5: pon_musica(15); end
+					case 6: pon_musica(2); jukeboxing=0; end
+				end
+			end
+		end
+	end
 End

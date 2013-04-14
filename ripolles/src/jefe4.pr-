@@ -245,7 +245,7 @@ Begin
 			animacion=accion=quieto;
 		end
 		if(graph==base_graph+11 or graph==base_graph+21)
-			ataque(x,y,file,graph,10,30);
+			ataque(x,y,file,graph,10,30,jugador);
 		end
 		frame;
 	end
@@ -314,7 +314,7 @@ Begin
 		end
 		if(graph==55 or graph==60)
 			if(anim==0) sonido(4,0); end
-			ataque(x,y,file,graph,5,30);
+			ataque(x,y,file,graph,5,30,jugador);
 		end
 		frame;
 	end
@@ -367,14 +367,14 @@ Begin
 		x=id_camara.x-ancho_pantalla;	
 		while(x<id_camara.x+ancho_pantalla)
 			x+=20;
-			ataque(x,y+65,file,graph,30,38);
+			ataque(x,y+65,file,graph,30,38,jugador);
 			frame;
 		end
 	else
 		x=id_camara.x+ancho_pantalla;
 		while(x>id_camara.x-ancho_pantalla)
 			x-=20;
-			ataque(x,y+65,file,graph,30,60);
+			ataque(x,y+65,file,graph,30,60,jugador);
 			frame;
 		end
 	end

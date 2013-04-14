@@ -171,7 +171,7 @@ Begin
 			end
 			switch(animacion)
 				case quieto:
-					ataque(x,y,file,graph,5,30);
+					ataque(x,y,file,graph,5,30,jugador);
 					if(graph<14 and graph=>11)
 						graph++;
 					else
@@ -179,7 +179,7 @@ Begin
 					end
 				end
 				case ataca_suelo:
-					ataque(x,y,file,graph,20,30);
+					ataque(x,y,file,graph,20,30,jugador);
 					if(graph<24 and graph=>21)
 						graph++;
 					else
@@ -187,7 +187,7 @@ Begin
 					end					
 				end
 				case ataca_aire:
-					ataque(x,y,file,graph,40,30);
+					ataque(x,y,file,graph,40,30,jugador);
 					if(graph<34 and graph=>31)
 						graph++;
 					else
@@ -195,7 +195,7 @@ Begin
 					end					
 				end
 				case defiende:
-					ataque(x,y,file,graph,1,30);
+					ataque(x,y,file,graph,1,30,jugador);
 					if(graph<42 and graph=>41)
 						graph++;
 					else

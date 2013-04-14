@@ -5,19 +5,22 @@ Private
 	hacia_que_lado;
 	inercia_max_x;
 	inercia_max_y;
+	inercia_max_x_actual;
+	inercia_max_y_actual;
 	fuerza_ataque;
 	invencibilidad;
 	pulsando_abajo;
 	pulsando_arriba;
 	no_pulsando_lado;
-	recibiendo_combo;
-	diferencia_combo;
 	se_defiende=0;
 	sabe_saltar=0;
 	retraso_movimiento_defensa;
 	si_ataca;
 	id_enemigo_cogido;
 	rotura_cogido;
+	tres_ataques;
+	ultimo_ataque=10;
+	ataca_fuerte_sin_retraso=0;
 Begin
 	ctype=coordenadas;
 	p[jugador].juega=1;
@@ -80,14 +83,14 @@ Begin
 			case 1:
 				inercia_max_x=3;
 				inercia_max_y=1;
-				fuerza_ataque=10;
+				fuerza_ataque=6;
 				file=fpg_enemigo1; 
 				p[jugador].vida=50;
 			end
 			case 2:
 				inercia_max_x=4;
 				inercia_max_y=2;
-				fuerza_ataque=15;
+				fuerza_ataque=10;
 				file=fpg_enemigo2; 
 				p[jugador].vida=80;
 				se_defiende=1;
@@ -95,14 +98,14 @@ Begin
 			case 3:
 				inercia_max_x=2;
 				inercia_max_y=2;
-				fuerza_ataque=20;
+				fuerza_ataque=15;
 				file=fpg_enemigo3; 
 				p[jugador].vida=100;
 			end
 			case 4:
 				inercia_max_x=5;
 				inercia_max_y=3;
-				fuerza_ataque=25;
+				fuerza_ataque=20;
 				file=fpg_enemigo4; 
 				p[jugador].vida=120;
 				sabe_saltar=1;
@@ -110,7 +113,7 @@ Begin
 			case 5: //EVIL RIPOLLES
 				inercia_max_x=7;
 				inercia_max_y=4;
-				fuerza_ataque=20;
+				fuerza_ataque=10;
 				file=fpg_enemigo5;
 				p[jugador].vida=300;
 				se_defiende=1;
@@ -130,7 +133,11 @@ Begin
 	frame;
 	
 	loop
-		while(!ready) frame; end
+		if(tipo==0)
+			while(!ready) frame; end
+		else
+			while(!ready and !ganando) frame; end
+		end
 		rotura_cogido=0;
 		while(accion==cogido)
 			if(rotura_cogido<300) 
@@ -141,6 +148,15 @@ Begin
 			end
 			frame; 
 		end
+		
+		if(accion!=ataca_suelo)
+			if(ultimo_ataque<10)
+				ultimo_ataque++;
+			else
+				tres_ataques=0;
+			end
+		end
+		
 		if(p[jugador].vida<1 or (tipo>0 and ganando))
 			p[jugador].vida=0;
 			if(accion!=muere)
@@ -148,7 +164,6 @@ Begin
 				if(abs(x_inc)<7)
 					if(flags==1) x_inc=7; else x_inc=-7; end
 				end
-				//x_inc; 
 			end
 			accion=muere; herida+=100; 
 		end
@@ -217,7 +232,7 @@ Begin
 		
 		//cuando se mueve defendiéndose, da pequeños golpes para mejorar la escapada
 		if(accion==defiende and altura>0)
-			ataque(x,y,file,graph,1,20);
+			ataque(x,y,file,graph,1,20,jugador);
 		end
 		
 		if(p[jugador].botones[b_abajo])
@@ -248,26 +263,21 @@ Begin
 		if(retraso_movimiento_defensa>0) retraso_movimiento_defensa--; end
 		
 		if(herida==0)
-			if(diferencia_combo>0) 
-				diferencia_combo--; 
-			else
-				recibiendo_combo=0;
-			end
 			if(altura==0) //EN EL SUELO
 				if(accion==defiende and tipo==0) //esquivar
-					if(x_inc==0 and y_inc==0 and gravedad==0 and retraso_movimiento_defensa==0)
+					if(retraso_movimiento_defensa==0)
 						//movimiento
 						if(p[jugador].botones[b_arriba] xor p[jugador].botones[b_abajo])
 							if(p[jugador].botones[b_arriba])
 								y_inc-=10;
 								gravedad=-15;
 								altura=1;
-								retraso_movimiento_defensa=30;
+								retraso_movimiento_defensa=0;
 							else //abajo
 								y_inc=10;
 								gravedad=-15;
 								altura=1;
-								retraso_movimiento_defensa=30;
+								retraso_movimiento_defensa=0;
 							end
 						end
 						
@@ -276,13 +286,13 @@ Begin
 								x_inc-=10;
 								gravedad=-10;
 								altura=1;
-								retraso_movimiento_defensa=30;
+								retraso_movimiento_defensa=0;
 								flags=0;
 							else //derecha
 								x_inc+=10;
 								gravedad=-10;
 								altura=1;
-								retraso_movimiento_defensa=30;
+								retraso_movimiento_defensa=0;
 								flags=1;
 							end
 						end
@@ -332,8 +342,18 @@ Begin
 										accion=ataca_uppercut;
 										gravedad=-20;
 										altura=1;
-									else
+									elseif(tipo!=0)
 										accion=ataca_suelo;
+									else
+										tres_ataques++;
+										if(tres_ataques==3)
+											accion=ataca_fuerte;
+											ataca_fuerte_sin_retraso=1;
+											tres_ataques=0;
+										else
+											accion=ataca_suelo;
+											ultimo_ataque=0;
+										end
 									end
 								end
 							end
@@ -373,19 +393,22 @@ Begin
 							lleva_objeto=0;
 						elseif(lleva_objeto==-1)
 							if(exists(id_enemigo_cogido))
-								id_enemigo_cogido.x=x+(-40*hacia_que_lado);
+								id_enemigo_cogido.x=x;
 								id_enemigo_cogido.y=y-25;
 								id_enemigo_cogido.z=z-1;
 								id_enemigo_cogido.y_base=y_base;
 								id_enemigo_cogido.x_inc=0;
 								id_enemigo_cogido.y_inc=0;
 								id_enemigo_cogido.flags=flags;
-								id_enemigo_cogido.altura=0;
-								id_enemigo_cogido.gravedad=0;
+								id_enemigo_cogido.altura=-30;
+								id_enemigo_cogido.gravedad=-10;
+								id_enemigo_cogido.accion=herido_grave;
+								id_enemigo_cogido.herida=30;
+								id_enemigo_cogido=0;
+								lleva_objeto=0;
 							else
 								id_enemigo_cogido=0;
 								lleva_objeto=0;
-								accion=quieto; //dafuq?
 							end
 						end
 					end
@@ -416,6 +439,13 @@ Begin
 									accion=ataca_uppercut;
 									gravedad=-20;
 								else
+									if(p[jugador].botones[b_derecha] and flags==0 and no_pulsando_lado<3)
+										x_inc+=40;
+									elseif(p[jugador].botones[b_izquierda] and flags==1 and no_pulsando_lado<3)
+										x_inc-=40;
+									elseif(p[jugador].botones[b_abajo] and pulsando_abajo<3)
+										gravedad=10;
+									end
 									accion=ataca_aire;
 								end
 								sonido(3,0);
@@ -457,11 +487,14 @@ Begin
 			
 			//no herido, común de suelo y aire
 			if(accion!=herido_leve and accion!=herido_grave and accion!=muere)
-				if(accion==corre or altura>0)
-					inercia_maxima(inercia_max_x*2,inercia_max_y*2); 
+				if(accion==corre)
+					inercia_max_x_actual=inercia_max_x*2;
+					inercia_max_y_actual=inercia_max_y*2;
 				else
-					inercia_maxima(inercia_max_x,inercia_max_y); 
+					if(inercia_max_x_actual>inercia_max_x) inercia_max_x_actual--; else inercia_max_x_actual=inercia_max_x; end
+					if(inercia_max_y_actual>inercia_max_y) inercia_max_y_actual--; else inercia_max_y_actual=inercia_max_y; end
 				end
+				inercia_maxima(inercia_max_x_actual,inercia_max_x_actual); 
 			end
 		else //está siendo herido
 			if(accion!=herido_leve and accion!=herido_grave and accion!=muere) //escisión!
@@ -470,15 +503,19 @@ Begin
 					lleva_objeto=0;
 				elseif(lleva_objeto==-1)
 					if(exists(id_enemigo_cogido))
-						id_enemigo_cogido.x=x+(-40*hacia_que_lado);
+						id_enemigo_cogido.x=x;
 						id_enemigo_cogido.y=y-25;
 						id_enemigo_cogido.z=z-1;
 						id_enemigo_cogido.y_base=y_base;
 						id_enemigo_cogido.x_inc=0;
 						id_enemigo_cogido.y_inc=0;
 						id_enemigo_cogido.flags=flags;
-						id_enemigo_cogido.altura=0;
-						id_enemigo_cogido.gravedad=0;
+						id_enemigo_cogido.altura=-30;
+						id_enemigo_cogido.gravedad=-10;
+						id_enemigo_cogido.accion=herido_grave;
+						id_enemigo_cogido.herida=30;
+						id_enemigo_cogido=0;
+						lleva_objeto=0;
 					else
 						id_enemigo_cogido=0;
 						lleva_objeto=0;
@@ -487,30 +524,9 @@ Begin
 				end
 				p[jugador].vida-=herida;
 				if(herida<20 and altura==0)
-					if(recibiendo_combo<3)
-						recibiendo_combo++;
-						diferencia_combo=20;
-						sonido(1,0);
-						accion=herido_leve;
-						herida=7; //más retraso
-					else
-						recibiendo_combo=0;
-						diferencia_combo=0;
-						sonido(2,0);
-						accion=herido_grave;
-						if(herida>15)
-							gravedad=-herida;
-						else
-							gravedad=-15;
-						end
-						if(herida<20) herida=20; end
-						if(flags==1)
-							x_inc=herida/4;
-						else
-							x_inc=-herida/4;
-						end
-						altura=-1;
-					end
+					sonido(1,0);
+					accion=herido_leve;
+					herida=7; //más retraso
 				else
 					sonido(2,0);
 					accion=herido_grave;
@@ -526,7 +542,7 @@ Begin
 					end
 					altura=-1;
 				end
-				if(tipo!=0) herida=herida*2; end //doble de retraso al levantarse en los enemigos
+				if(tipo!=0 and accion==herido_grave) herida=herida*2; end //doble de retraso al levantarse en los enemigos
 			else
 				if(altura==0)
 					herida--;
@@ -535,6 +551,9 @@ Begin
 
 			altura+=gravedad;
 			if(altura>1)
+				if(tipo!=0)
+					p[jugador].vida-=gravedad/2;
+				end
 				altura=0;
 				gravedad=0;
 				graph=73;
@@ -615,9 +634,9 @@ Begin
 								id_enemigo_cogido.accion=herido_grave;
 								id_enemigo_cogido.herida=abs(x_inc)+40;
 							end
-							id_enemigo_cogido=0;
-							lleva_objeto=0;
 						end
+						id_enemigo_cogido=0;
+						lleva_objeto=0;
 					end
 				end
 				if(anim==7)
@@ -675,19 +694,21 @@ Begin
 		//gestión de los ataques (puntos de colisión de los ataques)
 		if(accion==ataca_suelo)
 			if(anim<4)
-				ataque(x+(15*hacia_que_lado),y-15,fpg_general,1,fuerza_ataque,20);
+				if(tipo==0) ataque(x+(15*hacia_que_lado),y-15,fpg_general,1,fuerza_ataque,20,jugador); end
 			else
-				ataque(x+(45*hacia_que_lado),y-15,fpg_general,1,fuerza_ataque*1.5,20);
+				ataque(x+(45*hacia_que_lado),y-15,fpg_general,1,fuerza_ataque*1.5,20,jugador);
 			end
 			if(anim==7)
 				accion=quieto; 
 			end
 		end
 		if(accion==ataca_fuerte)
+			if(ataca_fuerte_sin_retraso and anim<8) anim=8; end
 			if(graph==142 or graph==143)
-				ataque(x+(40*hacia_que_lado),y,fpg_general,3,fuerza_ataque*2.5,20);
+				ataque(x+(40*hacia_que_lado),y,fpg_general,3,fuerza_ataque*2.5,20,jugador);
 			end
 			if(anim==15)
+				ataca_fuerte_sin_retraso=0;
 				accion=quieto; 
 			end
 		end
@@ -695,16 +716,16 @@ Begin
 			y_inc=0;
 			if(flags) x_inc-=2; else x_inc+=2; end
 			if(gravedad<0)
-				ataque(x+(40*hacia_que_lado),y,fpg_general,3,fuerza_ataque*1.7,20);
+				ataque(x+(40*hacia_que_lado),y,fpg_general,3,fuerza_ataque*1.7,20,jugador);
 			else
 				accion=quieto;
 			end
 		end
 		if(accion==ataca_aire)
-			ataque(x+(40*hacia_que_lado),y,fpg_general,1,fuerza_ataque*2,15);
+			ataque(x+(40*hacia_que_lado),y,fpg_general,1,fuerza_ataque*2,15,jugador);
 		end
 		if(accion==ataca_area)
-			ataque(x,y,file,graph,fuerza_ataque*2.5,20);
+			ataque(x,y,file,graph,fuerza_ataque*4,20,jugador);
 			if(anim==23)
 				accion=quieto;
 			end

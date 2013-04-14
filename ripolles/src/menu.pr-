@@ -6,7 +6,6 @@ private
 	pulsando;
 	volver_a_menu;
 	distancia_opciones=50;
-	retraso_jukebox=500;
 begin
 	if(fpg_menu<1)
 		fpg_menu=load_fpg("fpg/menu.fpg");
@@ -221,24 +220,7 @@ begin
 	y=800;
 
 	loop
-		if(ops.musica)
-			if(retraso_jukebox>0) 
-				retraso_jukebox--; 
-			else
-				if(!is_playing_song() and retraso_jukebox==0)
-					jukeboxing++;
-					retraso_jukebox=500;
-					switch(jukeboxing)
-						case 1: pon_musica(1); end
-						case 2: pon_musica(11); end
-						case 3: pon_musica(12); end
-						case 4: pon_musica(13); end
-						case 5: pon_musica(15); end
-						case 6: pon_musica(2); jukeboxing=0; end
-					end
-				end
-			end
-		end
+		jukebox();
 		if(key(_c)) 
 			while(key(_c)) frame; end 
 			sonido(22,0); 
