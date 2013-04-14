@@ -290,8 +290,8 @@ Begin
 	end
 	
 	if(os_id==1003) //android!
-		key_b_salir1=102;
-		key_b_salir2=97;
+		key_b_salir1=102; //keycodeback
+		key_b_salir2=_ESC;
 		if(posibles_jugadores>1) //con joysticks, sin gamepadvirtual
 			posibles_jugadores--;
 		else

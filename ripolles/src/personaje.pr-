@@ -15,6 +15,9 @@ Private
 	se_defiende=0;
 	sabe_saltar=0;
 	retraso_movimiento_defensa;
+	si_ataca;
+	id_enemigo_cogido;
+	rotura_cogido;
 Begin
 	ctype=coordenadas;
 	p[jugador].juega=1;
@@ -128,6 +131,16 @@ Begin
 	
 	loop
 		while(!ready) frame; end
+		rotura_cogido=0;
+		while(accion==cogido)
+			if(rotura_cogido<300) 
+				rotura_cogido++; 
+			else
+				accion=quieto;
+				break;
+			end
+			frame; 
+		end
 		if(p[jugador].vida<1 or (tipo>0 and ganando))
 			p[jugador].vida=0;
 			if(accion!=muere)
@@ -287,6 +300,7 @@ Begin
 									p[jugador].vida-=20;
 								end
 							else
+								si_ataca=0;
 								if(accion==quieto and x_inc==0 and (id_col=collision(type objeto)))
 									//si el objeto está en el suelo y no somos un enemigo cogiendo vida o powerup...
 									if(id_col.y>y+35 and !(tipo>0 and (id_col.graph==1 or id_col.graph==4 or id_col.graph==5))) 
@@ -294,10 +308,23 @@ Begin
 										accion=coge_objeto;
 										signal(id_col,s_kill);
 									else
-										sonido(3,0);
-										accion=ataca_suelo;
+										si_ataca=1;
+									end
+								elseif(accion==quieto and x_inc==0 and (id_col=collision(type personaje)))
+									//si el enemigo está en el suelo herido_grave
+									if(en_rango(z,id_col.z,40) and id_col.accion==herido_grave and id_col.graph==151 and id_col.altura==0)
+										id_col.graph=151;
+										lleva_objeto=-1;
+										accion=coge_objeto;
+										id_col.accion=cogido;
+										id_enemigo_cogido=id_col;
+									else
+										si_ataca=1;
 									end
 								else
+									si_ataca=1;
+								end
+								if(si_ataca)
 									sonido(3,0);
 									if(p[jugador].botones[b_abajo] and pulsando_abajo<3)
 										accion=ataca_fuerte;
@@ -341,9 +368,25 @@ Begin
 					//defenderse
 					if(p[jugador].botones[b_3] and !p[jugador].botones[b_1] and se_defiende)
 						accion=defiende;
-						if(lleva_objeto)
+						if(lleva_objeto>0)
 							objeto(x,y_base,altura-100,lleva_objeto,0);
 							lleva_objeto=0;
+						elseif(lleva_objeto==-1)
+							if(exists(id_enemigo_cogido))
+								id_enemigo_cogido.x=x+(-40*hacia_que_lado);
+								id_enemigo_cogido.y=y-25;
+								id_enemigo_cogido.z=z-1;
+								id_enemigo_cogido.y_base=y_base;
+								id_enemigo_cogido.x_inc=0;
+								id_enemigo_cogido.y_inc=0;
+								id_enemigo_cogido.flags=flags;
+								id_enemigo_cogido.altura=0;
+								id_enemigo_cogido.gravedad=0;
+							else
+								id_enemigo_cogido=0;
+								lleva_objeto=0;
+								accion=quieto; //dafuq?
+							end
 						end
 					end
 				end
@@ -422,9 +465,25 @@ Begin
 			end
 		else //está siendo herido
 			if(accion!=herido_leve and accion!=herido_grave and accion!=muere) //escisión!
-				if(lleva_objeto)
+				if(lleva_objeto>0)
 					objeto(x,y_base,altura-100,lleva_objeto,0);
 					lleva_objeto=0;
+				elseif(lleva_objeto==-1)
+					if(exists(id_enemigo_cogido))
+						id_enemigo_cogido.x=x+(-40*hacia_que_lado);
+						id_enemigo_cogido.y=y-25;
+						id_enemigo_cogido.z=z-1;
+						id_enemigo_cogido.y_base=y_base;
+						id_enemigo_cogido.x_inc=0;
+						id_enemigo_cogido.y_inc=0;
+						id_enemigo_cogido.flags=flags;
+						id_enemigo_cogido.altura=0;
+						id_enemigo_cogido.gravedad=0;
+					else
+						id_enemigo_cogido=0;
+						lleva_objeto=0;
+						accion=quieto; //dafuq?
+					end
 				end
 				p[jugador].vida-=herida;
 				if(herida<20 and altura==0)
@@ -467,7 +526,7 @@ Begin
 					end
 					altura=-1;
 				end
-
+				if(tipo!=0) herida=herida*2; end //doble de retraso al levantarse en los enemigos
 			else
 				if(altura==0)
 					herida--;
@@ -519,26 +578,97 @@ Begin
 		if(lleva_objeto!=0 or accion==lanza_objeto)
 			if(accion==lanza_objeto)
 				if(anim<4)
-					objeto_portado(x+(-30*hacia_que_lado),y-25,lleva_objeto);
+					if(lleva_objeto>0)
+						objeto_portado(x+(-30*hacia_que_lado),y-25,lleva_objeto);
+					else
+						if(exists(id_enemigo_cogido))
+							id_enemigo_cogido.x=x+(-40*hacia_que_lado);
+							id_enemigo_cogido.y=y-25;
+							id_enemigo_cogido.z=z-1;
+							id_enemigo_cogido.y_base=y_base;
+							id_enemigo_cogido.x_inc=0;
+							id_enemigo_cogido.y_inc=0;
+							id_enemigo_cogido.flags=flags;
+							id_enemigo_cogido.altura=0;
+							id_enemigo_cogido.gravedad=0;
+						else
+							id_enemigo_cogido=0;
+							lleva_objeto=0;
+							accion=quieto; //dafuq?
+						end
+					end
 				else
 					if(anim==4)
-						objeto(x,y_base,altura-80,lleva_objeto,x_inc+(10*hacia_que_lado));
-						lleva_objeto=0;
+						if(lleva_objeto>0)
+							objeto(x,y_base,altura-80,lleva_objeto,x_inc+(10*hacia_que_lado));
+						else
+							if(exists(id_enemigo_cogido))
+								id_enemigo_cogido.x=x+(-40*hacia_que_lado);
+								id_enemigo_cogido.y=y-25;
+								id_enemigo_cogido.y_base=y_base;
+								id_enemigo_cogido.z=z-1;
+								id_enemigo_cogido.x_inc=x_inc+(10*hacia_que_lado);
+								id_enemigo_cogido.flags=flags;
+								id_enemigo_cogido.y_inc=y_inc;
+								id_enemigo_cogido.altura=altura-80;
+								id_enemigo_cogido.gravedad=-10;
+								id_enemigo_cogido.accion=herido_grave;
+								id_enemigo_cogido.herida=abs(x_inc)+40;
+							end
+							id_enemigo_cogido=0;
+							lleva_objeto=0;
+						end
 					end
 				end
 				if(anim==7)
-					accion=quieto; 
+					accion=quieto;
 				end
 			elseif(accion==coge_objeto)
 				if(anim<4)
-					objeto_portado(x+(-20*hacia_que_lado),y+35,lleva_objeto);
+					if(lleva_objeto>0)
+						objeto_portado(x+(-20*hacia_que_lado),y+35,lleva_objeto);
+					else
+						if(exists(id_enemigo_cogido))
+							id_enemigo_cogido.x=x+(-30*hacia_que_lado);
+							id_enemigo_cogido.y=y+20;
+							id_enemigo_cogido.z=z-1;
+							id_enemigo_cogido.y_base=y_base;
+							id_enemigo_cogido.flags=flags;
+							id_enemigo_cogido.x_inc=0;
+							id_enemigo_cogido.y_inc=0;
+							id_enemigo_cogido.altura=0;
+							id_enemigo_cogido.gravedad=0;
+						else
+							id_enemigo_cogido=0;
+							lleva_objeto=0;
+							accion=quieto; //dafuq?
+						end
+					end
 				else
 					if(anim==7)
 						accion=quieto;
 					end
 				end
-			else
-				objeto_portado(x,y-34,lleva_objeto);
+			else //porta
+				if(lleva_objeto>0)
+					objeto_portado(x,y-34,lleva_objeto);
+				else
+					if(exists(id_enemigo_cogido))
+						id_enemigo_cogido.x=x;
+						id_enemigo_cogido.y=y-80;
+						id_enemigo_cogido.z=z-1;
+						id_enemigo_cogido.y_base=y_base;
+						id_enemigo_cogido.flags=flags;
+						id_enemigo_cogido.x_inc=0;
+						id_enemigo_cogido.y_inc=0;
+						id_enemigo_cogido.altura=0;
+						id_enemigo_cogido.gravedad=0;
+					else
+						id_enemigo_cogido=0;
+						lleva_objeto=0;
+						accion=quieto; //dafuq?
+					end
+				end
 			end
 		end		
 		

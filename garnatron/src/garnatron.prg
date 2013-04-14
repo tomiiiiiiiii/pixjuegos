@@ -255,11 +255,8 @@ BEGIN
 	//-----------------------------------------------------------------Panalla
 	
 	if(os_id==1003)
-		//archos gamepad:
-		//ancho_pantalla=1024;
-		//alto_pantalla=552;
-		
 		//android
+		bpp=16;
 		#IFDEF OUYA
 			ancho_pantalla=1280;
 			alto_pantalla=720;

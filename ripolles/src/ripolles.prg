@@ -47,6 +47,7 @@ Const
 	ataca_uppercut=15;
 	corre=16;
 	corre_objeto=17;
+	cogido=18;
 	muere=-1;
 	
 	//objetos
@@ -196,6 +197,7 @@ Local
 	x_inc;
 	y_base;
 	i; j;
+	tipo;
 End
 
 include "../../common-src/controles.pr-";
@@ -306,7 +308,7 @@ Begin
 	recoloca_centros();
 	
 	//A 30 imágenes por segundo
-	set_fps(30,5);
+	set_fps(30,0);
 	
 	loop
 		if(timer[0]>500 or key(_esc) or key(_enter) or p[0].botones[b_1] or p[0].botones[b_2] or p[0].botones[b_3]) break; end
@@ -359,7 +361,11 @@ Begin
 	fpg_general=load_fpg("fpg/general.fpg");
 	fpg_objetos=load_fpg("fpg/objetos.fpg");
 	fpg_menu=load_fpg("fpg/menu.fpg");
-	fpg_lang=load_fpg("fpg/"+lang_suffix+".fpg");
+	#IFDEF OUYA
+		fpg_lang=load_fpg("fpg/"+lang_suffix+"-ouya.fpg");
+	#ELSE
+		fpg_lang=load_fpg("fpg/"+lang_suffix+".fpg");
+	#ENDIF
 End
 
 Process jugar();
@@ -767,21 +773,21 @@ Function pon_animacion();
 Begin
 	if(father.altura==0)
 		if(father.accion==quieto)
-			if(father.lleva_objeto>0)
+			if(father.lleva_objeto!=0)
 				father.animacion=quieto_objeto;
 			else
 				father.animacion=quieto;
 			end
 		end
 		if(father.accion==camina)
-			if(father.lleva_objeto>0)
+			if(father.lleva_objeto!=0)
 				father.animacion=camina_objeto;
 			else
 				father.animacion=camina;
 			end
 		end
 		if(father.accion==corre)
-			if(father.lleva_objeto>0)
+			if(father.lleva_objeto!=0)
 				father.animacion=corre_objeto;
 			else
 				father.animacion=corre;
@@ -789,7 +795,7 @@ Begin
 		end
 
 	else //en el aire
-		if(father.lleva_objeto>0)
+		if(father.lleva_objeto!=0)
 			father.animacion=salta_objeto;
 		else
 			if(father.accion==ataca_aire)
@@ -1197,6 +1203,8 @@ Begin
 End
 
 Process objeto(x,y_base,altura,graph,x_inc);
+Private
+	retraso_colision;
 Begin
 	y=y_base+altura+40;
 	z=y_base-1;
@@ -1208,6 +1216,7 @@ Begin
 	while(!exists(id_camara)) frame; end
 	loop
 		while(!ready) frame; end
+
 		//al poco de lanzarlo dejará de estar asociado al jugador y podrá dañar al mismo y a los compañeros
 		if(jugador>0)
 			j++;
@@ -1221,6 +1230,21 @@ Begin
 		mueveme(sin_encerrarme);
 		y+=40; //ajuste del centro del objeto
 		
+		if(retraso_colision<10) retraso_colision++; end
+		/*
+		if((id_col=collision(type objeto)) and retraso_colision==10)
+			if(en_rango(z,id_col.z,40))
+				if(id>id_col)
+					if(id_col.x_inc!=0 or x_inc!=0)
+						i=x_inc;
+						x_inc=id_col.x_inc;
+						id_col.x_inc=i;
+						retraso_colision=0;
+					end
+				end
+			end
+		end
+		*/
 		if(x_inc!=0) //mientras se mueve, golpea
 			ataque(x,y,file,graph,abs(x_inc)*2,40);
 		end
@@ -1236,7 +1260,7 @@ Begin
 	if(father.altura<0)
 		father.gravedad+=2;
 		father.altura+=father.gravedad;
-		if(father.altura>1)
+		if(father.altura=>1)
 			father.altura=0;
 			father.gravedad=0;
 		else

@@ -659,6 +659,9 @@ class SDLSurface extends SurfaceView implements SurfaceHolder.Callback,
 				case KeyEvent.KEYCODE_BUTTON_Y:
 					keyCode = KeyEvent.KEYCODE_S;
 					break;
+				case KeyEvent.KEYCODE_MENU:
+					keyCode = KeyEvent.KEYCODE_BACK;
+					break;
 				case KeyEvent.KEYCODE_BUTTON_SELECT:
 					keyCode = KeyEvent.KEYCODE_BACK;
 					break;
@@ -681,6 +684,9 @@ class SDLSurface extends SurfaceView implements SurfaceHolder.Callback,
 					break;
 				case KeyEvent.KEYCODE_BUTTON_Y:
 					keyCode = KeyEvent.KEYCODE_S;
+					break;
+				case KeyEvent.KEYCODE_MENU:
+					keyCode = KeyEvent.KEYCODE_BACK;
 					break;
 				case KeyEvent.KEYCODE_BUTTON_SELECT:
 					keyCode = KeyEvent.KEYCODE_BACK;
