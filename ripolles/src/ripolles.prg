@@ -1215,8 +1215,10 @@ Begin
 	z=y_base-1;
 	file=fpg_objetos;
 	x_inc=x_inc*2;
-	flags=father.flags;
-	jugador=father.jugador;
+	if(exists(father))
+		flags=father.flags;
+		jugador=father.jugador;
+	end
 	ctype=coordenadas;
 	while(!exists(id_camara)) frame; end
 	loop
@@ -1229,6 +1231,7 @@ Begin
 		end
 		
 		aplica_gravedad();
+		if(altura>0) altura=0; end
 		if(altura==0)
 			friccioname();
 		end
@@ -1236,7 +1239,7 @@ Begin
 		y+=40; //ajuste del centro del objeto
 		
 		if(retraso_colision<10) retraso_colision++; end
-		/*
+		
 		if((id_col=collision(type objeto)) and retraso_colision==10)
 			if(en_rango(z,id_col.z,40))
 				if(id>id_col)
@@ -1249,7 +1252,7 @@ Begin
 				end
 			end
 		end
-		*/
+		
 		if(x_inc!=0) //mientras se mueve, golpea
 			ataque(x,y,file,graph,abs(x_inc)*2,40,jugador);
 		end
