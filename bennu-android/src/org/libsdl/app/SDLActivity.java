@@ -644,72 +644,43 @@ class SDLSurface extends SurfaceView implements SurfaceHolder.Callback,
             }
             return false;
         }
-	
+
+		//PIX wrapps in order to work properly with our controller's "API"
+		switch (keyCode) {
+			case KeyEvent.KEYCODE_BUTTON_X:
+				keyCode = KeyEvent.KEYCODE_A;
+				break;
+			case KeyEvent.KEYCODE_BUTTON_A:
+				keyCode = KeyEvent.KEYCODE_S;
+				break;
+			case KeyEvent.KEYCODE_BUTTON_B:
+				keyCode = KeyEvent.KEYCODE_D;
+				break;
+			case KeyEvent.KEYCODE_BUTTON_Y:
+				keyCode = KeyEvent.KEYCODE_S;
+				break;
+			case KeyEvent.KEYCODE_MENU:
+				keyCode = KeyEvent.KEYCODE_BACK;
+				break;
+			case KeyEvent.KEYCODE_BUTTON_SELECT:
+				keyCode = KeyEvent.KEYCODE_BACK;
+				break;
+			case KeyEvent.KEYCODE_BUTTON_START:
+				keyCode = KeyEvent.KEYCODE_BACK;
+				break;
+		}
+		
 		if (event.getAction() == KeyEvent.ACTION_DOWN) {
-			switch (keyCode) {
-				case KeyEvent.KEYCODE_BUTTON_X:
-					keyCode = KeyEvent.KEYCODE_A;
-					break;
-				case KeyEvent.KEYCODE_BUTTON_A:
-					keyCode = KeyEvent.KEYCODE_S;
-					break;
-				case KeyEvent.KEYCODE_BUTTON_B:
-					keyCode = KeyEvent.KEYCODE_D;
-					break;
-				case KeyEvent.KEYCODE_BUTTON_Y:
-					keyCode = KeyEvent.KEYCODE_S;
-					break;
-				case KeyEvent.KEYCODE_MENU:
-					keyCode = KeyEvent.KEYCODE_BACK;
-					break;
-				case KeyEvent.KEYCODE_BUTTON_SELECT:
-					keyCode = KeyEvent.KEYCODE_BACK;
-					break;
-				case KeyEvent.KEYCODE_BUTTON_START:
-					keyCode = KeyEvent.KEYCODE_BACK;
-					break;
+			if(keyCode != KeyEvent.KEYCODE_BACK) {
+				SDLActivity.onNativeKeyDown(keyCode);
+				SDLActivity.onNativeKeyUp(KeyEvent.KEYCODE_BACK);
 			}
-			SDLActivity.onNativeKeyDown(keyCode);
 			return true;
 		} else if (event.getAction() == KeyEvent.ACTION_UP) {
-			switch (keyCode) {
-				case KeyEvent.KEYCODE_BUTTON_X:
-					keyCode = KeyEvent.KEYCODE_A;
-					break;
-				case KeyEvent.KEYCODE_BUTTON_A:
-					keyCode = KeyEvent.KEYCODE_S;
-					break;
-				case KeyEvent.KEYCODE_BUTTON_B:
-					keyCode = KeyEvent.KEYCODE_D;
-					break;
-				case KeyEvent.KEYCODE_BUTTON_Y:
-					keyCode = KeyEvent.KEYCODE_S;
-					break;
-				case KeyEvent.KEYCODE_MENU:
-					keyCode = KeyEvent.KEYCODE_BACK;
-					break;
-				case KeyEvent.KEYCODE_BUTTON_SELECT:
-					keyCode = KeyEvent.KEYCODE_BACK;
-					break;
-				case KeyEvent.KEYCODE_BUTTON_START:
-					keyCode = KeyEvent.KEYCODE_BACK;
-					break;
-			}
 			SDLActivity.onNativeKeyUp(keyCode);
 			return true;
 		}
-
-/*        if (event.getAction() == KeyEvent.ACTION_DOWN) {
-            //Log.v("SDL", "key down: " + keyCode);
-            SDLActivity.onNativeKeyDown(keyCode);
-            return true;
-        }
-        else if (event.getAction() == KeyEvent.ACTION_UP) {
-            //Log.v("SDL", "key up: " + keyCode);
-            SDLActivity.onNativeKeyUp(keyCode);
-            return true;
-        }*/
-        
+       
         return false;
     }
 
