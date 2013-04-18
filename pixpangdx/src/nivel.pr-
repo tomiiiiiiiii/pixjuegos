@@ -231,7 +231,7 @@ Begin
 	end
 	
 	if(mapa_durezas>0 and map_exists(0,mapa_durezas)) unload_map(0,mapa_durezas); end
-	mapa_durezas=new_map(resolucion_x,resolucion_y,16);
+	mapa_durezas=new_map(resolucion_x,resolucion_y,bpp);
 	drawing_map(0,mapa_durezas);
 	drawing_color(color.negro);
 	draw_box(0,0,resolucion_x,resolucion_y);
@@ -273,7 +273,6 @@ Begin
 		if(p[4].jugando) grafico(p[4].fpg,1,resolucion_x-(resolucion_x/28),resolucion_y-(resolucion_y/12),-2,1); end
 		
 		//PRINCIPAL
-		if(!exists(type key_init)) key_init(); end
 		personaje(1);
 		personaje(2);
 		crear_nivel();
@@ -343,12 +342,12 @@ Begin
 	/**/
 
 	loop 
-		if(key_event(_F1,key_up)) personaje(1);personaje(2); end
-		if(key_event(_F2,key_up)) if(ready) ready=0; else ready=1; end end
-		if(key_event(_F3,key_up)) item_reloj(5); end
-		if(key_event(_F4,key_up)) if(full_screen==1) full_screen=0; else full_screen=1; end set_mode(resolucion_x,resolucion_y,bpp,WAITVSYNC); end
-		if(key_event(_ESC,key_up)) exit(); end
-		if(key_event(_F10,key_up)) guarda_nivel("niveltemp.pang"); end
+		if(key(_F1)) while(key(_F1)) frame; end personaje(1); personaje(2); end
+		if(key(_F2)) while(key(_F2)) frame; end if(ready) ready=0; else ready=1; end end
+		if(key(_F3)) while(key(_F3)) frame; end item_reloj(5); end
+		if(key(_F4)) while(key(_F4)) frame; end if(full_screen==1) full_screen=0; else full_screen=1; end set_mode(resolucion_x,resolucion_y,bpp,WAITVSYNC); end
+		if(key(_F5)) while(key(_F5)) frame; end exit(); end
+		if(key(_F10)) while(key(_F10)) frame; end guarda_nivel("niveltemp.pang"); end
 		frame; 
 	end
 End

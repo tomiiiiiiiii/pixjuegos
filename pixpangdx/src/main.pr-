@@ -9,8 +9,10 @@ Begin
 
 	//full_screen=0;
 	resolucioname(1920,1080,1);
+
+	bpp=16;
 	
-	set_mode(resolucion_x,resolucion_y,bpp,WAITVSYNC);
+	set_mode(resolucion_x,resolucion_y,bpp);
 	set_fps(60,0);
 	frame;
 	

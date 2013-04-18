@@ -31,7 +31,7 @@ include "variables.pr-";
 include "main.pr-";
 
 //manejador de teclas, por SplinterGU 2010
-include "key_event.pr-";
+//include "key_event.pr-";
 
 //resolucioname
 include "../../common-src/resolucioname.pr-";
