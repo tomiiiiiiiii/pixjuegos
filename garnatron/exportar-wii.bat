@@ -13,8 +13,12 @@ cd wav
 FOR %%G IN (*.wav) DO ..\..\utils\ffmpeg.exe -i %%G -ar 48000 ..\export-wii\wav\%%G
 cd ..
 
+copy ogg\*.ogg export-wii\ogg
 copy fpg\*.fpg export-wii\fpg
 copy fnt\*.fnt export-wii\fnt
+copy src\*.* export-wii\
+copy ..\common-src\*.* export-wii\
+copy src\garnatron.prg export-wii\boot.prg
 copy ..\bennu-wii\bgdi.elf export-wii\boot.elf
 copy recursos\wii\icon.png export-wii\
 copy recursos\wii\meta.xml export-wii\

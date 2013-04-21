@@ -22,7 +22,7 @@ import "mod_scroll";
 import "mod_sound";
 import "mod_string";
 import "mod_sys";
-import "mod_text";
+//import "mod_text";
 import "mod_timers";
 import "mod_video";
 import "mod_wm";
@@ -129,8 +129,8 @@ Global
 	fpg_jefe;
 	fpg_cutscenes;
 	fpg_lang;
-	fnt_menu;
-	fnt_tiempo;
+	fpg_texto;
+	fpg_tiempo;
 	wavs[50];
 	
 	enemigos;
@@ -205,6 +205,7 @@ End
 include "../../common-src/controles.pr-";
 include "../../common-src/savepath.pr-";
 include "../../common-src/lenguaje.pr-";
+include "../../common-src/mod_text2.pr-";
 include "jefe1.pr-";
 include "jefe4.pr-";
 include "niveles.pr-";
@@ -303,7 +304,6 @@ Begin
 	//cargamos recursos
 	carga_fpgs();
 	carga_wavs();
-	carga_fnts();
 
 	//recolocamos el centro de los objetos
 	recoloca_centros();
@@ -328,14 +328,10 @@ Begin
 	#ENDIF
 	
 	//iniciamos el menú
+	//test_text();
+	//fade_on();
 	menu(-1);
 	return;
-End
-
-Function carga_fnts();
-Begin
-	fnt_menu=load_fnt("fnt\menu.fnt");
-	fnt_tiempo=load_fnt("fnt\tiempo.fnt");
 End
 
 Function carga_wavs();
@@ -362,6 +358,8 @@ Begin
 	fpg_general=load_fpg("fpg/general.fpg");
 	fpg_objetos=load_fpg("fpg/objetos.fpg");
 	fpg_menu=load_fpg("fpg/menu.fpg");
+	fpg_texto=load_fpg("fpg/fnt1.fpg");
+	fpg_tiempo=load_fpg("fpg/tiempo.fpg");
 	#IFDEF OUYA
 		fpg_lang=load_fpg("fpg/"+lang_suffix+"-ouya.fpg");
 	#ELSE
@@ -452,31 +450,31 @@ Begin
 			#IFDEF OUYA
 				switch(ops.lenguaje)
 					case 0:
-						txt_pausa[1]=write(fnt_menu,ancho_pantalla/2,(alto_pantalla/2)-30,4,"PAUSE");
-						txt_pausa[2]=write(fnt_menu,ancho_pantalla/2,alto_pantalla/2,4,"Press Button A to exit");
+						txt_pausa[1]=write(fpg_texto,ancho_pantalla/2,(alto_pantalla/2)-30,4,"PAUSE");
+						txt_pausa[2]=write(fpg_texto,ancho_pantalla/2,alto_pantalla/2,4,"Press Button A to exit");
 					end
 					case 1:
-						txt_pausa[1]=write(fnt_menu,ancho_pantalla/2,(alto_pantalla/2)-30,4,"PAUSA");
-						txt_pausa[2]=write(fnt_menu,ancho_pantalla/2,alto_pantalla/2,4,"Pulsa el botón A para salir");
+						txt_pausa[1]=write(fpg_texto,ancho_pantalla/2,(alto_pantalla/2)-30,4,"PAUSA");
+						txt_pausa[2]=write(fpg_texto,ancho_pantalla/2,alto_pantalla/2,4,"Pulsa el botón A para salir");
 					end
 					case 2:
-						txt_pausa[1]=write(fnt_menu,ancho_pantalla/2,(alto_pantalla/2)-30,4,"PAUSA");
-						txt_pausa[2]=write(fnt_menu,ancho_pantalla/2,alto_pantalla/2,4,"Pulsa el botón A para salir");
+						txt_pausa[1]=write(fpg_texto,ancho_pantalla/2,(alto_pantalla/2)-30,4,"PAUSA");
+						txt_pausa[2]=write(fpg_texto,ancho_pantalla/2,alto_pantalla/2,4,"Pulsa el botón A para salir");
 					end
 				end
 			#ELSE
 				switch(ops.lenguaje)
 					case 0:
-						txt_pausa[1]=write(fnt_menu,ancho_pantalla/2,(alto_pantalla/2)-30,4,"PAUSE");
-						txt_pausa[2]=write(fnt_menu,ancho_pantalla/2,alto_pantalla/2,4,"Press Button 3 to exit");
+						txt_pausa[1]=write(fpg_texto,ancho_pantalla/2,(alto_pantalla/2)-30,4,"PAUSE");
+						txt_pausa[2]=write(fpg_texto,ancho_pantalla/2,alto_pantalla/2,4,"Press Button 3 to exit");
 					end
 					case 1:
-						txt_pausa[1]=write(fnt_menu,ancho_pantalla/2,(alto_pantalla/2)-30,4,"PAUSA");
-						txt_pausa[2]=write(fnt_menu,ancho_pantalla/2,alto_pantalla/2,4,"Pulsa el botón 3 para salir");
+						txt_pausa[1]=write(fpg_texto,ancho_pantalla/2,(alto_pantalla/2)-30,4,"PAUSA");
+						txt_pausa[2]=write(fpg_texto,ancho_pantalla/2,alto_pantalla/2,4,"Pulsa el botón 3 para salir");
 					end
 					case 2:
-						txt_pausa[1]=write(fnt_menu,ancho_pantalla/2,(alto_pantalla/2)-30,4,"PAUSA");
-						txt_pausa[2]=write(fnt_menu,ancho_pantalla/2,alto_pantalla/2,4,"Pulsa el botón 3 para salir");
+						txt_pausa[1]=write(fpg_texto,ancho_pantalla/2,(alto_pantalla/2)-30,4,"PAUSA");
+						txt_pausa[2]=write(fpg_texto,ancho_pantalla/2,alto_pantalla/2,4,"Pulsa el botón 3 para salir");
 					end
 				end
 			#ENDIF
@@ -1511,7 +1509,7 @@ Begin
 	x=90+((jugador-1)*150);
 	y=30;
 	z=-10;
-	txt_marcador=write_int(fnt_menu,x-70,y,4,&p[jugador].vidas);
+	txt_marcador=write_int(fpg_texto,x-70,y,4,&p[jugador].vidas);
 	while(p[jugador].juega)
 		vida(x-29,y+2,p[jugador].vida-1,25);
 		frame;
@@ -1647,7 +1645,7 @@ Begin
 		if(decimas>9 and segundos<10) string_tiempo=itoa(minutos)+":0"+itoa(segundos)+":"+itoa(decimas); end
 		if(decimas<10 and segundos>9) string_tiempo=itoa(minutos)+":"+itoa(segundos)+":0"+itoa(decimas); end
 		if(decimas>9 and segundos>9) string_tiempo=itoa(minutos)+":"+itoa(segundos)+":"+itoa(decimas); end
-		txt_tiempo=write(fnt_tiempo,x,y,4,string_tiempo);
+		txt_tiempo=write_fixed(fpg_tiempo,x,y,4,string_tiempo,25);
 		frame;
 		if(jugadores>0)
 			if(ganando)
@@ -1859,9 +1857,9 @@ End
 Process muestra_nivel();
 Begin
 	switch(ops.lenguaje)
-		case 0: graph=write_in_map(fnt_menu,"Level "+nivel,4); end
-		case 1: graph=write_in_map(fnt_menu,"Nivel "+nivel,4); end
-		case 2: graph=write_in_map(fnt_menu,"Nivel "+nivel,4); end
+		case 0: graph=write_in_map(fpg_texto,"Level "+nivel,4); end
+		case 1: graph=write_in_map(fpg_texto,"Nivel "+nivel,4); end
+		case 2: graph=write_in_map(fpg_texto,"Nivel "+nivel,4); end
 	end
 	x=ancho_pantalla/2;
 	y=(alto_pantalla/2)-34;
@@ -1878,20 +1876,20 @@ Begin
 	switch(ops.lenguaje)
 		case 0: 
 			switch(nivel)
-				case 1: graph=write_in_map(fnt_menu,"Downtown",4); end
-				case 4: graph=write_in_map(fnt_menu,"Airport",4); end
+				case 1: graph=write_in_map(fpg_texto,"Downtown",4); end
+				case 4: graph=write_in_map(fpg_texto,"Airport",4); end
 			end
 		end
 		case 1:
 			switch(nivel)
-				case 1: graph=write_in_map(fnt_menu,"Centro",4); end
-				case 4: graph=write_in_map(fnt_menu,"Aeropuerto",4); end
+				case 1: graph=write_in_map(fpg_texto,"Centro",4); end
+				case 4: graph=write_in_map(fpg_texto,"Aeropuerto",4); end
 			end
 		end
 		case 2:
 			switch(nivel)
-				case 1: graph=write_in_map(fnt_menu,"Centro",4); end
-				case 4: graph=write_in_map(fnt_menu,"Aeropuerto",4); end
+				case 1: graph=write_in_map(fpg_texto,"Centro",4); end
+				case 4: graph=write_in_map(fpg_texto,"Aeropuerto",4); end
 			end
 		end
 	end
@@ -1908,9 +1906,9 @@ Process nivel_superado();
 Begin
 	ready=0;
 	switch(ops.lenguaje)
-		case 0: graph=write_in_map(fnt_menu,"Level "+nivel+" completed",4); end
-		case 1: graph=write_in_map(fnt_menu,"Nivel "+nivel+" superado",4); end
-		case 2: graph=write_in_map(fnt_menu,"Nivel "+nivel+" superado",4); end
+		case 0: graph=write_in_map(fpg_texto,"Level "+nivel+" completed",4); end
+		case 1: graph=write_in_map(fpg_texto,"Nivel "+nivel+" superado",4); end
+		case 2: graph=write_in_map(fpg_texto,"Nivel "+nivel+" superado",4); end
 	end
 	x=ancho_pantalla/2;
 	y=(alto_pantalla/3)-34;
@@ -1936,7 +1934,7 @@ End
 
 Process truco_descubierto(string texto);
 Begin
-	graph=write_in_map(fnt_menu,texto,4);
+	graph=write_in_map(fpg_texto,texto,4);
 	x=ancho_pantalla/2;
 	y=(alto_pantalla/2)-34;
 	z=-512;
