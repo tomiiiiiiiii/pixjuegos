@@ -4,7 +4,7 @@ call ..\utils\entorno.bat pixdash
 rd /s /q export
 echo Compilando...
 cd src
-..\..\bennu-win-old\bgdc -DTACTIL=1 pixdash.prg
+..\..\bennu-win-old\bgdc -DANDROID=1 -DOUYA=1 pixdash.prg
 move pixdash.dcb ..\main.dcb
 cd ..
 
@@ -50,7 +50,7 @@ xcopy /r/e/y recursos\android\com export\src\com
 echo Copiando el juego...
 copy fnt\*.fnt export\assets\fnt /y
 copy fpg\*.fpg export\assets\fpg /y
-rem copy ogg\*.ogg export\assets\ogg /y
+copy ogg\*.ogg export\assets\ogg /y
 copy wav\*.wav export\assets\wav /y
 REM FALTAN FONDOS EN PNG?
 

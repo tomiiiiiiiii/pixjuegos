@@ -24,7 +24,7 @@ import "mod_regex";
 import "mod_key";
 
 //comentar las dos siguientes líneas para Wii
-#ifndef ANDROID
+#ifndef TACTIL
  #ifndef WII
   #ifdef LINUX
    import "image";
@@ -1021,7 +1021,7 @@ BEGIN
 		fondo=load_png("fondos\fondo"+rand(1,5)+".jpg.png"); //cargar el fondo
 	end
 #else
-	#ifdef ANDROID
+	#ifdef TACTIL
 /*		if(fexists(savegamedir+"niveles\"+paqueteniveles+"\fondo"+num_nivel+".jpg.png"))
 			fondo=load_png(savegamedir+"niveles\"+paqueteniveles+"\fondo"+num_nivel+".jpg.png"); //cargar el fondo. ponemos .jpg.png para saber que viene de un jpg
 		else
@@ -1604,7 +1604,7 @@ End
 
 include "menu.pr-";
 include "navegador.pr-";
-#ifndef ANDROID
+#ifndef TACTIL
  #ifndef WII
   include "editorniveles.pr-";
  #endif
@@ -2211,7 +2211,7 @@ function set_title(string basura); begin end
 function editor_de_niveles(); begin end
 #endif
 
-#ifdef ANDROID
+#ifdef TACTIL
 function editor_de_niveles(); begin end
 #endif
 
