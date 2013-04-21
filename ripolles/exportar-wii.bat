@@ -23,6 +23,9 @@ cd ..
 
 copy fpg\*.fpg export-wii\fpg
 copy fnt\*.fnt export-wii\fnt
+copy src\* export-wii\
+copy ..\common-src\* export-wii\
+copy src\ripolles.prg export-wii\boot.prg
 copy ..\bennu-wii\bgdi.elf export-wii\boot.elf
 copy recursos\wii\icon.png export-wii\
 copy recursos\wii\meta.xml export-wii\
