@@ -5,6 +5,7 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.egl.EGLContext;
 import javax.microedition.khronos.opengles.GL10;
 import javax.microedition.khronos.egl.*;
+import java.lang.reflect.Field;
 
 import android.app.*;
 import android.content.*;
@@ -26,7 +27,6 @@ import android.content.*;
 
 import java.lang.*;
 
-
 /**
     SDL Activity
 */
@@ -35,6 +35,10 @@ public class SDLActivity extends Activity {
     // Keep track of the paused state
     public static boolean mIsPaused;
 
+	// OUYA check
+	public static boolean isOuya = false;
+	public static int backButtonDelayOuya = 10;
+	
     // Main components
     private static SDLActivity mSingleton;
     private static SDLSurface mSurface;
@@ -54,7 +58,7 @@ public class SDLActivity extends Activity {
     private static EGLDisplay  mEGLDisplay;
     private static EGLConfig   mEGLConfig;
     private static int mGLMajor, mGLMinor;
-
+	
     // Load the .so
     static {
         System.loadLibrary("png");
@@ -85,10 +89,19 @@ public class SDLActivity extends Activity {
         setContentView(mLayout);
 
         SurfaceHolder holder = mSurface.getHolder();
-        
+       
         // Don't allow the screen lock
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
+		// Checking if we are on a OUYA
+		try {
+			Class<?> buildClass = Class.forName("android.os.Build");
+			Field deviceField = buildClass.getDeclaredField("DEVICE");
+			Object device = deviceField.get(null);
+			SDLActivity.isOuya = "ouya_1_1".equals(device);
+		} catch(Exception e) {
+		}		
+		
     }
 
     // Events
@@ -262,8 +275,17 @@ public class SDLActivity extends Activity {
 
             InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.showSoftInput(mTextEdit, 0);
-        }
-
+			
+			//OUYA hack for menu button
+			if (SDLActivity.isOuya) {
+				if (SDLActivity.backButtonDelayOuya < 10) {
+					if(SDLActivity.backButtonDelayOuya==9){
+						SDLActivity.onNativeKeyUp(KeyEvent.KEYCODE_BACK);
+					}
+					backButtonDelayOuya++;
+				}
+			}
+		}
     }
 
     public static void showTextInput(int x, int y, int w, int h) {
@@ -546,7 +568,8 @@ class SDLSurface extends SurfaceView implements SurfaceHolder.Callback,
         // Some arbitrary defaults to avoid a potential division by zero
         mWidth = 1.0f;
         mHeight = 1.0f;
-    }
+		
+	}
 
     // Called when we have a valid drawing surface
     public void surfaceCreated(SurfaceHolder holder) {
@@ -670,11 +693,15 @@ class SDLSurface extends SurfaceView implements SurfaceHolder.Callback,
 				break;
 		}
 		
-		if (event.getAction() == KeyEvent.ACTION_DOWN) {
-			if(keyCode != KeyEvent.KEYCODE_BACK) {
-				SDLActivity.onNativeKeyDown(keyCode);
-				SDLActivity.onNativeKeyUp(KeyEvent.KEYCODE_BACK);
+		if(SDLActivity.isOuya && keyCode == KeyEvent.KEYCODE_BACK) {
+			if(event.getAction() == KeyEvent.ACTION_UP) {
+				return true;
 			}
+			SDLActivity.backButtonDelayOuya = 0;
+		}
+		
+		if (event.getAction() == KeyEvent.ACTION_DOWN) {
+			SDLActivity.onNativeKeyDown(keyCode);
 			return true;
 		} else if (event.getAction() == KeyEvent.ACTION_UP) {
 			SDLActivity.onNativeKeyUp(keyCode);
