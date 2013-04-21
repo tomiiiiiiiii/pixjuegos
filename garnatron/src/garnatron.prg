@@ -42,6 +42,8 @@ import "mod_video";
 import "mod_wm";
 
 Global
+	sin_opciones=0;
+
 	pausa;
 	distancia;
 
@@ -82,7 +84,7 @@ Global
 		end
 		particulas=1;
 		p_completa;
-		resolucion;
+		resolucion=1;
 		lenguaje=0;
 	end
 	
@@ -195,10 +197,25 @@ BEGIN
 			crear_jerarquia(savegamedir);
 		end
 	end
+	
 	if(os_id==1003)
+		sin_opciones=1;
 		savegamedir="/data/data/com.pixjuegos.garnatron/files/";
 		mkdir(savegamedir);
 		ops.particulas=0;
+	end
+
+	if(os_id==os_caanoo)
+		sin_opciones=1;
+		savegamedir="";
+		ops.particulas=0;
+	end
+	
+	if(os_id==os_wii)
+		guardar=0;
+		savegamedir="";
+		ops.particulas=0;
+		sin_opciones=1;
 	end
 	
 	switch(lenguaje_sistema())
@@ -273,6 +290,10 @@ BEGIN
 		#ENDIF
 		ops.p_completa=1;
 		//resolucioname(ancho_pantalla,alto_pantalla,1);
+	elseif(os_id==os_caanoo)
+		ancho_pantalla=800;
+		alto_pantalla=600;
+		bpp=16;
 	else
 		switch(ops.resolucion)
 			case 0:
@@ -295,11 +316,10 @@ BEGIN
 	
 	if(ops.p_completa)
 		full_screen=true;
-		set_mode(ancho_pantalla,alto_pantalla,bpp);
 	else
 		full_screen=false;
-		set_mode(ancho_pantalla,alto_pantalla,bpp);
 	end
+	set_mode(ancho_pantalla,alto_pantalla,bpp);
 
 	//----------------------------------------------------------imagen cargando
 	file=fpg_menu;
@@ -598,7 +618,11 @@ begin
 		end
 
 		delete_text(all_text);
-		nuevo_highscore(puntos[1],puntos[2],puntos[3],puntos[4]);
+		if(os_id==os_caanoo)
+			menu(0);
+		else
+			nuevo_highscore(puntos[1],puntos[2],puntos[3],puntos[4]);
+		end
 	end
 
 end
@@ -693,7 +717,7 @@ begin
 		case 0: //general
 			boton(x,y+=60,textos[110],1);
 			boton(x,y+=60,textos[111],2);
-			if(os_id!=1003)
+			if(!sin_opciones)
 				boton(x,y+=60,textos[112],3);
 				boton(x,y+=60,textos[113],4);
 				boton(x,y+=60,textos[114],5);
@@ -797,7 +821,7 @@ begin
 			while(p[0].botones[b_aceptar]) scroll.x0+=3; frame; end
 			switch(num_menu)
 				case 0: //general
-					if(os_id==1003 and opcion_actual>2) opcion_actual++; end //en Android no hay menú de opciones
+					if(sin_opciones and opcion_actual>2) opcion_actual++; end //en Android no hay menú de opciones
 					switch(opcion_actual)
 						case 1:
 							if(posibles_jugadores>1)
@@ -1224,7 +1248,7 @@ begin
 	write(fuente[0],ancho_pantalla/2 + 370,alto_pantalla/2 + 180,5,textos[84]);
 	write(fuente[0],ancho_pantalla/2 + 370,alto_pantalla/2 + 250,5,textos[85]);
 	
-	write(fuente[0],ancho_pantalla/2 + 20,alto_pantalla/2 + 50,400,3,textos[86]); //Bono
+	write(fuente[0],ancho_pantalla/2 + 20,alto_pantalla/2 + 50,3,textos[86]); //Bono
 	
 	write(fuente[0],ancho_pantalla/2 + 20,alto_pantalla/2 + 100,3,textos[87]);
 	write(fuente[0],ancho_pantalla/2 + 180,alto_pantalla/2 + 100,3,textos[88]);

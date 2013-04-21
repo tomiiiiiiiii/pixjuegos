@@ -32,7 +32,7 @@ begin
 		return;
 	end
 
-	if(os_id==os_caanoo or os_id==os_dingux_a320 or os_id==os_gp2x or os_id==os_gp2x_wiz or os_id==os_gp32 or os_id==os_dc)
+	if(os_id==os_caanoo or os_id==10 or os_id==os_gp2x or os_id==os_gp2x_wiz or os_id==os_gp32 or os_id==os_dc)
 		bpp=16;
 		scale_resolution=03200240; 
 		return;
@@ -44,7 +44,7 @@ begin
 		return; 
 	end
 	
-	if(os_id==1003 or os_id==os_ios) //móviles
+	if(os_id==1003 or os_id==1002) //móviles
 		frame;
 		bpp=16;
 		scale_resolution=graphic_info(0,0,g_width)*10000+graphic_info(0,0,g_height);

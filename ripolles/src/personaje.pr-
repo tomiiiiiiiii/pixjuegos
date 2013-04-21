@@ -70,7 +70,7 @@ Begin
 		fuerza_ataque=10;
 		altura=-300;
 		marcador(jugador);
-		if(jugador==1 and ops.truco_pato==1)
+		if(ops.truco_pato==1)
 			inercia_max_x=9;
 			inercia_max_y=6;
 			fuerza_ataque=40;
@@ -496,7 +496,7 @@ Begin
 				end
 				inercia_maxima(inercia_max_x_actual,inercia_max_x_actual); 
 			end
-		else //está siendo herido
+		else //está siendo herido o cayendo del golpe
 			if(accion!=herido_leve and accion!=herido_grave and accion!=muere) //escisión!
 				if(lleva_objeto>0)
 					objeto(x,y_base,altura-100,lleva_objeto,0);
@@ -547,6 +547,12 @@ Begin
 				if(altura==0)
 					herida--;
 				end
+			end
+			
+			if(accion==herido_grave and p[jugador].botones[b_arriba] and pulsando_arriba<3 and p[jugador].botones[b_2] and gravedad>0)
+				gravedad=-10;
+				accion=quieto;
+				herida=0;
 			end
 
 			altura+=gravedad;

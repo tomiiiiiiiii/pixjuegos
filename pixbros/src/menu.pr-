@@ -87,6 +87,8 @@ begin
 	x=320;
 	y=240;
 	
+	traducciones_menu();
+	
 	if(arcade_mode)
 		put_screen(fpg_menu,1);
 		graph=0;

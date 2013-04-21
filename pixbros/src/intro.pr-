@@ -63,8 +63,8 @@ Begin
 			
 			textos_intro[46]="";
 			textos_intro[47]="";
-			textos_intro[48]="";
-			textos_intro[49]="No one knows what happened to the three brothers.";
+			textos_intro[48]="No one knows what happened to";
+			textos_intro[49]="the three siblings.";
 			textos_intro[50]="";
 		end
 		case 1:
@@ -118,7 +118,7 @@ Begin
 			
 			textos_intro[41]="";
 			textos_intro[42]="si hubieran sabido lo que les iba a pasar,";
-			textos_intro[43]="nunca hubieran pulsado aquellos botones.";
+			textos_intro[43]="nunca habrían pulsado aquellos botones.";
 			textos_intro[44]="nada más pulsarlos, desaparecieron y...";
 			textos_intro[45]="";
 			

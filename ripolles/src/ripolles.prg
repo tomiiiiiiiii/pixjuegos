@@ -240,7 +240,7 @@ Begin
 	end
 
 	//La resolución del monitor será esta:
-	if(os_id==os_caanoo or os_id==os_dingux_a320 or os_id==os_gp2x or os_id==os_gp2x_wiz or os_id==os_gp32 or os_id==os_dc)
+	if(os_id==os_caanoo or os_id==10 or os_id==os_gp2x or os_id==os_gp2x_wiz or os_id==os_gp32 or os_id==os_dc)
 		panoramico=0;
 		//scale_resolution=03200240;
 		ancho_pantalla=480;
@@ -248,9 +248,8 @@ Begin
 		bpp=16;
 	elseif(os_id==os_wii)
 		scale_resolution=06400480;
-		scale_resolution_aspectratio = SRA_PRESERVE;
 		bpp=16;	
-	elseif(os_id==1003 or os_id==os_ios) //móviles
+	elseif(os_id==1003 or os_id==1002) //móviles
 		if(graphic_info(0,0,g_width)==1024 and graphic_info(0,0,g_height)==552)
 			ancho_pantalla=665; //archos gamepad
 			alto_pantalla=360;
@@ -1470,7 +1469,7 @@ Process pon_musica(i);
 Private
 	string formato="ogg";
 Begin
-	if(os_id==os_wii /*or os_id==os_caanoo*/ or os_id==os_dingux_a320 or os_id==os_gp2x or os_id==os_gp2x_wiz or os_id==os_gp32 or os_id==os_dc) 
+	if(os_id==os_wii /*or os_id==os_caanoo*/ or os_id==10 or os_id==os_gp2x or os_id==os_gp2x_wiz or os_id==os_gp32 or os_id==os_dc) 
 		//formato="mp3"; 
 	end
 	if(ops.musica)

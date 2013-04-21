@@ -43,6 +43,8 @@ n;
 
 string linea;
 
+int FP2;
+
 datos_nivel[500][6];
 /*------------------------------------------------------------------
 	distancia
@@ -76,6 +78,19 @@ Begin
 		fclose(archivo);
 	end
 
+#IFDEF WII
+	switch(nivel)
+		case 1: include "nivel1.pr-"; end
+		case 2: include "nivel1.pr-"; end
+		case 3: include "nivel1.pr-"; end
+		case 4: include "nivel1.pr-"; end
+		case 5: include "nivel1.pr-"; end
+	end
+#ELSE
+//EXPORTADOR DE NIVELES DE CSV A ESTRUCTURA
+//	fp2=fopen("niveles/nivel"+nivel+".pr-",O_WRITE);
+//	fputs(fp2,"//Nivel "+nivel);
+	
 	//carga el archivo del nivel
 	archivo=fopen("niveles/nivel"+nivel+".csv",O_READ);
 	while(!feof(archivo))
@@ -83,10 +98,13 @@ Begin
 		if(find(linea,"fin")>-1) break; end
 		from j=0 to 5;
 			datos_nivel[i][j]=hasta_la_coma(linea,j);
+//	fputs(fp2,"datos_nivel["+i+"]["+j+"]="+datos_nivel[i][j]+";");
 		end
 		i++;
 	end
 	fclose(archivo);
+//	fclose(fp2);
+#ENDIF
 	ctype=c_screen;
 	define_region(1,0,0,ancho_pantalla,alto_pantalla);
 	pausa=1;

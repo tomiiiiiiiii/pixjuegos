@@ -166,7 +166,7 @@ Begin
 				If(get_joy_button(joysticks[p[jugador].control],1)) p[jugador].botones[6]=1; End
 				If(get_joy_button(joysticks[p[jugador].control],6)) p[jugador].botones[7]=1; End
 			elseif(os_id==os_caanoo)
-			//elseif(os_id==os_caanoo or os_id==os_dingux_a320 or os_id==os_gp2x or os_id==os_gp2x_wiz or os_id==os_gp32 or os_id==os_dc)
+			//elseif(os_id==os_caanoo or os_id==10 or os_id==os_gp2x or os_id==os_gp2x_wiz or os_id==os_gp32 or os_id==os_dc)
 				If(joy_getbutton(0,12)) p[jugador].botones[4]=1; End
 				If(joy_getbutton(0,14)) p[jugador].botones[5]=1; End
 				If(joy_getbutton(0,13)) p[jugador].botones[6]=1; End
@@ -264,7 +264,7 @@ Begin
 	
 	//controladores especiales!
 	//if(os_id==os_caanoo) //caanoo
-	if(os_id==os_caanoo or os_id==os_dingux_a320 or os_id==os_gp2x or os_id==os_gp2x_wiz or os_id==os_gp32 or os_id==os_dc)
+	if(os_id==os_caanoo or os_id==10 or os_id==os_gp2x or os_id==os_gp2x_wiz or os_id==os_gp32 or os_id==os_dc)
 		joysticks[0]=1;
 		p[1].control=1;
 		posibles_jugadores=1;
