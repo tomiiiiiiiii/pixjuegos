@@ -37,6 +37,10 @@ Begin
 	from x=0 to 999;
 		If(file_exists(itoa(x)+".png"))
 			fpg_add(file,x,0,load_png(itoa(x)+".png"));
+		elseIf(file_exists("0"+itoa(x)+".png"))
+			fpg_add(file,x,0,load_png("0"+itoa(x)+".png"));
+		elseIf(file_exists("00"+itoa(x)+".png"))
+			fpg_add(file,x,0,load_png("00"+itoa(x)+".png"));
 		end
 	End
 	save_fpg(file,"../../fpg/"+fpgname+".fpg");

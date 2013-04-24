@@ -1,50 +1,50 @@
 Const
 	all_text=-1;
-
+End
 Global
-	matatextos;
-	fpg_texto_margen=-5;
-	fpg_texto_espacio=30;
-	
+	matatextos=0;
+	fpg_texto_margen=0;
+	fpg_texto_espacio=10;
+End
 Local
 	rand_y;
 	rand_angle;
-
-Process test_text();
+End
+/*Process test_text();
 Private
-	id_texto;
+	mi_id_texto;
 	retraso_repintado=5;
 Begin
 	//stop_scroll(0);
 	//let_me_alone();
 	//delete_text(all_text);
-	id_texto=write(fpg_texto,0,0,0,"Hola, soy Pablo. Feliz Navidad");
+	mi_id_texto=write(fpg_texto,0,0,0,"Hola, soy Pablo. Feliz Navidad");
 	
 	while(!key(_Esc))
 		if(key(_a)) fpg_texto_margen--; end
 		if(key(_s)) fpg_texto_margen++; end
 		if(key(_q) and fpg_texto_espacio>0) fpg_texto_espacio--; end
 		if(key(_w)) fpg_texto_espacio++; end
-		if(key(_z) and id_texto.rand_y>0) id_texto.rand_y--; end
-		if(key(_x) and id_texto.rand_y<5) id_texto.rand_y++; end
-		if(key(_u) and id_texto.rand_angle>0) id_texto.rand_angle-=1000; end
-		if(key(_i) and id_texto.rand_angle<30000) id_texto.rand_angle+=1000; end
-		if(key(_left)) id_texto.angle-=1000; end
-		if(key(_right)) id_texto.angle+=1000; end
-		if(mouse.left) id_texto.size+=3; end
-		if(mouse.right) id_texto.size-=3; end
-		id_texto.x=mouse.x;
-		id_texto.y=mouse.y;
+		if(key(_z) and mi_id_texto.rand_y>0) mi_id_texto.rand_y--; end
+		if(key(_x) and mi_id_texto.rand_y<5) mi_id_texto.rand_y++; end
+		if(key(_u) and mi_id_texto.rand_angle>0) mi_id_texto.rand_angle-=1000; end
+		if(key(_i) and mi_id_texto.rand_angle<30000) mi_id_texto.rand_angle+=1000; end
+		if(key(_left)) mi_id_texto.angle-=1000; end
+		if(key(_right)) mi_id_texto.angle+=1000; end
+		if(mouse.left) mi_id_texto.size+=3; end
+		if(mouse.right) mi_id_texto.size-=3; end
+		mi_id_texto.x=mouse.x;
+		mi_id_texto.y=mouse.y;
 		if(retraso_repintado<5)
 			retraso_repintado++;
 		else
 			retraso_repintado=0;
-			id_texto.accion=1;
+			mi_id_texto.accion=1;
 		end
 		frame; 
 	end
 	exit();
-End
+End*/
 
 Process write(fpg_fuente,x,y,centrado,string texto);
 Private
@@ -163,19 +163,52 @@ OnExit
 	unload_map(0,graph);
 End
 
+Process write_var(fpg_fuente,x,y,centrado,string *numero);
+Private
+	mi_ancho;
+	mi_alto;
+	string anterior_numero;
+Begin
+	z=-512;
+	
+	//1. pintamos texto en un mapa de bits
+	graph=dibujame_el_texto(fpg_fuente,*numero,fpg_texto_margen,rand_y,rand_angle,0);
+	
+	//2. centramos
+	centrame(file,graph,centrado);
+	
+	//3. permanecemos
+	while(accion!=-1)
+		if(anterior_numero!=*numero) //redibujamos
+			unload_map(0,graph);
+			//1. pintamos texto en un mapa de bits
+			graph=dibujame_el_texto(fpg_fuente,*numero,fpg_texto_margen,rand_y,rand_angle,0);
+			
+			//2. centramos
+			centrame(file,graph,centrado);
+
+			accion=0;
+		end
+		anterior_numero=*numero;
+		frame; 
+	end
+OnExit
+	unload_map(0,graph);
+End
+
 Function delete_text(cual);
 Private
-	id_texto;
+	mi_id_texto;
 Begin
 	if(cual==-1)
-		while(id_texto=get_id(type write))
-			if(exists(id_texto))
-				id_texto.accion=-1;
+		while(mi_id_texto=get_id(type write))
+			if(exists(mi_id_texto))
+				mi_id_texto.accion=-1;
 			end
 		end
-		while(id_texto=get_id(type write_int))
-			if(exists(id_texto))
-				id_texto.accion=-1;
+		while(mi_id_texto=get_id(type write_int))
+			if(exists(mi_id_texto))
+				mi_id_texto.accion=-1;
 			end
 		end
 	else
@@ -211,7 +244,9 @@ Private
 	mi_alto_max;
 	mi_ancho_total;
 Begin
-	texto=ucase(texto);
+	if(!map_exists(file,97))
+		texto=ucase(texto);
+	end
 
 	//1. contar el espacio horizontal y vertical
 	from i=0 to len(texto)-1;
@@ -224,6 +259,7 @@ Begin
 			end
 		end
 	end
+	say(mi_ancho_total);
 	if(fixed_width>0)
 		mi_ancho_total=fixed_width*(len(texto)+1);
 	end
@@ -256,4 +292,13 @@ Begin
 	
 	//4. devolvemos el id del gráfico
 	return graph;
+End
+
+Function set_text_color(int crap);
+Begin
+	//stub
+End
+
+Function text_width(int crap1,string crap2);
+Begin
 End
