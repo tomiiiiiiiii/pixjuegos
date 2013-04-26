@@ -9,18 +9,11 @@ mkdir export-wii\ogg
 mkdir export-wii\fnt
 mkdir export-wii\wav
 
-cd ogg
-FOR %%G IN (*.ogg) DO ..\..\utils\ffmpeg.exe -i %%G -f mp3 -acodec libmp3lame -ar 48000 -ab 128k ..\export-wii\ogg\%%G.mp3
-cd ..\export-wii\ogg\
-ren *.ogg.mp3 *.
-ren *.ogg *.
-ren *. *.mp3
-cd ..\..
-
 cd wav
 FOR %%G IN (*.wav) DO ..\..\utils\ffmpeg.exe -i %%G -ar 48000 ..\export-wii\wav\%%G
 cd ..
 
+copy ogg\*.ogg export-wii\ogg
 copy fpg\*.fpg export-wii\fpg
 copy fnt\*.fnt export-wii\fnt
 copy src\* export-wii\

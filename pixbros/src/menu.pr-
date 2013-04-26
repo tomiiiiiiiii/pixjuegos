@@ -127,11 +127,11 @@ begin
 
 	keytime=10;
 	loop
-		if(elecc==7)
+		if(elecc==6)
 			elecc=0;
 		end
 		if(elecc==-1)
-			elecc=6;
+			elecc=5;
 		end
 		if(keytime>0)
 			keytime--;
@@ -158,17 +158,17 @@ begin
 				opcion();
 				break;
 			end
-			if(elecc==3)
+/*			if(elecc==3)
 				let_me_alone();
 				back(20);
 				break;
-			end
-			if(elecc==4)
+			end*/
+			if(elecc==3)
 				let_me_alone();
 				back(200);
 				break;
 			end
-			if(elecc==5)
+			if(elecc==4)
 				guarda_opciones();
  				if(os_id==0 or os_id==os_wii)
  					shell("http://pixjuegos.com");
@@ -179,7 +179,7 @@ begin
  				end
 				exit(0);
 			end
-			if(elecc==6)
+			if(elecc==5)
 				guarda_opciones();
 				frame(300);
 				exit(0);
@@ -224,17 +224,17 @@ begin
 			texto_menu(0,textos_menu[1]);
 			texto_menu(1,textos_menu[2]);
 			texto_menu(2,textos_menu[3]);
-			texto_menu(3,textos_menu[4]);
-			texto_menu(4,textos_menu[5]);
-			texto_menu(5,textos_menu[6]);
-			texto_menu(6,textos_menu[7]);
+			//texto_menu(3,textos_menu[4]); //NO HELP YET
+			texto_menu(3,textos_menu[5]);
+			texto_menu(4,textos_menu[6]);
+			texto_menu(5,textos_menu[7]);
 		end
 		case 2: //opciones
 			texto_menu(0,textos_menu[8]);
 			texto_menu(1,textos_menu[9]);
 			texto_menu(2,textos_menu[10]);
 			texto_menu(3,textos_menu[11]);
-			texto_menu(4,textos_menu[12]);
+			//texto_menu(4,textos_menu[12]);
 		end
 		case 3: //lenguaje
 			texto_menu(0,"english");

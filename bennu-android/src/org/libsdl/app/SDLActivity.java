@@ -37,7 +37,7 @@ public class SDLActivity extends Activity {
 
 	// OUYA check
 	public static boolean isOuya = false;
-	public static int backButtonDelayOuya = 10;
+	public static int backButtonDelayOuya = 3;
 	
     // Main components
     private static SDLActivity mSingleton;
@@ -47,6 +47,9 @@ public class SDLActivity extends Activity {
 
     // This is what SDL runs in. It invokes SDL_main(), eventually
     private static Thread mSDLThread;
+	
+	//DA FUK IS THIS:
+	private static Thread TestThread;
 
     // Audio
     private static Thread mAudioThread;
@@ -92,15 +95,6 @@ public class SDLActivity extends Activity {
        
         // Don't allow the screen lock
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
-		// Checking if we are on a OUYA
-		try {
-			Class<?> buildClass = Class.forName("android.os.Build");
-			Field deviceField = buildClass.getDeclaredField("DEVICE");
-			Object device = deviceField.get(null);
-			SDLActivity.isOuya = "ouya_1_1".equals(device);
-		} catch(Exception e) {
-		}		
 		
     }
 
@@ -228,8 +222,7 @@ public class SDLActivity extends Activity {
         if (mSDLThread == null) {
             mSDLThread = new Thread(new SDLMain(), "SDLThread");
             mSDLThread.start();
-        }
-        else {
+        } else {
             /*
              * Some Android variants may send multiple surfaceChanged events, so we don't need to resume every time
              * every time we get one of those events, only if it comes after surfaceDestroyed
@@ -239,6 +232,11 @@ public class SDLActivity extends Activity {
                 SDLActivity.mIsPaused = false;
             }
         }
+        if (TestThread == null) {
+            TestThread = new Thread(new Test(), "TestThread");
+            TestThread.start();
+        }
+
     }
     
     static class ShowTextInputHandler implements Runnable {
@@ -274,17 +272,7 @@ public class SDLActivity extends Activity {
             mTextEdit.requestFocus();
 
             InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.showSoftInput(mTextEdit, 0);
-			
-			//OUYA hack for menu button
-			if (SDLActivity.isOuya) {
-				if (SDLActivity.backButtonDelayOuya < 10) {
-					if(SDLActivity.backButtonDelayOuya==9){
-						SDLActivity.onNativeKeyUp(KeyEvent.KEYCODE_BACK);
-					}
-					backButtonDelayOuya++;
-				}
-			}
+            imm.showSoftInput(mTextEdit, 0);			
 		}
     }
 
@@ -529,6 +517,16 @@ public class SDLActivity extends Activity {
 */
 class SDLMain implements Runnable {
     public void run() {
+	
+		// Checking if we are on a OUYA
+		try {
+			Class<?> buildClass = Class.forName("android.os.Build");
+			Field deviceField = buildClass.getDeclaredField("DEVICE");
+			Object device = deviceField.get(null);
+			SDLActivity.isOuya = "ouya_1_1".equals(device);
+		} catch(Exception e) {
+		}		
+
         // Runs SDL_main()
         SDLActivity.nativeInit();
 
@@ -536,6 +534,24 @@ class SDLMain implements Runnable {
     }
 }
 
+class Test implements Runnable {
+	public void run() {
+		//OUYA hack for menu button
+		if (SDLActivity.isOuya) {
+			while(1 == 1) {
+				if (SDLActivity.backButtonDelayOuya < 2) {
+					if(SDLActivity.backButtonDelayOuya==1){
+						SDLActivity.onNativeKeyUp(KeyEvent.KEYCODE_BACK);
+					}
+					SDLActivity.backButtonDelayOuya++;
+				}
+				try {
+					Thread.sleep(100);
+				} catch(InterruptedException e) {}
+			}
+		}
+	}
+}
 
 /**
     SDLSurface. This is what we draw on, so we need to know when it's created

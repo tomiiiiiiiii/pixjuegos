@@ -16,7 +16,7 @@ private
 begin
 	priority=-1;
 	probar_pantalla();
-	set_fps(50,3);
+	set_fps(50,0);
 	chdir(dir_juego);
 	ready=0;
 	slowmotion=0;

@@ -80,6 +80,7 @@ Global
 	fnt_puntos;
 	fnt_texto1;
 	fnt_intro;
+	fnt_intro2;
 
 	mundo=1;
 	ready=1;
@@ -217,6 +218,7 @@ Begin
 	fnt_puntos=load_fnt("fnt/puntos.fnt");
 	fnt_texto1=load_fnt("fnt/texto1.fnt");
 	fnt_intro=load_fnt("fnt/intro.fnt");
+	fnt_intro2=load_fnt("fnt/intro2.fnt");
 	carga_sonidos();
 	frame;
 	set_center(fpg_pix,8,26,33);
@@ -463,32 +465,32 @@ begin
 			while(p[0].botones[b_salir]) frame; end
 			#IFDEF TACTIL
 				if(ops.lenguaje==0)
-					txt_pausa[1]=write(fnt_intro,320,220,4,"PAUSE");
-					txt_pausa[2]=write(fnt_intro,320,260,4,"Press Button 2 to exit");
+					txt_pausa[1]=write(fnt_intro2,320,220,4,"PAUSE");
+					txt_pausa[2]=write(fnt_intro2,320,260,4,"Press Button 2 to exit");
 				else
-					txt_pausa[1]=write(fnt_intro,320,220,4,"PAUSA");
-					txt_pausa[2]=write(fnt_intro,320,260,4,"Pulsa el botón 2 para salir");
+					txt_pausa[1]=write(fnt_intro2,320,220,4,"PAUSA");
+					txt_pausa[2]=write(fnt_intro2,320,260,4,"Pulsa el botón 2 para salir");
 				end
 			#ENDIF
 			
 			#IFDEF OUYA
 				if(ops.lenguaje==0)
-					txt_pausa[1]=write(fnt_intro,320,220,4,"PAUSE");
-					txt_pausa[2]=write(fnt_intro,320,260,4,"Press Button A to exit");
+					txt_pausa[1]=write(fnt_intro2,320,220,4,"PAUSE");
+					txt_pausa[2]=write(fnt_intro2,320,260,4,"Press Button A to exit");
 				else
-					txt_pausa[1]=write(fnt_intro,320,220,4,"PAUSA");
-					txt_pausa[2]=write(fnt_intro,320,260,4,"Pulsa el botón A para salir");
+					txt_pausa[1]=write(fnt_intro2,320,220,4,"PAUSA");
+					txt_pausa[2]=write(fnt_intro2,320,260,4,"Pulsa el botón A para salir");
 				end
 			#ENDIF
 			
 			//SOY IDIOTA, ESTO ESTÁ MAL:
 			if(txt_pausa[1]<1)
 				if(ops.lenguaje==0)
-					txt_pausa[1]=write(fnt_intro,320,220,4,"PAUSE");
-					txt_pausa[2]=write(fnt_intro,320,260,4,"Press Button 3 to exit");
+					txt_pausa[1]=write(fnt_intro2,320,220,4,"PAUSE");
+					txt_pausa[2]=write(fnt_intro2,320,260,4,"Press Button 3 to exit");
 				else
-					txt_pausa[1]=write(fnt_intro,320,220,4,"PAUSA");
-					txt_pausa[2]=write(fnt_intro,320,260,4,"Pulsa el botón 3 para salir");
+					txt_pausa[1]=write(fnt_intro2,320,220,4,"PAUSA");
+					txt_pausa[2]=write(fnt_intro2,320,260,4,"Pulsa el botón 3 para salir");
 				end
 			end
 

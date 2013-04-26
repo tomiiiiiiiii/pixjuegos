@@ -680,6 +680,7 @@ Private
 	spikys;
 	x_destino;
 	y_destino;
+	graph_antes;
 Begin
    ctype=c_scroll;
    file=fpg_enemigos;
@@ -697,7 +698,14 @@ Begin
    if(tipo==7) alpha=0; frame(rand(2000,10000)); angle=20000; from alpha=0 to 255 step 3; angle+=4000; frame; end angle=0; alpha=255; end
    if(exists(father) and father.accion=="renacer") alpha=200; end
    loop
-		if(!alguiencerca()) frame(10000); end
+		if(!alguiencerca())
+			graph_antes=graph;
+			graph=0;
+			while(!alguiencerca())
+				frame(1000); 
+			end
+			graph=graph_antes;
+		end
 		if(anim<10) anim++; else anim=0; if(graph<anim_base+frames_anim) graph++; else graph=anim_base+1; end end
 		while(ready==0) frame; end
 		if(alpha<255) alpha+=5; end
@@ -817,6 +825,7 @@ Private
 	id_colision;
 	x_orig;
 	y_orig;
+	graph_antes;
 Begin
 	ctype=c_scroll;
 	file=fpg_powerups;
@@ -830,7 +839,14 @@ Begin
 	while(collision(type prota)) frame(3000); end
     loop
 		if(alpha<255) alpha+=5; end
-		if(!alguiencerca()) frame(10000); end
+		if(!alguiencerca())
+			graph_antes=graph;
+			graph=0;
+			while(!alguiencerca())
+				frame(1000); 
+			end
+			graph=graph_antes;
+		end
 		if(map_get_pixel(0,durezas,x,y+alto)!=suelo) y+=6; end 
 		if(map_get_pixel(0,durezas,x,y+alto)==dur_pinchos) break; end 
 		while(map_get_pixel(0,durezas,x,y+alto-1)==suelo) y--; end //colisiones con el suelo
@@ -909,12 +925,20 @@ Process moneda(x,y)
 Private
 	anim;
 	id_colision;
+	graph_antes;
 Begin
 	ctype=c_scroll; 
 	file=fpg_moneda;
 	graph=1;
 	loop
-		if(!alguiencerca()) frame(10000); end
+		if(!alguiencerca())
+			graph_antes=graph;
+			graph=0;
+			while(!alguiencerca())
+				frame(1000); 
+			end
+			graph=graph_antes;
+		end
 		if(anim<5) anim++; else graph++; anim=0; end
 		if(graph==5) graph=1; end
 		if(id_colision=collision(type prota)) 
@@ -1896,7 +1920,8 @@ Begin
 	from i=1 to 4; 
 		if(exists(p[i].identificador))
 			//if(get_dist(p[i].identificador)<ancho_pantalla*1.5)
-			if(p[i].identificador.x>x-(ancho_pantalla*1.5) or p[i].identificador.x<x+(ancho_pantalla*1.5))
+			//if(p[i].identificador.x>x-(ancho_pantalla*1.5) or p[i].identificador.x<x+(ancho_pantalla*1.5))
+			if(p[i].identificador.x>x-((ancho_pantalla/3)*2) or p[i].identificador.x<x+((ancho_pantalla/3)*2))
 				return 1; //ALGUIEN ESTÁ CERCA!
 			end
 		end
@@ -1925,7 +1950,7 @@ begin
 		frame;
 		ancho_pantalla=graphic_info(0,0,g_width);
 		alto_pantalla=graphic_info(0,0,g_height);
-		scale_resolution=0;
+		//scale_resolution=0;
 		return;
 	end
 
