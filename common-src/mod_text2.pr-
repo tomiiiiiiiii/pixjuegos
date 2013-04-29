@@ -10,6 +10,7 @@ Local
 	rand_y;
 	rand_angle;
 End
+
 /*Process test_text();
 Private
 	mi_id_texto;
@@ -163,7 +164,7 @@ OnExit
 	unload_map(0,graph);
 End
 
-Process write_var(fpg_fuente,x,y,centrado,string *numero);
+Process write_var(fpg_fuente,x,y,centrado,string* variable);
 Private
 	mi_ancho;
 	mi_alto;
@@ -172,24 +173,24 @@ Begin
 	z=-512;
 	
 	//1. pintamos texto en un mapa de bits
-	graph=dibujame_el_texto(fpg_fuente,*numero,fpg_texto_margen,rand_y,rand_angle,0);
+	graph=dibujame_el_texto(fpg_fuente,*variable,fpg_texto_margen,rand_y,rand_angle,0);
 	
 	//2. centramos
 	centrame(file,graph,centrado);
 	
 	//3. permanecemos
 	while(accion!=-1)
-		if(anterior_numero!=*numero) //redibujamos
+		if(anterior_numero!=*variable) //redibujamos
 			unload_map(0,graph);
 			//1. pintamos texto en un mapa de bits
-			graph=dibujame_el_texto(fpg_fuente,*numero,fpg_texto_margen,rand_y,rand_angle,0);
+			graph=dibujame_el_texto(fpg_fuente,*variable,fpg_texto_margen,rand_y,rand_angle,0);
 			
 			//2. centramos
 			centrame(file,graph,centrado);
 
 			accion=0;
 		end
-		anterior_numero=*numero;
+		anterior_numero=*variable;
 		frame; 
 	end
 OnExit
@@ -243,10 +244,14 @@ Function dibujame_el_texto(file,string texto,int margen,rand_y_max,rand_angle_ma
 Private
 	mi_alto_max;
 	mi_ancho_total;
+	caracter;
+	caracter_anterior;
 Begin
 	if(!map_exists(file,97))
 		texto=ucase(texto);
 	end
+	
+	say("Dibujando texto: "+texto);
 
 	//1. contar el espacio horizontal y vertical
 	from i=0 to len(texto)-1;
@@ -259,34 +264,40 @@ Begin
 			end
 		end
 	end
-	say(mi_ancho_total);
+
 	if(fixed_width>0)
 		mi_ancho_total=fixed_width*(len(texto)+1);
 	end
 
 	//2.creamos el gráfico
 	graph=new_map(mi_ancho_total,mi_alto_max,bpp);
-	
+		
 	//3. ponemos todas las letracas
 	from i=0 to len(texto)-1;
-		if(rand_y_max>0) rand_y=rand(-rand_y_max*2,0); end
-		if(rand_angle_max>0) rand_angle=rand(-rand_angle_max,rand_angle_max); end
-		if(fixed_width)
-			x=fixed_width+(fixed_width*(i));
-			y=mi_alto_max-(graphic_info(file,asc(texto[i]),G_HEIGHT)/2)+rand_y;
-			map_xputnp(0,graph,file,asc(texto[i]),x,y,rand_angle,100,100,0);
-		else
-			if(asc(texto[i])==32)
-				x+=fpg_texto_espacio+margen;
+		caracter_anterior=caracter;
+		caracter=asc(texto[i]);
+		if(graphic_info(file,caracter,G_HEIGHT)>0 or caracter==32)
+			if(rand_y_max>0) rand_y=rand(-rand_y_max*2,0); end
+			if(rand_angle_max>0) rand_angle=rand(-rand_angle_max,rand_angle_max); end
+			if(fixed_width)
+				x=fixed_width+(fixed_width*(i));
+				y=mi_alto_max-(graphic_info(file,caracter,G_HEIGHT)/2)+rand_y;
+				map_xputnp(0,graph,file,caracter,x,y,rand_angle,100,100,0);
 			else
-				if(i==0)
-					x=(graphic_info(file,asc(texto[i]),G_WIDTH)/2);
+				if(caracter==32)
+					x+=fpg_texto_espacio+margen;
 				else
-					x+=(graphic_info(file,asc(texto[i-1]),G_WIDTH)/2)+margen+(graphic_info(file,asc(texto[i]),G_WIDTH)/2);
+					if(i==0)
+						x=(graphic_info(file,caracter,G_WIDTH)/2);
+					else
+						x+=(graphic_info(file,caracter_anterior,G_WIDTH)/2)+margen+(graphic_info(file,caracter,G_WIDTH)/2);
+					end
+					y=mi_alto_max-(graphic_info(file,caracter,G_HEIGHT)/2)+rand_y;
+					map_xputnp(0,graph,file,caracter,x,y,rand_angle,100,100,0);
 				end
-				y=mi_alto_max-(graphic_info(file,asc(texto[i]),G_HEIGHT)/2)+rand_y;
-				map_xputnp(0,graph,file,asc(texto[i]),x,y,rand_angle,100,100,0);
 			end
+		else
+			say("No se ha encontrado la letra "+chr(texto[i])+" en el FPG "+file);
 		end
 	end
 	
@@ -301,4 +312,12 @@ End
 
 Function text_width(int crap1,string crap2);
 Begin
+End
+
+Function load_fnt(string fuente_a_cargar);
+Private
+	string fuente_en_fpg;
+Begin
+	fuente_en_fpg=regex_replace("fnt",fuente_a_cargar,"fpg");
+	return load_fpg(fuente_en_fpg);
 End

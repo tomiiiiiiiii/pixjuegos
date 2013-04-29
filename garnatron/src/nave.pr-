@@ -160,28 +160,30 @@ END
 //-----------------------------------------------------------------------
 
 process marcador(jugador);
-
-private gatillo; direccion=1; time; puntos2;
-
+private 
+	gatillo; 
+	direccion=1; 
+	time; 
+	puntos2;
 begin
-z=-100; file=fpg_nave;
-
-	switch (jugador)
+	z=-100;
+	file=fpg_nave;
+	switch(jugador)
 		case 1:
 			x=50; y=50; graph=26;
-			write_var(fuente[jugador],100,35,3,puntos2);
+			write_int(fuente[jugador],100,35,3,&puntos2);
 		end
 		case 2:
 			x=ancho_pantalla-50; y=50; flags=1; graph=27;
-			write_var(fuente[jugador],ancho_pantalla-100,35,5,puntos2);
+			write_int(fuente[jugador],ancho_pantalla-100,35,5,&puntos2);
 		end
 		case 3:
 			x=50; y=alto_pantalla-50; flags=2; graph=28;
-			write_var(fuente[jugador],100,alto_pantalla-35,3,puntos2);
+			write_int(fuente[jugador],100,alto_pantalla-35,3,&puntos2);
 		end
 		case 4:
 			x=ancho_pantalla-50; y=alto_pantalla-50; flags=3; graph=29;
-			write_var(fuente[jugador],ancho_pantalla-100,alto_pantalla-35,5,puntos2);
+			write_int(fuente[jugador],ancho_pantalla-100,alto_pantalla-35,5,&puntos2);
 		end
 	end
 
@@ -192,7 +194,6 @@ z=-100; file=fpg_nave;
 	puntos2=puntos[jugador];
 	loop
 		if(pausa==0)
-
 			time++;
 			if(time>125 and energia[jugador]<20) energia[jugador]++; time=0; end
 

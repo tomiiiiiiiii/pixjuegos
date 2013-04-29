@@ -1,4 +1,4 @@
 @echo off
 set bits=%1
 if "%bits%"==""; set bits=32
-call ..\scripts\compilarfpgs.bat %bits% bombas bosses enemigos explosiones menu nave fuente
+call ..\scripts\compilarfpgs.bat %bits% bombas bosses enemigos explosiones menu nave fuente garna1

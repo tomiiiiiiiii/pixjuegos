@@ -35,7 +35,7 @@ import "mod_sort";
 import "mod_sound";
 import "mod_string";
 import "mod_sys";
-import "mod_text";
+//import "mod_text";
 import "mod_time";
 import "mod_timers";
 import "mod_video";
@@ -157,6 +157,7 @@ Global
 End
 
 Local
+	accion;
 	jugador;
 	estado;
 	patron;
@@ -165,6 +166,7 @@ Local
 	i,j; //para controles.pr-
 End
 
+include "..\..\common-src\mod_text2.pr-";
 include "..\..\common-src\controles.pr-";
 include "..\..\common-src\input_text.pr-";
 include "..\..\common-src\savepath.pr-";
@@ -328,7 +330,8 @@ BEGIN
 	y=alto_pantalla/2;
 	z=10;
 
-	fuente[0]=load_fnt("fnt/fuente.fnt"); frame;
+	//fuente[0]=load_fnt("fnt/fuente.fnt"); frame;
+	fuente[0]=load_fpg("fpg/fuente.fpg"); frame;
 
 	write(fuente[0],ancho_pantalla/2,alto_pantalla/2,4,textos[0]);
 
@@ -349,10 +352,15 @@ BEGIN
 	s_explosion=load_wav("wav/explos.wav"); frame;
 	s_explosion_grande=load_wav("wav/explosg.wav"); frame;
 	
-	fuente[1]=load_fnt("fnt/garna1.fnt"); frame;
+	/*fuente[1]=load_fnt("fnt/garna1.fnt"); frame;
 	fuente[2]=load_fnt("fnt/garna2.fnt"); frame;
 	fuente[3]=load_fnt("fnt/garna3.fnt"); frame;
-	fuente[4]=load_fnt("fnt/garna4.fnt"); frame;
+	fuente[4]=load_fnt("fnt/garna4.fnt"); frame;*/
+
+	fuente[1]=load_fpg("fpg/garna1.fpg"); frame;
+	fuente[2]=load_fpg("fpg/garna2.fpg"); frame;
+	fuente[3]=load_fpg("fpg/garna3.fpg"); frame;
+	fuente[4]=load_fpg("fpg/garna4.fpg"); frame;
 	
 	frame;
 	delete_text(all_text);
@@ -643,31 +651,27 @@ End
 //-----------------------------------------------------------------------
 // proceso letra por PiXeL
 //-----------------------------------------------------------------------
-
 Process letra(String texto,Int texto_x,Int texto_y,Int lao);
 Private
     timercred;    
 Begin
-	
-    Repeat
-	timercred++;
 	id_texto=write(fuente[0],texto_x,texto_y,4,texto);
-	Frame;        
-	If(lao==1) texto_x+=1; end
-	if(lao==0) texto_x-=1; End
-	if(lao==2) texto_y-=1; End
-	if(lao==3) texto_y+=1; End
-
-	delete_text(id_texto);
+    Repeat
+		timercred++;
+		if(!exists(id_texto)) break; end
+		If(lao==1) id_texto.x++; end
+		if(lao==0) id_texto.x--; End
+		if(lao==2) id_texto.y--; End
+		if(lao==3) id_texto.y++; End
+		Frame;        
 	Until(timercred=>170)
+	delete_text(id_texto);
 End
 
 
 //-----------------------------------------------------------------------
 // menu del juego
 //-----------------------------------------------------------------------
-
-
 process menu(num_menu);
 
 private
@@ -1194,16 +1198,14 @@ process boton(x,y,string texto,int a);
 begin
 	file=fpg_menu;
 	z=-100;
+	id_texto=write(fuente[0],x,y,4,texto);
 	loop
 		if(opcion==a)
 			graph=10;
-			id_texto=write(fuente[0],x,y,4,texto);
 		else
 			graph=11;
-			id_texto=write(fuente[0],x,y,4,texto);
 		end
 		frame;
-		delete_text(id_texto);
 	end
 end
 
