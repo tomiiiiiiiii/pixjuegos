@@ -246,6 +246,7 @@ Private
 	mi_ancho_total;
 	caracter;
 	caracter_anterior;
+	mi_bpp;
 Begin
 	if(!map_exists(file,97))
 		texto=ucase(texto);
@@ -270,7 +271,8 @@ Begin
 	end
 
 	//2.creamos el gráfico
-	graph=new_map(mi_ancho_total,mi_alto_max,bpp);
+	mi_bpp=graphic_info(file,48,G_DEPTH);
+	graph=new_map(mi_ancho_total,mi_alto_max,mi_bpp);
 		
 	//3. ponemos todas las letracas
 	from i=0 to len(texto)-1;
@@ -314,10 +316,10 @@ Function text_width(int crap1,string crap2);
 Begin
 End
 
-Function load_fnt(string fuente_a_cargar);
+Function _load_fnt(string fuente_a_cargar);
 Private
 	string fuente_en_fpg;
 Begin
-	fuente_en_fpg=regex_replace("fnt",fuente_a_cargar,"fpg");
+	fuente_en_fpg=regex_replace("fnt","fpg",fuente_a_cargar);
 	return load_fpg(fuente_en_fpg);
 End

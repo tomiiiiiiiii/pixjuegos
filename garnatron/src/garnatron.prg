@@ -330,8 +330,7 @@ BEGIN
 	y=alto_pantalla/2;
 	z=10;
 
-	//fuente[0]=load_fnt("fnt/fuente.fnt"); frame;
-	fuente[0]=load_fpg("fpg/fuente.fpg"); frame;
+	fuente[0]=_load_fnt("fnt/fuente.fnt"); frame;
 
 	write(fuente[0],ancho_pantalla/2,alto_pantalla/2,4,textos[0]);
 
@@ -352,15 +351,10 @@ BEGIN
 	s_explosion=load_wav("wav/explos.wav"); frame;
 	s_explosion_grande=load_wav("wav/explosg.wav"); frame;
 	
-	/*fuente[1]=load_fnt("fnt/garna1.fnt"); frame;
-	fuente[2]=load_fnt("fnt/garna2.fnt"); frame;
-	fuente[3]=load_fnt("fnt/garna3.fnt"); frame;
-	fuente[4]=load_fnt("fnt/garna4.fnt"); frame;*/
-
-	fuente[1]=load_fpg("fpg/garna1.fpg"); frame;
-	fuente[2]=load_fpg("fpg/garna2.fpg"); frame;
-	fuente[3]=load_fpg("fpg/garna3.fpg"); frame;
-	fuente[4]=load_fpg("fpg/garna4.fpg"); frame;
+	fuente[1]=_load_fnt("fnt/garna1.fnt"); frame;
+	fuente[2]=_load_fnt("fnt/garna2.fnt"); frame;
+	fuente[3]=_load_fnt("fnt/garna3.fnt"); frame;
+	fuente[4]=_load_fnt("fnt/garna4.fnt"); frame;
 	
 	frame;
 	delete_text(all_text);
