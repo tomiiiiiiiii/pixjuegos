@@ -60,7 +60,7 @@ Begin
 	from jugador=1 to jugadores;
 		if(texto_jugadores[jugador])
 			write(fuente_teclado,(ancho_pantalla/2)-1,20*jugador+100,5,lang_txts[0]+jugador+":");
-			write_var(fuente_teclado,(ancho_pantalla/2)+1,20*jugador+100,3,&texto_introducido[jugador]);
+			write_string(fuente_teclado,(ancho_pantalla/2)+1,20*jugador+100,3,&texto_introducido[jugador]);
 			cursor(x1,y1,jugador,longitud_max);
 		end
 	end
