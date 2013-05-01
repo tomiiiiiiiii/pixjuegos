@@ -26,20 +26,25 @@ private
 Begin
 
 	switch(ops.lenguaje)
-		case 0: //eng
-			lang_txts[0]="Player ";
-			lang_txts[1]="End";
-			lang_txts[2]="Del";
-		end
-		case 1: //esp
+		case 1:
 			lang_txts[0]="Jugador ";
 			lang_txts[1]="Fin";
-			lang_txts[2]="Bor";		
+			lang_txts[2]="Bor";	
 		end
-		case 2: //ca
+		case 2:
 			lang_txts[0]="Jugador ";
 			lang_txts[1]="Fi";
 			lang_txts[2]="Esb";	
+		end
+		case 3:
+			lang_txts[0]="Joueur ";
+			lang_txts[1]="Fin";
+			lang_txts[2]="Sup";
+		end
+		default:
+			lang_txts[0]="Player ";
+			lang_txts[1]="End";
+			lang_txts[2]="Del";
 		end
 	end
 
