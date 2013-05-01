@@ -223,6 +223,7 @@ BEGIN
 	switch(lenguaje_sistema())
 		case "es": ops.lenguaje=1; end
 		case "ca": ops.lenguaje=2; end
+		case "fr": ops.lenguaje=3; end
 		default: ops.lenguaje=0; end
 	end	
 	
@@ -475,11 +476,10 @@ begin
 				escudo[4]=5;
 			end
 		end
-		
-		letra(textos[11],200,200,1);
+		letra(textos[11],400,200,1);
 		timer[2]=0;
 		while(timer[2]<600)
-			if(id_nave[1].x<1600)
+			if(id_nave[1].x<1800)
 				from jugador=1 to jugadores;
 					id_nave[jugador].x+=1;
 				end
@@ -487,12 +487,12 @@ begin
 			scroll.x0+=3;
 			frame;
 		end
-	
+		
 		letra(textos[12],ancho_pantalla-200,200,3);
 		letra("Carles Vicent",ancho_pantalla-200,230,3);
 		timer[2]=0;
 		while(timer[2]<400)
-			if(id_nave[1].x<1600)
+			if(id_nave[1].x<1800)
 				from jugador=1 to jugadores;
 					id_nave[jugador].x+=1;
 				end
@@ -501,11 +501,11 @@ begin
 			frame;
 		end
 	
-		letra(textos[13],ancho_pantalla-200,alto_pantalla-200,0);
-		letra("PiXeL",ancho_pantalla-200,alto_pantalla-200+30,0);
+		letra(textos[13],ancho_pantalla-400,alto_pantalla-200,0);
+		letra("PiXeL",ancho_pantalla-400,alto_pantalla-200+30,0);
 		timer[2]=0;
 		while(timer[2]<400)
-			if(id_nave[1].x<1600)
+			if(id_nave[1].x<1800)
 				from jugador=1 to jugadores;
 					id_nave[jugador].x+=1;
 				end
@@ -519,7 +519,7 @@ begin
 		letra("DaniGM",200,alto_pantalla-200+60,2);
 		timer[2]=0;
 		while(timer[2]<400)
-			if(id_nave[1].x<1600)
+			if(id_nave[1].x<1800)
 				from jugador=1 to jugadores;
 					id_nave[jugador].x+=1;
 				end
@@ -528,11 +528,11 @@ begin
 			frame;
 		end
 
-		letra(textos[15],ancho_pantalla-200,200,3);
-		letra("DIV 2 Games Studio",ancho_pantalla-200,230,3);
+		letra(textos[15],400,200,1);
+		letra("DIV 2 Games Studio",400,230,1);
 		timer[2]=0;
 		while(timer[2]<400)
-			if(id_nave[1].x<1600)
+			if(id_nave[1].x<1800)
 				from jugador=1 to jugadores;
 					id_nave[jugador].x+=1;
 				end
@@ -541,11 +541,11 @@ begin
 			frame;
 		end
 	
-		letra(textos[16],ancho_pantalla-200,alto_pantalla-200,0);
-		letra("Chewrafa",ancho_pantalla-200,alto_pantalla-200+30,0);
+		letra(textos[16],ancho_pantalla-200,200,3);
+		letra("Chewrafa",ancho_pantalla-200,200+30,3);
 		timer[2]=0;
 		while(timer[2]<400)
-			if(id_nave[1].x<1600)
+			if(id_nave[1].x<1800)
 				from jugador=1 to jugadores;
 					id_nave[jugador].x+=1;
 				end
@@ -554,11 +554,13 @@ begin
 			frame;
 		end
 		
-		letra(textos[17],200,200,1);
-		letra("Carles Vicent",200,230,1);
-		letra("PiXeL",200,260,1);
+		letra(textos[17],ancho_pantalla-400,alto_pantalla-290,0);
+		letra("Carles Vicent",ancho_pantalla-400,alto_pantalla-260,0);
+		letra("PiXeL",ancho_pantalla-400,alto_pantalla-230,0);
+		letra("Jacques Olivier",ancho_pantalla-400,alto_pantalla-200,0);
+		timer[2]=0;
 		while(timer[2]<400)
-			if(id_nave[1].x<1600)
+			if(id_nave[1].x<1800)
 				from jugador=1 to jugadores;
 					id_nave[jugador].x+=1;
 				end
@@ -567,14 +569,14 @@ begin
 			frame;
 		end
 		
-		letra(textos[18],200,alto_pantalla-200,2);
-		letra("Pablo",200,alto_pantalla-230,2);
+		letra(textos[18],200,alto_pantalla-320,2);
+		letra("Pablo",200,alto_pantalla-290,2);
 		letra("Nerea",200,alto_pantalla-260,2);
-		letra("Nicolas",200,alto_pantalla-290,2);
-		letra("Ana",200,alto_pantalla-320,2);
+		letra("Nicolas",200,alto_pantalla-230,2);
+		letra("Ana",200,alto_pantalla-200,2);
 		timer[2]=0;
 		while(timer[2]<400)
-			if(id_nave[1].x<1600)
+			if(id_nave[1].x<1800)
 				from jugador=1 to jugadores;
 					id_nave[jugador].x+=1;
 				end
@@ -583,10 +585,10 @@ begin
 			frame;
 		end
 
-		letra(textos[19],ancho_pantalla-200,200,3);
+		letra(textos[19],400,200,1);
 		timer[2]=0;
 		while(timer[2]<400)
-			if(id_nave[1].x<1600)
+			if(id_nave[1].x<1800)
 				from jugador=1 to jugadores;
 					id_nave[jugador].x+=1;
 				end
@@ -595,10 +597,10 @@ begin
 			frame;
 		end
 
-		letra(textos[20],ancho_pantalla-200,alto_pantalla-200,0);
+		letra(textos[20],ancho_pantalla-200,200,3);
 		timer[2]=0;
 		while(timer[2]<600)
-			if(id_nave[1].x<1600)
+			if(id_nave[1].x<1800)
 				from jugador=1 to jugadores;
 					id_nave[jugador].x+=1;
 				end
@@ -610,7 +612,7 @@ begin
 		letra(textos[21],ancho_pantalla/2,alto_pantalla/2,4);
 		timer[2]=0;
 		while(timer[2]<600)
-			if(id_nave[1].x<1600)
+			if(id_nave[1].x<1800)
 				from jugador=1 to jugadores;
 					id_nave[jugador].x+=1;
 				end
@@ -645,21 +647,20 @@ End
 //-----------------------------------------------------------------------
 // proceso letra por PiXeL
 //-----------------------------------------------------------------------
-Process letra(String texto,Int texto_x,Int texto_y,Int lao);
+Process letra(String texto,Int x,Int y,Int lao);
 Private
     timercred;    
 Begin
-	id_texto=write(fuente[0],texto_x,texto_y,4,texto);
     Repeat
+		id_texto=write(fuente[0],x,y,4,texto);
 		timercred++;
-		if(!exists(id_texto)) break; end
-		If(lao==1) id_texto.x++; end
-		if(lao==0) id_texto.x--; End
-		if(lao==2) id_texto.y--; End
-		if(lao==3) id_texto.y++; End
-		Frame;        
+		if(lao==0) x--; End
+		if(lao==1) x++; end
+		if(lao==2) y--; End
+		if(lao==3) y++; End
+		frame;
+		delete_text(id_texto);
 	Until(timercred=>170)
-	delete_text(id_texto);
 End
 
 
@@ -793,8 +794,9 @@ begin
 			boton(x,y+=60,textos[170],1);
 			boton(x,y+=60,textos[171],2);
 			boton(x,y+=60,textos[172],3);
-			boton(x,y+=60,textos[101],4);
-			num_opciones=4;
+			boton(x,y+=60,textos[173],4);
+			boton(x,y+=60,textos[101],5);
+			num_opciones=5;
 			volver_a_menu=0;
 		end
 	end
@@ -1146,7 +1148,12 @@ begin
 							carga_textos();
 							menu(6);
 						end
-						case 4:	//volver
+						case 4:	//catalan
+							ops.lenguaje=3;
+							carga_textos();
+							menu(6);
+						end
+						case 5:	//volver
 							menu(1);
 						end
 					end

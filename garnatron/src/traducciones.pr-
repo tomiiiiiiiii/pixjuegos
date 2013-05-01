@@ -26,7 +26,7 @@ Begin
 			textos[61]="Quit";
 			textos[62]="game?";
 			//-----
-			textos[63]="completed";
+			textos[63]="Completed";
 			//-----
 			textos[64]="GAME";
 			textos[65]="OVER";
@@ -101,6 +101,7 @@ Begin
 			textos[170]="English";
 			textos[171]="Español";
 			textos[172]="Català";
+			textos[173]="Français";
 			
 		end
 		case 1: //español
@@ -128,9 +129,9 @@ Begin
 			textos[61]="¿Salir de";
 			textos[62]="la partida?";
 			//-----
-			textos[63]="completada";
+			textos[63]="Completada";
 			//-----
-			textos[64]="Fin del";
+			textos[64]="Fin de";
 			textos[65]="la partida";
 			//Instrucciones
 			textos[70]="Arma";
@@ -203,8 +204,7 @@ Begin
 			textos[170]="English";
 			textos[171]="Español";
 			textos[172]="Català";
-			
-			
+			textos[173]="Français";
 		end
 		case 2: //català
 			textos[0]="Carregant...";
@@ -298,6 +298,109 @@ Begin
 			textos[170]="English";
 			textos[171]="Español";
 			textos[172]="Català";
+			textos[173]="Français";
+		end
+		case 3: //Français
+			textos[0]="Chargement...";
+			textos[1]="Non";
+			textos[2]="Oui";
+			//Inicio - Creditos
+			textos[10]="PiX Juegos présente";
+			textos[11]="Auteurs";
+			textos[12]="Programmé par";
+			textos[13]="Assistants de programmation";
+			textos[14]="Graphiques";
+			textos[15]="Sons";
+			textos[16]="Musique";
+			textos[17]="Traduit par";
+			textos[18]="Merci à:";
+			textos[19]="Développé sur Bennu";
+			textos[20]="Créé par PiX Juegos";
+			textos[21]="Bon jeu !";
+			//high scores
+			textos[50]="Nouveau score! Entrez votre nom";
+			//niveles
+			textos[60]="ZONE: ";
+			//-----
+			textos[61]="Quitter";
+			textos[62]="Partie?";
+			//-----
+			textos[63]="Terminé";
+			//-----
+			textos[64]="JEU";
+			textos[65]="TERMINE";
+			//Instrucciones
+			textos[70]="Arme";
+			textos[71]="Energie";
+			textos[72]="Boucliers";
+			textos[73]="Score";
+			#IFDEF OUYA
+				textos[74]="Déplacements: Joystick / Manettes";
+				textos[75]="Tirer: touche U";
+				textos[76]="Arme spéciale: touche O";
+				textos[77]="Changer d'arme: touche A";
+				textos[78]="Sortir: touche menu";
+			#ELSE
+				textos[74]="Déplacements: Joystick / Flêches";
+				textos[75]="Tirer: touche 1 / a";
+				textos[76]="Arme spéciale: touche 2 / s";
+				textos[77]="Changer d'arme: touche 3 / d";
+				textos[78]="Sortir: touche 10 / esc";
+			#ENDIF
+			textos[79]="Armes:";
+			textos[80]="Tire spéciale";
+			textos[81]="Laser";
+			textos[82]="Onde laser";
+			textos[83]="Missile";
+			textos[84]="Champs de force";
+			textos[85]="Boule de feu laser";
+			textos[86]="Bonus:";
+			textos[87]="Bouclier";
+			textos[88]="Tire";
+			textos[89]="Energie";
+			//menus
+			textos[100]="Appuyez sur la touche 2 pour commencer";
+			textos[101]="Revenir";
+			//-----
+			textos[110]="Nouvelle partie";
+			textos[111]="Continuer";
+			textos[112]="Options";
+			textos[113]="Meilleurs scores";
+			textos[114]="Aide";
+			textos[115]="Sortir";
+			//-----
+			textos[120]="Joueur";
+			textos[121]="Joueurs";
+			//-----
+			textos[130]="Vidéo";
+			textos[131]="Contrôles";
+			textos[132]="Langue";
+			textos[133]="Particules: ";
+			//-----
+			textos[140]="Plein écran";
+			textos[141]="Fenêtré";
+			textos[142]="1024x768";
+			textos[143]="1280x720";
+			//-----
+			textos[150]="Clavier";
+			textos[151]="Manettes";
+			textos[152]="Valeurs par défaut";
+			//-----
+			textos[160]="Appuyer sur une touche pour aller en haut";
+			textos[161]="Appuyer sur une touche pour aller à droite";
+			textos[162]="Appuyer sur une touche pour aller en bas";
+			textos[163]="Appuyer sur une touche pour aller à gauche";
+			textos[164]="Appuyer sur une touche pour tirer";
+			textos[165]="Appuyer sur une touche pour tire spécial";
+			textos[166]="Appuyer sur une touche pour changer d'arme";
+			textos[167]="Appuyer sur une touche pour tirer";
+			textos[168]="Appuyer sur une touche pour tire spécial";
+			textos[169]="Appuyer sur une touche pour changer d'arme";
+			//-----
+			textos[170]="English";
+			textos[171]="Español";
+			textos[172]="Català";
+			textos[173]="Français";
 		end
 	end
 End
