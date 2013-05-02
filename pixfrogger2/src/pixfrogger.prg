@@ -478,10 +478,10 @@ Begin
 				pon_boton_menu(ancho_pantalla/2,((alto_pantalla/7)*5)-(alto_pantalla/14),603,100,255,3,3); //creditos
 				pon_boton_menu(ancho_pantalla/2,((alto_pantalla/7)*6)-(alto_pantalla/14),604,100,255,4,4); //salir
 				if(free_version and !en_red)
-					pon_boton_menu(ancho_pantalla/2,((alto_pantalla/7)*7)-(alto_pantalla/14),606,100,255,5,4); //netplay
+					pon_boton_menu(ancho_pantalla/2,((alto_pantalla/7)*7)-(alto_pantalla/14),605,100,255,5,4); //donate
 				end
 				if(en_red)
-					pon_boton_menu(ancho_pantalla/2,((alto_pantalla/7)*7)-(alto_pantalla/14),605,100,255,5,4); //donate
+					pon_boton_menu(ancho_pantalla/2,((alto_pantalla/7)*7)-(alto_pantalla/14),606,100,255,5,4); //netplay
 				end
 			end
 			if(menu_actual==2) //jugar: opciones
