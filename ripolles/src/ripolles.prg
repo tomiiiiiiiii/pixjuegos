@@ -215,6 +215,10 @@ include "personaje.pr-";
 include "enemigo.pr-";
 
 Begin
+
+	fpg_texto_margen=-4;
+	fpg_texto_espacio=30;
+
 	if(argc>0) if(argv[1]=="arcade") arcade_mode=1; end end
 
 	savepath();
