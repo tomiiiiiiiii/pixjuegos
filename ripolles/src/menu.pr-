@@ -30,7 +30,7 @@ begin
 
 	if(arcade_mode and num_menu<1)
 		while(p[0].botones[b_salir]) frame; end
-		write(fpg_texto,320,180,4,"Pulsa el boton 2 para jugar");
+		write(fpg_texto,320,180,4,textos[14]);
 		while(p[0].botones[b_aceptar]) frame; end
 		while(!p[0].botones[b_aceptar])
 			if(p[0].botones[b_salir]) exit(); end
@@ -65,152 +65,57 @@ begin
 	switch(num_menu)
 		case 0: //general
 			titulo();
-			switch(ops.lenguaje)
-				case 0:
-					write(fpg_texto,x,y+=distancia_opciones,3,"Play");
-					write(fpg_texto,x,y+=distancia_opciones,3,"Options");
-					write(fpg_texto,x,y+=distancia_opciones,3,"Help");
-					write(fpg_texto,x,y+=distancia_opciones,3,"Credits");
-					write(fpg_texto,x,y+=distancia_opciones,3,"Exit");
-				end
-				case 1:
-					write(fpg_texto,x,y+=distancia_opciones,3,"Jugar");
-					write(fpg_texto,x,y+=distancia_opciones,3,"Opciones");
-					write(fpg_texto,x,y+=distancia_opciones,3,"Ayuda");
-					write(fpg_texto,x,y+=distancia_opciones,3,"Créditos");
-					write(fpg_texto,x,y+=distancia_opciones,3,"Salir");
-				end
-				case 2:
-					write(fpg_texto,x,y+=distancia_opciones,3,"Jugar");
-					write(fpg_texto,x,y+=distancia_opciones,3,"Opciones");
-					write(fpg_texto,x,y+=distancia_opciones,3,"Ayuda");
-					write(fpg_texto,x,y+=distancia_opciones,3,"Créditos");
-					write(fpg_texto,x,y+=distancia_opciones,3,"Salir");
-				end
-			end
+			write(fpg_texto,x,y+=distancia_opciones,3,textos[15]);
+			write(fpg_texto,x,y+=distancia_opciones,3,textos[16]);
+			write(fpg_texto,x,y+=distancia_opciones,3,textos[17]);
+			write(fpg_texto,x,y+=distancia_opciones,3,textos[18]);
+			write(fpg_texto,x,y+=distancia_opciones,3,textos[19]);
 			num_opciones=5;
 			volver_a_menu=0;
 		end
 		case 1: //jugar
 			num_opciones=1;
-			switch(ops.lenguaje)
-				case 0:
-					write(fpg_texto,x,y+=distancia_opciones,3,"1 player");
-					if(posibles_jugadores>1) write(fpg_texto,x,y+=distancia_opciones,3,"2 players"); num_opciones++; end
-					if(posibles_jugadores>2) write(fpg_texto,x,y+=distancia_opciones,3,"3 players"); num_opciones++; end
-					if(posibles_jugadores>3) write(fpg_texto,x,y+=distancia_opciones,3,"4 players"); num_opciones++; end
-				end
-				case 1:
-					write(fpg_texto,x,y+=distancia_opciones,3,"1 jugador");
-					if(posibles_jugadores>1) write(fpg_texto,x,y+=distancia_opciones,3,"2 jugadores"); num_opciones++; end
-					if(posibles_jugadores>2) write(fpg_texto,x,y+=distancia_opciones,3,"3 jugadores"); num_opciones++; end
-					if(posibles_jugadores>3) write(fpg_texto,x,y+=distancia_opciones,3,"4 jugadores"); num_opciones++; end
-				end
-				case 2:
-					write(fpg_texto,x,y+=distancia_opciones,3,"1 jugador");
-					if(posibles_jugadores>1) write(fpg_texto,x,y+=distancia_opciones,3,"2 jugadores"); num_opciones++; end
-					if(posibles_jugadores>2) write(fpg_texto,x,y+=distancia_opciones,3,"3 jugadores"); num_opciones++; end
-					if(posibles_jugadores>3) write(fpg_texto,x,y+=distancia_opciones,3,"4 jugadores"); num_opciones++; end
-				end
-			end
+			write(fpg_texto,x,y+=distancia_opciones,3,"1"+textos[20]);
+			if(posibles_jugadores>1) write(fpg_texto,x,y+=distancia_opciones,3,"2"+textos[21]); num_opciones++; end
+			if(posibles_jugadores>2) write(fpg_texto,x,y+=distancia_opciones,3,"3"+textos[21]); num_opciones++; end
+			if(posibles_jugadores>3) write(fpg_texto,x,y+=distancia_opciones,3,"4"+textos[21]); num_opciones++; end
 			volver_a_menu=0;
 		end
-		case 2: //opciones
-			switch(ops.lenguaje)
-				case 0:
-					if(os_id!=1003)
-						write(fpg_texto,x,y+=distancia_opciones,3,"Full screen"); estado_opcion(y,1);
-						write(fpg_texto,x,y+=distancia_opciones,3,"Sound"); estado_opcion(y,2);
-						write(fpg_texto,x,y+=distancia_opciones,3,"Music"); estado_opcion(y,3);
-						num_opciones=3;
-						if(ops.truco_pato=>0) write(fpg_texto,x,y+=distancia_opciones,3,"Play as Pato"); estado_opcion(y,4); num_opciones++; end
-						if(ops.truco_fuego_amigo=>0) write(fpg_texto,x,y+=distancia_opciones,3,"Friendly fire"); estado_opcion(y,5); num_opciones++; end
-						if(ops.truco_sin_bandos=>0)write(fpg_texto,x,y+=distancia_opciones,3,"No bands"); estado_opcion(y,6); num_opciones++; end
-					else
-						write(fpg_texto,x,y+=distancia_opciones,3,"Sound"); estado_opcion(y,2);
-						write(fpg_texto,x,y+=distancia_opciones,3,"Music"); estado_opcion(y,3);
-						num_opciones=2;
-						if(ops.truco_pato=>0) write(fpg_texto,x,y+=distancia_opciones,3,"Play as Pato"); estado_opcion(y,4); num_opciones++; end
-						if(ops.truco_fuego_amigo=>0) write(fpg_texto,x,y+=distancia_opciones,3,"Friendly fire"); estado_opcion(y,5); num_opciones++; end
-						if(ops.truco_sin_bandos=>0)write(fpg_texto,x,y+=distancia_opciones,3,"No bands"); estado_opcion(y,6); num_opciones++; end
-					end
-				end
-				case 1:
-					write(fpg_texto,x,y+=distancia_opciones,3,"Pantalla completa"); estado_opcion(y,1);
-					write(fpg_texto,x,y+=distancia_opciones,3,"Sonido"); estado_opcion(y,2);
-					write(fpg_texto,x,y+=distancia_opciones,3,"Música"); estado_opcion(y,3);
-					num_opciones=3;
-					if(ops.truco_pato=>0) write(fpg_texto,x,y+=distancia_opciones,3,"Jugar con Pato"); estado_opcion(y,4); num_opciones++; end
-					if(ops.truco_fuego_amigo=>0) write(fpg_texto,x,y+=distancia_opciones,3,"Fuego amigo"); estado_opcion(y,5); num_opciones++; end
-					if(ops.truco_sin_bandos=>0)write(fpg_texto,x,y+=distancia_opciones,3,"Sin bandos"); estado_opcion(y,6); num_opciones++; end
-				end
-				case 2:
-					write(fpg_texto,x,y+=distancia_opciones,3,"Pantalla completa"); estado_opcion(y,1);
-					write(fpg_texto,x,y+=distancia_opciones,3,"Sonido"); estado_opcion(y,2);
-					write(fpg_texto,x,y+=distancia_opciones,3,"Música"); estado_opcion(y,3);
-					num_opciones=3;
-					if(ops.truco_pato=>0) write(fpg_texto,x,y+=distancia_opciones,3,"Jugar con Pato"); estado_opcion(y,4); num_opciones++; end
-					if(ops.truco_fuego_amigo=>0) write(fpg_texto,x,y+=distancia_opciones,3,"Fuego amigo"); estado_opcion(y,5); num_opciones++; end
-					if(ops.truco_sin_bandos=>0)write(fpg_texto,x,y+=distancia_opciones,3,"Sin bandos"); estado_opcion(y,6); num_opciones++; end
-				end
+		case 2: //opciones	
+			if(os_id!=1003)
+				write(fpg_texto,x,y+=distancia_opciones,3,textos[22]); estado_opcion(y,1);
+				num_opciones=3;
+			else
+				num_opciones=2;
 			end
+			write(fpg_texto,x,y+=distancia_opciones,3,textos[23]); estado_opcion(y,2);
+			write(fpg_texto,x,y+=distancia_opciones,3,textos[24]); estado_opcion(y,3);
+			if(ops.truco_pato=>0) write(fpg_texto,x,y+=distancia_opciones,3,"Play as Pato"); estado_opcion(y,4); num_opciones++; end
+			if(ops.truco_fuego_amigo=>0) write(fpg_texto,x,y+=distancia_opciones,3,"Friendly fire"); estado_opcion(y,5); num_opciones++; end
+			if(ops.truco_sin_bandos=>0)write(fpg_texto,x,y+=distancia_opciones,3,"No bands"); estado_opcion(y,6); num_opciones++; end
+
 			volver_a_menu=0;
 		end
 		case 3: //modos de juego
 			num_opciones=2;
-			switch(ops.lenguaje)
-				case 0:
-					write(fpg_texto,x,y+=distancia_opciones,3,"Story mode");
-					write(fpg_texto,x,y+=distancia_opciones,3,"Survival mode");
-				end
-				case 1:
-					write(fpg_texto,x,y+=distancia_opciones,3,"Modo historia");
-					write(fpg_texto,x,y+=distancia_opciones,3,"Modo supervivencia");
-				end
-				case 2:
-				end
-			end
+			
+			modo_matajefes=-1;
+			modo_battleroyale=-1;
+			modo_good_vs_evil=-1;
+			
+			write(fpg_texto,x,y+=distancia_opciones,3,textos[28]);
+			write(fpg_texto,x,y+=distancia_opciones,3,textos[29]);
 			if(ops.truco_matajefes)
 				modo_matajefes=++num_opciones;
-				switch(ops.lenguaje)
-					case 0:
-						write(fpg_texto,x,y+=distancia_opciones,3,"Boss rush mode");
-					end
-					case 1:
-						write(fpg_texto,x,y+=distancia_opciones,3,"Modo matajefes");
-					end
-					case 2:
-						write(fpg_texto,x,y+=distancia_opciones,3,"Modo matajefes");
-					end
-				end
+				write(fpg_texto,x,y+=distancia_opciones,3,textos[30]);
 			end
 			if(jugadores>1)
 				modo_battleroyale=++num_opciones;
-				switch(ops.lenguaje)
-					case 0:
-						write(fpg_texto,x,y+=distancia_opciones,3,"Battle Royale mode");
-					end
-					case 1:
-						write(fpg_texto,x,y+=distancia_opciones,3,"Modo Battle Royale");
-					end
-					case 2:
-						write(fpg_texto,x,y+=distancia_opciones,3,"Modo Battle Royale");
-					end
-				end
+				write(fpg_texto,x,y+=distancia_opciones,3,textos[31]);
 			end
 			if(jugadores==4)
 				modo_good_vs_evil=++num_opciones;
-				switch(ops.lenguaje)
-					case 0:
-						write(fpg_texto,x,y+=distancia_opciones,3,"Good VS Evil mode");
-					end
-					case 1:
-						write(fpg_texto,x,y+=distancia_opciones,3,"Modo Good VS Evil");
-					end
-					case 2:
-						write(fpg_texto,x,y+=distancia_opciones,3,"Modo Good VS Evil");
-					end
-				end
+				write(fpg_texto,x,y+=distancia_opciones,3,textos[32]);
 			end
 			volver_a_menu=0;
 		end

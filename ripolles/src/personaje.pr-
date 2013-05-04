@@ -42,19 +42,21 @@ Begin
 				else
 					x=ancho_pantalla-50;
 				end
-				if(jugador==1 or jugador==3)
-					y_base=135;
-				else
-					y_base=305;
-				end
 			end
 		end
-		y_base=130+40*jugador;
+		if(modo_juego==modo_historia)
+			y_base=130+40*jugador;
+		else
+			if(jugador==1 or jugador==3)
+				y_base=135;
+			else
+				y_base=360;
+			end
+		end
 		controlador(jugador);
 		switch(jugador)
 			case 1: 
 				if(ops.truco_pato==1)
-					p[1].vidas=1;
 					file=fpg_pato;
 				else
 					file=fpg_ripolles1;
@@ -128,6 +130,9 @@ Begin
 			p[jugador].vida=p[jugador].vida*0.7;
 		end
 	end
+	
+	recoloca_centros_personaje(file);
+	
 	accion=quieto;
 	alto=graphic_info(file,1,G_HEIGHT);
 	frame;
@@ -164,12 +169,13 @@ Begin
 				if(abs(x_inc)<7)
 					if(flags==1) x_inc=7; else x_inc=-7; end
 				end
+				if(tipo==0) sonido(22,0); end
 			end
 			accion=muere; herida+=100; 
 		end
 		
 		if(tipo==0 and lleva_objeto!=0 and accion==quieto)
-			if(lleva_objeto==1 or lleva_objeto==4) //coca o rollo
+			if(lleva_objeto==1 or lleva_objeto==4 or lleva_objeto==9) //comida
 				if(lleva_objeto==4)
 					p[jugador].vida=100;
 				else
@@ -389,7 +395,7 @@ Begin
 					if(p[jugador].botones[b_3] and !p[jugador].botones[b_1] and se_defiende)
 						accion=defiende;
 						if(lleva_objeto>0)
-							objeto(x,y_base,altura-100,lleva_objeto,0);
+							objeto(x,y_base,altura-100,lleva_objeto,0,flags);
 							lleva_objeto=0;
 						elseif(lleva_objeto==-1)
 							if(exists(id_enemigo_cogido))
@@ -499,7 +505,7 @@ Begin
 		else //está siendo herido o cayendo del golpe
 			if(accion!=herido_leve and accion!=herido_grave and accion!=muere) //escisión!
 				if(lleva_objeto>0)
-					objeto(x,y_base,altura-100,lleva_objeto,0);
+					objeto(x,y_base,altura-100,lleva_objeto,0,flags);
 					lleva_objeto=0;
 				elseif(lleva_objeto==-1)
 					if(exists(id_enemigo_cogido))
@@ -549,7 +555,9 @@ Begin
 				end
 			end
 			
-			if(accion==herido_grave and p[jugador].botones[b_arriba] and pulsando_arriba<3 and p[jugador].botones[b_2] and gravedad>0)
+			//recuperación aérea
+			//if(accion==herido_grave and p[jugador].botones[b_arriba] and pulsando_arriba<3 and p[jugador].botones[b_2] and gravedad>0)
+			if(accion==herido_grave and p[jugador].botones[b_2] and gravedad>4)
 				gravedad=-10;
 				accion=quieto;
 				herida=0;
@@ -625,7 +633,7 @@ Begin
 				else
 					if(anim==4)
 						if(lleva_objeto>0)
-							objeto(x,y_base,altura-80,lleva_objeto,x_inc+(10*hacia_que_lado));
+							objeto(x,y_base,altura-80,lleva_objeto,x_inc+(10*hacia_que_lado),flags);
 						else
 							if(exists(id_enemigo_cogido))
 								id_enemigo_cogido.x=x+(-40*hacia_que_lado);

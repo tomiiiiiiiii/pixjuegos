@@ -18,15 +18,20 @@ Begin
 			pon_musica(11);
 			
 			//OBJETOS
-			objeto(1700,300,0,1,0); //coca tras las dos primeras emboscadas
-			objeto(5800,280,0,1,0); //tras la 5ª
-			objeto(8500,280,0,4,0); //antes del jefe
+			objeto(1700,300,0,1,0,0); //coca tras las dos primeras emboscadas
+			objeto(5800,280,0,1,0,0); //tras la 5ª
+			objeto(8500,280,0,4,0,0); //antes del jefe
 			
 			from i=1 to 7;
-				objeto(((i+1)*1000),145,0,2,0); //papeleras en 1000,2000,3000,4000,5000,6000,7000 y 8000
+				objeto(((i+1)*1000),145,0,2,0,0); //papeleras en 1000,2000,3000,4000,5000,6000,7000 y 8000
 			end
 			
-			objeto(3000,280,0,5,0); //casco en la 4ª
+			//TERRAZA
+			objeto(200,145,0,7,0,0); //papeleras en 1000,2000,3000,4000,5000,6000,7000 y 8000
+			objeto(300,145,0,6,0,0); //papeleras en 1000,2000,3000,4000,5000,6000,7000 y 8000
+			objeto(400,145,0,7,0,1); //papeleras en 1000,2000,3000,4000,5000,6000,7000 y 8000
+			
+			objeto(3000,280,0,5,0,0); //casco en la 4ª
 			
 			//EMBOSCADAS
 			emboscada[1].x_evento=700;
@@ -223,26 +228,32 @@ Begin
 			pon_musica(1);
 			nivel4_eventos();
 			//OBJETOS
-			objeto(1981,200,0,3,0); //en el puente del río seco
-			objeto(2650,250,0,5,0); //casco antes de la 3, muerte pura!
 			
-			objeto(3900,150,0,4,0); //antes de evil ripolles x6
-			objeto(3900,180,0,4,0); //
-			objeto(3900,210,0,4,0); //
-			objeto(3900,240,0,4,0); //
-			objeto(3900,270,0,4,0); //
-			objeto(3900,300,0,4,0); //
-			
-			objeto(4450,180,0,3,0); //para contra evil ripolles
-			objeto(4600,240,0,3,0); //para contra evil ripolles
-			objeto(4750,180,0,3,0); //para contra evil ripolles
-			
-			from i=1 to 3;
-				objeto(6420+(i*300),145,0,2,0); //papeleras en el edificio del aeropuerto
+			//naranjas!!!
+			from i=1 to 10;
+				objeto(rand(2700,3650),rand(100,400),0,8,0,0);
 			end
 			
-			objeto(7600,180,0,4,0); //antes del jefe final
-			objeto(7600,270,0,4,0); //
+			objeto(1981,200,0,3,0,0); //en el puente del río seco
+			objeto(2650,250,0,5,0,0); //casco antes de la 3, muerte pura!
+			
+			objeto(3900,150,0,4,0,0); //antes de evil ripolles x6
+			objeto(3900,180,0,4,0,0); //
+			objeto(3900,210,0,4,0,0); //
+			objeto(3900,240,0,4,0,0); //
+			objeto(3900,270,0,4,0,0); //
+			objeto(3900,300,0,4,0,0); //
+			
+			objeto(4450,180,0,3,0,0); //para contra evil ripolles
+			objeto(4600,240,0,3,0,0); //para contra evil ripolles
+			objeto(4750,180,0,3,0,0); //para contra evil ripolles
+			
+			from i=1 to 3;
+				objeto(6420+(i*300),145,0,2,0,0); //papeleras en el edificio del aeropuerto
+			end
+			
+			objeto(7600,180,0,4,0,0); //antes del jefe final
+			objeto(7600,270,0,4,0,0); //
 
 			//EMBOSCADAS
 			emboscada[1].x_evento=815;

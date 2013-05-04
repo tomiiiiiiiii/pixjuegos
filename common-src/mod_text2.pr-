@@ -11,14 +11,14 @@ Local
 	rand_angle;
 End
 
-/*Process test_text();
+Process test_text();
 Private
 	mi_id_texto;
 	retraso_repintado=5;
 Begin
-	//stop_scroll(0);
-	//let_me_alone();
-	//delete_text(all_text);
+	stop_scroll(0);
+	let_me_alone();
+	delete_text(all_text);
 	mi_id_texto=write(fpg_texto,0,0,0,"Hola, soy Pablo. Feliz Navidad");
 	
 	while(!key(_Esc))
@@ -45,7 +45,7 @@ Begin
 		frame; 
 	end
 	exit();
-End*/
+End
 
 Process write(fpg_fuente,x,y,centrado,string texto);
 Private
@@ -252,7 +252,9 @@ Begin
 		texto=ucase(texto);
 	end
 	
+	#IFDEF DEBUG
 	say("Dibujando texto: "+texto);
+	#ENDIF
 
 	//1. contar el espacio horizontal y vertical
 	from i=0 to len(texto)-1;

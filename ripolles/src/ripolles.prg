@@ -63,6 +63,7 @@ Const
 End
 
 Global
+	string textos[50];
 	ready=0;
 
 	retraso_jukebox=500;
@@ -213,6 +214,7 @@ include "menu.pr-";
 include "cutscenes.pr-";
 include "personaje.pr-";
 include "enemigo.pr-";
+include "traducciones.pr-";
 
 Begin
 
@@ -233,16 +235,22 @@ Begin
 	if(ops.lenguaje==-1)
 		switch(lenguaje_sistema())
 			case "es": ops.lenguaje=1; end
+			//case "ca": ops.lenguaje=2; end
 			default: ops.lenguaje=0; end
 		end	
 	end
 
 	if(os_id==1003) ops.lenguaje=0; end
 
+	ops.lenguaje=0;
+	
 	switch(ops.lenguaje)
 		case 1: lang_suffix="es"; end
+		case 1: lang_suffix="ca"; end
 		default: lang_suffix="en"; end
 	end
+	
+	carga_textos();
 
 	//La resolución del monitor será esta:
 	if(os_id==os_caanoo or os_id==10 or os_id==os_gp2x or os_id==os_gp2x_wiz or os_id==os_gp32 or os_id==os_dc)
@@ -450,39 +458,10 @@ Begin
 		
       	if(p[0].botones[b_salir] and ready)
 			while(p[0].botones[b_salir]) frame; end
-			
-			#IFDEF OUYA
-				switch(ops.lenguaje)
-					case 0:
-						txt_pausa[1]=write(fpg_texto,ancho_pantalla/2,(alto_pantalla/2)-30,4,"PAUSE");
-						txt_pausa[2]=write(fpg_texto,ancho_pantalla/2,alto_pantalla/2,4,"Press Button A to exit");
-					end
-					case 1:
-						txt_pausa[1]=write(fpg_texto,ancho_pantalla/2,(alto_pantalla/2)-30,4,"PAUSA");
-						txt_pausa[2]=write(fpg_texto,ancho_pantalla/2,alto_pantalla/2,4,"Pulsa el botón A para salir");
-					end
-					case 2:
-						txt_pausa[1]=write(fpg_texto,ancho_pantalla/2,(alto_pantalla/2)-30,4,"PAUSA");
-						txt_pausa[2]=write(fpg_texto,ancho_pantalla/2,alto_pantalla/2,4,"Pulsa el botón A para salir");
-					end
-				end
-			#ELSE
-				switch(ops.lenguaje)
-					case 0:
-						txt_pausa[1]=write(fpg_texto,ancho_pantalla/2,(alto_pantalla/2)-30,4,"PAUSE");
-						txt_pausa[2]=write(fpg_texto,ancho_pantalla/2,alto_pantalla/2,4,"Press Button 3 to exit");
-					end
-					case 1:
-						txt_pausa[1]=write(fpg_texto,ancho_pantalla/2,(alto_pantalla/2)-30,4,"PAUSA");
-						txt_pausa[2]=write(fpg_texto,ancho_pantalla/2,alto_pantalla/2,4,"Pulsa el botón 3 para salir");
-					end
-					case 2:
-						txt_pausa[1]=write(fpg_texto,ancho_pantalla/2,(alto_pantalla/2)-30,4,"PAUSA");
-						txt_pausa[2]=write(fpg_texto,ancho_pantalla/2,alto_pantalla/2,4,"Pulsa el botón 3 para salir");
-					end
-				end
-			#ENDIF
 
+			txt_pausa[1]=write(fpg_texto,ancho_pantalla/2,(alto_pantalla/2)-30,4,textos[0]);
+			txt_pausa[2]=write(fpg_texto,ancho_pantalla/2,alto_pantalla/2,4,textos[1]);
+		
 			sonido(1,0);
 			ready=0;
 			frame(3000);
@@ -562,14 +541,10 @@ Begin
 
 	if(modo_juego==modo_battleroyale)
 		if(ops.truco_fuego_amigo<0)
-			ops.truco_fuego_amigo++; //jugador secreto Pato disponible
+			ops.truco_fuego_amigo++;
 			guarda_opciones();
 			if(ops.truco_fuego_amigo==0)
-				switch(ops.lenguaje)
-					case 0: truco_descubierto("Friendly fire unlocked!"); end
-					case 1: truco_descubierto("Fuego amigo desbloqueado!"); end
-					case 2: truco_descubierto("Fuego amigo desbloqueado!"); end
-				end
+				truco_descubierto(textos[2]);
 				while(exists(type truco_descubierto)) frame; end
 			end
 		end
@@ -581,7 +556,6 @@ Begin
 				break; 
 			end
 		end
-		write(0,0,0,0,i);
 	else
 		if(ops.truco_pato==1)
 			graph=35;
@@ -594,11 +568,7 @@ Begin
 		if(timer[0]>60*5) //si ha aguantado más de 5 minutos, le damos el cheto "sin bandos"
 			ops.truco_sin_bandos=0; //modo matajefes disponible
 			guarda_opciones();
-			switch(ops.lenguaje)
-				case 0: truco_descubierto("No bands unlocked!"); end
-				case 1: truco_descubierto("Sin bandos desbloqueado!"); end
-				case 2: truco_descubierto("Sin bandos desbloqueado!"); end
-			end
+			truco_descubierto(textos[3]);
 			while(exists(type truco_descubierto)) frame; end
 		end
 	end
@@ -636,6 +606,16 @@ Begin
 	//enemigos inclusive
 	set_center(fpg_general,51,0,0);
 	set_center(fpg_general,52,0,0);
+End
+
+Function recoloca_centros_personaje(file);
+Begin
+	//todos los objetos deben tener el centro en su base
+	from i=1 to 998;
+		if(graphic_info(file,i,G_HEIGHT)>0)
+			set_center(file,i,graphic_info(file,i,G_WIDTH)/2,graphic_info(file,i,G_HEIGHT)-57);
+		end
+	end
 End
 
 Process camara();
@@ -846,11 +826,18 @@ Begin
 		father.y=father.y_base+father.altura;
 		father.z=-father.y_base;
 
-		if(father.y_base<135) father.y_base=135; end
-		if(father.y_base>305) father.y_base=305; end
+		if(father.y_base<135)
+			father.y_base=135; 
+			if(father.y_inc<0) father.y_inc=0; end
+		elseif(father.y_base>305) 
+			father.y_base=305; 
+			if(father.y_inc>0) father.y_inc=0; end
+		end
 	
-		if((father.x<30 and father.x_inc<0) or (father.x>ancho_nivel-30 and father.x_inc>0)) father.x_inc*=-1; end
-
+		//rebote en bordes
+		if((father.x<30 and father.x_inc<0) or (father.x>ancho_nivel-30 and father.x_inc>0)) 
+			father.x_inc*=-1; 
+		end
 		if(forma==encerrandome)
 			if(father.x<id_camara.x-((ancho_pantalla/2)-50)) father.x=id_camara.x-((ancho_pantalla/2)-50); end
 			if(father.x>id_camara.x+((ancho_pantalla/2)-50)) father.x=id_camara.x+((ancho_pantalla/2)-50); end
@@ -1113,11 +1100,15 @@ Begin
 	alpha=0;
 	rango=20;
 	size=80;
+	
 //	if((father.tipo==0 and father.accion!=herido_leve and father.accion!=herido_grave and father.accion!=ataca_area and father.accion!=muere) or (father.tipo!=0 and father.accion!=muere))
 	if(father.accion!=herido_leve and father.accion!=herido_grave and father.accion!=ataca_area and father.accion!=muere)
+		//ataque
 		if(id_col=collision(type ataque))
-			if(id_col.jugador!=jugador)
-				if(!((jugador>10 and id_col.jugador>10 and id_col.jugador!=0) or (jugador<10 and id_col.jugador<10 and id_col.jugador!=0)) or fuego_amigo) //esta línea evita el fuego amigo
+			if(id_col.jugador!=jugador and !(id_col.jugador==0 and jugador<4))
+				if(!((jugador>10 and id_col.jugador>10 and id_col.jugador!=0) 
+				or (jugador<10 and id_col.jugador<10 and id_col.jugador!=0)) 
+				or fuego_amigo) //esta línea evita el fuego amigo
 					if(en_rango(z,id_col.z,id_col.rango))
 						//if(father.accion==defiende and ((father.flags==0 and x<id_col.x) or (father.flags==1 and x>id_col.x)))
 						if(father.accion==defiende)
@@ -1140,7 +1131,11 @@ Begin
 				end
 			end
 		end
-		if(father.accion==defiende and father.altura==0)
+	
+		//collision entre cuerpos
+		if(father.accion==defiende and father.altura!=0)
+			//si se defiende y está en el aire, no choca
+		else
 			if(id_col=collision(type cuerpo))
 				if(en_rango(z,id_col.z,rango))
 					if(id_col<id) //manda este
@@ -1151,11 +1146,11 @@ Begin
 								if(id_col.father.accion==quieto)
 									id_col.father.flags=1;
 								end
-							end
-							father.x_inc-=3;
-							father.y_inc-=2;
-							if(father.accion==quieto)
-								father.flags=0;
+								father.x_inc-=3;
+								father.y_inc-=2;
+								if(father.accion==quieto)
+									father.flags=0;
+								end
 							end
 						else
 							if(id_col.father.accion!=herido_grave)
@@ -1164,11 +1159,11 @@ Begin
 								if(id_col.father.accion==quieto)
 									id_col.father.flags=0;
 								end
-							end
-							father.x_inc+=3;
-							father.y_inc+=2;
-							if(father.accion==quieto)
-								father.flags=1;
+								father.x_inc+=3;
+								father.y_inc+=2;
+								if(father.accion==quieto)
+									father.flags=1;
+								end
 							end
 						end
 					end
@@ -1177,7 +1172,11 @@ Begin
 		end
 	else
 		if(father.accion==herido_grave and father.x_inc!=0 and father.gravedad>0)
-			ataque(father.x,father.y,father.file,father.graph,abs(father.x_inc),40,1);
+			if(father.jugador<10)
+				ataque(father.x,father.y,father.file,father.graph,abs(father.x_inc),40,father.jugador);
+			else
+				ataque(father.x,father.y,father.file,father.graph,abs(father.x_inc),40,0);
+			end
 		end
 	end
 	frame;
@@ -1208,7 +1207,7 @@ Begin
 	while(!ready) frame; end
 End
 
-Process objeto(x,y_base,altura,graph,x_inc);
+Process objeto(x,y_base,altura,graph,x_inc,flags);
 Private
 	retraso_colision;
 Begin
@@ -1217,8 +1216,9 @@ Begin
 	file=fpg_objetos;
 	x_inc=x_inc*2;
 	if(exists(father))
-		flags=father.flags;
-		jugador=father.jugador;
+		if(father.jugador!=0)
+			jugador=father.jugador;
+		end
 	end
 	ctype=coordenadas;
 	while(!exists(id_camara)) frame; end
@@ -1280,7 +1280,7 @@ End
 
 Process sombra();
 Begin
-	y=father.y_base+(father.alto/2);
+	y=father.y_base+53;
 	z=father.z+10;
 	x=father.x;
 	altura=father.altura;
@@ -1708,6 +1708,7 @@ End
 Process creditos();
 Private
 	id_siguiente_imagen;
+	salir_creditos;
 Begin
 	fade_off();
 	while(fading) frame; end
@@ -1723,25 +1724,27 @@ Begin
 	y=alto_pantalla/2;
 	z=1;
 	file=fpg_cutscenes;
+	controlador(0);
 	from i=34 to 40;
 		id_siguiente_imagen=siguiente_imagen(i);
-		while(id_siguiente_imagen.alpha<255) frame; end
+		while(id_siguiente_imagen.alpha<255 and salir_creditos==0)
+			frame; 
+		if(p[0].botones[b_salir]) salir_creditos=1; end end
 		graph=i;
 		id_siguiente_imagen.accion=-1;
 		timer[0]=0;
-		while(timer[0]<500) frame; end		
+		while(timer[0]<500 and salir_creditos==0)
+			if(p[0].botones[b_salir]) salir_creditos=1; end
+			frame; 
+		end
+		if(salir_creditos) break; end
 		frame;
 	end
 	//desbloqueamos el modo matajefes si no está desbloqueado
 	if(ops.truco_matajefes==0)
 		ops.truco_matajefes=1; //modo matajefes disponible
 		guarda_opciones();
-		switch(ops.lenguaje)
-			case 0: truco_descubierto("Boss rush unlocked!"); end
-			case 1: truco_descubierto("Modo matajefes disponible!"); end
-			case 2: truco_descubierto("Modo matajefes disponible!"); end
-		end
-
+		truco_descubierto(textos[4]);
 		while(exists(type truco_descubierto)) frame; end
  	end
 
@@ -1829,11 +1832,7 @@ Begin
 	
 	while(enemigos>0) frame; end
 	
-	switch(ops.lenguaje)
-		case 0: truco_descubierto("Boss rush completed!"); end
-		case 1: truco_descubierto("Modo matajefes superado!"); end
-		case 2: truco_descubierto("Modo matajefes superado!"); end
-	end
+	truco_descubierto(textos[5]);
 	ganando=1;
 	timer[2]=0;
 	while(timer[2]<500) frame; end
@@ -1841,11 +1840,7 @@ Begin
 	if(ops.truco_pato<0)
 		ops.truco_pato=0; //modo matajefes disponible
 		guarda_opciones();
-		switch(ops.lenguaje)
-			case 0: truco_descubierto("Character PATO unlocked!"); end
-			case 1: truco_descubierto("Personaje PATO desbloqueado!"); end
-			case 2: truco_descubierto("Personaje PATO desbloqueado!"); end
-		end
+		truco_descubierto(textos[6]);
 		while(exists(type truco_descubierto)) frame; end
 	end
 	menu(-1);
@@ -1860,11 +1855,7 @@ End
 
 Process muestra_nivel();
 Begin
-	switch(ops.lenguaje)
-		case 0: graph=write_in_map(fpg_texto,"Level "+nivel,4); end
-		case 1: graph=write_in_map(fpg_texto,"Nivel "+nivel,4); end
-		case 2: graph=write_in_map(fpg_texto,"Nivel "+nivel,4); end
-	end
+	graph=write_in_map(fpg_texto,textos[7]+nivel,4);
 	x=ancho_pantalla/2;
 	y=(alto_pantalla/2)-34;
 	z=-512;
@@ -1877,25 +1868,9 @@ End
 
 Process muestra_nombre_nivel();
 Begin
-	switch(ops.lenguaje)
-		case 0: 
-			switch(nivel)
-				case 1: graph=write_in_map(fpg_texto,"Downtown",4); end
-				case 4: graph=write_in_map(fpg_texto,"Airport",4); end
-			end
-		end
-		case 1:
-			switch(nivel)
-				case 1: graph=write_in_map(fpg_texto,"Centro",4); end
-				case 4: graph=write_in_map(fpg_texto,"Aeropuerto",4); end
-			end
-		end
-		case 2:
-			switch(nivel)
-				case 1: graph=write_in_map(fpg_texto,"Centro",4); end
-				case 4: graph=write_in_map(fpg_texto,"Aeropuerto",4); end
-			end
-		end
+	switch(nivel)
+		case 1: graph=write_in_map(fpg_texto,textos[8],4); end
+		case 4: graph=write_in_map(fpg_texto,textos[11],4); end
 	end
 	x=ancho_pantalla/2;
 	y=father.y+20;
@@ -1909,11 +1884,7 @@ End
 Process nivel_superado();
 Begin
 	ready=0;
-	switch(ops.lenguaje)
-		case 0: graph=write_in_map(fpg_texto,"Level "+nivel+" completed",4); end
-		case 1: graph=write_in_map(fpg_texto,"Nivel "+nivel+" superado",4); end
-		case 2: graph=write_in_map(fpg_texto,"Nivel "+nivel+" superado",4); end
-	end
+	graph=write_in_map(fpg_texto,textos[7]+nivel+textos[13],4);
 	x=ancho_pantalla/2;
 	y=(alto_pantalla/3)-34;
 	z=-512;

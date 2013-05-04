@@ -190,7 +190,11 @@ Begin
 			fade_off();
 			while(fading) frame; end
 			let_me_alone();
-			jugar();
+			if(nivel>1)
+				creditos();
+			else
+				jugar();
+			end
 		end
 		if(key(_space))
 			set_fps(120,9);

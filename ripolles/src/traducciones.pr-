@@ -1,0 +1,185 @@
+Function carga_textos();
+Begin
+	switch(ops.lenguaje)
+		case 0: //inglés
+			//general
+			textos[0]="PAUSE";
+			#IFDEF OUYA
+				textos[1]="Press Button A to exit";
+			#ELSE
+				textos[1]="Press Button 3 to exit";
+			#ENDIF
+			textos[2]="Friendly fire unlocked!";
+			textos[3]="No bands unlocked!";
+			textos[4]="Boss rush unlocked!";
+			textos[5]="Boss rush completed!";
+			textos[6]="Character PATO unlocked!";
+			textos[7]="Level ";
+			textos[8]="Downtown";
+			textos[9]="2";
+			textos[10]="3";
+			textos[11]="Airport";
+			textos[12]="5";
+			textos[13]=" completed";
+			
+			//menús
+			textos[14]="Pulsa el boton 2 para jugar";
+			textos[15]="Play";
+			textos[16]="Options";
+			textos[17]="Help";
+			textos[18]="Credits";
+			textos[19]="Exit";
+			textos[20]=" player";
+			textos[21]=" players";
+			textos[22]="Full screen";
+			textos[23]="Sound";
+			textos[24]="Music";
+			textos[25]="Play as Pato";
+			textos[26]="Friendly fire";
+			textos[27]="No bands";
+			textos[28]="Story mode";
+			textos[29]="Survival mode";
+			textos[30]="Boss rush mode";
+			textos[31]="Battle Royale mode";
+			textos[32]="Good VS Evil mode";
+			textos[33]="";
+			textos[34]="";
+			textos[35]="";
+			textos[36]="";
+			textos[37]="";
+			textos[38]="";
+			textos[39]="";
+			textos[40]="";
+			textos[41]="";
+			textos[42]="";
+			textos[43]="";
+			textos[44]="";
+			textos[45]="";
+			textos[46]="";
+			textos[47]="";
+			textos[48]="";
+			textos[49]="";
+			textos[50]="";
+		end
+		case 1: //español
+			//general
+			textos[0]="PAUSA";
+			#IFDEF OUYA
+				textos[1]="Pulsa el botón A para salir";
+			#ELSE
+				textos[1]="Pulsa el botón 3 para salir";
+			#ENDIF
+			textos[2]="¡Fuego amigo desbloqueado!";
+			textos[3]="¡Sin bandas desbloqueado!";
+			textos[4]="¡Modo matajefes desbloqueado!";
+			textos[5]="¡Modo matajefes completado!";
+			textos[6]="¡Pato desbloqueado!";
+			textos[7]="Nivel ";
+			textos[8]="Centro";
+			textos[9]="2";
+			textos[10]="3";
+			textos[11]="Aeropuerto";
+			textos[12]="5";
+			textos[13]=" completado";
+			
+			//menús
+			textos[14]="Pulsa el boton 2 para jugar";
+			textos[15]="Jugar";
+			textos[16]="Opciones";
+			textos[17]="Ayuda";
+			textos[18]="Créditos";
+			textos[19]="Salir";
+			textos[20]=" jugador";
+			textos[21]=" jugadores";
+			textos[22]="Pantalla completa";
+			textos[23]="Sonido";
+			textos[24]="Música";
+			textos[25]="Jugar con Pato";
+			textos[26]="Fuego amigo";
+			textos[27]="Sin bandas";
+			textos[28]="Modo historia";
+			textos[29]="Modo supervivencia";
+			textos[30]="Modo matajefes";
+			textos[31]="Modo Battle Royale";
+			textos[32]="Modo Bien VS Mal";
+			textos[33]="";
+			textos[34]="";
+			textos[35]="";
+			textos[36]="";
+			textos[37]="";
+			textos[38]="";
+			textos[39]="";
+			textos[40]="";
+			textos[41]="";
+			textos[42]="";
+			textos[43]="";
+			textos[44]="";
+			textos[45]="";
+			textos[46]="";
+			textos[47]="";
+			textos[48]="";
+			textos[49]="";
+			textos[50]="";
+		end
+		case 2: //catalán
+			//general
+			textos[0]="PAUSA";
+			#IFDEF OUYA
+				textos[1]="Pulsa el botón A para salir";
+			#ELSE
+				textos[1]="Pulsa el botón 3 para salir";
+			#ENDIF
+			textos[2]="¡Fuego amigo desbloqueado!";
+			textos[3]="¡Sin bandas desbloqueado!";
+			textos[4]="¡Modo matajefes desbloqueado!";
+			textos[5]="¡Modo matajefes completado!";
+			textos[6]="¡Pato desbloqueado!";
+			textos[7]="Nivel ";
+			textos[8]="Centro";
+			textos[9]="2";
+			textos[10]="3";
+			textos[11]="Aeropuerto";
+			textos[12]="5";
+			textos[13]=" completado";
+			
+			//menús
+			textos[14]="Pulsa el boton 2 para jugar";
+			textos[15]="Jugar";
+			textos[16]="Opciones";
+			textos[17]="Ayuda";
+			textos[18]="Créditos";
+			textos[19]="Salir";
+			textos[20]=" jugador";
+			textos[21]=" jugadores";
+			textos[22]="Pantalla completa";
+			textos[23]="Sonido";
+			textos[24]="Música";
+			textos[25]="Jugar con Pato";
+			textos[26]="Fuego amigo";
+			textos[27]="Sin bandas";
+			textos[28]="Modo historia";
+			textos[29]="Modo supervivencia";
+			textos[30]="Modo matajefes";
+			textos[31]="Modo Battle Royale";
+			textos[32]="Modo Bien VS Mal";
+			textos[33]="";
+			textos[34]="";
+			textos[35]="";
+			textos[36]="";
+			textos[37]="";
+			textos[38]="";
+			textos[39]="";
+			textos[40]="";
+			textos[41]="";
+			textos[42]="";
+			textos[43]="";
+			textos[44]="";
+			textos[45]="";
+			textos[46]="";
+			textos[47]="";
+			textos[48]="";
+			textos[49]="";
+			textos[50]="";
+		end
+	end
+End
