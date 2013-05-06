@@ -10,5 +10,5 @@ goto :eof
 
 :a
 echo Creando %1.png...
-"c:\Program Files (x86)\Inkscape\inkscape.com" --export-id="general-%1" --export-dpi="90" --export-png="%OUTDIR%%1.png" %2 > NUL
+..\..\..\utils\inkscape\inkscape.com --export-id="general-%1" --export-dpi="90" --export-png="%OUTDIR%%1.png" %2 > NUL
 goto :eof

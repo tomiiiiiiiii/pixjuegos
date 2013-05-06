@@ -47,11 +47,11 @@ goto :eof
 
 :a
 echo Creando %1.png...
-"c:\Program Files (x86)\Inkscape\inkscape.com" --export-id="cutscenes-%1" --export-dpi="360" --export-png="%OUTDIR%%1.png" %SVG% > NUL
+..\..\..\utils\inkscape\inkscape.com --export-id="cutscenes-%1" --export-dpi="360" --export-png="%OUTDIR%%1.png" %SVG% > NUL
 goto :eof
 
 :b
 REM PARA GRÁFICOS REPETIDOS
 echo Creando %1.png...
-"c:\Program Files (x86)\Inkscape\inkscape.com" --export-id="cutscenes-%2" --export-dpi="360" --export-png="%OUTDIR%%1.png" %SVG% > NUL
+..\..\..\utils\inkscape\inkscape.com --export-id="cutscenes-%2" --export-dpi="360" --export-png="%OUTDIR%%1.png" %SVG% > NUL
 goto :eof

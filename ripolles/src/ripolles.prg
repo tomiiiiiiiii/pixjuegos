@@ -61,7 +61,7 @@ Const
 	encerrandome=0;
 	sin_encerrarme=1;
 	
-	global_resolution=-2;
+	global_resolution=0;
 End
 
 Global
@@ -304,10 +304,14 @@ Begin
 		set_mode(ancho_pantalla*2,alto_pantalla*2,bpp);
 	end
 
+	resolution=global_resolution;
+	if(resolution!=0) size=size*2; end //TEMPORAL
+	
 	//gráfico para mientras se carga
 	graph=load_png("loading.png");
 	x=ancho_pantalla/2;
 	y=alto_pantalla/2;
+	
 	if(!panoramico) size=75; end
 	z=-520;
 	
@@ -599,9 +603,10 @@ End
 Function recoloca_centros();
 Begin
 	//todos los objetos deben tener el centro en su base
+	if(resolution!=0) x=20; else x=10; end
 	from i=1 to 998;
 		if(graphic_info(fpg_objetos,i,G_HEIGHT)>0)
-			set_center(fpg_objetos,i,graphic_info(fpg_objetos,i,G_WIDTH)/2,graphic_info(fpg_objetos,i,G_HEIGHT)-10);
+			set_center(fpg_objetos,i,graphic_info(fpg_objetos,i,G_WIDTH)/2,graphic_info(fpg_objetos,i,G_HEIGHT)-x);
 		end
 	end
 	
@@ -618,9 +623,10 @@ End
 Function recoloca_centros_personaje(file);
 Begin
 	//todos los objetos deben tener el centro en su base
+	if(resolution!=0) x=114; else x=57; end
 	from i=1 to 998;
 		if(graphic_info(file,i,G_HEIGHT)>0)
-			set_center(file,i,graphic_info(file,i,G_WIDTH)/2,graphic_info(file,i,G_HEIGHT)-57);
+			set_center(file,i,graphic_info(file,i,G_WIDTH)/2,graphic_info(file,i,G_HEIGHT)-x);
 		end
 	end
 End
@@ -1110,6 +1116,7 @@ Begin
 	alpha=0;
 	rango=20;
 	size=80;
+	if(resolution!=0) size=size*2; end //TEMPORAL
 	
 //	if((father.tipo==0 and father.accion!=herido_leve and father.accion!=herido_grave and father.accion!=ataca_area and father.accion!=muere) or (father.tipo!=0 and father.accion!=muere))
 	if(father.accion!=herido_leve and father.accion!=herido_grave and father.accion!=ataca_area and father.accion!=muere)
@@ -1195,6 +1202,7 @@ End
 Process ataque(x,y,file,graph,herida,rango,jugador);
 Begin
 	resolution=global_resolution;
+	if(resolution!=0) size=size*2; end //TEMPORAL
 	flags=father.flags;
 	z=father.z;
 	priority=-1;
@@ -1206,6 +1214,7 @@ End
 Process objeto_portado(x,y,graph);
 Begin
 	resolution=global_resolution;
+	if(resolution!=0) size=size*2; end //TEMPORAL
 	z=father.z-1;
 	flags=father.flags;
 	file=fpg_objetos;
@@ -1295,7 +1304,8 @@ End
 Process sombra();
 Begin
 	resolution=global_resolution;
-	y=father.y_base+53;
+	if(resolution!=0) i=106; else i=53; end
+	y=father.y_base+i;
 	z=father.z+10;
 	x=father.x;
 	altura=father.altura;
@@ -1304,6 +1314,7 @@ Begin
 	graph=3;
 	alpha=father.alpha+altura-50;
 	size=100+(altura/3);
+	if(resolution!=0) size=size*2; end
 	frame;
 	while(!ready and !ganando) frame; end
 End
@@ -1311,6 +1322,7 @@ End
 Process sombra_objeto();
 Begin
 	resolution=global_resolution;
+	if(resolution!=0) i=10; else i=5; end
 	y=father.y+5;
 	z=father.z+10;
 	x=father.x;
@@ -1320,6 +1332,7 @@ Begin
 	graph=3;
 	alpha=father.alpha+altura-50;
 	size=100+(altura/3);
+	if(resolution!=0) size=size*2; end
 	frame;
 	while(!ready) frame; end
 End
@@ -1574,6 +1587,7 @@ End
 Process vida(x,y,size_x,graph);
 Begin
 	resolution=global_resolution;
+	if(resolution!=0) size_y=size_y*2; size_x=size_x*2; end
 	file=fpg_general;
 	z=-11;
 	frame;

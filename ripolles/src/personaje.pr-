@@ -137,6 +137,7 @@ Begin
 	
 	accion=quieto;
 	alto=graphic_info(file,1,G_HEIGHT);
+	if(resolution!=0 and tipo!=0) alto=alto*2; end
 	frame;
 	
 	loop
