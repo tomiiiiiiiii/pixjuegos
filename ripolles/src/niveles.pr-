@@ -1,5 +1,6 @@
 Process carga_nivel(num_nivel);
 Begin
+	resolution=global_resolution;
 	from i=0 to 20;
 		emboscada[i].x_evento=0;
 		emboscada[i].evento_especial=0;
@@ -436,12 +437,13 @@ End
 
 Process nivel1_eventos();
 Begin
+	resolution=global_resolution;
 	while(!exists(id_camara)) frame; end
 	loop
 		while(!ready) frame; end
 		if(id_camara.x>1600 and id_camara.x<4200)
 			if(i==0)
-				tram(id_camara.x);
+				tram();
 				i=750;
 			else
 				i--;
@@ -453,13 +455,14 @@ End
 
 Process nivel4_eventos();
 Begin
+	resolution=global_resolution;
 	while(!exists(id_camara)) frame; end
 	loop
 		while(!ready) frame; end
 		if(exists(type jefe4)) return; end
 		if(id_camara.x>6000 and id_camara.x<9270)
 			if(i==0)
-				avioncete(id_camara.x);
+				avioncete();
 				i=750;
 			else
 				i--;

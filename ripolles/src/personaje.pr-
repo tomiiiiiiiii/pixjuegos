@@ -22,6 +22,7 @@ Private
 	ultimo_ataque=10;
 	ataca_fuerte_sin_retraso=0;
 Begin
+	resolution=global_resolution;
 	ctype=coordenadas;
 	p[jugador].juega=1;
 	p[jugador].identificador=id;
@@ -78,6 +79,7 @@ Begin
 			fuerza_ataque=40;
 		end
 	else
+		if(resolution!=0) size=200; end //TEMPORAL
 		enemigos++;
 		x=rand(0,640);
 		y_base=rand(100,360);
@@ -318,14 +320,16 @@ Begin
 							else
 								si_ataca=0;
 								if(accion==quieto and x_inc==0 and (id_col=collision(type objeto)))
-									//si el objeto está en el suelo y no somos un enemigo cogiendo vida o powerup...
-									if(id_col.y>y+35 and !(tipo>0 and (id_col.graph==1 or id_col.graph==4 or id_col.graph==5))) 
-										lleva_objeto=id_col.graph;
-										accion=coge_objeto;
-										signal(id_col,s_kill);
-									else
-										si_ataca=1;
-									end
+									repeat
+										//si el objeto está en el suelo y no somos un enemigo cogiendo vida o powerup...
+										if(id_col.y>y+35 and !(tipo>0 and (id_col.graph==1 or id_col.graph==4 or id_col.graph==5))) 
+											lleva_objeto=id_col.graph;
+											accion=coge_objeto;
+											signal(id_col,s_kill);
+										else
+											si_ataca=1;
+										end
+									until(!(id_col=collision(type objeto)) or lleva_objeto!=0)
 								elseif(accion==quieto and x_inc==0 and (id_col=collision(type personaje)))
 									//si el enemigo está en el suelo herido_grave
 									if(en_rango(z,id_col.z,40) and id_col.accion==herido_grave and id_col.graph==151 and id_col.altura==0)
@@ -510,6 +514,7 @@ Begin
 		else //está siendo herido o cayendo del golpe
 		
 			if(accion!=herido_leve and accion!=herido_grave and accion!=muere) //escisión!
+				//se le cae el objeto
 				if(lleva_objeto>0)
 					objeto(x,y_base,altura-100,lleva_objeto,0,flags);
 					lleva_objeto=0;
@@ -628,7 +633,7 @@ Begin
 		//gestion del objeto portado o siendo cogido
 		if(lleva_objeto!=0 or accion==lanza_objeto)
 			if(accion==lanza_objeto)
-				if(anim<4)
+				if(anim<4) //preparándose para lanzar el objeto
 					if(lleva_objeto>0)
 						objeto_portado(x+(-30*hacia_que_lado),y-25,lleva_objeto);
 					else
@@ -649,7 +654,7 @@ Begin
 						end
 					end
 				else
-					if(anim==4)
+					if(anim==4) //lanza el objeto
 						if(lleva_objeto>0)
 							objeto(x,y_base,altura-80,lleva_objeto,x_inc+(10*hacia_que_lado),flags);
 						else

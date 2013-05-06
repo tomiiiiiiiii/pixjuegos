@@ -5,6 +5,7 @@ Private
 	id_taza;
 	id_sonido;
 Begin
+	resolution=global_resolution;
 	if(ops.truco_pato==1 or pocos_recursos)
 		jugar();
 		return;
@@ -98,6 +99,7 @@ Private
 	id_mano;
 	id_taza;
 Begin
+	resolution=global_resolution;
 	delete_text(all_text);
 
 	include "cutscene_compartido.pr-";
@@ -169,6 +171,7 @@ End
 
 Process por_delante(graph);
 Begin
+	resolution=global_resolution;
 	x=ancho_pantalla/2;
 	y=alto_pantalla/2;
 	z=-100;
@@ -180,6 +183,7 @@ End
 
 Process cambia_fps();
 Begin
+	resolution=global_resolution;
 	loop
 		if(mouse.left or p[0].botones[b_1])
 			i++;

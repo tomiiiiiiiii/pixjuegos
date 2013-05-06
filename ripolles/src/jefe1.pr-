@@ -1,5 +1,6 @@
 Process jefe1(x);
 Begin
+	resolution=global_resolution;
 	while(!exists(id_camara)) frame; end
 	ctype=coordenadas;
 	y_base=170;
@@ -66,6 +67,7 @@ End
 
 Process jefe_bien();
 Begin
+	resolution=global_resolution;
 	x=father.x;
 	y=father.y;
 	z=father.z-1;
@@ -87,6 +89,7 @@ end
 
 Process mano(x,y,flags);
 Begin
+	resolution=global_resolution;
 	jugador=father.jugador;
 	ctype=coordenadas;
 	file=fpg_jefe;

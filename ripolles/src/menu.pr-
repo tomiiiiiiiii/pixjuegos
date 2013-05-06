@@ -7,6 +7,7 @@ private
 	volver_a_menu;
 	distancia_opciones=50;
 begin
+	resolution=global_resolution;
 	if(fpg_menu<1)
 		fpg_menu=load_fpg("fpg/menu.fpg");
 	end
@@ -90,9 +91,9 @@ begin
 			end
 			write(fpg_texto,x,y+=distancia_opciones,3,textos[23]); estado_opcion(y,2);
 			write(fpg_texto,x,y+=distancia_opciones,3,textos[24]); estado_opcion(y,3);
-			if(ops.truco_pato=>0) write(fpg_texto,x,y+=distancia_opciones,3,"Play as Pato"); estado_opcion(y,4); num_opciones++; end
-			if(ops.truco_fuego_amigo=>0) write(fpg_texto,x,y+=distancia_opciones,3,"Friendly fire"); estado_opcion(y,5); num_opciones++; end
-			if(ops.truco_sin_bandos=>0)write(fpg_texto,x,y+=distancia_opciones,3,"No bands"); estado_opcion(y,6); num_opciones++; end
+			if(ops.truco_pato=>0) write(fpg_texto,x,y+=distancia_opciones,3,textos[25]); estado_opcion(y,4); num_opciones++; end
+			if(ops.truco_fuego_amigo=>0) write(fpg_texto,x,y+=distancia_opciones,3,textos[26]); estado_opcion(y,5); num_opciones++; end
+			if(ops.truco_sin_bandos=>0)write(fpg_texto,x,y+=distancia_opciones,3,textos[27]); estado_opcion(y,6); num_opciones++; end
 
 			volver_a_menu=0;
 		end
@@ -275,6 +276,7 @@ end
 
 process logo(graph);
 begin
+	resolution=global_resolution;
 	file=fpg_menu;
 	x=600;
 	y=132;
@@ -291,6 +293,7 @@ end
 
 Process titulo();
 Begin
+	resolution=global_resolution;
 	if(panoramico)
 		x=ancho_pantalla-240;
 	else
@@ -309,6 +312,7 @@ End
 
 process muestra_hasta_volver(graph);
 begin
+	resolution=global_resolution;
 	x=ancho_pantalla/2;
 	y=alto_pantalla/2;
 	z=-512;
@@ -335,6 +339,7 @@ end
 
 process mueve_fondo();
 Begin
+	resolution=global_resolution;
 	loop
 		x-=3;
 		y-=3;
@@ -345,6 +350,7 @@ End
 //1: pantalla completa, 2:sonido, 3: musica, 4:panoramico, 4:pato, 5:fuego amigo, 6:sin bandos
 Process estado_opcion(y,tipo);
 Begin
+	resolution=global_resolution;
 	file=fpg_general;
 	if(panoramico)
 		x=616;

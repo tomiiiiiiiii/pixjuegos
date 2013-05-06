@@ -60,6 +60,8 @@ Const
 	//modos de movimiento
 	encerrandome=0;
 	sin_encerrarme=1;
+	
+	global_resolution=-2;
 End
 
 Global
@@ -294,8 +296,13 @@ Begin
 		full_screen=true;
 	end
 	
+
 	//Pero internamente trabajaremos con esto:
-	set_mode(ancho_pantalla,alto_pantalla,bpp);
+	if(global_resolution==0)
+		set_mode(ancho_pantalla,alto_pantalla,bpp);
+	else
+		set_mode(ancho_pantalla*2,alto_pantalla*2,bpp);
+	end
 
 	//gráfico para mientras se carga
 	graph=load_png("loading.png");
@@ -381,6 +388,7 @@ Process jugar();
 Private
 	txt_pausa[2];
 Begin
+	resolution=global_resolution;
 	let_me_alone();
 	if(pocos_recursos)
 		unload_fpg(fpg_menu);
@@ -621,6 +629,7 @@ Process camara();
 Private
 	suma_x;
 Begin
+	resolution=global_resolution;
 	if(modo_juego!=1)
 		x=ancho_pantalla/2;
 		y=alto_pantalla/2;
@@ -721,6 +730,7 @@ End
 
 Process estela();
 Begin
+	resolution=global_resolution;
 	ctype=coordenadas;
 	x=father.x;
 	y=father.y;
@@ -1088,6 +1098,7 @@ End
 
 Process cuerpo();
 Begin
+	resolution=global_resolution;
 	jugador=father.jugador;
 	ctype=coordenadas;
 	x=father.x;
@@ -1183,6 +1194,7 @@ End
 
 Process ataque(x,y,file,graph,herida,rango,jugador);
 Begin
+	resolution=global_resolution;
 	flags=father.flags;
 	z=father.z;
 	priority=-1;
@@ -1193,6 +1205,7 @@ End
 
 Process objeto_portado(x,y,graph);
 Begin
+	resolution=global_resolution;
 	z=father.z-1;
 	flags=father.flags;
 	file=fpg_objetos;
@@ -1210,10 +1223,11 @@ Process objeto(x,y_base,altura,graph,x_inc,flags);
 Private
 	retraso_colision;
 Begin
+	resolution=global_resolution;
 	y=y_base+altura+40;
 	z=y_base-1;
 	file=fpg_objetos;
-	x_inc=x_inc*2;
+	x_inc=x_inc*1.5;
 	if(exists(father))
 		if(father.jugador!=0)
 			jugador=father.jugador;
@@ -1254,7 +1268,7 @@ Begin
 		end
 		
 		if(x_inc!=0) //mientras se mueve, golpea
-			ataque(x,y,file,graph,abs(x_inc)*2,40,jugador);
+			ataque(x,y,file,graph,abs(x_inc)*3,40,jugador);
 		end
 		
 		z--;
@@ -1279,6 +1293,7 @@ End
 
 Process sombra();
 Begin
+	resolution=global_resolution;
 	y=father.y_base+53;
 	z=father.z+10;
 	x=father.x;
@@ -1294,6 +1309,7 @@ End
 
 Process sombra_objeto();
 Begin
+	resolution=global_resolution;
 	y=father.y+5;
 	z=father.z+10;
 	x=father.x;
@@ -1387,22 +1403,28 @@ Begin
 	return j;
 End
 
-Process tram(pos_x);
+Process tram();
 Begin
+	resolution=global_resolution;
 	enemigos++;
 	file=fpg_general;
 	graph=10;
 	x=ancho_pantalla/2;
 	y=alto_pantalla/3;
 	from alpha=0 to 255 step 40; size+=2; frame; end
+	while(!ready) frame; end
 	from alpha=255 to 0 step -40; size-=2; frame; end
+	while(!ready) frame; end
 	from alpha=0 to 255 step 40; size+=2; frame; end
+	while(!ready) frame; end
 	from alpha=255 to 0 step -40; size-=2; frame; end
+	while(!ready) frame; end
 	from alpha=0 to 255 step 40; size+=2; frame; end
+	while(!ready) frame; end
 	from alpha=255 to 0 step -40; size-=2; frame; end
 
 	ctype=coordenadas;
-	x=pos_x+ancho_pantalla;
+	x=id_camara.x+ancho_pantalla;
 	y=160+(rand(0,1)*70);
 	z=-y;
 	graph=11;
@@ -1423,22 +1445,29 @@ Begin
 	enemigos--;
 End
 
-Process avioncete(pos_x);
+Process avioncete();
 Begin
+	resolution=global_resolution;
 	enemigos++;
 	file=fpg_general;
 	graph=10;
 	x=ancho_pantalla/2;
 	y=alto_pantalla/3;
 	from alpha=0 to 255 step 40; size+=2; frame; end
+	while(!ready) frame; end
 	from alpha=255 to 0 step -40; size-=2; frame; end
+	while(!ready) frame; end
 	from alpha=0 to 255 step 40; size+=2; frame; end
+	while(!ready) frame; end
 	from alpha=255 to 0 step -40; size-=2; frame; end
+	while(!ready) frame; end
 	from alpha=0 to 255 step 40; size+=2; frame; end
+	while(!ready) frame; end
 	from alpha=255 to 0 step -40; size-=2; frame; end
+	while(!ready) frame; end
 
 	ctype=coordenadas;
-	x=pos_x+ancho_pantalla;
+	x=id_camara.x+ancho_pantalla;
 	y=160+(rand(0,1)*70);
 	z=-y;
 	graph=13;
@@ -1502,6 +1531,7 @@ Process marcador(jugador);
 Private
 	txt_marcador;
 Begin
+	resolution=global_resolution;
 	file=fpg_general;
 	if(ops.truco_pato==1 and jugador==1)
 		graph=28;
@@ -1525,6 +1555,7 @@ Process marcador_jefe();
 Private
 	max_vida;
 Begin
+	resolution=global_resolution;
 	max_vida=p[100].vida;
 	file=fpg_general;
 	graph=26;
@@ -1541,6 +1572,7 @@ End
 
 Process vida(x,y,size_x,graph);
 Begin
+	resolution=global_resolution;
 	file=fpg_general;
 	z=-11;
 	frame;
@@ -1548,6 +1580,7 @@ End
 
 Process efecto_golpe(id_col);
 Begin
+	resolution=global_resolution;
 	x=id_col.x;
 	y=id_col.y;
 	z=-512;
@@ -1565,6 +1598,7 @@ End
 
 Process efecto_golpe2();
 Begin
+	resolution=global_resolution;
 	x=father.x;
 	y=father.y;
 	z=-513;
@@ -1587,6 +1621,7 @@ Process supervivencia();
 Private
 	timer_not_ready;
 Begin
+	resolution=global_resolution;
 	fpg_nivel=load_fpg("nivel_survival1.fpg");
 	from i=1 to jugadores; p[i].vidas=0; end
 
@@ -1634,6 +1669,7 @@ Private
 	tiempo;
 	tiempo_antes;
 Begin
+	resolution=global_resolution;
 	x=320;
 	y=330;
 	loop
@@ -1709,6 +1745,7 @@ Private
 	id_siguiente_imagen;
 	salir_creditos;
 Begin
+	resolution=global_resolution;
 	fade_off();
 	while(fading) frame; end
 	let_me_alone();
@@ -1755,6 +1792,7 @@ End
 
 Process siguiente_imagen(graph);
 Begin
+	resolution=global_resolution;
 	file=fpg_cutscenes;
 	x=ancho_pantalla/2;
 	y=alto_pantalla/2;
@@ -1765,6 +1803,7 @@ End
 
 Process tv();
 Begin
+	resolution=global_resolution;
 	graph=33;
 	file=fpg_cutscenes;
 	x=ancho_pantalla/2;
@@ -1777,6 +1816,7 @@ Process matajefes();
 Private
 	id_jefe;
 Begin
+	resolution=global_resolution;
 	fpg_nivel=load_fpg("nivel_matajefes1.fpg");
 	timer[0]=0;
 	pon_tiempo();
@@ -1847,6 +1887,7 @@ End
 
 Process battleroyale();
 Begin
+	resolution=global_resolution;
 	fpg_nivel=load_fpg("nivel_battleroyale1.fpg");
 	from i=1 to jugadores; p[i].vidas=0; end
 	fuego_amigo=1;
@@ -1854,6 +1895,7 @@ End
 
 Process muestra_nivel();
 Begin
+	resolution=global_resolution;
 	graph=write_in_map(fpg_texto,textos[7]+nivel,4);
 	x=ancho_pantalla/2;
 	y=(alto_pantalla/2)-34;
@@ -1867,6 +1909,7 @@ End
 
 Process muestra_nombre_nivel();
 Begin
+	resolution=global_resolution;
 	switch(nivel)
 		case 1: graph=write_in_map(fpg_texto,textos[8],4); end
 		case 4: graph=write_in_map(fpg_texto,textos[11],4); end
@@ -1882,6 +1925,7 @@ End
 
 Process nivel_superado();
 Begin
+	resolution=global_resolution;
 	ready=0;
 	graph=write_in_map(fpg_texto,textos[7]+nivel+textos[13],4);
 	x=ancho_pantalla/2;
@@ -1895,6 +1939,7 @@ End
 
 Process gogogo();
 Begin
+	resolution=global_resolution;
 	file=fpg_general;
 	graph=8;
 	y=60;
@@ -1908,6 +1953,7 @@ End
 
 Process truco_descubierto(string texto);
 Begin
+	resolution=global_resolution;
 	graph=write_in_map(fpg_texto,texto,4);
 	x=ancho_pantalla/2;
 	y=(alto_pantalla/2)-34;

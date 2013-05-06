@@ -52,6 +52,9 @@ Private
 	mi_ancho;
 	mi_alto;
 Begin
+	resolution=global_resolution;
+	if(resolution!=0) size=200; end
+	say(size);
 	z=-512;
 	
 	//1. pintamos texto en un mapa de bits
@@ -83,6 +86,8 @@ Private
 	mi_ancho;
 	mi_alto;
 Begin
+	resolution=global_resolution;
+	if(resolution!=0) size=200; end
 	z=-512;
 	
 	//1. pintamos texto en un mapa de bits
@@ -137,6 +142,8 @@ Private
 	mi_alto;
 	anterior_numero;
 Begin
+	resolution=global_resolution;
+	if(resolution!=0) size=200; end
 	z=-512;
 	
 	//1. pintamos texto en un mapa de bits
@@ -170,6 +177,8 @@ Private
 	mi_alto;
 	string anterior_numero;
 Begin
+	resolution=global_resolution;
+	if(resolution!=0) size=200; end
 	z=-512;
 	
 	//1. pintamos texto en un mapa de bits

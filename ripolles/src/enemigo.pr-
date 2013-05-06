@@ -10,6 +10,7 @@ Private
 	max_vida;
 	controlado;
 Begin
+	resolution=global_resolution;
 	from i=0 to 7; p[jugador].botones[i]=0;	end
 	e=personaje(jugador,tipo);
 	e.x=x;
@@ -166,6 +167,7 @@ End
 
 Process muestra_vida(size_x);
 Begin
+	resolution=global_resolution;
 	ctype=c_scroll;
 	x=father.x;
 	y=father.y-60;
@@ -179,6 +181,7 @@ End
 
 Process muestra_vida2();
 Begin
+	resolution=global_resolution;
 	ctype=c_scroll;
 	x=father.x;
 	y=father.y;

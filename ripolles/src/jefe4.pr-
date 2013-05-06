@@ -4,6 +4,7 @@ Private
 	mis_pies;
 	objetivo;
 Begin
+	resolution=global_resolution;
 	while(!exists(id_camara)) frame; end
 	priority=1;
 	ctype=coordenadas;
@@ -97,6 +98,7 @@ End
 
 Process jefe4_bien();
 Begin
+	resolution=global_resolution;
 	x=father.x;
 	y=father.y;
 	z=father.z-1;
@@ -125,6 +127,7 @@ Private
 	z_plus;
 	flags_inversas;
 Begin
+	resolution=global_resolution;
 	file=father.file;
 	jugador=father.jugador;
 	ctype=coordenadas;
@@ -271,6 +274,7 @@ End
 
 Process jefe4_pies();
 Begin
+	resolution=global_resolution;
 	jugador=father.jugador;
 	graph=41;
 	file=father.file;
@@ -336,6 +340,7 @@ End
 
 Process lanza_avion();
 Begin
+	resolution=global_resolution;
 	file=fpg_jefe;
 	ctype=coordenadas;
 	x=father.x;
@@ -382,6 +387,7 @@ End
 
 Process avion_en_cabeza();
 Begin
+	resolution=global_resolution;
 	file=fpg_jefe;
 	ctype=coordenadas;
 	graph=201;
