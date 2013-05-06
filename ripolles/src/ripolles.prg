@@ -1224,6 +1224,7 @@ Private
 	retraso_colision;
 Begin
 	resolution=global_resolution;
+	if(resolution!=0) size=200; end //TEMPORAL
 	y=y_base+altura+40;
 	z=y_base-1;
 	file=fpg_objetos;
