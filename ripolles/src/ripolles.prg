@@ -241,8 +241,6 @@ Begin
 	end
 
 	if(os_id==1003) ops.lenguaje=0; end
-
-	ops.lenguaje=0;
 	
 	switch(ops.lenguaje)
 		case 1: lang_suffix="es"; end
@@ -539,6 +537,16 @@ Begin
 	file=fpg_lang;
 	i=0;
 
+	if(modo_juego==modo_supervivencia and ops.truco_sin_bandos<0)
+		if(timer[0]>60*5) //si ha aguantado más de 5 minutos, le damos el cheto "sin bandos"
+			ops.truco_sin_bandos=0; //modo matajefes disponible
+			guarda_opciones();
+			truco_descubierto(textos[3]);
+			while(exists(type truco_descubierto)) frame; end
+		end
+	end
+
+	
 	if(modo_juego==modo_battleroyale)
 		if(ops.truco_fuego_amigo<0)
 			ops.truco_fuego_amigo++;
@@ -563,16 +571,7 @@ Begin
 			graph=30;
 		end
 	end
-	
-	if(modo_juego==modo_supervivencia and ops.truco_sin_bandos<0)
-		if(timer[0]>60*5) //si ha aguantado más de 5 minutos, le damos el cheto "sin bandos"
-			ops.truco_sin_bandos=0; //modo matajefes disponible
-			guarda_opciones();
-			truco_descubierto(textos[3]);
-			while(exists(type truco_descubierto)) frame; end
-		end
-	end
-	
+		
 	delete_text(all_text);
 	from alpha=0 to 255 step 20; y+=4; frame; end
 	y=alto_pantalla/2;
@@ -1788,7 +1787,7 @@ Begin
 	id_jefe=jefe1(ancho_pantalla/2);
 	while(!ganando) frame; end
 	from alpha=255 to 0 step -15; id_jefe.alpha=alpha; frame; end
-	signal(id_jefe,s_kill);
+	signal(id_jefe,s_kill_tree);
 	ganando=0;
 	timer[2]=0;
 	while(timer[2]<300) frame; end

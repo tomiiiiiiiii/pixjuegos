@@ -313,7 +313,7 @@ Begin
 								accion=ataca_area;
 								sonido(3,3);
 								if(invencibilidad==0)
-									p[jugador].vida-=20;
+									p[jugador].vida-=10;
 								end
 							else
 								si_ataca=0;
@@ -437,28 +437,32 @@ Begin
 			else //EN EL AIRE (SALTO)
 				//ataque aereo
 				if(accion==quieto or accion==camina or accion==corre or accion==salta)
-					if(p[jugador].botones[b_1]) 
-						if(pulsando_ataque1==0)
-							pulsando_ataque1=1;
-							if(lleva_objeto==0)
-								if(p[jugador].botones[b_arriba] and pulsando_arriba<3 and gravedad<0)
-									accion=ataca_uppercut;
-									gravedad=-20;
-								else
-									if(p[jugador].botones[b_derecha] and flags==0 and no_pulsando_lado<3)
-										x_inc+=40;
-									elseif(p[jugador].botones[b_izquierda] and flags==1 and no_pulsando_lado<3)
-										x_inc-=40;
-									elseif(p[jugador].botones[b_abajo] and pulsando_abajo<3)
-										gravedad=10;
-									end
-									accion=ataca_aire;
+					if(p[jugador].botones[b_1] and pulsando_ataque1==0) 
+						pulsando_ataque1=1;
+						if(lleva_objeto==0)
+							if(p[jugador].botones[b_3] and p[jugador].vida>30 and tipo==0)
+								accion=ataca_area;
+								sonido(3,3);
+								if(invencibilidad==0)
+									p[jugador].vida-=10;
 								end
-								sonido(3,0);
+							elseif(p[jugador].botones[b_arriba] and pulsando_arriba<3 and gravedad<0)
+								accion=ataca_uppercut;
+								gravedad=-20;
 							else
-								accion=lanza_objeto;
-								sonido(3,0);
+								if(p[jugador].botones[b_derecha] and flags==0 and no_pulsando_lado<3)
+									x_inc+=40;
+								elseif(p[jugador].botones[b_izquierda] and flags==1 and no_pulsando_lado<3)
+									x_inc-=40;
+								elseif(p[jugador].botones[b_abajo] and pulsando_abajo<3)
+									gravedad=10;
+								end
+								accion=ataca_aire;
 							end
+							sonido(3,0);
+						else
+							accion=lanza_objeto;
+							sonido(3,0);
 						end
 					end
 
@@ -502,7 +506,9 @@ Begin
 				end
 				inercia_maxima(inercia_max_x_actual,inercia_max_x_actual); 
 			end
+		
 		else //está siendo herido o cayendo del golpe
+		
 			if(accion!=herido_leve and accion!=herido_grave and accion!=muere) //escisión!
 				if(lleva_objeto>0)
 					objeto(x,y_base,altura-100,lleva_objeto,0,flags);
@@ -549,7 +555,19 @@ Begin
 					altura=-1;
 				end
 				if(tipo!=0 and accion==herido_grave) herida=herida*2; end //doble de retraso al levantarse en los enemigos
-			else
+			else //está siendo herido
+			
+				//posibilidad de desquitarse con un ataque de área
+				if(accion==herido_leve and p[jugador].botones[b_1] and pulsando_ataque1==0 and p[jugador].botones[b_3] and p[jugador].vida>30 and tipo==0)
+					pulsando_ataque1=1;
+					accion=ataca_area;
+					sonido(3,3);
+					herida=0;
+					if(invencibilidad==0)
+						p[jugador].vida-=10;
+					end
+				end
+			
 				if(altura==0)
 					herida--;
 				end
@@ -740,6 +758,7 @@ Begin
 		end
 		if(accion==ataca_area)
 			ataque(x,y,file,graph,fuerza_ataque*4,20,jugador);
+			if(altura!=0) gravedad--; end
 			if(anim==23)
 				accion=quieto;
 			end

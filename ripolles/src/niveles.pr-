@@ -231,7 +231,7 @@ Begin
 			
 			//naranjas!!!
 			from i=1 to 10;
-				objeto(rand(2700,3650),rand(100,400),0,8,0,0);
+				objeto(rand(2700,3650),rand(100,400),0,rand(8,9),0,0);
 			end
 			
 			objeto(1981,200,0,3,0,0); //en el puente del río seco

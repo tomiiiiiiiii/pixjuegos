@@ -100,7 +100,7 @@ Begin
 		animacion=accion;
 		if(p[jugador].vida=<0)
 			graph=51;
-			while(father.graph!=75)
+			while(father.graph!=75 and father.alpha==255)
 				from alpha=255 to 0 step -10; frame; end
 				from alpha=0 to 255 step 10; frame; end
 			end
@@ -126,6 +126,7 @@ Begin
 					if(accion!=defiende)
 						herida=id_col.herida*4;
 						sonido(2,0);
+						p[jugador].vida-=3;
 					end
 				end
 			end
@@ -134,7 +135,7 @@ Begin
 			//accion=herido_leve;
 			alpha=200;
 			from graph=81 to 83-1; frame(400); end
-			while(herida>0) herida--; frame; end
+			while(herida>0 and p[jugador].vida>0) herida--; frame; end
 			from graph=83 to 81 step -1; frame(400); end
 			alpha=255;
 			graph=51;
@@ -171,7 +172,7 @@ Begin
 			end
 			switch(animacion)
 				case quieto:
-					ataque(x,y,file,graph,5,30,jugador);
+					ataque(x,y,file,graph,1,30,jugador);
 					if(graph<14 and graph=>11)
 						graph++;
 					else
@@ -187,7 +188,7 @@ Begin
 					end					
 				end
 				case ataca_aire:
-					ataque(x,y,file,graph,40,30,jugador);
+					ataque(x,y,file,graph,20,30,jugador);
 					if(graph<34 and graph=>31)
 						graph++;
 					else
