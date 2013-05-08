@@ -193,6 +193,8 @@ Begin
 End
 
 Function configurar_controles();
+Private
+	archos_basura;
 Begin
 	//1. Averiguamos cuantos joysticks tenemos
 	njoys=number_joy();
@@ -200,15 +202,19 @@ Begin
 	//1.1 En Android, descontamos el último joystick ya que se trata de un sensor
 	if(os_id==1003)
 		njoys=njoys-1;
+		say("njoys:"+njoys);
 	end
 
 	//2. ¿Cuántos de ellos son utilizables/tienen al menos dos ejes y dos botones?
 	from i=0 to (njoys-1);
 		if(joy_numbuttons(i)=>2)
+			if(lcase(JOY_NAME(i))=="joystick" and lcase(JOY_NAME(i+1))=="joy_key")
+				i++;
+			end
 			posibles_jugadores++;
 			joysticks[posibles_jugadores]=i;
 			joy_profiles[i].name=lcase(JOY_NAME(i));
-			//say(joy_profiles[posibles_jugadores].name);
+			say("joyname["+i+"]:"+joy_profiles[i].name);
 			if(find(joy_profiles[i].name,"xbox")=>0)
 				joy_profiles[i]._b_1=2;
 				joy_profiles[i]._b_2=0;
@@ -230,10 +236,11 @@ Begin
 	//por defecto no tendrán ningún control asignado
 	from i=1 to 5; p[i].control=-1; end
 	
+	say("posibles_jugadores:"+posibles_jugadores);
 	if(posibles_jugadores==1) //no hay joysticks
 		p[1].control=0;
 	end
-	if(posibles_jugadores==2) //hay 1 joysticks
+	if(posibles_jugadores==2) //hay 1 joystick
 		p[1].control=1;
 		p[2].control=0;
 	end
@@ -263,37 +270,31 @@ Begin
 	p[0].control=-2; //Esto son los menus :)
 	
 	//controladores especiales!
-	//if(os_id==os_caanoo) //caanoo
-	if(os_id==os_caanoo or os_id==10 or os_id==os_gp2x or os_id==os_gp2x_wiz or os_id==os_gp32 or os_id==os_dc)
+	if(os_id==os_caanoo or os_id==10 or os_id==os_gp2x or os_id==os_gp2x_wiz or os_id==os_gp32 or os_id==os_dc or os_id==1001)
 		joysticks[0]=1;
 		p[1].control=1;
 		posibles_jugadores=1;
 	end
-
-	if(os_id==1001) //psp
-		p[1].control=1;
-		posibles_jugadores=1;
-		//y punto
-	end
 	
 	if(os_id==os_wii) //wii
 		joysticks[0]=0;
-//		joysticks[1]=1; //por ahora no funciona más de un jugador :(
-//		joysticks[2]=2;
-//		joysticks[3]=3;
 		p[1].control=1;
 		p[2].control=2;
 		p[3].control=3;
 		p[4].control=4;
-//		posibles_jugadores=4;
 		posibles_jugadores=1;
+
+//		joysticks[1]=1; //por ahora no funciona más de un jugador :(
+//		joysticks[2]=2;
+//		joysticks[3]=3;
+//		posibles_jugadores=4;
 	end
 	
 	if(os_id==1003) //android!
 		key_b_salir1=102; //keycodeback
 		key_b_salir2=_ESC;
 		if(posibles_jugadores>1) //con joysticks, sin gamepadvirtual
-			posibles_jugadores--;
+			posibles_jugadores--; //y sin teclado
 		else
 			p[1].control=0;
 		end

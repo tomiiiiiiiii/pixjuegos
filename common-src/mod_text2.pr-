@@ -53,8 +53,6 @@ Private
 	mi_alto;
 Begin
 	resolution=global_resolution;
-	if(resolution!=0) size=200; end
-	say(size);
 	z=-512;
 	
 	//1. pintamos texto en un mapa de bits
@@ -87,7 +85,6 @@ Private
 	mi_alto;
 Begin
 	resolution=global_resolution;
-	if(resolution!=0) size=200; end
 	z=-512;
 	
 	//1. pintamos texto en un mapa de bits
@@ -143,7 +140,6 @@ Private
 	anterior_numero;
 Begin
 	resolution=global_resolution;
-	if(resolution!=0) size=200; end
 	z=-512;
 	
 	//1. pintamos texto en un mapa de bits
@@ -178,7 +174,6 @@ Private
 	string anterior_numero;
 Begin
 	resolution=global_resolution;
-	if(resolution!=0) size=200; end
 	z=-512;
 	
 	//1. pintamos texto en un mapa de bits
@@ -261,10 +256,6 @@ Begin
 		texto=ucase(texto);
 	end
 	
-	#IFDEF DEBUG
-	say("Dibujando texto: "+texto);
-	#ENDIF
-
 	//1. contar el espacio horizontal y vertical
 	from i=0 to len(texto)-1;
 		if(asc(texto[i])==32)

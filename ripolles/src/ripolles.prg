@@ -60,11 +60,13 @@ Const
 	//modos de movimiento
 	encerrandome=0;
 	sin_encerrarme=1;
-	
-	global_resolution=0;
 End
 
 Global
+	mapa_nivel;
+
+	global_resolution=0;
+	
 	string textos[50];
 	ready=0;
 
@@ -145,7 +147,7 @@ Global
 		
 	ancho_pantalla=640;
 	alto_pantalla=360;
-	bpp=32;
+	bpp=16;
 	
 	coordenadas=c_scroll;
 
@@ -291,7 +293,7 @@ Begin
 	end
 	
 	if(arcade_mode)
-		bpp=32;
+		bpp=16;
 		scale_resolution=08000600;
 		full_screen=true;
 	end
@@ -326,6 +328,13 @@ Begin
 	carga_fpgs();
 	carga_wavs();
 
+	if(global_resolution!=0)
+		resolution=global_resolution;
+		size=200;
+		scale_resolution=0;
+		set_mode(ancho_pantalla*2,alto_pantalla*2,bpp);
+	end
+	
 	//recolocamos el centro de los objetos
 	recoloca_centros();
 	
@@ -365,6 +374,9 @@ End
 Function carga_fpgs();
 Begin
 	fpg_ripolles1=load_fpg("fpg/ripolles1.fpg");
+	if(graphic_info(fpg_ripolles1,1,G_HEIGHT)>100)
+		global_resolution=-2;
+	end
 	fpg_pato=load_fpg("fpg/pato.fpg");
 	if(posibles_jugadores>1) //ahorro de recursos!
 		fpg_ripolles2=load_fpg("fpg/ripolles2.fpg");
@@ -375,7 +387,9 @@ Begin
 	fpg_enemigo2=load_fpg("fpg/enemigo2.fpg");
 	fpg_enemigo3=load_fpg("fpg/enemigo3.fpg");
 	fpg_enemigo4=load_fpg("fpg/enemigo4.fpg");
-	fpg_enemigo5=load_fpg("fpg/enemigo5.fpg");
+	fpg_enemigo5=load_fpg("fpg/ripolles1.fpg");
+	grayscale_fpg(fpg_enemigo5);
+
 	fpg_general=load_fpg("fpg/general.fpg");
 	fpg_objetos=load_fpg("fpg/objetos.fpg");
 	fpg_menu=load_fpg("fpg/menu.fpg");
@@ -386,6 +400,20 @@ Begin
 	#ELSE
 		fpg_lang=load_fpg("fpg/"+lang_suffix+".fpg");
 	#ENDIF
+End
+
+Function grayscale_fpg(file)
+Private
+    int blendTable;
+Begin
+    blendTable = blendop_new();
+    blendop_grayscale(blendTable,2);
+	blendop_tint(blendTable,0.7,20,20,20);
+	from i=1 to 999;
+		if(graphic_info(file,i,G_HEIGHT)>0)
+			blendop_apply(file,i,blendTable);
+		end
+	end
 End
 
 Process jugar();
@@ -410,6 +438,7 @@ Begin
 	enemigos=0;
 	enemigos_matados=0;
 	if(fpg_nivel>0) unload_fpg(fpg_nivel); end
+	if(mapa_nivel>0) unload_map(0,mapa_nivel); end
 
 	if(ops.truco_fuego_amigo==1) fuego_amigo=1; else fuego_amigo=0; end
 	if(ops.truco_sin_bandos==1) sin_bandos=1; else sin_bandos=0; end
@@ -433,7 +462,14 @@ Begin
 	ancho_nivel=graphic_info(fpg_nivel,1,G_WIDTH);
 	alto_nivel=graphic_info(fpg_nivel,1,G_HEIGHT);
 	
-	start_scroll(0,fpg_nivel,1,0,0,8);
+	if(alto_nivel==360 and global_resolution!=0)
+		mapa_nivel=new_map(ancho_nivel*2,alto_nivel*2,graphic_info(fpg_nivel,1,G_DEPTH));
+		map_xputnp(0,mapa_nivel,fpg_nivel,1,ancho_nivel,alto_nivel,0,200,200,0);
+		start_scroll(0,0,mapa_nivel,0,0,8);
+	else
+		start_scroll(0,fpg_nivel,1,0,0,8);
+	end
+	
 	id_camara=scroll[0].camera=camara();
 	
 	if(good_vs_evil)
@@ -517,7 +553,7 @@ Begin
 		ganando=1;
 	end
 	frame(5000);
-
+	if(resolution!=0) size=200; end
 	if(modo_juego==modo_historia and jugadores>0)
 		from i=1 to jugadores;
 			if(p[i].juega)
@@ -603,7 +639,7 @@ End
 Function recoloca_centros();
 Begin
 	//todos los objetos deben tener el centro en su base
-	if(resolution!=0) x=20; else x=10; end
+	if(global_resolution!=0) x=20; else x=10; end
 	from i=1 to 998;
 		if(graphic_info(fpg_objetos,i,G_HEIGHT)>0)
 			set_center(fpg_objetos,i,graphic_info(fpg_objetos,i,G_WIDTH)/2,graphic_info(fpg_objetos,i,G_HEIGHT)-x);
@@ -623,7 +659,7 @@ End
 Function recoloca_centros_personaje(file);
 Begin
 	//todos los objetos deben tener el centro en su base
-	if(resolution!=0) x=114; else x=57; end
+	if(global_resolution!=0) x=114; else x=57; end
 	from i=1 to 998;
 		if(graphic_info(file,i,G_HEIGHT)>0)
 			set_center(file,i,graphic_info(file,i,G_WIDTH)/2,graphic_info(file,i,G_HEIGHT)-x);
@@ -1304,7 +1340,8 @@ End
 Process sombra();
 Begin
 	resolution=global_resolution;
-	if(resolution!=0) i=106; else i=53; end
+	//if(resolution!=0) i=106; else i=53; end
+	i=53;
 	y=father.y_base+i;
 	z=father.z+10;
 	x=father.x;

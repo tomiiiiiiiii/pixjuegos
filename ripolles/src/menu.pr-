@@ -17,7 +17,11 @@ begin
 		jukeboxing=0;
 		let_me_alone();
 		reinicio_variables();
-		start_scroll(0,fpg_menu,3,4,0,15);
+		if(resolution==0)
+			start_scroll(0,fpg_menu,3,4,0,15);
+		else
+			start_scroll(0,fpg_menu,4,0,0,15);
+		end
 		controlador(0);
 		pon_musica(2);
 		num_menu=0;
@@ -189,7 +193,11 @@ begin
 									ops.ventana=1; 
 									full_screen=0;
 								end
-								set_mode(ancho_pantalla,alto_pantalla,32);
+								if(global_resolution!=0)
+									set_mode(ancho_pantalla*2,alto_pantalla*2,bpp);
+								else
+									set_mode(ancho_pantalla,alto_pantalla,bpp);
+								end
 							end
 						end
 						case 2: 
@@ -277,6 +285,7 @@ end
 process logo(graph);
 begin
 	resolution=global_resolution;
+	if(resolution!=0) size=200; end
 	file=fpg_menu;
 	x=600;
 	y=132;
@@ -294,6 +303,7 @@ end
 Process titulo();
 Begin
 	resolution=global_resolution;
+	if(resolution!=0) size=200; end
 	if(panoramico)
 		x=ancho_pantalla-240;
 	else
@@ -313,6 +323,7 @@ End
 process muestra_hasta_volver(graph);
 begin
 	resolution=global_resolution;
+	if(resolution!=0) size=200; end
 	x=ancho_pantalla/2;
 	y=alto_pantalla/2;
 	z=-512;
@@ -351,6 +362,7 @@ End
 Process estado_opcion(y,tipo);
 Begin
 	resolution=global_resolution;
+	if(resolution!=0) size=200; end
 	file=fpg_general;
 	if(panoramico)
 		x=616;
