@@ -1476,7 +1476,9 @@ Begin
 
 	ctype=coordenadas;
 	x=id_camara.x+ancho_pantalla;
-	y=160+(rand(0,1)*70);
+	//y=160+(rand(0,1)*70);
+	y=195;
+	size=200;
 	z=-y;
 	graph=11;
 	flags=1;
