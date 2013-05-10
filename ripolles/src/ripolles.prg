@@ -1457,6 +1457,7 @@ End
 Process tram();
 Begin
 	resolution=global_resolution;
+	if(resolution!=0) size=200; end
 	enemigos++;
 	file=fpg_general;
 	graph=10;
@@ -1475,10 +1476,8 @@ Begin
 	from alpha=255 to 0 step -40; size-=2; frame; end
 
 	ctype=coordenadas;
-	x=id_camara.x+ancho_pantalla;
-	//y=160+(rand(0,1)*70);
+	x=id_camara.x+(ancho_pantalla*1.5);
 	y=195;
-	size=200;
 	z=-y;
 	graph=11;
 	flags=1;
