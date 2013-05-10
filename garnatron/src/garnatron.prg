@@ -693,6 +693,7 @@ begin
 	if(arcade_mode==1 and num_menu==0)
 		write(fuente[0],ancho_pantalla/2,alto_pantalla/2,4,textos[100]);
 		while(not p[0].botones[b_2])
+			if(key(_h)) highscores(); end
 			scroll.x0+=3;
 			if(p[0].botones[b_salir]) exit(); end
 			frame;

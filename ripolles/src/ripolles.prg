@@ -293,7 +293,7 @@ Begin
 	end
 	
 	if(arcade_mode)
-		bpp=16;
+		//bpp=16;
 		scale_resolution=08000600;
 		full_screen=true;
 	end
@@ -387,8 +387,8 @@ Begin
 	fpg_enemigo2=load_fpg("fpg/enemigo2.fpg");
 	fpg_enemigo3=load_fpg("fpg/enemigo3.fpg");
 	fpg_enemigo4=load_fpg("fpg/enemigo4.fpg");
-	fpg_enemigo5=load_fpg("fpg/ripolles1.fpg");
-	grayscale_fpg(fpg_enemigo5);
+	fpg_enemigo5=load_fpg("fpg/enemigo5.fpg");
+	//grayscale_fpg(fpg_enemigo5);
 
 	fpg_general=load_fpg("fpg/general.fpg");
 	fpg_objetos=load_fpg("fpg/objetos.fpg");
@@ -462,12 +462,16 @@ Begin
 	ancho_nivel=graphic_info(fpg_nivel,1,G_WIDTH);
 	alto_nivel=graphic_info(fpg_nivel,1,G_HEIGHT);
 	
-	if(alto_nivel==360 and global_resolution!=0)
-		mapa_nivel=new_map(ancho_nivel*2,alto_nivel*2,graphic_info(fpg_nivel,1,G_DEPTH));
-		map_xputnp(0,mapa_nivel,fpg_nivel,1,ancho_nivel,alto_nivel,0,200,200,0);
-		start_scroll(0,0,mapa_nivel,0,0,8);
-	else
-		start_scroll(0,fpg_nivel,1,0,0,8);
+	if(global_resolution!=0)
+		if(alto_nivel==360)
+			mapa_nivel=new_map(ancho_nivel*2,alto_nivel*2,graphic_info(fpg_nivel,1,G_DEPTH));
+			map_xputnp(0,mapa_nivel,fpg_nivel,1,ancho_nivel,alto_nivel,0,200,200,0);
+			start_scroll(0,0,mapa_nivel,0,0,8);
+		else
+			ancho_nivel=ancho_nivel/2;
+			alto_nivel=alto_nivel/2;
+			start_scroll(0,fpg_nivel,1,0,0,8);
+		end
 	end
 	
 	id_camara=scroll[0].camera=camara();
@@ -1250,7 +1254,7 @@ End
 Process objeto_portado(x,y,graph);
 Begin
 	resolution=global_resolution;
-	if(resolution!=0) size=size*2; end //TEMPORAL
+	//if(resolution!=0) size=size*2; end //TEMPORAL
 	z=father.z-1;
 	flags=father.flags;
 	file=fpg_objetos;
@@ -1269,7 +1273,7 @@ Private
 	retraso_colision;
 Begin
 	resolution=global_resolution;
-	if(resolution!=0) size=200; end //TEMPORAL
+	//if(resolution!=0) size=200; end //TEMPORAL
 	y=y_base+altura+40;
 	z=y_base-1;
 	file=fpg_objetos;
@@ -1500,6 +1504,7 @@ End
 Process avioncete();
 Begin
 	resolution=global_resolution;
+	if(resolution!=0) size=200; end
 	enemigos++;
 	file=fpg_general;
 	graph=10;
@@ -1608,6 +1613,7 @@ Private
 	max_vida;
 Begin
 	resolution=global_resolution;
+	if(resolution!=0) size=200; end
 	max_vida=p[100].vida;
 	file=fpg_general;
 	graph=26;
