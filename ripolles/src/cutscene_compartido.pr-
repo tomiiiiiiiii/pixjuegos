@@ -1,3 +1,5 @@
+	resolution=global_resolution;
+
 	stop_scroll(0);
 	let_me_alone();
 	pon_musica(13);
@@ -14,7 +16,7 @@
 	cambia_fps();
 	
 	//viñeta 1: se levanta de la cama y sale de la habitación
-	put_screen(fpg_cutscenes,1);
+	por_detras(1);
 	id_por_delante=por_delante(0);
 	
 	//falta animación de levantarse?
@@ -52,7 +54,7 @@
 	end
 	
 /*	//entra en el pasillo y va al baño a mear
-	put_screen(fpg_cutscenes,18);
+	por_detras(18);
 	from x=650 to 500 step -3;
 		if(anim<4)
 			anim++;
@@ -98,7 +100,7 @@
 	*/
 	
 	//entra en la cocina y pone el café
-	put_screen(fpg_cutscenes,3);
+	por_detras(3);
 	flags=0;
 	y=220;
 	from x=120 to 320 step 4;
@@ -144,7 +146,7 @@
 	end
 	
 /*	//esta en el pasillo y va al salón
-	put_screen(fpg_cutscenes,2);
+	por_detras(2);
 	y=170;
 	from x=300 to 140 step -3;
 		if(anim<4)
@@ -169,7 +171,7 @@
 	end*/
 	
 	//está en el salón y se va hasta la ventana
-	put_screen(fpg_cutscenes,4);
+	por_detras(4);
 	flags=1;
 	y=262;
 	from x=570 to 80 step -4;

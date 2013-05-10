@@ -1,3 +1,7 @@
+Global
+	id_por_detras;
+End
+
 Process cutscene_principio();
 Private
 	id_por_delante;
@@ -5,7 +9,6 @@ Private
 	id_taza;
 	id_sonido;
 Begin
-	resolution=global_resolution;
 	if(ops.truco_pato==1 or pocos_recursos)
 		jugar();
 		return;
@@ -31,7 +34,7 @@ Begin
 	id_mano.accion=-1;	
 	//en la habitación del armario, va hacia el armario
 	fade_on();
-	put_screen(fpg_cutscenes,7);
+	por_detras(7);
 	flags=1;
 	id_por_delante.graph=0;
 	y=150;
@@ -50,12 +53,12 @@ Begin
 	
 	//mira el armario
 	graph=0;
-	put_screen(fpg_cutscenes,8);
+	por_detras(8);
 	id_por_delante.graph=0;
 	frame(10000);
 	
 	//en la habitación del armario, sale hacia la puerta
-	put_screen(fpg_cutscenes,7);
+	por_detras(7);
 	flags=0;
 	graph=81;
 
@@ -72,7 +75,7 @@ Begin
 	end
 
 	//de la puerta de la calle hacia fuera
-	put_screen(fpg_cutscenes,9);
+	por_detras(9);
 	flags=0;
 	id_por_delante.graph=109;
 	y=180;
@@ -127,7 +130,7 @@ Begin
 	id_taza.accion=-1;
 	id_mano.accion=-1;
 	//está en la ventana y se va hasta el sofá
-	put_screen(fpg_cutscenes,4);
+	por_detras(4);
 	flags=0;
 	id_por_delante.graph=0;
 	fade_on();
@@ -169,9 +172,25 @@ Begin
 	creditos();
 End
 
+Process por_detras(graph);
+Begin
+	if(exists(id_por_detras)) signal(id_por_detras,s_kill); end
+	id_por_detras=id;
+	resolution=global_resolution;
+	if(resolution!=0) size=200; end
+	x=ancho_pantalla/2;
+	y=alto_pantalla/2;
+	z=100;
+	file=fpg_cutscenes;
+	while(accion==0)
+		frame;
+	end
+End
+
 Process por_delante(graph);
 Begin
 	resolution=global_resolution;
+	if(resolution!=0) size=200; end
 	x=ancho_pantalla/2;
 	y=alto_pantalla/2;
 	z=-100;
@@ -207,4 +226,79 @@ Begin
 		end
 		frame;
 	end
+End
+
+Process creditos();
+Private
+	id_siguiente_imagen;
+	salir_creditos;
+Begin
+	resolution=global_resolution;
+	if(resolution!=0) size=200; end
+	fade_off();
+	while(fading) frame; end
+	let_me_alone();
+	delete_text(all_text);
+	stop_scroll(0);
+	fpg_nivel=fpg_cutscenes=load_fpg("fpg/cutscenes.fpg");
+	pon_musica(15);
+	tv();
+	fade_on();
+	while(fading) frame; end
+	x=ancho_pantalla/2;
+	y=alto_pantalla/2;
+	z=1;
+	file=fpg_cutscenes;
+	controlador(0);
+	from i=34 to 40;
+		id_siguiente_imagen=siguiente_imagen(i);
+		while(id_siguiente_imagen.alpha<255 and salir_creditos==0)
+			frame; 
+		if(p[0].botones[b_salir]) salir_creditos=1; end end
+		graph=i;
+		id_siguiente_imagen.accion=-1;
+		timer[0]=0;
+		while(timer[0]<500 and salir_creditos==0)
+			if(p[0].botones[b_salir]) salir_creditos=1; end
+			frame; 
+		end
+		if(salir_creditos) break; end
+		frame;
+	end
+	//desbloqueamos el modo matajefes si no está desbloqueado
+	if(ops.truco_matajefes==0)
+		ops.truco_matajefes=1; //modo matajefes disponible
+		guarda_opciones();
+		truco_descubierto(textos[4]);
+		while(exists(type truco_descubierto)) frame; end
+ 	end
+
+	fade_off();
+	while(fading) frame; end
+	menu(-1);
+	return;
+End
+
+Process siguiente_imagen(graph);
+Begin
+	resolution=global_resolution;
+	if(resolution!=0) size=200; end
+	file=fpg_cutscenes;
+	x=ancho_pantalla/2;
+	y=alto_pantalla/2;
+	z=-1;
+	from alpha=0 to 255 step 5; frame; end
+	while(accion==0) frame; end
+End
+
+Process tv();
+Begin
+	resolution=global_resolution;
+	if(resolution!=0) size=200; end
+	graph=33;
+	file=fpg_cutscenes;
+	x=ancho_pantalla/2;
+	y=alto_pantalla/2;
+	z=-2;
+	while(exists(father)) frame; end
 End

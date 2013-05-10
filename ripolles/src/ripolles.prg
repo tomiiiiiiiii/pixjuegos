@@ -147,7 +147,7 @@ Global
 		
 	ancho_pantalla=640;
 	alto_pantalla=360;
-	bpp=16;
+	bpp=32;
 	
 	coordenadas=c_scroll;
 
@@ -1792,78 +1792,6 @@ Begin
 	else
 		creditos();
 	end
-End
-
-Process creditos();
-Private
-	id_siguiente_imagen;
-	salir_creditos;
-Begin
-	resolution=global_resolution;
-	fade_off();
-	while(fading) frame; end
-	let_me_alone();
-	delete_text(all_text);
-	stop_scroll(0);
-	fpg_nivel=fpg_cutscenes=load_fpg("fpg/cutscenes.fpg");
-	pon_musica(15);
-	tv();
-	fade_on();
-	while(fading) frame; end
-	x=ancho_pantalla/2;
-	y=alto_pantalla/2;
-	z=1;
-	file=fpg_cutscenes;
-	controlador(0);
-	from i=34 to 40;
-		id_siguiente_imagen=siguiente_imagen(i);
-		while(id_siguiente_imagen.alpha<255 and salir_creditos==0)
-			frame; 
-		if(p[0].botones[b_salir]) salir_creditos=1; end end
-		graph=i;
-		id_siguiente_imagen.accion=-1;
-		timer[0]=0;
-		while(timer[0]<500 and salir_creditos==0)
-			if(p[0].botones[b_salir]) salir_creditos=1; end
-			frame; 
-		end
-		if(salir_creditos) break; end
-		frame;
-	end
-	//desbloqueamos el modo matajefes si no está desbloqueado
-	if(ops.truco_matajefes==0)
-		ops.truco_matajefes=1; //modo matajefes disponible
-		guarda_opciones();
-		truco_descubierto(textos[4]);
-		while(exists(type truco_descubierto)) frame; end
- 	end
-
-	fade_off();
-	while(fading) frame; end
-	menu(-1);
-	return;
-End
-
-Process siguiente_imagen(graph);
-Begin
-	resolution=global_resolution;
-	file=fpg_cutscenes;
-	x=ancho_pantalla/2;
-	y=alto_pantalla/2;
-	z=-1;
-	from alpha=0 to 255 step 5; frame; end
-	while(accion==0) frame; end
-End
-
-Process tv();
-Begin
-	resolution=global_resolution;
-	graph=33;
-	file=fpg_cutscenes;
-	x=ancho_pantalla/2;
-	y=alto_pantalla/2;
-	z=-2;
-	while(exists(father)) frame; end
 End
 
 Process matajefes();
