@@ -293,7 +293,6 @@ Begin
 	end
 	
 	if(arcade_mode)
-		//bpp=16;
 		scale_resolution=08000600;
 		full_screen=true;
 	end
@@ -331,7 +330,9 @@ Begin
 	if(global_resolution!=0)
 		resolution=global_resolution;
 		size=200;
-		scale_resolution=0;
+		if(!arcade_mode)
+			scale_resolution=0;
+		end
 		set_mode(ancho_pantalla*2,alto_pantalla*2,bpp);
 	end
 	
