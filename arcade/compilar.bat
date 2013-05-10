@@ -1,7 +1,7 @@
 @echo off
 cd src
 echo Compilando...
-..\..\bennu-win\bgdc -g arcade.prg
+..\..\bennu-win\bgdc arcade.prg
 move arcade.dcb ..
 pause
 cd ..

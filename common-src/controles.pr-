@@ -202,7 +202,6 @@ Begin
 	//1.1 En Android, descontamos el último joystick ya que se trata de un sensor
 	if(os_id==1003)
 		njoys=njoys-1;
-		say("njoys:"+njoys);
 	end
 
 	//2. ¿Cuántos de ellos son utilizables/tienen al menos dos ejes y dos botones?
@@ -214,7 +213,9 @@ Begin
 			posibles_jugadores++;
 			joysticks[posibles_jugadores]=i;
 			joy_profiles[i].name=lcase(JOY_NAME(i));
+			#IFDEF DEBUG
 			say("joyname["+i+"]:"+joy_profiles[i].name);
+			#ENDIF
 			if(find(joy_profiles[i].name,"xbox")=>0)
 				joy_profiles[i]._b_1=2;
 				joy_profiles[i]._b_2=0;
@@ -236,7 +237,9 @@ Begin
 	//por defecto no tendrán ningún control asignado
 	from i=1 to 5; p[i].control=-1; end
 	
+	#IFDEF DEBUG
 	say("posibles_jugadores:"+posibles_jugadores);
+	#ENDIF
 	if(posibles_jugadores==1) //no hay joysticks
 		p[1].control=0;
 	end

@@ -40,9 +40,11 @@ Global
 	joysticks[10];
 	sonidos[1];
 
-	num_juegos=8;
+	juegos[]=0,7,3,2,1,4,5;
+	num_juegos=6;
 	
 	cancion;
+	
 Local
 	i;j;
 	
@@ -53,7 +55,7 @@ Begin
 	inicio();
 	sonidos[0]=load_wav("1.wav"); //mover
 	sonidos[1]=load_wav("2.wav"); //elegir
-	musica(1);
+	musica(juegos[1]);
 	loop
 		timer[0]=0;
 		while(timer[0]<6000)
@@ -80,7 +82,7 @@ End
 Process inicio();
 Begin
 	full_screen=1;
-	set_mode(800,600,32,WAITVSYNC);
+	set_mode(800,600,32);
 	set_fps(50,9);
 	load_fpg("fpg/arcade.fpg");
 	
@@ -94,7 +96,7 @@ Begin
 	y=300;
 	z=1;
 	//flecha(0); flecha(1);
-	graph=opcion;
+	graph=juegos[opcion];
 	while(timer[0]<6000)
 		if(p[0].botones[b_izquierda]) cambiar_opcion(0); break; end
 		if(p[0].botones[b_derecha]) cambiar_opcion(1); break; end
@@ -117,7 +119,7 @@ Begin
 	end
 	if(opcion>num_juegos) opcion=1; end
 	if(opcion<1) opcion=num_juegos; end
-	musica(opcion);
+	musica(juegos[opcion]);
 End
 
 Process ejecutar();
@@ -127,7 +129,7 @@ Private
 Begin
 	let_me_alone();
 	argumentos='arcade';
-	switch(opcion)
+	switch(juegos[opcion])
 		case 1: juego="pixbros"; end
 		case 2: juego="pixpang"; end
 		case 3: juego="garnatron"; end
@@ -169,15 +171,11 @@ Process enmovimiento(tipo);
 Begin
 	y=300;
 	switch(tipo)
-		case 0: flecha(1); graph=opcion; x=400; end
-		case 1: graph=opcion-1; x=-400; end
-		case 2: flecha(0); graph=opcion; x=400; end
-		case 3: graph=opcion+1; x=1200; end
-	end
-
-	if(graph>num_juegos) graph=1; end
-	if(graph<1) graph=num_juegos; end
-
+		case 0: flecha(1); graph=juegos[opcion]; x=400; end
+		case 1: graph=juegos[resuelve_opcion(opcion-1)]; x=-400; end
+		case 2: flecha(0); graph=juegos[opcion]; x=400; end
+		case 3: graph=juegos[resuelve_opcion(opcion+1)]; x=1200; end
+	end	
 	loop
 		switch(tipo)
 			case 0:
@@ -200,3 +198,14 @@ End
 
 Function salir_android();
 Begin End
+
+Function resuelve_opcion(a);
+Begin
+	if(a==0)
+		return num_juegos;
+	elseif(a==num_juegos+1)
+		return 1;
+	else
+		return a;
+	end
+End
