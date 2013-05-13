@@ -361,6 +361,8 @@ BEGIN
 	delete_text(all_text);
 
 	configurar_controles();
+	
+	if(posibles_jugadores>=5) posibles_jugadores=4; end
 
 	start_scroll(0,fpg_menu,8,0,1,15); //numero,file,grafico,fondo,region,loop
 
@@ -380,7 +382,7 @@ BEGIN
 
 	//jugadores=4;
 	historia(1);
-	//fase(5);
+	//fase(6);
 	frame;
 
 end
@@ -438,42 +440,42 @@ begin
 		pausa=1;
 		switch(jugadores)
 			case 1:
+				escudo[1]=5;
 				id_nave[1]=nave01(-450,alto_pantalla/2,1);
 				id_nave[1].angle=-90000;
-				escudo[1]=5;
 			end
 			case 2: 
+				escudo[1]=5;
 				id_nave[1]=nave01(-350,alto_pantalla/3,1);
 				id_nave[1].angle=-90000;
-				escudo[1]=5;
+				escudo[2]=5;
 				id_nave[2]=nave01(-450,2*alto_pantalla/3,2);
 				id_nave[2].angle=-90000;
-				escudo[2]=5;
 			end
 			case 3: 
+				escudo[1]=5;
 				id_nave[1]=nave01(-250,alto_pantalla/4,1);
 				id_nave[1].angle=-90000;
-				escudo[1]=5;
+				escudo[2]=5;
 				id_nave[2]=nave01(-350,alto_pantalla/2,2);
 				id_nave[2].angle=-90000;
-				escudo[2]=5;
+				escudo[3]=5;
 				id_nave[3]=nave01(-450,3*alto_pantalla/4,3);
 				id_nave[3].angle=-90000;
-				escudo[3]=5;
 			end
 			case 4:
+				escudo[1]=5;
 				id_nave[1]=nave01(-150,alto_pantalla/5,1);
 				id_nave[1].angle=-90000;
-				escudo[1]=5;
+				escudo[2]=5;
 				id_nave[2]=nave01(-250,2*alto_pantalla/5,2);
 				id_nave[2].angle=-90000;
-				escudo[2]=5;
+				escudo[3]=5;
 				id_nave[3]=nave01(-350,3*alto_pantalla/5,3);
 				id_nave[3].angle=-90000;
-				escudo[3]=5;
+				escudo[4]=5;
 				id_nave[4]=nave01(-450,4*alto_pantalla/5,4);
 				id_nave[4].angle=-90000;
-				escudo[4]=5;
 			end
 		end
 		letra(textos[11],400,200,1);
@@ -693,7 +695,6 @@ begin
 	if(arcade_mode==1 and num_menu==0)
 		write(fuente[0],ancho_pantalla/2,alto_pantalla/2,4,textos[100]);
 		while(not p[0].botones[b_2])
-			if(key(_h)) highscores(); end
 			scroll.x0+=3;
 			if(p[0].botones[b_salir]) exit(); end
 			frame;

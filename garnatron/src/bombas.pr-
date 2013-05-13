@@ -195,12 +195,16 @@ if(tipo==11)
 	size=10;
 	loop
 		if(pausa==0)
-			y-=30; 
-			x=id2.x+get_distx(angulo,100);
-			angulo+=10000;
-			if(size<100) size+=10; end
-			if(angulo<pi) z=id2.z+1; else z=id2.z-1; end 
-			if(y<-50) break; end
+			if(exists(id2))
+				y-=30; 
+				x=id2.x+get_distx(angulo,100);
+				angulo+=10000;
+				if(size<100) size+=10; end
+				if(angulo<pi) z=id2.z+1; else z=id2.z-1; end 
+				if(y<-50) break; end
+			else
+				break;
+			end
 		end
 		frame;
 	end
@@ -212,12 +216,16 @@ if(tipo==12)
 	size=10;
 	loop
 		if(pausa==0)
-			y-=30; 
-			x=id2.x+get_distx(angulo,100);
-			angulo+=10000;
-			if(size<100) size+=10; end
-			if(angulo<pi) z=id2.z+1; else z=id2.z-1; end 
-			if(y<-50) break; end
+			if(exists(id2))
+				y-=30; 
+				x=id2.x+get_distx(angulo,100);
+				angulo+=10000;
+				if(size<100) size+=10; end
+				if(angulo<pi) z=id2.z+1; else z=id2.z-1; end 
+				if(y<-50) break; end
+			else
+				break;
+			end
 		end
 		frame;
 	end
@@ -593,9 +601,9 @@ loop
 					explosion(x,y,2,100);
 				end
 			end
-			id2=(collision(type disparo01));
-			if(id2) signal(id2,s_kill); explosion(id2.x,id2.y,2,100); end
 		end
+		id2=(collision(type disparo01));
+		if(id2) signal(id2,s_kill); explosion(id2.x,id2.y,2,50); end
 		
 		if(tipo==10)
 			if(exists(father))
