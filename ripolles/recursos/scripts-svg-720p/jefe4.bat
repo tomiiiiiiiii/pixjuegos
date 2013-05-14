@@ -54,7 +54,7 @@ call :a 83
 call :a 91
 call :a 92
 call :a 93
-
+exit
 goto :eof
 
 :a

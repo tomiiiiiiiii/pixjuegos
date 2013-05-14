@@ -10,6 +10,7 @@ call :a 6
 call :a 7
 call :a 8
 call :a 9
+exit
 goto :eof
 
 :a

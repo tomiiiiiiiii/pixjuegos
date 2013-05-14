@@ -43,6 +43,7 @@ call :a 82
 call :a 83
 call :a 84
 call :b 85 83
+exit
 goto :eof
 
 :a

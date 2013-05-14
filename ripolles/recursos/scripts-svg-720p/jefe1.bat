@@ -29,7 +29,7 @@ call :a 81
 call :a 82
 call :a 83
 call :a 91
-
+exit
 goto :eof
 
 :a
