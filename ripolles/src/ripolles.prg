@@ -473,6 +473,8 @@ Begin
 			alto_nivel=alto_nivel/2;
 			start_scroll(0,fpg_nivel,1,0,0,8);
 		end
+	else
+		start_scroll(0,fpg_nivel,1,0,0,8);
 	end
 	
 	id_camara=scroll[0].camera=camara();
