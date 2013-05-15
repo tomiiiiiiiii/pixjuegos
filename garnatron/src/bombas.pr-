@@ -593,18 +593,6 @@ avance=30;
 loop
 	if(pausa==0)
 		
-		from jugador=1 to 4;
-			if(exists(id_nave[jugador]))
-				id2=(collision(id_nave[jugador])); 
-				if(id2)
-					id_nave[jugador].estado=-1;
-					explosion(x,y,2,100);
-				end
-			end
-		end
-		id2=(collision(type disparo01));
-		if(id2) signal(id2,s_kill); explosion(id2.x,id2.y,2,50); end
-		
 		if(tipo==10)
 			if(exists(father))
 				x1=father.x;
@@ -634,6 +622,18 @@ loop
 			avance+=30;
 			if(size>size_max) break; end
 		end
+		
+		from jugador=1 to 4;
+			if(exists(id_nave[jugador]))
+				id2=(collision(id_nave[jugador])); 
+				if(id2)
+					id_nave[jugador].estado=-1;
+					explosion(x,y,2,100);
+				end
+			end
+		end
+		id2=(collision(type disparo01));
+		if(id2) explosion(id2.x,id2.y,2,50); signal(id2,s_kill); end
 
 		if(out_region(id,1)) break; end
 	end
