@@ -179,6 +179,17 @@ Begin
 			if(lleva_objeto==1 or lleva_objeto==4 or lleva_objeto==9) //comida
 				if(lleva_objeto==4)
 					p[jugador].vida=100;
+				elseif(lleva_objeto==9)
+					switch(rand(1,2))
+						case 1: 
+							mensaje_player(textos[33]);
+							inercia_max_x++; inercia_max_y++; 
+						end
+						case 2: 
+							mensaje_player(textos[34]);
+							fuerza_ataque+=10; 
+						end
+					end
 				else
 					p[jugador].vida+=50;
 					if(p[jugador].vida>100) p[jugador].vida=100; end

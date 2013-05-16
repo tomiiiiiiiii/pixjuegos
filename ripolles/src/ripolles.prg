@@ -677,6 +677,7 @@ End
 Process camara();
 Private
 	suma_x;
+	x_inc_max;
 Begin
 	resolution=global_resolution;
 	if(modo_juego!=1)
@@ -695,7 +696,7 @@ Begin
 		end
 	end
 	
-	x_inc=15;
+	x_inc_max=15;
 	y_inc=5;
 	//y_base=alto_nivel-alto_pantalla;
 	
@@ -728,15 +729,7 @@ Begin
 			end
 		end
 
-		if(suma_x!=0)
-			if(x<suma_x)
-				x+=x_inc;
-				if(x>suma_x) x=suma_x; end
-			elseif(x>suma_x)
-				x-=x_inc;
-				if(x<suma_x) x=suma_x; end
-			end
-		end
+		x+=((suma_x-x)/7);
 		
 		if(x<ancho_pantalla/2) x=ancho_pantalla/2; end
 		if(x>ancho_nivel-(ancho_pantalla/2)) x=ancho_nivel-(ancho_pantalla/2); end
@@ -2029,4 +2022,34 @@ Begin
 			end
 		end
 	end
+End
+
+Process mensaje_player(string mitexto);
+Private
+	offset_y;
+	espera=60;
+Begin
+	resolution=global_resolution;
+	ctype=coordenadas;
+	graph=write_in_map(fpg_texto,mitexto,4);
+	size=40;
+	alpha=0;
+	offset_y=-40;
+	z=-512;
+	while(exists(father))
+		if(alpha<255)
+			alpha+=14;
+			offset_y--; 
+		else
+			if(espera>0)
+				espera--;
+			else
+				break;
+			end
+		end
+		y=father.y+offset_y;
+		x=father.x;
+		frame;
+	end
+	from alpha=255 to 0 step -15; y-=3; frame; end
 End

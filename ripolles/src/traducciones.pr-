@@ -42,8 +42,8 @@ Begin
 			textos[30]="Boss rush mode";
 			textos[31]="Battle Royale mode";
 			textos[32]="Good VS Evil mode";
-			textos[33]="";
-			textos[34]="";
+			textos[33]="Speed up!";
+			textos[34]="Attack up!";
 			textos[35]="";
 			textos[36]="";
 			textos[37]="";
@@ -102,8 +102,8 @@ Begin
 			textos[30]="Modo matajefes";
 			textos[31]="Modo Battle Royale";
 			textos[32]="Modo Bien VS Mal";
-			textos[33]="";
-			textos[34]="";
+			textos[33]="¡Más velocidad!";
+			textos[34]="¡Más ataque!";
 			textos[35]="";
 			textos[36]="";
 			textos[37]="";
@@ -162,8 +162,8 @@ Begin
 			textos[30]="Modo matajefes";
 			textos[31]="Modo Battle Royale";
 			textos[32]="Modo Bien VS Mal";
-			textos[33]="";
-			textos[34]="";
+			textos[33]="Speed up!";
+			textos[34]="Attack up!";
 			textos[35]="";
 			textos[36]="";
 			textos[37]="";
