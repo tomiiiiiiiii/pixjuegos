@@ -13,6 +13,7 @@ begin
 	end
 	file=fpg_menu;
 	delete_text(all_text);
+	mata_textos_menu=1;
 	if(num_menu==-1)
 		jukeboxing=0;
 		let_me_alone();
@@ -70,39 +71,42 @@ begin
 	x=60;
 	y=20;
 	alpha=255;
+
+	frame(200);
+	mata_textos_menu=0;
+
 	
 	//ponemos el menú actual
 	switch(num_menu)
 		case 0: //general
 			titulo();
-			write(fpg_texto,x,y+=distancia_opciones,3,textos[15]);
-			write(fpg_texto,x,y+=distancia_opciones,3,textos[16]);
-			write(fpg_texto,x,y+=distancia_opciones,3,textos[17]);
-			write(fpg_texto,x,y+=distancia_opciones,3,textos[18]);
-			write(fpg_texto,x,y+=distancia_opciones,3,textos[19]);
+			from i=15 to 19;
+				texto_menu(y+=distancia_opciones,textos[i]);
+			end
 			num_opciones=5;
 			volver_a_menu=0;
 		end
 		case 1: //jugar
 			num_opciones=1;
-			write(fpg_texto,x,y+=distancia_opciones,3,"1"+textos[20]);
-			if(posibles_jugadores>1) write(fpg_texto,x,y+=distancia_opciones,3,"2"+textos[21]); num_opciones++; end
-			if(posibles_jugadores>2) write(fpg_texto,x,y+=distancia_opciones,3,"3"+textos[21]); num_opciones++; end
-			if(posibles_jugadores>3) write(fpg_texto,x,y+=distancia_opciones,3,"4"+textos[21]); num_opciones++; end
+			texto_menu(y+=distancia_opciones,"1"+textos[20]);
+			if(posibles_jugadores>1) texto_menu(y+=distancia_opciones,"2"+textos[21]); num_opciones++; end
+			if(posibles_jugadores>2) texto_menu(y+=distancia_opciones,"3"+textos[21]); num_opciones++; end
+			if(posibles_jugadores>3) texto_menu(y+=distancia_opciones,"4"+textos[21]); num_opciones++; end
 			volver_a_menu=0;
 		end
 		case 2: //opciones	
 			if(os_id!=1003)
-				write(fpg_texto,x,y+=distancia_opciones,3,textos[22]); estado_opcion(y,1);
+				texto_menu(y+=distancia_opciones,textos[22]);
+				estado_opcion(y,1);
 				num_opciones=3;
 			else
 				num_opciones=2;
 			end
-			write(fpg_texto,x,y+=distancia_opciones,3,textos[23]); estado_opcion(y,2);
-			write(fpg_texto,x,y+=distancia_opciones,3,textos[24]); estado_opcion(y,3);
-			if(ops.truco_pato=>0) write(fpg_texto,x,y+=distancia_opciones,3,textos[25]); estado_opcion(y,4); num_opciones++; end
-			if(ops.truco_fuego_amigo=>0) write(fpg_texto,x,y+=distancia_opciones,3,textos[26]); estado_opcion(y,5); num_opciones++; end
-			if(ops.truco_sin_bandos=>0)write(fpg_texto,x,y+=distancia_opciones,3,textos[27]); estado_opcion(y,6); num_opciones++; end
+			texto_menu(y+=distancia_opciones,textos[23]); estado_opcion(y,2);
+			texto_menu(y+=distancia_opciones,textos[24]); estado_opcion(y,3);
+			if(ops.truco_pato=>0) texto_menu(y+=distancia_opciones,textos[25]); estado_opcion(y,4); num_opciones++; end
+			if(ops.truco_fuego_amigo=>0) texto_menu(y+=distancia_opciones,textos[26]); estado_opcion(y,5); num_opciones++; end
+			if(ops.truco_sin_bandos=>0) texto_menu(y+=distancia_opciones,textos[27]); estado_opcion(y,6); num_opciones++; end
 
 			volver_a_menu=0;
 		end
@@ -112,20 +116,20 @@ begin
 			modo_matajefes=-1;
 			modo_battleroyale=-1;
 			modo_good_vs_evil=-1;
-			
-			write(fpg_texto,x,y+=distancia_opciones,3,textos[28]);
-			write(fpg_texto,x,y+=distancia_opciones,3,textos[29]);
+
+			texto_menu(y+=distancia_opciones,textos[28]);
+			texto_menu(y+=distancia_opciones,textos[29]);
 			if(ops.truco_matajefes)
 				modo_matajefes=++num_opciones;
-				write(fpg_texto,x,y+=distancia_opciones,3,textos[30]);
+				texto_menu(y+=distancia_opciones,textos[30]);
 			end
 			if(jugadores>1)
 				modo_battleroyale=++num_opciones;
-				write(fpg_texto,x,y+=distancia_opciones,3,textos[31]);
+				texto_menu(y+=distancia_opciones,textos[31]);
 			end
 			if(jugadores==4)
 				modo_good_vs_evil=++num_opciones;
-				write(fpg_texto,x,y+=distancia_opciones,3,textos[32]);
+				texto_menu(y+=distancia_opciones,textos[32]);
 			end
 			volver_a_menu=0;
 		end
@@ -133,7 +137,7 @@ begin
 	
 	x=40;
 	y=800;
-
+	
 	loop
 		jukebox();
 		if(key(_c)) 
@@ -327,31 +331,60 @@ End
 
 process muestra_hasta_volver(graph);
 begin
+	mata_textos_menu=1;
 	resolution=global_resolution;
 	if(resolution!=0) size=200; end
 	x=ancho_pantalla/2;
-	y=alto_pantalla/2;
+	//y=alto_pantalla/2;
+	y=alto_pantalla;
 	z=-512;
 	file=fpg_lang;
 	i=1;
 	graph--;
 	if(!panoramico) size=75; end
+	alpha=0;
 	while(i==1)
-		graph++;
-		from alpha=0 to 255 step 40; frame; end
-		while(!p[0].botones[b_cancelar] and !p[0].botones[b_aceptar] and !p[0].botones[6] and !key(_enter) and !key(_esc)) frame; end
-		if(p[0].botones[b_cancelar] or key(_esc) or graphic_info(file,graph+1,G_WIDTH)<1) 
-			sonido(13,0); 
-			i=0; 
+		//graph++;
+		graph=pinta_ayuda(1);
+
+		while(!p[0].botones[b_cancelar] and !p[0].botones[b_aceptar] and !p[0].botones[6] and !key(_enter) and !key(_esc))
+			if(alpha<255) alpha+=20; end
+			y+=(((alto_pantalla/2)-y)/7);
+			if(y<(alto_pantalla/2)+15 and y>alto_pantalla/2) y--; end
+			frame; 
+		end
+		if(p[0].botones[b_cancelar] or key(_esc) or graphic_info(file,graph+1,G_WIDTH)<1)
+			sonido(11,0); 
+			i=0;
 		else
 			sonido(12,0);
+			sal_de_aqui(graph);
+			alpha=0;
+			y=alto_pantalla;
 		end
 		while(p[0].botones[b_cancelar] or p[0].botones[b_aceptar] or p[0].botones[6] or key(_enter) or key(_esc)) frame; end
-		from alpha=255 to 0 step -40; frame; end
 		frame;
 	end
+	sal_de_aqui(graph);
 	menu(0);
 end
+
+Process sal_de_aqui(graph);
+Begin
+	resolution=global_resolution;
+	if(resolution!=0) size=200; end
+	y=father.y;
+	z=father.z+1;
+	x=ancho_pantalla/2;
+	file=fpg_lang;
+	while(x>-500)
+		y+=(((alto_pantalla/2)-y)/7);
+		if(y<(alto_pantalla/2)+15 and y>alto_pantalla/2) y--; end
+		x+=gravedad*10;
+		gravedad--;
+		frame;
+	end
+End
 
 process mueve_fondo();
 Begin
@@ -397,4 +430,21 @@ Begin
 		frame;
 	end
 	from alpha=255 to 0 step -30; x-=2; frame; end
+End
+
+Process texto_menu(y,string mitexto);
+Begin
+	x=800;
+	z=-512;
+	graph=write_in_map(fpg_texto,mitexto,3);
+	while(mata_textos_menu==0)
+		x+=((60-x)/5);
+		frame;
+	end
+	while(x>-390)
+		x+=((-400-x)/5);
+		frame;
+	end
+OnExit
+	unload_map(0,graph);
 End

@@ -63,6 +63,10 @@ Const
 End
 
 Global
+	paginas_ayuda[4];
+
+	mata_textos_menu;
+	
 	mapa_nivel;
 
 	global_resolution=0;
@@ -2052,4 +2056,39 @@ Begin
 		frame;
 	end
 	from alpha=255 to 0 step -15; y-=3; frame; end
+End
+
+Function pinta_ayuda(pagina);
+Begin
+	graph=paginas_ayuda[pagina]=new_map(alto_pantalla,ancho_pantalla,bpp);
+	
+	switch(pagina)
+		case 1: //ayuda 1
+			pon_texto_ayuda(fpg_texto,35,320,20); //título ayuda //¿lo apartamos?
+			pon_texto_ayuda(fpg_texto,36,50,50); //sub-título controles
+			pon_texto_ayuda(fpg_texto,37,320,200); //texto en azul
+			pon_texto_ayuda(fpg_texto,38,320,200); //texto en blanco
+			pon_texto_ayuda(fpg_texto,39,50,250); //sub-título objetos
+		end
+		case 2: //ayuda 2
+			
+		end
+		case 3: //ayuda 3
+			
+		end
+		case 4: //creditos
+			
+		end
+	end
+	return graph;
+End
+
+Function pon_texto_ayuda(file_fnt,num_texto,x,y);
+Private
+	string actual;
+Begin
+	actual=textos[num_texto];
+	graph=write_in_map(file_fnt,actual,4);
+	map_xputnp(0,father.graph,0,graph,x,y,0,100,100,0);
+	unload_map(0,graph);
 End
