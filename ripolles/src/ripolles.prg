@@ -1159,28 +1159,26 @@ Begin
 //	if((father.tipo==0 and father.accion!=herido_leve and father.accion!=herido_grave and father.accion!=ataca_area and father.accion!=muere) or (father.tipo!=0 and father.accion!=muere))
 	if(father.accion!=herido_leve and father.accion!=herido_grave and father.accion!=ataca_area and father.accion!=muere)
 		//ataque
-		if(id_col=collision(type ataque))
-			if(id_col.jugador!=jugador and !(id_col.jugador==0 and jugador<4))
-				if(!((jugador>10 and id_col.jugador>10 and id_col.jugador!=0) 
-				or (jugador<10 and id_col.jugador<10 and id_col.jugador!=0)) 
-				or fuego_amigo) //esta línea evita el fuego amigo
-					if(en_rango(z,id_col.z,id_col.rango))
-						//if(father.accion==defiende and ((father.flags==0 and x<id_col.x) or (father.flags==1 and x>id_col.x)))
-						if(father.accion==defiende)
-							//destello();
-							if(id_col.x>x)
-								father.x_inc=-5;
-							else
-								father.x_inc=5;
-							end
+		if(id_col=collision(type ataque))		
+			if(id_col.jugador!=jugador and (fuego_amigo or 
+			(jugador=>1 and jugador<=9 and (id_col.jugador>9 or id_col.jugador==-1))	or
+			(jugador=>10 and id_col.jugador<10))) //ataque jugador->enemigo, ataque total
+				if(en_rango(z,id_col.z,id_col.rango))
+					//if(father.accion==defiende and ((father.flags==0 and x<id_col.x) or (father.flags==1 and x>id_col.x)))
+					if(father.accion==defiende)
+						//destello();
+						if(id_col.x>x)
+							father.x_inc=-5;
 						else
-							father.herida=id_col.herida;
-							efecto_golpe(id_col);
-							if(id_col.flags==0)
-								father.flags=1;
-							else
-								father.flags=0;
-							end
+							father.x_inc=5;
+						end
+					else
+						father.herida=id_col.herida;
+						efecto_golpe(id_col);
+						if(id_col.flags==0)
+							father.flags=1;
+						else
+							father.flags=0;
 						end
 					end
 				end
@@ -1487,7 +1485,7 @@ Begin
 	while(x>id_camara.x-ancho_pantalla)
 		while(!ready) frame; end
 		x-=20;
-		ataque(x,y+65,file,graph,30,38,jugador);
+		ataque(x,y+65,file,graph,30,38,-1);
 		if(anim==2) 
 			anim=0;
 			if(graph==11) graph=12; else graph=11; end
@@ -1532,7 +1530,7 @@ Begin
 		while(!ready) frame; end
 		x-=20;
 		y--;
-		ataque(x,y+65,file,graph,30,38,jugador);
+		ataque(x,y+65,file,graph,30,38,-1);
 		if(x<id_camara.x)
 			graph=14;
 			y-=3;
