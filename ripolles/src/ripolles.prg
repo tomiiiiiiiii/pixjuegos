@@ -282,7 +282,9 @@ Begin
 		pocos_recursos=1;
 		bpp=16;
 	else
-		scale_resolution=12800720;
+		if(mode_is_ok(1280,720,bpp,MODE_FULLSCREEN) and global_resolution==0)
+			scale_resolution=12800720;
+		end
 		//graph_mode=mode_2xscale;
 	end
 	

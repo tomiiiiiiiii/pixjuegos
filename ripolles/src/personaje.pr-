@@ -12,8 +12,11 @@ Private
 	pulsando_abajo;
 	pulsando_arriba;
 	no_pulsando_lado;
+	
 	se_defiende=0;
 	sabe_saltar=0;
+	sabe_ataque_especial=0;
+	
 	retraso_movimiento_defensa;
 	si_ataca;
 	id_enemigo_cogido;
@@ -121,6 +124,15 @@ Begin
 				p[jugador].vida=300;
 				se_defiende=1;
 				sabe_saltar=1;
+			end
+			case 6: //JEFE 2
+				inercia_max_x=2;
+				inercia_max_y=2;
+				fuerza_ataque=20;
+				fpg_jefe=load_fpg("fpg/jefe2.fpg");
+				file=fpg_jefe;
+				p[jugador].vida=300;
+				sabe_ataque_especial=1;
 			end
 		end
 		if(jugadores>1)
