@@ -718,23 +718,28 @@ begin
 		case 0: //general
 			boton(x,y+=60,textos[110],1);
 			boton(x,y+=60,textos[111],2);
-			if(!sin_opciones)
+		//	if(!sin_opciones)
 				boton(x,y+=60,textos[112],3);
 				boton(x,y+=60,textos[113],4);
 				boton(x,y+=60,textos[114],5);
 				boton(x,y+=60,textos[115],6);
 				num_opciones=6;
-			else
+		/*	else
 				boton(x,y+=60,textos[113],3);
 				boton(x,y+=60,textos[114],4);
 				boton(x,y+=60,textos[115],5);
 				num_opciones=5;
-			end
+			end*/
 			volver_a_menu=0;
 		end
 		case 1: //opciones
-			boton(x,y+=60,textos[130],1);
-			boton(x,y+=60,textos[131],2);
+			if(!sin_opciones)
+				boton(x,y+=60,textos[130],1);
+				boton(x,y+=60,textos[131],2);
+				num_opciones=5;
+			else
+				num_opciones=3;
+			end
 			boton(x,y+=60,textos[132],3);
 			if(ops.particulas==0)
 				boton(x,y+=60,textos[133]+textos[1],4);
@@ -823,7 +828,6 @@ begin
 			while(p[0].botones[b_aceptar]) scroll.x0+=3; frame; end
 			switch(num_menu)
 				case 0: //general
-					if(sin_opciones and opcion_actual>2) opcion_actual++; end //en Android no hay menú de opciones
 					switch(opcion_actual)
 						case 1:
 							if(posibles_jugadores>1)
@@ -1162,6 +1166,13 @@ begin
 				end
 			end
 		end
+		if(num_menu==1)//en Android no hay algunas opciones
+			if(sin_opciones)
+				while(opcion_actual<3)
+					opcion_actual++; 
+				end 
+			end
+		end
 		if(p[0].botones[b_cancelar] and volver_a_menu!=num_menu)
 			delete_text(all_text);
 			
@@ -1447,28 +1458,20 @@ Begin
 		from a=0 to ancho-1 step 7;
 			if(map_get_pixel(file,grafico,a,b)!=0)
 				particula[c].pixell=map_get_pixel(file,grafico,a,b);
-				
 				particula[c].pos_x=a-(ancho/2);
 				particula[c].pos_y=b-(alto/2);
 				particula[c].vel_x=((a-(ancho/2))/6);
 				particula[c].vel_y=((b-(alto/2))/6);
-
 				c++;
 			end
 		end
 	end
 	a=c;
 	graph=new_map(ancho*2,alto*2,32);
+	drawing_map(file,graph);
 	while(tiempo<frames)
-		drawing_color(0);
-		drawing_map(file,graph);
-		draw_box(0,0,ancho*2,alto*2);
+		map_clear(file,graph,0);
 		from c=0 to a;
-		//	map_put_pixel(file,graph,particula[c].pos_x+(ancho*2/2),particula[c].pos_y+(alto*2/2),particula[c].pixell);
-		//	map_put_pixel(file,graph,particula[c].pos_x+(ancho*2/2)+1,particula[c].pos_y+(alto*2/2),particula[c].pixell);
-		//	map_put_pixel(file,graph,particula[c].pos_x+(ancho*2/2),particula[c].pos_y+(alto*2/2)+1,particula[c].pixell);
-		//	map_put_pixel(file,graph,particula[c].pos_x+(ancho*2/2)+1,particula[c].pos_y+(alto*2/2)+1,particula[c].pixell);
-			
 			drawing_color(particula[c].pixell);
 			draw_line(
 					particula[c].pos_x+(ancho*2/2),
@@ -1476,10 +1479,8 @@ Begin
 					particula[c].pos_x+(ancho*2/2)+particula[c].vel_x,
 					particula[c].pos_y+(alto*2/2)+particula[c].vel_y
 					);
-			
 			particula[c].pos_x+=particula[c].vel_x;
 			particula[c].pos_y+=particula[c].vel_y;
-			
 		end
 		tiempo++;
 		frame;
