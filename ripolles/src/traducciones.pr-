@@ -1,5 +1,8 @@
 Function carga_textos();
 Begin
+	//lineas comunes
+	textos[48]="Pablo Navarro|Carles Vicent Ginés|Laura Pérez|||Tom Bombadil|Nerea Molina|Vicent Ginés";
+	
 	switch(ops.lenguaje)
 		case 0: //inglés
 			//general
@@ -47,17 +50,16 @@ Begin
 			textos[35]="Help";
 			textos[36]="Controls";
 			textos[37]="Move:|Attack:|Jump:|Defend:|Pick/throw object:|Strong attack:|Special attack:";
-			textos[38]="----Joystick / Arrow keys|----Button 1 / A|----Button 2 / S|---- Button 3 / D|---- Button 1 / A|---- Down + Button 1 / Down arrow + A|---- Buttons 1 and 3 / A and D";
+			textos[38]="Joystick / Arrow keys|Button 1 / A|Button 2 / S|Button 3 / D|Button 1 / A|Down + Button 1 / Down arrow + A|Buttons 1 and 3 / A and D";
 			textos[39]="Objects";
 			textos[40]="Multiplayer";
-			textos[41]="All game modes may be player with up to|4 players at the same time.||For this purpose, at least one gamepad must be|connected before launching the game.||The controllers are auto-configured.";
+ 			textos[41]="All game modes may be played with up to|4 players at the same time.||For this purpose, at least one gamepad must|be connected before launching the game.||The controllers are auto configured.";
 			textos[42]="Game modes";
-			textos[43]="Story:|||Survival:||||Battle royale:|||Boss rush:";
-			textos[44]="Ripollés sculptures have become alive and|are destroying the city of Castellón.|Help him to save Castellón!|How much time will you be able to stand|while facing an infinute number of enemies?||Face off other players and find out who's the best fighter. For two or more players||Defeat all bosses from story mode with|only one life";
-			textos[45]="Created by:";
-			textos[46]="Thanks to:";
+			textos[43]="Story:|||Survival:||Battle royale:|||Boss rush:";
+			textos[44]="     Ripollés sculptures have become alive|and are destroying the city of Castellón.|Help him to save Castellón!|       How much time will you survive|while facing an infinite number of enemies?|           Face off other players and|find out who's the best fighter.|For two or more players|         Defeat all bosses from story|mode with just only one life";
+			textos[45]="Created by:|||||Thanks to:";
+			textos[46]="";
 			textos[47]="And thank you for playing!";
-			textos[48]="";
 			textos[49]="";
 			textos[50]="";
 		end
@@ -104,20 +106,19 @@ Begin
 			textos[32]="Modo Bien VS Mal";
 			textos[33]="¡Más velocidad!";
 			textos[34]="¡Más ataque!";
-			textos[35]="";
-			textos[36]="";
-			textos[37]="";
-			textos[38]="";
-			textos[39]="";
-			textos[40]="";
-			textos[41]="";
-			textos[42]="";
-			textos[43]="";
-			textos[44]="";
-			textos[45]="";
+			textos[35]="Ayuda";
+			textos[36]="Controles";
+			textos[37]="Mover:|Atacar:|Saltar:|Defenderse:|Coger/lanzar objeto:|Ataque fuerte:|Ataque especial:";
+			textos[38]="Joystick / Flechas|Botón 1 / A|Botón 2 / S|   Botón 3 / D|           Botón 1 / A|      Abajo + Botón 1 / Abajo + A|       Botones 1+3 / A+D";
+			textos[39]="Objetos";
+			textos[40]="Multijugador";
+ 			textos[41]="All game modes may be played with up to|4 players at the same time.||For this purpose, at least one gamepad must|be connected before launching the game.||The controllers are auto configured.";
+			textos[42]="Modos de juego";
+			textos[43]="Historia:|||Sobrevive:||Battle royale:|||Matajefes:";
+			textos[44]="     Ripollés sculptures have become alive|and are destroying the city of Castellón.|Help him to save Castellón!|       How much time will you survive|while facing an infinite number of enemies?|           Face off other players and|find out who's the best fighter.|For two or more players|         Defeat all bosses from story|mode with just only one life";
+			textos[45]="Creado por:|||||Gracias a:";
 			textos[46]="";
-			textos[47]="";
-			textos[48]="";
+			textos[47]="¡Y gracias a ti por jugar!";
 			textos[49]="";
 			textos[50]="";
 		end
@@ -177,7 +178,6 @@ Begin
 			textos[45]="";
 			textos[46]="";
 			textos[47]="";
-			textos[48]="";
 			textos[49]="";
 			textos[50]="";
 		end

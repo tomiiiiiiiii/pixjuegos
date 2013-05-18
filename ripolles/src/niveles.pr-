@@ -219,7 +219,14 @@ Begin
 			nivel1_eventos();
 		end
 		case 2:	//NIVEL 2:
-			fpg_nivel=load_fpg("fpg\nivel2.fpg");
+			fpg_nivel=load_fpg("fpg\nivel1.fpg");
+			pon_musica(11);
+		
+			emboscada[1].x_evento=2000;
+			emboscada[1].max_x=2000;
+			emboscada[1].min_x=2000;
+			emboscada[1].evento_especial=102; //jefe1
+
 		end
 		case 3:	//NIVEL 3:
 			fpg_nivel=load_fpg("fpg\nivel3.fpg");

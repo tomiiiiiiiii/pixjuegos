@@ -1,3 +1,7 @@
+Global
+	menu_torcio=5000;
+End
+
 process menu(num_menu);
 private
 	y_objetivo;
@@ -18,11 +22,7 @@ begin
 		jukeboxing=0;
 		let_me_alone();
 		reinicio_variables();
-		if(resolution==0)
-			start_scroll(0,fpg_menu,3,4,0,15);
-		else
-			start_scroll(0,fpg_menu,4,0,0,15);
-		end
+		start_scroll(0,fpg_menu,3,4,0,15);
 		controlador(0);
 		pon_musica(2);
 		num_menu=0;
@@ -49,7 +49,7 @@ begin
 		delete_text(all_text);
 		file=fpg_lang;
 		graph=221;
-		size=200;
+		if(resolution!=0) size=200; end
 		x=320;
 		y=180;
 		z=-100;
@@ -79,6 +79,7 @@ begin
 	//ponemos el menú actual
 	switch(num_menu)
 		case 0: //general
+			menu_torcio=5000;
 			titulo();
 			from i=15 to 19;
 				texto_menu(y+=distancia_opciones,textos[i]);
@@ -87,6 +88,7 @@ begin
 			volver_a_menu=0;
 		end
 		case 1: //jugar
+			menu_torcio=-5000;
 			num_opciones=1;
 			texto_menu(y+=distancia_opciones,"1"+textos[20]);
 			if(posibles_jugadores>1) texto_menu(y+=distancia_opciones,"2"+textos[21]); num_opciones++; end
@@ -95,6 +97,7 @@ begin
 			volver_a_menu=0;
 		end
 		case 2: //opciones	
+			menu_torcio=0;
 			if(os_id!=1003)
 				texto_menu(y+=distancia_opciones,textos[22]);
 				estado_opcion(y,1);
@@ -111,6 +114,7 @@ begin
 			volver_a_menu=0;
 		end
 		case 3: //modos de juego
+			menu_torcio=-5000;
 			num_opciones=2;
 			
 			modo_matajefes=-1;
@@ -155,9 +159,9 @@ begin
 		y_objetivo=20+(opcion_actual*distancia_opciones);
 		if(y!=y_objetivo) 
 			y+=(y_objetivo-y)/2;
-			angle=fget_angle(x,y,x+30,y_objetivo);
+			angle=menu_torcio+fget_angle(x,y,x+30,y_objetivo);
 		else
-			angle=0;
+			angle=menu_torcio;
 		end
 
 		if(p[0].botones[b_aceptar] or key(_enter))
@@ -176,8 +180,8 @@ begin
 					switch(opcion_actual)
 						case 1: menu(1); end
 						case 2: menu(2); end
-						case 3: muestra_hasta_volver(201); end
-						case 4: muestra_hasta_volver(210); end
+						case 3: muestra_hasta_volver(1); end
+						case 4: muestra_hasta_volver(10); end
 						case 5: salir(); end
 					end
 					return;
@@ -329,7 +333,7 @@ Begin
 	from alpha=255 to 0 step -40; y-=4; frame; end
 End
 
-process muestra_hasta_volver(graph);
+process muestra_hasta_volver(tipo);
 begin
 	mata_textos_menu=1;
 	resolution=global_resolution;
@@ -340,20 +344,18 @@ begin
 	z=-512;
 	file=fpg_lang;
 	i=1;
-	graph--;
 	if(!panoramico) size=75; end
 	alpha=0;
 	while(i==1)
-		//graph++;
-		graph=pinta_ayuda(1);
-
+		graph=pinta_ayuda(tipo);
+		tipo++;
 		while(!p[0].botones[b_cancelar] and !p[0].botones[b_aceptar] and !p[0].botones[6] and !key(_enter) and !key(_esc))
 			if(alpha<255) alpha+=20; end
 			y+=(((alto_pantalla/2)-y)/7);
 			if(y<(alto_pantalla/2)+15 and y>alto_pantalla/2) y--; end
 			frame; 
 		end
-		if(p[0].botones[b_cancelar] or key(_esc) or graphic_info(file,graph+1,G_WIDTH)<1)
+		if(p[0].botones[b_cancelar] or key(_esc) or tipo==4 or tipo==11)
 			sonido(11,0); 
 			i=0;
 		else
@@ -362,7 +364,9 @@ begin
 			alpha=0;
 			y=alto_pantalla;
 		end
-		while(p[0].botones[b_cancelar] or p[0].botones[b_aceptar] or p[0].botones[6] or key(_enter) or key(_esc)) frame; end
+		while(p[0].botones[b_cancelar] or p[0].botones[b_aceptar] or p[0].botones[6] or key(_enter) or key(_esc)) 
+			frame; 
+		end
 		frame;
 	end
 	sal_de_aqui(graph);
@@ -380,10 +384,12 @@ Begin
 	while(x>-500)
 		y+=(((alto_pantalla/2)-y)/7);
 		if(y<(alto_pantalla/2)+15 and y>alto_pantalla/2) y--; end
+		angle-=gravedad*500;
 		x+=gravedad*10;
 		gravedad--;
 		frame;
 	end
+	unload_map(0,graph);
 End
 
 process mueve_fondo();
@@ -434,15 +440,20 @@ End
 
 Process texto_menu(y,string mitexto);
 Begin
+	if(global_resolution!=0) resolution=global_resolution; size=200; end
 	x=800;
 	z=-512;
 	graph=write_in_map(fpg_texto,mitexto,3);
+	angle=-50000;
 	while(mata_textos_menu==0)
 		x+=((60-x)/5);
+		//angle+=((0-angle)/5);
+		angle+=((menu_torcio-angle)/5);
 		frame;
 	end
 	while(x>-390)
 		x+=((-400-x)/5);
+		angle+=((50000-angle)/5);
 		frame;
 	end
 OnExit

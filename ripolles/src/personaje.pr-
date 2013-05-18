@@ -16,6 +16,7 @@ Private
 	se_defiende=0;
 	sabe_saltar=0;
 	sabe_ataque_especial=0;
+	puede_correr=0;
 	
 	retraso_movimiento_defensa;
 	si_ataca;
@@ -31,6 +32,7 @@ Begin
 	p[jugador].identificador=id;
 	
 	if(tipo==0)
+		puede_correr=1;
 		se_defiende=1;
 		sabe_saltar=1;
 		switch(modo_juego)
@@ -126,13 +128,14 @@ Begin
 				sabe_saltar=1;
 			end
 			case 6: //JEFE 2
-				inercia_max_x=2;
-				inercia_max_y=2;
+				inercia_max_x=6;
+				inercia_max_y=6;
 				fuerza_ataque=20;
 				fpg_jefe=load_fpg("fpg/jefe2.fpg");
 				file=fpg_jefe;
 				p[jugador].vida=300;
 				sabe_ataque_especial=1;
+				alpha=0;
 			end
 		end
 		if(jugadores>1)
@@ -143,12 +146,16 @@ Begin
 			p[jugador].vida=p[jugador].vida*0.7;
 		end
 	end
+
+	if(jugador==100) marcador_jefe(); end
 	
 	recoloca_centros_personaje(file);
 	
 	accion=quieto;
 	alto=graphic_info(file,1,G_HEIGHT);
 	frame;
+	
+	if(tipo==6) from alpha=0 to 255 step 25; frame; end end
 	
 	loop
 		if(tipo==0)
@@ -249,7 +256,7 @@ Begin
 			invencibilidad--;
 			herida=0;
 		else
-			alpha=255;
+			if(alpha<255) alpha+=5; end
 		end
 		
 		if(herida==0 and (accion==herido_leve or accion==herido_grave))
@@ -289,6 +296,8 @@ Begin
 			pulsando_arriba=5;
 			no_pulsando_lado=5;
 		end
+		
+		if(accion==ataca_area) herida=0; end
 		
 		if(retraso_movimiento_defensa>0) retraso_movimiento_defensa--; end
 		
@@ -333,10 +342,10 @@ Begin
 					if(p[jugador].botones[b_1] and pulsando_ataque1==0)
 						pulsando_ataque1=1;
 						if(lleva_objeto==0)
-							if(p[jugador].botones[b_3] and p[jugador].vida>30 and tipo==0)
+							if(p[jugador].botones[b_3] and ((p[jugador].vida>30 and tipo==0) or tipo==6))
 								accion=ataca_area;
 								sonido(3,3);
-								if(invencibilidad==0)
+								if(invencibilidad==0 and tipo==0)
 									p[jugador].vida-=10;
 								end
 							else
@@ -405,7 +414,7 @@ Begin
 					end
 					
 					if(p[jugador].botones[b_izquierda] xor p[jugador].botones[b_derecha])
-						if(no_pulsando_lado==1 and accion==camina)
+						if(no_pulsando_lado==1 and accion==camina and puede_correr)
 							accion=corre; 
 						end
 						if(p[jugador].botones[b_izquierda])
@@ -458,7 +467,9 @@ Begin
 				end
 
 				//reducción de inercias
-				friccioname();
+				if(!(tipo==6 and accion==ataca_area))
+					friccioname();
+				end
 				
 			else //EN EL AIRE (SALTO)
 				//ataque aereo
@@ -630,7 +641,7 @@ Begin
 		
 		if(herida==0 and altura==0)
 			if(accion==quieto and (x_inc!=0 or y_inc!=0))
-				if(abs(x_inc)>inercia_max_x)
+				if(abs(x_inc)>inercia_max_x and puede_correr)
 					accion=corre;
 				else
 					accion=camina;
@@ -785,14 +796,34 @@ Begin
 			ataque(x+(40*hacia_que_lado),y,fpg_general,1,fuerza_ataque*2,15,jugador);
 		end
 		if(accion==ataca_area)
-			ataque(x,y,file,graph,fuerza_ataque*4,20,jugador);
-			if(altura!=0) gravedad--; end
-			if(anim==23)
-				accion=quieto;
+			if(tipo==0)
+				ataque(x,y,file,graph,fuerza_ataque*4,20,jugador);
+				if(altura!=0) gravedad--; end
+				if(anim==23)
+					accion=quieto;
+				end
+			else //jefe2
+			if(anim>30 and anim<175)
+					estela();
+					ataque(x,y,file,graph,fuerza_ataque,20,jugador);
+					if(x_inc==0 or y_inc==0)
+						if(rand(0,1)==0) x_inc=rand(-5,-2); else x_inc=rand(2,5); end
+						if(rand(0,1)==0) y_inc=rand(-5,-2); else y_inc=rand(2,5); end
+					else
+						if(x_inc<0) x_inc--; else x_inc++; end
+						if(y_inc<0) y_inc--; else y_inc++; end
+					end
+				else
+					friccioname();
+				end
+				if(anim==200)
+					accion=quieto;
+				end
 			end
 		end
 		if(accion==muere)
 			if(herida>3000)
+				if(tipo==6) break; end
 				from alpha=255 to 0 step -15; frame; end
 				if(jugador>10) enemigos--; end
 				
@@ -822,5 +853,22 @@ Begin
 		end
 		if(tipo==5) estela(); end
 		frame;
+	end
+	if(tipo==6) //jefe2
+		graph=151;
+		from i=0 to 90; frame; end
+		graph=73;
+		from i=0 to 30; frame; end
+		graph=211;
+		funde_grafico_in(file,212);
+		while(exists(type funde_grafico_in)) frame; end
+		from i=0 to 90; frame; end
+		graph=213;
+		from i=0 to 90; frame; end
+		enemigos--;
+		if(jugador==100)
+			ganando=1;
+			loop frame; end
+		end
 	end
 End

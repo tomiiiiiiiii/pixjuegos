@@ -63,8 +63,6 @@ Const
 End
 
 Global
-	paginas_ayuda[4];
-
 	mata_textos_menu;
 	
 	mapa_nivel;
@@ -139,6 +137,9 @@ Global
 	fpg_cutscenes;
 	fpg_lang;
 	fpg_texto;
+	fpg_texto_azul;
+	fpg_texto_rojo;
+	fpg_texto_gris;
 	fpg_tiempo;
 	wavs[50];
 	
@@ -216,6 +217,7 @@ include "../../common-src/savepath.pr-";
 include "../../common-src/lenguaje.pr-";
 include "../../common-src/mod_text2.pr-";
 include "jefe1.pr-";
+include "jefe2.pr-";
 include "jefe4.pr-";
 include "niveles.pr-";
 include "menu.pr-";
@@ -401,6 +403,9 @@ Begin
 	fpg_objetos=load_fpg("fpg/objetos.fpg");
 	fpg_menu=load_fpg("fpg/menu.fpg");
 	fpg_texto=load_fpg("fpg/fnt1.fpg");
+	fpg_texto_azul=load_fpg("fpg/fnt1azul.fpg");
+	fpg_texto_rojo=load_fpg("fpg/fnt1rojo.fpg");
+	fpg_texto_gris=load_fpg("fpg/fnt1gris.fpg");
 	fpg_tiempo=load_fpg("fpg/tiempo.fpg");
 	#IFDEF OUYA
 		fpg_lang=load_fpg("fpg/"+lang_suffix+"-ouya.fpg");
@@ -576,17 +581,17 @@ Begin
 		nivel_superado();
 		while(exists(type nivel_superado)) frame; end
 		switch(nivel)
-			case 1:
-				nivel=4;
-				fade_off();
-				while(fading) frame; end
-				jugar();
-				return;
-			end
 			case 4:
 				fade_off();
  				while(fading) frame; end
 				final_del_juego();
+				return;
+			end
+			default:
+				nivel++;
+				fade_off();
+				while(fading) frame; end
+				jugar();
 				return;
 			end
 		end
@@ -758,6 +763,10 @@ Begin
 						case 101: //1er jefe
 							pon_musica(12);
 							jefe1(emboscada[en_emboscada].x_evento);
+						end
+						case 102: //2er jefe
+							pon_musica(12);
+							jefe2(emboscada[en_emboscada].x_evento);
 						end
 						case 104: //4º jefe
 							pon_musica(12);
@@ -1003,32 +1012,19 @@ Begin
 			end
 		end
 		case ataca_area:
-			if(anim<2) 
-				father.graph=81;
-			elseif(anim<4)
-				father.graph=82;
-			elseif(anim<6)
-				father.graph=83;
-			elseif(anim<8)
-				father.graph=84;
-			elseif(anim<10) 
-				father.graph=81;
-			elseif(anim<12)
-				father.graph=82;
-			elseif(anim<14)
-				father.graph=83;
-			elseif(anim<16)
-				father.graph=84;
-			elseif(anim<18) 
-				father.graph=81;
-			elseif(anim<20)
-				father.graph=82;
-			elseif(anim<22)
-				father.graph=83;
+			if(father.tipo==0)
+				father.graph=81+((anim/2)%4);
+				anim_max=24;
 			else
-				father.graph=84;
+				if(anim<15 or anim>185)
+					father.graph=81;
+				elseif(anim<30 or anim>170)
+					father.graph=82+((anim/2)%4);
+				else
+					father.graph=86+((anim/2)%2);
+				end
+				anim_max=999;
 			end
-			anim_max=24;
 		end
 		case coge_objeto:
 			if(anim<4) 
@@ -1150,20 +1146,30 @@ Begin
 	jugador=father.jugador;
 	ctype=coordenadas;
 	x=father.x;
-	y=father.y;
+	y=father.y-20;
 	z=father.z-1;
 	file=fpg_general;
 	graph=2;
 	
 	alpha=0;
 	rango=20;
-	size=80;
-	if(resolution!=0) size=size*2; end //TEMPORAL
+	if(father.tipo==6)
+		size_y=250;
+		size_x=80;
+		y-=40;
+	else
+		size_y=80;
+		size_x=80;
+	end
+	if(resolution!=0) 
+		size_x=size_x*2; 
+		size_y=size_y*2; 
+	end //TEMPORAL
 	
 //	if((father.tipo==0 and father.accion!=herido_leve and father.accion!=herido_grave and father.accion!=ataca_area and father.accion!=muere) or (father.tipo!=0 and father.accion!=muere))
 	if(father.accion!=herido_leve and father.accion!=herido_grave and father.accion!=ataca_area and father.accion!=muere)
 		//ataque
-		if(id_col=collision(type ataque))		
+		if(id_col=collision(type ataque))
 			if(id_col.jugador!=jugador and (fuego_amigo or 
 			(jugador=>1 and jugador<=9 and (id_col.jugador>9 or id_col.jugador==-1))	or
 			(jugador=>10 and id_col.jugador<10))) //ataque jugador->enemigo, ataque total
@@ -1188,7 +1194,7 @@ Begin
 				end
 			end
 		end
-	
+		
 		//collision entre cuerpos
 		if(father.accion==defiende and father.altura!=0)
 			//si se defiende y está en el aire, no choca
@@ -1230,9 +1236,9 @@ Begin
 	else
 		if(father.accion==herido_grave and father.x_inc!=0 and father.gravedad>0)
 			if(father.jugador<10)
-				ataque(father.x,father.y,father.file,father.graph,abs(father.x_inc),40,father.jugador);
+				ataque(father.x,father.y,file,graph,abs(father.x_inc),40,father.jugador);
 			else
-				ataque(father.x,father.y,father.file,father.graph,abs(father.x_inc),40,0);
+				ataque(father.x,father.y,file,graph,abs(father.x_inc),40,0);
 			end
 		end
 	end
@@ -1242,7 +1248,7 @@ End
 Process ataque(x,y,file,graph,herida,rango,jugador);
 Begin
 	resolution=global_resolution;
-	if(resolution!=0) size=size*2; end //TEMPORAL
+	//if(resolution!=0) size=size*2; end //TEMPORAL
 	flags=father.flags;
 	z=father.z;
 	priority=-1;
@@ -1819,13 +1825,16 @@ Begin
 	timer[2]=0;
 	while(timer[2]<300) frame; end
 
-	/*
 	id_jefe=jefe2(id_camara.x);
 	while(!ganando) frame; end
-	from alpha=255 to 0 step -15; id_jefe.alpha=alpha; frame; end
+	//from alpha=255 to 0 step -15; id_jefe.alpha=alpha; frame; end
+	from alpha=255 to 0 step -15; p[100].identificador.alpha=alpha; frame; end
+	signal(p[100].identificador,s_kill_tree);
+	ganando=0;
 	timer[2]=0;
 	while(timer[2]<300) frame; end
-
+	
+	/*
 	id_jefe=jefe3(id_camara.x);
 	while(!ganando) frame; end
 	from alpha=255 to 0 step -15; id_jefe.alpha=alpha; frame; end
@@ -1849,6 +1858,7 @@ Begin
 
 	*/
 	
+	//EVIL RIPO
 	ganando=0;
 	enemigos=0;
 	enemigo(11,5,-100,150,0,1);
@@ -2034,6 +2044,7 @@ Private
 	espera=60;
 Begin
 	resolution=global_resolution;
+	if(resolution!=0) size=200; end
 	ctype=coordenadas;
 	graph=write_in_map(fpg_texto,mitexto,4);
 	size=40;
@@ -2059,36 +2070,82 @@ Begin
 End
 
 Function pinta_ayuda(pagina);
+Private
+	num_paginas_total;
 Begin
-	graph=paginas_ayuda[pagina]=new_map(alto_pantalla,ancho_pantalla,bpp);
+	graph=new_map(ancho_pantalla,alto_pantalla,graphic_info(fpg_texto,48,G_DEPTH));
+	#IFDEF OUYA
+		num_paginas_total=2;
+	#ELSE
+		num_paginas_total=3;
+	#ENDIF
+	
+	if(pagina<10)
+		pon_texto_ayuda(fpg_texto,textos[35],320,20,100,30,1); //título ayuda
+		pon_texto_ayuda(fpg_texto,pagina+"/"+num_paginas_total,600,350,70,30,4); //num pagina
+	end
 	
 	switch(pagina)
 		case 1: //ayuda 1
-			pon_texto_ayuda(fpg_texto,35,320,20); //título ayuda //¿lo apartamos?
-			pon_texto_ayuda(fpg_texto,36,50,50); //sub-título controles
-			pon_texto_ayuda(fpg_texto,37,320,200); //texto en azul
-			pon_texto_ayuda(fpg_texto,38,320,200); //texto en blanco
-			pon_texto_ayuda(fpg_texto,39,50,250); //sub-título objetos
+			pon_texto_ayuda(fpg_texto_gris,textos[36],50,60,85,30,0); //sub-título controles
+			pon_texto_ayuda(fpg_texto_azul,textos[37],20,90,70,22,0); //texto en azul
+			pon_texto_ayuda(fpg_texto,textos[38],120,90,70,22,0); //texto en blanco
+			pon_texto_ayuda(fpg_texto_gris,textos[39],50,255,85,30,0); //sub-título objetos
+			pon_texto_ayuda(fpg_texto_gris,textos[39],50,255,85,30,0); //sub-título objetos
+			
 		end
 		case 2: //ayuda 2
-			
+			pon_texto_ayuda(fpg_texto_gris,textos[40],50,60,85,30,0); //sub-título multijugador
+			pon_texto_ayuda(fpg_texto,textos[41],20,90,70,22,0); //texto en blanco
 		end
 		case 3: //ayuda 3
-			
+			pon_texto_ayuda(fpg_texto_gris,textos[42],50,60,85,30,0); //sub-título modos de juego
+			pon_texto_ayuda(fpg_texto_azul,textos[43],20,90,70,22,0); //texto en azul
+			pon_texto_ayuda(fpg_texto,textos[44],20,90,70,22,0); //texto en blanco
 		end
-		case 4: //creditos
-			
+		case 10: //creditos
+			pon_texto_ayuda(fpg_texto,textos[18],450,10,100,30,1); //título créditos
+			pon_texto_ayuda(fpg_texto_azul,textos[45],60,40,80,25,0); //texto azul
+			pon_texto_ayuda(fpg_texto,textos[48],320,80,80,25,4); //nombres
+			pon_texto_ayuda(fpg_texto_gris,textos[47],340,320,100,30,4); //gracias por jugar
 		end
 	end
 	return graph;
 End
 
-Function pon_texto_ayuda(file_fnt,num_texto,x,y);
+Function pon_texto_ayuda(file_fnt,string mi_cadena,int x,y,size,salto_espacio,centrado);
 Private
 	string actual;
+	char caracter;
 Begin
-	actual=textos[num_texto];
-	graph=write_in_map(file_fnt,actual,4);
-	map_xputnp(0,father.graph,0,graph,x,y,0,100,100,0);
-	unload_map(0,graph);
+	loop
+		actual="";
+		from i=j to len(mi_cadena)-1;
+			if(mi_cadena[i]=="|")
+				j=i+1;
+				break;
+			else
+				actual+=""+mi_cadena[i];
+			end
+		end
+		graph=write_in_map(file_fnt,actual,centrado);
+		map_xputnp(0,father.graph,0,graph,x,y,0,size,size,0);
+		unload_map(0,graph);
+		y+=salto_espacio;
+		if(i=>len(mi_cadena)-1) break; end
+	end
+End
+
+Process funde_grafico_in(file,graph);
+Begin
+	resolution=global_resolution;
+	x=father.x;
+	y=father.y;
+	ctype=coordenadas;
+	angle=father.angle;
+	size=father.size;
+	z=father.z-10;
+	flags=father.flags;
+	from alpha=0 to 255 step 5; frame; end
+	if(exists(father)) father.graph=graph; end
 End

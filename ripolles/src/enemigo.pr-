@@ -7,6 +7,7 @@ Private
 	huye=1;
 	se_defiende=0;
 	sabe_saltar=0;
+	sabe_ataque_especial=0;
 	max_vida;
 	controlado;
 Begin
@@ -35,7 +36,8 @@ Begin
 	if(tipo==5) from alpha=0 to 255 step 4; frame; end end
 	if(tipo==2 or tipo==5) se_defiende=1; huye=0; end
 	if(tipo==4 or tipo==5) sabe_saltar=1; end
-	loop	
+	if(tipo==6) sabe_ataque_especial=1; end
+	loop
 		if(mata_enemigos and tipo>0)
 			p[jugador].vida=0;
 		end
@@ -91,6 +93,12 @@ Begin
 						if(o.accion==ataca_aire and se_defiende) //si el prota está atacando en el aire, nos intentaremos proteger
 							p[jugador].botones[b_3]=1;
 						else //si no nos protegemos
+							//si podemos hacer el ataque especial, random!
+							if(sabe_ataque_especial and rand(0,200)==0) //ataque especial
+								p[jugador].botones[b_1]=1; //ataque
+								p[jugador].botones[b_3]=1; //defensa
+							end
+						
 							if(distancia_jugador(objetivo)>60 or !en_rango(o.z,e.z,20)) //si no lo tenemos lo suficientemente cerca como para atacar
 								if(distancia_jugador(objetivo)>150) //si está bastante lejos vamos a por él
 									if(lado_jugador(objetivo)) //prota a la izquierda
@@ -152,7 +160,7 @@ Begin
 			end
 		end
 				
-		if(e.herida>0)
+		if(e.herida>0 and jugador!=100)
 			muestra_vida((p[jugador].vida*100)/max_vida);
 		end
 		if(e.accion==muere)
