@@ -254,7 +254,7 @@ Begin
 	
 	switch(ops.lenguaje)
 		case 1: lang_suffix="es"; end
-		case 1: lang_suffix="ca"; end
+		case 2: lang_suffix="ca"; end
 		default: lang_suffix="en"; end
 	end
 	

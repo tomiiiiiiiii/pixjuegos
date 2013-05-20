@@ -1,5 +1,5 @@
 Global
-	menu_torcio=5000;
+	menu_torcio=0;
 End
 
 process menu(num_menu);
@@ -79,7 +79,7 @@ begin
 	//ponemos el menú actual
 	switch(num_menu)
 		case 0: //general
-			menu_torcio=5000;
+			//menu_torcio=5000;
 			titulo();
 			from i=15 to 19;
 				texto_menu(y+=distancia_opciones,textos[i]);
@@ -88,7 +88,7 @@ begin
 			volver_a_menu=0;
 		end
 		case 1: //jugar
-			menu_torcio=-5000;
+			//menu_torcio=-5000;
 			num_opciones=1;
 			texto_menu(y+=distancia_opciones,"1"+textos[20]);
 			if(posibles_jugadores>1) texto_menu(y+=distancia_opciones,"2"+textos[21]); num_opciones++; end
@@ -114,7 +114,7 @@ begin
 			volver_a_menu=0;
 		end
 		case 3: //modos de juego
-			menu_torcio=-5000;
+			//menu_torcio=-5000;
 			num_opciones=2;
 			
 			modo_matajefes=-1;
