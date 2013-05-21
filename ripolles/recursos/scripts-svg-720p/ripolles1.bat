@@ -50,10 +50,11 @@ call :a 84
 call :a 91
 call :a 92
 
+echo Creando Evil Ripo!
 cd ..\..\fpg-sources\enemigo5
 del /f *.png
 xcopy /r/e/y ..\ripolles1\*.png .
-for /f %%f in ('dir /b *.png') do ..\..\..\utils\imagemagick\convert %%f -colorspace Gray %%f
+for /f %%f in ('dir /b *.png') do ..\..\..\utils\imagemagick\convert %%f -color-matrix "1 -0.5 0 1 -0.5 0 1 -0.5 0" -colorspace Gray %%f
 
 exit
 goto :eof
