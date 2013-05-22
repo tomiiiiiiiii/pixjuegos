@@ -34,8 +34,6 @@ begin
 	
 	fade_on();
 	
-	if(resolution!=0) size=200; end
-	
 	if(arcade_mode and num_menu<1)
 		while(p[0].botones[b_salir]) frame; end
 		write(fpg_texto,320,180,4,textos[14]);
@@ -49,7 +47,6 @@ begin
 		delete_text(all_text);
 		file=fpg_lang;
 		graph=221;
-		if(resolution!=0) size=200; end
 		x=320;
 		y=180;
 		z=-100;
@@ -298,7 +295,6 @@ end
 process logo(graph);
 begin
 	resolution=global_resolution;
-	if(resolution!=0) size=200; end
 	file=fpg_menu;
 	x=600;
 	y=132;
@@ -316,7 +312,6 @@ end
 Process titulo();
 Begin
 	resolution=global_resolution;
-	if(resolution!=0) size=200; end
 	if(panoramico)
 		x=ancho_pantalla-240;
 	else
@@ -337,7 +332,6 @@ process muestra_hasta_volver(tipo);
 begin
 	mata_textos_menu=1;
 	resolution=global_resolution;
-	if(resolution!=0) size=200; end
 	x=ancho_pantalla/2;
 	//y=alto_pantalla/2;
 	y=alto_pantalla;
@@ -376,7 +370,6 @@ end
 Process sal_de_aqui(graph);
 Begin
 	resolution=global_resolution;
-	if(resolution!=0) size=200; end
 	y=father.y;
 	z=father.z+1;
 	x=ancho_pantalla/2;
@@ -406,7 +399,6 @@ End
 Process estado_opcion(y,tipo);
 Begin
 	resolution=global_resolution;
-	if(resolution!=0) size=200; end
 	file=fpg_general;
 	if(panoramico)
 		x=616;
@@ -440,7 +432,7 @@ End
 
 Process texto_menu(y,string mitexto);
 Begin
-	if(global_resolution!=0) resolution=global_resolution; size=200; end
+	if(global_resolution!=0) resolution=global_resolution; end
 	x=800;
 	z=-512;
 	graph=write_in_map(fpg_texto,mitexto,3);

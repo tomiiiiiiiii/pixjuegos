@@ -227,10 +227,6 @@ include "enemigo.pr-";
 include "traducciones.pr-";
 
 Begin
-
-	fpg_texto_margen=-4;
-	fpg_texto_espacio=30;
-
 	if(argc>0) if(argv[1]=="arcade") arcade_mode=1; end end
 
 	savepath();
@@ -288,7 +284,7 @@ Begin
 		pocos_recursos=1;
 		bpp=16;
 	else
-		if(mode_is_ok(1280,720,bpp,MODE_FULLSCREEN) and global_resolution==0)
+		if(mode_is_ok(1280,720,bpp,MODE_FULLSCREEN))
 			scale_resolution=12800720;
 		end
 		//graph_mode=mode_2xscale;
@@ -307,14 +303,7 @@ Begin
 	
 
 	//Pero internamente trabajaremos con esto:
-	if(global_resolution==0)
-		set_mode(ancho_pantalla,alto_pantalla,bpp);
-	else
-		set_mode(ancho_pantalla*2,alto_pantalla*2,bpp);
-	end
-
-	resolution=global_resolution;
-	if(resolution!=0) size=size*2; end //TEMPORAL
+	set_mode(ancho_pantalla,alto_pantalla,bpp);
 	
 	//gráfico para mientras se carga
 	graph=load_png("loading.png");
@@ -337,11 +326,16 @@ Begin
 
 	if(global_resolution!=0)
 		resolution=global_resolution;
-		size=200;
 		if(!arcade_mode)
 			scale_resolution=0;
 		end
 		set_mode(ancho_pantalla*2,alto_pantalla*2,bpp);
+		size=200;
+		fpg_texto_margen=-8;
+		fpg_texto_espacio=60;
+	else
+		fpg_texto_margen=-4;
+		fpg_texto_espacio=30;
 	end
 	
 	//recolocamos el centro de los objetos
@@ -571,7 +565,6 @@ Begin
 		ganando=1;
 	end
 	frame(5000);
-	if(resolution!=0) size=200; end
 	if(modo_juego==modo_historia and jugadores>0)
 		from i=1 to jugadores;
 			if(p[i].juega)
@@ -1161,10 +1154,6 @@ Begin
 		size_y=80;
 		size_x=80;
 	end
-	if(resolution!=0) 
-		size_x=size_x*2; 
-		size_y=size_y*2; 
-	end //TEMPORAL
 	
 //	if((father.tipo==0 and father.accion!=herido_leve and father.accion!=herido_grave and father.accion!=ataca_area and father.accion!=muere) or (father.tipo!=0 and father.accion!=muere))
 	if(father.accion!=herido_leve and father.accion!=herido_grave and father.accion!=ataca_area and father.accion!=muere)
@@ -1248,7 +1237,6 @@ End
 Process ataque(x,y,file,graph,herida,rango,jugador);
 Begin
 	resolution=global_resolution;
-	//if(resolution!=0) size=size*2; end //TEMPORAL
 	flags=father.flags;
 	z=father.z;
 	priority=-1;
@@ -1260,7 +1248,6 @@ End
 Process objeto_portado(x,y,graph);
 Begin
 	resolution=global_resolution;
-	//if(resolution!=0) size=size*2; end //TEMPORAL
 	z=father.z-1;
 	flags=father.flags;
 	file=fpg_objetos;
@@ -1279,7 +1266,6 @@ Private
 	retraso_colision;
 Begin
 	resolution=global_resolution;
-	//if(resolution!=0) size=200; end //TEMPORAL
 	y=y_base+altura+40;
 	z=y_base-1;
 	file=fpg_objetos;
@@ -1361,7 +1347,6 @@ Begin
 	graph=3;
 	alpha=father.alpha+altura-50;
 	size=100+(altura/3);
-	if(resolution!=0) size=size*2; end
 	frame;
 	while(!ready and !ganando) frame; end
 End
@@ -1379,7 +1364,6 @@ Begin
 	graph=3;
 	alpha=father.alpha+altura-50;
 	size=100+(altura/3);
-	if(resolution!=0) size=size*2; end
 	frame;
 	while(!ready) frame; end
 End
@@ -1467,7 +1451,6 @@ End
 Process tram();
 Begin
 	resolution=global_resolution;
-	if(resolution!=0) size=200; end
 	enemigos++;
 	file=fpg_general;
 	graph=10;
@@ -1510,7 +1493,6 @@ End
 Process avioncete();
 Begin
 	resolution=global_resolution;
-	if(resolution!=0) size=200; end
 	enemigos++;
 	file=fpg_general;
 	graph=10;
@@ -1619,7 +1601,6 @@ Private
 	max_vida;
 Begin
 	resolution=global_resolution;
-	if(resolution!=0) size=200; end
 	max_vida=p[100].vida;
 	file=fpg_general;
 	graph=26;
@@ -1637,7 +1618,6 @@ End
 Process vida(x,y,size_x,graph);
 Begin
 	resolution=global_resolution;
-	if(resolution!=0) size_y=size_y*2; size_x=size_x*2; end
 	file=fpg_general;
 	z=-11;
 	frame;
@@ -1749,7 +1729,11 @@ Begin
 		if(decimas>9 and segundos<10) string_tiempo=itoa(minutos)+":0"+itoa(segundos)+":"+itoa(decimas); end
 		if(decimas<10 and segundos>9) string_tiempo=itoa(minutos)+":"+itoa(segundos)+":0"+itoa(decimas); end
 		if(decimas>9 and segundos>9) string_tiempo=itoa(minutos)+":"+itoa(segundos)+":"+itoa(decimas); end
-		txt_tiempo=write_fixed(fpg_tiempo,x,y,4,string_tiempo,25);
+		if(global_resolution==0)
+			txt_tiempo=write_fixed(fpg_tiempo,x,y,4,string_tiempo,25);
+		else
+			txt_tiempo=write_fixed(fpg_tiempo,x,y,4,string_tiempo,50);
+		end
 		frame;
 		if(jugadores>0)
 			if(ganando)
@@ -2044,7 +2028,6 @@ Private
 	espera=60;
 Begin
 	resolution=global_resolution;
-	if(resolution!=0) size=200; end
 	ctype=coordenadas;
 	graph=write_in_map(fpg_texto,mitexto,4);
 	size=40;
@@ -2073,7 +2056,11 @@ Function pinta_ayuda(pagina);
 Private
 	num_paginas_total;
 Begin
-	graph=new_map(ancho_pantalla,alto_pantalla,graphic_info(fpg_texto,48,G_DEPTH));
+	if(global_resolution==0)
+		graph=new_map(ancho_pantalla,alto_pantalla,graphic_info(fpg_texto,48,G_DEPTH));
+	else
+		graph=new_map(ancho_pantalla*2,alto_pantalla*2,graphic_info(fpg_texto,48,G_DEPTH));
+	end
 	#IFDEF OUYA
 		num_paginas_total=2;
 	#ELSE
@@ -2118,6 +2105,11 @@ Private
 	string actual;
 	char caracter;
 Begin
+	if(global_resolution!=0)
+		x*=2;
+		y*=2;
+		salto_espacio*=2;
+	end
 	loop
 		actual="";
 		from i=j to len(mi_cadena)-1;

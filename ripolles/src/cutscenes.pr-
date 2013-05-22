@@ -177,7 +177,6 @@ Begin
 	if(exists(id_por_detras)) signal(id_por_detras,s_kill); end
 	id_por_detras=id;
 	resolution=global_resolution;
-	if(resolution!=0) size=200; end
 	x=ancho_pantalla/2;
 	y=alto_pantalla/2;
 	z=100;
@@ -190,7 +189,6 @@ End
 Process por_delante(graph);
 Begin
 	resolution=global_resolution;
-	if(resolution!=0) size=200; end
 	x=ancho_pantalla/2;
 	y=alto_pantalla/2;
 	z=-100;
@@ -234,7 +232,6 @@ Private
 	salir_creditos;
 Begin
 	resolution=global_resolution;
-	if(resolution!=0) size=200; end
 	fade_off();
 	while(fading) frame; end
 	let_me_alone();
@@ -282,7 +279,6 @@ End
 Process siguiente_imagen(graph);
 Begin
 	resolution=global_resolution;
-	if(resolution!=0) size=200; end
 	file=fpg_cutscenes;
 	x=ancho_pantalla/2;
 	y=alto_pantalla/2;
@@ -294,7 +290,6 @@ End
 Process tv();
 Begin
 	resolution=global_resolution;
-	if(resolution!=0) size=200; end
 	graph=33;
 	file=fpg_cutscenes;
 	x=ancho_pantalla/2;
