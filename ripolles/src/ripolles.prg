@@ -125,6 +125,7 @@ Global
 	fpg_ripolles3;
 	fpg_ripolles4;
 	fpg_menu;
+	fpg_fondo_menu;
 	fpg_nivel;
 	fpg_general;
 	fpg_objetos;
@@ -396,16 +397,13 @@ Begin
 	fpg_general=load_fpg("fpg/general.fpg");
 	fpg_objetos=load_fpg("fpg/objetos.fpg");
 	fpg_menu=load_fpg("fpg/menu.fpg");
+	fpg_fondo_menu=load_fpg("fpg/fondo_menu.fpg");
 	fpg_texto=load_fpg("fpg/fnt1.fpg");
 	fpg_texto_azul=load_fpg("fpg/fnt1azul.fpg");
 	fpg_texto_rojo=load_fpg("fpg/fnt1rojo.fpg");
 	fpg_texto_gris=load_fpg("fpg/fnt1gris.fpg");
 	fpg_tiempo=load_fpg("fpg/tiempo.fpg");
-	#IFDEF OUYA
-		fpg_lang=load_fpg("fpg/"+lang_suffix+"-ouya.fpg");
-	#ELSE
-		fpg_lang=load_fpg("fpg/"+lang_suffix+".fpg");
-	#ENDIF
+	fpg_lang=load_fpg("fpg/"+lang_suffix+".fpg");
 End
 
 Function grayscale_fpg(file)
@@ -431,7 +429,7 @@ Begin
 	if(pocos_recursos)
 		unload_fpg(fpg_menu);
 	end
-	set_fps(30,5);
+	set_fps(30,0);
 	clear_screen();
 	delete_text(all_text);
 	ganando=0;

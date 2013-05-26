@@ -252,30 +252,51 @@ Private
 	caracter_anterior;
 	mi_bpp;
 Begin
-	if(!map_exists(file,97))
+	if(!map_exists(file,97)) //si no hay minúsculas, uppercase-amos
 		texto=ucase(texto);
 	end
 	
 	//1. contar el espacio horizontal y vertical
-	from i=0 to len(texto)-1;
-		if(asc(texto[i])==32)
-			mi_ancho_total+=fpg_texto_espacio+margen;
-		else
-			mi_ancho_total+=graphic_info(file,asc(texto[i]),G_WIDTH)+margen;
-			if(graphic_info(file,asc(texto[i]),G_HEIGHT)>mi_alto_max)
-				mi_alto_max=graphic_info(file,asc(texto[i]),G_HEIGHT)+(rand_y_max*2);
-			end
-		end
-	end
-
 	if(fixed_width>0)
 		mi_ancho_total=fixed_width*(len(texto)+1);
+	else
+		if(len(texto)>1)
+			from i=0 to len(texto)-1;
+				caracter_anterior=caracter;
+				caracter=asc(texto[i]);
+				if(caracter==32)
+					x+=fpg_texto_espacio+margen;
+				else
+					if(i==0)
+						x=(graphic_info(file,caracter,G_WIDTH)/2);
+					elseif(i==len(texto)-1)
+						x+=(graphic_info(file,caracter_anterior,G_WIDTH)/2)+margen+(graphic_info(file,caracter,G_WIDTH));
+					else
+						x+=(graphic_info(file,caracter_anterior,G_WIDTH)/2)+margen+(graphic_info(file,caracter,G_WIDTH)/2);
+					end
+					if(graphic_info(file,asc(texto[i]),G_HEIGHT)>mi_alto_max)
+						mi_alto_max=graphic_info(file,asc(texto[i]),G_HEIGHT)+(rand_y_max*2);
+					end
+				end	
+			end
+		else
+			x=graphic_info(file,asc(texto[0]),G_WIDTH);
+			mi_alto_max=graphic_info(file,asc(texto[0]),G_HEIGHT);
+		end
+		mi_ancho_total=x;
 	end
+
+	
 
 	//2.creamos el gráfico
 	mi_bpp=graphic_info(file,48,G_DEPTH);
 	graph=new_map(mi_ancho_total,mi_alto_max,mi_bpp);
-		
+
+	//DEBUG:
+	/*drawing_map(0,graph);
+	drawing_color(rgb(100,0,0));
+	draw_box(0,0,mi_ancho_total,mi_alto_max);*/
+	
 	//3. ponemos todas las letracas
 	from i=0 to len(texto)-1;
 		caracter_anterior=caracter;

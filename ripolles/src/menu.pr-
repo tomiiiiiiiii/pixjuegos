@@ -22,7 +22,7 @@ begin
 		jukeboxing=0;
 		let_me_alone();
 		reinicio_variables();
-		start_scroll(0,fpg_menu,3,4,0,15);
+		start_scroll(0,fpg_fondo_menu,3,4,0,15);
 		controlador(0);
 		pon_musica(2);
 		num_menu=0;
