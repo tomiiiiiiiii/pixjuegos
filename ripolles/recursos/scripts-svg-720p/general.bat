@@ -6,6 +6,14 @@ call :a 22 ..\personajes\Ripolles2.svg
 call :a 23 ..\personajes\Ripolles3.svg
 call :a 24 ..\personajes\Ripolles4.svg
 call :a 28 ..\personajes\Pato.svg
+call :a 10 ..\otros\warning.svg
+call :a 11 ..\otros\tram.svg
+call :a 12 ..\otros\tram.svg
+call :a 4 ..\interfaz\sistema.svg
+call :a 5 ..\interfaz\sistema.svg
+call :a 6 ..\interfaz\sistema.svg
+call :a 7 ..\interfaz\sistema.svg
+call :a 8 ..\interfaz\sistema.svg
 exit
 goto :eof
 

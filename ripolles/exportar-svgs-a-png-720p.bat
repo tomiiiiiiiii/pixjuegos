@@ -1,4 +1,12 @@
 @echo off
+
+echo Creando ripolleses alternativos...
+cd recursos\personajes
+type Ripolles.svg | ..\..\..\utils\sed "s/ff7f2a/00af00/g" > ripolles2.svg
+type Ripolles.svg | ..\..\..\utils\sed "s/ff7f2a/00afff/g" > ripolles3.svg
+type Ripolles.svg | ..\..\..\utils\sed "s/ff7f2a/8d368f/g" > ripolles4.svg
+cd ..\..
+
 echo Eliminando fpg-sources
 rd /s /q fpg-sources
 mkdir fpg-sources
@@ -22,7 +30,6 @@ mkdir fpg-sources\tiempo
 mkdir fpg-sources\cat 
 mkdir fpg-sources\es 
 mkdir fpg-sources\en 
-mkdir fpg-sources\en-ouya 
 mkdir fpg-sources\menu 
 mkdir fpg-sources\nivel1 
 mkdir fpg-sources\nivel2

@@ -1707,7 +1707,6 @@ Private
 	decimas;
 	segundos;
 	minutos;
-	txt_tiempo;
 	string string_tiempo;
 	tiempo;
 	tiempo_antes;
@@ -1728,9 +1727,9 @@ Begin
 		if(decimas<10 and segundos>9) string_tiempo=itoa(minutos)+":"+itoa(segundos)+":0"+itoa(decimas); end
 		if(decimas>9 and segundos>9) string_tiempo=itoa(minutos)+":"+itoa(segundos)+":"+itoa(decimas); end
 		if(global_resolution==0)
-			txt_tiempo=write_fixed(fpg_tiempo,x,y,4,string_tiempo,25);
+			graph=write_in_map_fixed(fpg_tiempo,string_tiempo,4,25);
 		else
-			txt_tiempo=write_fixed(fpg_tiempo,x,y,4,string_tiempo,50);
+			graph=write_in_map_fixed(fpg_tiempo,string_tiempo,4,50);
 		end
 		frame;
 		if(jugadores>0)
@@ -1740,7 +1739,7 @@ Begin
 				timer[0]=tiempo_antes;
 			end
 
-			delete_text(txt_tiempo);
+			unload_map(0,graph);
 		end
 	end
 End
