@@ -202,7 +202,7 @@ Process cambia_fps();
 Begin
 	resolution=global_resolution;
 	loop
-		if(mouse.left or p[0].botones[b_1])
+		if(mouse.left or p[0].botones[b_1] or p[0].botones[b_2] or p[0].botones[b_3])
 			i++;
 		else
 			i=0;

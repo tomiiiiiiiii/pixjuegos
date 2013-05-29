@@ -349,6 +349,9 @@ begin
 			if(y<(alto_pantalla/2)+15 and y>alto_pantalla/2) y--; end
 			frame; 
 		end
+		#IFDEF OUYA
+		i=0; //temporal, sólo 1 página
+		#ENDIF
 		if(p[0].botones[b_cancelar] or key(_esc) or tipo==4 or tipo==11)
 			sonido(11,0); 
 			i=0;

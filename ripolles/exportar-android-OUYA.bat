@@ -35,6 +35,7 @@ copy recursos\android\strings.xml export\res\values\strings.xml /y
 mkdir export\res\values-es
 copy recursos\android\strings-es.xml export\res\values-es\strings.xml /y
 copy recursos\android\AndroidManifest.xml export\ /y
+copy recursos\android\AndroidManifest.ouya.xml export\AndroidManifest.xml /y
 
 copy recursos\android\build.xml export\ /y
 

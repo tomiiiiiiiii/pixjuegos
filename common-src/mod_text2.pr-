@@ -285,6 +285,7 @@ Begin
 	else
 		mi_ancho_total=x;
 	end
+	x=0; y=0;
 
 	//2.creamos el gráfico
 	mi_bpp=graphic_info(file,48,G_DEPTH);

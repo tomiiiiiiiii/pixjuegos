@@ -50,18 +50,26 @@ Begin
 			textos[35]="Help";
 			textos[36]="Controls";
 			textos[37]="Move:|Attack:|Jump:|Defend:|Pick/throw object:|Strong attack:|Special attack:";
+			//#IFDEF OUYA
+			textos[38]="Hat / D-Pad|U Button|O Button|A Button|         U Button|         Down + U Button|         Buttons U and A";
+			/*#ELSE
 			textos[38]="Joystick / Arrow keys|Button 1 / A|Button 2 / S|Button 3 / D|Button 1 / A|Down + Button 1 / Down arrow + A|Buttons 1 and 3 / A and D";
+			#ENDIF*/
 			textos[39]="Objects";
 			textos[40]="Multiplayer";
  			textos[41]="All game modes may be played with up to|4 players at the same time.||For this purpose, at least one gamepad must|be connected before launching the game.||The controllers are auto configured.";
 			textos[42]="Game modes";
+			#IFDEF OUYA
+			#ELSE
 			textos[43]="Story:|||Survival:||Battle royale:|||Boss rush:";
 			textos[44]="     Ripollés sculptures have become alive|and are destroying the city of Castellón.|Help him to save Castellón!|       How much time will you survive|while facing an infinite number of enemies?|           Face off other players and|find out who's the best fighter.|For two or more players|         Defeat all bosses from story|mode with just only one life";
+			#ENDIF
 			textos[45]="Created by:|||||Thanks to:";
 			textos[46]="";
 			textos[47]="And thank you for playing!";
-			textos[49]="";
-			textos[50]="";
+			textos[49]="Player ";
+			textos[50]=" wins!";
+			textos[51]="Game over";
 		end
 		case 1: //español
 			//general

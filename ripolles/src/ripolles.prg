@@ -67,9 +67,9 @@ Global
 	
 	mapa_nivel;
 
-	global_resolution=0;
+	global_resolution=-2;
 	
-	string textos[50];
+	string textos[100];
 	ready=0;
 
 	retraso_jukebox=500;
@@ -268,12 +268,17 @@ Begin
 		scale_resolution=06400480;
 		bpp=16;	
 	elseif(os_id==1003 or os_id==1002) //móviles
+		#IFDEF OUYA
+			
+		#ELSE
 		if(graphic_info(0,0,g_width)==1024 and graphic_info(0,0,g_height)==552)
 			ancho_pantalla=665; //archos gamepad
 			alto_pantalla=360;
 		else
 			scale_resolution=graphic_info(0,0,g_width)*10000+graphic_info(0,0,g_height);
 		end
+		say("ESTO NO DEBERÍA ESTAR OCURRIENDO EN OUYA");
+		#ENDIF
 		bpp=16;	
 	elseif(os_id==1010) //pandora
 		scale_resolution=08000480;
@@ -285,10 +290,9 @@ Begin
 		pocos_recursos=1;
 		bpp=16;
 	else
-		if(mode_is_ok(1280,720,bpp,MODE_FULLSCREEN))
+		if(mode_is_ok(1280,720,bpp,MODE_FULLSCREEN) and global_resolution==0)
 			scale_resolution=12800720;
 		end
-		//graph_mode=mode_2xscale;
 	end
 	
 	if(ops.ventana==0)
@@ -304,7 +308,17 @@ Begin
 	
 
 	//Pero internamente trabajaremos con esto:
-	set_mode(ancho_pantalla,alto_pantalla,bpp);
+	if(global_resolution!=0)
+		set_mode(ancho_pantalla*2,alto_pantalla*2,bpp);
+		size=200;
+		resolution=global_resolution;
+		fpg_texto_margen=-8;
+		fpg_texto_espacio=60;
+	else
+		set_mode(ancho_pantalla,alto_pantalla,bpp);
+		fpg_texto_margen=-4;
+		fpg_texto_espacio=30;
+	end
 	
 	//gráfico para mientras se carga
 	graph=load_png("loading.png");
@@ -325,20 +339,6 @@ Begin
 	carga_fpgs();
 	carga_wavs();
 
-	if(global_resolution!=0)
-		resolution=global_resolution;
-		if(!arcade_mode)
-			scale_resolution=0;
-		end
-		set_mode(ancho_pantalla*2,alto_pantalla*2,bpp);
-		size=200;
-		fpg_texto_margen=-8;
-		fpg_texto_espacio=60;
-	else
-		fpg_texto_margen=-4;
-		fpg_texto_espacio=30;
-	end
-	
 	//recolocamos el centro de los objetos
 	recoloca_centros();
 	
@@ -378,9 +378,6 @@ End
 Function carga_fpgs();
 Begin
 	fpg_ripolles1=load_fpg("fpg/ripolles1.fpg");
-	if(graphic_info(fpg_ripolles1,1,G_HEIGHT)>100)
-		global_resolution=-2;
-	end
 	fpg_pato=load_fpg("fpg/pato.fpg");
 	if(posibles_jugadores>1) //ahorro de recursos!
 		fpg_ripolles2=load_fpg("fpg/ripolles2.fpg");
@@ -579,7 +576,8 @@ Begin
 				return;
 			end
 			default:
-				nivel++;
+				//nivel++;
+				nivel=4;
 				fade_off();
 				while(fading) frame; end
 				jugar();
@@ -591,7 +589,6 @@ Begin
 	x=ancho_pantalla/2;
 	y=(alto_pantalla/2)-(13*4);
 	z=-256;
-	file=fpg_lang;
 	i=0;
 
 	if(modo_juego==modo_supervivencia and ops.truco_sin_bandos<0)
@@ -602,7 +599,6 @@ Begin
 			while(exists(type truco_descubierto)) frame; end
 		end
 	end
-
 	
 	if(modo_juego==modo_battleroyale)
 		if(ops.truco_fuego_amigo<0)
@@ -616,32 +612,22 @@ Begin
 	
 		from i=1 to 9;
 			if(p[i].juega)
-				graph=30+i; 
-				if(graph==31 and ops.truco_pato==1) graph=36; end
+				truco_descubierto(textos[49]+i+textos[50]);
+				while(exists(type truco_descubierto)) frame; end
 				break; 
 			end
 		end
 	else
-		if(ops.truco_pato==1)
-			graph=35;
-		else
-			graph=30;
-		end
+		truco_descubierto(textos[51]);
+		while(exists(type truco_descubierto)) frame; end
 	end
-		
+	fade_off();
+	while(fading) frame; end
 	delete_text(all_text);
-	from alpha=0 to 255 step 20; y+=4; frame; end
 	y=alto_pantalla/2;
 	timer[0]=0;
 	let_me_alone();
 	stop_scroll(0);
-	while(timer[0]<100)
-		frame; 
-	end
-	controlador(i);
-	while(p[i].botones[b_1] or p[i].botones[b_2] or p[i].botones[b_3]) frame; end
-	while(!(p[i].botones[b_1] or p[i].botones[b_2] or p[i].botones[b_3])) frame; end
-	from alpha=255 to 0 step -20; y+=4; frame; end
 	menu(-1);
 End
 
@@ -1534,7 +1520,7 @@ Function salir();
 Begin
 	guarda_opciones();
 	full_screen=0;
-	set_mode(320,240,32);
+	//set_mode(320,240,32);
 	exit();
 End
 
@@ -1714,6 +1700,7 @@ Begin
 	resolution=global_resolution;
 	x=320;
 	y=330;
+	z=-512;
 	loop
 		while(!ready) frame; end
 		if(jugadores==0) return; end
@@ -1729,7 +1716,7 @@ Begin
 		if(global_resolution==0)
 			graph=write_in_map_fixed(fpg_tiempo,string_tiempo,4,25);
 		else
-			graph=write_in_map_fixed(fpg_tiempo,string_tiempo,4,50);
+			graph=write_in_map_fixed(fpg_tiempo,string_tiempo,4,40);
 		end
 		frame;
 		if(jugadores>0)
@@ -2062,21 +2049,22 @@ Begin
 		num_paginas_total=2;
 	#ELSE
 		num_paginas_total=3;
-	#ENDIF
-	
+
+	//TEMPORAL
 	if(pagina<10)
 		pon_texto_ayuda(fpg_texto,textos[35],320,20,100,30,1); //título ayuda
 		pon_texto_ayuda(fpg_texto,pagina+"/"+num_paginas_total,600,350,70,30,4); //num pagina
 	end
+
+	#ENDIF
+	
 	
 	switch(pagina)
 		case 1: //ayuda 1
 			pon_texto_ayuda(fpg_texto_gris,textos[36],50,60,85,30,0); //sub-título controles
 			pon_texto_ayuda(fpg_texto_azul,textos[37],20,90,70,22,0); //texto en azul
 			pon_texto_ayuda(fpg_texto,textos[38],120,90,70,22,0); //texto en blanco
-			pon_texto_ayuda(fpg_texto_gris,textos[39],50,255,85,30,0); //sub-título objetos
-			pon_texto_ayuda(fpg_texto_gris,textos[39],50,255,85,30,0); //sub-título objetos
-			
+			//pon_texto_ayuda(fpg_texto_gris,textos[39],50,255,85,30,0); //sub-título objetos			
 		end
 		case 2: //ayuda 2
 			pon_texto_ayuda(fpg_texto_gris,textos[40],50,60,85,30,0); //sub-título multijugador
