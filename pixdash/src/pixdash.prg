@@ -1948,8 +1948,13 @@ begin
 	
 	if(os_id==1003)
 		frame;
-		ancho_pantalla=graphic_info(0,0,g_width);
-		alto_pantalla=graphic_info(0,0,g_height);
+		#IFDEF OUYA
+			ancho_pantalla=1280;
+			alto_pantalla=720;
+		#ELSE
+			ancho_pantalla=graphic_info(0,0,g_width);
+			alto_pantalla=graphic_info(0,0,g_height);
+		#ENDIF
 		//scale_resolution=0;
 		return;
 	end
