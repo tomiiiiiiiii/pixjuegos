@@ -60,11 +60,11 @@ Begin
 		y=(0-altura_bola);
 		While(y<0+(altura_bola/2) AND matabolas==0)
 			if(ready) y+=1; end
-			Frame;
+			frame(100/base_velocidad);
 		End
 	End
 	if(modo_juego==2 and ops.op_sombras==1 and ready==0)
-		from alpha=0 to 255 step 2; frame; end
+		from alpha=0 to 255 step 2; frame(100/base_velocidad); end
 	end
 	alpha=255;
 	Loop
@@ -102,12 +102,12 @@ Begin
 		end
 		If(ops.op_sombras==1 AND grav_org>0) sombra(graph,x,y,flags,1); End
 		While(ready==0) 
-			Frame;
+			frame(100/base_velocidad);
 		End
 		If(parpadea==1) If(flags==0) flags=4; Else flags=0; End End
 		If(dinamita==1 AND tamano>1 AND tamano!=6 AND tamano!=10 
 		  and tamano!=13 and tamano!=17 and tamano!=18 and tamano!=19 and tamano!=20 and tamano!=21) 
-			Frame(velocidad); 
+			Frame(velocidad/base_velocidad); 
 			accion=-1;
 		End
 		
@@ -342,10 +342,10 @@ Begin
 		
 		if(accion==-1) break; end
 		
-		if(tamano!=19) Frame(velocidad/2); else frame(velocidad/3); end
+		if(tamano!=19) Frame(velocidad/2/base_velocidad); else frame(velocidad/3/base_velocidad); end
 	End
 	if(y>(520-(altura_bola/2))) y=500-(altura_bola/2); grav=0; end
-	frame;		
+	frame(100/base_velocidad);		
 	If(peq_izq==1 and matabolas==0 and jefe==0) if(reloj==0) itemreloj(1); else secs+=60; end End
 	If(tamano!=1 AND tamano!=6 AND tamano!=10 and tamano!=13 and tamano!=17 and tamano!=18 and tamano!=19 and tamano!=20 and tamano!=21 and tamano!=22) if(cheto_borracho==0 or matabolas==1 or dinamita==1) bola(x-(ancho_bola/4),y,tamano-1,1); bola(x+(ancho_bola/4),y,tamano-1,0); else if(rand(0,3)==0 and tamano<17) bola(x-(ancho_bola/4),y,tamano,1); bola(x+(ancho_bola/4),y,tamano,0); else bola(x-(ancho_bola/4),y,tamano-1,1); bola(x+(ancho_bola/4),y,tamano-1,0); End End End
 	If(tamano==1 OR tamano==6 OR tamano==10 or tamano==13) size=0; End
@@ -353,7 +353,7 @@ Begin
 	suena(2);
 	bolas--;
 	id_bolas[contator]=0;
-	if(tamano==17) bola_estrella=0; matabolas=1; graph=0; frame(6000); matabolas=0; end
+	if(tamano==17) bola_estrella=0; matabolas=1; graph=0; frame(6000/base_velocidad); matabolas=0; end
 	if(tamano==18) bola_estrella=0; itemreloj(10); end
 	If(tamano!=1 AND tamano!=6 and tamano!=10 and tamano!=13 AND modo_juego==2) If(rand(0,10)<3) items(x,y,rand(0,9)); End End
 End

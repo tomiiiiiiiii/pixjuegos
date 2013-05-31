@@ -30,18 +30,18 @@ Begin
 	y_statico=510-(alto/2);
 	y=y_statico;
 	z=0;
-	Frame;
+	frame(100/base_velocidad);
 	Loop
 		ancho=graphic_info(file,graph,g_wide);
 		alto=graphic_info(file,graph,g_height);
 		If(cheto_borracho==1) If(rand(0,2338)==1) p[jugador].muere=1; End End
 		While(ready==0 AND ganando==0 AND p[jugador].muere==0)
 			graph=501;
-			Frame;
+			frame(100/base_velocidad);
 			End
 		While(ganando==1)
 			graph=507;
-			Frame;
+			frame(100/base_velocidad);
 		End
 		if(p[jugador].botones[6] and p[jugador].arma!=1 and modo_juego==2) p[jugador].arma=1; suena(3); end
 		If(!collision(Type escaleras))
@@ -183,11 +183,11 @@ Begin
 			angle=0;
 			frame(300);
 			/* QUÉ COJONES HACE ESTO?
-			If(parpadeas<120) flags+=4; End Frame; 
+			If(parpadeas<120) flags+=4; End frame(100/base_velocidad); 
 			If(parpadeas<120) parpadeas++; flags-=4; End 
-			If(parpadeas<120) flags+=4; End Frame; 
+			If(parpadeas<120) flags+=4; End frame(100/base_velocidad); 
 			If(parpadeas<120) parpadeas++; flags-=4; End
-			If(parpadeas<120) flags+=4; End Frame; 
+			If(parpadeas<120) flags+=4; End frame(100/base_velocidad); 
 			If(parpadeas<120) parpadeas++; flags-=4; End
 			*/
 			If(cheto_borracho==1) Frame(rand(100,1000)); End
@@ -235,7 +235,7 @@ Begin
 							y-=grav/10;
 							l=(x*255)/800;
 							set_panning(snd_muere,255-l,l);
-							Frame;
+							frame(100/base_velocidad);
 						End
 						y=y_statico;
 						ready=1;
@@ -256,7 +256,7 @@ Begin
 		If(x<45) x=45; end
 		if(grav!=0) graph=509; end
 		If(cheto_epilepsia==0 and turbo==0) 
-			Frame; 
+			frame(100/base_velocidad); 
 		Else 
 			Frame(50); 
 			If(ops.op_sombras==1) 
@@ -268,7 +268,7 @@ Begin
 	ready=0;
 	parpadeo();
 	timer[2]=0;
-	While(timer[2]<50) Frame; End
+	While(timer[2]<50) frame(100/base_velocidad); End
 	suena(4);
 	grav=rand(50,250);
 	While(y<650)
@@ -280,7 +280,7 @@ Begin
 		graph=508;
 		grav-=5;
 		y-=grav/10;
-		Frame;
+		frame(100/base_velocidad);
 	End
 	suena(5);
 	p[jugador].vidas--;

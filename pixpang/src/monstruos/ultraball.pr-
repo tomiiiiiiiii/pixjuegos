@@ -22,7 +22,7 @@ Begin
 	graph=701;
 	size=180-(toques*3);
 	contaor=toques-20;
-	from y=-10 to 40; alpha+=10; frame; end
+	from y=-10 to 40; alpha+=10; frame(100/base_velocidad); end
 	grav_org=120;
 	ancho_bola=graphic_info(0,graph,g_wide);
 	altura_bola=graphic_info(0,graph,g_height);
@@ -31,7 +31,7 @@ Begin
 	While(toques>20)
 		If(ops.op_sombras==1 AND grav_org>0) sombra(graph,x,y,flags,1); End
 		While(ready==0)
-			Frame;
+			frame(100/base_velocidad);
 		End
 		flags=0;
 		if(!reloj)
@@ -73,7 +73,7 @@ Begin
 	file=0;
 	from toques=0 to 5; 
 		From graph=706 To 710; size+=30; angle+=15000; Frame(400); End 
-		frame;
+		frame(100/base_velocidad);
 	end
 	suena(2);
 	contaor=0;

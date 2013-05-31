@@ -74,7 +74,7 @@ Begin
 				If(grav<0) graph=509; End
 				grav-=5;
 				y-=grav/10;
-				Frame;
+				frame(100/base_velocidad);
 			End
 			y=500-(alto/2);
 			grav=0;
@@ -82,9 +82,9 @@ Begin
 		End
 		While(ganando==1)
 			graph=507;
-			Frame;
+			frame(100/base_velocidad);
 		End
-		Frame;
+		frame(100/base_velocidad);
 	end
 End
 

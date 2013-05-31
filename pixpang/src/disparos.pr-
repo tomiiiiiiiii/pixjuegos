@@ -46,7 +46,7 @@ Begin
 				if(y<0) break; end
 			End
 			if(accion==-1) break; end
-			Frame;
+			frame(100/base_velocidad);
 		End
 	End
 	If(arma==3)
@@ -61,7 +61,7 @@ Begin
 				if(accion==-1) break; end
 			End
 			
-			Frame;
+			frame(100/base_velocidad);
 		End
 		if(accion!=-1)
 			if(y<24) y=24; end
@@ -74,7 +74,7 @@ Begin
 				if(cont_ganxo>120) graph=605; end
 				if(y<0) break; end
 				if(accion==-1) break; end
-				Frame;
+				frame(100/base_velocidad);
 			End
 		end
 	End
@@ -90,7 +90,7 @@ Begin
 			cachodisparo(x+(metralleta_x/2),cachos_y-43,607,0); 
 			cachodisparo(x+(metralleta_x),cachos_y-43,606,1);
 			if(accion==-1) break; end
-			Frame;
+			frame(100/base_velocidad);
 		End
 	End
 	p[jugador].disparos[disparo]=0;
@@ -100,6 +100,6 @@ Process cachodisparo(x,y,graph,flags);
 Begin
 	file=father.file;
 	z=2;  
-	Frame;
+	frame(100/base_velocidad);
 	if(accion==-1 and exists(father)) father.accion=-1; end
 End

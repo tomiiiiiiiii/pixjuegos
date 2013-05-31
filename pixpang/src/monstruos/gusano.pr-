@@ -33,7 +33,7 @@ Begin
 	readyando();
 	while(contaor>0)
 		velocidad=400;	//no se que es
-		while(ready==0 or reloj==1) frame; end
+		while(ready==0 or reloj==1) frame(100/base_velocidad); end
 		if(patron==1)	//quieto
 			n++;
 			if(n>300) patron=2; angle=270000; angulo=359000; end 
@@ -110,11 +110,11 @@ Begin
 		//quitamos vida, se hace invulnerable, se hace mas rapido, 
 		//quitamos la cola y creamos una bola(mediana) en su lugar y pasamosal siguiente
 		End
-		frame;
+		frame(100/base_velocidad);
 	end
 	graph=0;
 	bola(x,y,1,0);	//cuando no tiene mas vida muere y aparece una bola (mediana)
-	while(bolas>0) frame; end	//espera hasta que no hayan bolas y sale
+	while(bolas>0) frame(100/base_velocidad); end	//espera hasta que no hayan bolas y sale
 	jefe=0;
 	vidajefefuera=1;
 	signal(id_fondo,s_kill);
@@ -141,15 +141,15 @@ Begin
 	graph=2;
 	angle=270000;	//mira hacia abajo
 	patron=0;	//iniciamos la ia
-	while(ready==0) frame; end
+	while(ready==0) frame(100/base_velocidad); end
 	while(contaor>0)
 		while(espera<a*10) espera++; patron=0;	//deja espacio entre las partes
-		while(ready==0 or reloj==1) frame; end
+		while(ready==0 or reloj==1) frame(100/base_velocidad); end
 		if(espera==a*10) patron=1; end
-		frame;
+		frame(100/base_velocidad);
 		end
 
-		while(ready==0 or reloj==1) frame; end
+		while(ready==0 or reloj==1) frame(100/base_velocidad); end
 		if(patron==1)	//quieto
 			n++;
 			if(n>300) patron=2; angle=270000; angulo=359000; end 
@@ -204,7 +204,7 @@ Begin
 			id_col.accion=-1;
 		end
 
-	frame;
+	frame(100/base_velocidad);
 	end
 	vidajefefuera=1;	
 

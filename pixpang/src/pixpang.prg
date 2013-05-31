@@ -32,6 +32,7 @@ import "mod_video";
 import "mod_wm";
 
 Global
+	base_velocidad=1;
 	arcade_mode=0;
 
 	cancionsonando;
@@ -283,7 +284,7 @@ Begin
 		tour_levels++;
 	End
 	
-	set_fps(60,2);
+	set_fps(60/base_velocidad,2);
 	
 	#IFDEF TACTIL
 	if(file_exists(savegamedir+"turbo.dat"))
@@ -354,11 +355,11 @@ Begin
 		else
 			if(intparpadeo==1) 
 				graph=exgraph;
-				from alpha=255 to 0 step -3; frame; end
-				from alpha=0 to 255 step 3; frame; end
+				from alpha=255 to 0 step -3; frame(100/base_velocidad); end
+				from alpha=0 to 255 step 3; frame(100/base_velocidad); end
 			end
 		end
-	Frame(2000);
+	Frame(2000/base_velocidad);
 	End
 End
 
@@ -373,8 +374,8 @@ Begin
 		else
 			if(intparpadeo==1) 
 				graph=exgraph;
-				from alpha=255 to 0 step -3; frame; end
-				from alpha=0 to 255 step 3; frame; end
+				from alpha=255 to 0 step -3; frame(100/base_velocidad); end
+				from alpha=0 to 255 step 3; frame(100/base_velocidad); end
 			end
 		end
 	Frame(2000);
@@ -405,7 +406,7 @@ Begin
 		grafico(400,262,1,2,0,0);
 	End
 	Loop
-		Frame;
+		frame(100/base_velocidad);
 	End
 End
 
@@ -433,7 +434,7 @@ Begin
 		if(panoramico)
 			size_x=size_x/2;
 		end
-		Frame;
+		frame(100/base_velocidad);
 	End
 End
 
@@ -446,7 +447,7 @@ Begin
 	/*If(cancion==-1)
 		if(is_playing_song()) 
 			fade_music_off(250);
-			while(is_playing_song()) frame; end
+			while(is_playing_song()) frame(100/base_velocidad); end
 		end
 		if(cancion_cargada>0) unload_song(cancion_cargada); end
 		cancion_cargada=0;
@@ -511,7 +512,7 @@ Begin
 			If(p[i].vidas>99) p[i].vidas=99; End
 			z=-1;
 		end
-		Frame;
+		frame(100/base_velocidad);
 	End
 End
 
@@ -567,7 +568,7 @@ Begin
 				end
 			end
 		end
-		Frame;
+		frame(100/base_velocidad);
 	End
 End
 
@@ -580,7 +581,7 @@ Begin
      id_textuales[0]=write(fnt2,694,48,2,"x");
      id_textuales[1]=write_int(fnt2,664,48,2,OFFSET contaor);
     While(!vidajefefuera)
-	Frame;
+	frame(100/base_velocidad);
     End
     delete_text(id_textuales[0]);
     delete_text(id_textuales[1]);
@@ -595,11 +596,11 @@ Begin
 	x=850;
 	vidajefefuera=0;
 	While(!vidajefefuera)
-		If(x>750) x-=2; Frame; End
-		Frame;
+		If(x>750) x-=2; frame(100/base_velocidad); End
+		frame(100/base_velocidad);
 	End
-	While(x<850) x+=2; Frame; End
-	Frame;
+	While(x<850) x+=2; frame(100/base_velocidad); End
+	frame(100/base_velocidad);
 End
 
 
@@ -609,7 +610,7 @@ Begin
 		If(animglobal<60) animglobal++;
 			Else animglobal=0;
 		End
-		Frame;
+		frame(100/base_velocidad);
 	End
 End
 
@@ -652,7 +653,7 @@ Begin
 		segundos=segs/60;
 		If(segundos<21 AND prisa==0) prisa=1; hayprisa(); End
 		If(segs<1) break; End
-		Frame;
+		frame(100/base_velocidad);
 	End
 	p[1].muere=1;
 	p[2].muere=1;
@@ -696,7 +697,7 @@ Begin
 		If(p[1].arma==4)
 			graph=413;
 		End
-		Frame;
+		frame(100/base_velocidad);
 	End
 End
 
@@ -722,7 +723,7 @@ Begin
 		If(p[2].arma==4)
 			graph=413;
 		End
-		Frame;
+		frame(100/base_velocidad);
 	End
 End
 
@@ -743,11 +744,11 @@ Begin
 		If(ready==1) 
 			secs--;
 		else
-			while(ready==0) frame; end
+			while(ready==0) frame(100/base_velocidad); end
 		End
 		segundox=secs/60;
 		If(segundox<2) parpadea=1; End
-		Frame;
+		frame(100/base_velocidad);
 	End
 	delete_text(rolex); 
 	reloj=0; parpadea=0;
@@ -775,9 +776,9 @@ Begin
 		else
 			if(rolling>0) rolling--; else algo=false; end
 		end
-		frame;
+		frame(100/base_velocidad);
 	end
-	from alpha=255 to 0 step -5; frame; end
+	from alpha=255 to 0 step -5; frame(100/base_velocidad); end
 End
 
 Process estrella();
@@ -818,10 +819,10 @@ Begin
 		if(ready==1) 
 			tiempo_estrella--;
 			else
-			while(ready==0) frame; end		 
+			while(ready==0) frame(100/base_velocidad); end		 
 		end
 		segundox=tiempo_estrella/60;
-		frame;
+		frame(100/base_velocidad);
 	end
 	delete_text(rolex);
 	suena(12);
@@ -850,14 +851,14 @@ Begin
 		size_x=100+(rolling/6);
 		size_y=100-(rolling/4);
 		angle+=5000;
-		frame;
+		frame(100/base_velocidad);
 		if(algo==false)
 			if(rolling<100) rolling++; else algo=true; end
 		else
 			if(rolling>0) rolling--; else algo=false; end
 		end
 	end
-	from alpha=255 to 0 step -5; frame; end
+	from alpha=255 to 0 step -5; frame(100/base_velocidad); end
 End
 
 Process ganar();
@@ -873,8 +874,8 @@ Begin
 	musica(20);
 	stage_clear();
 	timer[5]=0;
-	if(modo_juego==2) frame(15000); faderaro(-2); end
-	While(modo_juego!=2 and timer[5]<500) Frame; End
+	if(modo_juego==2) frame(15000/base_velocidad); faderaro(-2); end
+	While(modo_juego!=2 and timer[5]<500) frame(100/base_velocidad); End
 	If(modo_juego==1 OR modo_juego==3)
 		faderaro(img_pixpang);
 		let_me_alone();
@@ -918,7 +919,7 @@ Begin
 		End
 		write_int(fnt1,660,323,4,OFFSET p[2].bolas); 
 	End
-	While(ganando==1) Frame; End
+	While(ganando==1) frame(100/base_velocidad); End
 End
 
 Process stage_clear();
@@ -928,10 +929,10 @@ Begin
 	file=fpg_lang;
 	graph=414;
 	if(ops.op_sombras)
-		from alpha=0 to 255 step 5; frame; end
+		from alpha=0 to 255 step 5; frame(100/base_velocidad); end
 	end
 	While(ganando==1)
-		Frame;
+		frame(100/base_velocidad);
 	End
 End
 
@@ -943,7 +944,7 @@ Begin
 	size_x=father.size_x;
 	size_y=father.size_y;
 	angle=father.angle;
-	Frame;
+	frame(100/base_velocidad);
 	sombra2(graph,x,y,flags);
 End
 
@@ -966,13 +967,13 @@ Begin
 	if(relojarena==1) return; else relojarena=1; end
 	velocidad_antes=velocidad;
 	suena(13);
-	From velocidad=velocidad_antes To velocidad_antes*2 Step 5; Frame; End
+	From velocidad=velocidad_antes To velocidad_antes*2 Step 5; frame(100/base_velocidad); End
 	While(cont_arena<200)
 		cont_arena++;
-		Frame;
+		frame(100/base_velocidad);
 	End
 	suena(14);
-	From velocidad=velocidad_antes*2 To velocidad_antes Step -5; Frame; End
+	From velocidad=velocidad_antes*2 To velocidad_antes Step -5; frame(100/base_velocidad); End
 	relojarena=0;
 End
 
@@ -1009,7 +1010,7 @@ Begin
 			If(ops.op_sombras==1) dump_type=1; restore_type=1; End
 			While(alpha<255	AND ops.op_sombras==1)
 				alpha+=15;
-				Frame;
+				frame(100/base_velocidad);
 			End
 			dump_type=0;
 			restore_type=0;
@@ -1017,7 +1018,7 @@ Begin
 			cambiado=1; 
 			graph=borrar;
 		End
-		Frame;
+		frame(100/base_velocidad);
 	End
 End
 
@@ -1026,7 +1027,7 @@ begin
 	pon_fondo(fondotemporal);
 	loop
 		cont=((p[1].bolas+p[2].bolas)/50)+1;
-		frame;
+		frame(100/base_velocidad);
 	end
 end
 
@@ -1063,7 +1064,7 @@ Begin
 	//If(mundo=>100 AND mod_custom==1) png_fond=load_image(".\custom\fondos\"+itoa(mundo-99)+".jpg"); End
 	If(png_fond<1) png_fond=load_image("fondos/"+rand(1,42)+".jpg"); End
 	pon_fondo(png_fond);
-	Frame;
+	frame(100/base_velocidad);
 End
 
 Process pon_fondo(el_png);
@@ -1072,7 +1073,7 @@ Begin
     z=512;
     x=400;
     graph=el_png;
-    Frame;
+    frame(100/base_velocidad);
     Loop
         Frame(4000)	;
     End
@@ -1084,7 +1085,7 @@ Begin
 	p[1].bonus=0;
 	p[2].puntos+=p[2].bonus;
 	p[2].bonus=0;
-	//frame;
+	//frame(100/base_velocidad);
 	let_me_alone();
 	//faderaro(0);
 	if(modo_juego==2) faderaro(-1); end
@@ -1113,7 +1114,7 @@ Begin
 	clear_screen();
 	cont=0; // contador fondos
 	timer[9]=0;
-	While(timer[9]<150) Frame; End
+	While(timer[9]<150) frame(100/base_velocidad); End
 	p[1].disparos[1]=0; p[1].disparos[2]=0; // reinicia p[1].disparos
 	p[2].disparos[1]=0; p[2].disparos[2]=0; // reinicia p[2].disparos
 	bolas=0; // indica q no hay bolas en pantalla
@@ -1138,7 +1139,7 @@ Begin
 	marcadores();
 	timer[9]=0;
 	jugar();
-	While(timer[9]<70) Frame; End
+	While(timer[9]<70) frame(100/base_velocidad); End
 	if(modo_juego==2) tiempo_nivel(pantalla.btime); end
 	if(jefe==0) readyando(); else
 		switch(jefe)
@@ -1177,7 +1178,7 @@ Begin
 	p[1].puntos=0;
 	p[2].puntos=0;
 	guardar_partida();
-	While(timer[9]<100) Frame; End
+	While(timer[9]<100) frame(100/base_velocidad); End
 	transicion=0;
 	p[1].muere=0;
 	p[2].muere=0;
@@ -1185,7 +1186,7 @@ Begin
 	put_screen(fpg_menu2,4);
 	musica(18);
 	timer[9]=0;
-	While(timer[9]<500 AND !p[0].botones[4]) Frame; end
+	While(timer[9]<500 AND !p[0].botones[4]) frame(100/base_velocidad); end
 	modo_juego=0;
 	menu();
 End
@@ -1195,11 +1196,11 @@ Begin
 	If(ops.op_sombras==1) alpha=0; End
 	While(!key(_enter))
 		If(alpha<250 AND ops.op_sombras==1) alpha+=5; End
-		Frame;
+		frame(100/base_velocidad);
 	End
 	While(alpha>10 AND ops.op_sombras==1)
 		alpha-=5;
-		Frame;
+		frame(100/base_velocidad);
 	End
 End
 
@@ -1216,7 +1217,7 @@ Begin
 		    graph=415;
 			ready=0;
 		    if(animglobal<30 AND timer[9]>100) graph=borrar; End
-		    Frame;
+		    frame(100/base_velocidad);
 		End
 		If(modo_juego==2 and jefe==0)
 			musica(0);
@@ -1227,17 +1228,17 @@ Begin
 		file=fpg_lang;
 		graph=415;
 		ready=0;
-		from alpha=0 to 255 step 7; frame; end
-		from alpha=255 to 0 step -7; frame; end
-		from alpha=0 to 255 step 7; frame; end
-		from alpha=255 to 0 step -7; frame; end
-		from alpha=0 to 255 step 10; frame; end
+		from alpha=0 to 255 step 7; frame(100/base_velocidad); end
+		from alpha=255 to 0 step -7; frame(100/base_velocidad); end
+		from alpha=0 to 255 step 7; frame(100/base_velocidad); end
+		from alpha=255 to 0 step -7; frame(100/base_velocidad); end
+		from alpha=0 to 255 step 10; frame(100/base_velocidad); end
 		Frame(2000);
 		If(modo_juego==2 and jefe==0)
 			musica(0);
 		end
 		ready=1;
-		from alpha=255 to 0 step -10; size++; frame; end
+		from alpha=255 to 0 step -10; size++; frame(100/base_velocidad); end
 	End
 End
 
@@ -1338,7 +1339,7 @@ Process pa_largar();
 Begin
 	Loop
 		If(key(_alt) AND key(_x)) exit(0,0); End
-		Frame;
+		frame(100/base_velocidad);
 	End
 End
 
@@ -1347,7 +1348,7 @@ Begin
 	graph=438;
 	alpha=0;
 	loop
-		frame;
+		frame(100/base_velocidad);
 	end
 End
 
@@ -1365,7 +1366,7 @@ Begin
 	time_puesto=90;
 	z=-3;
 	raton=1;
-	frame;
+	frame(100/base_velocidad);
 	write_int(fnt1,0,0,0,OFFSET cont_bloque);
 	write_int(fnt1,450,539,4,OFFSET time_puesto);
 	write_int(fnt1,800,0,2,OFFSET regalo);
@@ -1373,10 +1374,10 @@ Begin
 		If(x<400) lado_bola=0; Else lado_bola=1; End
 		x=mouse.x;
 		y=mouse.y;
-		If(key(_down) AND time_puesto>40) time_puesto-=10; While(key(_down)) Frame; End End
-		If(key(_up) AND time_puesto<250) time_puesto+=10; While(key(_up)) Frame; End End
-		if(key(_left) and regalo>0) While(key(_left)) Frame; End regalo--; end
-		if(key(_right) and regalo<11) While(key(_right)) Frame; End regalo++; end
+		If(key(_down) AND time_puesto>40) time_puesto-=10; While(key(_down)) frame(100/base_velocidad); End End
+		If(key(_up) AND time_puesto<250) time_puesto+=10; While(key(_up)) frame(100/base_velocidad); End End
+		if(key(_left) and regalo>0) While(key(_left)) frame(100/base_velocidad); End regalo--; end
+		if(key(_right) and regalo<11) While(key(_right)) frame(100/base_velocidad); End regalo++; end
 		//regalo=rand(0,13);
 		If(tipo<110 or tipo>113) size=100; End
 		If(tipo==1)graph=427; End
@@ -1415,15 +1416,15 @@ Begin
 		if(tipo==122) graph=726; end
 
 		If(key(_space)) 
-			While(key(_space)) Frame; End 
+			While(key(_space)) frame(100/base_velocidad); End 
 			If(bloque_o_bola==1) 
 				tipo=101; bloque_o_bola=0; 
 			Else 
 				bloque_o_bola=1; tipo=1; 
 			End 
 		End
-		If(key(_z) AND cont_bloque=>0) signal(ids_graficos[cont_bloque],s_kill); cont_bloque--; While(key(_z)) Frame; End End
-		If(mouse.right==1) If((tipo<12 AND bloque_o_bola==1) OR (tipo<122 AND bloque_o_bola==0)) tipo++; Else If(bloque_o_bola==1) tipo=1; Else tipo=101; End End While(mouse.right==1) Frame; End End
+		If(key(_z) AND cont_bloque=>0) signal(ids_graficos[cont_bloque],s_kill); cont_bloque--; While(key(_z)) frame(100/base_velocidad); End End
+		If(mouse.right==1) If((tipo<12 AND bloque_o_bola==1) OR (tipo<122 AND bloque_o_bola==0)) tipo++; Else If(bloque_o_bola==1) tipo=1; Else tipo=101; End End While(mouse.right==1) frame(100/base_velocidad); End End
 		If(mouse.left==1) 
 			If(tipo<100) 
 				ids_graficos[cont_bloque]=bloques(x,y,regalo,tipo); 
@@ -1435,11 +1436,11 @@ Begin
 			pantalla.btipo[cont_bloque]=tipo;
 			pantalla.br[cont_bloque]=regalo;
 			cont_bloque++;
-			While(mouse.left==1) Frame; End 
+			While(mouse.left==1) frame(100/base_velocidad); End 
 		End
 		pantalla.btime=time_puesto;
 		If(cont_bloque==200) Break; End
-		Frame;
+		frame(100/base_velocidad);
 	End
 	raton=0;
 End
@@ -1474,7 +1475,7 @@ Begin
 		If(tipo<100) bloques(x,y,regalo,tipo); Else bola(x,y,tipo-100,lado_bola); End
 		cont_bloque++;
 	End
-	frame;
+	frame(100/base_velocidad);
 	//save_png(0,mapadurezas,"c:\nivel.png");
 	time_puesto=pantalla.btime;
 	p[1].muere=0; 
@@ -1493,7 +1494,7 @@ Begin
 	y=466;
 	z=1;
 	Loop
-		While(ready==0 OR reloj==1) Frame; End
+		While(ready==0 OR reloj==1) frame(100/base_velocidad); End
 		If(ganando==1) Break; End
 		If(animglobal<15) graph=312; End
 		If(animglobal=>15 AND animglobal<30) graph=311; End
@@ -1514,7 +1515,7 @@ Begin
 			end
 			break; 
 		end
-		Frame;
+		frame(100/base_velocidad);
 	End
 	grav=rand(100,200);
 	While(y<480)
@@ -1525,7 +1526,7 @@ Begin
 		If(x=<45) flags=0; End
 		grav-=5;
 		y-=grav/10;
-		Frame;
+		frame(100/base_velocidad);
 	End
 	cocos--;
 End
@@ -1545,7 +1546,7 @@ Begin
 	y_destino_final=rand(100,400);
 	Loop
 		flags=lado;
-		While(ready==0 OR reloj==1) Frame; End
+		While(ready==0 OR reloj==1) frame(100/base_velocidad); End
 		While(y<y_destino AND y<y_destino_final AND !collision(Type bola))
 			inercia+=3;
 			y+=inercia/2; 
@@ -1562,7 +1563,7 @@ Begin
 			If(animglobal>44 AND animglobal<60) 
 				graph=301; 
 			End
-			Frame(400);
+			Frame(400/base_velocidad);
 		End
 		inercia=0;
 		if(lado==1) x++; else x--; end
@@ -1581,7 +1582,7 @@ Begin
 					If(animglobal>44 AND animglobal<60) 
 						graph=301; 
 					End
-					Frame; 
+					frame(100/base_velocidad); 
 				End 
 
 			Else 
@@ -1598,7 +1599,7 @@ Begin
 					If(animglobal>44 AND animglobal<60) 
 						graph=301; 
 					End
-					Frame;
+					frame(100/base_velocidad);
 				End
 			End
 			cocos--; 
@@ -1615,14 +1616,14 @@ Begin
 		End
 		if(id_col=collision(type disparos)) id_col.accion=-1; break; end
 
-		Frame;
+		frame(100/base_velocidad);
 	End
 	cocos--;
 	While(size>0)
 		size-=5;
 		alpha-=10;
 		angle+=25000;
-		Frame;
+		frame(100/base_velocidad);
 	End
 End
 
@@ -1644,17 +1645,17 @@ Begin
 	If(ops.op_sombras==1) alpha=0; End
 	While(alpha<255 and transicion==1 and nosubida==0)
 		alpha+=15;
-		Frame;
+		frame(100/base_velocidad);
 	End
 	alpha=255;
-	While(transicion==1) Frame; End
+	While(transicion==1) frame(100/base_velocidad); End
 	if(rand(0,1)==0)
 		While(alpha>15 AND ops.op_sombras==1)
 			alpha-=15;
-			Frame;
+			frame(100/base_velocidad);
 		End
 	else
-		set_center(0,graph,800,0); x=800; y=0; loop grav++; angle+=grav*1000; if(angle>90000) break; end frame;	end
+		set_center(0,graph,800,0); x=800; y=0; loop grav++; angle+=grav*1000; if(angle>90000) break; end frame(100/base_velocidad);	end
 	end
 	
 	if(graph==screenshot and graph!=0)
@@ -1668,7 +1669,7 @@ Begin
 	graph=429;
 	z=3;
 	Loop
-		Frame;
+		frame(100/base_velocidad);
 	End
 End
 
@@ -1729,15 +1730,15 @@ begin
 	z=-10;
 	controlador(0);
 	from alpha=50 to 255 step 5; 
-		if(p[0].botones[7]) while(p[0].botones[7]) frame; end break; end
-		frame; 
+		if(p[0].botones[7]) while(p[0].botones[7]) frame(100/base_velocidad); end break; end
+		frame(100/base_velocidad); 
 	end
 	timer[0]=0;
-	while(timer[0]<300) if(scan_code!=0) break; end frame; end
-	while(scan_code!=0) frame; end
+	while(timer[0]<300) if(scan_code!=0) break; end frame(100/base_velocidad); end
+	while(scan_code!=0) frame(100/base_velocidad); end
 	menu();
 	from alpha=alpha to 0 step -10;
-		frame; 
+		frame(100/base_velocidad); 
 	end
 end
 
@@ -1786,7 +1787,7 @@ Begin
 		x-=5;
 		Set_text_color(color_texto[0]);
 		txt_fondos[0]=write(fnt1,x,y,0,creador);
-		Frame;
+		frame(100/base_velocidad);
 		delete_text(txt_fondos[0]);
 	End
 	timr=0;
@@ -1794,14 +1795,14 @@ Begin
 		timr++;
 		Set_text_color(color_texto[0]);
 		txt_fondos[0]=write(fnt1,x,y,0,creador);
-		Frame;
+		frame(100/base_velocidad);
 		delete_text(txt_fondos[0]);
 	End
 	While(x>-300)
 		x-=5;
 		Set_text_color(color_texto[0]);
 		txt_fondos[0]=write(fnt1,x,y,0,creador);
-		Frame;
+		frame(100/base_velocidad);
 		delete_text(txt_fondos[0]);
 	End
 	delete_text(txt_fondos[0]);
@@ -1842,7 +1843,7 @@ Begin
 			If(key(_m) AND raton==0) coloca_raton(); End
 			If(key(_x)) matabolas=1; Else matabolas=0; End
 			If(key(_r) AND reloj==0) reloj=1; itemreloj(5); End
-			if(key(_e) and p[1].estrella==0) while(key(_e)) frame; end estrella(); end
+			if(key(_e) and p[1].estrella==0) while(key(_e)) frame(100/base_velocidad); end estrella(); end
 			If(key(_c)) cocodrilo(rand(0,1)); End
 			If(key(_v)) volador(); End
 			If(key(_n)) nube(); End
@@ -1903,20 +1904,20 @@ Begin
 			End
 		else //tour mode
 			if(cheto_avaricioso) if(avaricioso<20) avaricioso++; else cocodrilo(rand(0,1)); avaricioso=0; end end
-			If(players==1 AND p[2].botones[4]) players=3; suena(6); p[2].vidas=10; faderaro(-2); frame; inicio(); End
-			If(players==2 AND p[1].botones[4]) players=3; suena(6); p[1].vidas=10; faderaro(-2); frame; inicio(); End
+			If(players==1 AND p[2].botones[4]) players=3; suena(6); p[2].vidas=10; faderaro(-2); frame(100/base_velocidad); inicio(); End
+			If(players==2 AND p[1].botones[4]) players=3; suena(6); p[1].vidas=10; faderaro(-2); frame(100/base_velocidad); inicio(); End
 			If(bolas==0 AND ready==1 and jefe==0) ganar(); Break; End
 			If(cocos<3 and rand(0,2000)==0 and jefe==0) If(rand(0,1)==0) cocodrilo(rand(0,1)); Else volador(); End End
 			If(players==3)
-				If(p[1].muere==2 AND p[2].muere==2 AND (p[1].vidas=>0 OR p[2].vidas=>0) AND iniciando==0) musica(-1); faderaro(-2); frame; inicio(); End
+				If(p[1].muere==2 AND p[2].muere==2 AND (p[1].vidas=>0 OR p[2].vidas=>0) AND iniciando==0) musica(-1); faderaro(-2); frame(100/base_velocidad); inicio(); End
 				If(p[1].muere==2 AND p[1].vidas<0 AND p[2].muere==2 AND p[2].vidas<0) gameover(); End
 			End
 			If(players==2)
-				If(p[2].muere==2 AND p[2].vidas=>0 AND iniciando==0) musica(-1); faderaro(-2); frame; inicio(); End
+				If(p[2].muere==2 AND p[2].vidas=>0 AND iniciando==0) musica(-1); faderaro(-2); frame(100/base_velocidad); inicio(); End
 				If(p[2].muere==2 AND p[2].vidas<0) gameover(); End
 			End
 			If(players==1)
-				If(p[1].muere==2 AND p[1].vidas=>0 AND iniciando==0) musica(-1); faderaro(-2); frame; inicio(); End
+				If(p[1].muere==2 AND p[1].vidas=>0 AND iniciando==0) musica(-1); faderaro(-2); frame(100/base_velocidad); inicio(); End
 				If(p[1].muere==2 AND p[1].vidas<0) gameover(); End
 			End
 			If(relojarena==0) 
@@ -1942,9 +1943,9 @@ Begin
 
 		end
 		If(key(_d) AND key(_b) AND key(_g)) pixel_mola=1; End
-//		If(p[0].botones[7]) while(p[0].botones[7]) frame; end menu(); end
+//		If(p[0].botones[7]) while(p[0].botones[7]) frame(100/base_velocidad); end menu(); end
 		If(p[0].botones[7] and ready==1)
-			while(p[0].botones[7]) frame; end
+			while(p[0].botones[7]) frame(100/base_velocidad); end
 			#IFDEF OUYA
 				if(ops.lenguaje==0)
 					txt_pausa[1]=write(fnt2,400,270,4,"PAUSA");
@@ -1966,10 +1967,10 @@ Begin
 			ready=0;
 			frame(3000);
 			while(!p[0].botones[b_salir])
-				if(p[0].botones[b_3])	while(p[0].botones[3]) frame; end menu(); end
-				frame; 
+				if(p[0].botones[b_3])	while(p[0].botones[3]) frame(100/base_velocidad); end menu(); end
+				frame(100/base_velocidad); 
 			end
-			while(p[0].botones[7]) frame; end
+			while(p[0].botones[7]) frame(100/base_velocidad); end
 			delete_text(txt_pausa[1]);
 			delete_text(txt_pausa[2]);
 			suena(2);
@@ -1978,7 +1979,7 @@ Begin
 
 		If(key(_alt) AND key(_x)) exit(0,0); End
 		If(zbolas<-200) zbolas=-1; End
-		Frame;
+		frame(100/base_velocidad);
 	End
 End
 
@@ -2005,7 +2006,7 @@ Begin
 	graph=write_in_map(fnt1,"Level    "+itoa(mundo+1),4);
 	x=400;
 	y=90;
-	from alpha=0 to 255 step 10; frame; end
+	from alpha=0 to 255 step 10; frame(100/base_velocidad); end
 	frame(15000);
-	from alpha=255 to 0 step -10; frame; end
+	from alpha=255 to 0 step -10; frame(100/base_velocidad); end
 End

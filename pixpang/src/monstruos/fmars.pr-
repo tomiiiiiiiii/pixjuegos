@@ -24,7 +24,7 @@ Begin
 	fmars_bichos=24;
 	readyando();
 	while(bolas>0) 
-		frame; 
+		frame(100/base_velocidad); 
 		if(fmars_dire==0);
 			fmars_xmoverse=-2;
 		end
@@ -66,7 +66,7 @@ begin
 	size=130;
 	y_base=y;
 	Loop
-		while(ready==0) frame; end
+		while(ready==0) frame(100/base_velocidad); end
 		frame(20+(fmars_bichos*5));
 		y=y_base+fmars_ybase;
 		if(vez==2) vez=1; end
@@ -136,9 +136,9 @@ begin
 	size=120;
 	file=father.file;
 	for(alto=0;alto<12;alto++)
-		while(ready==0) frame; end
+		while(ready==0) frame(100/base_velocidad); end
 		graph=300+alto;
-		frame;
+		frame(100/base_velocidad);
 	end
 end
 
@@ -166,11 +166,11 @@ begin
 	end
 	alpha=180;
 	while(!collision(type grafico))
-		while(ready==0) frame; end
+		while(ready==0) frame(100/base_velocidad); end
 		y+=4;
 		angle+=20000;
 		//if(id_col=collision(type muneco)) p[id_col.jugador].muere=1; end
-		frame;
+		frame(100/base_velocidad);
 	end
 	switch(alto)
 		case 1:

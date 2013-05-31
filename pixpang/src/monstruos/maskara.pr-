@@ -35,24 +35,24 @@ Begin
 	id_manod=mano(1);
 	bola(350,200,4,0);
 	bola(450,200,9,1);
-	frame;
+	frame(100/base_velocidad);
 
 	a=ondular(x,y,z,1,file,256,10000,10000);
 
-	from tiempo=0 to 255; a.alpha=tiempo; frame; end
+	from tiempo=0 to 255; a.alpha=tiempo; frame(100/base_velocidad); end
 
 	signal(a,s_kill);
 
 	graph=1;
 	readyando();
-	while(ready==0) frame; end
+	while(ready==0) frame(100/base_velocidad); end
 	while(contaor>0)
 
 		velocidad=400;	
 
 		id_vidajefe.graph=graph;
 
-		while(ready==0) frame; end
+		while(ready==0) frame(100/base_velocidad); end
 
 		if(contaor<5) x=400+get_distx(angulo,200); angulo+=1000; a++; end
 		
@@ -93,7 +93,7 @@ Begin
 			if(a>1) a=0; end
 			alpha=128;
 			id_vidajefe.graph=graph;
-			while(ready==0) frame; end
+			while(ready==0) frame(100/base_velocidad); end
 			if(x<400) x++; end
 			if(x>400) x--; end
 			if(id_manod.x==490 and id_manod.y==250 and id_manoi.x==310 and id_manoi.y==250 and x==400)
@@ -102,11 +102,11 @@ Begin
 					tiempo++; 
 				end
 			end
-			frame;
+			frame(100/base_velocidad);
 			angulo=90000;
 		end
 		alpha=255;
-		frame;
+		frame(100/base_velocidad);
 	end
 	graph=6;
 	id_vidajefe.graph=graph;
@@ -117,8 +117,8 @@ Begin
 		x=x1+rand(-10,+10);
 		y=y1+rand(-10,+10);
 		sombra2(graph,x,y,flags);
-		while(ready==0 or reloj==1) frame; end
-		frame;
+		while(ready==0 or reloj==1) frame(100/base_velocidad); end
+		frame(100/base_velocidad);
 	end
 	graph=0;
 	vidajefefuera=1;
@@ -145,7 +145,7 @@ Begin
 	bola(x1+10,y1+10,21,1);
 	bola(x1+10,y1+20,22,1);
 
-	while(bolas>0) frame; end	//espera hasta que no hayan bolas y sale
+	while(bolas>0) frame(100/base_velocidad); end	//espera hasta que no hayan bolas y sale
 	jefe=0;
 	signal(id_fondo,s_kill);
 	if(modo_juego==1) fondos_panic(); end
@@ -177,7 +177,7 @@ begin
 		id_bloque.y=y;
 		id_bloque.size_x=80;
 		id_bloque.alpha=0;
-		while(ready==0) frame; end
+		while(ready==0) frame(100/base_velocidad); end
 			if(lao==0)
 				id_bloque.angle=angle+45000;
 			else
@@ -237,7 +237,7 @@ begin
 		end
 
 		while(tiempo<120)
-			while(ready==0) frame; end
+			while(ready==0) frame(100/base_velocidad); end
 			tiempo++;
 			x=x1+rand(-5,+5);
 			y=y1+rand(-5,+5);
@@ -260,11 +260,11 @@ begin
 			else
 				id_bloque.angle=angle-45000;
 			end
-			frame;
+			frame(100/base_velocidad);
 		end
 		
 		while(father.alpha==128 and contaor>0)
-			while(ready==0) frame; end
+			while(ready==0) frame(100/base_velocidad); end
 			id_col=0;
 			id_col=collision(type disparos);
 			
@@ -285,7 +285,7 @@ begin
 				if(x<490) x++; end
 				if(x>490) x--; end
 			end
-			frame;
+			frame(100/base_velocidad);
 			angulo=90000;
 			id_bloque.x=x;
 			id_bloque.y=y;
@@ -296,7 +296,7 @@ begin
 			end	
 		end
 		if(contaor==0) trozo(graph,x,y,lao+2); signal(id_bloque,s_kill); break; end
-		frame;
+		frame(100/base_velocidad);
 	end
 end
 
@@ -310,7 +310,7 @@ begin
 	if(contaor==4)
 		graph=715;
 			from alpha=0 to 255;
-				while(ready==0) frame; end
+				while(ready==0) frame(100/base_velocidad); end
 				id_col=0;
 				id_col=collision(type disparos);
 				
@@ -324,14 +324,14 @@ begin
 				if(contaor==3)
 					signal(id,s_kill);
 				end
-				frame; 
+				frame(100/base_velocidad); 
 			end
 		bola(father.x,250,8,1);
 	end
 	if(contaor==3)
 		graph=801;
 			from alpha=0 to 255;
-			while(ready==0) frame; end
+			while(ready==0) frame(100/base_velocidad); end
 				id_col=0;
 				id_col=collision(type disparos);
 				
@@ -341,13 +341,13 @@ begin
 				if(id_col!=0)
 					id_col.accion=-1;
 				end
-				frame;
+				frame(100/base_velocidad);
 			end
 		bola(400,250,12,1); end
 	if(contaor==2)
 		graph=703;
 			from alpha=0 to 255;
-				while(ready==0) frame; end
+				while(ready==0) frame(100/base_velocidad); end
 				id_col=0;
 				id_col=collision(type disparos);
 				
@@ -357,13 +357,13 @@ begin
 				if(id_col!=0)
 					id_col.accion=-1;
 				end
-				frame;
+				frame(100/base_velocidad);
 			end	
 		bola(400,250,3,1); end
 	if(contaor==1)
 		graph=704;
 			from alpha=0 to 255;
-				while(ready==0) frame; end
+				while(ready==0) frame(100/base_velocidad); end
 				id_col=0;
 				id_col=collision(type disparos);
 				
@@ -373,11 +373,11 @@ begin
 				if(id_col!=0)
 					id_col.accion=-1;
 				end
-				frame;
+				frame(100/base_velocidad);
 			end	
 		bola(400,250,4,1); end
 	
-	frame;
+	frame(100/base_velocidad);
 end
 
 Process trozo(graph,x,y,direccion);
@@ -409,8 +409,8 @@ begin
 		if(direccion<3) angle-=20000; else angle+=20000; end
 		velocidadtrozo++;
 		sombra2(graph,x,y,flags);
-		while(ready==0 or reloj==1) frame; end
-		frame;
+		while(ready==0 or reloj==1) frame(100/base_velocidad); end
+		frame(100/base_velocidad);
 	end
 end
 
@@ -433,7 +433,7 @@ begin
 		if(radio>1) radio--; end
 		if(angulo>360000) angulo=0; end
 		if(desfase>360000) desfase=0; end
-		frame;
+		frame(100/base_velocidad);
 		unload_map(0,graph);
 	end
 end

@@ -36,7 +36,7 @@ begin
 	jefe=0;
 	file=fpg_menu;
 	let_me_alone();
-	frame;
+	frame(100/base_velocidad);
 	controlador(0);
 	ready=1;
 	if(!is_playing_song()) musica(4); end
@@ -50,22 +50,22 @@ begin
 	
 	if(arcade_mode)
 		write(fnt2,400,300,4,"Pulsa el boton 2 para jugar");
-		while(p[0].botones[b_2]) frame; end
+		while(p[0].botones[b_2]) frame(100/base_velocidad); end
 		while(!p[0].botones[b_2]) 
 			if(p[0].botones[b_salir]) exit(); end
-			frame; 
+			frame(100/base_velocidad); 
 		end
-		while(p[0].botones[b_2]) frame; end
+		while(p[0].botones[b_2]) frame(100/base_velocidad); end
 		
 		delete_text(all_text);
 		file=fpg_menu2;
 		graph=6;
-		while(p[0].botones[b_2]) frame; end
+		while(p[0].botones[b_2]) frame(100/base_velocidad); end
 		while(!p[0].botones[b_2])
 			if(p[0].botones[b_salir]) exit(); end
-			frame; 
+			frame(100/base_velocidad); 
 		end
-		while(p[0].botones[b_2]) frame; end
+		while(p[0].botones[b_2]) frame(100/base_velocidad); end
 		
 		//ayuda?
 		delete_text(all_text);
@@ -76,13 +76,13 @@ begin
 	logo(2);
 	elecc=0;
 	lista(3);
-	frame;
+	frame(100/base_velocidad);
 	
 	machango();
 	from i=0 to 20;
 		elep();
 	end
-	frame;
+	frame(100/base_velocidad);
 	if(file_exists(savegamedir+"partida.dat")); continuable=1; end
 	graph=1;
 	x=400;
@@ -101,7 +101,7 @@ begin
 		//elige algo
 		if(key(_c)) chetos(); return; end
 		if(p[0].botones[b_aceptar] and keytime==0)
-			while(p[0].botones[b_aceptar]) frame; end
+			while(p[0].botones[b_aceptar]) frame(100/base_velocidad); end
 			if(ops.op_sonido==1)
 				suena(3);
 			end
@@ -170,7 +170,7 @@ begin
 		else
 			tec2=0;
 		end
-		frame;
+		frame(100/base_velocidad);
 	end
 end
 
@@ -242,7 +242,7 @@ begin
 		if(elecc==1)
 			idlogo.graph=305;
 		end
-		frame;
+		frame(100/base_velocidad);
 	end
 end
 
@@ -314,7 +314,7 @@ begin
 		if(elecc==1)
 			idlogo.graph=305;
 		end
-		frame;
+		frame(100/base_velocidad);
 	end
 end
 
@@ -389,7 +389,7 @@ begin
 		if(elecc==1)
 			idlogo.graph=110;
 		end
-		frame;
+		frame(100/base_velocidad);
 	end
 end
 
@@ -405,7 +405,7 @@ begin
 	z=-10;
 	loop
 		x+=(x-200)/-10;
-		frame;
+		frame(100/base_velocidad);
 	end
 end
 
@@ -421,7 +421,7 @@ begin
 	z=-10;
 	loop
 		x+=(x-500)/-10;
-		frame;
+		frame(100/base_velocidad);
 	end
 end
 
@@ -440,7 +440,7 @@ begin
 		end
 		x+=(x-ox)/-10;
 		y+=(y-oy)/-10;
-		frame;
+		frame(100/base_velocidad);
 	end
 end
 
@@ -474,7 +474,7 @@ begin
 			y=415;
 		end	
 		y+=60;
-		frame;
+		frame(100/base_velocidad);
 	end
 end
 
@@ -493,7 +493,7 @@ begin
 	z=50;
 	keytime=10;
 	controlador(0);	
-	while(p[0].botones[b_aceptar]) frame; end
+	while(p[0].botones[b_aceptar]) frame(100/base_velocidad); end
 	loop
 		if(p[0].botones[b_cancelar] or (graph==200 and p[0].botones[b_aceptar]))
 			suena(1);
@@ -518,14 +518,14 @@ begin
 			end
 		end
 		//ayuda y tal
-		frame;
+		frame(100/base_velocidad);
 	end
 end
 
 process ponimgn(x,y,size,graph,file);
 begin
 	z=-50;
-	frame;
+	frame(100/base_velocidad);
 end
 
 process opcion();
@@ -640,7 +640,7 @@ begin
 		if(elecc==-1)
 			elecc=3;
 		end
-		frame;
+		frame(100/base_velocidad);
 	end
 end
 
@@ -704,7 +704,7 @@ begin
 		if(elecc==-1)
 			elecc=1;
 		end
-		frame;
+		frame(100/base_velocidad);
 	end
 end
 
@@ -799,7 +799,7 @@ begin
 		else
 			tec2=0;
 		end
-		frame;
+		frame(100/base_velocidad);
 	end
 end
 
@@ -838,6 +838,6 @@ Begin
 			case 4:	if(cheto_viejuno) graph=250; else graph=252; end end
 			case 5:	if(cheto_choca) graph=250; else graph=252; end end
 		end
-		frame;
+		frame(100/base_velocidad);
 	end
 End

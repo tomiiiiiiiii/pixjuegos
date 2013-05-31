@@ -22,13 +22,13 @@ Begin
 	graph=1;
 	flags=1;
 	size=0;
-	from alpha=0 to 100 step 1; y++; size++; frame; end
+	from alpha=0 to 100 step 1; y++; size++; frame(100/base_velocidad); end
 	id_sombra=fantasma_opaco();
 	readyando();
-	while(ready==0) frame; end
+	while(ready==0) frame(100/base_velocidad); end
 	while(contaor>0)
 		velocidad=400;
-		while(ready==0 or reloj==1) frame; end
+		while(ready==0 or reloj==1) frame(100/base_velocidad); end
 		if(lao==0) x+=2; flags=1; else x-=2; flags=0; end
 		if(x>700) lao=1; end
 		if(x<100) lao=0; end
@@ -43,13 +43,13 @@ Begin
 				frame(400);
 			end
 		end
-		frame;
+		frame(100/base_velocidad);
 	end
 	suena(17);
 	matabolas=1;
 	signal(id_sombra,s_kill);
 	desvanecerse(x,y,z,1,file,10000,10000);
-	from size=100 to 0 step -5; angle+=5000; frame; end
+	from size=100 to 0 step -5; angle+=5000; frame(100/base_velocidad); end
 	matabolas=0;
 	jefe=0;
 	vidajefefuera=1;
@@ -84,7 +84,7 @@ Begin
 	alpha=130;
 	id_sombra=fantasma_bola_sombra();
 	while(temporizador<400)
-		while(ready==0) frame; end
+		while(ready==0) frame(100/base_velocidad); end
 		if(id_col=collision(type disparos))
 			id_col.accion=-1;
 			rompida=1;
@@ -98,7 +98,7 @@ Begin
 		if(!exists(father)) bolas--; return; end
 		x=father.x+get_distx(angle,radio/2);
 		y=father.y+get_disty(angle,radio/2);
-		frame;
+		frame(100/base_velocidad);
 	end
 	
 	bolas--;
@@ -127,7 +127,7 @@ Begin
 		else
 			return;
 		end
-		frame;
+		frame(100/base_velocidad);
 	end
 End
 
@@ -155,7 +155,7 @@ Begin
 				if(alpha>5) alpha--; else i=0; end
 			end
 		end
-		frame;
+		frame(100/base_velocidad);
 	end
 End
 
@@ -181,7 +181,7 @@ begin
 		alpha--;
 		if(angulo>360000) angulo=0; end
 		if(desfase>360000) desfase=0; end
-		frame;
+		frame(100/base_velocidad);
 		unload_map(0,graph);
 		if(alpha<0) return; end
 	end

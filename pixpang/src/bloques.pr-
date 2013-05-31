@@ -56,7 +56,7 @@ Begin
 		end
 		
 		if(accion==-1) break; end
-		Frame;
+		frame(100/base_velocidad);
 	End
 	if(y>10) items(x,y,regalo); end
 	if(ops.op_sombras) explotalo(x,y,z,alpha,0,file,graph,60); end
