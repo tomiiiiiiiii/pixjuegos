@@ -4,14 +4,14 @@ call ..\utils\entorno.bat pixdash
 rd /s /q export
 echo Compilando...
 cd src
-..\..\bennu-win-old\bgdc pixdash.prg
+..\..\bennu-win-old\bgdc -DOUYA=1 pixdash.prg
 move pixdash.dcb ..\main.dcb
 cd ..
 
 echo Compilando fpgs....
 call compilarfpgs.bat 16
-
 call ..\scripts\descomprimefpgs.bat
+
 cd fpg
 ren durezas.fpg.gz durezas.fpg
 cd ..
@@ -19,7 +19,7 @@ cd ..
 echo Exportando...
 mkdir export
 echo Copiando base de bennu-android...
-xcopy /r/e/y ..\bennu-android-4.1 .\export
+xcopy /r/e/y ..\bennu-android .\export
 
 rem echo Generamos local.properties
 rem echo sdk.dir=%dirbase%/utils/android-sdk > export\local.properties
@@ -41,7 +41,7 @@ copy recursos\android\xhdpi.png export\res\drawable-xhdpi\icon.png /y
 copy recursos\android\ouya_icon.png export\res\drawable-xhdpi\ouya_icon.png /y
 
 copy recursos\android\strings.xml export\res\values\strings.xml /y
-copy recursos\android\AndroidManifest.xml export\ /y
+copy recursos\android\AndroidManifest.xml export\AndroidManifest.xml /y
 copy recursos\android\build.xml export\ /y
 
 mkdir export\src\com

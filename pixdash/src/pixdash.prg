@@ -1,5 +1,13 @@
 Program pixdash;
 
+#ifdef OUYA
+ #define TACTIL=1
+#endif
+
+#ifdef DEBUG
+	import "mod_debug";
+#endif
+
 import "mod_dir";
 import "mod_draw";
 import "mod_grproc";
@@ -25,12 +33,14 @@ import "mod_key";
 
 //comentar las dos siguientes líneas para Wii
 #ifndef TACTIL
- #ifndef WII
-  #ifdef LINUX
-   import "image";
-  #endif
-  #ifndef LINUX
-   import "mod_image";
+ #ifndef OUYA
+  #ifndef WII
+   #ifdef LINUX
+    import "image";
+   #endif
+   #ifndef LINUX
+    import "mod_image";
+   #endif
   #endif
  #endif
 #endif
@@ -47,7 +57,7 @@ Global
 	dur_muelle;
 	ancho_pantalla=1280;
 	alto_pantalla=720;
-	bpp=32;
+	bpp=16;
 	ancho_nivel;
 	alto_nivel;
 	Struct ops; 
@@ -357,7 +367,7 @@ Begin
 		mov_y=0;
 		
 		//tocamos un muelle
-		if(id_colision=collision(type muelle))
+		if(id_colision=collision_box(type muelle))
 			inercia=id_colision.inercia;
 			gravedad=id_colision.gravedad;
 			sonido(18,jugador);
@@ -447,7 +457,7 @@ Begin
 		end
 		
 		//si competimos (casi siempre, vamos) y chocamos con otro jugador, nos empujamos
-		if(modo_juego==0 and (id_colision=collision(type prota)))
+		if(modo_juego==0 and (id_colision=collision_box(type prota)))
 			if(id_colision.accion!="muerte")
 				if(id_colision>id)
 					sonido(13,jugador);
@@ -515,19 +525,21 @@ Begin
 	graph=father.graph;
 	ctype=c_scroll;
 	if(x_destino>x)
-		from x=x to x_destino step 1; 
+		from x=x to x_destino step 5; 
 			if(map_get_pixel(0,durezas,x+ancho,y+alto/2)==suelo) 
 				father.inercia=0; 
 				break; 
 			end 
 		end
+		if(x>x_destino) x=x_destino; end
 	elseif(x_destino<x)
-		from x=x to x_destino step -1; 
+		from x=x to x_destino step -5; 
 			if(map_get_pixel(0,durezas,x-ancho,y+alto/2)==suelo) 
 				father.inercia=0; 
 				break; 
 			end 
 		end
+		if(x<x_destino) x=x_destino; end
 	end //calculamos donde se para si tiene inercia y dejas de correr
 	return x;
 End
@@ -547,13 +559,14 @@ Begin
 	gravedad=father.gravedad;
 	inercia=father.inercia;
 	if(y_destino>y)
-		from y=y to y_destino step 1; 
-			if(toca_suelo()) 
+		from y=y to y_destino step 5; 
+			if(toca_suelo())
 				break; 
 			end 
 		end
+		if(y>y_destino) y=y_destino; end
 	elseif(y_destino<y)
-		if(id_col=collision(type plataforma))
+		if(id_col=collision_box(type plataforma))
 			if(id_col.y>y+20 and id_col.gravedad<father.gravedad)
 				if(father.accion=="lanzado") father.accion=""; end
 				y=id_col.y-37;
@@ -576,16 +589,9 @@ Function toca_techo();
 Private
 	id_col;
 Begin
-	x=father.x;
-	y=father.y;
-	ancho=father.ancho;
-	alto=father.alto;
-	file=father.file;
-	graph=father.graph;
-	ctype=c_scroll;
-	if(map_get_pixel(0,durezas,x,y-alto)==suelo) return 1; end 
-	if(map_get_pixel(0,durezas,x-ancho/3,y-alto)==suelo) return 1; end 
-	if(map_get_pixel(0,durezas,x+ancho/3,y-alto)==suelo) return 1; end 
+	if(map_get_pixel(0,durezas,father.x,father.y-father.alto)==suelo) return 1; end 
+	if(map_get_pixel(0,durezas,father.x-father.ancho/3,father.y-father.alto)==suelo) return 1; end 
+	if(map_get_pixel(0,durezas,father.x+father.ancho/3,father.y-father.alto)==suelo) return 1; end 
 	return 0;
 End
 
@@ -600,7 +606,7 @@ Begin
 	file=father.file;
 	graph=father.graph;
 	ctype=c_scroll;
-	if(id_col=collision(type plataforma))
+	if(id_col=collision_box(type plataforma))
 		if(id_col.y>y+20)
 			if(father.gravedad=>0)
 				father.y=id_col.y-37;
@@ -611,9 +617,9 @@ Begin
 			return 1;
 		end
 	end
-	if(map_get_pixel(0,durezas,x,y+alto)==suelo) return 1; end
-	if(map_get_pixel(0,durezas,x-(ancho/3),y+alto)==suelo) return 1; end
-	if(map_get_pixel(0,durezas,x+(ancho/3),y+alto)==suelo) return 1; end
+	if(map_get_pixel(0,durezas,father.x,father.y+father.alto)==suelo) return 1; end
+	if(map_get_pixel(0,durezas,father.x-(father.ancho/3),father.y+father.alto)==suelo) return 1; end
+	if(map_get_pixel(0,durezas,father.x+(father.ancho/3),father.y+father.alto)==suelo) return 1; end
 	return 0;
 End
 
@@ -702,7 +708,7 @@ Begin
 			graph_antes=graph;
 			graph=0;
 			while(!alguiencerca())
-				frame(1000); 
+				frame(rand(800,1200)); 
 			end
 			graph=graph_antes;
 		end
@@ -745,13 +751,13 @@ Begin
 		while(map_get_pixel(0,durezas,x,y+alto-1)==suelo and tipo!=7 and tipo!=8) y--; end //corregimos atravesamiento de suelos...
 
 		//tocamos un muelle
-		if(id_colision=collision(type muelle))
+		if(id_colision=collision_box(type muelle))
 			inercia=id_colision.inercia;
 			gravedad=id_colision.gravedad;
 			accion="lanzado";
 		end
 		
-		if(alpha==255 and (id_colision=collision(type prota))) //chocamos con el prota
+		if(alpha==255 and (id_colision=collision_box(type prota))) //chocamos con el prota
 			if((id_colision.y<y-(alto/2) or id_colision.bajando_rapido==1) and id_colision.saltando==1 and tipo!=5 and tipo!=6 and tipo!=9 and tipo!=10 and id_colision.accion!="muerte") //si el prota está más arriba, el malo muere. a menos que sean spikis o sus huevos! y que no esté muriendo el prota xD
 				p[id_colision.jugador].enemigosmatados++;
 				p[id_colision.jugador].combo++;
@@ -836,14 +842,14 @@ Begin
     alto=graphic_info(file,graph,g_height)/2;
     priority=-1;
 	alpha=0;
-	while(collision(type prota)) frame(3000); end
+	while(collision_box(type prota)) frame(3000); end
     loop
 		if(alpha<255) alpha+=5; end
 		if(!alguiencerca())
 			graph_antes=graph;
 			graph=0;
 			while(!alguiencerca())
-				frame(1000); 
+				frame(rand(800,1200)); 
 			end
 			graph=graph_antes;
 		end
@@ -851,7 +857,7 @@ Begin
 		if(map_get_pixel(0,durezas,x,y+alto)==dur_pinchos) break; end 
 		while(map_get_pixel(0,durezas,x,y+alto-1)==suelo) y--; end //colisiones con el suelo
 		if(y>alto_nivel) break; end //al caer poir un bujero los power-ups desaparecen
-		if(id_colision=collision(type prota)) //al tocarlos el prota
+		if(id_colision=collision_box(type prota)) //al tocarlos el prota
 			if(id_colision.accion!="muerte")
 				sonido(16,0);
 				p[id_colision.jugador].powerupscogidos++;
@@ -935,13 +941,13 @@ Begin
 			graph_antes=graph;
 			graph=0;
 			while(!alguiencerca())
-				frame(1000); 
+				frame(rand(800,1200)); 
 			end
 			graph=graph_antes;
 		end
 		if(anim<5) anim++; else graph++; anim=0; end
 		if(graph==5) graph=1; end
-		if(id_colision=collision(type prota)) 
+		if(id_colision=collision_box(type prota)) 
 			if(id_colision.accion!="muerte")
 				sonido(4,id_colision.jugador);
 				p[id_colision.jugador].monedas++;
@@ -1033,8 +1039,12 @@ BEGIN
 	stop_scroll(2);
 	stop_scroll(3);
 	stop_scroll(4);
-	unload_map(0,mapa_scroll);
-	unload_map(0,durezas);
+	if(mapa>0) unload_map(0,mapa); end
+	if(mapa_scroll>0) unload_map(0,mapa_scroll); end
+	if(durezas>0) unload_map(0,durezas); end
+	
+	dump_type=complete_dump;
+	restore_type=COMPLETE_RESTORE;
 	
 	mapa=load_png(savegamedir+"niveles\"+paqueteniveles+"\nivel"+num_nivel+".png"); 
 
@@ -1512,7 +1522,7 @@ Begin
 			end
 		end
 		jugador_anterior=jugador;
-		if(x_destino==x and (id_col=collision(type premio)))
+		if(x_destino==x and (id_col=collision_box(type premio)))
 			if(id_col.i>tipo)
 				if(jugadores==2) 
 					x_destino=x-40; 
@@ -1629,12 +1639,21 @@ End
 include "menu.pr-";
 include "navegador.pr-";
 #ifndef TACTIL
- #ifndef WII
-  include "editorniveles.pr-";
+ #ifndef OUYA
+  #ifndef WII
+   include "editorniveles.pr-";
+  #endif
  #endif
 #endif
-include "explosion.pr-";
 
+#ifdef TACTIL
+Process explotalo(x,y,z,alpha,angle,file,graph,size);
+Begin 
+End
+#else
+include "explosion.pr-";
+#endif
+//include "../../common-src/explosion.pr-";
 include "../../common-src/savepath.pr-";
 include "../../common-src/lenguaje.pr-";
 include "../../common-src/resolucioname.pr-";
@@ -1676,9 +1695,9 @@ Begin
 	
 	configurar_controles();
 
-	set_fps(0,0); //imágenes por segundo
 	probar_pantalla();
 
+	set_fps(40,1);
 	set_mode(ancho_pantalla,alto_pantalla,bpp); //resolución y colores
 
 	fpg_premios=load_fpg("fpg/premios.fpg"); //cargar el mapa de tiles
@@ -1731,7 +1750,7 @@ Begin
 		stop_scroll(i);
 	end
 	clear_screen();
-	set_mode(1024,768,16);
+	//set_mode(1024,768,bpp);
 	timer[0]=0;
 	posiciones[1]=1;
 	posiciones[2]=2;
@@ -1910,7 +1929,6 @@ Begin
 			draw_box(ancho_pantalla/2-5,0,ancho_pantalla/2+5,alto_pantalla);
 		end
 	end
-	//if(ready==1 and !exists(type bomba)) set_fps(20,0); frame(2000); set_fps(50,0); end
 End
 
 Function alguiencerca();
@@ -1947,15 +1965,15 @@ begin
 	end
 	
 	if(os_id==1003)
-		frame;
 		#IFDEF OUYA
-			ancho_pantalla=1280;
-			alto_pantalla=720;
-		#ELSE
 			ancho_pantalla=graphic_info(0,0,g_width);
 			alto_pantalla=graphic_info(0,0,g_height);
+			//scale_resolution=12800720;
+		#ELSE
+			ancho_pantalla=1280;
+			alto_pantalla=720;
+			scale_resolution=(graphic_info(0,0,g_width)*10000)+graphic_info(0,0,g_height);
 		#ENDIF
-		//scale_resolution=0;
 		return;
 	end
 
@@ -2012,6 +2030,7 @@ Process muelle(x,y,direccion,potencia); //direccion 1:arriba,2:der-arr,3:derecha
 Private
 	id_colision;
 	graph_base;
+	graph_antes;
 Begin
 	file=fpg_tiles;
 	ctype=c_scroll;
@@ -2030,6 +2049,14 @@ Begin
 	if(direccion==1 or direccion==5) inercia=0; end
 	
 	loop
+		if(!alguiencerca())
+			graph_antes=graph;
+			graph=0;
+			while(!alguiencerca())
+				frame(rand(800,1200)); 
+			end
+			graph=graph_antes;
+		end
 		frame;
 	end
 End
@@ -2038,6 +2065,7 @@ Process sonador(x,y,id_sonido); //direccion 1:arriba,2:der-arr,3:derecha,4:der-a
 Private
 	id_colision;
 	id_canal;
+	graph_antes;
 Begin
 	file=fpg_tiles;
 	graph=1;
@@ -2045,11 +2073,19 @@ Begin
 	ctype=c_scroll;
 	priority=100;
 	size=150;
-	loop		
-		if(collision(type prota))
+	loop
+		if(!alguiencerca())
+			graph_antes=graph;
+			graph=0;
+			while(!alguiencerca())
+				frame(rand(800,1200)); 
+			end
+			graph=graph_antes;
+		end		
+		if(collision_box(type prota))
 			id_canal=play_wav(sonidos_niveles[id_sonido],0);
 			while(is_playing_wav(id_canal)) frame(500); end
-			while(collision(type prota)) frame(500); end
+			while(collision_box(type prota)) frame(500); end
 		end
 		frame;
 	end
@@ -2110,6 +2146,7 @@ Private
 	inercia_y;
 	vuelve;
 	bicho;
+	graph_antes;
 Begin
 	priority=1;
 	ctype=c_scroll;
@@ -2158,6 +2195,14 @@ Begin
 	if(direccion==4 or direccion==5 or direccion==6) inercia_y=velocidad; end
 	
 	loop
+		if(!alguiencerca())
+			graph_antes=graph;
+			graph=0;
+			while(!alguiencerca())
+				frame(rand(800,1200)); 
+			end
+			graph=graph_antes;
+		end
 		while(ready==0) frame; end
 		//SINO VUELVE, DESAPARECE Y LE DEJAMOS LA INERCIA AL JUGADOR
 		if(!vuelve and lado==1)
@@ -2218,11 +2263,21 @@ Begin
 End
 
 Process engranaje(x,y);
+Private
+	graph_antes;
 Begin
 	file=fpg_tiles;
 	ctype=c_scroll;
 	graph=7;
 	loop
+		if(!alguiencerca())
+			graph_antes=graph;
+			graph=0;
+			while(!alguiencerca())
+				frame(rand(800,1200)); 
+			end
+			graph=graph_antes;
+		end
 		angle+=1000;
 		frame;
 	end
@@ -2242,7 +2297,9 @@ function editor_de_niveles(); begin end
 #endif
 
 #ifdef TACTIL
+ #ifdef OUYA
 function editor_de_niveles(); begin end
+ #endif
 #endif
 
 Function salir_android();

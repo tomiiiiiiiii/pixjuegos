@@ -1,7 +1,7 @@
 @echo off
 cd src
 echo Compilando...
-..\..\bennu-win\bgdc -g pixpang.prg
+..\..\bennu-win\bgdc -D DEBUG=1 -g pixpang.prg
 move pixpang.dcb ..
 pause
 cd ..

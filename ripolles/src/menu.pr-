@@ -10,6 +10,7 @@ private
 	pulsando;
 	volver_a_menu;
 	distancia_opciones=50;
+	contador_sonido=0;
 begin
 	resolution=global_resolution;
 	if(fpg_menu<1)
@@ -141,15 +142,6 @@ begin
 	
 	loop
 		jukebox();
-		if(key(_c)) 
-			while(key(_c)) frame; end 
-			sonido(22,0); 
-			ops.truco_matajefes=1;
-			ops.truco_pato=0;
-			ops.truco_sin_bandos=0;
-			ops.truco_fuego_amigo=0;
-			guarda_opciones();
-		end
 		if(opcion_actual>num_opciones) opcion_actual=1;	end
 		if(opcion_actual<1)	opcion_actual=num_opciones;	end
 
@@ -212,6 +204,17 @@ begin
 						end
 						case 2: 
 							if(ops.sonido) ops.sonido=0; else ops.sonido=1; end 
+							if(contador_sonido==10) 
+								sonido(22,0); 
+								ops.truco_matajefes=1;
+								ops.truco_pato=0;
+								ops.truco_sin_bandos=0;
+								ops.truco_fuego_amigo=0;
+								guarda_opciones();
+							else
+								contador_sonido++;
+							end
+
 							sonido(13,0);
 						end
 						case 3:

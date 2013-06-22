@@ -16,12 +16,13 @@ private
 begin
 	priority=-1;
 	probar_pantalla();
-	set_fps(50,0);
 	chdir(dir_juego);
 	ready=0;
 	slowmotion=0;
 	num_nivel=1;
 	cancion_mundo=0;
+	dump_type=PARTIAL_DUMP;
+	restore_type=PARTIAL_RESTORE;
 	let_me_alone();
 	stop_scroll(0);
 	stop_scroll(1);
@@ -32,7 +33,7 @@ begin
 	unload_map(0,durezas);
 	num_enemigos=0;
 	delete_text(all_text);
-	set_mode(800,600,16); //resolución y colores	    
+	//set_mode(800,600,16); //resolución y colores	    
 	i=0;
 	from i=1 to 4;
 		p[i].puntos=0;
@@ -331,11 +332,11 @@ begin
 					if(full_screen==0)
 						full_screen=1;
 						ops.pantalla_completa=1;
-						set_mode(800,600,16);
+						//set_mode(800,600,16);
 					else
 						full_screen=0;
 						ops.pantalla_completa=0;
-						set_mode(800,600,16);
+						//set_mode(800,600,16);
 					end
 				end
 				if(elecc==1)
@@ -362,7 +363,7 @@ begin
 					if(ops.resolucion==0) ops.resolucion=06400480; end
 					if(ops.resolucion==-1) ops.resolucion=0; end
 					scale_resolution=ops.resolucion;
-					set_mode(800,600,16);
+					//set_mode(800,600,16);
 				end*/
 			end
 			tecenter=1;
@@ -550,7 +551,7 @@ begin
 			if(tecenter==0)
 				paqueteniveles=nombres_paquetes[elecc+1];
 				if(elecc==num_paquetes) pedir_nuevos_niveles(); return; end
-				set_mode(ancho_pantalla,alto_pantalla,bpp);
+				//set_mode(ancho_pantalla,alto_pantalla,bpp);
 				carga_nivel();
 			end
 			tecenter=1;

@@ -34,11 +34,20 @@ begin
 			case "03": id_lenguaje="ca"; end
 		end
 	end
-	if(os_id==os_linux or os_id==1003) //linux o Android!
+	if(os_id==os_linux) //linux o Android!
 		// Aportado por Miry
 		env_lang=getenv("LANG");
 		env_lang=""+env_lang[0]+env_lang[1];
 		id_lenguaje=env_lang;
+	end
+	if(os_id==1003)
+		fp=fopen(savegamedir+"lang.txt",O_READ);
+		if(fp) 
+			cadena_lenguaje=fgets(fp);
+			fclose(fp);
+		end
+		id_lenguaje=cadena_lenguaje;
+		say("Idioma detectado: "+id_lenguaje);
 	end
 	if(os_id==os_caanoo)
 		fp=fopen("/mnt/ubifs/usr/gp2x/common.ini",O_READ);

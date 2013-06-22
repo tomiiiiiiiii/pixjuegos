@@ -5,7 +5,6 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.egl.EGLContext;
 import javax.microedition.khronos.opengles.GL10;
 import javax.microedition.khronos.egl.*;
-import java.lang.reflect.Field;
 
 import android.app.*;
 import android.content.*;
@@ -26,6 +25,16 @@ import android.hardware.*;
 import android.content.*;
 
 import java.lang.*;
+import java.util.List;
+import java.util.Locale;
+import java.util.ArrayList;
+import java.lang.reflect.Field;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.File;
+
+import tv.ouya.console.api.OuyaController;
 
 /**
     SDL Activity
@@ -35,21 +44,28 @@ public class SDLActivity extends Activity {
     // Keep track of the paused state
     public static boolean mIsPaused;
 
-	// OUYA check
+	// OUYA
 	public static boolean isOuya = false;
 	public static int backButtonDelayOuya = 3;
+	private static Thread OuyaButtonThread;
 	
     // Main components
     private static SDLActivity mSingleton;
+    private static _SDLSurface _mSurface;
     private static SDLSurface mSurface;
     private static View mTextEdit;
-    private static ViewGroup mLayout;
+    public static ViewGroup mLayout;
 
     // This is what SDL runs in. It invokes SDL_main(), eventually
     private static Thread mSDLThread;
+
+    // Joystick
+    private static boolean mJoyListCreated;
+    private static List<Integer> mJoyIdList;
 	
-	//DA FUK IS THIS:
-	private static Thread TestThread;
+	// Language
+	private static Locale Language;
+	private static File dir;
 
     // Audio
     private static Thread mAudioThread;
@@ -61,7 +77,7 @@ public class SDLActivity extends Activity {
     private static EGLDisplay  mEGLDisplay;
     private static EGLConfig   mEGLConfig;
     private static int mGLMajor, mGLMinor;
-	
+
     // Load the .so
     static {
         System.loadLibrary("png");
@@ -74,28 +90,62 @@ public class SDLActivity extends Activity {
 
     // Setup
     protected void onCreate(Bundle savedInstanceState) {
-        //Log.v("SDL", "onCreate()");
+		
+		dir = getFilesDir();
+		try {
+			dir.mkdir();
+		}catch(Exception e) {
+		}
+        
+		//Log.v("SDL", "onCreate()");
         super.onCreate(savedInstanceState);
         
+		
         // So we can call stuff from static callbacks
         mSingleton = this;
 
         // Keep track of the paused state
         mIsPaused = false;
+		
+		// Checking if we are on a OUYA
+		try {
+			Class<?> buildClass = Class.forName("android.os.Build");
+			Field deviceField = buildClass.getDeclaredField("DEVICE");
+			Object device = deviceField.get(null);
+			SDLActivity.isOuya = "ouya_1_1".equals(device);
+		} catch(Exception e) {
+		}		
+
 
         // Set up the surface
-        mSurface = new SDLSurface(getApplication());
+        if(Build.VERSION.SDK_INT >= 12) {
+            _mSurface = new _SDLSurface(getApplication());
+            mLayout = new AbsoluteLayout(this);
+            mLayout.addView(_mSurface);
+            
+            setContentView(mLayout);
+            
+            SurfaceHolder holder = _mSurface.getHolder();
+			//_mSurface.getHolder().setFixedSize(1280, 720);
+        } else {
+            mSurface = new SDLSurface(getApplication());
+            mLayout = new AbsoluteLayout(this);
+            mLayout.addView(mSurface);
+            
+            setContentView(mLayout);
+            
+            SurfaceHolder holder = mSurface.getHolder();
+			//mSurface.getHolder().setFixedSize(1280, 720);
+        }
+		
+		if(SDLActivity.isOuya) {
+			OuyaController.init(getContext());
+		}
 
-        mLayout = new AbsoluteLayout(this);
-        mLayout.addView(mSurface);
 
-        setContentView(mLayout);
-
-        SurfaceHolder holder = mSurface.getHolder();
-       
         // Don't allow the screen lock
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-		
+
     }
 
     // Events
@@ -132,7 +182,7 @@ public class SDLActivity extends Activity {
 
     // Messages from the SDLMain thread
     static final int COMMAND_CHANGE_TITLE = 1;
-    static final int COMMAND_KEYBOARD_SHOW = 2;
+    static final int COMMAND_UNUSED = 2;
     static final int COMMAND_TEXTEDIT_HIDE = 3;
 
     // Handler for the messages
@@ -143,22 +193,6 @@ public class SDLActivity extends Activity {
             case COMMAND_CHANGE_TITLE:
                 setTitle((String)msg.obj);
                 break;
-            case COMMAND_KEYBOARD_SHOW:
-                InputMethodManager manager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-                if (manager != null) {
-                    switch (((Integer)msg.obj).intValue()) {
-                    case 0:
-                        manager.hideSoftInputFromWindow(mSurface.getWindowToken(), 0);
-                        break;
-                    case 1:
-                        manager.showSoftInput(mSurface, 0);
-                        break;
-                    case 2:
-                        manager.toggleSoftInputFromWindow(mSurface.getWindowToken(), 0, 0);
-                        break;
-                    }
-                }
-               break;
             case COMMAND_TEXTEDIT_HIDE:
                 if (mTextEdit != null) {
                     mTextEdit.setVisibility(View.GONE);
@@ -185,19 +219,23 @@ public class SDLActivity extends Activity {
     public static native void nativePause();
     public static native void nativeResume();
     public static native void onNativeResize(int x, int y, int format);
+    public static native void onNativePadDown(int padId, int keycode);
+    public static native void onNativePadUp(int padId, int keycode);
+    public static native void onNativeJoy(int joyId, int action,
+                                            float x, float y);
     public static native void onNativeKeyDown(int keycode);
     public static native void onNativeKeyUp(int keycode);
     public static native void onNativeTouch(int touchDevId, int pointerFingerId,
                                             int action, float x, 
                                             float y, float p);
-    public static native void onNativeAccel(float x, float y, float z);
+    public static native void onNativeMouse(int action, int buttonId, float x, float y);
     public static native void nativeRunAudioThread();
 
 
     // Java functions called from C
 
-    public static boolean createGLContext(int majorVersion, int minorVersion) {
-        return initEGL(majorVersion, minorVersion);
+    public static boolean createGLContext(int majorVersion, int minorVersion, int[] attribs) {
+        return initEGL(majorVersion, minorVersion, attribs);
     }
 
     public static void flipBuffers() {
@@ -207,6 +245,63 @@ public class SDLActivity extends Activity {
     public static void setActivityTitle(String title) {
         // Called from SDLMain() thread and can't directly affect the view
         mSingleton.sendCommand(COMMAND_CHANGE_TITLE, title);
+    }
+
+    // Create a list of valid ID's the first time this function is called
+    private static void createJoystickList() {
+        if(mJoyListCreated) {
+            return;
+        }
+
+        mJoyIdList = new ArrayList<Integer>();
+        // InputDevice.getDeviceIds requires SDK >= 16
+        if(Build.VERSION.SDK_INT >= 16) {
+            int[] deviceIds = InputDevice.getDeviceIds();
+            for(int i=0; i<deviceIds.length; i++) {
+                if( (InputDevice.getDevice(deviceIds[i]).getSources() & InputDevice.SOURCE_CLASS_JOYSTICK) != 0) {
+                    mJoyIdList.add(deviceIds[i]);
+                }
+            }
+        }
+        mJoyListCreated = true;
+    }
+
+    public static int getNumJoysticks() {
+        createJoystickList();
+
+        return mJoyIdList.size();
+    }
+
+    public static String getJoystickName(int joy) {
+        createJoystickList();
+
+        return InputDevice.getDevice(mJoyIdList.get(joy)).getName();
+    }
+
+    public static int getJoystickAxes(int joy) {
+        createJoystickList();
+
+         // In newer Android versions we can get a real value
+         // In older versions, we can assume a sane X-Y default configuration
+         if(Build.VERSION.SDK_INT >= 12) {
+            return InputDevice.getDevice(mJoyIdList.get(joy)).getMotionRanges().size();
+         } else {
+            return 2;
+         }
+    }
+
+    public static int getJoyId(int devId) {
+        int i=0;
+
+        createJoystickList();
+
+        for(i=0; i<mJoyIdList.size(); i++) {
+            if(mJoyIdList.get(i) == devId) {
+                return i;
+            }
+        }
+
+        return -1;
     }
 
     public static void sendMessage(int command, int param) {
@@ -222,7 +317,8 @@ public class SDLActivity extends Activity {
         if (mSDLThread == null) {
             mSDLThread = new Thread(new SDLMain(), "SDLThread");
             mSDLThread.start();
-        } else {
+        }
+        else {
             /*
              * Some Android variants may send multiple surfaceChanged events, so we don't need to resume every time
              * every time we get one of those events, only if it comes after surfaceDestroyed
@@ -232,11 +328,30 @@ public class SDLActivity extends Activity {
                 SDLActivity.mIsPaused = false;
             }
         }
-        if (TestThread == null) {
-            TestThread = new Thread(new Test(), "TestThread");
-            TestThread.start();
+        if (OuyaButtonThread == null) {
+            OuyaButtonThread = new Thread(new Test(), "OuyaButtonThread");
+            OuyaButtonThread.start();
         }
 
+		Log.v("SDL", "Language: " + Language.getDefault().getLanguage());
+		
+		try{
+			FileWriter fWriter;
+			Log.v("SDLPIX",dir+"/lang.txt");
+            try{
+                 //fWriter = new FileWriter("files/lang.txt");
+				 fWriter = new FileWriter(dir+"/lang.txt");
+                 fWriter.write(Language.getDefault().getLanguage()+"\n\n");
+                 fWriter.flush();
+                 fWriter.close();
+             }catch(Exception e){
+                      e.printStackTrace();
+             }
+		} 
+		catch (Exception e)
+		{
+			Log.v("SDL","Error: No se pudo crear el fichero lang.txt");
+		}
     }
     
     static class ShowTextInputHandler implements Runnable {
@@ -272,8 +387,9 @@ public class SDLActivity extends Activity {
             mTextEdit.requestFocus();
 
             InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.showSoftInput(mTextEdit, 0);			
-		}
+            imm.showSoftInput(mTextEdit, 0);
+        }
+
     }
 
     public static void showTextInput(int x, int y, int w, int h) {
@@ -283,11 +399,11 @@ public class SDLActivity extends Activity {
 
 
     // EGL functions
-    public static boolean initEGL(int majorVersion, int minorVersion) {
-        if (SDLActivity.mEGLDisplay == null) {
-            //Log.v("SDL", "Starting up OpenGL ES " + majorVersion + "." + minorVersion);
+    public static boolean initEGL(int majorVersion, int minorVersion, int[] attribs) {
+        try {
+            if (SDLActivity.mEGLDisplay == null) {
+                Log.v("SDL", "Starting up OpenGL ES " + majorVersion + "." + minorVersion);
 
-            try {
                 EGL10 egl = (EGL10)EGLContext.getEGL();
 
                 EGLDisplay dpy = egl.eglGetDisplay(EGL10.EGL_DEFAULT_DISPLAY);
@@ -295,52 +411,28 @@ public class SDLActivity extends Activity {
                 int[] version = new int[2];
                 egl.eglInitialize(dpy, version);
 
-                int EGL_OPENGL_ES_BIT = 1;
-                int EGL_OPENGL_ES2_BIT = 4;
-                int renderableType = 0;
-                if (majorVersion == 2) {
-                    renderableType = EGL_OPENGL_ES2_BIT;
-                } else if (majorVersion == 1) {
-                    renderableType = EGL_OPENGL_ES_BIT;
-                }
-                int[] configSpec = {
-                    //EGL10.EGL_DEPTH_SIZE,   16,
-                    EGL10.EGL_RENDERABLE_TYPE, renderableType,
-                    EGL10.EGL_NONE
-                };
                 EGLConfig[] configs = new EGLConfig[1];
                 int[] num_config = new int[1];
-                if (!egl.eglChooseConfig(dpy, configSpec, configs, 1, num_config) || num_config[0] == 0) {
+                if (!egl.eglChooseConfig(dpy, attribs, configs, 1, num_config) || num_config[0] == 0) {
                     Log.e("SDL", "No EGL config available");
                     return false;
                 }
                 EGLConfig config = configs[0];
 
-                /*int EGL_CONTEXT_CLIENT_VERSION=0x3098;
-                int contextAttrs[] = new int[] { EGL_CONTEXT_CLIENT_VERSION, majorVersion, EGL10.EGL_NONE };
-                EGLContext ctx = egl.eglCreateContext(dpy, config, EGL10.EGL_NO_CONTEXT, contextAttrs);
-
-                if (ctx == EGL10.EGL_NO_CONTEXT) {
-                    Log.e("SDL", "Couldn't create context");
-                    return false;
-                }
-                SDLActivity.mEGLContext = ctx;*/
                 SDLActivity.mEGLDisplay = dpy;
                 SDLActivity.mEGLConfig = config;
                 SDLActivity.mGLMajor = majorVersion;
                 SDLActivity.mGLMinor = minorVersion;
-
-                SDLActivity.createEGLSurface();
-            } catch(Exception e) {
-                Log.v("SDL", e + "");
-                for (StackTraceElement s : e.getStackTrace()) {
-                    Log.v("SDL", s.toString());
-                }
             }
-        }
-        else SDLActivity.createEGLSurface();
+            return SDLActivity.createEGLSurface();
 
-        return true;
+        } catch(Exception e) {
+            Log.v("SDL", e + "");
+            for (StackTraceElement s : e.getStackTrace()) {
+                Log.v("SDL", s.toString());
+            }
+            return false;
+        }
     }
 
     public static boolean createEGLContext() {
@@ -356,33 +448,39 @@ public class SDLActivity extends Activity {
     }
 
     public static boolean createEGLSurface() {
+        EGLSurface surface;
         if (SDLActivity.mEGLDisplay != null && SDLActivity.mEGLConfig != null) {
             EGL10 egl = (EGL10)EGLContext.getEGL();
             if (SDLActivity.mEGLContext == null) createEGLContext();
-			if (SDLActivity.mEGLSurface == null) { // 
-				Log.v("SDL", "Creating new EGL Surface");
-				EGLSurface surface = egl.eglCreateWindowSurface(SDLActivity.mEGLDisplay, SDLActivity.mEGLConfig, SDLActivity.mSurface, null);
-				if (surface == EGL10.EGL_NO_SURFACE) {
-					Log.e("SDL", "Couldn't create surface");
-					return false;
-				}
 
-				if (egl.eglGetCurrentContext() != SDLActivity.mEGLContext) {
-					if (!egl.eglMakeCurrent(SDLActivity.mEGLDisplay, surface, surface, SDLActivity.mEGLContext)) {
-						Log.e("SDL", "Old EGL Context doesnt work, trying with a new one");
-						// TODO: Notify the user via a message that the old context could not be restored, and that textures need to be manually restored.
-						createEGLContext();
-						if (!egl.eglMakeCurrent(SDLActivity.mEGLDisplay, surface, surface, SDLActivity.mEGLContext)) {
-							Log.e("SDL", "Failed making EGL Context current");
-							return false;
-						}
-					}
-				}
-				SDLActivity.mEGLSurface = surface;
-			}
+            Log.v("SDL", "Creating new EGL Surface");
+            if(Build.VERSION.SDK_INT >= 12) {
+                surface = egl.eglCreateWindowSurface(SDLActivity.mEGLDisplay, SDLActivity.mEGLConfig, SDLActivity._mSurface, null);
+            } else {
+                surface = egl.eglCreateWindowSurface(SDLActivity.mEGLDisplay, SDLActivity.mEGLConfig, SDLActivity.mSurface, null);
+            }
+            if (surface == EGL10.EGL_NO_SURFACE) {
+                Log.e("SDL", "Couldn't create surface");
+                return false;
+            }
+
+            if (egl.eglGetCurrentContext() != SDLActivity.mEGLContext) {
+                if (!egl.eglMakeCurrent(SDLActivity.mEGLDisplay, surface, surface, SDLActivity.mEGLContext)) {
+                    Log.e("SDL", "Old EGL Context doesnt work, trying with a new one");
+                    // TODO: Notify the user via a message that the old context could not be restored, and that textures need to be manually restored.
+                    createEGLContext();
+                    if (!egl.eglMakeCurrent(SDLActivity.mEGLDisplay, surface, surface, SDLActivity.mEGLContext)) {
+                        Log.e("SDL", "Failed making EGL Context current");
+                        return false;
+                    }
+                }
+            }
+            SDLActivity.mEGLSurface = surface;
             return true;
+        } else {
+            Log.e("SDL", "Surface creation failed, display = " + SDLActivity.mEGLDisplay + ", config = " + SDLActivity.mEGLConfig);
+            return false;
         }
-        return false;
     }
 
     // EGL buffer flip
@@ -408,9 +506,7 @@ public class SDLActivity extends Activity {
     }
 
     // Audio
-    private static Object buf;
-    
-    public static Object audioInit(int sampleRate, boolean is16Bit, boolean isStereo, int desiredFrames) {
+    public static void audioInit(int sampleRate, boolean is16Bit, boolean isStereo, int desiredFrames) {
         int channelConfig = isStereo ? AudioFormat.CHANNEL_CONFIGURATION_STEREO : AudioFormat.CHANNEL_CONFIGURATION_MONO;
         int audioFormat = is16Bit ? AudioFormat.ENCODING_PCM_16BIT : AudioFormat.ENCODING_PCM_8BIT;
         int frameSize = (isStereo ? 2 : 1) * (is16Bit ? 2 : 1);
@@ -428,13 +524,6 @@ public class SDLActivity extends Activity {
         audioStartThread();
         
         Log.v("SDL", "SDL audio: got " + ((mAudioTrack.getChannelCount() >= 2) ? "stereo" : "mono") + " " + ((mAudioTrack.getAudioFormat() == AudioFormat.ENCODING_PCM_16BIT) ? "16-bit" : "8-bit") + " " + ((float)mAudioTrack.getSampleRate() / 1000f) + "kHz, " + desiredFrames + " frames buffer");
-        
-        if (is16Bit) {
-            buf = new short[desiredFrames * (isStereo ? 2 : 1)];
-        } else {
-            buf = new byte[desiredFrames * (isStereo ? 2 : 1)]; 
-        }
-        return buf;
     }
     
     public static void audioStartThread() {
@@ -503,13 +592,13 @@ public class SDLActivity extends Activity {
             mAudioTrack = null;
         }
     }
-    
+
     // Taken from
     // http://digitalsynapsesblog.blogspot.com.es/2011/09/cocos2d-x-launching-url-on-android.html
-    public static void openURL(String url) { 
-     Intent i = new Intent(Intent.ACTION_VIEW);  
-     i.setData(Uri.parse(url));
-     mSingleton.startActivity(i);
+    public static void openURL(String url) {
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        mSingleton.startActivity(i);
     }
 }
 
@@ -518,16 +607,6 @@ public class SDLActivity extends Activity {
 */
 class SDLMain implements Runnable {
     public void run() {
-	
-		// Checking if we are on a OUYA
-		try {
-			Class<?> buildClass = Class.forName("android.os.Build");
-			Field deviceField = buildClass.getDeclaredField("DEVICE");
-			Object device = deviceField.get(null);
-			SDLActivity.isOuya = "ouya_1_1".equals(device);
-		} catch(Exception e) {
-		}		
-
         // Runs SDL_main()
         SDLActivity.nativeInit();
 
@@ -542,7 +621,7 @@ class Test implements Runnable {
 			while(1 == 1) {
 				if (SDLActivity.backButtonDelayOuya < 2) {
 					if(SDLActivity.backButtonDelayOuya==1){
-						SDLActivity.onNativeKeyUp(KeyEvent.KEYCODE_BACK);
+						SDLActivity.onNativeKeyUp(KeyEvent.KEYCODE_I);
 					}
 					SDLActivity.backButtonDelayOuya++;
 				}
@@ -554,17 +633,70 @@ class Test implements Runnable {
 	}
 }
 
+
+class _SDLSurface extends SDLSurface implements View.OnGenericMotionListener {
+    // Keep track of the surface size to normalize touch events
+    private static float mWidth, mHeight;
+    
+    // Startup
+    public _SDLSurface(Context context) {
+        super(context);
+        getHolder().addCallback(this);
+        setOnGenericMotionListener(this);
+        
+        // Some arbitrary defaults to avoid a potential division by zero
+        mWidth = 1.0f;
+        mHeight = 1.0f;
+    }
+    
+    // Generic Motion (mouse hover, joystick...) events
+    public boolean onGenericMotion(View v, MotionEvent event) {
+/*        int actionPointerIndex = event.getActionIndex();
+        int action = event.getActionMasked();
+        
+        if ( (event.getSource() & InputDevice.SOURCE_MOUSE) != 0 ) {
+            float x = event.getX(actionPointerIndex) / mWidth;
+            float y = event.getY(actionPointerIndex) / mHeight;
+            
+            switch(action) {
+                case MotionEvent.ACTION_HOVER_MOVE:
+                    // Send mouse motion
+                    SDLActivity.onNativeMouse(action, 0, x, y);
+                    break;
+                default:
+                    // Send mouse click
+                    int buttonId = 1; /* API 14: BUTTON_PRIMARY */
+           /*         if(Build.VERSION.SDK_INT >= 14) {
+                        buttonId = event.getButtonState();
+                    }
+                    // Event was mouse hover
+                    SDLActivity.onNativeMouse(action, buttonId, x, y);
+                    break;
+            }
+        } else if ( (event.getSource() & InputDevice.SOURCE_JOYSTICK) != 0) {
+            switch(action) {
+                case MotionEvent.ACTION_MOVE:
+                    int id = SDLActivity.getJoyId( event.getDeviceId() );
+                    float x = event.getAxisValue(MotionEvent.AXIS_X, actionPointerIndex);
+                    float y = event.getAxisValue(MotionEvent.AXIS_Y, actionPointerIndex);
+                    SDLActivity.onNativeJoy(id, action, x, y);
+                    
+                    break;
+            }
+        }*/
+        return true;
+    }
+}
+
+
 /**
     SDLSurface. This is what we draw on, so we need to know when it's created
     in order to do anything useful. 
 
     Because of this, that's where we set up the SDL thread
 */
-class SDLSurface extends SurfaceView implements SurfaceHolder.Callback, 
-    View.OnKeyListener, View.OnTouchListener, SensorEventListener  {
-
-    // Sensors
-    private static SensorManager mSensorManager;
+class SDLSurface extends SurfaceView implements SurfaceHolder.Callback,
+    View.OnKeyListener, View.OnTouchListener  {
 
     // Keep track of the surface size to normalize touch events
     private static float mWidth, mHeight;
@@ -577,22 +709,18 @@ class SDLSurface extends SurfaceView implements SurfaceHolder.Callback,
         setFocusable(true);
         setFocusableInTouchMode(true);
         requestFocus();
-        setOnKeyListener(this); 
-        setOnTouchListener(this);   
-
-        mSensorManager = (SensorManager)context.getSystemService("sensor");
+        setOnKeyListener(this);
+        setOnTouchListener(this);
 
         // Some arbitrary defaults to avoid a potential division by zero
         mWidth = 1.0f;
         mHeight = 1.0f;
-		
-	}
+    }
 
     // Called when we have a valid drawing surface
     public void surfaceCreated(SurfaceHolder holder) {
         Log.v("SDL", "surfaceCreated()");
         holder.setType(SurfaceHolder.SURFACE_TYPE_GPU);
-        enableSensor(Sensor.TYPE_ACCELEROMETER, true);
     }
 
     // Called when we lose the surface
@@ -602,7 +730,6 @@ class SDLSurface extends SurfaceView implements SurfaceHolder.Callback,
             SDLActivity.mIsPaused = true;
             SDLActivity.nativePause();
         }
-        enableSensor(Sensor.TYPE_ACCELEROMETER, false);
     }
 
     // Called when the surface is resized
@@ -671,119 +798,260 @@ class SDLSurface extends SurfaceView implements SurfaceHolder.Callback,
 
     // Key events
     public boolean onKey(View  v, int keyCode, KeyEvent event) {
-        
-        // Send volume key signal but return false, so that
-        // Android will set the volume for our app
-        if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN ||
-            keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
-            if (event.getAction() == KeyEvent.ACTION_DOWN) {
-                SDLActivity.onNativeKeyDown(keyCode);
+        // Dispatch the different events depending on how they come from
+        //if(event.getSource() == InputDevice.SOURCE_KEYBOARD) {
+            // Send volume key signal but return false, so that
+            // Android will set the volume for our app
+            if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN ||
+                keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                    SDLActivity.onNativeKeyDown(keyCode);
+                } else if (event.getAction() == KeyEvent.ACTION_UP) {
+                    SDLActivity.onNativeKeyUp(keyCode);
+                }
+                return false;
             }
-            else if (event.getAction() == KeyEvent.ACTION_UP) {
+
+			
+		if (SDLActivity.isOuya) {
+			switch(OuyaController.getPlayerNumByDeviceId(event.getDeviceId())){
+				case 0:
+					switch (keyCode) {
+						case KeyEvent.KEYCODE_DPAD_LEFT:
+							keyCode = KeyEvent.KEYCODE_Q;
+							break;
+						case KeyEvent.KEYCODE_DPAD_RIGHT:
+							keyCode = KeyEvent.KEYCODE_W;
+							break;
+						case KeyEvent.KEYCODE_DPAD_UP:
+							keyCode = KeyEvent.KEYCODE_E;
+							break;
+						case KeyEvent.KEYCODE_DPAD_DOWN:
+							keyCode = KeyEvent.KEYCODE_R;
+							break;
+						case KeyEvent.KEYCODE_BUTTON_X:
+							keyCode = KeyEvent.KEYCODE_T;
+							break;
+						case KeyEvent.KEYCODE_BUTTON_A:
+							keyCode = KeyEvent.KEYCODE_Y;
+							break;
+						case KeyEvent.KEYCODE_BUTTON_B:
+							keyCode = KeyEvent.KEYCODE_U;
+							break;
+						case KeyEvent.KEYCODE_BUTTON_Y:
+							keyCode = KeyEvent.KEYCODE_Y;
+							break;
+						case KeyEvent.KEYCODE_MENU:
+							keyCode = KeyEvent.KEYCODE_I;
+							break;
+						case KeyEvent.KEYCODE_BUTTON_SELECT:
+							keyCode = KeyEvent.KEYCODE_I;
+							break;
+						case KeyEvent.KEYCODE_BUTTON_START:
+							keyCode = KeyEvent.KEYCODE_I;
+							break;
+						default:
+							return true;
+					}
+					break;
+				case 1:
+					switch (keyCode) {
+						case KeyEvent.KEYCODE_DPAD_LEFT:
+							keyCode = KeyEvent.KEYCODE_A;
+							break;
+						case KeyEvent.KEYCODE_DPAD_RIGHT:
+							keyCode = KeyEvent.KEYCODE_S;
+							break;
+						case KeyEvent.KEYCODE_DPAD_UP:
+							keyCode = KeyEvent.KEYCODE_D;
+							break;
+						case KeyEvent.KEYCODE_DPAD_DOWN:
+							keyCode = KeyEvent.KEYCODE_F;
+							break;
+						case KeyEvent.KEYCODE_BUTTON_X:
+							keyCode = KeyEvent.KEYCODE_G;
+							break;
+						case KeyEvent.KEYCODE_BUTTON_A:
+							keyCode = KeyEvent.KEYCODE_H;
+							break;
+						case KeyEvent.KEYCODE_BUTTON_B:
+							keyCode = KeyEvent.KEYCODE_J;
+							break;
+						case KeyEvent.KEYCODE_BUTTON_Y:
+							keyCode = KeyEvent.KEYCODE_H;
+							break;
+						case KeyEvent.KEYCODE_MENU:
+							keyCode = KeyEvent.KEYCODE_I;
+							break;
+						case KeyEvent.KEYCODE_BUTTON_SELECT:
+							keyCode = KeyEvent.KEYCODE_I;
+							break;
+						case KeyEvent.KEYCODE_BUTTON_START:
+							keyCode = KeyEvent.KEYCODE_I;
+							break;
+						default:
+							return true;
+					}
+					break;
+				case 2:
+					switch (keyCode) {
+						case KeyEvent.KEYCODE_DPAD_LEFT:
+							keyCode = KeyEvent.KEYCODE_Z;
+							break;
+						case KeyEvent.KEYCODE_DPAD_RIGHT:
+							keyCode = KeyEvent.KEYCODE_X;
+							break;
+						case KeyEvent.KEYCODE_DPAD_UP:
+							keyCode = KeyEvent.KEYCODE_C;
+							break;
+						case KeyEvent.KEYCODE_DPAD_DOWN:
+							keyCode = KeyEvent.KEYCODE_V;
+							break;
+						case KeyEvent.KEYCODE_BUTTON_X:
+							keyCode = KeyEvent.KEYCODE_B;
+							break;
+						case KeyEvent.KEYCODE_BUTTON_A:
+							keyCode = KeyEvent.KEYCODE_N;
+							break;
+						case KeyEvent.KEYCODE_BUTTON_B:
+							keyCode = KeyEvent.KEYCODE_M;
+							break;
+						case KeyEvent.KEYCODE_BUTTON_Y:
+							keyCode = KeyEvent.KEYCODE_N;
+							break;
+						case KeyEvent.KEYCODE_MENU:
+							keyCode = KeyEvent.KEYCODE_I;
+							break;
+						case KeyEvent.KEYCODE_BUTTON_SELECT:
+							keyCode = KeyEvent.KEYCODE_I;
+							break;
+						case KeyEvent.KEYCODE_BUTTON_START:
+							keyCode = KeyEvent.KEYCODE_I;
+							break;
+						default:
+							return true;
+					}
+					break;
+				case 3:
+					switch (keyCode) {
+						case KeyEvent.KEYCODE_DPAD_LEFT:
+							keyCode = KeyEvent.KEYCODE_F1;
+							break;
+						case KeyEvent.KEYCODE_DPAD_RIGHT:
+							keyCode = KeyEvent.KEYCODE_F2;
+							break;
+						case KeyEvent.KEYCODE_DPAD_UP:
+							keyCode = KeyEvent.KEYCODE_F3;
+							break;
+						case KeyEvent.KEYCODE_DPAD_DOWN:
+							keyCode = KeyEvent.KEYCODE_F4;
+							break;
+						case KeyEvent.KEYCODE_BUTTON_X:
+							keyCode = KeyEvent.KEYCODE_F5;
+							break;
+						case KeyEvent.KEYCODE_BUTTON_A:
+							keyCode = KeyEvent.KEYCODE_F6;
+							break;
+						case KeyEvent.KEYCODE_BUTTON_B:
+							keyCode = KeyEvent.KEYCODE_F7;
+							break;
+						case KeyEvent.KEYCODE_BUTTON_Y:
+							keyCode = KeyEvent.KEYCODE_F6;
+							break;
+						case KeyEvent.KEYCODE_MENU:
+							keyCode = KeyEvent.KEYCODE_I;
+							break;
+						case KeyEvent.KEYCODE_BUTTON_SELECT:
+							keyCode = KeyEvent.KEYCODE_I;
+							break;
+						case KeyEvent.KEYCODE_BUTTON_START:
+							keyCode = KeyEvent.KEYCODE_I;
+							break;
+						default:
+							return true;
+					}
+					break;
+			}
+			if(keyCode == KeyEvent.KEYCODE_I) {
+				if(event.getAction() == KeyEvent.ACTION_UP) {
+					return true;
+				}
+				SDLActivity.backButtonDelayOuya = 0;
+			}
+		} else {	
+			//PIX wrapps in order to work properly with our controller's "API"
+			switch (keyCode) {
+				case KeyEvent.KEYCODE_BUTTON_X:
+					keyCode = KeyEvent.KEYCODE_A;
+					break;
+				case KeyEvent.KEYCODE_BUTTON_A:
+					keyCode = KeyEvent.KEYCODE_S;
+					break;
+				case KeyEvent.KEYCODE_BUTTON_B:
+					keyCode = KeyEvent.KEYCODE_D;
+					break;
+				case KeyEvent.KEYCODE_BUTTON_Y:
+					keyCode = KeyEvent.KEYCODE_S;
+					break;
+				case KeyEvent.KEYCODE_MENU:
+					keyCode = KeyEvent.KEYCODE_BACK;
+					break;
+				case KeyEvent.KEYCODE_BUTTON_SELECT:
+					keyCode = KeyEvent.KEYCODE_BACK;
+					break;
+				case KeyEvent.KEYCODE_BUTTON_START:
+					keyCode = KeyEvent.KEYCODE_BACK;
+					break;
+				default:
+					return true;
+			}
+		}
+			
+            if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                //Log.v("SDL", "key down: " + keyCode);
+                SDLActivity.onNativeKeyDown(keyCode);
+            } else if (event.getAction() == KeyEvent.ACTION_UP) {
+                //Log.v("SDL", "key up: " + keyCode);
                 SDLActivity.onNativeKeyUp(keyCode);
             }
-            return false;
-        }
-
-		//PIX wrapps in order to work properly with our controller's "API"
-		switch (keyCode) {
-			case KeyEvent.KEYCODE_BUTTON_X:
-				keyCode = KeyEvent.KEYCODE_A;
-				break;
-			case KeyEvent.KEYCODE_BUTTON_A:
-				keyCode = KeyEvent.KEYCODE_S;
-				break;
-			case KeyEvent.KEYCODE_BUTTON_B:
-				keyCode = KeyEvent.KEYCODE_D;
-				break;
-			case KeyEvent.KEYCODE_BUTTON_Y:
-				keyCode = KeyEvent.KEYCODE_S;
-				break;
-			case KeyEvent.KEYCODE_MENU:
-				keyCode = KeyEvent.KEYCODE_BACK;
-				break;
-			case KeyEvent.KEYCODE_BUTTON_SELECT:
-				keyCode = KeyEvent.KEYCODE_BACK;
-				break;
-			case KeyEvent.KEYCODE_BUTTON_START:
-				keyCode = KeyEvent.KEYCODE_BACK;
-				break;
-		}
-		
-		if(SDLActivity.isOuya && keyCode == KeyEvent.KEYCODE_BACK) {
-			if(event.getAction() == KeyEvent.ACTION_UP) {
-				return true;
-			}
-			SDLActivity.backButtonDelayOuya = 0;
-		}
-		
-		if (event.getAction() == KeyEvent.ACTION_DOWN) {
-			SDLActivity.onNativeKeyDown(keyCode);
-			return true;
-		} else if (event.getAction() == KeyEvent.ACTION_UP) {
-			SDLActivity.onNativeKeyUp(keyCode);
-			return true;
-		}
-       
-        return false;
+        return true;
     }
 
     // Touch events
     public boolean onTouch(View v, MotionEvent event) {
         {
-             final int touchDevId = event.getDeviceId();
-             final int pointerCount = event.getPointerCount();
-             // touchId, pointerId, action, x, y, pressure
-             int actionPointerIndex = (event.getAction() & MotionEvent.ACTION_POINTER_ID_MASK) >> MotionEvent. ACTION_POINTER_ID_SHIFT; /* API 8: event.getActionIndex(); */
-             int pointerFingerId = event.getPointerId(actionPointerIndex);
-             int action = (event.getAction() & MotionEvent.ACTION_MASK); /* API 8: event.getActionMasked(); */
-
+             int actionPointerIndex = event.getActionIndex();
+             int action = event.getActionMasked();
              float x = event.getX(actionPointerIndex) / mWidth;
              float y = event.getY(actionPointerIndex) / mHeight;
-             float p = event.getPressure(actionPointerIndex);
 
-             if (action == MotionEvent.ACTION_MOVE && pointerCount > 1) {
-                // TODO send motion to every pointer if its position has
-                // changed since prev event.
-                for (int i = 0; i < pointerCount; i++) {
-                    pointerFingerId = event.getPointerId(i);
-                    x = event.getX(i) / mWidth;
-                    y = event.getY(i) / mHeight;
-                    p = event.getPressure(i);
-                    SDLActivity.onNativeTouch(touchDevId, pointerFingerId, action, x, y, p);
-                }
-             } else {
-                SDLActivity.onNativeTouch(touchDevId, pointerFingerId, action, x, y, p);
+             // Dispatch the different events depending on how they come from
+             if ( (event.getSource() & InputDevice.SOURCE_TOUCHPAD) != 0 ||
+                  (event.getSource() & InputDevice.SOURCE_TOUCHSCREEN) != 0) {
+                 final int touchDevId = event.getDeviceId();
+                 final int pointerCount = event.getPointerCount();
+                 // touchId, pointerId, action, x, y, pressure
+                 int pointerFingerId = event.getPointerId(actionPointerIndex);
+
+                 float p = event.getPressure(actionPointerIndex);
+
+                 if (action == MotionEvent.ACTION_MOVE && pointerCount > 1) {
+                    // TODO send motion to every pointer if its position has
+                    // changed since prev event.
+                    for (int i = 0; i < pointerCount; i++) {
+                        pointerFingerId = event.getPointerId(i);
+                        x = event.getX(i) / mWidth;
+                        y = event.getY(i) / mHeight;
+                        p = event.getPressure(i);
+                        //SDLActivity.onNativeTouch(touchDevId, pointerFingerId, action, x, y, p);
+                    }
+                 } else {
+                    //SDLActivity.onNativeTouch(touchDevId, pointerFingerId, action, x, y, p);
+                 }
              }
         }
       return true;
-   } 
-
-    // Sensor events
-    public void enableSensor(int sensortype, boolean enabled) {
-        // TODO: This uses getDefaultSensor - what if we have >1 accels?
-        if (enabled) {
-            mSensorManager.registerListener(this, 
-                            mSensorManager.getDefaultSensor(sensortype), 
-                            SensorManager.SENSOR_DELAY_GAME, null);
-        } else {
-            mSensorManager.unregisterListener(this, 
-                            mSensorManager.getDefaultSensor(sensortype));
-        }
     }
-    
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-        // TODO
-    }
-
-    public void onSensorChanged(SensorEvent event) {
-        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-            SDLActivity.onNativeAccel(event.values[0] / SensorManager.GRAVITY_EARTH,
-                                      event.values[1] / SensorManager.GRAVITY_EARTH,
-                                      event.values[2] / SensorManager.GRAVITY_EARTH);
-        }
-    }
-    
 }
 
 /* This is a fake invisible editor view that receives the input and defines the
@@ -821,7 +1089,6 @@ class DummyEdit extends View implements View.OnKeyListener {
             SDLActivity.onNativeKeyUp(keyCode);
             return true;
         }
-
         return false;
     }
 
@@ -830,7 +1097,7 @@ class DummyEdit extends View implements View.OnKeyListener {
         ic = new SDLInputConnection(this, true);
 
         outAttrs.imeOptions = EditorInfo.IME_FLAG_NO_EXTRACT_UI
-                | 33554432;
+                | 33554432 /* API 11: EditorInfo.IME_FLAG_NO_FULLSCREEN */;
 
         return ic;
     }
@@ -845,14 +1112,16 @@ class SDLInputConnection extends BaseInputConnection {
 
     @Override
     public boolean sendKeyEvent(KeyEvent event) {
-
         /*
          * This handles the keycodes from soft keyboard (and IME-translated
          * input from hardkeyboard)
          */
+
         int keyCode = event.getKeyCode();
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
-
+            if (event.isPrintingKey()) {
+                commitText(String.valueOf((char) event.getUnicodeChar()), 1);
+            }
             SDLActivity.onNativeKeyDown(keyCode);
             return true;
         } else if (event.getAction() == KeyEvent.ACTION_UP) {
@@ -861,6 +1130,7 @@ class SDLInputConnection extends BaseInputConnection {
             return true;
         }
         return super.sendKeyEvent(event);
+
     }
 
     @Override

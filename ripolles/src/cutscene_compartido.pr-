@@ -6,8 +6,11 @@
 	controlador(0);
 	while(fading) frame; end
 	//frame(10000);
+	i=write(fpg_texto,630,350,8,textos[64]);
+	i.size=50;
 	fade_on();
 	while(fading) frame; end
+
 	
 	fpg_nivel=fpg_cutscenes=load_fpg("fpg/cutscenes.fpg");
 	file=fpg_cutscenes;

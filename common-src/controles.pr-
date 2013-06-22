@@ -93,7 +93,7 @@ Begin
 		from i=0 to 7; p[jugador].botones[i]=0;	end		
 		if(p[jugador].control==-2) //GLOBAL: Para menús y tal
 			priority=1;
-			from i=1 to posibles_jugadores+1;
+			from i=1 to posibles_jugadores;
 				controlador(i);
 			end
 			loop
@@ -109,6 +109,48 @@ Begin
 			end
 		end		
 		if(p[jugador].control==-1) return; end
+	#IFDEF OUYA
+		If(p[jugador].control==1)  // jugador 1
+			If(key(_q)) p[jugador].botones[0]=1; End
+			If(key(_w)) p[jugador].botones[1]=1; End
+			If(key(_e)) p[jugador].botones[2]=1; End
+			If(key(_r)) p[jugador].botones[3]=1; End
+			If(key(_t)) p[jugador].botones[4]=1; End
+			If(key(_y)) p[jugador].botones[5]=1; End
+			If(key(_u)) p[jugador].botones[6]=1; End
+			if(key(_i)) p[jugador].botones[7]=1; end
+		End
+		If(p[jugador].control==2)  // jugador 2
+			If(key(_a)) p[jugador].botones[0]=1; End
+			If(key(_s)) p[jugador].botones[1]=1; End
+			If(key(_d)) p[jugador].botones[2]=1; End
+			If(key(_f)) p[jugador].botones[3]=1; End
+			If(key(_g)) p[jugador].botones[4]=1; End
+			If(key(_h)) p[jugador].botones[5]=1; End
+			If(key(_j)) p[jugador].botones[6]=1; End
+			if(key(_k)) p[jugador].botones[7]=1; end
+		End
+		If(p[jugador].control==3)  // jugador 3
+			If(key(_z)) p[jugador].botones[0]=1; End
+			If(key(_x)) p[jugador].botones[1]=1; End
+			If(key(_c)) p[jugador].botones[2]=1; End
+			If(key(_v)) p[jugador].botones[3]=1; End
+			If(key(_b)) p[jugador].botones[4]=1; End
+			If(key(_n)) p[jugador].botones[5]=1; End
+			If(key(_m)) p[jugador].botones[6]=1; End
+			if(key(_l)) p[jugador].botones[7]=1; end
+		End
+		If(p[jugador].control==4)  // jugador 4
+			If(key(_f1)) p[jugador].botones[0]=1; End
+			If(key(_f2)) p[jugador].botones[1]=1; End
+			If(key(_f3)) p[jugador].botones[2]=1; End
+			If(key(_f4)) p[jugador].botones[3]=1; End
+			If(key(_f5)) p[jugador].botones[4]=1; End
+			If(key(_f6)) p[jugador].botones[5]=1; End
+			If(key(_f7)) p[jugador].botones[6]=1; End
+			if(key(_f8)) p[jugador].botones[7]=1; end
+		End
+	#ELSE
 		If(p[jugador].control==0)  // teclado
 			If(key(key_b_izquierda)) p[jugador].botones[0]=1; End
 			If(key(key_b_derecha)) p[jugador].botones[1]=1; End
@@ -188,6 +230,8 @@ Begin
 				If(get_joy_button(joysticks[p[jugador].control],joy_profiles[joysticks[p[jugador].control]]._b_salir)) p[jugador].botones[7]=1; End
 			end
 		End
+	#ENDIF
+	//endif de ouya
 		Frame;
 	End
 End
@@ -196,6 +240,16 @@ Function configurar_controles();
 Private
 	archos_basura;
 Begin
+	#IFDEF OUYA
+	//FUCK THE POLICE
+	posibles_jugadores=4;
+	p[0].control=-2;
+	p[1].control=1;
+	p[2].control=2;
+	p[3].control=3;
+	p[4].control=4;
+	return;
+	#ENDIF
 	//1. Averiguamos cuantos joysticks tenemos
 	njoys=number_joy();
 	

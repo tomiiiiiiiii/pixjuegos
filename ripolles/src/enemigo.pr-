@@ -36,7 +36,7 @@ Begin
 	if(tipo==5) from alpha=0 to 255 step 4; frame; end end
 	if(tipo==2 or tipo==5) se_defiende=1; huye=0; end
 	if(tipo==4 or tipo==5) sabe_saltar=1; end
-	if(tipo==6) sabe_ataque_especial=1; end
+	if(tipo==6 or tipo==102) sabe_ataque_especial=1; end
 	loop
 		if(mata_enemigos and tipo>0)
 			p[jugador].vida=0;
@@ -59,7 +59,7 @@ Begin
 		if(renacimiento)
 			e.herida=20;
 		end
-		
+				
 		if(good_vs_evil)
 			if(estoy_en_pantalla())
 				if(controlado==0)

@@ -3,8 +3,11 @@
 echo Creando ripolleses alternativos...
 cd recursos\personajes
 type Ripolles.svg | ..\..\..\utils\sed "s/ff7f2a/00af00/g" > ripolles2.svg
+type Ripolles1bici.svg | ..\..\..\utils\sed "s/ff7f2a/00af00/g" > ripolles2bici.svg
 type Ripolles.svg | ..\..\..\utils\sed "s/ff7f2a/00afff/g" > ripolles3.svg
+type Ripolles1bici.svg | ..\..\..\utils\sed "s/ff7f2a/00afff/g" > ripolles3bici.svg
 type Ripolles.svg | ..\..\..\utils\sed "s/ff7f2a/8d368f/g" > ripolles4.svg
+type Ripolles1bici.svg | ..\..\..\utils\sed "s/ff7f2a/8d368f/g" > ripolles4bici.svg
 cd ..\..
 
 echo Eliminando fpg-sources
@@ -14,12 +17,18 @@ mkdir fpg-sources\ripolles1
 mkdir fpg-sources\ripolles2
 mkdir fpg-sources\ripolles3
 mkdir fpg-sources\ripolles4
+mkdir fpg-sources\ripolles1bici
+mkdir fpg-sources\ripolles2bici
+mkdir fpg-sources\ripolles3bici
+mkdir fpg-sources\ripolles4bici
 mkdir fpg-sources\pato
 mkdir fpg-sources\enemigo1
 mkdir fpg-sources\enemigo2
 mkdir fpg-sources\enemigo3
 mkdir fpg-sources\enemigo4
 mkdir fpg-sources\enemigo5
+mkdir fpg-sources\enemigo6
+mkdir fpg-sources\enemigo7
 mkdir fpg-sources\jefe1
 mkdir fpg-sources\jefe2
 mkdir fpg-sources\jefe3

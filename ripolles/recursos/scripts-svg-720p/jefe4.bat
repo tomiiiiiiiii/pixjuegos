@@ -55,8 +55,8 @@ call :a 91
 call :a 92
 call :a 93
 
-copy ..\..\fpg-sources\jefe4\201.png ..\..\fpg-sources\general\13.png /y
-copy ..\..\fpg-sources\jefe4\211.png ..\..\fpg-sources\general\14.png /y
+copy ..\..\fpg-sources\jefe4\201.png ..\..\fpg-sources\general\14.png /y
+copy ..\..\fpg-sources\jefe4\211.png ..\..\fpg-sources\general\13.png /y
 
 exit
 goto :eof

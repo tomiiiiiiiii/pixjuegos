@@ -13,10 +13,15 @@ Private
 	pulsando_arriba;
 	no_pulsando_lado;
 	
-	se_defiende=0;
+	sabe_defenderse=0;
+	sabe_evadir=0;
 	sabe_saltar=0;
+	sabe_uppercut=0;
 	sabe_ataque_especial=0;
-	puede_correr=0;
+	sabe_ataca_aire=0;
+	sabe_ataque_fuerte=0;
+	sabe_correr=0;
+	sabe_combo=0;
 	
 	retraso_movimiento_defensa;
 	si_ataca;
@@ -24,17 +29,23 @@ Private
 	rotura_cogido;
 	tres_ataques;
 	ultimo_ataque=10;
-	ataca_fuerte_sin_retraso=0;
+	ataca_fuerte_sin_retraso=0;	
 Begin
 	resolution=global_resolution;
 	ctype=coordenadas;
 	p[jugador].juega=1;
 	p[jugador].identificador=id;
-	
+
 	if(tipo==0)
-		puede_correr=1;
-		se_defiende=1;
+		sabe_correr=1;
+		sabe_defenderse=1;
 		sabe_saltar=1;
+		sabe_combo=1;
+		sabe_ataque_especial=1;
+		sabe_uppercut=1;
+		sabe_ataca_aire=1;
+		sabe_ataque_fuerte=1;
+		sabe_evadir=1;
 		switch(modo_juego)
 			case modo_historia:
 				x=50+50*jugador;
@@ -65,23 +76,54 @@ Begin
 				if(ops.truco_pato==1)
 					file=fpg_pato;
 				else
-					file=fpg_ripolles1;
+					if(en_moto)
+						file=fpg_ripolles1bici;
+					else
+						file=fpg_ripolles1;
+					end
 				end
 			end
-			case 2: file=fpg_ripolles2; end
-			case 3: file=fpg_ripolles3; end
-			case 4: file=fpg_ripolles4; end
+			case 2: 
+				if(en_moto)
+					file=fpg_ripolles2bici;
+				else
+					file=fpg_ripolles2;
+				end
+			end
+			case 3: 
+				if(en_moto)
+					file=fpg_ripolles3bici;
+				else
+					file=fpg_ripolles3;
+				end
+			end
+			case 4: 
+				if(en_moto)
+					file=fpg_ripolles4bici;
+				else
+					file=fpg_ripolles4;
+				end
+			end
 		end
 		p[jugador].vida=100;
 		inercia_max_x=6;
 		inercia_max_y=3;
 		fuerza_ataque=10;
-		altura=-300;
 		marcador(jugador);
 		if(ops.truco_pato==1)
 			inercia_max_x=9;
 			inercia_max_y=6;
 			fuerza_ataque=40;
+		end
+		if(en_moto)
+			altura=-100;
+			gravedad=-20;
+			x_inc=60;
+			x=-200;
+			angle_inc=-15;
+			angle=220000;
+		else
+			altura=-300;
 		end
 	else
 		enemigos++;
@@ -101,7 +143,7 @@ Begin
 				fuerza_ataque=10;
 				file=fpg_enemigo2; 
 				p[jugador].vida=80;
-				se_defiende=1;
+				sabe_defenderse=1;
 			end
 			case 3:
 				inercia_max_x=2;
@@ -124,10 +166,26 @@ Begin
 				fuerza_ataque=10;
 				file=fpg_enemigo5;
 				p[jugador].vida=300;
-				se_defiende=1;
+				sabe_defenderse=1;
 				sabe_saltar=1;
 			end
-			case 6: //JEFE 2
+			case 6: //bailarina
+				inercia_max_x=4;
+				inercia_max_y=4;
+				fuerza_ataque=10;
+				file=fpg_enemigo6;
+				p[jugador].vida=50;
+				sabe_ataque_especial=1;
+			end
+			case 7: //pez
+				inercia_max_x=4;
+				inercia_max_y=4;
+				fuerza_ataque=20;
+				file=fpg_enemigo7;
+				p[jugador].vida=90;
+				lleva_objeto=100;
+			end
+			case 102: //JEFE 2
 				inercia_max_x=6;
 				inercia_max_y=6;
 				fuerza_ataque=20;
@@ -147,6 +205,17 @@ Begin
 		end
 	end
 
+	if(en_moto)
+		sabe_correr=0;
+		if(tipo!=0) sabe_defenderse=0; end
+		sabe_evadir=0;
+		sabe_ataque_especial=0;
+		sabe_combo=0;
+		sabe_uppercut=0;
+		sabe_ataca_aire=0;
+		sabe_ataque_fuerte=0;
+	end
+	
 	if(jugador==100) marcador_jefe(); end
 	
 	recoloca_centros_personaje(file);
@@ -155,14 +224,21 @@ Begin
 	alto=graphic_info(file,1,G_HEIGHT);
 	frame;
 	
-	if(tipo==6) from alpha=0 to 255 step 25; frame; end end
+	if(tipo==102) from alpha=0 to 255 step 25; frame; end end
 	
 	loop
 		if(tipo==0)
+			//say("ACCION:"+accion+" | ANIMACION:"+animacion+" | GRAPH:"+graph);
 			while(!ready) frame; end
 		else
 			while(!ready and !ganando) frame; end
 		end
+
+		if(en_moto and tipo>0 and x<-100)
+			break;
+		end
+
+		
 		rotura_cogido=0;
 		while(accion==cogido)
 			if(rotura_cogido<300) 
@@ -174,14 +250,18 @@ Begin
 			frame; 
 		end
 		
-		if(accion!=ataca_suelo)
-			if(ultimo_ataque<10)
-				ultimo_ataque++;
-			else
-				tres_ataques=0;
+		if(sabe_combo)
+			if(accion!=ataca_suelo)
+				if(ultimo_ataque<10)
+					ultimo_ataque++;
+				else
+					tres_ataques=0;
+				end
 			end
+		else
+			tres_ataques=0;
 		end
-		
+			
 		if(p[jugador].vida<1 or (tipo>0 and ganando))
 			p[jugador].vida=0;
 			if(accion!=muere)
@@ -195,10 +275,10 @@ Begin
 		end
 		
 		if(tipo==0 and lleva_objeto!=0 and accion==quieto)
-			if(lleva_objeto==1 or lleva_objeto==4 or lleva_objeto==9) //comida
+			if(lleva_objeto==1 or lleva_objeto==4 or lleva_objeto==9 or lleva_objeto==100) //comida
 				if(lleva_objeto==4)
 					p[jugador].vida=100;
-				elseif(lleva_objeto==9)
+				elseif(lleva_objeto==9 or lleva_objeto==100)
 					switch(rand(1,2))
 						case 1: 
 							mensaje_player(textos[33]);
@@ -303,7 +383,7 @@ Begin
 		
 		if(herida==0)
 			if(altura==0) //EN EL SUELO
-				if(accion==defiende and tipo==0) //esquivar
+				if(accion==defiende and sabe_evadir==1) //ESQUIVAR
 					if(retraso_movimiento_defensa==0)
 						//movimiento
 						if(p[jugador].botones[b_arriba] xor p[jugador].botones[b_abajo])
@@ -332,7 +412,7 @@ Begin
 								gravedad=-10;
 								altura=1;
 								retraso_movimiento_defensa=0;
-								flags=1;
+								if(!en_moto) flags=1; end
 							end
 						end
 					end
@@ -342,7 +422,7 @@ Begin
 					if(p[jugador].botones[b_1] and pulsando_ataque1==0)
 						pulsando_ataque1=1;
 						if(lleva_objeto==0)
-							if(p[jugador].botones[b_3] and ((p[jugador].vida>30 and tipo==0) or tipo==6))
+							if(p[jugador].botones[b_3] and sabe_ataque_especial and p[jugador].vida>20)
 								accion=ataca_area;
 								sonido(3,3);
 								if(invencibilidad==0 and tipo==0)
@@ -377,9 +457,9 @@ Begin
 								end
 								if(si_ataca)
 									sonido(3,0);
-									if(p[jugador].botones[b_abajo] and pulsando_abajo<3)
+									if(p[jugador].botones[b_abajo] and pulsando_abajo<3 and sabe_ataque_fuerte)
 										accion=ataca_fuerte;
-									elseif(p[jugador].botones[b_arriba] and pulsando_arriba<3)
+									elseif(p[jugador].botones[b_arriba] and pulsando_arriba<3 and sabe_uppercut)
 										accion=ataca_uppercut;
 										gravedad=-20;
 										altura=1;
@@ -387,7 +467,7 @@ Begin
 										accion=ataca_suelo;
 									else
 										tres_ataques++;
-										if(tres_ataques==3)
+										if(tres_ataques==3 and sabe_ataque_fuerte)
 											accion=ataca_fuerte;
 											ataca_fuerte_sin_retraso=1;
 											tres_ataques=0;
@@ -414,12 +494,12 @@ Begin
 					end
 					
 					if(p[jugador].botones[b_izquierda] xor p[jugador].botones[b_derecha])
-						if(no_pulsando_lado==1 and accion==camina and puede_correr)
+						if(no_pulsando_lado==1 and accion==camina and sabe_correr)
 							accion=corre; 
 						end
 						if(p[jugador].botones[b_izquierda])
 							x_inc-=3;
-							flags=1;
+							if(!en_moto) flags=1; end
 						else //derecha
 							x_inc+=3;
 							flags=0;
@@ -427,7 +507,7 @@ Begin
 					end
 					
 					//defenderse
-					if(p[jugador].botones[b_3] and !p[jugador].botones[b_1] and se_defiende)
+					if(p[jugador].botones[b_3] and !p[jugador].botones[b_1] and sabe_defenderse)
 						accion=defiende;
 						if(lleva_objeto>0)
 							objeto(x,y_base,altura-100,lleva_objeto,0,flags);
@@ -467,23 +547,23 @@ Begin
 				end
 
 				//reducción de inercias
-				if(!(tipo==6 and accion==ataca_area))
+				if(!(sabe_ataque_especial and accion==ataca_area))
 					friccioname();
 				end
 				
 			else //EN EL AIRE (SALTO)
 				//ataque aereo
-				if(accion==quieto or accion==camina or accion==corre or accion==salta)
-					if(p[jugador].botones[b_1] and pulsando_ataque1==0) 
+				if((accion==quieto or accion==camina or accion==corre or accion==salta))
+					if(p[jugador].botones[b_1] and pulsando_ataque1==0 and sabe_ataca_aire)
 						pulsando_ataque1=1;
 						if(lleva_objeto==0)
-							if(p[jugador].botones[b_3] and p[jugador].vida>30 and tipo==0)
+							if(p[jugador].botones[b_3] and sabe_ataque_especial and p[jugador].vida>20)
 								accion=ataca_area;
 								sonido(3,3);
 								if(invencibilidad==0)
 									p[jugador].vida-=10;
 								end
-							elseif(p[jugador].botones[b_arriba] and pulsando_arriba<3 and gravedad<0)
+							elseif(p[jugador].botones[b_arriba] and pulsando_arriba<3 and gravedad<0 and sabe_uppercut)
 								accion=ataca_uppercut;
 								gravedad=-20;
 							else
@@ -513,10 +593,17 @@ Begin
 					if(p[jugador].botones[b_izquierda] xor p[jugador].botones[b_derecha])
 						if(p[jugador].botones[b_izquierda])
 							x_inc-=1;
-							flags=1;
+							if(en_moto)
+								angle_inc+=2;
+							else
+								flags=1;
+							end
 						else //derecha
 							x_inc+=1;
 							flags=0;
+							if(en_moto)
+								angle_inc-=2;
+							end
 						end
 					end
 				end
@@ -524,9 +611,33 @@ Begin
 				gravedad+=2;
 				altura+=gravedad;
 				if(altura>1)
-					altura=0;
-					gravedad=0;
-					accion=quieto;
+					if(en_moto)
+						if(angle>360000) angle-=360000; end
+						if(angle<0) angle+=360000; end
+						if(angle>315000 or angle<45000)
+							altura=0;
+							gravedad=0;
+							accion=quieto;
+							angle_inc=0;
+							angle=0;
+						else
+							if(angle==180000)
+								angle_inc=18;
+							else
+								angle_inc=(angle-180000)/10000;
+								x_inc+=angle_inc/2;
+							end
+							gravedad=-20;
+							altura=-1;
+							if(angle>135000 and angle<225000)
+								herida=5;
+							end
+						end
+					else
+						altura=0;
+						gravedad=0;
+						accion=quieto;
+					end
 				else
 					y+=gravedad;
 				end
@@ -543,9 +654,9 @@ Begin
 				end
 				inercia_maxima(inercia_max_x_actual,inercia_max_x_actual); 
 			end
-		
-		else //está siendo herido o cayendo del golpe
-		
+			//FIN DE ACCIONES SIN ESTAR HERIDO
+		elseif(en_moto==0)
+			//SIENDO HERIDO:
 			if(accion!=herido_leve and accion!=herido_grave and accion!=muere) //escisión!
 				//se le cae el objeto
 				if(lleva_objeto>0)
@@ -621,6 +732,7 @@ Begin
 			end
 
 			altura+=gravedad;
+
 			if(altura>1)
 				if(tipo!=0)
 					p[jugador].vida-=gravedad/2;
@@ -635,13 +747,62 @@ Begin
 			else
 				friccioname();
 			end
+		ELSE //HERIDO EN MOTO:
+			if(accion!=muere)
+				if(accion!=herido_leve)
+					p[jugador].vida-=herida;
+					sonido(2,0);
+					accion=herido_leve;
+					if(herida<7) herida=7; end //más retraso
+					if(herida>15)
+						gravedad+=-herida;
+					else
+						gravedad+=-15;
+					end
+					if(flags==1)
+						x_inc=herida/4;
+					else
+						x_inc=-herida/4;
+					end
+					altura=-1;
+					sonido(2,0);
+					accion=herido_leve;
+				else
+					herida--;
+				end
+				if(altura>1)
+					if(angle>360000) angle-=360000; end
+					if(angle<0) angle+=360000; end
+					if(angle>315000 or angle<45000)
+						altura=0;
+						gravedad=0;
+						accion=quieto;
+						angle_inc=0;
+						angle=0;
+					else
+						if(angle==180000)
+							angle_inc=18;
+						else
+							angle_inc=(angle-180000)/10000;
+							x_inc+=angle_inc/2;
+						end
+						gravedad=-20;
+						altura=-1;
+						if(angle>135000 and angle<225000)
+							herida=5;
+						end
+					end
+				else
+					y+=gravedad;
+					gravedad+=2;
+				end
+			end
 		end
-		
 		if(!p[jugador].botones[b_1]) pulsando_ataque1=0; end
 		
 		if(herida==0 and altura==0)
 			if(accion==quieto and (x_inc!=0 or y_inc!=0))
-				if(abs(x_inc)>inercia_max_x and puede_correr)
+				if(abs(x_inc)>inercia_max_x and sabe_correr)
 					accion=corre;
 				else
 					accion=camina;
@@ -659,6 +820,17 @@ Begin
 			mueveme(encerrandome);
 		else
 			mueveme(sin_encerrarme);
+		end
+		
+		//hacks para la animación de en_moto
+		if(en_moto)
+			if(accion==quieto)
+				accion=camina;
+				animacion=camina;
+			end
+			if(accion==camina and anim==17)
+				anim=0; 
+			end
 		end
 		animame();
 		cuerpo();
@@ -762,7 +934,7 @@ Begin
 			end
 		end		
 		
-		//gestión de los ataques (puntos de colisión de los ataques)
+		//GESTIÓN DE LOS ATAQUES (puntos de colisión de los ataques)
 		if(accion==ataca_suelo)
 			if(anim<4)
 				if(tipo==0) ataque(x+(15*hacia_que_lado),y-15,fpg_general,1,fuerza_ataque,20,jugador); end
@@ -770,7 +942,7 @@ Begin
 				ataque(x+(45*hacia_que_lado),y-15,fpg_general,1,fuerza_ataque*1.5,20,jugador);
 			end
 			if(anim==7)
-				accion=quieto; 
+				accion=quieto;
 			end
 		end
 		if(accion==ataca_fuerte)
@@ -823,7 +995,7 @@ Begin
 		end
 		if(accion==muere)
 			if(herida>3000)
-				if(tipo==6) break; end
+				if(tipo==102) break; end
 				from alpha=255 to 0 step -15; frame; end
 				if(jugador>10) enemigos--; end
 				
@@ -854,7 +1026,7 @@ Begin
 		if(tipo==5) estela(); end
 		frame;
 	end
-	if(tipo==6) //jefe2
+	if(tipo==102) //jefe2
 		graph=151;
 		from i=0 to 90; frame; end
 		graph=73;

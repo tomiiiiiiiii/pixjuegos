@@ -321,10 +321,10 @@ Begin
 
 		if(reloj==0)
 			from i=1 to 2;
-				If(p[1].estrella==0 and collision(p[1].id)) 
-					if(matando==margen_novato) 
-						p[1].muere=1; 
-						If(p[1].proteccion==1) 
+				If(p[i].estrella==0 and collision(p[i].id)) 
+					if(matando==margen_novato)
+						p[i].muere=1; 
+						If(p[i].proteccion==1)
 							accion=-1;
 						End 
 						matando=0; 

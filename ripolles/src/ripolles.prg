@@ -23,6 +23,7 @@ import "mod_sound";
 import "mod_string";
 import "mod_sys";
 //import "mod_text";
+import "mod_time";
 import "mod_timers";
 import "mod_video";
 import "mod_wm";
@@ -63,6 +64,8 @@ Const
 End
 
 Global
+	mov_camara_moto=0;
+
 	mata_textos_menu;
 	
 	mapa_nivel;
@@ -78,6 +81,7 @@ Global
 	pocos_recursos=0;
 	good_vs_evil=0;
 
+	en_moto=0;
 	
 	puntos;
 
@@ -124,6 +128,10 @@ Global
 	fpg_ripolles2;
 	fpg_ripolles3;
 	fpg_ripolles4;
+	fpg_ripolles1bici;
+	fpg_ripolles2bici;
+	fpg_ripolles3bici;
+	fpg_ripolles4bici;
 	fpg_menu;
 	fpg_fondo_menu;
 	fpg_nivel;
@@ -134,6 +142,8 @@ Global
 	fpg_enemigo3;
 	fpg_enemigo4;
 	fpg_enemigo5;
+	fpg_enemigo6;
+	fpg_enemigo7;
 	fpg_jefe;
 	fpg_cutscenes;
 	fpg_lang;
@@ -208,6 +218,7 @@ Local
 	jugador;
 	y_inc;
 	x_inc;
+	angle_inc;
 	y_base;
 	i; j;
 	tipo;
@@ -230,6 +241,8 @@ include "traducciones.pr-";
 Begin
 	if(argc>0) if(argv[1]=="arcade") arcade_mode=1; end end
 
+	rand_seed(time());
+	
 	savepath();
 	
 	if(os_id==1003)
@@ -238,16 +251,22 @@ Begin
 	end
 	
 	carga_opciones();
+	#IFDEF DEBUG
+		ops.musica=0;
+	#ENDIF
+
+	//temporal
+	ops.lenguaje=-1;
 	
 	if(ops.lenguaje==-1)
 		switch(lenguaje_sistema())
 			case "es": ops.lenguaje=1; end
-			//case "ca": ops.lenguaje=2; end
+			case "ca": ops.lenguaje=2; end
 			default: ops.lenguaje=0; end
 		end	
 	end
 
-	if(os_id==1003) ops.lenguaje=0; end
+	//if(os_id==1003) ops.lenguaje=0; end
 	
 	switch(ops.lenguaje)
 		case 1: lang_suffix="es"; end
@@ -362,9 +381,13 @@ Begin
 	#ENDIF
 	
 	//iniciamos el menú
-	//test_text();
-	//fade_on();
 	menu(-1);
+	
+	//test
+	/*modo_juego=modo_historia;
+	p[1].juega=1;
+	nivel=3;
+	jugar();*/
 	return;
 End
 
@@ -378,17 +401,23 @@ End
 Function carga_fpgs();
 Begin
 	fpg_ripolles1=load_fpg("fpg/ripolles1.fpg");
+	fpg_ripolles1bici=load_fpg("fpg/ripolles1bici.fpg");
 	fpg_pato=load_fpg("fpg/pato.fpg");
 	if(posibles_jugadores>1) //ahorro de recursos!
 		fpg_ripolles2=load_fpg("fpg/ripolles2.fpg");
 		fpg_ripolles3=load_fpg("fpg/ripolles3.fpg");
 		fpg_ripolles4=load_fpg("fpg/ripolles4.fpg");
+		fpg_ripolles2bici=load_fpg("fpg/ripolles2bici.fpg");
+		fpg_ripolles3bici=load_fpg("fpg/ripolles3bici.fpg");
+		fpg_ripolles4bici=load_fpg("fpg/ripolles4bici.fpg");
 	end
 	fpg_enemigo1=load_fpg("fpg/enemigo1.fpg");
 	fpg_enemigo2=load_fpg("fpg/enemigo2.fpg");
 	fpg_enemigo3=load_fpg("fpg/enemigo3.fpg");
 	fpg_enemigo4=load_fpg("fpg/enemigo4.fpg");
 	fpg_enemigo5=load_fpg("fpg/enemigo5.fpg");
+	fpg_enemigo6=load_fpg("fpg/enemigo6.fpg");
+	fpg_enemigo7=load_fpg("fpg/enemigo7.fpg");
 	//grayscale_fpg(fpg_enemigo5);
 
 	fpg_general=load_fpg("fpg/general.fpg");
@@ -463,21 +492,13 @@ Begin
 	ancho_nivel=graphic_info(fpg_nivel,1,G_WIDTH);
 	alto_nivel=graphic_info(fpg_nivel,1,G_HEIGHT);
 	
-	if(global_resolution!=0)
-		if(alto_nivel==360)
-			mapa_nivel=new_map(ancho_nivel*2,alto_nivel*2,graphic_info(fpg_nivel,1,G_DEPTH));
-			map_xputnp(0,mapa_nivel,fpg_nivel,1,ancho_nivel,alto_nivel,0,200,200,0);
-			start_scroll(0,0,mapa_nivel,0,0,8);
-		else
-			ancho_nivel=ancho_nivel/2;
-			alto_nivel=alto_nivel/2;
-			start_scroll(0,fpg_nivel,1,0,0,8);
-		end
-	else
-		start_scroll(0,fpg_nivel,1,0,0,8);
+	if(nivel!=3)
+		start_scroll(0,fpg_nivel,1,0,0,0);
+		id_camara=scroll[0].camera=camara();
+	else //nivel especial con scroll cíclico
+		start_scroll(0,fpg_nivel,1,0,0,1);
+		id_camara=camara_nivel3();
 	end
-	
-	id_camara=scroll[0].camera=camara();
 	
 	if(good_vs_evil)
 		jugadores=2;
@@ -688,6 +709,16 @@ Begin
 	y_inc=5;
 	//y_base=alto_nivel-alto_pantalla;
 	
+	if(nivel==3)
+		scroll[0].camera=0;
+		scroll[0].x1=320;
+		loop
+			scroll[0].x1+=10;
+			frame;
+		end
+		return;
+	end
+	
 	loop
 		while(!ready) frame; end
 		suma_x=0;
@@ -762,6 +793,46 @@ Begin
 	end
 End
 
+Process camara_nivel3();
+Private
+	suma_x;
+	x_inc_max;
+	retraso;
+Begin
+	resolution=global_resolution;
+	scroll[0].camera=0;
+	scroll[0].x1=320;
+	x=320;
+	loop
+		if(en_emboscada==0)
+			if(retraso<200)
+				if(enemigos==0)
+					retraso++;
+				end
+			else
+				en_emboscada=anterior_emboscada+1;
+				anterior_emboscada=en_emboscada;
+				retraso=0;
+			end
+		else
+			if(enemigos==0)
+				from i=1 to 30;
+					if(emboscada[en_emboscada+1].enemigo[i].tipo!=0)
+						enemigo(10+i,emboscada[en_emboscada+1].enemigo[i].tipo,emboscada[en_emboscada+1].enemigo[i].pos_x,emboscada[en_emboscada+1].enemigo[i].pos_y,0,emboscada[en_emboscada+1].enemigo[i].flags);
+					end
+				end
+				anterior_emboscada=en_emboscada;
+				en_emboscada=0;
+			end
+		end
+		while(!ready) frame; end
+		if(mov_camara_moto<15) mov_camara_moto++; end
+		scroll[0].x0+=mov_camara_moto;
+		frame;
+	end
+	return;
+End
+
 Process estela();
 Begin
 	resolution=global_resolution;
@@ -783,6 +854,8 @@ Begin
 End
 
 Function inercia_maxima(max_x,max_y);
+Private
+	max_angle=15;
 Begin
 	if(father.x_inc>0)
 		if(father.x_inc>max_x) father.x_inc=max_x; end
@@ -793,6 +866,11 @@ Begin
 		if(father.y_inc>max_y) father.y_inc=max_y; end
 	elseif(father.y_inc<0)
 		if(father.y_inc<-max_y) father.y_inc=-max_y; end
+	end
+	if(father.angle_inc>0)
+		if(father.angle_inc>max_angle) father.angle_inc=max_angle; end
+	elseif(father.angle_inc<0)
+		if(father.angle_inc<-max_angle) father.angle_inc=-max_angle; end
 	end
 End
 
@@ -878,12 +956,24 @@ Begin
 		end
 	
 		//rebote en bordes
-		if((father.x<30 and father.x_inc<0) or (father.x>ancho_nivel-30 and father.x_inc>0)) 
-			father.x_inc*=-1; 
+		if(en_moto==0)
+			if((father.x<30 and father.x_inc<0) or (father.x>ancho_nivel-30 and father.x_inc>0)) 
+				father.x_inc*=-1; 
+			end
 		end
 		if(forma==encerrandome)
-			if(father.x<id_camara.x-((ancho_pantalla/2)-50)) father.x=id_camara.x-((ancho_pantalla/2)-50); end
-			if(father.x>id_camara.x+((ancho_pantalla/2)-50)) father.x=id_camara.x+((ancho_pantalla/2)-50); end
+			if(father.x<id_camara.x-((ancho_pantalla/2)-50))
+				if(father.x_inc<0) father.x_inc*=-1; end
+				father.x=id_camara.x-((ancho_pantalla/2)-50); 
+			end
+			if(father.x>id_camara.x+((ancho_pantalla/2)-50)) 
+				if(father.x_inc>0) father.x_inc*=-1; end
+				father.x=id_camara.x+((ancho_pantalla/2)-50); 
+			end
+		end
+
+		if(father.angle_inc!=0)
+			father.angle+=father.angle_inc*1000;
 		end
 		
 		if(father.altura==0)
@@ -904,6 +994,11 @@ Begin
 		father.y_inc--;
 	elseif(father.y_inc<0)
 		father.y_inc++;
+	end
+	if(father.angle_inc>0)
+		father.angle_inc--;
+	elseif(father.angle_inc<0)
+		father.angle_inc++;
 	end
 End
 
@@ -945,10 +1040,18 @@ Begin
 			anim_max=30;
 		end
 		case salta:
-			if(father.gravedad<0) //sube
-				father.graph=21;
-			else //baja
-				father.graph=22;
+			if(en_moto)
+				if(father.angle_inc<0) //sube
+					father.graph=21;
+				else //baja
+					father.graph=22;
+				end
+			else			
+				if(father.gravedad<0) //sube
+					father.graph=21;
+				else //baja
+					father.graph=22;
+				end
 			end
 		end
 		case ataca_uppercut:
@@ -1206,8 +1309,17 @@ Begin
 				end
 			end
 		end
+		//SI VAS EN MOTO Y ROTAS MUCHO LA BICI, ATACAS PILA
+		if(father.altura!=0 and father.angle_inc!=0)
+			if(father.jugador<10)
+				ataque(father.x,father.y,file,graph,abs(father.x_inc)+abs(father.angle_inc),40,father.jugador);
+			else
+				ataque(father.x,father.y,file,graph,abs(father.x_inc)+abs(father.angle_inc),40,0);
+			end
+		end
 	else
-		if(father.accion==herido_grave and father.x_inc!=0 and father.gravedad>0)
+		//SI ESTÁS CAYENDO HERIDO, GOLPEAS A LOS DE TU ALREDEDOR (SOLO ENEMIGOS)
+		if(father.accion==herido_grave and father.x_inc!=0 and father.gravedad>0 and father.tipo!=0)
 			if(father.jugador<10)
 				ataque(father.x,father.y,file,graph,abs(father.x_inc),40,father.jugador);
 			else
@@ -1261,6 +1373,7 @@ Begin
 	end
 	ctype=coordenadas;
 	while(!exists(id_camara)) frame; end
+	if(graph==100) x_inc*=2; end
 	loop
 		while(!ready) frame; end
 
@@ -1274,6 +1387,10 @@ Begin
 		if(altura>0) altura=0; end
 		if(altura==0)
 			friccioname();
+			if(en_moto)
+				x_inc=(-mov_camara_moto/2)-1;
+				if(x<-100) break; end
+			end
 		end
 		mueveme(sin_encerrarme);
 		y+=40; //ajuste del centro del objeto
@@ -2045,19 +2162,13 @@ Begin
 	else
 		graph=new_map(ancho_pantalla*2,alto_pantalla*2,graphic_info(fpg_texto,48,G_DEPTH));
 	end
-	#IFDEF OUYA
-		num_paginas_total=2;
-	#ELSE
-		num_paginas_total=3;
+	num_paginas_total=3;
 
 	//TEMPORAL
 	if(pagina<10)
 		pon_texto_ayuda(fpg_texto,textos[35],320,20,100,30,1); //título ayuda
 		pon_texto_ayuda(fpg_texto,pagina+"/"+num_paginas_total,600,350,70,30,4); //num pagina
 	end
-
-	#ENDIF
-	
 	
 	switch(pagina)
 		case 1: //ayuda 1

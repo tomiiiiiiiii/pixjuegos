@@ -42,15 +42,15 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.43045125"
-     inkscape:cx="1029.2793"
-     inkscape:cy="-431.53977"
+     inkscape:zoom="6.88722"
+     inkscape:cx="156.19968"
+     inkscape:cy="51.201616"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
-     inkscape:window-width="1366"
-     inkscape:window-height="706"
-     inkscape:window-x="-8"
+     inkscape:window-width="1857"
+     inkscape:window-height="1058"
+     inkscape:window-x="55"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
      inkscape:snap-grids="true"
@@ -74,7 +74,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -9128,7 +9128,10 @@
     </g>
     <g
        id="161"
-       inkscape:label="#g7206">
+       inkscape:label="#g7206"
+       inkscape:export-filename="C:\Users\panreyes\Desktop\ripo-kawaii.png"
+       inkscape:export-xdpi="600.09607"
+       inkscape:export-ydpi="600.09607">
       <path
          inkscape:export-ydpi="90"
          inkscape:export-xdpi="90"
@@ -9413,24 +9416,6 @@
          inkscape:export-ydpi="90"
          inkscape:export-xdpi="90"
          inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\Ripolles1\161.png"
-         sodipodi:nodetypes="cc"
-         inkscape:connector-curvature="0"
-         id="path3018-9-7"
-         d="m 182.60903,975.59256 c 1.83853,-0.695 3.17062,-0.3772 4.51767,-0.089"
-         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
-      <path
-         inkscape:export-ydpi="90"
-         inkscape:export-xdpi="90"
-         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\Ripolles1\161.png"
-         sodipodi:nodetypes="cc"
-         inkscape:connector-curvature="0"
-         id="path3020-3-2"
-         d="m 191.61374,975.23546 c 1.07483,-0.6623 2.35344,-0.917 4.09926,-0.2373"
-         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
-      <path
-         inkscape:export-ydpi="90"
-         inkscape:export-xdpi="90"
-         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\Ripolles1\161.png"
          sodipodi:nodetypes="ccccccssc"
          inkscape:connector-curvature="0"
          id="path3000-1-6"
@@ -9454,15 +9439,6 @@
          id="path2996-5-16"
          d="m 193.06135,966.30596 c -8.82339,0.6971 -15.3582,4.5114 -18.43528,7.9549 -2.0035,-5.9538 -1.05324,-5.8016 0.56821,-8.46 7.03535,-4.9658 16.854,-2.409 17.86707,0.5051 z"
          style="fill:#ffffff;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
-      <path
-         inkscape:export-ydpi="90"
-         inkscape:export-xdpi="90"
-         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\Ripolles1\161.png"
-         sodipodi:nodetypes="cc"
-         inkscape:connector-curvature="0"
-         id="path3425-0-5"
-         d="m 187.00269,984.20586 c 2.32206,0.9877 4.04023,0.805 6.07143,-0.1786"
-         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
       <path
          inkscape:export-ydpi="90"
          inkscape:export-xdpi="90"
@@ -9506,6 +9482,15 @@
          id="path4219-8-38"
          d="m 209.8133,991.23408 c -0.61628,0.82608 -2.82397,2.6095 -2.70258,1.05683 0.12147,-1.5526 -0.44566,-3.68919 1.42694,-3.99978 3.84094,-0.61882 2.36048,1.66816 1.27564,2.94295 z"
          style="fill:#ff7f2a;stroke:none" />
+      <path
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\Ripolles1\161.png"
+         sodipodi:nodetypes="ccc"
+         inkscape:connector-curvature="0"
+         id="path3425-0-5"
+         d="m 187.00269,984.20586 c 1.33304,5.0421 6.15062,5.27545 6.07143,-0.1786 0,0 -0.0556,0.16243 -6.07143,0.1786 z"
+         style="fill:#ff0000;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
     </g>
     <g
        id="cutscenes-11"
@@ -22321,6 +22306,71 @@
          d="m -2006.5176,1412.6231 c 0.2505,1.3382 0.2678,4.375 -2.5,3.8393 -2.7679,-0.5358 -5.5357,-4.1965 -3.75,-5.2679 1.7857,-1.0714 3.3928,-3.4821 4.6428,-2.0536 1.25,1.4286 1.3567,2.144 1.6072,3.4822 z"
          style="fill:#ff7f2a;stroke:none;display:inline" />
     </g>
+    <path
+       sodipodi:type="arc"
+       style="fill:#000000;stroke:#000000;stroke-linecap:round;stroke-opacity:1"
+       id="path7767"
+       sodipodi:cx="183.5"
+       sodipodi:cy="37.5"
+       sodipodi:rx="1.5"
+       sodipodi:ry="1.5"
+       d="m 185,37.5 a 1.5,1.5 0 1 1 -3,0 1.5,1.5 0 1 1 3,0 z"
+       transform="translate(1.5,937.36218)"
+       inkscape:export-filename="C:\Users\panreyes\Desktop\ripo-kawaii.png"
+       inkscape:export-xdpi="600.09607"
+       inkscape:export-ydpi="600.09607" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#000000;stroke:#000000;stroke-linecap:round;stroke-opacity:1;display:inline"
+       id="path7767-1"
+       sodipodi:cx="183.5"
+       sodipodi:cy="37.5"
+       sodipodi:rx="1.5"
+       sodipodi:ry="1.5"
+       d="m 185,37.5 a 1.5,1.5 0 1 1 -3,0 1.5,1.5 0 1 1 3,0 z"
+       transform="translate(9,936.86218)"
+       inkscape:export-filename="C:\Users\panreyes\Desktop\ripo-kawaii.png"
+       inkscape:export-xdpi="600.09607"
+       inkscape:export-ydpi="600.09607" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#ffffff;stroke:#ffffff;stroke-linecap:round;stroke-opacity:1"
+       id="path7793"
+       sodipodi:cx="123.5"
+       sodipodi:cy="17.5"
+       sodipodi:rx="1.5"
+       sodipodi:ry="1.5"
+       d="m 125,17.5 a 1.5,1.5 0 1 1 -3,0 1.5,1.5 0 1 1 3,0 z"
+       transform="matrix(-0.33333333,0,0,-0.39185549,225.66667,981.21965)"
+       inkscape:export-filename="C:\Users\panreyes\Desktop\ripo-kawaii.png"
+       inkscape:export-xdpi="600.09607"
+       inkscape:export-ydpi="600.09607" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#ffffff;stroke:#ffffff;stroke-linecap:round;stroke-opacity:1;display:inline"
+       id="path7793-7"
+       sodipodi:cx="123.5"
+       sodipodi:cy="17.5"
+       sodipodi:rx="1.5"
+       sodipodi:ry="1.5"
+       d="m 125,17.5 a 1.5,1.5 0 1 1 -3,0 1.5,1.5 0 1 1 3,0 z"
+       transform="matrix(-0.33333333,0,0,-0.39185549,233.16667,980.80743)"
+       inkscape:export-filename="C:\Users\panreyes\Desktop\ripo-kawaii.png"
+       inkscape:export-xdpi="600.09607"
+       inkscape:export-ydpi="600.09607" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#000000;stroke:none;fill-opacity:1;opacity:0.5"
+       id="path7813"
+       sodipodi:cx="190"
+       sodipodi:cy="49"
+       sodipodi:rx="2"
+       sodipodi:ry="1"
+       d="m 192,49 a 2,1 0 1 1 -4,0 2,1 0 1 1 4,0 z"
+       transform="translate(0,937.87553)"
+       inkscape:export-filename="C:\Users\panreyes\Desktop\ripo-kawaii.png"
+       inkscape:export-xdpi="600.09607"
+       inkscape:export-ydpi="600.09607" />
   </g>
   <g
      inkscape:groupmode="layer"
