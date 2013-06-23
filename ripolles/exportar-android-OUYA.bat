@@ -52,7 +52,5 @@ echo Exportado correctamente. Ahora se instalará en el móvil...
 
 
 cd export
-
-
 ..\..\scripts\genera-apk.bat
 pause

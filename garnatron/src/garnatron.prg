@@ -251,10 +251,6 @@ BEGIN
 	
 	//-------------------------------------------------Iniciando variables
 	
-	if(os_id==1003)
-		ops.lenguaje=0;
-	end
-
 	carga_textos();
 	
 	gamepad_boton_separacion=75;

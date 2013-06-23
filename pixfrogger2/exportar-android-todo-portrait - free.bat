@@ -60,7 +60,5 @@ copy main.dcb export\assets /y
 echo Exportado correctamente. Ahora se instalará en el móvil...
 
 cd export
-if exist c:\pixjuegos.keystore call ant release install
-if not exist c:\pixjuegos.keystore call ant debug install
+..\..\scripts\genera-apk.bat
 pause
-adb shell am start -n com.pixjuegos.pixfrogger.free/com.pixjuegos.pixfrogger.free.PiXFrogger

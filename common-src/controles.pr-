@@ -311,7 +311,8 @@ Begin
 		p[2].control=2;
 		p[3].control=3;
 		p[4].control=4;
-		p[5].control=0;
+		posibles_jugadores=4;
+		//p[5].control=0;
 	end
 
 	//si estamos con la recreativa, no dejaremos jugar con el teclado

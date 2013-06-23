@@ -129,10 +129,12 @@ begin
 				modo_battleroyale=++num_opciones;
 				texto_menu(y+=distancia_opciones,textos[31]);
 			end
-			if(jugadores==4)
+			#IFDEF DEBUG
+			if(jugadores==4) //no está listo aún
 				modo_good_vs_evil=++num_opciones;
 				texto_menu(y+=distancia_opciones,textos[32]);
 			end
+			#ENDIF
 			volver_a_menu=0;
 		end
 	end
@@ -177,9 +179,8 @@ begin
 				end
 				case 1: //jugar
 					jugadores=opcion_actual;
-					from i=1 to opcion_actual;
-						p[i].juega=1;
-					end
+					from i=1 to 4; p[i].juega=0; end //reset de valores
+					from i=1 to opcion_actual; p[i].juega=1; end //seteamos los jugadores que juegan
 					menu(3);
 					return;
 				end
@@ -352,9 +353,6 @@ begin
 			if(y<(alto_pantalla/2)+15 and y>alto_pantalla/2) y--; end
 			frame; 
 		end
-		#IFDEF OUYA
-		i=0; //temporal, sólo 1 página
-		#ENDIF
 		if(p[0].botones[b_cancelar] or key(_esc) or tipo==4 or tipo==11)
 			sonido(11,0); 
 			i=0;

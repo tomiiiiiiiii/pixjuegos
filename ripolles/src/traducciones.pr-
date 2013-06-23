@@ -80,7 +80,7 @@ Begin
 			textos[54]="Press "+botones[b_1]+" to attack";
 			textos[55]="Press "+botones[b_2]+" to jump";
 			textos[56]="Press "+botones[b_3]+" to defend";
-			textos[57]="Press "+botones[b_3]+" and move to evade";
+			textos[57]="Press "+botones[0]+"+"+botones[b_3]+" and move to evade";
 			textos[58]="Press Down+"+botones[b_1]+" to do a strong attack";
 			textos[59]="Press Up+"+botones[b_1]+" to do an uppercut attack";
 			textos[60]="Press "+botones[b_1]+"+"+botones[b_3]+" to do an escape attack";
@@ -150,7 +150,7 @@ Begin
 			textos[54]="Pulsa "+botones[b_1]+" para atacar";
 			textos[55]="Pulsa "+botones[b_2]+" para saltar";
 			textos[56]="Pulsa "+botones[b_3]+" para defenderte";
-			textos[57]="Pulsa "+botones[b_3]+" para evadir";
+			textos[57]="Pulsa "+botones[0]+"+"+botones[b_3]+" para evadir";
 			textos[58]="Pulsa Abajo+"+botones[b_1]+" para hacer un ataque fuerte";
 			textos[59]="Pulsa Arriba+"+botones[b_1]+" para hacer un uppercut";
 			textos[60]="Pulsa "+botones[b_1]+"+"+botones[b_3]+" para hacer un ataque de huída";
@@ -163,7 +163,7 @@ Begin
 		case 2: //catalán
 			// General
 			textos[0]="PAUSA";
-			textos[1]="Cliqueu " + botones[b_3] + " per sortir";
+			textos[1]="prem " + botones[b_3] + " per sortir";
 			textos[2]="Foc amic desbloquejat!";
 			textos[3]="Sense bandes desbloquejat!";
 			textos[4]="Mode matajefes desbloquejat!";
@@ -178,7 +178,7 @@ Begin
 			textos[13]=" completat";
 
 			// Menús
-			textos[14]="Cliqueu el botó 2 per a jugar";
+			textos[14]="prem el botó 2 per a jugar";
 			textos[15]="Jugar";
 			textos[16]="Opcions";
 			textos[17]="Ajuda";
@@ -188,8 +188,8 @@ Begin
 			else
 				textos[19]="Eixir";
 			end
-			textos[20]="jugador";
-			textos[21]="jugadors";
+			textos[20]=" jugador";
+			textos[21]=" jugadors";
 			textos[22]="Pantalla completa";
 			textos[23]="So";
 			textos[24]="Música";
@@ -216,22 +216,22 @@ Begin
 			textos[45]="Creat per: | | | | | Gràcies a:";
 			textos[46]="";
 			textos[47]="I gràcies a tu per jugar!";
-			textos[49]="Jugador";
-			textos[50]="guanya!";
+			textos[49]="El jugador ";
+			textos[50]=" ha guanyat!";
 			textos[51]="Has perdut";
-			textos[52]="Cliqueu " + botones[0] + " per caminar";
+			textos[52]="prem " + botones[0] + " per caminar";
 			textos[53]="Prem dues vegades " + botones[0] + " per córrer";
-			textos[54]="Cliqueu " + botones[b_1] + " per atacar";
-			textos[55]="Cliqueu " + botones[b_2] + " per saltar";
-			textos[56]="Cliqueu " + botones[b_3] + " per defensar";
-			textos[57]="Cliqueu " + botones[b_3] + " per evadir";
-			textos[58]="Cliqueu baix +" + botones[b_1] + " per fer un atac fort";
-			textos[59]="Cliqueu dalt +" + botones[b_1] + " per fer un uppercut";
-			textos[60]="Cliqueu " + botones[b_1] + "+" + botones[b_3] + " per fer un atac de fugida";
-			textos[61]="Cliqueu " + botones[b_1] + " per agafar o llançar objectes";
+			textos[54]="prem " + botones[b_1] + " per atacar";
+			textos[55]="prem " + botones[b_2] + " per saltar";
+			textos[56]="prem " + botones[b_3] + " per defensar";
+			textos[57]="prem "+botones[0]+"+" + botones[b_3] + " per evadir";
+			textos[58]="prem baix +" + botones[b_1] + " per fer un atac fort";
+			textos[59]="prem dalt +" + botones[b_1] + " per fer un uppercut";
+			textos[60]="prem " + botones[b_1] + "+" + botones[b_3] + " per fer un atac de fugida";
+			textos[61]="prem " + botones[b_1] + " per agafar o llançar objectes";
 			textos[62]="Passa-ho bé!";
 			textos[63]="Tutorial";
-			textos[64]="Cliqueu " + botones[b_3] + " per saltar la intro";
+			textos[64]="prem " + botones[b_3] + " per saltar la intro";
 			textos[65]="";
 		end
 	end

@@ -174,10 +174,6 @@ Begin
 		default: ops.lenguaje=0; lang_suffix="en"; end
 	end	
 
-	if(os_id==1003)
-		ops.lenguaje=0; lang_suffix="en";
-	end
-	
 	if(os_id==os_caanoo or os_id==os_wii or os_id==1003) bpp=16; end
 	if(os_id==os_caanoo) scale_resolution=03200240; end
 	if(arcade_mode) full_screen=true; scale_resolution=08000600; end
