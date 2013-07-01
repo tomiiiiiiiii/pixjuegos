@@ -107,8 +107,8 @@ public class SDLActivity extends Activity {
 			Object device = deviceField.get(null);
 			SDLActivity.isOuya = "ouya_1_1".equals(device);
 		} catch(Exception e) {
-		}		
-
+		}
+		
         // Set up the surface
         mSurface = new SDLSurface(getApplication());
 
@@ -904,6 +904,18 @@ class SDLSurface extends SurfaceView implements SurfaceHolder.Callback,
 		} else {	
 			//PIX wrapps in order to work properly with our controller's "API"
 			switch (keyCode) {
+				case KeyEvent.KEYCODE_DPAD_LEFT:
+					keyCode = KeyEvent.KEYCODE_DPAD_LEFT;
+					break;
+				case KeyEvent.KEYCODE_DPAD_RIGHT:
+					keyCode = KeyEvent.KEYCODE_DPAD_RIGHT;
+					break;
+				case KeyEvent.KEYCODE_DPAD_UP:
+					keyCode = KeyEvent.KEYCODE_DPAD_UP;
+					break;
+				case KeyEvent.KEYCODE_DPAD_DOWN:
+					keyCode = KeyEvent.KEYCODE_DPAD_DOWN;
+					break;
 				case KeyEvent.KEYCODE_BUTTON_X:
 					keyCode = KeyEvent.KEYCODE_A;
 					break;
