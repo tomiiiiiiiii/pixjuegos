@@ -20,7 +20,7 @@ Begin
 	id_taza.graph=0;
 	id_por_delante.graph=6; //ve un nuevo detalle, su estatua la está destruyendo
 	frame(10000);
-	sonido(22,0);
+	sonido(24,0);
 	id_mano.graph=23; id_taza.graph=25;
 	id_taza.x=350;
 	id_por_delante.graph=26; //se acojona y se le cae el café
@@ -111,7 +111,7 @@ Begin
 	id_taza.graph=0;
 	id_por_delante.graph=10; //ve un nuevo detalle, la estatua de tombatossals está destruyendo la ciudad
 	frame(10000);
-	sonido(22,0);
+	sonido(25,0);
 	id_mano.graph=23; 
 	id_taza.graph=24;
 	id_por_delante.graph=27; //cara de DA FUQ?

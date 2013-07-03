@@ -210,6 +210,7 @@
 	id_mano.graph=0; id_taza.graph=0;
 	id_por_delante.graph=5; //ve la ciudad en llamas
 	frame(10000);
+	sonido(23,0);
 	id_por_delante.graph=21; //se asusta y se dispone a beber de su café
 	id_mano.graph=23; id_taza.graph=24;
 	frame(10000);

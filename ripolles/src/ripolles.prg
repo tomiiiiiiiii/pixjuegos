@@ -52,18 +52,29 @@ Const
 	muere=-1;
 	
 	//objetos
-	rosquilleta=1;
-	papelera=2;
-	canya=3;
-	rollo=4;
-	casco=5;
-		
+	obj_rosquilleta=1;
+	obj_papelera=2;
+	obj_canya=3;
+	obj_rollo=4;
+	obj_casco=5;
+	obj_mesa=6;
+	obj_silla=7;
+	obj_naranja_dura=8;
+	obj_naranja=9;
+	obj_hamburguesa=10;
+	obj_pescado=100;
+
 	//modos de movimiento
 	encerrandome=0;
 	sin_encerrarme=1;
 End
 
 Global
+	objetos_aleatorios[4]=obj_rollo,obj_naranja_dura,obj_casco,obj_naranja,obj_hamburguesa;
+
+	evento_hamburguesa;
+	hamburguesas_random=1;
+
 	mov_camara_moto=0;
 
 	mata_textos_menu;
@@ -985,6 +996,7 @@ End
 
 Function friccioname();
 Begin
+	if(evento_hamburguesa==13) return; end
 	if(father.x_inc>0)
 		father.x_inc--;
 	elseif(father.x_inc<0)
@@ -1327,6 +1339,10 @@ Begin
 			end
 		end
 	end
+	if(evento_hamburguesa==1 and collision(type cuerpo))
+		//explosión
+		ataque(father.x,father.y,file,graph,50,80,0);
+	end
 	frame;
 End
 
@@ -1423,7 +1439,11 @@ End
 Function aplica_gravedad();
 Begin
 	if(father.altura<0)
-		father.gravedad+=2;
+		if(evento_hamburguesa==7)
+			father.gravedad+=1;
+		else
+			father.gravedad+=2;
+		end
 		father.altura+=father.gravedad;
 		if(father.altura=>1)
 			father.altura=0;
@@ -2236,4 +2256,113 @@ Begin
 	flags=father.flags;
 	from alpha=0 to 255 step 5; frame; end
 	if(exists(father)) father.graph=graph; end
+End
+
+Process efecto_hamburguesa();
+Private
+	mi_evento_hamburguesa;
+Begin
+	resolution=global_resolution;
+	evento_hamburguesa=rand(2,13);
+	mi_evento_hamburguesa=evento_hamburguesa;
+	x=ancho_pantalla/2;
+	y=100;
+	z=-512;
+	mensaje_hamburguesa(textos[70+evento_hamburguesa]);
+	switch(evento_hamburguesa)
+		case 1: //enemigos explosivos
+			i=30*30; //30 segundos
+		end
+		case 2: //toque de la muerte
+			from i=1 to 100;
+				if(p[i].vida>0) p[i].vida=1; end
+			end
+			i=0;
+		end
+		case 3: //everybody dies
+			from i=1 to 100;
+				if(p[i].vida>0) p[i].vida=0; end
+			end
+			i=0;
+		end
+		case 4: //tram
+			tram();
+		end
+		case 5: //avion
+			avioncete();
+		end
+		case 6: //cambio de bandos
+			from i=1 to 100;
+				if(p[i].vida>0 and exists(p[i].identificador))
+					if(i>0 and i<5 and p[i].juega)
+						p[i].identificador.tipo=rand(1,7);
+					end
+					if(i>9 and i<99)
+						p[i].identificador.tipo=0;
+					end
+				end
+			end
+			i=0;
+		end
+		case 7: //gravedad lunar
+			i=30*30;
+		end
+		case 8: //lluvia de naranjas
+			from i=1 to 20;
+				objeto(rand(id_camara.x-(ancho_pantalla/2),id_camara.x+(ancho_pantalla/2)),rand(135,305),rand(-200,-300),obj_naranja,0,0);
+				frame(rand(400,1200));
+			end
+			i=0;
+		end
+		case 9: //objeto disparado fucking random
+			if(rand(0,1))
+				objeto(id_camara.x-ancho_pantalla,rand(135,305),rand(-20,-50),rand(1,6),100,0);
+			else
+				objeto(id_camara.x+ancho_pantalla,rand(135,305),rand(-20,-50),rand(1,6),-100,1);
+			end
+		end
+		case 10: //activar fuego amigo
+			fuego_amigo=1;
+		end
+		case 11: //todos con objetos
+			from i=1 to 100;
+				if(p[i].vida>0 and exists(p[i].identificador)) p[i].identificador.lleva_objeto=rand(2,3); end
+			end
+			i=0;
+		end
+		case 12: //everyone is super
+			frame(500);
+		end
+		case 13: //sin fricción
+			i=30*30;
+		end
+	end
+	if(i>0)
+		while(i>0 and evento_hamburguesa==mi_evento_hamburguesa)
+			i--;
+			if(global_resolution==0)
+				graph=write_in_map_fixed(fpg_tiempo,i/30,4,25);
+			else
+				graph=write_in_map_fixed(fpg_tiempo,i/30,4,40);
+			end
+			frame;
+			while(!ready) frame; end
+			unload_map(0,graph);
+			graph=0;
+		end
+	end
+	evento_hamburguesa=0;
+End
+
+Process mensaje_hamburguesa(string mitexto);
+Begin
+	resolution=global_resolution;
+	graph=write_in_map(fpg_texto_azul,mitexto,4);
+	size=70;
+	alpha=0;
+	x=ancho_pantalla/2;
+	z=-512;
+	from y=50 to 80; alpha+=20; frame; end
+	frame(5000);
+	from y=80 to 110; alpha-=20; frame; end
 End

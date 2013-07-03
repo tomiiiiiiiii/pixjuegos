@@ -12,11 +12,19 @@ Begin
 		botones[b_2]=chr(1);
 		botones[b_3]=chr(4);
 	#ELSE
-		botones[0]="D-PAD";
-		botones[b_salir]="ESC/START";
-		botones[b_1]="A/B1";
-		botones[b_2]="S/B2";
-		botones[b_3]="D/B3";
+		if(os_id==os_win32)
+			botones[0]="FLECHAS";
+			botones[b_salir]="ESC";
+			botones[b_1]="A";
+			botones[b_2]="S";
+			botones[b_3]="D";
+		else
+			botones[0]="D-PAD";
+			botones[b_salir]="START";
+			botones[b_1]="B1";
+			botones[b_2]="B2";
+			botones[b_3]="B3";
+		end
 	#ENDIF
 	
 	switch(ops.lenguaje)
@@ -89,6 +97,19 @@ Begin
 			textos[63]="Tutorial";
 			textos[64]="Hold "+botones[b_3]+" to skip";
 			textos[65]="";
+			textos[71]="Explossive enemies!";
+			textos[72]="Sudden death!";
+			textos[73]="Everybody dies!";
+			textos[74]="TRAM!";
+			textos[75]="Plane!";
+			textos[76]="Team change!";
+			textos[77]="Moon gravity!";
+			textos[78]="Orange rain!";
+			textos[79]="Random object shot!";
+			textos[80]="Activated friendly fire!";
+			textos[81]="Free stuff!";
+			textos[82]="Everyone is super!";
+			textos[83]="No friction!";
 		end
 		case 1: //español
 			//general
@@ -159,6 +180,20 @@ Begin
 			textos[63]="Tutorial";
 			textos[64]="Pulsa "+botones[b_3]+" para saltar la intro	";
 			textos[65]="";
+			
+			textos[71]="¡Enemigos explosivos!";
+			textos[72]="¡Muerte súbita!";
+			textos[73]="¡HAMLET!";
+			textos[74]="¡TRAM!";
+			textos[75]="¡Avión!";
+			textos[76]="¡Cambio de equipos!";
+			textos[77]="¡Gravedad lunar!";
+			textos[78]="¡Lluvia de naranjas!";
+			textos[79]="¡Objeto disparado!";
+			textos[80]="¡Fuego amigo activado!";
+			textos[81]="¡Objetos gratis!";
+			textos[82]="¡Todo el mundo es super!";
+			textos[83]="¡Sin fricción!";
 		end
 		case 2: //catalán
 			// General
@@ -233,6 +268,20 @@ Begin
 			textos[63]="Tutorial";
 			textos[64]="prem " + botones[b_3] + " per saltar la intro";
 			textos[65]="";
+			
+			textos[71]="Enemics explosius!";
+			textos[72]="Mort sobtada!";
+			textos[73]="HAMLET!";
+			textos[74]="TRAM!";
+			textos[75]="Avió!";
+			textos[76]="Canvi d'equips!";
+			textos[77]="Gravetat lunar!";
+			textos[78]="Pluja de taronges!";
+			textos[79]="Objecte disparat!";
+			textos[80]="Foc amic activat!";
+			textos[81]="Objectes gratis!";
+			textos[82]="Tothom és super!";
+			textos[83]="Sense fricció!";
 		end
 	end
 End

@@ -30,12 +30,14 @@ Private
 	tres_ataques;
 	ultimo_ataque=10;
 	ataca_fuerte_sin_retraso=0;	
+	tipo_original;
 Begin
 	resolution=global_resolution;
 	ctype=coordenadas;
 	p[jugador].juega=1;
 	p[jugador].identificador=id;
 
+	tipo_original=tipo;
 	if(tipo==0)
 		sabe_correr=1;
 		sabe_defenderse=1;
@@ -227,6 +229,118 @@ Begin
 	if(tipo==102) from alpha=0 to 255 step 25; frame; end end
 	
 	loop
+		if(evento_hamburguesa==12) //everyone is super
+			inercia_max_x=9;
+			inercia_max_y=6;
+			fuerza_ataque=40;
+		end
+		if(tipo!=tipo_original) //efecto hamburguesa!
+			tipo_original=tipo;
+
+			//reset de habilidades
+			sabe_defenderse=0;
+			sabe_evadir=0;
+			sabe_saltar=0;
+			sabe_uppercut=0;
+			sabe_ataque_especial=0;
+			sabe_ataca_aire=0;
+			sabe_ataque_fuerte=0;
+			sabe_correr=0;
+			sabe_combo=0;
+
+			switch(tipo)
+				case 0:
+					sabe_correr=1;
+					sabe_defenderse=1;
+					sabe_saltar=1;
+					sabe_combo=1;
+					sabe_ataque_especial=1;
+					sabe_uppercut=1;
+					sabe_ataca_aire=1;
+					sabe_ataque_fuerte=1;
+					sabe_evadir=1;
+					if(jugador>9)
+						switch(rand(1,4))
+							case 1: file=fpg_ripolles1;	end
+							case 2: file=fpg_ripolles2;	end
+							case 3: file=fpg_ripolles3;	end
+							case 4: file=fpg_ripolles4;	end
+						end
+					else
+						switch(jugador)
+							case 1: 
+								if(ops.truco_pato==1)
+									file=fpg_pato;
+								else
+									file=fpg_ripolles1;
+								end
+							end
+							case 2: file=fpg_ripolles2;	end
+							case 3: file=fpg_ripolles3;	end
+							case 4: file=fpg_ripolles4;	end
+						end
+					end
+					if(ops.truco_pato==1)
+						inercia_max_x=9;
+						inercia_max_y=6;
+						fuerza_ataque=40;
+					else
+						inercia_max_x=6;
+						inercia_max_y=3;
+						fuerza_ataque=10;
+					end
+				end
+				case 1:
+					inercia_max_x=3;
+					inercia_max_y=1;
+					fuerza_ataque=6;
+					file=fpg_enemigo1; 
+				end
+				case 2:
+					inercia_max_x=4;
+					inercia_max_y=2;
+					fuerza_ataque=10;
+					file=fpg_enemigo2; 
+					sabe_defenderse=1;
+				end
+				case 3:
+					inercia_max_x=2;
+					inercia_max_y=2;
+					fuerza_ataque=15;
+					file=fpg_enemigo3; 
+				end
+				case 4:
+					inercia_max_x=5;
+					inercia_max_y=3;
+					fuerza_ataque=20;
+					file=fpg_enemigo4; 
+					sabe_saltar=1;
+				end
+				case 5: //EVIL RIPOLLES
+					inercia_max_x=7;
+					inercia_max_y=4;
+					fuerza_ataque=10;
+					file=fpg_enemigo5;
+					sabe_defenderse=1;
+					sabe_saltar=1;
+				end
+				case 6: //bailarina
+					inercia_max_x=4;
+					inercia_max_y=4;
+					fuerza_ataque=10;
+					file=fpg_enemigo6;
+					sabe_ataque_especial=1;
+				end
+				case 7: //pez
+					inercia_max_x=4;
+					inercia_max_y=4;
+					fuerza_ataque=20;
+					file=fpg_enemigo7;
+					lleva_objeto=100;
+				end
+			end
+			alto=graphic_info(file,1,G_HEIGHT);
+		end
 		if(tipo==0)
 			//say("ACCION:"+accion+" | ANIMACION:"+animacion+" | GRAPH:"+graph);
 			while(!ready) frame; end
@@ -269,16 +383,16 @@ Begin
 				if(abs(x_inc)<7)
 					if(flags==1) x_inc=7; else x_inc=-7; end
 				end
-				if(tipo==0) sonido(22,0); end
+				if(tipo==0) sonido(31,0); end
 			end
 			accion=muere; herida+=100; 
 		end
 		
 		if(tipo==0 and lleva_objeto!=0 and accion==quieto)
-			if(lleva_objeto==1 or lleva_objeto==4 or lleva_objeto==9 or lleva_objeto==100) //comida
-				if(lleva_objeto==4)
+			if(lleva_objeto==obj_rosquilleta or lleva_objeto==obj_rollo or lleva_objeto==obj_naranja or lleva_objeto==obj_pescado) //comida
+				if(lleva_objeto==obj_rollo)
 					p[jugador].vida=100;
-				elseif(lleva_objeto==9 or lleva_objeto==100)
+				elseif(lleva_objeto==obj_naranja or lleva_objeto==obj_pescado)
 					switch(rand(1,2))
 						case 1: 
 							mensaje_player(textos[33]);
@@ -295,9 +409,13 @@ Begin
 				end
 				lleva_objeto=0;
 			end
-			if(lleva_objeto==5) //casco de Jaume I
+			if(lleva_objeto==obj_casco) //casco de Jaume I
 				invencibilidad=900;
 				p[jugador].vida=100;
+				lleva_objeto=0;
+			end
+			if(lleva_objeto==obj_hamburguesa)
+				efecto_hamburguesa();
 				lleva_objeto=0;
 			end
 		end
@@ -608,7 +726,11 @@ Begin
 					end
 				end
 
-				gravedad+=2;
+				if(evento_hamburguesa==7) //gravedad lunar
+					gravedad+=1;
+				else
+					gravedad+=2;
+				end
 				altura+=gravedad;
 				if(altura>1)
 					if(en_moto)
@@ -725,7 +847,7 @@ Begin
 			
 			//recuperación aérea
 			//if(accion==herido_grave and p[jugador].botones[b_arriba] and pulsando_arriba<3 and p[jugador].botones[b_2] and gravedad>0)
-			if(accion==herido_grave and p[jugador].botones[b_2] and gravedad>4)
+			if(accion==herido_grave and p[jugador].botones[b_2] and gravedad>4 and sabe_saltar)
 				gravedad=-10;
 				accion=quieto;
 				herida=0;
@@ -743,7 +865,11 @@ Begin
 				sonido(4,0);
 			elseif(altura<0)
 				y+=gravedad;
-				gravedad+=2;
+				if(evento_hamburguesa==7) //gravedad lunar
+					gravedad+=1;
+				else
+					gravedad+=2;
+				end
 			else
 				friccioname();
 			end
@@ -794,7 +920,11 @@ Begin
 					end
 				else
 					y+=gravedad;
-					gravedad+=2;
+					if(evento_hamburguesa==7) //gravedad lunar
+						gravedad+=1;
+					else
+						gravedad+=2;
+					end
 				end
 			end
 		end
@@ -997,9 +1127,14 @@ Begin
 			if(herida>3000)
 				if(tipo==102) break; end
 				from alpha=255 to 0 step -15; frame; end
-				if(jugador>10) enemigos--; end
+				if(jugador>10)
+					enemigos--;
+					//if(rand(0,4)==0) objeto(x,y_base,altura,graph,x_inc,flags); end
+					objeto(x,y_base,altura,objetos_aleatorios[rand(0,4)],x_inc,flags);
+				end
 				
 				if(p[jugador].vidas>0 and jugador<10)
+					tipo=0;
 					frame(2000);
 					renacimiento=1;
 					p[jugador].vidas--;
