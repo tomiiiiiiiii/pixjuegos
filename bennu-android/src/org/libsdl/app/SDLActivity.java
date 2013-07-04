@@ -712,7 +712,7 @@ class SDLSurface extends SurfaceView implements SurfaceHolder.Callback,
     public boolean onKey(View  v, int keyCode, KeyEvent event) {
         
 		if ((event.getSource() & InputDevice.SOURCE_JOYSTICK) != 0) {
-			return true;
+			//return true;
 		/*switch(action) {
 			case MotionEvent.ACTION_MOVE:
 				int id = SDLActivity.getJoyId( event.getDeviceId() );
