@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_id">55197087846</string>
+	
+	<string name="achievement_1">CgkI5vCC0M0BEAIQBw</string>
+    <string name="achievement_2">CgkI5vCC0M0BEAIQBA</string>
+	<string name="achievement_3">CgkI5vCC0M0BEAIQAA</string>
+	<string name="achievement_4">CgkI5vCC0M0BEAIQAQ</string>
+	<string name="achievement_5">CgkI5vCC0M0BEAIQAg</string>
+	<string name="achievement_6">CgkI5vCC0M0BEAIQAw</string>
+	<string name="achievement_7">CgkI5vCC0M0BEAIQBQ</string>
+	<string name="achievement_8">CgkI5vCC0M0BEAIQBg</string>
+	<string name="achievement_9">CgkI5vCC0M0BEAIQCA</string>
+	<string name="achievement_10">CgkI5vCC0M0BEAIQCQ</string>
+</resources>

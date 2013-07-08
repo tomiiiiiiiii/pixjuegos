@@ -104,8 +104,8 @@ Begin
 	z=-512;
 	x=320;
 	alpha=0;
-	mitxtxt=write(fpg_texto,x,280,4,textos[63]);
-	mitxtxt.size=100;
+	mitxtxt=write(fpg_texto_azul,x,290,4,textos[63]);
+	mitxtxt.size=80;
 	size=70;
 	from i=0 to 255 step 20; mitxtxt.alpha=i; frame; end
 	i=0;

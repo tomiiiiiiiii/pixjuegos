@@ -1,0 +1,53 @@
+Function traduceme();
+Begin
+	switch(ops.lenguaje)
+		case 0: //Español
+			textos[1]="Jugar";
+			textos[2]="Opciones";
+			textos[3]="Créditos";
+			textos[4]="Salir";
+			textos[5]="Pantalla completa";
+			textos[6]="Sonido";
+			textos[7]="Música";
+			textos[8]="Dificultad CPU";
+			textos[9]="Puntos partida";
+			textos[10]="Pulsa tu botón para unirte";
+			textos[11]="Pulsa tu botón para empezar";
+			textos[12]="Preparados...";
+			textos[13]="Listos...";
+			textos[14]="¡YA!";
+			textos[15]="Gana la ronda";
+			textos[16]="Gana la partida";
+			#IFDEF OUYA
+			textos[17]=chr(1)+" Elegir";
+			textos[18]=chr(1)+" Cambiar   "+chr(4)+" Volver   ";
+			textos[19]=chr(4)+" Volver";
+			textos[20]=chr(1)+" Volver al menú";
+			#ENDIF
+		end
+		case 1: //Inglés
+			textos[1]="Play";
+			textos[2]="Options";
+			textos[3]="Credits";
+			textos[4]="Exit";
+			textos[5]="Full screen";
+			textos[6]="Sound";
+			textos[7]="Music";
+			textos[8]="CPU difficulty";
+			textos[9]="Match points";
+			textos[10]="Press your button to join";
+			textos[11]="Press your buttons to start";
+			textos[12]="Ready...";
+			textos[13]="Set...";
+			textos[14]="GO!";
+			textos[15]="Gana la ronda";
+			textos[16]="Gana la partida";
+			#IFDEF OUYA
+			textos[17]=chr(1)+" Choose";
+			textos[18]=chr(1)+" Change   "+chr(4)+" Back   ";
+			textos[19]=chr(4)+" Back";
+			textos[20]=chr(1)+" Go to menu";
+			#ENDIF
+		end
+	end
+End

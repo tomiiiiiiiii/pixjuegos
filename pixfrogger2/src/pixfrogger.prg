@@ -1,6 +1,8 @@
 program pixfrogger;
 
-//import "mod_debug";
+#IFDEF DEBUG
+import "mod_debug";
+#ENDIF
 import "mod_dir";
 import "mod_draw";
 import "mod_grproc";
@@ -14,7 +16,7 @@ import "mod_screen";
 import "mod_scroll";
 import "mod_sound";
 import "mod_string";
-import "mod_text";
+//import "mod_text";
 import "mod_timers";
 import "mod_video";
 import "mod_wm";
@@ -30,6 +32,8 @@ import "fsock";
 #endif
 
 Global
+	string textos[100];
+	
 	#ifdef RED
 		en_red=1;
 	#else
@@ -37,9 +41,9 @@ Global
 	#endif
 	estado_red=-1;
 	net_clients;
+	global_resolution=0;
 	
-	
-	
+	explosiones=1;
 	arcade_mode=0;
 	bpp=32;
 	frameskip=1;
@@ -55,7 +59,7 @@ Global
 		sonido=1;
 		musica=1;
 		dificultad=2;
-		objetivo=10;
+		objetivo=5;
 		lenguaje;
 	End
 	elecc;
@@ -68,8 +72,8 @@ Global
 	string rana_msg[32];
 	puntos_win=10;
 	llegada;
-	fnt_puntos;
-	fnt_textos;
+	fpg_puntos;
+	fpg_textos;
 	music;
 	njoys;
 	buzz;
@@ -104,7 +108,7 @@ Global
 	// COMPATIBILIDAD CON XP/VISTA/LINUX (usuarios)
 	string savegamedir;
 	string developerpath="/.PiXJuegos/PiXFrogger/";
-		
+
 End //global
 
 Local
@@ -116,18 +120,24 @@ Local
 	opcion;
 	id_boton;
 	no_matar;
+	accion;
 End //local
 
 //cosas comunes de los pixjuegos
+include "../../common-src/mod_text2.pr-";
 include "../../common-src/lenguaje.pr-";
 include "../../common-src/savepath.pr-";
+
+include "traducciones.pr-";
 
 Private
 	graph_loading;
 
 begin
+
 	//averiguamos el path para guardar datos
 	if(os_id==1003)
+		explosiones=0;
 		tactil=1;
 		bpp=16;
 		if(free_version)
@@ -139,6 +149,10 @@ begin
 	else
 		savepath();
 	end
+	
+	#IFDEF OUYA
+		tactil=0;
+	#ENDIF
 	
 	//cargamos las opciones actuales
 	carga_opciones();
@@ -203,30 +217,40 @@ begin
 	carga_sonidos();
 	
 	if(posibles_jugadores=>16)
-		distancia_sombra=4;
 		version="ld";
-		fpg_general=load_fpg("fpg/pixfrogger-ld-32players.fpg");
-		fnt_puntos=load_fnt("fnt/puntos-ld.fnt");
-		fnt_textos=load_fnt("fnt/textos.fnt");
+		fpg_general=load_fpg("fpg/pixfrogger-ld-32players.fpg");	
+		fpg_puntos=load_fpg("fpg/puntos-ld.fpg");
+		fpg_textos=load_fpg("fpg/textos-hd.fpg");
 	else
 		fpg_general=load_fpg("fpg/pixfrogger-"+version+portrait_txt+".fpg");
-		fnt_puntos=load_fnt("fnt/puntos-"+version+".fnt");
+		fpg_puntos=load_fpg("fpg/puntos-"+version+".fpg");
+		fpg_textos=load_fpg("fpg/textos-hd.fpg");
 
 		if(version=="hd" and fpg_general==-1)
 			version="md";
 			fpg_general=load_fpg("fpg/pixfrogger-"+version+portrait_txt+".fpg");
-			fnt_puntos=load_fnt("fnt/puntos-"+version+".fnt");
+			fpg_puntos=load_fpg("fpg/puntos-"+version+".fpg");
 		end
 
 		if(version=="md" and fpg_general==-1)
 			version="ld";
 			fpg_general=load_fpg("fpg/pixfrogger-"+version+portrait_txt+".fpg");
-			fnt_puntos=load_fnt("fnt/puntos-"+version+".fnt");
+			fpg_puntos=load_fpg("fpg/puntos-"+version+".fpg");
 		end
 	end
 
-	if(version=="md") distancia_sombra=7; end
-	if(version=="ld") distancia_sombra=4; end
+	if(version=="hd")
+		distancia_sombra=10; 
+		ops_fuentes[fpg_puntos].margen=15;
+		ops_fuentes[fpg_textos].margen=-5;
+		ops_fuentes[fpg_textos].espacio=75;
+	end
+	if(version=="md") 
+		distancia_sombra=7; 
+	end
+	if(version=="ld") 
+		distancia_sombra=4; 
+	end
 		
 	if(free_version)
 		while(timer[0]<600) frame; end
@@ -239,6 +263,9 @@ begin
 	//averiguamos el alto del camino y el número de caminos
 	alto_camino=graphic_info(0,200,g_height);
 	num_caminos=(alto_pantalla/alto_camino)+2;
+	
+	//recogemos los textos del lenguaje elegido
+	traduceme();
 	
 	//empezamos, ponemos el logo
 	if(!tactil)
@@ -256,10 +283,28 @@ begin
 	end
 end
 
+Process texto_menu(posicion,string texto);
+Begin
+	graph=write_in_map(fpg_textos,texto,3);
+	x=-(ancho_pantalla/4);
+	y=150+posicion*110;
+	z=-10;
+	loop
+		x+=(x-150)/-10; 
+		frame;
+	end
+End
+
 Function prueba_pantalla();
 Private
 	float proporcion;
 Begin
+	#IFDEF OUYA
+		panoramico=1;
+		//scale_resolution=12800720;
+		ancho_pantalla=1280; alto_pantalla=720; version="hd";
+		return;
+	#ENDIF
 	if(os_id==0) //Windows
 		if((mode_is_ok(1920,1080,16,MODE_FULLSCREEN) or mode_is_ok(1366,768,16,MODE_FULLSCREEN)) or 
 		(mode_is_ok(1280,720,16,MODE_FULLSCREEN) and !mode_is_ok(1280,1024,16,MODE_FULLSCREEN))) //Si soporta resoluciones panorámicas altas o no soporta alguna resolución no panorámica, es panorámico...
@@ -708,7 +753,7 @@ Process boton_puntos_objetivo(posicion,puntos);
 Begin
 	y=((alto_pantalla/7)*6)-(alto_pantalla/14);
 	x=(ancho_pantalla/12)+(ancho_pantalla/6*posicion);
-	graph=write_in_map(fnt_puntos,puntos,4);
+	graph=write_in_map(fpg_puntos,puntos,4);
 	if(ops.objetivo==puntos)
 		from alpha=0 to 255 step 16; frame; end
 	else
@@ -899,11 +944,15 @@ begin
 	from i=1 to posibles_jugadores; rana_viva[i]=0; rana_puntos[i]=0; end
 	elecc=0;
 	primera_ronda=1;
+	stop_scroll(0);
+	clear_screen();
 	dump_type=0; restore_type=0;
 	put_screen(0,3);
 	if(en_red and estado_red>0)
 		estado_red=-1;
 	end
+	frame;
+	write_size(fpg_textos,ancho_pantalla/2,alto_pantalla-50,7,textos[17],70);
 	if(!exists(type controlador)) controlador(0); end
 	if(arcade_mode)
 		//modo arcade
@@ -930,7 +979,7 @@ begin
 		return;
 	end
 	
-	lista_opciones(4);
+	lista_opciones(1);
 	logo_pixfrogger();
 	flecha_opcion();
 	x=ancho_pantalla/2;
@@ -941,7 +990,7 @@ begin
 			keytime--;
 		end
 		//elige algo
-		if(key(_enter) and keytime==0)
+		if((key(_enter) or key(_Q)) and keytime==0)
 			sonido(3);
 			if(elecc==0)
 				net_let_me_alone();
@@ -952,8 +1001,7 @@ begin
 			if(elecc==1)
 				net_let_me_alone();
 				back(3);
-				logo_pixfrogger();
-				opcion();
+				menu_opciones();
 				break;
 			end
 			if(elecc==2)
@@ -994,34 +1042,60 @@ begin
 	end
 end
 
-process lista_opciones(gr)
-begin
-	x=-(ancho_pantalla/4);
-	y=alto_pantalla/2;
-	if(gr==13)
-		y=276;
-	end
-	if(gr==914)
-		y=220;
-	end
+Process iconos(posicion,tipo);
+Begin
+	x=900;
 	z=-10;
-	graph=gr;
-	if(ops.lenguaje==1)
-		if(graph==4) graph=911; end
-		if(graph==13) graph=913; end
-	end
+	y=150+posicion*110;
 	loop
-		if(gr!=13) 
-			x+=(x-(ancho_pantalla/4))/-10; 
-		else 
-			x+=(x-(ancho_pantalla/4))/-10; 
+		switch(tipo)
+			case 0: //dificultad
+				graph=630+ops.dificultad;
+			end
+			case 1: //sonido
+				graph=622-ops.sonido;
+			end
+			case 2: //música
+				graph=624-ops.musica;
+			end
+			case 3: //música
+				graph=633-(ops.pantalla_completa*2);
+			end
 		end
 		frame;
+	end	
+End
+
+process lista_opciones(num_menu)
+begin
+	switch(num_menu)
+		case 1: //principal
+			texto_menu(i++,textos[1]);
+			texto_menu(i++,textos[2]);
+			texto_menu(i++,textos[3]);
+			texto_menu(i++,textos[4]);
+		end
+		case 2: //opciones
+			if(os_id!=1003)
+				iconos(i,3);
+				texto_menu(i++,textos[5]); //fullscreen
+			end
+			iconos(i,1); texto_menu(i++,textos[6]); //sonido
+			iconos(i,2);texto_menu(i++,textos[7]); //música
+			iconos(i,0); texto_menu(i++,textos[8]); //dificultad
+			
+			write_int(fpg_puntos,900,150+i*110,4,&ops.objetivo);
+			texto_menu(i++,textos[9]);
+		end
+		case 3: //lenguaje
+			texto_menu(0,"Español");
+			texto_menu(1,"English");
+		end
 	end
 end
 
 //aparece en los menús
-process logo_pixfrogger()
+process logo_pixfrogger();
 begin
 	x=(ancho_pantalla/8)*5;
 	y=-(alto_pantalla/8);
@@ -1041,8 +1115,13 @@ private
 begin
 	x=ancho_pantalla/2;
 	y=-140;
-	z=-15;
-	graph=gr;
+	z=-513;
+	//graph=gr;
+	if(gr==11)
+		graph=write_in_map(fpg_textos,textos[12],4);
+	else
+		graph=write_in_map(fpg_textos,textos[13],4);
+	end
 	loop
 		con++;
 		if(con>100)
@@ -1060,14 +1139,10 @@ private
 begin
 	z=-20;
 	graph=500;
+	x=50;
 	loop
-		osc+=10000;
-		if(osc>350000)
-			osc=0;
-		end
-		//x=(cos(osc)*5)+20;
 		elecy=y;
-		y=190+elecc*55;
+		y=150+elecc*110;
 		frame;
 	end
 end
@@ -1079,11 +1154,12 @@ begin
 	x=ancho_pantalla/2;
 	y=alto_pantalla/2;
 	keytime=10;
+	if(graph==5) write_size(fpg_textos,ancho_pantalla/2,alto_pantalla-50,7,textos[19],70); end
 	if(graph==5 and ops.lenguaje==1) graph=912; end
 	if(!exists(type controlador)) controlador(0); end
 	loop
-		if(boton_salir)
-			while(boton_salir) frame; end
+		if(boton_salir or key(_m))
+			while(boton_salir or key(_m)) frame; end
 			net_let_me_alone();
 			sonido(1);
 			menu();
@@ -1091,7 +1167,7 @@ begin
 		end
 		//ayuda y tal
 		if(graph==5 or graph==912)
-			if(key(_esc) and keytime==0)
+			if((key(_esc) or key(_m)) and keytime==0)
 				sonido(3);
 				net_let_me_alone();
 				menu();
@@ -1106,38 +1182,48 @@ begin
 	end
 end
 
-process opcion();
+process menu_opciones();
 private
 	tec;
 	tec2;
 	tecenter;
+	ultima_opcion;
+	mi_opcion;
 begin
 	elecc=0;
-	lista_opciones(13);
+	lista_opciones(2);
 	flecha_opcion();
 	scroll_y=-100;
 	tecenter=1;
+	if(os_id==1003)
+		ultima_opcion=3;
+	else
+		ultima_opcion=4;
+	end
+	write_size(fpg_textos,ancho_pantalla/2,alto_pantalla-50,7,textos[18],70);
 	loop
-		if(boton_salir)
+		if(boton_salir or key(_m))
 			net_let_me_alone();
 			menu();
 			break;
 		end
-		if(key(_enter))
+		if(key(_enter) or key(_q))
+			mi_opcion=elecc;
+			if(os_id==1003) mi_opcion++; end //no hay opción de pantalla completa
 			if(tecenter==0)
 				sonido(3);
-				if(elecc==0)
+				if(mi_opcion==0)
 					if(ops.pantalla_completa==0)
 						ops.pantalla_completa=1;
 						full_screen=1;
-						set_mode(ancho_pantalla,alto_pantalla,32,WAITVSYNC);
+						set_mode(ancho_pantalla,alto_pantalla,bpp);
 					else
 						ops.pantalla_completa=0;
 						full_screen=0;
-						set_mode(ancho_pantalla,alto_pantalla,32,WAITVSYNC);
+						set_mode(ancho_pantalla,alto_pantalla,bpp);
 					end
 				end
-				if(elecc==1)
+				if(mi_opcion==1)
 					if(ops.sonido==1)
 						ops.sonido=0;
 					else
@@ -1145,7 +1231,7 @@ begin
 						sonido(3);
 					end
 				end
-				if(elecc==2)
+				if(mi_opcion==2)
 					if(ops.musica==1)
 						stop_song();
 						ops.musica=0;
@@ -1154,12 +1240,19 @@ begin
 						ops.musica=1;
 					end
 				end
-				if(elecc==3)
-					net_let_me_alone();
-					stop_song();
-					while(key(_enter)) frame; end
-					elige_lenguaje();
-					return;
+				if(mi_opcion==3)
+					ops.dificultad++;
+					if(ops.dificultad==5) ops.dificultad=1; end
+					while(key(_enter) or key(_q)) frame; end
+				end
+				if(mi_opcion==4)
+					switch(ops.objetivo)
+						case 5: ops.objetivo=10; end
+						case 10: ops.objetivo=25; end
+						case 25: ops.objetivo=50; end
+						case 50: ops.objetivo=5; end
+					end
+					while(key(_enter) or key(_q)) frame; end
 				end
 			end
 			tecenter=1;
@@ -1185,17 +1278,17 @@ begin
 		else
 			tec2=0;
 		end
-		if(elecc==4)
+		if(elecc==ultima_opcion+1)
 			elecc=0;
 		end
 		if(elecc==-1)
-			elecc=3;
+			elecc=ultima_opcion;
 		end
 		frame;
 	end
 end
 
-process elecpersonaje()
+process elecpersonaje();
 private
 	dand;
 	j;
@@ -1207,11 +1300,20 @@ begin
 	end
 	x=ancho_pantalla/2;
 	y=alto_pantalla/2;
-	if(ops.lenguaje==1) 
+	//write(fpg_textos,ancho_pantalla/2,150,4,textos[10]);
+	#IFDEF OUYA
+	if(ops.lenguaje==1)
+		graph=916;
+	else
+		graph=917;
+	end
+	#ELSE
+	if(ops.lenguaje==1)
 		if(buzz) graph=915; else graph=910; end
 	else 
-		if(buzz) graph=60; else graph=59; end
+		if(buzz) graph=909; else graph=908; end
 	end
+	#ENDIF
 	z=100;
 	if(!exists(type controlador)) controlador(0); end
 	panoramico=1;
@@ -1278,7 +1380,7 @@ begin
 	if(panoramico)
 		switch(posibles_jugadores)
 			case 2:	x=(ancho_pantalla/16)*3+((ancho_pantalla/16)*jugador*2); end
-			case 4:	x=(ancho_pantalla/16)*3+((ancho_pantalla/16)*jugador*2); end
+			case 4:	x=(ancho_pantalla/2)+(((ancho_pantalla/5)*(jugador-2))-(ancho_pantalla/10)); end
 			case 8:	x=(ancho_pantalla/32)*2.5+((ancho_pantalla/32)*jugador*3); end
 			case 16: x=(ancho_pantalla/64)*2.5+((ancho_pantalla/64)*jugador*3); end
 			case 32: x=(ancho_pantalla/128)*2.5+((ancho_pantalla/128)*jugador*3); end
@@ -1338,7 +1440,8 @@ begin
 		//3 2 1 YA:
 		x=ancho_pantalla/2;
 		y=alto_pantalla/2;
-		graph=521;
+		//graph=521;
+		graph=write_in_map(fpg_textos,textos[11],4);
 		size=100;
 		from alpha=0 to 255 step 20; frame; end
 		while(botones_pulsados<num_jugadores)
@@ -1370,7 +1473,9 @@ begin
 		
 		from i=3 to 1 step -1;
 			timer[0]=0;
-			graph=650+i;
+			//graph=650+i;
+			unload_map(0,graph);
+			graph=write_in_map(fpg_textos,i,4);
 			sonido(5);
 			if(en_red)
 				from j=1 to 32;
@@ -1381,13 +1486,14 @@ begin
 			size=100;
 			alpha=255;
 		end
+		
 		sonido(6);
 		if(en_red)
 			from j=1 to 32;
 				rana_msg[j]="P6";
 			end
 		end
-		graph=650;
+		graph=write_in_map(fpg_textos,textos[14],4);
 		primera_ronda=0;
 	end
 
@@ -1483,12 +1589,29 @@ begin
 					return;
 				end
 			else
-				//gana la ronda
-				if(posibles_jugadores>8)
-					gana_rana_player();
-				End
-				gana_rana(ganador);
-				gana_rana_you_win();
+				if(rana_puntos[ganador]!=ops.objetivo)
+					//gana la ronda
+					if(posibles_jugadores>8)
+						gana_rana_player();
+					End
+					gana_rana(ganador);
+					gana_rana_you_win();
+				else
+					//gana el juego
+					sonido(7);
+					gana_rana(ganador);
+					gana_rana_wins_match();
+															
+					while(boton_salir==0 and not key(_m) and not key(_q)) frame; end
+					while(boton_salir or key(_m) or key(_q)) frame; end
+
+					net_let_me_alone();
+					graph=get_screen();
+
+					menu();
+					from alpha=255 to 0 step -15; frame; end
+					return;
+				end
 			end
 			timer[0]=0;
 			while(timer[0]<300) 
@@ -1552,6 +1675,7 @@ end
 // lo siento gnomwer xD
 process sombra();
 begin	
+	return;
 	ctype=c_scroll;
 	z=father.z+5;
 	flags=father.flags;
@@ -1620,7 +1744,7 @@ begin
 	end
 	
 	if(rana_puntos[jugador]!=0) 
-		write_int(fnt_puntos,x,alto_pantalla-(alto_camino/2),4,&rana_puntos[jugador]); 
+		write_int(fpg_puntos,x,alto_pantalla-(alto_camino/2),4,&rana_puntos[jugador]); 
 	end
 	
 	z=-100;
@@ -1700,7 +1824,7 @@ begin
 		rana_msg[jugador]="DEA";
 	end
 	rana_golpeada(x,y,gr+1);
-	if(!tactil)
+	if(explosiones)
 		explotalo(x,y,z,alpha,angle,file,gr+1,60);
 	end
 	sonido(4);
@@ -1918,7 +2042,7 @@ private
 	tec2;
 begin
 	elecc=0;
-	lista_opciones(914);
+	lista_opciones(3);
 	flecha_opcion();
 	loop
 		if(elecc==2)
@@ -1931,7 +2055,7 @@ begin
 			keytime--;
 		end
 		//elige algo
-		if(key(_enter) and keytime==0)
+		if((key(_enter) or key(_q)) and keytime==0)
 			sonido(3);
 			ops.lenguaje=elecc;
 			break;
@@ -1956,7 +2080,7 @@ begin
 		end
 		frame;
 	end
-	while(key(_enter)) frame; end
+	while(key(_enter) or key(_q)) frame; end
 	logo_pixjuegos();
 end
 
@@ -2121,14 +2245,8 @@ Begin
 				if(key(_q)) boton[1]=1; end
 				if(key(_z)) boton[2]=1; end
 				if(key(_p)) boton[3]=1; end
-				if(key(_up)) boton[4]=1; end
+				if(key(_up) or key(_m)) boton[4]=1; end
 			end
-			
-			//deberíamos poner para 8 jugadores en teclado??
-			/*if(key(_q)) boton[1]=1; else boton[1]=0; end
-			if(key(_q)) boton[1]=1; else boton[1]=0; end
-			if(key(_q)) boton[1]=1; else boton[1]=0; end
-			if(key(_q)) boton[1]=1; else boton[1]=0; end*/
 		end
 
 		//tecla maestra
@@ -2174,12 +2292,6 @@ Begin
 					dedo(multi_info(i, "X"),multi_info(i, "Y"));
 				end
 			end
-		end
-	
-		if(key(_alt) and key(_enter)) 
-			while(scan_code!=0) frame; end 
-			if(full_screen) full_screen=0; else full_screen=1; end
-			set_mode(ancho_pantalla,alto_pantalla,bpp);
 		end
 		
 		from i=1 to posibles_jugadores;
@@ -2312,7 +2424,7 @@ Begin
 	if(posibles_jugadores<16)
 		graph=500+jugador;
 	else
-		graph=write_in_map(fnt_textos,jugador,4);
+		graph=write_in_map(fpg_textos,jugador,4);
 	end
 	x=ancho_pantalla/2;
 	y=(alto_pantalla/8)*3;
@@ -2362,6 +2474,7 @@ Begin
 	y=(alto_pantalla/2);
 	z=-50;
 	alpha=40;
+	write_size(fpg_textos,ancho_pantalla/2,alto_pantalla-50,7,textos[20],70);
 	loop
 		if(alpha<255) alpha+=10; y++; end
 		frame;

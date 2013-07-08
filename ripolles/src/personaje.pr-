@@ -161,6 +161,7 @@ Begin
 				file=fpg_enemigo4; 
 				p[jugador].vida=120;
 				sabe_saltar=1;
+				sabe_ataca_aire=1;
 			end
 			case 5: //EVIL RIPOLLES
 				inercia_max_x=7;
@@ -170,6 +171,7 @@ Begin
 				p[jugador].vida=300;
 				sabe_defenderse=1;
 				sabe_saltar=1;
+				sabe_ataca_aire=1;
 			end
 			case 6: //bailarina
 				inercia_max_x=4;
@@ -315,6 +317,7 @@ Begin
 					fuerza_ataque=20;
 					file=fpg_enemigo4; 
 					sabe_saltar=1;
+					sabe_ataca_aire=1;
 				end
 				case 5: //EVIL RIPOLLES
 					inercia_max_x=7;
@@ -323,6 +326,7 @@ Begin
 					file=fpg_enemigo5;
 					sabe_defenderse=1;
 					sabe_saltar=1;
+					sabe_ataca_aire=1;
 				end
 				case 6: //bailarina
 					inercia_max_x=4;
@@ -551,7 +555,7 @@ Begin
 								if(accion==quieto and x_inc==0 and (id_col=collision(type objeto)))
 									repeat
 										//si el objeto está en el suelo y no somos un enemigo cogiendo vida o powerup...
-										if(id_col.y>y+35 and !(tipo>0 and (id_col.graph==1 or id_col.graph==4 or id_col.graph==5))) 
+										if(id_col.y>y+35) 
 											lleva_objeto=id_col.graph;
 											accion=coge_objeto;
 											signal(id_col,s_kill);
@@ -1129,8 +1133,9 @@ Begin
 				from alpha=255 to 0 step -15; frame; end
 				if(jugador>10)
 					enemigos--;
-					//if(rand(0,4)==0) objeto(x,y_base,altura,graph,x_inc,flags); end
-					objeto(x,y_base,altura,objetos_aleatorios[rand(0,4)],x_inc,flags);
+					if(rand(0,3)==0 and modo_juego==modo_historia)
+						objeto(x,y_base,altura,objetos_aleatorios[rand(0,4)],x_inc,flags);
+					end
 				end
 				
 				if(p[jugador].vidas>0 and jugador<10)

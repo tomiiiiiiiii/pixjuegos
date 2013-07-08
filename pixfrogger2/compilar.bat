@@ -1,7 +1,7 @@
 @echo off
 cd src
 echo Compilando...
-..\..\bennu-win\bgdc -g pixfrogger.prg
+..\..\bennu-win\bgdc -D DEBUG=1 -g pixfrogger.prg
 move pixfrogger.dcb ..
 pause
 cd ..

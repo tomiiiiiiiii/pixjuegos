@@ -38,6 +38,7 @@ copy recursos\android-free\mdpi.png export\res\drawable-mdpi\icon.png /y
 copy recursos\android-free\xhdpi.png export\res\drawable-xhdpi\icon.png /y
 
 copy recursos\android-free\strings.xml export\res\values\strings.xml /y
+copy recursos\android-free\ids.xml export\res\values\ids.xml /y
 copy recursos\android-free\AndroidManifest.xml export\ /y
 copy recursos\android-free\build.xml export\ /y
 

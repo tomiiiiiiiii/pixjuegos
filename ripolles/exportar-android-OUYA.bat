@@ -23,6 +23,8 @@ mkdir export\assets\fpg
 mkdir export\assets\ogg
 mkdir export\assets\fnt
 mkdir export\assets\wav
+mkdir export\res\drawable-es
+mkdir export\res\drawable-ca
 
 echo Copiando recursos de android...
 copy recursos\android\hdpi.png export\res\drawable-hdpi\icon.png /y
@@ -30,6 +32,8 @@ copy recursos\android\ldpi.png export\res\drawable-ldpi\icon.png /y
 copy recursos\android\mdpi.png export\res\drawable-mdpi\icon.png /y
 copy recursos\android\xhdpi.png export\res\drawable-xhdpi\icon.png /y
 copy recursos\android\ouya_icon.png export\res\drawable-xhdpi\ouya_icon.png /y
+copy recursos\android\ouya_icon_es.png export\res\drawable-es\ouya_icon.png /y
+copy recursos\android\ouya_icon_ca.png export\res\drawable-ca\ouya_icon.png /y
 
 copy recursos\android\strings.xml export\res\values\strings.xml /y
 mkdir export\res\values-es

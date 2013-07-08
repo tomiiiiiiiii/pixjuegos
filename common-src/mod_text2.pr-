@@ -3,15 +3,17 @@ Const
 End
 Global
 	matatextos=0;
-	fpg_texto_margen=0;
-	fpg_texto_espacio=10;
+	struct ops_fuentes[20];
+		margen;
+		espacio;
+	end
 End
 Local
 	rand_y;
 	rand_angle;
 End
 
-Process test_text();
+/*Process test_text();
 Private
 	mi_id_texto;
 	retraso_repintado=5;
@@ -22,10 +24,10 @@ Begin
 	mi_id_texto=write(fpg_texto,0,0,0,"Hola, soy Pablo. Feliz Navidad");
 	
 	while(!key(_Esc))
-		if(key(_a)) fpg_texto_margen--; end
-		if(key(_s)) fpg_texto_margen++; end
-		if(key(_q) and fpg_texto_espacio>0) fpg_texto_espacio--; end
-		if(key(_w)) fpg_texto_espacio++; end
+		if(key(_a)) ops_fuentes[fpg_fuente].margen--; end
+		if(key(_s)) ops_fuentes[fpg_fuente].margen++; end
+		if(key(_q) and ops_fuentes[fpg_fuente].espacio>0) ops_fuentes[fpg_fuente].espacio--; end
+		if(key(_w)) ops_fuentes[fpg_fuente].espacio++; end
 		if(key(_z) and mi_id_texto.rand_y>0) mi_id_texto.rand_y--; end
 		if(key(_x) and mi_id_texto.rand_y<5) mi_id_texto.rand_y++; end
 		if(key(_u) and mi_id_texto.rand_angle>0) mi_id_texto.rand_angle-=1000; end
@@ -45,6 +47,38 @@ Begin
 		frame; 
 	end
 	exit();
+End*/
+
+Process write_size(fpg_fuente,x,y,centrado,string texto,int size);
+Private
+	mi_ancho;
+	mi_alto;
+Begin
+	resolution=global_resolution;
+	z=-512;
+	
+	//1. pintamos texto en un mapa de bits
+	graph=dibujame_el_texto(fpg_fuente,texto,ops_fuentes[fpg_fuente].margen,rand_y,rand_angle,0);
+	
+	//2. centramos
+	centrame(file,graph,centrado);
+	
+	//3. permanecemos
+	while(accion!=-1)
+		if(accion==1) //redibujamos
+			unload_map(0,graph);
+			//1. pintamos texto en un mapa de bits
+			graph=dibujame_el_texto(fpg_fuente,texto,ops_fuentes[fpg_fuente].margen,rand_y,rand_angle,0);
+			
+			//2. centramos
+			centrame(file,graph,centrado);
+
+			accion=0;
+		end
+		frame; 
+	end
+OnExit
+	unload_map(0,graph);
 End
 
 Process write(fpg_fuente,x,y,centrado,string texto);
@@ -56,7 +90,7 @@ Begin
 	z=-512;
 	
 	//1. pintamos texto en un mapa de bits
-	graph=dibujame_el_texto(fpg_fuente,texto,fpg_texto_margen,rand_y,rand_angle,0);
+	graph=dibujame_el_texto(fpg_fuente,texto,ops_fuentes[fpg_fuente].margen,rand_y,rand_angle,0);
 	
 	//2. centramos
 	centrame(file,graph,centrado);
@@ -66,7 +100,7 @@ Begin
 		if(accion==1) //redibujamos
 			unload_map(0,graph);
 			//1. pintamos texto en un mapa de bits
-			graph=dibujame_el_texto(fpg_fuente,texto,fpg_texto_margen,rand_y,rand_angle,0);
+			graph=dibujame_el_texto(fpg_fuente,texto,ops_fuentes[fpg_fuente].margen,rand_y,rand_angle,0);
 			
 			//2. centramos
 			centrame(file,graph,centrado);
@@ -88,7 +122,7 @@ Begin
 	z=-512;
 	
 	//1. pintamos texto en un mapa de bits
-	graph=dibujame_el_texto(fpg_fuente,texto,fpg_texto_margen,rand_y,rand_angle,fixed_width);
+	graph=dibujame_el_texto(fpg_fuente,texto,ops_fuentes[fpg_fuente].margen,rand_y,rand_angle,fixed_width);
 	
 	//2. centramos
 	centrame(file,graph,centrado);
@@ -98,7 +132,7 @@ Begin
 		if(accion==1) //redibujamos
 			unload_map(0,graph);
 			//1. pintamos texto en un mapa de bits
-			graph=dibujame_el_texto(fpg_fuente,texto,fpg_texto_margen,rand_y,rand_angle,0);
+			graph=dibujame_el_texto(fpg_fuente,texto,ops_fuentes[fpg_fuente].margen,rand_y,rand_angle,0);
 			
 			//2. centramos
 			centrame(file,graph,centrado);
@@ -111,24 +145,24 @@ OnExit
 	unload_map(0,graph);
 End
 
-Function write_in_map(file,string texto,int centrado);
+Function write_in_map(fpg_fuente,string texto,int centrado);
 Begin
 	//1. pintamos texto en un mapa de bits
-	graph=dibujame_el_texto(file,texto,fpg_texto_margen,rand_y,rand_angle,0);
+	graph=dibujame_el_texto(fpg_fuente,texto,ops_fuentes[fpg_fuente].margen,rand_y,rand_angle,0);
 	
 	//2. centramos
-	centrame(file,graph,centrado);
+	centrame(fpg_fuente,graph,centrado);
 	
 	return graph;
 End
 
-Function write_in_map_fixed(file,string texto,int centrado,fixed_width);
+Function write_in_map_fixed(fpg_fuente,string texto,int centrado,fixed_width);
 Begin
 	//1. pintamos texto en un mapa de bits
-	graph=dibujame_el_texto(file,texto,fpg_texto_margen,rand_y,rand_angle,fixed_width);
+	graph=dibujame_el_texto(fpg_fuente,texto,ops_fuentes[fpg_fuente].margen,rand_y,rand_angle,fixed_width);
 	
 	//2. centramos
-	centrame(file,graph,centrado);
+	centrame(fpg_fuente,graph,centrado);
 	
 	return graph;
 End
@@ -143,7 +177,7 @@ Begin
 	z=-512;
 	
 	//1. pintamos texto en un mapa de bits
-	graph=dibujame_el_texto(fpg_fuente,*numero,fpg_texto_margen,rand_y,rand_angle,0);
+	graph=dibujame_el_texto(fpg_fuente,*numero,ops_fuentes[fpg_fuente].margen,rand_y,rand_angle,0);
 	
 	//2. centramos
 	centrame(file,graph,centrado);
@@ -153,7 +187,7 @@ Begin
 		if(anterior_numero!=*numero) //redibujamos
 			unload_map(0,graph);
 			//1. pintamos texto en un mapa de bits
-			graph=dibujame_el_texto(fpg_fuente,*numero,fpg_texto_margen,rand_y,rand_angle,0);
+			graph=dibujame_el_texto(fpg_fuente,*numero,ops_fuentes[fpg_fuente].margen,rand_y,rand_angle,0);
 			
 			//2. centramos
 			centrame(file,graph,centrado);
@@ -177,7 +211,7 @@ Begin
 	z=-512;
 	
 	//1. pintamos texto en un mapa de bits
-	graph=dibujame_el_texto(fpg_fuente,*variable,fpg_texto_margen,rand_y,rand_angle,0);
+	graph=dibujame_el_texto(fpg_fuente,*variable,ops_fuentes[fpg_fuente].margen,rand_y,rand_angle,0);
 	
 	//2. centramos
 	centrame(file,graph,centrado);
@@ -187,7 +221,7 @@ Begin
 		if(anterior_numero!=*variable) //redibujamos
 			unload_map(0,graph);
 			//1. pintamos texto en un mapa de bits
-			graph=dibujame_el_texto(fpg_fuente,*variable,fpg_texto_margen,rand_y,rand_angle,0);
+			graph=dibujame_el_texto(fpg_fuente,*variable,ops_fuentes[fpg_fuente].margen,rand_y,rand_angle,0);
 			
 			//2. centramos
 			centrame(file,graph,centrado);
@@ -244,7 +278,7 @@ Begin
 	end
 End
 
-Function dibujame_el_texto(file,string texto,int margen,rand_y_max,rand_angle_max,fixed_width);
+Function dibujame_el_texto(fpg_fuente,string texto,int margen,rand_y_max,rand_angle_max,fixed_width);
 Private
 	mi_alto_max;
 	mi_ancho_total;
@@ -252,7 +286,8 @@ Private
 	caracter_anterior;
 	mi_bpp;
 Begin
-	if(!map_exists(file,97)) //si no hay minúsculas, uppercase-amos
+	file=fpg_fuente;
+	if(!map_exists(fpg_fuente,97)) //si no hay minúsculas, uppercase-amos
 		texto=ucase(texto);
 	end
 	
@@ -262,7 +297,7 @@ Begin
 			caracter_anterior=caracter;
 			caracter=asc(texto[i]);
 			if(caracter==32)
-				x+=fpg_texto_espacio+margen;
+				x+=ops_fuentes[fpg_fuente].espacio+margen;
 			else
 				if(i==0)
 					x=(graphic_info(file,caracter,G_WIDTH)/2);
@@ -309,7 +344,7 @@ Begin
 				map_xputnp(0,graph,file,caracter,x,y,rand_angle,100,100,0);
 			else
 				if(caracter==32)
-					x+=fpg_texto_espacio+margen;
+					x+=ops_fuentes[fpg_fuente].espacio+margen;
 				else
 					if(i==0)
 						x=(graphic_info(file,caracter,G_WIDTH)/2);

@@ -70,7 +70,7 @@ Const
 End
 
 Global
-	objetos_aleatorios[4]=obj_rollo,obj_naranja_dura,obj_casco,obj_naranja,obj_hamburguesa;
+	objetos_aleatorios[4]=obj_rollo,obj_naranja_dura,obj_naranja,obj_naranja_dura,obj_hamburguesa;
 
 	evento_hamburguesa;
 	hamburguesas_random=1;
@@ -342,12 +342,8 @@ Begin
 		set_mode(ancho_pantalla*2,alto_pantalla*2,bpp);
 		size=200;
 		resolution=global_resolution;
-		fpg_texto_margen=-8;
-		fpg_texto_espacio=60;
 	else
 		set_mode(ancho_pantalla,alto_pantalla,bpp);
-		fpg_texto_margen=-4;
-		fpg_texto_espacio=30;
 	end
 	
 	//gráfico para mientras se carga
@@ -369,6 +365,27 @@ Begin
 	carga_fpgs();
 	carga_wavs();
 
+	//configuramos los espacios de las fuentes
+	if(global_resolution!=0)
+		ops_fuentes[fpg_texto].margen=-8;
+		ops_fuentes[fpg_texto].espacio=60;
+		ops_fuentes[fpg_texto_azul].margen=-8;
+		ops_fuentes[fpg_texto_azul].espacio=60;
+		ops_fuentes[fpg_texto_rojo].margen=-8;
+		ops_fuentes[fpg_texto_rojo].espacio=60;
+		ops_fuentes[fpg_texto_gris].margen=-8;
+		ops_fuentes[fpg_texto_gris].espacio=60;
+	else
+		ops_fuentes[fpg_texto].margen=-4;
+		ops_fuentes[fpg_texto].espacio=30;
+		ops_fuentes[fpg_texto_azul].margen=-4;
+		ops_fuentes[fpg_texto_azul].espacio=30;
+		ops_fuentes[fpg_texto_rojo].margen=-4;
+		ops_fuentes[fpg_texto_rojo].espacio=30;
+		ops_fuentes[fpg_texto_gris].margen=-4;
+		ops_fuentes[fpg_texto_gris].espacio=30;
+	end
+	
 	//recolocamos el centro de los objetos
 	recoloca_centros();
 	
@@ -502,6 +519,11 @@ Begin
 	
 	ancho_nivel=graphic_info(fpg_nivel,1,G_WIDTH);
 	alto_nivel=graphic_info(fpg_nivel,1,G_HEIGHT);
+
+	if(global_resolution!=0)
+		ancho_nivel/=2;
+		alto_nivel/=2;
+	end
 	
 	if(nivel!=3)
 		start_scroll(0,fpg_nivel,1,0,0,0);
@@ -623,14 +645,14 @@ Begin
 	z=-256;
 	i=0;
 
-	if(modo_juego==modo_supervivencia and ops.truco_sin_bandos<0)
+/*	if(modo_juego==modo_supervivencia and ops.truco_sin_bandos<0)
 		if(timer[0]>60*5) //si ha aguantado más de 5 minutos, le damos el cheto "sin bandos"
 			ops.truco_sin_bandos=0; //modo matajefes disponible
 			guarda_opciones();
 			truco_descubierto(textos[3]);
 			while(exists(type truco_descubierto)) frame; end
 		end
-	end
+	end*/
 	
 	if(modo_juego==modo_battleroyale)
 		if(ops.truco_fuego_amigo<0)
@@ -972,6 +994,7 @@ Begin
 				father.x_inc*=-1; 
 			end
 		end
+		
 		if(forma==encerrandome)
 			if(father.x<id_camara.x-((ancho_pantalla/2)-50))
 				if(father.x_inc<0) father.x_inc*=-1; end
@@ -1813,10 +1836,14 @@ Begin
 					end
 				end
 				if(i!=100)
-					if(rand(0,1))
-						enemigo(i,rand(1,4),-100,rand(100,300),0,0);
-					else
-						enemigo(i,rand(1,4),ancho_pantalla+100,rand(100,300),0,0);
+					if(rand(0,1)) x=-100; else x=ancho_pantalla+100; end
+					y=rand(100,300);
+					if(rand(0,300)==0) //evil ripolles
+						enemigo(i,5,x,y,0,0);
+					elseif(rand(0,50)==0) //new enemies 6-7
+						enemigo(i,rand(6,7),x,y,0,0);
+					else //comunes 1-4
+						enemigo(i,rand(1,4),x,y,0,0);
 					end
 				end
 			end
