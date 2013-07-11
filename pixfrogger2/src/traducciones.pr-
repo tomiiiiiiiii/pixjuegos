@@ -6,7 +6,11 @@ Begin
 			textos[2]="Opciones";
 			textos[3]="Créditos";
 			textos[4]="Salir";
+			#IFDEF OUYA
+			textos[5]="Zona segura TV";
+			#ELSE
 			textos[5]="Pantalla completa";
+			#ENDIF
 			textos[6]="Sonido";
 			textos[7]="Música";
 			textos[8]="Dificultad CPU";
@@ -30,7 +34,11 @@ Begin
 			textos[2]="Options";
 			textos[3]="Credits";
 			textos[4]="Exit";
+			#IFDEF OUYA
+			textos[5]="TV margins";
+			#ELSE
 			textos[5]="Full screen";
+			#ENDIF
 			textos[6]="Sound";
 			textos[7]="Music";
 			textos[8]="CPU difficulty";

@@ -34,6 +34,8 @@ import "fsock";
 Global
 	string textos[100];
 	
+	margenes_ouya;
+	
 	#ifdef RED
 		en_red=1;
 	#else
@@ -150,12 +152,15 @@ begin
 		savepath();
 	end
 	
-	#IFDEF OUYA
-		tactil=0;
-	#ENDIF
-	
 	//cargamos las opciones actuales
 	carga_opciones();
+	
+	#IFDEF OUYA
+		aplica_margenes_ouya();
+		tactil=0;
+	#ENDIF
+
+	
 
 	prueba_pantalla();
 	
@@ -1076,10 +1081,7 @@ begin
 			texto_menu(i++,textos[4]);
 		end
 		case 2: //opciones
-			if(os_id!=1003)
-				iconos(i,3);
-				texto_menu(i++,textos[5]); //fullscreen
-			end
+			iconos(i,3); texto_menu(i++,textos[5]); //fullscreen o overscan
 			iconos(i,1); texto_menu(i++,textos[6]); //sonido
 			iconos(i,2);texto_menu(i++,textos[7]); //música
 			iconos(i,0); texto_menu(i++,textos[8]); //dificultad
@@ -1195,11 +1197,7 @@ begin
 	flecha_opcion();
 	scroll_y=-100;
 	tecenter=1;
-	if(os_id==1003)
-		ultima_opcion=3;
-	else
-		ultima_opcion=4;
-	end
+	ultima_opcion=4;
 	write_size(fpg_textos,ancho_pantalla/2,alto_pantalla-50,7,textos[18],70);
 	loop
 		if(boton_salir or key(_m))
@@ -1209,10 +1207,17 @@ begin
 		end
 		if(key(_enter) or key(_q))
 			mi_opcion=elecc;
-			if(os_id==1003) mi_opcion++; end //no hay opción de pantalla completa
 			if(tecenter==0)
 				sonido(3);
 				if(mi_opcion==0)
+					#IFDEF OUYA
+					if(ops.pantalla_completa)
+						ops.pantalla_completa=0;
+					else
+						ops.pantalla_completa=1;
+					end
+					aplica_margenes_ouya();
+					#ELSE
 					if(ops.pantalla_completa==0)
 						ops.pantalla_completa=1;
 						full_screen=1;
@@ -1222,6 +1227,7 @@ begin
 						full_screen=0;
 						set_mode(ancho_pantalla,alto_pantalla,bpp);
 					end
+					#ENDIF
 				end
 				if(mi_opcion==1)
 					if(ops.sonido==1)
@@ -1743,8 +1749,8 @@ begin
 		end
 	end
 	
-	if(rana_puntos[jugador]!=0) 
-		write_int(fpg_puntos,x,alto_pantalla-(alto_camino/2),4,&rana_puntos[jugador]); 
+	if(rana_puntos[jugador]!=0)
+		write_int(fpg_puntos,x,alto_pantalla-(alto_camino/2)-margenes_ouya,4,&rana_puntos[jugador]); 
 	end
 	
 	z=-100;
@@ -1759,7 +1765,11 @@ begin
 		num_jugador();
 	end
 	ctype=c_scroll;
+	#IFDEF OUYA
+	pos_y=pos_inicio-2;
+	#ELSE
 	pos_y=pos_inicio-1;
+	#ENDIF
 	y=(alto_camino*pos_inicio)-(alto_camino/2);
 	priority=rand(100,200);
 	rana_viva[jugador]=1;
@@ -2001,7 +2011,7 @@ Begin
 	end
 end
 
-process indicador()
+process indicador();
 private
 	ancho_bandera;
 	base_x;
@@ -2012,7 +2022,7 @@ begin
 	graph=50;
 	angle=270000;
 	size=50;
-	y=22;
+	y=22+margenes_ouya;
 	z=-50;
 	base_x=(ancho_pantalla/2)+(ancho_bandera/2);
 	max_y=alto_camino*pos_inicio;
@@ -2024,11 +2034,11 @@ begin
 	end
 end
 
-process bandera()
+process bandera();
 begin
 	graph=210;
 	x=ancho_pantalla/2;
-	y=20;
+	y=20+margenes_ouya;
 	z=-25;
 	loop
 		frame;
@@ -2521,6 +2531,15 @@ Begin
 		if(i.no_matar==0 and i!=father.id and i!=id)
 			signal(i,s_kill);
 		end
+	end
+End
+
+Function aplica_margenes_ouya();
+Begin
+	if(ops.pantalla_completa)
+		margenes_ouya=36;
+	else
+		margenes_ouya=0;
 	end
 End
 
