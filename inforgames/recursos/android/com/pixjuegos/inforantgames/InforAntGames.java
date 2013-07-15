@@ -1,4 +1,4 @@
-package com.pixjuegos.inforgames;
+package com.pixjuegos.inforantgames;
 
 import org.libsdl.app.SDLActivity;
 import android.os.*;
@@ -7,7 +7,7 @@ import android.os.*;
  * A sample wrapper class that just calls SDLActivity
  */ 
 
-public class Inforgames extends SDLActivity {
+public class InforAntGames extends SDLActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
