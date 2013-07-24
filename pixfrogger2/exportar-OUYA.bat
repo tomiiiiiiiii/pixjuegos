@@ -48,6 +48,7 @@ xcopy /r/e/y recursos\android\com export\src\com
 
 echo Copiando el juego...
 copy fpg\pixfrogger-ouya.fpg export\assets\fpg\pixfrogger-hd.fpg /y
+copy fpg\pixfrogger-ouya-8players.fpg export\assets\fpg /y
 copy fpg\puntos-hd.fpg export\assets\fpg /y
 copy fpg\textos-hd.fpg export\assets\fpg /y
 copy ogg\*.ogg export\assets\ogg /y

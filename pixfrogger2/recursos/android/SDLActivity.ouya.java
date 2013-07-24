@@ -737,47 +737,99 @@ class SDLSurface extends SurfaceView implements SurfaceHolder.Callback,
         }
 
 		//PIX wrapps in order to work properly with our controller's "API"
-		switch (keyCode) {
-			case KeyEvent.KEYCODE_DPAD_LEFT:
-				keyCode = KeyEvent.KEYCODE_DPAD_LEFT;
-				break;
-			case KeyEvent.KEYCODE_DPAD_RIGHT:
-				keyCode = KeyEvent.KEYCODE_DPAD_RIGHT;
-				break;
-			case KeyEvent.KEYCODE_DPAD_UP:
-				keyCode = KeyEvent.KEYCODE_DPAD_UP;
-				break;
-			case KeyEvent.KEYCODE_DPAD_DOWN:
-				keyCode = KeyEvent.KEYCODE_DPAD_DOWN;
-				break;
-			case KeyEvent.KEYCODE_BUTTON_X:
-				keyCode = KeyEvent.KEYCODE_Z;
-				break;
-			case KeyEvent.KEYCODE_BUTTON_A:
-				keyCode = KeyEvent.KEYCODE_Q;
-				break;
-			case KeyEvent.KEYCODE_BUTTON_B:
-				keyCode = KeyEvent.KEYCODE_M;
-				break;
-			case KeyEvent.KEYCODE_BUTTON_Y:
-				keyCode = KeyEvent.KEYCODE_P;
-				break;
-			case KeyEvent.KEYCODE_MENU:
-				keyCode = KeyEvent.KEYCODE_ESCAPE;
-				break;
-			case KeyEvent.KEYCODE_BACK:
-				keyCode = KeyEvent.KEYCODE_ESCAPE;
-				break;
-			case KeyEvent.KEYCODE_BUTTON_SELECT:
-				keyCode = KeyEvent.KEYCODE_ESCAPE;
-				break;
-			case KeyEvent.KEYCODE_BUTTON_START:
-				keyCode = KeyEvent.KEYCODE_ESCAPE;
-				break;
-			default:
-				return true;
-		}
-		
+		if (SDLActivity.isOuya) {
+			switch((OuyaController.getPlayerNumByDeviceId(event.getDeviceId())+1)%2){
+				case 1: //mando 1
+					switch (keyCode) {
+						case KeyEvent.KEYCODE_DPAD_LEFT:
+							keyCode = KeyEvent.KEYCODE_DPAD_LEFT;
+							break;
+						case KeyEvent.KEYCODE_DPAD_RIGHT:
+							keyCode = KeyEvent.KEYCODE_DPAD_RIGHT;
+							break;
+						case KeyEvent.KEYCODE_DPAD_UP:
+							keyCode = KeyEvent.KEYCODE_DPAD_UP;
+							break;
+						case KeyEvent.KEYCODE_DPAD_DOWN:
+							keyCode = KeyEvent.KEYCODE_DPAD_DOWN;
+							break;
+						case KeyEvent.KEYCODE_BUTTON_X:
+							keyCode = KeyEvent.KEYCODE_Z;
+							break;
+						case KeyEvent.KEYCODE_BUTTON_A:
+							keyCode = KeyEvent.KEYCODE_Q;
+							break;
+						case KeyEvent.KEYCODE_BUTTON_B:
+							keyCode = KeyEvent.KEYCODE_M;
+							break;
+						case KeyEvent.KEYCODE_BUTTON_Y:
+							keyCode = KeyEvent.KEYCODE_P;
+							break;
+						case KeyEvent.KEYCODE_BUTTON_R1:
+							keyCode = KeyEvent.KEYCODE_ENTER;
+							break;
+						case KeyEvent.KEYCODE_MENU:
+							keyCode = KeyEvent.KEYCODE_ESCAPE;
+							break;
+						case KeyEvent.KEYCODE_BACK:
+							keyCode = KeyEvent.KEYCODE_ESCAPE;
+							break;
+						case KeyEvent.KEYCODE_BUTTON_SELECT:
+							keyCode = KeyEvent.KEYCODE_ESCAPE;
+							break;
+						case KeyEvent.KEYCODE_BUTTON_START:
+							keyCode = KeyEvent.KEYCODE_ESCAPE;
+							break;
+						default:
+							return true;
+					}
+					break;
+				
+				case 0: //mando 2
+					switch (keyCode) {
+						case KeyEvent.KEYCODE_DPAD_LEFT:
+							keyCode = KeyEvent.KEYCODE_DPAD_LEFT;
+							break;
+						case KeyEvent.KEYCODE_DPAD_RIGHT:
+							keyCode = KeyEvent.KEYCODE_DPAD_RIGHT;
+							break;
+						case KeyEvent.KEYCODE_DPAD_UP:
+							keyCode = KeyEvent.KEYCODE_DPAD_UP;
+							break;
+						case KeyEvent.KEYCODE_DPAD_DOWN:
+							keyCode = KeyEvent.KEYCODE_DPAD_DOWN;
+							break;
+						case KeyEvent.KEYCODE_BUTTON_X:
+							keyCode = KeyEvent.KEYCODE_S;
+							break;
+						case KeyEvent.KEYCODE_BUTTON_A:
+							keyCode = KeyEvent.KEYCODE_A;
+							break;
+						case KeyEvent.KEYCODE_BUTTON_B:
+							keyCode = KeyEvent.KEYCODE_D;
+							break;
+						case KeyEvent.KEYCODE_BUTTON_Y:
+							keyCode = KeyEvent.KEYCODE_F;
+							break;
+						case KeyEvent.KEYCODE_MENU:
+							keyCode = KeyEvent.KEYCODE_ESCAPE;
+							break;
+						case KeyEvent.KEYCODE_BACK:
+							keyCode = KeyEvent.KEYCODE_ESCAPE;
+							break;
+						case KeyEvent.KEYCODE_BUTTON_SELECT:
+							keyCode = KeyEvent.KEYCODE_ESCAPE;
+							break;
+						case KeyEvent.KEYCODE_BUTTON_START:
+							keyCode = KeyEvent.KEYCODE_ESCAPE;
+							break;
+						default:
+							return true;
+					}
+					break;
+				}
+			}
+				
 		if(keyCode == KeyEvent.KEYCODE_ESCAPE) {
 			if(event.getAction() == KeyEvent.ACTION_UP) {
 				return true;

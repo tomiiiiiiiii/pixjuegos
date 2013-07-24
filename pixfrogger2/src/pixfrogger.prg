@@ -33,6 +33,9 @@ import "fsock";
 
 Global
 	string textos[100];
+
+	distancia_opcion_menu;
+	base_lista;
 	
 	margenes_ouya;
 	
@@ -221,6 +224,8 @@ begin
 	//cargamos los recursos a utilizar durante todo el juego
 	carga_sonidos();
 	
+	fpg_puntos=load_fpg("fpg/puntos-hd.fpg");
+	
 	if(posibles_jugadores=>16)
 		version="ld";
 		fpg_general=load_fpg("fpg/pixfrogger-ld-32players.fpg");	
@@ -266,7 +271,7 @@ begin
 	music=load_song("ogg/1.ogg");
 	
 	//averiguamos el alto del camino y el número de caminos
-	alto_camino=graphic_info(0,200,g_height);
+	alto_camino=graphic_info(fpg_general,200,g_height);
 	num_caminos=(alto_pantalla/alto_camino)+2;
 	
 	//recogemos los textos del lenguaje elegido
@@ -292,7 +297,7 @@ Process texto_menu(posicion,string texto);
 Begin
 	graph=write_in_map(fpg_textos,texto,3);
 	x=-(ancho_pantalla/4);
-	y=150+posicion*110;
+	y=base_lista+posicion*distancia_opcion_menu;
 	z=-10;
 	loop
 		x+=(x-150)/-10; 
@@ -385,6 +390,7 @@ End
 
 Process pon_fondo(graph);
 Begin
+	file=fpg_general;
 	x=ancho_pantalla/2;
 	y=alto_pantalla/2;
 	z=100;
@@ -399,6 +405,7 @@ Private
 	cambia_menu=1;
 	jugadores=1;
 Begin
+	file=fpg_general;
 	from i=0 to posibles_jugadores; rana_puntos[i]=0; end
 	delete_text(all_text);
 	primera_ronda=1;
@@ -407,10 +414,10 @@ Begin
 	//ponemos el fondo y el logo, pa empezar
 	if(portrait)
 		//pon_fondo(701);
-		put_screen(0,701);
+		put_screen(fpg_general,701);
 	else
 		//pon_fondo(3);
-		put_screen(0,3);
+		put_screen(fpg_general,3);
 	end
 	stop_scroll(0);
 	
@@ -565,6 +572,7 @@ End
 
 Process pon_creditos();
 Begin
+	file=fpg_general;
 	graph=703;
 	x=ancho_pantalla/2;
 	y=(alto_pantalla/7)*3;
@@ -578,6 +586,7 @@ End
 
 Process pon_enlace(x,y,graph,string url);
 Begin
+	file=fpg_general;
 	alpha=0;
 	while(!matabotones)
 		if(alpha<255) alpha+=10; end
@@ -596,6 +605,7 @@ End
 
 Process boton_sonido();
 Begin
+	file=fpg_general;
 	switch(version)
 		case "ld":
 			x=20;
@@ -639,6 +649,7 @@ End
 
 Process boton_musica();
 Begin
+	file=fpg_general;
 	switch(version)
 		case "ld":
 			x=ancho_pantalla-20;
@@ -680,6 +691,7 @@ End
 
 Process tactil_elige_rana(jugador);
 Begin
+	file=fpg_general;
 	y=((alto_pantalla/7)*2)-(alto_pantalla/14);
 	size=40;
 	switch(posibles_jugadores)
@@ -726,6 +738,7 @@ End
 
 Process boton_dificultad(dificultad);
 Begin
+	file=fpg_general;
 	y=((alto_pantalla/7)*4)-(alto_pantalla/14);
 	x=(ancho_pantalla/12)+(ancho_pantalla/6*dificultad);
 	graph=630+dificultad;
@@ -756,6 +769,7 @@ End
 
 Process boton_puntos_objetivo(posicion,puntos);
 Begin
+	file=fpg_general;
 	y=((alto_pantalla/7)*6)-(alto_pantalla/14);
 	x=(ancho_pantalla/12)+(ancho_pantalla/6*posicion);
 	graph=write_in_map(fpg_puntos,puntos,4);
@@ -792,6 +806,7 @@ Private
 	framess=5;
 	demo_button=0;
 Begin
+	file=fpg_general;
 	x=x_out;
 	y=y_out;
 	z=-101;
@@ -892,6 +907,7 @@ End
 
 process logo_pixjuegos();
 begin
+	file=fpg_general;
 	//reiniciamos todo, por si las moscas
 	reset();
 	net_let_me_alone();
@@ -945,6 +961,7 @@ private
 	keytime;
 	tec2;
 begin
+	file=fpg_general;
 	delete_text(all_text);
 	from i=1 to posibles_jugadores; rana_viva[i]=0; rana_puntos[i]=0; end
 	elecc=0;
@@ -952,7 +969,7 @@ begin
 	stop_scroll(0);
 	clear_screen();
 	dump_type=0; restore_type=0;
-	put_screen(0,3);
+	put_screen(fpg_general,3);
 	if(en_red and estado_red>0)
 		estado_red=-1;
 	end
@@ -970,7 +987,7 @@ begin
 		delete_text(all_text);
 		
 		//ayuda
-		put_screen(0,6);
+		put_screen(fpg_general,6);
 		while(boton[0]) frame; end
 		while(!boton[0]) 
 			if(boton_salir) salir(); end
@@ -979,7 +996,7 @@ begin
 		while(boton[0]) frame; end
 		
 		//elección de personajes
-		put_screen(0,3);
+		put_screen(fpg_general,3);
 		elecpersonaje();
 		return;
 	end
@@ -997,6 +1014,7 @@ begin
 		//elige algo
 		if((key(_enter) or key(_Q)) and keytime==0)
 			sonido(3);
+			while(key(_enter) or key(_Q)) frame; end
 			if(elecc==0)
 				net_let_me_alone();
 				scroll_y=0;
@@ -1049,9 +1067,10 @@ end
 
 Process iconos(posicion,tipo);
 Begin
+	file=fpg_general;
 	x=900;
 	z=-10;
-	y=150+posicion*110;
+	y=base_lista+posicion*distancia_opcion_menu;
 	loop
 		switch(tipo)
 			case 0: //dificultad
@@ -1073,23 +1092,29 @@ End
 
 process lista_opciones(num_menu)
 begin
+	file=fpg_general;
 	switch(num_menu)
 		case 1: //principal
+			distancia_opcion_menu=110;
+			base_lista=150;
 			texto_menu(i++,textos[1]);
 			texto_menu(i++,textos[2]);
 			texto_menu(i++,textos[3]);
 			texto_menu(i++,textos[4]);
 		end
 		case 2: //opciones
+			distancia_opcion_menu=90;
+			base_lista=100;
 			iconos(i,3); texto_menu(i++,textos[5]); //fullscreen o overscan
 			iconos(i,1); texto_menu(i++,textos[6]); //sonido
 			iconos(i,2);texto_menu(i++,textos[7]); //música
 			iconos(i,0); texto_menu(i++,textos[8]); //dificultad
-			
-			write_int(fpg_puntos,900,150+i*110,4,&ops.objetivo);
-			texto_menu(i++,textos[9]);
+			write_int(fpg_puntos,900,base_lista+i*distancia_opcion_menu,4,&ops.objetivo); texto_menu(i++,textos[9]); //objetivo
+			write_int(fpg_puntos,900,base_lista+i*distancia_opcion_menu,4,&posibles_jugadores); texto_menu(i++,textos[21]); //número de jugadores
 		end
 		case 3: //lenguaje
+			distancia_opcion_menu=110;
+			base_lista=150;
 			texto_menu(0,"Español");
 			texto_menu(1,"English");
 		end
@@ -1099,6 +1124,7 @@ end
 //aparece en los menús
 process logo_pixfrogger();
 begin
+	file=fpg_general;
 	x=(ancho_pantalla/8)*5;
 	y=-(alto_pantalla/8);
 	z=-10;
@@ -1115,6 +1141,7 @@ process grafico_al_centro(gr)
 private
 	con;
 begin
+	file=fpg_general;
 	x=ancho_pantalla/2;
 	y=-140;
 	z=-513;
@@ -1139,12 +1166,13 @@ process flecha_opcion()
 private
 	osc;
 begin
+	file=fpg_general;
 	z=-20;
 	graph=500;
 	x=50;
 	loop
 		elecy=y;
-		y=150+elecc*110;
+		y=base_lista+elecc*distancia_opcion_menu;
 		frame;
 	end
 end
@@ -1153,6 +1181,7 @@ process back(graph)
 private
 	keytime;
 begin
+	file=fpg_general;
 	x=ancho_pantalla/2;
 	y=alto_pantalla/2;
 	keytime=10;
@@ -1191,16 +1220,20 @@ private
 	tecenter;
 	ultima_opcion;
 	mi_opcion;
+	anteriores_jugadores;
 begin
+	file=fpg_general;
 	elecc=0;
 	lista_opciones(2);
 	flecha_opcion();
 	scroll_y=-100;
 	tecenter=1;
-	ultima_opcion=4;
+	ultima_opcion=5;
 	write_size(fpg_textos,ancho_pantalla/2,alto_pantalla-50,7,textos[18],70);
+	anteriores_jugadores=posibles_jugadores;
 	loop
 		if(boton_salir or key(_m))
+			if(posibles_jugadores!=anteriores_jugadores) recarga_fpg(); end
 			net_let_me_alone();
 			menu();
 			break;
@@ -1260,6 +1293,14 @@ begin
 					end
 					while(key(_enter) or key(_q)) frame; end
 				end
+				if(mi_opcion==5)
+					switch(posibles_jugadores)
+						case 2: posibles_jugadores=4; end
+						case 4: posibles_jugadores=8; end
+						case 8: posibles_jugadores=2; end
+					end
+					while(key(_enter) or key(_q)) frame; end
+				end
 			end
 			tecenter=1;
 		else
@@ -1300,6 +1341,7 @@ private
 	j;
 	continua;
 begin
+	file=fpg_general;
 	jue=0;
 	from j=0 to posibles_jugadores;
 		rana_juega[j]=0;
@@ -1379,6 +1421,7 @@ end
 
 process pon_rana(jugador);
 begin
+	file=fpg_general;
 	z=-15;
 	alpha=60;
 	graph=500+jugador;
@@ -1414,6 +1457,7 @@ private
 	botones_pulsados;
 	j;
 begin
+	file=fpg_general;
 	if(en_red)
 		estado_red=2;
 		primera_ronda=1;
@@ -1681,7 +1725,8 @@ end
 // lo siento gnomwer xD
 process sombra();
 begin	
-	return;
+	file=fpg_general;
+	return; //?
 	ctype=c_scroll;
 	z=father.z+5;
 	flags=father.flags;
@@ -1729,6 +1774,7 @@ private
 	gr_antes;
 	id_col;
 begin
+	file=fpg_general;
 	y=8000;
 	rana_id[jugador]=id;
 	switch(posibles_jugadores)
@@ -1750,7 +1796,15 @@ begin
 	end
 	
 	if(rana_puntos[jugador]!=0)
-		write_int(fpg_puntos,x,alto_pantalla-(alto_camino/2)-margenes_ouya,4,&rana_puntos[jugador]); 
+		if(tactil)
+			write_int(fpg_puntos,x,alto_pantalla-(alto_camino/2)-margenes_ouya,4,&rana_puntos[jugador]); 
+		else
+			if(posibles_jugadores<8)
+				write_int(fpg_puntos,x,alto_pantalla-(75/2)-margenes_ouya,4,&rana_puntos[jugador]); 
+			else
+				write_int_size(fpg_puntos,x,alto_pantalla-(75/2)-margenes_ouya,4,&rana_puntos[jugador],70); 
+			end
+		end
 	end
 	
 	z=-100;
@@ -1844,6 +1898,7 @@ end
 
 Process camara();
 Begin
+	file=fpg_general;
 	id_camara=id;
 	x=ancho_pantalla/2;
 	y=(pos_inicio-(num_caminos/2))*alto_camino;
@@ -1879,6 +1934,7 @@ private
 	gr;
 	id_col;
 begin
+	file=fpg_general;
 	ctype=c_scroll;
 	//tipo=rand(0,3);
 	if(tipo==0 or tipo==1)
@@ -1917,6 +1973,7 @@ process rana_golpeada(x,y,graph)
 private
 	grav;
 begin
+	file=fpg_general;
 	ctype=c_scroll;
 	grav=-10;
 	loop
@@ -1934,6 +1991,7 @@ Private
 	tipo;
 	x_inc;
 Begin
+	file=fpg_general;
 	z=50;
 	x=ancho_pantalla/2;
 	ctype=c_scroll;
@@ -2017,8 +2075,9 @@ private
 	base_x;
 	max_y;
 begin
+	file=fpg_general;
 	bandera();
-	ancho_bandera=graphic_info(0,210,g_width);
+	ancho_bandera=graphic_info(fpg_general,210,g_width);
 	graph=50;
 	angle=270000;
 	size=50;
@@ -2036,6 +2095,7 @@ end
 
 process bandera();
 begin
+	file=fpg_general;
 	graph=210;
 	x=ancho_pantalla/2;
 	y=20+margenes_ouya;
@@ -2051,6 +2111,7 @@ private
 	keytime;
 	tec2;
 begin
+	file=fpg_general;
 	elecc=0;
 	lista_opciones(3);
 	flecha_opcion();
@@ -2251,11 +2312,22 @@ Begin
 			end
 			
 			//teclado
-			if(buzz==0)
-				if(key(_q)) boton[1]=1; end
-				if(key(_z)) boton[2]=1; end
-				if(key(_p)) boton[3]=1; end
-				if(key(_up) or key(_m)) boton[4]=1; end
+			if(buzz==0)			
+				if(posibles_jugadores<8)
+					if(key(_q) or key(_a)) boton[1]=1; end
+					if(key(_z) or key(_s)) boton[2]=1; end
+					if(key(_p) or key(_d)) boton[3]=1; end
+					if(key(_up) or key(_m) or key(_f)) boton[4]=1; end
+				else
+					if(key(_q)) boton[1]=1; end
+					if(key(_z)) boton[2]=1; end
+					if(key(_p)) boton[3]=1; end
+					if(key(_up) or key(_m)) boton[4]=1; end
+					if(key(_a)) boton[5]=1; end
+					if(key(_s)) boton[6]=1; end
+					if(key(_d)) boton[7]=1; end
+					if(key(_f)) boton[8]=1; end
+				end
 			end
 		end
 
@@ -2395,6 +2467,7 @@ end
 
 Process dedo(x,y);
 Begin
+	file=fpg_general;
 	priority=1;
 	graph=71;
 	alpha=0;
@@ -2403,9 +2476,10 @@ End
 
 Process pon_boton(jugador);
 Begin
+	file=fpg_general;
 	priority=-1;
 	graph=800+jugador;
-	ancho=graphic_info(0,graph,g_width);
+	ancho=graphic_info(fpg_general,graph,g_width);
 
 	if(posibles_jugadores==2)
 		if(jugador==1) 
@@ -2431,6 +2505,7 @@ End
 
 Process gana_rana(jugador);
 Begin
+	file=fpg_general;
 	if(posibles_jugadores<16)
 		graph=500+jugador;
 	else
@@ -2466,6 +2541,7 @@ End
 
 Process gana_rana_you_win();
 Begin
+	file=fpg_general;
 	graph=520;
 	x=ancho_pantalla/2;
 	y=(alto_pantalla/2);
@@ -2479,6 +2555,7 @@ End
 
 Process gana_rana_wins_match();
 Begin
+	file=fpg_general;
 	graph=522;
 	x=ancho_pantalla/2;
 	y=(alto_pantalla/2);
@@ -2547,3 +2624,20 @@ End
 #ifdef RED
 	include "net-client.pr-";
 #endif
+
+Function recarga_fpg();
+Begin
+	//#IFDEF OUYA
+		unload_fpg(fpg_general);
+		if(posibles_jugadores<8)
+			fpg_general=load_fpg("fpg/pixfrogger-hd.fpg");
+		else
+			fpg_general=load_fpg("fpg/pixfrogger-ouya-8players.fpg");
+		end
+
+		//averiguamos el alto del camino y el número de caminos
+		alto_camino=graphic_info(fpg_general,200,g_height);
+		num_caminos=(alto_pantalla/alto_camino)+2;
+
+	//#ENDIF
+End

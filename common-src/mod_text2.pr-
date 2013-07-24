@@ -201,6 +201,40 @@ OnExit
 	unload_map(0,graph);
 End
 
+Process write_int_size(fpg_fuente,x,y,centrado,*numero,size);
+Private
+	mi_ancho;
+	mi_alto;
+	anterior_numero;
+Begin
+	resolution=global_resolution;
+	z=-512;
+	
+	//1. pintamos texto en un mapa de bits
+	graph=dibujame_el_texto(fpg_fuente,*numero,ops_fuentes[fpg_fuente].margen,rand_y,rand_angle,0);
+	
+	//2. centramos
+	centrame(file,graph,centrado);
+	
+	//3. permanecemos
+	while(accion!=-1)
+		if(anterior_numero!=*numero) //redibujamos
+			unload_map(0,graph);
+			//1. pintamos texto en un mapa de bits
+			graph=dibujame_el_texto(fpg_fuente,*numero,ops_fuentes[fpg_fuente].margen,rand_y,rand_angle,0);
+			
+			//2. centramos
+			centrame(file,graph,centrado);
+
+			accion=0;
+		end
+		anterior_numero=*numero;
+		frame; 
+	end
+OnExit
+	unload_map(0,graph);
+End
+
 Process write_var(fpg_fuente,x,y,centrado,string* variable);
 Private
 	mi_ancho;

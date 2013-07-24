@@ -28,6 +28,7 @@ Begin
 			textos[19]=chr(4)+" Volver";
 			textos[20]=chr(1)+" Volver al menú";
 			#ENDIF
+			textos[21]="Núm. jugadores";
 		end
 		case 1: //Inglés
 			textos[1]="Play";
@@ -56,6 +57,7 @@ Begin
 			textos[19]=chr(4)+" Back";
 			textos[20]=chr(1)+" Go to menu";
 			#ENDIF
+			textos[21]="Player slots";
 		end
 	end
 End
