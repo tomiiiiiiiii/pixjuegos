@@ -24,9 +24,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.3626526"
-     inkscape:cx="17.983633"
-     inkscape:cy="738.82994"
+     inkscape:zoom="0.7253052"
+     inkscape:cx="339.65214"
+     inkscape:cy="241.65923"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -6532,12 +6532,12 @@
          style="fill:#ffffff;stroke:#000000;stroke-width:2.76500058;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
     </g>
     <g
-       id="g10671"
-       transform="translate(-16,225)">
+       id="151"
+       inkscape:label="#g4601">
       <g
          inkscape:label="#g5910"
-         transform="translate(2323.2765,-710.02619)"
-         id="151"
+         transform="translate(2307.2765,-485.02619)"
+         id="151-2"
          style="display:inline">
         <path
            style="fill:#ffffff;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
@@ -6847,7 +6847,7 @@
       </g>
       <g
          id="g9211-2-3"
-         transform="matrix(0.99754835,-0.21481182,0.00605495,0.51604085,414.10223,265.42265)">
+         transform="matrix(0.99754835,-0.21481182,0.00605495,0.51604085,398.10223,490.42265)">
         <path
            style="fill:none;stroke:#00c500;stroke-width:2.76500058;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
            d="m 136.1554,879.8137 c 3.23389,-1.94032 10.99519,22.85274 11.64196,21.99038"
