@@ -18,7 +18,6 @@ Begin
 	id_camara=id;
 
 	timer[5]=0;
-	write_int(fpg_texto_azul,ancho_pantalla/2,100,4,&contador);
 	fondo(num_zona,0);
 	loop
 		if(!ready and !ganando_moto and jugadores>0)
@@ -85,7 +84,7 @@ Begin
 								end
 							end
 						end
-						case 138:
+						case 140:
 							ganando_moto=1;
 						end
 						default:
@@ -219,14 +218,14 @@ Begin
 		mueveme(sin_encerrarme);
 		if(size==100)
 			x_inc=-8-inercia_max_x;
-			ataque(x-5,y,fpg_general,1,fuerza_ataque,20,jugador);
+			ataque(x-20,y,fpg_general,1,fuerza_ataque,20,jugador);
 		else
 			if(x_inc>-2)
 				x_inc-=2;
 			end
-			//z-=(size-100)/2;
+			z=(-y_base)-((size-100)/2);
 			y_base=200; y=200;
-			z-=50;
+			//z-=50;
 		end
 		flags=1;
 		friccioname();

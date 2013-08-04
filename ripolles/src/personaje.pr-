@@ -1122,7 +1122,11 @@ Begin
 			if(anim<4)
 				if(tipo==0) ataque(x+(15*hacia_que_lado),y-15,fpg_general,1,fuerza_ataque,20,jugador); end
 			else
-				ataque(x+(45*hacia_que_lado),y-15,fpg_general,1,fuerza_ataque*1.5,20,jugador);
+				if(en_moto)
+					ataque(x+(70*hacia_que_lado),y-15,fpg_general,1,fuerza_ataque*1.5,20,jugador);
+				else
+					ataque(x+(45*hacia_que_lado),y-15,fpg_general,1,fuerza_ataque*1.5,20,jugador);
+				end
 			end
 			if(anim==7)
 				accion=quieto;
