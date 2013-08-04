@@ -1,0 +1,402 @@
+Process jefe5(x);
+Private
+	mis_brazos[4];
+	mis_pies;
+	objetivo;
+Begin
+	resolution=global_resolution;
+	while(!exists(id_camara)) frame; end
+	priority=1;
+	ctype=coordenadas;
+	y_base=240;
+	y=110;
+	z=-240;
+	fpg_jefe=load_fpg("jefe4.fpg");
+	file=fpg_jefe;
+	graph=1;
+	enemigos++;
+	jugador=100;
+	p[jugador].vida=800*((jugadores/2)+0.5);
+	avion_en_cabeza();
+	mis_pies=jefe5_pies();
+	mis_brazos[1]=jefe5_brazo(1);
+	mis_brazos[2]=jefe5_brazo(2);
+	mis_brazos[3]=jefe5_brazo(3);
+	enemigo(11,1,x-ancho_pantalla,y,0,0);
+	enemigo(12,2,x+ancho_pantalla,y,0,1);
+	enemigo(13,3,x-ancho_pantalla,y,0,0);
+	enemigo(14,4,x+ancho_pantalla,y,0,1);
+	from alpha=0 to 255 step 10; frame; end
+	marcador_jefe();
+	while(p[jugador].vida>0)
+		while(!ready) frame; end
+		if(i==0)
+			for(j=0;j++;j<30)
+				if(anim<4)
+					anim++;
+				else
+					anim=0;
+					if(graph==11) graph=12; else graph=11; end
+				end
+				frame;
+			end
+			i=rand(1,4);
+		else
+			if(herida>0)
+				accion=quieto;
+				graph=20+i;
+				herida--;
+				if(herida==0)
+					i=0;
+				end
+			else
+				objetivo=jugador_mas_cercano();
+				if(objetivo==0)
+					accion=quieto;
+				else
+					accion=camina;
+					flags=lado_jugador(objetivo);
+					if(distancia_jugador(objetivo)>30)
+						if(lado_jugador(objetivo)==1) x-=4; else x+=4; end
+					end
+					if(z>p[objetivo].identificador.z)
+						y+=2;
+						z-=2;
+						if(z<p[objetivo].identificador.z) z++; y--; end
+					elseif(z<p[objetivo].identificador.z)
+						y-=2;
+						z+=2;					
+						if(z>p[objetivo].identificador.z) z--; y++; end
+					end
+				end
+				graph=i;
+				if(id_col=collision(type ataque))
+					if(id_col.jugador!=jugador)
+						if(en_rango(id_col.z,z,30))
+							herida=id_col.herida;
+							p[jugador].vida-=herida;
+							sonido(5,0);
+						end
+					end
+				end
+			end
+		end
+		frame;
+	end
+	graph=2;
+	accion=muere;
+	sonido(6,0);
+	jefe5_bien();
+	while(graph!=31) frame; end
+	timer[9]=0;
+	while(timer[9]<150) frame; end
+	ganando=1;
+	loop
+		frame;
+	end
+End
+
+Process jefe5_bien();
+Begin
+	resolution=global_resolution;
+	x=father.x;
+	y=father.y;
+	z=father.z-1;
+	ctype=coordenadas;
+	file=fpg_jefe;
+	flags=father.flags;
+	graph=31;
+	alpha=0;
+	loop
+		while(!ready) frame; end
+		if(alpha<255) 
+			alpha+=2; 
+		else
+			father.graph=graph;
+			return;
+		end
+		frame;
+	end
+end
+
+Process jefe5_brazo(tipo);
+Private
+	base_graph;
+	x_plus;
+	y_plus;
+	z_plus;
+	flags_inversas;
+Begin
+	resolution=global_resolution;
+	file=father.file;
+	jugador=father.jugador;
+	ctype=coordenadas;
+	switch(tipo)
+		case 1: //delantero, verde
+			graph=base_graph=71;
+			x_plus=25;
+			y_plus=30;
+			z_plus=-5;
+			flags_inversas=0;
+		end
+		case 2: //trasero azul
+			graph=base_graph=121;
+			x_plus=80;
+			y_plus=25;
+			z_plus=1;
+			flags_inversas=0;
+		end
+		case 3: //trasero amarillo
+			graph=base_graph=161;
+			x_plus=-80;
+			y_plus=25;
+			z_plus=1;
+			flags_inversas=1;
+		end
+	end
+	x=father.x+x_plus;
+	y=father.y+y_plus;
+	z=father.z+z_plus;
+	if(flags_inversas) flags=1; end
+	from alpha=0 to 255 step 10; frame; end
+	while(p[jugador].vida>0)
+		while(!ready) frame; end
+		flags=father.flags;
+		if(flags)
+			x=father.x-x_plus;
+		else
+			x=father.x+x_plus;
+		end
+		y=father.y+y_plus;
+		z=father.z+z_plus;
+		if(flags_inversas)
+			if(flags) flags=0; else flags=1; end 
+		end
+		alpha=father.alpha;
+		switch(accion)
+			case quieto:
+				anim=0;
+				animacion=quieto;
+				graph=base_graph;
+				if(rand(0,200)==0)
+					accion=ataca_suelo; //puñetazo o golpe
+					if(tipo==1)
+						if(rand(0,1))
+							accion=ataca_suelo; //puñetazo o golpe
+						else
+							accion=ataca_fuerte; //avion
+						end
+					else
+						accion=ataca_suelo;
+					end
+				end
+			end
+			case ataca_suelo:
+				if(animacion==quieto) 
+					if(rand(0,1))
+						animacion=ataca_suelo; 
+					else 
+						animacion=ataca_aire; 
+					end
+				else
+					if(anim<10) 
+						anim++; 
+					else
+						anim=0;
+						if(animacion==ataca_suelo)
+							if(graph<base_graph+10 or graph>base_graph+12)
+								graph=base_graph+10;
+							else
+								graph++;
+							end
+						else
+							if(graph<base_graph+20 or graph>base_graph+22)
+								graph=base_graph+20;
+							else
+								graph++;
+							end						
+						end
+					end
+				end
+			end
+			case ataca_fuerte:
+				if(animacion==quieto)
+					if(rand(0,1))
+						animacion=ataca_suelo; 
+					else 
+						animacion=ataca_aire; 
+					end
+				else
+					if(anim<4) 
+						anim++; 
+					else
+						anim=0;
+						if(graph<base_graph+30 or graph>base_graph+32)
+							graph=base_graph+30;
+						else
+							graph++;
+							if(graph==base_graph+31)
+								lanza_avion(); 
+							end
+						end
+					end
+				end
+			end
+		end
+		if(graph==base_graph+13 or graph==base_graph+23 or graph==base_graph+33)
+			graph=base_graph;
+			animacion=accion=quieto;
+		end
+		if(graph==base_graph+11 or graph==base_graph+21)
+			ataque(x,y,file,graph,10,30,jugador);
+		end
+		frame;
+	end
+	from alpha=255 to 0 step -40; frame; end
+	from alpha=0 to 255 step 40; frame; end
+	from alpha=255 to 0 step -40; frame; end
+	from alpha=0 to 255 step 40; frame; end
+	from alpha=255 to 0 step -40; frame; end
+	from alpha=0 to 255 step 40; frame; end
+	
+	from alpha=255 to 0 step -40; frame; end
+	if(tipo==1) 
+		graph=111;
+	else
+		graph=base_graph+30;
+	end
+	from alpha=0 to 255 step 20; frame; end
+	while(exists(father))
+		alpha=father.alpha;
+		frame;
+	end
+End
+
+Process jefe5_pies();
+Begin
+	resolution=global_resolution;
+	jugador=father.jugador;
+	graph=41;
+	file=father.file;
+	ctype=coordenadas;
+	y=father.y+145;
+	z=father.z+1;
+	flags=father.flags;
+	if(flags==0)
+		x=father.x+6;
+	else
+		x=father.x-6;
+	end
+
+	from alpha=0 to 255 step 10; frame; end
+	while(p[jugador].vida>0)
+		while(!ready) frame; end
+		y=father.y+145;
+		z=father.z+1;
+		flags=father.flags;
+		alpha=father.alpha;
+		if(flags==0)
+			x=father.x+6;
+		else
+			x=father.x-6;
+		end
+		accion=father.accion;
+		if(accion==quieto or father.herida>0)
+			graph=41;
+			anim=0;
+		elseif(accion==camina)
+			if(anim<4)
+				anim++;
+			else
+				anim=0;
+				if(graph==41 or graph==60)
+					graph=51;
+				else
+					graph++;
+				end
+			end
+		end
+		if(graph==55 or graph==60)
+			if(anim==0) sonido(4,0); end
+			ataque(x,y,file,graph,5,30,jugador);
+		end
+		frame;
+	end
+	from alpha=255 to 0 step -40; frame; end
+	from alpha=0 to 255 step 40; frame; end
+	from alpha=255 to 0 step -40; frame; end
+	from alpha=0 to 255 step 40; frame; end
+	from alpha=255 to 0 step -40; frame; end
+	from alpha=0 to 255 step 40; frame; end
+	
+	from alpha=255 to 0 step -40; frame; end
+	graph=61;
+	from alpha=0 to 255 step 20; frame; end
+	while(exists(father))
+		alpha=father.alpha;
+		frame;
+	end
+End
+
+Process lanza_avion();
+Begin
+	resolution=global_resolution;
+	file=fpg_jefe;
+	ctype=coordenadas;
+	x=father.x;
+	y=father.y;
+	z=father.z+1;
+	flags=father.flags;
+	graph=201;
+	if(flags==0)
+		while(x<id_camara.x+ancho_pantalla)
+			y-=20;
+			x+=20;
+			frame;
+		end
+	else
+		while(x>id_camara.x-ancho_pantalla)
+			y-=20;
+			x-=20;		
+			frame;
+		end
+	end
+	
+	y=160+(rand(0,1)*70);
+	graph=211;
+	z=-y;
+	
+	if(flags) flags=0; else flags=1; end
+	
+	if(flags==0)
+		x=id_camara.x-ancho_pantalla;	
+		while(x<id_camara.x+ancho_pantalla)
+			x+=20;
+			ataque(x,y+65,file,graph,30,38,jugador);
+			frame;
+		end
+	else
+		x=id_camara.x+ancho_pantalla;
+		while(x>id_camara.x-ancho_pantalla)
+			x-=20;
+			ataque(x,y+65,file,graph,30,60,jugador);
+			frame;
+		end
+	end
+End
+
+Process avion_en_cabeza();
+Begin
+	resolution=global_resolution;
+	file=fpg_jefe;
+	ctype=coordenadas;
+	graph=201;
+	while(exists(father))
+		x=father.x;
+		y=father.y-105;
+		z=father.z-1;
+		flags=father.flags;
+		alpha=father.alpha;
+		frame;
+	end
+End

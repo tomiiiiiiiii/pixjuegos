@@ -22,6 +22,8 @@ Private
 	sabe_ataque_fuerte=0;
 	sabe_correr=0;
 	sabe_combo=0;
+	sabe_moverse=1; //solo el jefe 4 no se mueve
+	sabe_herida_grave=1;
 	
 	retraso_movimiento_defensa;
 	si_ataca;
@@ -199,6 +201,19 @@ Begin
 				sabe_ataque_especial=1;
 				alpha=0;
 			end
+			case 104: //JEFE 4
+				inercia_max_x=20;
+				inercia_max_y=20;
+				fuerza_ataque=20;
+				fpg_jefe=load_fpg("fpg/jefe4.fpg");
+				file=fpg_jefe;
+				p[jugador].vida=400;
+				sabe_ataque_especial=1;
+				sabe_saltar=1;
+				sabe_moverse=0;
+				sabe_herida_grave=0;
+				alpha=0;
+			end
 		end
 		if(jugadores>1)
 			p[jugador].vida+=p[jugador].vida*(jugadores*0.2);
@@ -347,7 +362,8 @@ Begin
 		end
 		if(tipo==0)
 			//say("ACCION:"+accion+" | ANIMACION:"+animacion+" | GRAPH:"+graph);
-			while(!ready) frame; end
+			//while(!ready) frame; end
+			while(!ready and !ganando) frame; end
 		else
 			while(!ready and !ganando) frame; end
 		end
@@ -356,6 +372,11 @@ Begin
 			break;
 		end
 
+		if(en_moto and accion==defiende)
+			nube_humo(x+50,y+35,z,-10,0,rand(70,100));
+			nube_humo(x-10,y+50,z,-10,0,rand(70,100));
+			x_inc-=2;
+		end
 		
 		rotura_cogido=0;
 		while(accion==cogido)
@@ -423,8 +444,17 @@ Begin
 				lleva_objeto=0;
 			end
 		end
-			
-		if(ganando and tipo==0)
+
+		if(ganando_moto and altura==0 and angle==0)
+			while(x<ancho_pantalla+200)
+				x_inc++;
+				animame();
+				x+=x_inc/3;
+				frame(100-x_inc);
+			end
+			return;
+		end
+		if(ganando and tipo==0 and altura==0)
 			graph=161;
 			accion=quieto;
 			while(ganando==1)
@@ -434,6 +464,7 @@ Begin
 						frame; 
 					end
 				elseif(altura>1)
+					nube_humo(x,y+50,z,0,0,100);
 					altura=0;
 					gravedad=0;
 					y=y_base;
@@ -514,11 +545,13 @@ Begin
 								gravedad=-15;
 								altura=1;
 								retraso_movimiento_defensa=0;
+								nube_humo(x+(hacia_que_lado*30),y+50,z,2*hacia_que_lado,0,100);
 							else //abajo
 								y_inc=10;
 								gravedad=-15;
 								altura=1;
 								retraso_movimiento_defensa=0;
+								nube_humo(x+(hacia_que_lado*30),y+50,z,2*hacia_que_lado,0,100);
 							end
 						end
 						
@@ -529,18 +562,21 @@ Begin
 								altura=1;
 								retraso_movimiento_defensa=0;
 								flags=0;
+								nube_humo(x+(hacia_que_lado*30),y+50,z,2*hacia_que_lado,0,100);
 							else //derecha
 								x_inc+=10;
 								gravedad=-10;
 								altura=1;
 								retraso_movimiento_defensa=0;
 								if(!en_moto) flags=1; end
+								nube_humo(x+(hacia_que_lado*30),y+50,z,2*hacia_que_lado,0,100);
 							end
 						end
 					end
 				end
+		
 				if((accion==quieto or accion==camina or accion==corre))
-					//ataque suelo o lanzar objeto
+					//ATAQUE SUELO O LANZAR OBJETO
 					if(p[jugador].botones[b_1] and pulsando_ataque1==0)
 						pulsando_ataque1=1;
 						if(lleva_objeto==0)
@@ -565,7 +601,7 @@ Begin
 									until(!(id_col=collision(type objeto)) or lleva_objeto!=0)
 								elseif(accion==quieto and x_inc==0 and (id_col=collision(type personaje)))
 									//si el enemigo está en el suelo herido_grave
-									if(en_rango(z,id_col.z,40) and id_col.accion==herido_grave and id_col.graph==151 and id_col.altura==0)
+									if(en_rango(z,id_col.z,40) and id_col.accion==herido_grave and id_col.graph==151 and id_col.altura==0 and id_col.tipo<100)
 										id_col.graph=151;
 										lleva_objeto=-1;
 										accion=coge_objeto;
@@ -606,25 +642,27 @@ Begin
 						end
 					end
 
-					//movimiento
-					if(p[jugador].botones[b_arriba] xor p[jugador].botones[b_abajo])
-						if(p[jugador].botones[b_arriba])
-							y_inc-=3;
-						else //abajo
-							y_inc+=3;
+					//MOVIMIENTO
+					if(sabe_moverse)
+						if(p[jugador].botones[b_arriba] xor p[jugador].botones[b_abajo])
+							if(p[jugador].botones[b_arriba])
+								y_inc-=3;
+							else //abajo
+								y_inc+=3;
+							end
 						end
-					end
-					
-					if(p[jugador].botones[b_izquierda] xor p[jugador].botones[b_derecha])
-						if(no_pulsando_lado==1 and accion==camina and sabe_correr)
-							accion=corre; 
-						end
-						if(p[jugador].botones[b_izquierda])
-							x_inc-=3;
-							if(!en_moto) flags=1; end
-						else //derecha
-							x_inc+=3;
-							flags=0;
+						
+						if(p[jugador].botones[b_izquierda] xor p[jugador].botones[b_derecha])
+							if(no_pulsando_lado==1 and accion==camina and sabe_correr)
+								accion=corre; 
+							end
+							if(p[jugador].botones[b_izquierda])
+								x_inc-=3;
+								if(!en_moto) flags=1; end
+							else //derecha
+								x_inc+=3;
+								flags=0;
+							end
 						end
 					end
 					
@@ -716,7 +754,7 @@ Begin
 						if(p[jugador].botones[b_izquierda])
 							x_inc-=1;
 							if(en_moto)
-								angle_inc+=2;
+								angle_inc+=3;
 							else
 								flags=1;
 							end
@@ -724,7 +762,7 @@ Begin
 							x_inc+=1;
 							flags=0;
 							if(en_moto)
-								angle_inc-=2;
+								angle_inc-=3;
 							end
 						end
 					end
@@ -747,6 +785,7 @@ Begin
 							angle_inc=0;
 							angle=0;
 						else
+							nube_humo(x,y+50,z,0,0,100);
 							if(angle==180000)
 								angle_inc=18;
 							else
@@ -816,7 +855,11 @@ Begin
 					herida=7; //más retraso
 				else
 					sonido(2,0);
-					accion=herido_grave;
+					if(sabe_herida_grave)
+						accion=herido_grave;
+					else
+						accion=herido_leve;
+					end
 					if(herida>15)
 						gravedad=-herida;
 					else
@@ -860,9 +903,10 @@ Begin
 			altura+=gravedad;
 
 			if(altura>1)
-				if(tipo!=0)
+				if(tipo!=0) //golpe de los enemigos al caerse heridos
 					p[jugador].vida-=gravedad/2;
 				end
+				nube_humo(x,y+30,z,0,0,100);
 				altura=0;
 				gravedad=0;
 				graph=73;
@@ -935,7 +979,7 @@ Begin
 		if(!p[jugador].botones[b_1]) pulsando_ataque1=0; end
 		
 		if(herida==0 and altura==0)
-			if(accion==quieto and (x_inc!=0 or y_inc!=0))
+			if(accion==quieto and (x_inc!=0 or y_inc!=0) and sabe_moverse)
 				if(abs(x_inc)>inercia_max_x and sabe_correr)
 					accion=corre;
 				else
@@ -950,7 +994,7 @@ Begin
 		pon_animacion();
 		
 		//gestiones comunes de los personajes en juego
-		if(jugador<10)
+		if(jugador<10 or tipo>100)
 			mueveme(encerrandome);
 		else
 			mueveme(sin_encerrarme);
@@ -958,6 +1002,11 @@ Begin
 		
 		//hacks para la animación de en_moto
 		if(en_moto)
+			if(tipo==0)
+				flags=0;
+			else
+				flags=1;
+			end
 			if(accion==quieto)
 				accion=camina;
 				animacion=camina;
@@ -1128,13 +1177,14 @@ Begin
 			end
 		end
 		if(accion==muere)
+			angle=0;
 			if(herida>3000)
-				if(tipo==102) break; end
+				if(tipo>100) break; end
 				from alpha=255 to 0 step -15; frame; end
 				if(jugador>10)
 					enemigos--;
 					if(rand(0,3)==0 and modo_juego==modo_historia)
-						objeto(x,y_base,altura,objetos_aleatorios[rand(0,4)],x_inc,flags);
+						objeto(x,y_base,altura,objetos_aleatorios[rand(0,4)],0,flags);
 					end
 				end
 				
@@ -1166,17 +1216,33 @@ Begin
 		if(tipo==5) estela(); end
 		frame;
 	end
-	if(tipo==102) //jefe2
-		graph=151;
-		from i=0 to 90; frame; end
-		graph=73;
-		from i=0 to 30; frame; end
-		graph=211;
-		funde_grafico_in(file,212);
-		while(exists(type funde_grafico_in)) frame; end
-		from i=0 to 90; frame; end
-		graph=213;
-		from i=0 to 90; frame; end
+	
+	if(tipo>100)
+		if(tipo==102) //jefe2
+			graph=151;
+			from i=0 to 90; frame; end
+			graph=73;
+			from i=0 to 30; frame; end
+			graph=211;
+			funde_grafico_in(file,212);
+			while(exists(type funde_grafico_in)) frame; end
+			from i=0 to 90; frame; end
+			graph=213;
+			from i=0 to 90; frame; end
+		end
+		if(tipo==104) //jefe4
+			graph=211;
+			from i=0 to 90; frame; end
+			graph=212;
+			from i=0 to 30; frame; end
+			graph=213;
+			from i=0 to 30; frame; end
+			graph=214;
+			from i=0 to 30; frame; end
+			graph=215;
+			from i=0 to 90; frame; end
+			enemigos--;
+		end
 		enemigos--;
 		if(jugador==100)
 			ganando=1;

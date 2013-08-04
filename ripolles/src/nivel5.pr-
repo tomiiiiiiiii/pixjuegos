@@ -1,6 +1,6 @@
 			fpg_nivel=load_fpg("fpg\nivel5.fpg");
 			pon_musica(1);
-			nivel4_eventos();
+			nivel5_eventos();
 			//OBJETOS
 			
 			//naranjas!!!
@@ -203,4 +203,4 @@
 			emboscada[7].x_evento=9300;
 			emboscada[7].min_x=8300;
 			emboscada[7].max_x=9800;
-			emboscada[7].evento_especial=104; //jefe4
+			emboscada[7].evento_especial=105; //jefe4

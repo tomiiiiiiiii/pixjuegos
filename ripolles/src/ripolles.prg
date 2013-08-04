@@ -70,6 +70,11 @@ Const
 End
 
 Global
+	mini_boss;
+	contador;
+	num_zona;
+	cajas_colision;
+
 	objetos_aleatorios[4]=obj_rollo,obj_naranja_dura,obj_naranja,obj_naranja_dura,obj_hamburguesa;
 
 	evento_hamburguesa;
@@ -131,7 +136,7 @@ Global
 		truco_pato=-1;
 		truco_matajefes=0;
 		truco_fuego_amigo=-5;
-		truco_sin_bandos=-1;
+		//truco_sin_bandos=-1;
 	End	
 	
 	fpg_pato;
@@ -189,6 +194,7 @@ Global
 	renacimiento;
 	mata_enemigos;
 	ganando;
+	ganando_moto;
 	
 	struct emboscada[20];
 		x_evento;
@@ -241,13 +247,16 @@ include "../../common-src/lenguaje.pr-";
 include "../../common-src/mod_text2.pr-";
 include "jefe1.pr-";
 include "jefe2.pr-";
+include "jefe3.pr-";
 include "jefe4.pr-";
+include "jefe5.pr-";
 include "niveles.pr-";
 include "menu.pr-";
 include "cutscenes.pr-";
 include "personaje.pr-";
 include "enemigo.pr-";
 include "traducciones.pr-";
+include "en_moto.pr-";
 
 Begin
 	if(argc>0) if(argv[1]=="arcade") arcade_mode=1; end end
@@ -262,9 +271,10 @@ Begin
 	end
 	
 	carga_opciones();
-	#IFDEF DEBUG
+	/*#IFDEF DEBUG
 		ops.musica=0;
-	#ENDIF
+		ops.sonido=0;
+	#ENDIF*/
 
 	//temporal
 	ops.lenguaje=-1;
@@ -408,15 +418,19 @@ Begin
 	end
 	#ENDIF
 	
+	//test
+	modo_juego=modo_historia;
+	p[1].juega=1;
+	p[2].juega=1;
+	p[1].vidas=5;
+	p[2].vidas=5;
+	nivel=3;
+	jugar();
+	return;
+	
 	//iniciamos el menú
 	menu(-1);
-	
-	//test
-	/*modo_juego=modo_historia;
-	p[1].juega=1;
-	nivel=3;
-	jugar();*/
-	return;
+
 End
 
 Function carga_wavs();
@@ -499,7 +513,7 @@ Begin
 	if(mapa_nivel>0) unload_map(0,mapa_nivel); end
 
 	if(ops.truco_fuego_amigo==1) fuego_amigo=1; else fuego_amigo=0; end
-	if(ops.truco_sin_bandos==1) sin_bandos=1; else sin_bandos=0; end
+	//if(ops.truco_sin_bandos==1) sin_bandos=1; else sin_bandos=0; end
 	
 	switch(modo_juego)
 		case modo_historia:
@@ -525,12 +539,11 @@ Begin
 		alto_nivel/=2;
 	end
 	
-	if(nivel!=3)
+	if(!en_moto)
 		start_scroll(0,fpg_nivel,1,0,0,0);
 		id_camara=scroll[0].camera=camara();
 	else //nivel especial con scroll cíclico
-		start_scroll(0,fpg_nivel,1,0,0,1);
-		id_camara=camara_nivel3();
+		camara_en_moto();
 	end
 	
 	if(good_vs_evil)
@@ -583,6 +596,10 @@ Begin
 			ready=1;
 		end
 
+		if(key(_t))
+			while(key(_t)) frame; end
+			camion();
+		end
 		if(key(_1))
 			if(p[1].juega==0) personaje(1,0); end
 			p[1].vida=100;
@@ -605,6 +622,14 @@ Begin
 			frame; 
 			mata_enemigos=0; 
 		end
+		if(key(_b)) 
+			while(key(_b)) frame; end
+			if(cajas_colision)
+				cajas_colision=0;
+			else
+				cajas_colision=1;
+			end
+		end
 		frame;
 	end
 
@@ -623,15 +648,15 @@ Begin
 		nivel_superado();
 		while(exists(type nivel_superado)) frame; end
 		switch(nivel)
-			case 4:
+			case 5:
 				fade_off();
  				while(fading) frame; end
 				final_del_juego();
 				return;
 			end
 			default:
-				//nivel++;
-				nivel=4;
+				nivel++;
+				//nivel=4;
 				fade_off();
 				while(fading) frame; end
 				jugar();
@@ -742,7 +767,7 @@ Begin
 	y_inc=5;
 	//y_base=alto_nivel-alto_pantalla;
 	
-	if(nivel==3)
+	if(en_moto)
 		scroll[0].camera=0;
 		scroll[0].x1=320;
 		loop
@@ -809,9 +834,17 @@ Begin
 							pon_musica(12);
 							jefe2(emboscada[en_emboscada].x_evento);
 						end
+						case 103: //3er jefe
+							pon_musica(12);
+							jefe3(emboscada[en_emboscada].x_evento);
+						end
 						case 104: //4º jefe
 							pon_musica(12);
 							jefe4(emboscada[en_emboscada].x_evento);
+						end
+						case 105: //5º jefe
+							pon_musica(12);
+							jefe5(emboscada[en_emboscada].x_evento);
 						end
 						case 111: //evil ripolles
 							from i=1 to jugadores;
@@ -824,46 +857,6 @@ Begin
 		end
 		frame;
 	end
-End
-
-Process camara_nivel3();
-Private
-	suma_x;
-	x_inc_max;
-	retraso;
-Begin
-	resolution=global_resolution;
-	scroll[0].camera=0;
-	scroll[0].x1=320;
-	x=320;
-	loop
-		if(en_emboscada==0)
-			if(retraso<200)
-				if(enemigos==0)
-					retraso++;
-				end
-			else
-				en_emboscada=anterior_emboscada+1;
-				anterior_emboscada=en_emboscada;
-				retraso=0;
-			end
-		else
-			if(enemigos==0)
-				from i=1 to 30;
-					if(emboscada[en_emboscada+1].enemigo[i].tipo!=0)
-						enemigo(10+i,emboscada[en_emboscada+1].enemigo[i].tipo,emboscada[en_emboscada+1].enemigo[i].pos_x,emboscada[en_emboscada+1].enemigo[i].pos_y,0,emboscada[en_emboscada+1].enemigo[i].flags);
-					end
-				end
-				anterior_emboscada=en_emboscada;
-				en_emboscada=0;
-			end
-		end
-		while(!ready) frame; end
-		if(mov_camara_moto<15) mov_camara_moto++; end
-		scroll[0].x0+=mov_camara_moto;
-		frame;
-	end
-	return;
 End
 
 Process estela();
@@ -970,7 +963,11 @@ Begin
 		father.animacion=herido_grave;
 	end
 	if(father.accion==muere)
-		father.animacion=muere;
+		if(father.tipo>100)
+			father.animacion=herido_leve;
+		else
+			father.animacion=herido_grave;
+		end
 	end
 End
 
@@ -1214,19 +1211,6 @@ Begin
 			end
 			anim_max=16;
 		end
-		case muere:
-			if(father.altura==0)
-				if(father.herida<5)
-					father.graph=73;
-				else
-					father.graph=151;
-				end
-			elseif(father.gravedad<=0) //sube
-				father.graph=71;
-			elseif(father.gravedad>0) //baja
-				father.graph=72;
-			end
-		end
 	end
 	if(anim=>anim_max) anim=0; end
 
@@ -1263,24 +1247,35 @@ Begin
 	x=father.x;
 	y=father.y-20;
 	z=father.z-1;
+	rango=20;
 	file=fpg_general;
 	graph=2;
 	
-	alpha=0;
-	rango=20;
-	if(father.tipo==6)
+	if(!cajas_colision) alpha=0; end
+	if(father.tipo>100)
 		size_y=250;
 		size_x=80;
 		y-=40;
-	else
-		size_y=80;
-		size_x=80;
+	end
+	if(father.size!=100)
+		size=father.size;
+		y+=father.size-100;
 	end
 	
 //	if((father.tipo==0 and father.accion!=herido_leve and father.accion!=herido_grave and father.accion!=ataca_area and father.accion!=muere) or (father.tipo!=0 and father.accion!=muere))
 	if(father.accion!=herido_leve and father.accion!=herido_grave and father.accion!=ataca_area and father.accion!=muere)
+		//colisión contra zanja
+		if(en_moto and father.altura==0)
+			if(id_col=collision(type zanja))
+				if(en_rango(z,id_col.z,id_col.rango))
+					father.x_inc+=10;
+					father.herida=15;
+				end
+			end
+		end
+	
 		//ataque
-		if(id_col=collision(type ataque))
+		while(id_col=collision(type ataque))
 			if(id_col.jugador!=jugador and (fuego_amigo or 
 			(jugador=>1 and jugador<=9 and (id_col.jugador>9 or id_col.jugador==-1))	or
 			(jugador=>10 and id_col.jugador<10))) //ataque jugador->enemigo, ataque total
@@ -1341,9 +1336,16 @@ Begin
 							end
 						end
 					end
+				
+					if(en_moto and father.altura<0)
+						if(id_col.altura==0)
+							father.gravedad=-15;
+						end
+					end
 				end
 			end
 		end
+
 		//SI VAS EN MOTO Y ROTAS MUCHO LA BICI, ATACAS PILA
 		if(father.altura!=0 and father.angle_inc!=0)
 			if(father.jugador<10)
@@ -1352,6 +1354,7 @@ Begin
 				ataque(father.x,father.y,file,graph,abs(father.x_inc)+abs(father.angle_inc),40,0);
 			end
 		end
+		
 	else
 		//SI ESTÁS CAYENDO HERIDO, GOLPEAS A LOS DE TU ALREDEDOR (SOLO ENEMIGOS)
 		if(father.accion==herido_grave and father.x_inc!=0 and father.gravedad>0 and father.tipo!=0)
@@ -1376,7 +1379,7 @@ Begin
 	z=father.z;
 	priority=-1;
 	ctype=coordenadas;
-	alpha=0;
+	if(!cajas_colision) alpha=0; end
 	frame;
 End
 
@@ -1425,6 +1428,9 @@ Begin
 		aplica_gravedad();
 		if(altura>0) altura=0; end
 		if(altura==0)
+			if(x_inc!=0)
+				nube_humo(x,y,z,0,0,size);
+			end
 			friccioname();
 			if(en_moto)
 				x_inc=(-mov_camara_moto/2)-1;
@@ -1480,7 +1486,6 @@ End
 Process sombra();
 Begin
 	resolution=global_resolution;
-	//if(resolution!=0) i=106; else i=53; end
 	i=53;
 	y=father.y_base+i;
 	z=father.z+10;
@@ -1489,6 +1494,20 @@ Begin
 	ctype=coordenadas;
 	file=fpg_general;
 	graph=3;
+	alpha=father.alpha+altura-50;
+	size=100+(altura/3);
+	frame;
+	while(!ready and !ganando) frame; end
+End
+
+Process sombra_definida(file,graph);
+Begin
+	resolution=global_resolution;
+	y=father.y_base+(father.alto/2);
+	z=father.z+10;
+	x=father.x;
+	ctype=coordenadas;
+	file=fpg_general;
 	alpha=father.alpha+altura-50;
 	size=100+(altura/3);
 	frame;
@@ -1600,6 +1619,7 @@ Begin
 	graph=10;
 	x=ancho_pantalla/2;
 	y=alto_pantalla/3;
+	alto=graphic_info(file,1,G_HEIGHT);
 	from alpha=0 to 255 step 40; size+=2; frame; end
 	while(!ready) frame; end
 	from alpha=255 to 0 step -40; size-=2; frame; end
@@ -1693,7 +1713,8 @@ Begin
 	end
 	if(ops.musica)
 		if(i!=anterior_cancion)
-			fade_music_off(400);
+			if(is_playing_song()) fade_music_off(400); end
+			stop_song();
 			timer[1]=0;
 			while(timer[1]<40) frame; end
 			anterior_cancion=i;
@@ -1911,6 +1932,7 @@ Begin
 	enemigos_matados=0;
 	id_camara=0;
 	en_emboscada=0;
+	en_moto=0;
 	nivel=1;
 	anterior_emboscada=0;
 	sin_bandos=0;
@@ -1975,20 +1997,18 @@ Begin
 
 	*/
 
-	id_jefe=jefe4(ancho_pantalla/2);
+	/*id_jefe=jefe4(ancho_pantalla/2);
 	while(!ganando) frame; end
 	from alpha=255 to 0 step -15; id_jefe.alpha=alpha; frame; end
 	timer[2]=0;
-	while(timer[2]<300) frame; end
+	while(timer[2]<300) frame; end*/
 
-	/*
+	
 	id_jefe=jefe5(id_camara.x);
 	while(!ganando) frame; end
 	from alpha=255 to 0 step -15; id_jefe.alpha=alpha; frame; end
 	timer[2]=0;
 	while(timer[2]<300) frame; end
-
-	*/
 	
 	//EVIL RIPO
 	ganando=0;
@@ -2392,4 +2412,49 @@ Begin
 	from y=50 to 80; alpha+=20; frame; end
 	frame(5000);
 	from y=80 to 110; alpha-=20; frame; end
+End
+
+Process nube_humo(x,y,z,x_inc,y_inc,size);
+Begin
+	resolution=global_resolution;
+	ctype=coordenadas;
+	file=fpg_general;
+	graph=17;
+	z-=2;
+	x_inc+=rand(-abs(x_inc)/3,abs(x_inc)/3);
+	y_inc+=rand(-2,2);
+/*	if(size>50)
+		nube_humo(x,y,z-1,x_inc-10,y_inc,size/2);
+		nube_humo(x,y,z-1,x_inc+10,y_inc,size/2);
+	end*/
+	size_x=size;
+	size_y=size;
+	while(alpha>0)
+		x+=x_inc;
+		y+=y_inc;
+		alpha-=20;
+		size_y++;
+		size_x--;
+		frame;
+	end
+End
+
+Function advertencia();
+Begin
+	resolution=global_resolution;
+	file=fpg_general;
+	graph=10;
+	x=ancho_pantalla/2;
+	y=alto_pantalla/3;
+	from alpha=0 to 255 step 40; size+=2; frame; end
+	while(!ready) frame; end
+	from alpha=255 to 0 step -40; size-=2; frame; end
+	while(!ready) frame; end
+	from alpha=0 to 255 step 40; size+=2; frame; end
+	while(!ready) frame; end
+	from alpha=255 to 0 step -40; size-=2; frame; end
+	while(!ready) frame; end
+	from alpha=0 to 255 step 40; size+=2; frame; end
+	while(!ready) frame; end
+	from alpha=255 to 0 step -40; size-=2; frame; end
 End

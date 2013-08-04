@@ -41,8 +41,8 @@ Begin
 			textos[8]="Downtown";
 			textos[9]="2";
 			textos[10]="3";
-			textos[11]="Airport";
-			textos[12]="5";
+			textos[11]="4";
+			textos[12]="Airport";
 			textos[13]=" completed";
 			
 			//menús
@@ -124,8 +124,8 @@ Begin
 			textos[8]="Centro";
 			textos[9]="2";
 			textos[10]="3";
-			textos[11]="Aeropuerto";
-			textos[12]="5";
+			textos[11]="4";
+			textos[12]="Aeropuerto";
 			textos[13]=" completado";
 			
 			//menús
@@ -208,8 +208,8 @@ Begin
 			textos[8]="Centre";
 			textos[9]="2";
 			textos[10]="3";
-			textos[11]="Aeroport";
-			textos[12]="5";
+			textos[11]="4";
+			textos[12]="Aeroport";
 			textos[13]=" completat";
 
 			// Menús

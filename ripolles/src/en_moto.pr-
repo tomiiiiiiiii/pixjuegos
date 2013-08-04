@@ -1,0 +1,428 @@
+Process camara_en_moto();
+Private
+	suma_x;
+	retraso;
+	salta_contador;
+	id_enemigo_next;
+	bpm=117;
+	inicio=785;
+	max_x_scroll;
+	guarda_timer;
+	retraso_zanja=500;
+Begin
+	ganando_moto=0;
+	contador=-1;
+	num_zona=2;
+	resolution=global_resolution;
+	x=320;
+	id_camara=id;
+
+	timer[5]=0;
+	write_int(fpg_texto_azul,ancho_pantalla/2,100,4,&contador);
+	fondo(num_zona,0);
+	loop
+		if(!ready and !ganando_moto and jugadores>0)
+			pause_song();
+			guarda_timer=timer[5];
+			while(!ready) frame; end
+			timer[5]=guarda_timer;
+			resume_song();
+		end
+		if(ganando_moto)
+			while(mov_camara_moto>0) mov_camara_moto-=2; end
+			timer[5]=0;
+			while(timer[5]<300) frame; end
+			fade_off();
+			while(fading) frame; end
+			delete_text(all_text);
+			put_screen(fpg_nivel,6);
+			ganando_moto=0;
+			en_moto=0;
+			from i=1 to posibles_jugadores;
+				if(p[i].juega==1)
+					personaje(i,0);
+				end
+			end
+			fade_on();
+			while(fading); frame; end
+			pon_musica(12);
+			ready=1;
+			jefe3(ancho_pantalla/2);
+			x=ancho_pantalla/2;
+			loop
+				frame;
+			end
+		end
+		if(timer[5]>inicio)
+			if(((timer[5]-inicio)/bpm)>contador)
+				//graph=1;
+				contador++;
+				if(salta_contador>0)
+					salta_contador--;
+				else
+					switch(contador)
+						case 16:
+							salta_contador=3;
+							camion();
+						end
+						case 32:
+							salta_contador=3;
+							tram();
+						end
+						case 48:
+							salta_contador=3;
+							camion();
+						end
+						case 54:
+							num_zona=1;
+							camion();
+						end
+						case 87: //enemigo grande
+							from id_enemigo_next=10 to 99;
+								if(!exists(p[id_enemigo_next].identificador))
+									p[id_enemigo_next].identificador=enemigo_skate(id_enemigo_next,2,200); 
+									break;
+								end
+							end
+						end
+						case 138:
+							ganando_moto=1;
+						end
+						default:
+							if(!mini_boss)
+								from id_enemigo_next=10 to 99;
+									if(!exists(p[id_enemigo_next].identificador))
+										p[id_enemigo_next].identificador=enemigo_skate(id_enemigo_next,rand(1,6),100); 
+										break;
+									end
+								end
+							end
+						end
+					end
+				end
+			end
+		end
+
+		if(retraso_zanja==0)
+			retraso_zanja=rand(500,1000);
+			zanja();
+			if(contador>30)
+				zanja();
+			end
+		else
+			retraso_zanja--;
+		end
+
+		if(en_emboscada==0)
+			if(retraso<200)
+				if(enemigos==0)
+					retraso++;
+				end
+			else
+				en_emboscada=anterior_emboscada+1;
+				anterior_emboscada=en_emboscada;
+				retraso=0;
+			end
+		else
+			if(enemigos==0)
+				from i=1 to 30;
+					if(emboscada[en_emboscada+1].enemigo[i].tipo!=0)
+						enemigo(10+i,emboscada[en_emboscada+1].enemigo[i].tipo,emboscada[en_emboscada+1].enemigo[i].pos_x,emboscada[en_emboscada+1].enemigo[i].pos_y,0,emboscada[en_emboscada+1].enemigo[i].flags);
+					end
+				end
+				anterior_emboscada=en_emboscada;
+				en_emboscada=0;
+			end
+		end
+		while(!ready) frame; end
+		if(mov_camara_moto<14) mov_camara_moto++; end
+		frame;
+	end
+	return;
+End
+
+Process enemigo_skate(jugador,tipo,size);
+Private
+	fuerza_ataque;
+	inercia_max_x;
+	inercia_max_y;
+	fue_mini_boss;
+Begin
+	resolution=global_resolution;
+	ctype=coordenadas;
+	x=700;
+	if(size==100)
+		y_base=rand(100,300);
+	else
+		frame;
+		advertencia();
+		y_base=200;
+		mini_boss=1;
+		fue_mini_boss=1;
+	end
+	enemigos++;
+	switch(tipo)
+		case 1:
+			inercia_max_x=3;
+			inercia_max_y=1;
+			fuerza_ataque=6;
+			file=fpg_enemigo1; 
+		end
+		case 2:
+			inercia_max_x=4;
+			inercia_max_y=2;
+			fuerza_ataque=10;
+			file=fpg_enemigo2; 
+		end
+		case 3:
+			inercia_max_x=2;
+			inercia_max_y=2;
+			fuerza_ataque=15;
+			file=fpg_enemigo3; 
+		end
+		case 4:
+			inercia_max_x=5;
+			inercia_max_y=3;
+			fuerza_ataque=20;
+			file=fpg_enemigo4; 
+		end
+		case 5: //EVIL RIPOLLES
+			inercia_max_x=7;
+			inercia_max_y=4;
+			fuerza_ataque=10;
+			file=fpg_enemigo5;
+		end
+		case 6: //bailarina
+			inercia_max_x=4;
+			inercia_max_y=4;
+			fuerza_ataque=10;
+			file=fpg_enemigo6;
+		end
+		case 7: //pez
+			inercia_max_x=4;
+			inercia_max_y=4;
+			fuerza_ataque=20;
+			file=fpg_enemigo7;
+		end
+	end
+	graph=1;
+	flags=1;
+	alto=graphic_info(file,1,G_HEIGHT);
+	while(!exists(id_camara)) frame; end
+	mueveme(sin_encerrarme);
+	x_inc=-8-inercia_max_x;
+	skate();
+	if(contador>50)	y_inc=rand(-5,5); end
+	loop
+		while(!ready and !ganando_moto) frame; end
+		if(ganando_moto) accion=muere; break; end
+		mueveme(sin_encerrarme);
+		if(size==100)
+			x_inc=-8-inercia_max_x;
+			ataque(x-5,y,fpg_general,1,fuerza_ataque,20,jugador);
+		else
+			if(x_inc>-2)
+				x_inc-=2;
+			end
+			//z-=(size-100)/2;
+			y_base=200; y=200;
+			z-=50;
+		end
+		flags=1;
+		friccioname();
+		cuerpo();
+		if(herida>0)
+			if(size>100)
+				sonido(5,0);
+				herida=herida/2;
+				while(herida>0)
+					while(!ready) frame; end
+					x_inc=5;
+					graph=61;
+					herida--;
+					size--;
+					y_base=200; y=200;
+					mueveme(sin_encerrarme);
+					frame;
+				end
+				graph=1;
+			end
+			if(size<100) 
+				size=100; 
+			end
+			if(size==100)
+				if(fue_mini_boss)
+					sonido(5,0);
+				end
+				accion=muere;
+				break;
+			end
+		end
+		if(x<-100)
+			if(size==100)
+				quita_punto_de_vida_a_todos();
+			else
+				mata_a_todos();
+			end
+			break; 
+		end
+		sombra();
+		frame;
+	end
+	frame;
+	gravedad-=rand(10,15);
+	altura=-1;
+	if(accion==muere)
+		y_inc=0;
+		sonido(rand(1,2),0);
+		pon_animacion();
+		x_inc=rand(3,7);
+		while(alpha>0)
+			while(!ready) frame; end
+			if(altura<0)
+				altura+=gravedad;
+				gravedad++;
+			else
+				if(gravedad>0) gravedad=0; sonido(4,0); end
+				altura=0;
+				if(x_inc>-mov_camara_moto/2) x_inc--; end
+				alpha-=15;
+			end
+			y=y_base+altura+20;
+			//x+=x_inc;
+			mueveme(sin_encerrarme);
+			animame();
+			frame;
+		end
+	end
+	if(fue_mini_boss==1)
+		mini_boss=0;
+	end
+	enemigos--;
+End
+
+Process skate();
+Private
+	orig_x_inc;
+Begin
+	resolution=global_resolution;
+	ctype=coordenadas;
+	ctype=c_screen;
+	file=fpg_nivel;
+	graph=10;
+	x_inc=father.x_inc;
+	while(x>-100)
+		while(!ready) frame; end
+		if(exists(father))
+			size=father.size*0.7;
+			x=father.x+father.x_inc;
+			if(size==100)
+				y=father.y+51;
+			else
+				y=father.y+(51*father.size/100);
+			end
+			z=father.z+1;
+			if(father.accion==muere) 
+				father=0;
+			end
+		else
+			x+=x_inc--;
+		end
+		frame;
+	end
+End
+
+Process camion();
+Begin
+	resolution=global_resolution;
+	enemigos++;
+	frame;
+	advertencia();
+
+	ctype=coordenadas;
+	x=id_camara.x+(ancho_pantalla*1.5);
+	y=195;
+	z=-512;
+	file=fpg_nivel;
+	graph=12;
+	flags=0;
+	alpha=255;
+	alto=graphic_info(file,1,G_HEIGHT);
+	while(x>id_camara.x-ancho_pantalla)
+		while(!ready) frame; end
+		x-=20;
+		ataque(x,y+65,file,112,30,500,-1);
+		frame;
+	end
+	enemigos--;
+End
+
+Process fondo(graph,x);
+Begin
+	resolution=global_resolution;
+	ctype=c_screen;
+	z=512;
+	y=alto_pantalla/2;
+	file=fpg_nivel;
+	ancho=graphic_info(file,graph,G_WIDTH)/2;
+	if(x==0)
+		//x=ancho_pantalla-ancho/2;
+		x=ancho/2;
+	end
+	while(x>-ancho/2)
+		if(!en_moto) return; end
+		while(!ready and !ganando_moto) frame; end
+		if(x<0 and son==0)
+			switch(graph)
+				case 1: num_zona=4; end
+				case 3: num_zona=5; end
+				case 5: num_zona=0; end
+			end
+			if(son==0) fondo(num_zona,x+(ancho/2)+(graphic_info(file,num_zona,G_WIDTH)/4)); end
+		end
+		x-=mov_camara_moto/2;
+		frame;
+	end
+End
+
+Function quita_punto_de_vida_a_todos();
+Begin
+	from i=1 to posibles_jugadores;
+		if(p[i].juega and p[i].vida>0)
+			p[i].vida-=5;
+		end
+	end
+End
+
+Function mata_a_todos();
+Begin
+	from i=1 to posibles_jugadores;
+		if(p[i].juega and p[i].vida>0)
+			p[i].vida=0;
+		end
+	end
+End
+
+Process zanja();
+Begin
+	if(mini_boss) return; end
+	resolution=global_resolution;
+	ctype=c_screen;
+	x=ancho_pantalla+100;
+	switch(rand(0,2))
+		case 0: y_base=187; end
+		case 1: y_base=251; end
+		case 2: y_base=310; end
+	end
+	file=fpg_nivel;
+	graph=11;
+	size=80;
+	mueveme(sin_encerrarme);
+	rango=40;
+	while(x>-200)
+		if(!en_moto) return; end
+		while(!ready and !ganando_moto) frame; end
+		x-=mov_camara_moto/2;
+		frame;
+	end
+End

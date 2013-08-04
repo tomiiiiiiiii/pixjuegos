@@ -10,6 +10,8 @@ Private
 	sabe_ataque_especial=0;
 	max_vida;
 	controlado;
+	saltos_pendientes;
+	retraso_salto;
 Begin
 	resolution=global_resolution;
 	from i=0 to 7; p[jugador].botones[i]=0;	end
@@ -34,9 +36,9 @@ Begin
 	end
 	
 	if(tipo==5) from alpha=0 to 255 step 4; frame; end end
-	if(tipo==2 or tipo==5) se_defiende=1; huye=0; end
-	if(tipo==4 or tipo==5) sabe_saltar=1; end
-	if(tipo==6 or tipo==102) sabe_ataque_especial=1; end
+	if(tipo==2 or tipo==5 or tipo>100) se_defiende=1; huye=0; end
+	if(tipo==4 or tipo==5 or tipo==104) sabe_saltar=1; end
+	if(tipo==6 or tipo==102 or tipo==104) sabe_ataque_especial=1; end
 	loop
 		if(mata_enemigos and tipo>0)
 			p[jugador].vida=0;
@@ -82,13 +84,36 @@ Begin
 			end
 		end
 
+
+		if(saltos_pendientes>0)
+			if(e.altura==0)
+				if(retraso_salto==0)
+					p[jugador].botones[b_2]=1;
+					saltos_pendientes--;
+				else
+					retraso_salto--;
+				end
+			end
+		end
+		
 		if(objetivo>0)
 			if(p[objetivo].juega)
 				o=p[objetivo].identificador;
+				
 				if(e.accion==quieto or e.accion==camina or e.accion==defiende) //si el enemigo puede actuar
 					if(o.herida==0) //si el prota está herido, el enemigo se queda quieto
-						if(sabe_saltar and rand(1,100)) //podemos saltar, igual saltamos
+						if(sabe_saltar and rand(1,100) and saltos_pendientes==0) //podemos saltar, igual saltamos
 							p[jugador].botones[b_2]=1;
+							if(tipo==104)
+								retraso_salto=5;
+								if(p[jugador].vida>200)
+									saltos_pendientes=3;
+								elseif(p[jugador].vida>100)
+									saltos_pendientes=6;
+								else
+									saltos_pendientes=9;
+								end
+							end
 						end
 						if(o.accion==ataca_aire and se_defiende) //si el prota está atacando en el aire, nos intentaremos proteger
 							p[jugador].botones[b_3]=1;

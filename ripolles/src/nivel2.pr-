@@ -1,8 +1,8 @@
-			fpg_nivel=load_fpg("fpg\nivel1.fpg");
+			fpg_nivel=load_fpg("fpg\nivel2.fpg");
 			pon_musica(11);
 		
 			emboscada[1].x_evento=2000;
 			emboscada[1].max_x=2000;
 			emboscada[1].min_x=2000;
-			emboscada[1].evento_especial=102; //jefe1
+			emboscada[1].evento_especial=102; //jefe2
 

@@ -9,11 +9,14 @@ call :a 28 ..\personajes\Pato.svg
 call :a 10 ..\otros\warning.svg
 call :a 11 ..\otros\tram.svg
 call :a 12 ..\otros\tram.svg
+call :a 15 ..\otros\tram.svg
 call :a 4 ..\interfaz\sistema.svg
 call :a 5 ..\interfaz\sistema.svg
 call :a 6 ..\interfaz\sistema.svg
 call :a 7 ..\interfaz\sistema.svg
 call :a 8 ..\interfaz\sistema.svg
+call :a 17 ..\interfaz\sistema.svg
+
 exit
 goto :eof
 

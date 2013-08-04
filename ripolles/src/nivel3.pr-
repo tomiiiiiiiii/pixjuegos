@@ -1,20 +1,16 @@
 	en_moto=1;
-	
-	fpg_nivel=load_fpg("fpg\nivel1.fpg");
 	coordenadas=c_screen;
 	
-	pon_musica(11);
-	
-	//OBJETOS
-	objeto(1700,300,0,1,0,0); //coca tras las dos primeras emboscadas
-	objeto(5800,280,0,1,0,0); //tras la 5ª
-	objeto(8500,280,0,4,0,0); //antes del jefe
-	
-	from i=1 to 7;
-		objeto(((i+1)*1000),145,0,2,0,0); //papeleras en 1000,2000,3000,4000,5000,6000,7000 y 8000
-	end
-		
-	objeto(3000,280,0,5,0,0); //casco en la 4ª
+	fpg_nivel=load_fpg("fpg\nivel3.fpg");
+	//pon_musica(3);
+
+	//caso especial
+	fade_music_off(400);
+	while(is_playing_song()) frame; end
+	timer[1]=0;
+	while(timer[1]<40) frame; end
+	anterior_cancion=3;
+	play_song(load_song("ogg/3.ogg"),0);
 	
 	//EMBOSCADAS
 	emboscada[1].x_evento=700;
@@ -26,176 +22,8 @@
 	emboscada[1].enemigo[1].pos_y=250;
 	emboscada[1].enemigo[1].flags=0;
 
-	emboscada[2].x_evento=1360;
-	emboscada[2].max_x=1360;
-	emboscada[2].min_x=1360;
-	emboscada[2].enemigo[1].tipo=3;
-	emboscada[2].enemigo[1].tipo=7;
-	emboscada[2].enemigo[1].pos_x=1400;
-	emboscada[2].enemigo[1].pos_y=250;
-	emboscada[2].enemigo[1].flags=0;
-
-	emboscada[2].enemigo[2].tipo=1;
-	emboscada[2].enemigo[2].pos_x=1480;
-	emboscada[2].enemigo[2].pos_y=250;
-	emboscada[2].enemigo[2].flags=1;
-	
-	emboscada[3].x_evento=2100;
-	emboscada[3].max_x=2100;
-	emboscada[3].min_x=2100;
-	emboscada[3].enemigo[1].tipo=1;
-	emboscada[3].enemigo[1].pos_x=2000;
-	emboscada[3].enemigo[1].pos_y=200;
-	emboscada[3].enemigo[1].flags=0;
-	
-	emboscada[3].enemigo[2].tipo=1;
-	emboscada[3].enemigo[2].pos_x=2000;
-	emboscada[3].enemigo[2].pos_y=220;
-	emboscada[3].enemigo[2].flags=0;			
-	
-	emboscada[3].enemigo[3].tipo=3;
-	emboscada[3].enemigo[3].pos_x=2300;
-	emboscada[3].enemigo[3].pos_y=300;
-	emboscada[3].enemigo[3].flags=1;
-	//--
-	emboscada[4].x_evento=2900;
-	emboscada[4].max_x=4600;
-	emboscada[4].min_x=2100;
-	emboscada[4].enemigo[1].tipo=1;
-	emboscada[4].enemigo[1].pos_x=2500;
-	emboscada[4].enemigo[1].pos_y=200;
-	emboscada[4].enemigo[1].flags=0;
-	
-	emboscada[4].enemigo[2].tipo=1;
-	emboscada[4].enemigo[2].pos_x=2800;
-	emboscada[4].enemigo[2].pos_y=200;
-	emboscada[4].enemigo[2].flags=0;
-	
-	emboscada[4].enemigo[3].tipo=3;
-	emboscada[4].enemigo[3].pos_x=3000;
-	emboscada[4].enemigo[3].pos_y=300;
-	emboscada[4].enemigo[3].flags=1;
-
-	emboscada[4].enemigo[4].tipo=1;
-	emboscada[4].enemigo[4].pos_x=2500;
-	emboscada[4].enemigo[4].pos_y=200;
-	emboscada[4].enemigo[4].flags=0;
-	
-	emboscada[4].enemigo[5].tipo=1;
-	emboscada[4].enemigo[5].pos_x=2800;
-	emboscada[4].enemigo[5].pos_y=220;
-	emboscada[4].enemigo[5].flags=0;
-	
-	emboscada[4].enemigo[6].tipo=4;
-	emboscada[4].enemigo[6].pos_x=3000;
-	emboscada[4].enemigo[6].pos_y=300;
-	emboscada[4].enemigo[6].flags=1;
-	//--
-	emboscada[5].x_evento=5300;
-	emboscada[5].max_x=5300;
-	emboscada[5].min_x=5300;
-	emboscada[5].enemigo[1].tipo=4;
-	emboscada[5].enemigo[1].pos_x=0;
-	emboscada[5].enemigo[1].pos_y=200;
-	emboscada[5].enemigo[1].flags=0;
-	
-	emboscada[5].enemigo[2].tipo=4;
-	emboscada[5].enemigo[2].pos_x=5520;
-	emboscada[5].enemigo[2].pos_y=200;
-	emboscada[5].enemigo[2].flags=1;
-	//--
-	emboscada[6].x_evento=6000;
-	emboscada[6].max_x=6000;
-	emboscada[6].min_x=6000;
-	emboscada[6].enemigo[1].tipo=2;
-	emboscada[6].enemigo[1].pos_x=6400;
-	emboscada[6].enemigo[1].pos_y=200;
-	emboscada[6].enemigo[1].flags=0;
-	
-	emboscada[6].enemigo[2].tipo=1;
-	emboscada[6].enemigo[2].pos_x=5800;
-	emboscada[6].enemigo[2].pos_y=290;
-	emboscada[6].enemigo[2].flags=0;
-	
-	emboscada[6].enemigo[3].tipo=3;
-	emboscada[6].enemigo[3].pos_x=6100;
-	emboscada[6].enemigo[3].pos_y=170;
-	emboscada[6].enemigo[3].flags=1;
-
-	emboscada[6].enemigo[4].tipo=1;
-	emboscada[6].enemigo[4].pos_x=6120;
-	emboscada[6].enemigo[4].pos_y=220;
-	emboscada[6].enemigo[4].flags=0;
-	
-	emboscada[6].enemigo[5].tipo=2;
-	emboscada[6].enemigo[5].pos_x=0;
-	emboscada[6].enemigo[5].pos_y=220;
-	emboscada[6].enemigo[5].flags=0;
-	
-	emboscada[6].enemigo[6].tipo=4;
-	emboscada[6].enemigo[6].pos_x=0;
-	emboscada[6].enemigo[6].pos_y=300;
-	emboscada[6].enemigo[6].flags=1;
-	//--
-	//--
-	emboscada[7].x_evento=7300;
-	emboscada[7].max_x=7300;
-	emboscada[7].min_x=7300;
-	emboscada[7].enemigo[1].tipo=1;
-	emboscada[7].enemigo[1].pos_x=7400;
-	emboscada[7].enemigo[1].pos_y=300;
-	emboscada[7].enemigo[1].flags=0;
-	
-	emboscada[7].enemigo[2].tipo=1;
-	emboscada[7].enemigo[2].pos_x=0;
-	emboscada[7].enemigo[2].pos_y=150;
-	emboscada[7].enemigo[2].flags=0;
-	
-	emboscada[7].enemigo[3].tipo=3;
-	emboscada[7].enemigo[3].pos_x=7500;
-	emboscada[7].enemigo[3].pos_y=320;
-	emboscada[7].enemigo[3].flags=1;
-
-	emboscada[7].enemigo[4].tipo=1;
-	emboscada[7].enemigo[4].pos_x=7100;
-	emboscada[7].enemigo[4].pos_y=0;
-	emboscada[7].enemigo[4].flags=0;
-	
-	emboscada[7].enemigo[5].tipo=1;
-	emboscada[7].enemigo[5].pos_x=0;
-	emboscada[7].enemigo[5].pos_y=110;
-	emboscada[7].enemigo[5].flags=0;
-	
-	emboscada[7].enemigo[6].tipo=4;
-	emboscada[7].enemigo[6].pos_x=0;
-	emboscada[7].enemigo[6].pos_y=300;
-	emboscada[7].enemigo[6].flags=1;
-	//--
-	emboscada[8].x_evento=8000;
-	emboscada[8].max_x=8000;
-	emboscada[8].min_x=8000;
-	emboscada[8].enemigo[1].tipo=3;
-	emboscada[8].enemigo[1].pos_x=8100;
-	emboscada[8].enemigo[1].pos_y=300;
-	emboscada[8].enemigo[1].flags=0;
-	
-	emboscada[8].enemigo[2].tipo=3;
-	emboscada[8].enemigo[2].pos_x=0;
-	emboscada[8].enemigo[2].pos_y=150;
-	emboscada[8].enemigo[2].flags=0;
-	
-	emboscada[8].enemigo[3].tipo=1;
-	emboscada[8].enemigo[3].pos_x=8200;
-	emboscada[8].enemigo[3].pos_y=320;
-	emboscada[8].enemigo[3].flags=1;
-
-	emboscada[8].enemigo[4].tipo=2;
-	emboscada[8].enemigo[4].pos_x=7900;
-	emboscada[8].enemigo[4].pos_y=0;
-	emboscada[8].enemigo[4].flags=0;
-	
-	//--
-	emboscada[9].x_evento=8974;
-	emboscada[9].max_x=8974;
-	emboscada[9].min_x=8974;
-	emboscada[9].evento_especial=101; //jefe1
+/*	//--
+	emboscada[1].x_evento=700;
+	emboscada[1].max_x=700;
+	emboscada[1].min_x=700;
+	emboscada[1].evento_especial=103; //jefe3*/

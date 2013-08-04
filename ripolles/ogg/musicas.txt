@@ -1,6 +1,7 @@
-1 - 2º nivel
 2 - menu
 11 - 1er nivel
+1 - 2º nivel
+3 - 3er nivel
 12 - jefes
 13 - historia (prologo)
 15 - créditos (tras el final del juego)
