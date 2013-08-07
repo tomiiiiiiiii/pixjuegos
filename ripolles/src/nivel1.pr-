@@ -1,5 +1,5 @@
 			fpg_nivel=load_fpg("fpg\nivel1.fpg");
-			pon_musica(11);
+			pon_musica(1);
 			
 			//OBJETOS
 			objeto(1700,300,0,1,0,0); //coca tras las dos primeras emboscadas

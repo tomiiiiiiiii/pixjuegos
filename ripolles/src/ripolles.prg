@@ -232,7 +232,7 @@ Local
 	anim; //contador
 	animacion_anterior;
 	gravedad;
-	jugador;
+	jugador; //tema de ataques: ¿cómo va? xD
 	y_inc;
 	x_inc;
 	z_juego;
@@ -273,12 +273,13 @@ Begin
 	
 	carga_opciones();
 	#IFDEF DEBUG
+		/*
 		ops.musica=0;
 		ops.sonido=0;
 		ops.ventana=1;
 		full_screen=0;
 		scale_resolution=06400360;
-		//ops.truco_pato=1;
+		*/
 	#ENDIF
 
 	//temporal
@@ -830,25 +831,23 @@ Begin
 			if(personaje_mas_avanzado()>0)
 				if(p[personaje_mas_avanzado()].identificador.x=>emboscada[anterior_emboscada+1].x_evento and emboscada[anterior_emboscada+1].x_evento!=0)
 					en_emboscada=anterior_emboscada+1;
+					if(emboscada[en_emboscada].evento_especial=>101 and emboscada[en_emboscada].evento_especial<=105)
+							pon_musica(12);
+					end
 					switch(emboscada[en_emboscada].evento_especial)
 						case 101: //1er jefe
-							pon_musica(12);
 							jefe1(emboscada[en_emboscada].x_evento);
 						end
 						case 102: //2er jefe
-							pon_musica(12);
 							jefe2(emboscada[en_emboscada].x_evento);
 						end
 						case 103: //3er jefe
-							pon_musica(12);
 							jefe3(emboscada[en_emboscada].x_evento);
 						end
 						case 104: //4º jefe
-							pon_musica(12);
 							jefe4(emboscada[en_emboscada].x_evento);
 						end
 						case 105: //5º jefe
-							pon_musica(12);
 							jefe5(emboscada[en_emboscada].x_evento);
 						end
 						case 111: //evil ripolles
@@ -978,46 +977,46 @@ End
 
 Function mueveme(forma);
 Begin
-		father.y_base+=father.y_inc;
-		father.y=father.y_base+father.altura;
-		father.z=-father.y_base;
-		father.z_juego=father.z;
+	father.y_base+=father.y_inc;
+	father.y=father.y_base+father.altura;
+	father.z=-father.y_base;
+	father.z_juego=father.z;
 
-		if(father.y_base<135)
-			father.y_base=135; 
-			if(father.y_inc<0) father.y_inc=0; end
-		elseif(father.y_base>305) 
-			father.y_base=305; 
-			if(father.y_inc>0) father.y_inc=0; end
+	if(father.y_base<135)
+		father.y_base=135; 
+		if(father.y_inc<0) father.y_inc=0; end
+	elseif(father.y_base>305) 
+		father.y_base=305; 
+		if(father.y_inc>0) father.y_inc=0; end
+	end
+
+	//rebote en bordes
+	if(en_moto==0)
+		if((father.x<30 and father.x_inc<0) or (father.x>ancho_nivel-30 and father.x_inc>0)) 
+			father.x_inc*=-1; 
 		end
+	end
 	
-		//rebote en bordes
-		if(en_moto==0)
-			if((father.x<30 and father.x_inc<0) or (father.x>ancho_nivel-30 and father.x_inc>0)) 
-				father.x_inc*=-1; 
-			end
+	if(forma==encerrandome)
+		if(father.x<id_camara.x-((ancho_pantalla/2)-50))
+			if(father.x_inc<0) father.x_inc*=-1; end
+			father.x=id_camara.x-((ancho_pantalla/2)-50); 
 		end
-		
-		if(forma==encerrandome)
-			if(father.x<id_camara.x-((ancho_pantalla/2)-50))
-				if(father.x_inc<0) father.x_inc*=-1; end
-				father.x=id_camara.x-((ancho_pantalla/2)-50); 
-			end
-			if(father.x>id_camara.x+((ancho_pantalla/2)-50)) 
-				if(father.x_inc>0) father.x_inc*=-1; end
-				father.x=id_camara.x+((ancho_pantalla/2)-50); 
-			end
+		if(father.x>id_camara.x+((ancho_pantalla/2)-50)) 
+			if(father.x_inc>0) father.x_inc*=-1; end
+			father.x=id_camara.x+((ancho_pantalla/2)-50); 
 		end
+	end
 
-		if(father.angle_inc!=0)
-			father.angle+=father.angle_inc*1000;
-		end
-		
-		if(father.altura==0)
-			father.x+=father.x_inc;
-		else
-			father.x+=father.x_inc*1.4;
-		end		
+	if(father.angle_inc!=0)
+		father.angle+=father.angle_inc*1000;
+	end
+	
+	if(father.altura==0)
+		father.x+=father.x_inc;
+	else
+		father.x+=father.x_inc*1.4;
+	end
 End
 
 Function friccioname();
@@ -1250,22 +1249,21 @@ Begin
 	resolution=global_resolution;
 	jugador=father.jugador;
 	ctype=coordenadas;
+	size=father.size;
 	x=father.x;
-	y=father.y-20;
+	y=father.y-20+(size-100);
 	z=father.z-1;
-	rango=father.rango*size/100;
+	rango=(father.rango*size)/100;
+	
 	file=fpg_general;
 	graph=2;
 	
 	if(!cajas_colision) alpha=0; end
+
 	if(father.tipo>100)
 		size_y=250;
 		size_x=80;
 		y-=40;
-	end
-	if(father.size!=100)
-		size=father.size;
-		y+=father.size-100;
 	end
 	
 //	if((father.tipo==0 and father.accion!=herido_leve and father.accion!=herido_grave and father.accion!=ataca_area and father.accion!=muere) or (father.tipo!=0 and father.accion!=muere))
@@ -1281,6 +1279,12 @@ Begin
 					else
 						father.y_inc=10;
 					end
+				end
+			end
+			if(id_col=collision(type rampa))
+				if(en_rango(z,id_col.z,id_col.rango))
+					father.gravedad=-25;
+					father.altura=-1;
 				end
 			end
 		end
@@ -1497,11 +1501,7 @@ End
 Process sombra();
 Begin
 	resolution=global_resolution;
-	if(en_moto and father.tipo!=0)
-		i=78;
-	else
-		i=53;
-	end
+	i=53;
 	y=father.y_base+i;
 	z=father.z+10;
 	x=father.x;
@@ -2194,11 +2194,14 @@ Begin
 				retraso_jukebox=500;
 				switch(jukeboxing)
 					case 1: pon_musica(1); end
-					case 2: pon_musica(11); end
-					case 3: pon_musica(12); end
-					case 4: pon_musica(13); end
-					case 5: pon_musica(15); end
-					case 6: pon_musica(2); jukeboxing=0; end
+					case 2: pon_musica(2); end
+					case 3: pon_musica(3); end
+					case 4: pon_musica(4); end
+					case 5: pon_musica(5); end
+					case 6: pon_musica(12); end
+					case 7: pon_musica(13); end
+					case 8: pon_musica(15); end
+					case 9: pon_musica(14); jukeboxing=0; end
 				end
 			end
 		end

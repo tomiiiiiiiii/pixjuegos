@@ -25,7 +25,7 @@ begin
 		reinicio_variables();
 		start_scroll(0,fpg_fondo_menu,3,4,0,15);
 		controlador(0);
-		pon_musica(2);
+		pon_musica(14);
 		num_menu=0;
 		logo(2);
 		scroll[0].camera=mueve_fondo();
@@ -220,7 +220,7 @@ begin
 						end
 						case 3:
 							if(ops.musica) stop_song(); ops.musica=0; else ops.musica=1; end 
-							pon_musica(2);
+							pon_musica(14);
 						end
 						case 4:
 							//condiciones de caca. entregamos mañana, es aceptable xD

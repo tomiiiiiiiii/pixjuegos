@@ -17,21 +17,39 @@ Begin
 	x=320;
 	id_camara=id;
 
-	timer[5]=0;
 	fondo(num_zona,0);
+	//música
+	if(ops.musica) 
+		fade_music_off(400);
+		while(is_playing_song()) frame; end
+		timer[1]=0;
+		while(timer[1]<40) frame; end
+		anterior_cancion=3;
+		play_song(load_song("ogg/3.ogg"),0);
+	end
+	
+	timer[5]=0;
 	loop
 		if(!ready and !ganando_moto and jugadores>0)
-			pause_song();
+			if(ops.musica) pause_song(); end
 			guarda_timer=timer[5];
 			while(!ready) frame; end
 			timer[5]=guarda_timer;
-			resume_song();
+			if(ops.musica) resume_song(); end
 		end
 		if(ganando_moto)
-			while(mov_camara_moto>0) mov_camara_moto-=2; end
+/*			while(mov_camara_moto>0) 
+				mov_camara_moto-=2; 
+			end*/
 			timer[5]=0;
-			while(timer[5]<300) frame; end
-			fade_off();
+			while(timer[5]<300) 
+				mov_camara_moto++;
+				frame; 
+			end
+			while(exists(type personaje))
+				frame;
+			end
+			fade(0,0,0,16);
 			while(fading) frame; end
 			delete_text(all_text);
 			put_screen(fpg_nivel,6);
@@ -68,12 +86,15 @@ Begin
 							salta_contador=3;
 							tram();
 						end
+						case 34:
+							num_zona=1;
+						end
 						case 48:
 							salta_contador=3;
 							camion();
 						end
 						case 54:
-							num_zona=1;
+							num_zona=5;
 							camion();
 						end
 						case 87: //enemigo grande
@@ -91,7 +112,7 @@ Begin
 							if(!mini_boss)
 								from id_enemigo_next=10 to 99;
 									if(!exists(p[id_enemigo_next].identificador))
-										p[id_enemigo_next].identificador=enemigo_skate(id_enemigo_next,rand(1,6),100); 
+										p[id_enemigo_next].identificador=enemigo_skate(id_enemigo_next,rand(1,7),100); 
 										break;
 									end
 								end
@@ -104,7 +125,11 @@ Begin
 
 		if(retraso_zanja==0)
 			retraso_zanja=rand(500,1000);
-			zanja();
+			if(rand(0,1))
+				zanja();
+			else
+				rampa();
+			end
 			if(contador>30)
 				zanja();
 			end
@@ -153,7 +178,7 @@ Begin
 	x=700;
 	rango=30;
 	if(size==100)
-		y_base=rand(100,300);
+		y_base=rand(135,305);
 	else
 		frame;
 		advertencia();
@@ -215,24 +240,23 @@ Begin
 	mueveme(sin_encerrarme);
 	x_inc=-8-inercia_max_x;
 	skate();
-	if(contador>50)	
-		y_inc=rand(-5,5); 
+	if(contador>50 and size==100)
+		inercia_max_y=rand(-inercia_max_y,inercia_max_y); 
+	else
+		inercia_max_y=0;
 	end
 	loop
 		while(!ready and !ganando_moto) frame; end
+		y_inc=inercia_max_y;
 		if(ganando_moto) accion=muere; break; end
 		mueveme(sin_encerrarme);
 		if(size==100)
 			x_inc=-8-inercia_max_x;
 			ataque(x-20,y,fpg_general,1,fuerza_ataque,20,jugador);
 		else
-			if(x_inc>-2)
-				x_inc-=2;
-			end
-			y_base=200; y=200;
-			//z-=50;
+			x_inc=-3-((200-size)/30);
+			z-=50;
 		end
-		z=(-y_base)-((size-100)/2);
 		flags=1;
 		friccioname();
 		cuerpo();
@@ -243,17 +267,16 @@ Begin
 				while(herida>0)
 					while(!ready) frame; end
 					y_inc=0;
-					x_inc=5;
+					x_inc=3;
 					graph=61;
-					herida--;
+					herida-=2;
 					size--;
-					y_base=200; y=200;
 					mueveme(sin_encerrarme);
 					frame;
 				end
 				graph=1;
 			end
-			if(size<100) 
+			if(size<100)
 				size=100; 
 			end
 			if(size==100)
@@ -270,14 +293,14 @@ Begin
 				graph=1;
 			end
 		end
-		IF(contador%4==0 and altura==0 and unsalto==0)
-			unsalto=1;
+
+		if(collision(type rampa) and altura==0)
 			gravedad=-12;
 			altura=-1;
-		END
+		end
 
 		if(altura<0)
-			altura+=gravedad;
+			altura+=gravedad/2;
 			gravedad++;
 		else
 			if(gravedad>0) gravedad=0; sonido(4,0); end
@@ -292,8 +315,8 @@ Begin
 			end
 			break;
 		end
-		y=y_base+altura+20;
 		sombra();
+		y-=10; //alineacion skate
 		frame;
 	end
 	frame;
@@ -301,6 +324,7 @@ Begin
 	altura=-1;
 	
 	if(accion==muere)
+		frame;
 		y_inc=0;
 		sonido(rand(1,2),0);
 		pon_animacion();
@@ -344,14 +368,10 @@ Begin
 		while(!ready) frame; end
 		if(exists(father))
 			size=father.size*0.7;
-			x=father.x+father.x_inc;
-			if(size==100)
-				y=father.y+51;
-			else
-				y=father.y+(51*father.size/100);
-			end
+			x=father.x;
+			y=father.y+(62*father.size/100);
 			z=father.z+1;
-			if(father.accion==muere) 
+			if(father.accion==muere)
 				father=0;
 			end
 		else
@@ -405,7 +425,7 @@ Begin
 			switch(graph)
 				case 1: num_zona=4; end
 				case 3: num_zona=5; end
-				case 5: num_zona=0; end
+				case 5: num_zona=2; end
 			end
 			if(son==0) fondo(num_zona,x+(ancho/2)+(graphic_info(file,num_zona,G_WIDTH)/4)); end
 		end
@@ -438,13 +458,42 @@ Begin
 	resolution=global_resolution;
 	ctype=c_screen;
 	x=ancho_pantalla+100;
+	loop
+		i++;
+		switch(rand(0,2))
+			case 0: y_base=187; end
+			case 1: y_base=251; end
+			case 2: y_base=310; end
+		end
+		if((!collision(type rampa) and !collision(type zanja)) or i==5) return; end
+	end
+	file=fpg_nivel;
+	graph=11;
+	size=80;
+	mueveme(sin_encerrarme);
+	rango=20;
+	z=-y_base;
+	while(x>-200)
+		if(!en_moto) return; end
+		while(!ready and !ganando_moto) frame; end
+		x-=mov_camara_moto/2;
+		frame;
+	end
+End
+
+Process rampa();
+Begin
+	if(mini_boss) return; end
+	resolution=global_resolution;
+	ctype=c_screen;
+	x=ancho_pantalla+100;
 	switch(rand(0,2))
 		case 0: y_base=187; end
 		case 1: y_base=251; end
 		case 2: y_base=310; end
 	end
 	file=fpg_nivel;
-	graph=11;
+	graph=14;
 	size=80;
 	mueveme(sin_encerrarme);
 	rango=20;

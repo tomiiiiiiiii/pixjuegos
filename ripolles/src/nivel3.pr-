@@ -2,28 +2,5 @@
 	coordenadas=c_screen;
 	
 	fpg_nivel=load_fpg("fpg\nivel3.fpg");
-	//pon_musica(3);
-
-	//caso especial
-	fade_music_off(400);
-	while(is_playing_song()) frame; end
-	timer[1]=0;
-	while(timer[1]<40) frame; end
-	anterior_cancion=3;
-	play_song(load_song("ogg/3.ogg"),0);
 	
-	//EMBOSCADAS
-	emboscada[1].x_evento=700;
-	emboscada[1].max_x=700;
-	emboscada[1].min_x=700;
-	//emboscada[1].enemigo[1].tipo=3;
-	emboscada[1].enemigo[1].tipo=6;
-	emboscada[1].enemigo[1].pos_x=740;
-	emboscada[1].enemigo[1].pos_y=250;
-	emboscada[1].enemigo[1].flags=0;
-
-/*	//--
-	emboscada[1].x_evento=700;
-	emboscada[1].max_x=700;
-	emboscada[1].min_x=700;
-	emboscada[1].evento_especial=103; //jefe3*/
+	//mira en_moto.pr- :)

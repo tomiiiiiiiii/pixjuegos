@@ -471,7 +471,6 @@ Begin
 					gravedad=0;
 					y=y_base;
 				else
-					y+=gravedad;
 					altura+=gravedad;
 					gravedad++;
 				end
@@ -805,8 +804,6 @@ Begin
 						gravedad=0;
 						accion=quieto;
 					end
-				else
-					y+=gravedad;
 				end
 			end
 			
@@ -914,7 +911,6 @@ Begin
 				graph=73;
 				sonido(4,0);
 			elseif(altura<0)
-				y+=gravedad;
 				if(evento_hamburguesa==7) //gravedad lunar
 					gravedad+=1;
 				else
@@ -969,7 +965,6 @@ Begin
 						end
 					end
 				else
-					y+=gravedad;
 					if(evento_hamburguesa==7) //gravedad lunar
 						gravedad+=1;
 					else

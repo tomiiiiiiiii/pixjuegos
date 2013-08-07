@@ -1,5 +1,5 @@
 	fpg_nivel=load_fpg("fpg\nivel4.fpg");
-	pon_musica(11);
+	pon_musica(4);
 		
 	emboscada[1].x_evento=700;
 	emboscada[1].max_x=700;
