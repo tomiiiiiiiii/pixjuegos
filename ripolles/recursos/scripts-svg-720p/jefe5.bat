@@ -54,7 +54,7 @@ call :a 83
 call :a 91
 call :a 92
 call :a 93
-call :a 16
+rem call :a 16
 
 copy ..\..\fpg-sources\jefe5\201.png ..\..\fpg-sources\general\14.png /y
 copy ..\..\fpg-sources\jefe5\211.png ..\..\fpg-sources\general\13.png /y

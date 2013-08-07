@@ -235,6 +235,7 @@ Local
 	jugador;
 	y_inc;
 	x_inc;
+	z_juego;
 	angle_inc;
 	y_base;
 	i; j;
@@ -271,10 +272,14 @@ Begin
 	end
 	
 	carga_opciones();
-	/*#IFDEF DEBUG
+	#IFDEF DEBUG
 		ops.musica=0;
 		ops.sonido=0;
-	#ENDIF*/
+		ops.ventana=1;
+		full_screen=0;
+		scale_resolution=06400360;
+		//ops.truco_pato=1;
+	#ENDIF
 
 	//temporal
 	ops.lenguaje=-1;
@@ -881,7 +886,7 @@ End
 
 Function inercia_maxima(max_x,max_y);
 Private
-	max_angle=15;
+	max_angle=20;
 Begin
 	if(father.x_inc>0)
 		if(father.x_inc>max_x) father.x_inc=max_x; end
@@ -976,6 +981,7 @@ Begin
 		father.y_base+=father.y_inc;
 		father.y=father.y_base+father.altura;
 		father.z=-father.y_base;
+		father.z_juego=father.z;
 
 		if(father.y_base<135)
 			father.y_base=135; 
@@ -1247,7 +1253,7 @@ Begin
 	x=father.x;
 	y=father.y-20;
 	z=father.z-1;
-	rango=20;
+	rango=father.rango*size/100;
 	file=fpg_general;
 	graph=2;
 	
@@ -1270,6 +1276,11 @@ Begin
 				if(en_rango(z,id_col.z,id_col.rango))
 					father.x_inc+=10;
 					father.herida=15;
+					if(father.y<250)
+						father.y_inc=10;
+					else
+						father.y_inc=10;
+					end
 				end
 			end
 		end
@@ -1486,7 +1497,11 @@ End
 Process sombra();
 Begin
 	resolution=global_resolution;
-	i=53;
+	if(en_moto and father.tipo!=0)
+		i=78;
+	else
+		i=53;
+	end
 	y=father.y_base+i;
 	z=father.z+10;
 	x=father.x;

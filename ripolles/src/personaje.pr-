@@ -39,6 +39,8 @@ Begin
 	p[jugador].juega=1;
 	p[jugador].identificador=id;
 
+	rango=20;
+	
 	tipo_original=tipo;
 	if(tipo==0)
 		sabe_correr=1;

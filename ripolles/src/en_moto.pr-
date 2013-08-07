@@ -146,10 +146,12 @@ Private
 	inercia_max_x;
 	inercia_max_y;
 	fue_mini_boss;
+	unsalto;
 Begin
 	resolution=global_resolution;
 	ctype=coordenadas;
 	x=700;
+	rango=30;
 	if(size==100)
 		y_base=rand(100,300);
 	else
@@ -204,6 +206,8 @@ Begin
 			file=fpg_enemigo7;
 		end
 	end
+	recoloca_centros_personaje(file);
+	
 	graph=1;
 	flags=1;
 	alto=graphic_info(file,1,G_HEIGHT);
@@ -211,7 +215,9 @@ Begin
 	mueveme(sin_encerrarme);
 	x_inc=-8-inercia_max_x;
 	skate();
-	if(contador>50)	y_inc=rand(-5,5); end
+	if(contador>50)	
+		y_inc=rand(-5,5); 
+	end
 	loop
 		while(!ready and !ganando_moto) frame; end
 		if(ganando_moto) accion=muere; break; end
@@ -223,10 +229,10 @@ Begin
 			if(x_inc>-2)
 				x_inc-=2;
 			end
-			z=(-y_base)-((size-100)/2);
 			y_base=200; y=200;
 			//z-=50;
 		end
+		z=(-y_base)-((size-100)/2);
 		flags=1;
 		friccioname();
 		cuerpo();
@@ -236,6 +242,7 @@ Begin
 				herida=herida/2;
 				while(herida>0)
 					while(!ready) frame; end
+					y_inc=0;
 					x_inc=5;
 					graph=61;
 					herida--;
@@ -256,21 +263,43 @@ Begin
 				accion=muere;
 				break;
 			end
+		else
+			if(altura!=0)
+				graph=73;
+			else
+				graph=1;
+			end
 		end
+		IF(contador%4==0 and altura==0 and unsalto==0)
+			unsalto=1;
+			gravedad=-12;
+			altura=-1;
+		END
+
+		if(altura<0)
+			altura+=gravedad;
+			gravedad++;
+		else
+			if(gravedad>0) gravedad=0; sonido(4,0); end
+			altura=0;
+		end
+		
 		if(x<-100)
 			if(size==100)
 				quita_punto_de_vida_a_todos();
 			else
 				mata_a_todos();
 			end
-			break; 
+			break;
 		end
+		y=y_base+altura+20;
 		sombra();
 		frame;
 	end
 	frame;
 	gravedad-=rand(10,15);
 	altura=-1;
+	
 	if(accion==muere)
 		y_inc=0;
 		sonido(rand(1,2),0);
@@ -305,6 +334,7 @@ Private
 	orig_x_inc;
 Begin
 	resolution=global_resolution;
+	priority=-1;
 	ctype=coordenadas;
 	ctype=c_screen;
 	file=fpg_nivel;
@@ -388,7 +418,7 @@ Function quita_punto_de_vida_a_todos();
 Begin
 	from i=1 to posibles_jugadores;
 		if(p[i].juega and p[i].vida>0)
-			p[i].vida-=5;
+			p[i].vida-=1;
 		end
 	end
 End
@@ -417,7 +447,8 @@ Begin
 	graph=11;
 	size=80;
 	mueveme(sin_encerrarme);
-	rango=40;
+	rango=20;
+	z=-y_base;
 	while(x>-200)
 		if(!en_moto) return; end
 		while(!ready and !ganando_moto) frame; end
