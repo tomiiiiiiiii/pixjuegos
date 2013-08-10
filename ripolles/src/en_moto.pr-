@@ -30,6 +30,9 @@ Begin
 	
 	timer[5]=0;
 	loop
+		if(key(_g))
+			ganando_moto=1;
+		end
 		if(!ready and !ganando_moto and jugadores>0)
 			if(ops.musica) pause_song(); end
 			guarda_timer=timer[5];
@@ -493,7 +496,7 @@ Begin
 		case 2: y_base=310; end
 	end
 	file=fpg_nivel;
-	graph=14;
+	graph=12;
 	size=80;
 	mueveme(sin_encerrarme);
 	rango=20;

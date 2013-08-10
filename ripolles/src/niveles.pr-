@@ -29,7 +29,7 @@ Begin
 		case 4: //NIVEL 4
 			include "nivel4.pr-";
 		end
-		case 4: //NIVEL 5
+		case 5: //NIVEL 5
 			include "nivel5.pr-";
 		end
 	end

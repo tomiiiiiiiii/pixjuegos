@@ -1,6 +1,8 @@
 			fpg_nivel=load_fpg("fpg\nivel5.fpg");
 			pon_musica(5);
 			nivel5_eventos();
+			estatua_caida1(777);
+			
 			//OBJETOS
 			
 			//naranjas!!!

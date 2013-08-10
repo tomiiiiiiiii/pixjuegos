@@ -427,10 +427,8 @@ Begin
 	//test
 	modo_juego=modo_historia;
 	p[1].juega=1;
-	p[2].juega=1;
 	p[1].vidas=5;
-	p[2].vidas=5;
-	nivel=3;
+	nivel=5;
 	jugar();
 	return;
 	
@@ -1323,6 +1321,11 @@ Begin
 			if(id_col=collision(type cuerpo))
 				if(en_rango(z,id_col.z,rango))
 					if(id_col<id) //manda este
+						if(evento_hamburguesa==1 and !collision_box(type explosion))
+							//explosión
+							explosion(father.x,father.y_base,altura,size);
+						end
+
 						if(x<id_col.x)
 							if(id_col.father.accion!=herido_grave)
 								id_col.father.x_inc+=3;
@@ -1379,10 +1382,6 @@ Begin
 				ataque(father.x,father.y,file,graph,abs(father.x_inc),40,0);
 			end
 		end
-	end
-	if(evento_hamburguesa==1 and collision(type cuerpo))
-		//explosión
-		ataque(father.x,father.y,file,graph,50,80,0);
 	end
 	frame;
 End
@@ -2328,7 +2327,7 @@ Private
 	mi_evento_hamburguesa;
 Begin
 	resolution=global_resolution;
-	evento_hamburguesa=rand(2,13);
+	evento_hamburguesa=rand(1,13);
 	mi_evento_hamburguesa=evento_hamburguesa;
 	x=ancho_pantalla/2;
 	y=100;
@@ -2475,4 +2474,111 @@ Begin
 	from alpha=0 to 255 step 40; size+=2; frame; end
 	while(!ready) frame; end
 	from alpha=255 to 0 step -40; size-=2; frame; end
+End
+
+Process explosion(x,y_base,altura,size);
+Begin
+	resolution=global_resolution;
+	file=fpg_general;
+	ctype=coordenadas;
+	y=y_base+altura;
+	z=-y_base;
+	sonido(15,0);
+	from graph=61 to 75;
+		ataque(x,y,file,graph,30,30,-1);
+		frame;
+	end
+End
+
+Process estatua_caida1(x);
+Begin
+	resolution=global_resolution;
+	ctype=coordenadas;
+	file=fpg_nivel;
+	y=200;
+	z=-y;
+	graph=101;
+	estatua_caida2();
+	loop
+		frame;
+	end
+End
+
+Process estatua_caida2();
+Begin
+	resolution=global_resolution;
+	ctype=coordenadas;
+	file=fpg_nivel;
+	x=father.x+20;
+	y=60;
+	z=father.z+1;
+	graph=102;
+	set_center(fpg_nivel,102,graphic_info(fpg_nivel,102,G_WIDTH)/4,graphic_info(fpg_nivel,102,G_HEIGHT)/2);
+	sombra_estatua1();
+	loop
+		if(id_col=collision(type ataque))
+			if(en_rango(z,id_col.z,30))
+				break;
+			end
+		end
+		frame;
+	end
+	explosion(x,y,altura,size);
+	x_inc=100;
+	while(angle>-95000)
+		angle-=gravedad*500;
+		gravedad++;
+		x_inc--;
+		y+=gravedad/2;
+		x+=x_inc/20;
+		frame;
+	end
+	in_memoriam();
+	loop
+		frame;
+	end
+End
+
+Process sombra_estatua1();
+Begin
+	resolution=global_resolution;
+	ctype=coordenadas;
+	file=fpg_nivel;
+	x=father.father.x+58;
+	y=230;
+	z=father.z+1;
+
+	graph=103;
+	while(father.angle==0)
+		frame;
+	end
+	sombra_estatua2();
+	from alpha=255 to 0 step -10; frame; end
+End
+
+Process sombra_estatua2();
+Begin
+	resolution=global_resolution;
+	ctype=coordenadas;
+	file=fpg_nivel;
+	graph=104;
+	x=father.x+15;
+	z=father.z+1;
+	y=250;
+	from alpha=0 to 255 step 10; frame; end
+	loop frame; end
+End
+
+
+Process in_memoriam();
+Begin
+	resolution=global_resolution;
+	ctype=coordenadas;
+	x=father.father.x;
+	y=father.father.y+100;
+	graph=write_in_map(fpg_texto_azul,"IN MEMORIAM",4);
+	from alpha=0 to 255 step 10; frame; end
+	frame (10000);
+	from alpha=255 to 0 step -10; frame; end
+	unload_map(0,graph);
 End

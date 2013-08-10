@@ -38298,16 +38298,16 @@
      inkscape:label="magdalena"
      sodipodi:insensitive="true">
     <image
-       sodipodi:absref="C:\Users\cgines\Documents\personal\svn\ripolles\recursos\niveles\magdalena.png"
-       xlink:href="svn\ripolles\recursos\niveles\magdalena.png"
+       sodipodi:absref="magdalena.png"
+       xlink:href="magdalena.png"
        y="2"
        x="4023"
        id="image9104"
        height="178"
        width="1049" />
     <image
-       sodipodi:absref="C:\Users\cgines\Documents\personal\svn\ripolles\recursos\niveles\aeropuerto.png"
-       xlink:href="svn\ripolles\recursos\niveles\aeropuerto.png"
+       sodipodi:absref="aeropuerto.png"
+       xlink:href="aeropuerto.png"
        y="12"
        x="9732"
        id="image9905"
@@ -38321,8 +38321,8 @@
      style="display:inline;filter:url(#filter9944)"
      sodipodi:insensitive="true">
     <image
-       sodipodi:absref="C:\Users\cgines\Documents\personal\svn\ripolles\recursos\niveles\filtro-ruido.png"
-       xlink:href="svn\ripolles\recursos\niveles\filtro-ruido.png"
+       sodipodi:absref="filtro-ruido.png"
+       xlink:href="filtro-ruido.png"
        y="0"
        x="0"
        id="image9917"
@@ -38339,7 +38339,7 @@
        y="0"
        x="9300"
        id="image9222"
-       xlink:href="file:///C:/Users/cgines/Documents/personal/svn/ripolles/recursos/niveles/filtro-ruido.png"
+       xlink:href="filtro-ruido.png"
        width="9300"
        height="360" />
   </g>

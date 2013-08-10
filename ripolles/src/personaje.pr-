@@ -148,7 +148,7 @@ Begin
 				inercia_max_y=2;
 				fuerza_ataque=10;
 				file=fpg_enemigo2; 
-				p[jugador].vida=80;
+				p[jugador].vida=150;
 				sabe_defenderse=1;
 			end
 			case 3:
@@ -1180,9 +1180,15 @@ Begin
 		if(accion==muere)
 			angle=0;
 			if(herida>3000)
+				//dafuq
+				if(evento_hamburguesa==1)
+					explosion(x,y_base,altura,size);
+				end
+
 				if(tipo>100) break; end
 				from alpha=255 to 0 step -15; frame; end
 				if(jugador>10)
+
 					enemigos--;
 					if(rand(0,3)==0 and modo_juego==modo_historia)
 						objeto(x,y_base,altura,objetos_aleatorios[rand(0,4)],0,flags);
@@ -1245,6 +1251,7 @@ Begin
 			enemigos--;
 		end
 		enemigos--;
+				
 		if(jugador==100)
 			ganando=1;
 			loop frame; end
