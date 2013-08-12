@@ -1,7 +1,7 @@
 @echo off
-set SVG=..\jefes\jefe3.svg
+set SVG=..\jefes\jefe2.svg
 set OUTDIR=..\..\fpg-sources\jefe2\
-echo Exportando jefe3.svg (jefe2)
+echo Exportando jefe2.svg (jefe2)
 call :a 1
 call :a 11
 call :a 12

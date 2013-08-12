@@ -190,6 +190,7 @@ Begin
 		fue_mini_boss=1;
 	end
 	enemigos++;
+	if(tipo==5) tipo=rand(1,4); end
 	switch(tipo)
 		case 1:
 			inercia_max_x=3;

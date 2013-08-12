@@ -141,14 +141,14 @@ Begin
 				inercia_max_y=1;
 				fuerza_ataque=6;
 				file=fpg_enemigo1; 
-				p[jugador].vida=50;
+				p[jugador].vida=80;
 			end
 			case 2:
 				inercia_max_x=4;
 				inercia_max_y=2;
 				fuerza_ataque=10;
 				file=fpg_enemigo2; 
-				p[jugador].vida=150;
+				p[jugador].vida=200;
 				sabe_defenderse=1;
 			end
 			case 3:
@@ -156,14 +156,14 @@ Begin
 				inercia_max_y=2;
 				fuerza_ataque=15;
 				file=fpg_enemigo3; 
-				p[jugador].vida=100;
+				p[jugador].vida=120;
 			end
 			case 4:
 				inercia_max_x=5;
 				inercia_max_y=3;
 				fuerza_ataque=20;
 				file=fpg_enemigo4; 
-				p[jugador].vida=120;
+				p[jugador].vida=80;
 				sabe_saltar=1;
 				sabe_ataca_aire=1;
 			end
@@ -182,7 +182,7 @@ Begin
 				inercia_max_y=4;
 				fuerza_ataque=10;
 				file=fpg_enemigo6;
-				p[jugador].vida=50;
+				p[jugador].vida=110;
 				sabe_ataque_especial=1;
 			end
 			case 7: //pez
@@ -199,17 +199,17 @@ Begin
 				fuerza_ataque=20;
 				fpg_jefe=load_fpg("fpg/jefe2.fpg");
 				file=fpg_jefe;
-				p[jugador].vida=300;
+				p[jugador].vida=1000*((jugadores/2)+0.5);
 				sabe_ataque_especial=1;
 				alpha=0;
 			end
 			case 104: //JEFE 4
 				inercia_max_x=20;
 				inercia_max_y=20;
-				fuerza_ataque=20;
+				fuerza_ataque=30;
 				fpg_jefe=load_fpg("fpg/jefe4.fpg");
 				file=fpg_jefe;
-				p[jugador].vida=400;
+				p[jugador].vida=1400*((jugadores/2)+0.5);
 				sabe_ataque_especial=1;
 				sabe_saltar=1;
 				sabe_moverse=0;
@@ -472,6 +472,7 @@ Begin
 					y=y_base;
 				else
 					altura+=gravedad;
+					y+=gravedad;
 					gravedad++;
 				end
 				sombra();

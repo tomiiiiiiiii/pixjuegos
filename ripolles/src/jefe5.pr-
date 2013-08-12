@@ -11,12 +11,12 @@ Begin
 	y_base=240;
 	y=110;
 	z=-240;
-	fpg_jefe=load_fpg("jefe4.fpg");
+	fpg_jefe=load_fpg("jefe5.fpg");
 	file=fpg_jefe;
 	graph=1;
 	enemigos++;
 	jugador=100;
-	p[jugador].vida=800*((jugadores/2)+0.5);
+	p[jugador].vida=1600*((jugadores/2)+0.5);
 	avion_en_cabeza();
 	mis_pies=jefe5_pies();
 	mis_brazos[1]=jefe5_brazo(1);

@@ -273,13 +273,13 @@ Begin
 	
 	carga_opciones();
 	#IFDEF DEBUG
-		/*
+		
 		ops.musica=0;
 		ops.sonido=0;
 		ops.ventana=1;
 		full_screen=0;
 		scale_resolution=06400360;
-		*/
+		
 	#ENDIF
 
 	//temporal
@@ -370,7 +370,9 @@ Begin
 	if(!panoramico) size=75; end
 	z=-520;
 	
+	#IFNDEF DEBUG
 	from alpha=0 to 255 step 20; frame; end
+	#ENDIF
 	timer[0]=0;
 
 	//configuramos controladores
@@ -408,6 +410,7 @@ Begin
 	//A 30 imágenes por segundo
 	set_fps(30,0);
 	
+	#IFNDEF DEBUG
 	loop
 		if(timer[0]>500 or key(_esc) or key(_enter) or p[0].botones[b_1] or p[0].botones[b_2] or p[0].botones[b_3]) break; end
 		frame; 
@@ -416,6 +419,7 @@ Begin
 	
 	fade_off();
 	while(fading) frame; end
+	#ENDIF
 	
 	#IFDEF TACTIL
 	if(file_exists(savegamedir+"turbo.dat"))
@@ -428,7 +432,7 @@ Begin
 	modo_juego=modo_historia;
 	p[1].juega=1;
 	p[1].vidas=5;
-	nivel=5;
+	nivel=3;
 	jugar();
 	return;
 	
@@ -507,6 +511,8 @@ Begin
 	ganando=0;
 	en_emboscada=0;
 
+	averigua_jugadores();
+	
 	if(partida_cargada==0)
 		anterior_emboscada=0;
 	end
@@ -762,7 +768,9 @@ Begin
 	else
 		from i=1 to 30;
 			if(emboscada[en_emboscada+1].enemigo[i].tipo!=0)
-				enemigo(10+i,emboscada[en_emboscada+1].enemigo[i].tipo,emboscada[en_emboscada+1].enemigo[i].pos_x,emboscada[en_emboscada+1].enemigo[i].pos_y,emboscada[en_emboscada+1].x_evento,emboscada[en_emboscada+1].enemigo[i].flags);
+				from j=1 to jugadores;
+					enemigo(siguiente_enemigo_libre(),emboscada[en_emboscada+1].enemigo[i].tipo,emboscada[en_emboscada+1].enemigo[i].pos_x,emboscada[en_emboscada+1].enemigo[i].pos_y,emboscada[en_emboscada+1].x_evento,emboscada[en_emboscada+1].enemigo[i].flags);
+				end
 			end
 		end
 	end
@@ -2546,7 +2554,7 @@ Begin
 	file=fpg_nivel;
 	x=father.father.x+58;
 	y=230;
-	z=father.z+1;
+	z=200;
 
 	graph=103;
 	while(father.angle==0)
@@ -2581,4 +2589,14 @@ Begin
 	frame (10000);
 	from alpha=255 to 0 step -10; frame; end
 	unload_map(0,graph);
+End
+
+Function siguiente_enemigo_libre();
+Begin
+	from i=10 to 99;
+		if(!exists(p[i].identificador))
+			return i;
+		end
+	end
+	exit("Error: Se ha excedido el número máximo de enemigos");
 End

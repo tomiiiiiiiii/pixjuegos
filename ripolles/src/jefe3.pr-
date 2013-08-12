@@ -1,4 +1,38 @@
 Process jefe3(x);
+Private
+	mis_brazos[4];
+	objetivo;
 Begin
-	//developear,
+	resolution=global_resolution;
+	while(!exists(id_camara)) frame; end
+	priority=1;
+	ctype=coordenadas;
+	y_base=240;
+	y=110;
+	z=-240;
+	fpg_jefe=load_fpg("jefe5.fpg");
+	file=fpg_jefe;
+	graph=1;
+	enemigos++;
+	jugador=100;
+	p[jugador].vida=1600*((jugadores/2)+0.5);
+	mis_pies=jefe5_pies();
+	mis_brazos[1]=jefe5_brazo(1);
+	mis_brazos[2]=jefe5_brazo(2);
+	mis_brazos[3]=jefe5_brazo(3);
+	enemigo(11,1,x-ancho_pantalla,y,0,0);
+	enemigo(12,2,x+ancho_pantalla,y,0,1);
+	enemigo(13,3,x-ancho_pantalla,y,0,0);
+	enemigo(14,4,x+ancho_pantalla,y,0,1);
+	from alpha=0 to 255 step 10; frame; end
+	marcador_jefe();
+	while(p[jugador].vida>0)
+		while(!ready) frame; end
+		frame;
+	end
+End
+
+Process mano_lateral(y);
+Begin
+	
 End
