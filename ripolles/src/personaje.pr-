@@ -427,7 +427,7 @@ Begin
 						end
 						case 2: 
 							mensaje_player(textos[34]);
-							fuerza_ataque+=10; 
+							fuerza_ataque+=5;
 						end
 					end
 				else
@@ -503,9 +503,10 @@ Begin
 		end
 		
 		//cuando se mueve defendiéndose, da pequeños golpes para mejorar la escapada
-		if(accion==defiende and altura>0)
+		//13-08-2013: Ya no.
+		/*if(accion==defiende and altura>0)
 			ataque(x,y,file,graph,1,20,jugador);
-		end
+		end*/
 		
 		if(p[jugador].botones[b_abajo])
 			pulsando_abajo++;
@@ -1188,8 +1189,7 @@ Begin
 
 				if(tipo>100) break; end
 				from alpha=255 to 0 step -15; frame; end
-				if(jugador>10)
-
+				if(jugador=>10)
 					enemigos--;
 					if(rand(0,3)==0 and modo_juego==modo_historia)
 						objeto(x,y_base,altura,objetos_aleatorios[rand(0,4)],0,flags);

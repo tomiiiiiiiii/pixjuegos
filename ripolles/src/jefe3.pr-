@@ -1,6 +1,5 @@
 Process jefe3(x);
 Private
-	mis_brazos[4];
 	objetivo;
 Begin
 	resolution=global_resolution;
@@ -8,31 +7,156 @@ Begin
 	priority=1;
 	ctype=coordenadas;
 	y_base=240;
-	y=110;
+	y=140;
 	z=-240;
-	fpg_jefe=load_fpg("jefe5.fpg");
+	x=530; //x fija para este 
+	fpg_jefe=load_fpg("jefe3.fpg");
 	file=fpg_jefe;
 	graph=1;
 	enemigos++;
 	jugador=100;
 	p[jugador].vida=1600*((jugadores/2)+0.5);
-	mis_pies=jefe5_pies();
-	mis_brazos[1]=jefe5_brazo(1);
-	mis_brazos[2]=jefe5_brazo(2);
-	mis_brazos[3]=jefe5_brazo(3);
+	//mis_pies=jefe5_pies();
 	enemigo(11,1,x-ancho_pantalla,y,0,0);
 	enemigo(12,2,x+ancho_pantalla,y,0,1);
 	enemigo(13,3,x-ancho_pantalla,y,0,0);
 	enemigo(14,4,x+ancho_pantalla,y,0,1);
 	from alpha=0 to 255 step 10; frame; end
 	marcador_jefe();
+
 	while(p[jugador].vida>0)
 		while(!ready) frame; end
+		switch(accion)
+			case quieto:
+			end
+			case ataca_aire:
+			end
+			case ataca_suelo:
+				if(i<jugadores)
+					if(rand(0,60)==0)
+						i++;
+						switch(rand(0,2))
+							case 0: mano_lateral(187); end
+							case 1: mano_lateral(257); end
+							case 2: mano_lateral(310); end
+						end					
+					end
+				end
+			end
+		end
+		if(key(_j))
+			while(key(_j)) frame; end
+			accion=ataca_suelo;
+		end
 		frame;
 	end
 End
 
-Process mano_lateral(y);
+Process mano_lateral(y_base);
+Private
+	ha_atacado;
 Begin
-	
+	resolution=global_resolution;
+	ctype=coordenadas;
+	file=father.file;
+	graph=31;
+	z=-y_base;
+	y=y_base;
+	x=-300;
+	size_y=50;
+	x_inc=30;
+	sombra_mano_lateral();
+	loop
+		while(!ready) frame; end
+		if(exists(father))
+			if(father.accion!=ataca_suelo) accion=muere; end
+		else
+			accion=muere;
+		end
+		if(p[100].vida=<0) accion=muere; end
+		if(anim>4)
+			anim=0;
+			graph++;
+			if(accion==ataca_suelo and graph==44) accion=quieto; end
+			if(accion==ataca_aire and graph==55) accion=quieto; end
+			
+			switch(accion)
+				case QUIETO:
+					if(graph<31 or graph>34) graph=31; end
+				end
+				case ATACA_SUELO:
+					if(graph<41 or graph>43) graph=41; end
+				end
+				case ATACA_AIRE:
+					if(graph<51 or graph>54) graph=51; end
+				end
+			end
+		else
+			anim++;
+		end
+		i++;
+		if(accion==quieto)
+			if(ha_atacado)
+				if(x>-300)
+					x-=10;
+				else 
+					break; 
+				end
+			else
+				if(x<-120)
+					x+=x_inc;
+					if(x_inc>0) x_inc-=4; end
+					if(x_inc<0) x_inc=0; end
+				end
+				if(i>120)
+					if(rand(0,50)==0)
+						if(rand(0,1))
+							accion=ataca_suelo;
+						else
+							accion=ataca_aire;
+						end
+					end			
+				end
+				if(id_col=collision(type ataque))
+					if(id_col.jugador<10 and id_col.jugador>=0)
+						if(en_rango(z,id_col.z,id_col.rango))
+							p[100].vida-=id_col.herida;
+							sonido(5,0);
+							accion=muere;
+						end
+					end
+				end
+			end
+		else //atacando
+			ha_atacado=1;
+			if(x<240)
+				x_inc+=2;
+				x+=x_inc;
+			end
+			ataque(x+310,y,fpg_general,1,30,20,-1);
+		end
+		if(accion==muere)
+			break;
+		end
+		frame;	
+	end
+	while(x>-300)
+		x-=10;
+	end
+	if(exists(father)) father.i--; end
+End
+
+Process sombra_mano_lateral();
+Begin
+	resolution=global_resolution;
+	file=father.file;
+	ctype=coordenadas;
+	graph=91;
+	size_y=50;
+	while(exists(father))
+		x=father.x;
+		y=father.y+30;
+		z=200;
+		frame;
+	end
 End

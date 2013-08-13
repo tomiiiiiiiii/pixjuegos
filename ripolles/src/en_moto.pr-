@@ -29,10 +29,8 @@ Begin
 	end
 	
 	timer[5]=0;
+	ganando_moto=1;
 	loop
-		if(key(_g))
-			ganando_moto=1;
-		end
 		if(!ready and !ganando_moto and jugadores>0)
 			if(ops.musica) pause_song(); end
 			guarda_timer=timer[5];
@@ -41,19 +39,17 @@ Begin
 			if(ops.musica) resume_song(); end
 		end
 		if(ganando_moto)
-/*			while(mov_camara_moto>0) 
-				mov_camara_moto-=2; 
-			end*/
-			timer[5]=0;
+			frame;
+/*			timer[5]=0;
 			while(timer[5]<300) 
 				mov_camara_moto++;
 				frame; 
 			end
-			while(exists(type personaje))
+			while(exists(type personaje) and timer[5]<600)
 				frame;
 			end
 			fade(0,0,0,16);
-			while(fading) frame; end
+			while(fading) frame; end*/
 			delete_text(all_text);
 			put_screen(fpg_nivel,6);
 			ganando_moto=0;

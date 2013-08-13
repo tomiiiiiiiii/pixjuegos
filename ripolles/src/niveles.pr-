@@ -56,6 +56,24 @@ Begin
 	end
 End
 
+Process nivel2_eventos();
+Begin
+	resolution=global_resolution;
+	while(!exists(id_camara)) frame; end
+	loop
+		while(!ready) frame; end
+		if(id_camara.x>7000 and id_camara.x<15000)
+			if(i==0)
+				tram();
+				i=750;
+			else
+				i--;
+			end
+		end
+		frame;
+	end
+End
+
 Process nivel5_eventos();
 Begin
 	resolution=global_resolution;

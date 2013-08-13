@@ -12,14 +12,20 @@ Private
 	controlado;
 	saltos_pendientes;
 	retraso_salto;
+	id_objeto;
+	a_por_objeto;
 Begin
 	resolution=global_resolution;
 	from i=0 to 7; p[jugador].botones[i]=0;	end
+	if(x==0)
+		x=-300;
+	end
 	e=personaje(jugador,tipo);
 	e.x=x;
 	e.y_base=y;
 	e.flags=flags;
 	max_vida=p[jugador].vida;
+	
 	while(!exists(id_camara)) frame; end
 	from alpha=0 to 255 step 25; frame; end
 	
@@ -30,7 +36,13 @@ Begin
 			end
 		end
 		if(e.herida!=0) break; end
-		if(e.x_inc!=0 or e.y_inc!=0) break; end
+		//if(collision (type personaje)) break; end
+		//if(e.x_inc!=0 or e.y_inc!=0) break; end
+		if(jugador_mas_cercano()!=0)
+			if(get_dist(p[jugador_mas_cercano()].identificador)<150) 
+				break; 
+			end
+		end
 		if(modo_juego!=modo_historia) break; end
 		frame; 
 	end
@@ -83,8 +95,7 @@ Begin
 				controlado=0;
 			end
 		end
-
-
+		
 		if(saltos_pendientes>0)
 			if(e.altura==0)
 				if(retraso_salto==0)
@@ -96,10 +107,39 @@ Begin
 			end
 		end
 		
-		if(objetivo>0)
+		if(a_por_objeto)
+			if(exists(id_objeto) and !e.lleva_objeto and e.herida==0)
+				if(id_objeto.x<e.x)
+					p[jugador].botones[b_izquierda]=1;
+				elseif(id_objeto.x>e.x)
+					p[jugador].botones[b_derecha]=1;
+				end
+				if(id_objeto.y<e.y)
+					p[jugador].botones[b_arriba]=1;
+				elseif(id_objeto.y>e.y)
+					p[jugador].botones[b_abajo]=1;
+				end
+				if(get_dist(id_objeto)<50)
+					p[jugador].botones[b_1]=1;
+				end
+			else
+				a_por_objeto=0;
+				id_objeto=0;
+			end
+		else
+			if(e.lleva_objeto==0 and rand(0,1)==0)
+				id_objeto=objeto_mas_cercano();
+				if(id_objeto!=0)
+					a_por_objeto=1;
+				end
+			end
+
+		end
+		
+		if(objetivo>0 and !a_por_objeto)
 			if(p[objetivo].juega)
 				o=p[objetivo].identificador;
-				
+							
 				if(e.accion==quieto or e.accion==camina or e.accion==defiende) //si el enemigo puede actuar
 					if(o.herida==0) //si el prota está herido, el enemigo se queda quieto
 						if(sabe_saltar and rand(1,100) and saltos_pendientes==0) //podemos saltar, igual saltamos
@@ -125,6 +165,17 @@ Begin
 							end
 						
 							if(distancia_jugador(objetivo)>60 or !en_rango(o.z,e.z,20)) //si no lo tenemos lo suficientemente cerca como para atacar
+								if(e.lleva_objeto and distancia_jugador(objetivo)<80) //si tiene un objeto, lo lanza
+									if(en_rango(e.z,o.z,20))
+										p[jugador].botones[b_1]=1;
+									else
+										if(e.y_base>o.y_base)
+											p[jugador].botones[b_arriba]=1;
+										elseif(e.y_base<o.y_base)
+											p[jugador].botones[b_abajo]=1;
+										end
+									end
+								end
 								if(distancia_jugador(objetivo)>150) //si está bastante lejos vamos a por él
 									if(lado_jugador(objetivo)) //prota a la izquierda
 										p[jugador].botones[b_izquierda]=1;
@@ -171,8 +222,8 @@ Begin
 									end
 								end
 								
-							else //tenemos al objetivo lo suficientemente cerca como para atacar
-								if(rand(1,30)==1)
+							else //tenemos al objetivo lo suficientemente cerca como para atacar (sin objeto)
+								if(rand(1,30)==1 and e.lleva_objeto==0)
 									p[jugador].botones[b_1]=1; //ataque
 								end
 							end
@@ -184,7 +235,6 @@ Begin
 				end
 			end
 		end
-				
 		if(e.herida>0 and jugador!=100)
 			muestra_vida((p[jugador].vida*100)/max_vida);
 		end

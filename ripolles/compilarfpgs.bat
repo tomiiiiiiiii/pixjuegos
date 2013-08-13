@@ -9,7 +9,7 @@ call ..\scripts\compilarfpgs.bat %bits% ripolles1 ripolles2 ripolles3 ripolles4 
 call ..\scripts\compilarfpgs.bat %bits% ripolles1bici ripolles2bici ripolles3bici ripolles4bici 
 
 set bits=16
-call ..\scripts\compilarfpgs.bat %bits% cutscenes jefe1 jefe2 jefe3 jefe4 jefe5 nivel1 nivel3 nivel3 nivel4 nivel5 nivel_survival1 nivel_battleroyale1 nivel_matajefes1 fondo_menu
+call ..\scripts\compilarfpgs.bat %bits% cutscenes jefe1 jefe2 jefe3 jefe4 jefe5 nivel1 nivel2 nivel3 nivel4 nivel5 nivel_survival1 nivel_battleroyale1 nivel_matajefes1 fondo_menu
 
 goto :eof
 

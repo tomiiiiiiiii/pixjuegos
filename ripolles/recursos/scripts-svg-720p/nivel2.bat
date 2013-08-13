@@ -2,6 +2,7 @@
 set OUTDIR=..\..\fpg-sources\nivel2\
 echo Exportando nivel2
 call :a 1 ..\niveles\fondo2.svg
+call :a 11 ..\niveles\fondo2.svg
 exit
 goto :eof
 

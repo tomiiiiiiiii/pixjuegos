@@ -272,14 +272,12 @@ Begin
 	end
 	
 	carga_opciones();
-	#IFDEF DEBUG
-		
-		ops.musica=0;
-		ops.sonido=0;
+	#IFDEF DEBUG	
+		//ops.musica=0;
+		//ops.sonido=0;
 		ops.ventana=1;
 		full_screen=0;
 		scale_resolution=06400360;
-		
 	#ENDIF
 
 	//temporal
@@ -432,7 +430,7 @@ Begin
 	modo_juego=modo_historia;
 	p[1].juega=1;
 	p[1].vidas=5;
-	nivel=3;
+	nivel=2;
 	jugar();
 	return;
 	
@@ -606,6 +604,11 @@ Begin
 			ready=1;
 		end
 
+		#IFDEF DEBUG
+		if(key(_x))
+			while(key(_x)) frame; end
+			write_int(fpg_texto,200,200,2,&p[1].identificador.x);
+		end
 		if(key(_t))
 			while(key(_t)) frame; end
 			camion();
@@ -640,6 +643,7 @@ Begin
 				cajas_colision=1;
 			end
 		end
+		#ENDIF
 		frame;
 	end
 
@@ -1311,6 +1315,7 @@ Begin
 						end
 					else
 						father.herida=id_col.herida;
+						id_col.herida=id_col.herida/2;
 						efecto_golpe(id_col);
 						if(id_col.flags==0)
 							father.flags=1;
@@ -1437,7 +1442,7 @@ Begin
 	end
 	ctype=coordenadas;
 	while(!exists(id_camara)) frame; end
-	if(graph==100) x_inc*=2; end
+	if(graph==100) x_inc*=1.3; end
 	loop
 		while(!ready) frame; end
 
@@ -1583,6 +1588,31 @@ Begin
 	end
 End
 
+Function objeto_mas_cercano();
+Private
+	dist_x;
+	dist_x_ganador=1000;
+	id_objeto_temp;
+	id_objeto;
+Begin
+	x=father.x;
+	y=father.y;
+	while(id_objeto_temp=get_id(type objeto))
+		if(esta_en_pantalla(id_objeto_temp))
+			dist_x=get_dist(id_objeto_temp);
+			if(id_objeto_temp.graph==obj_papelera or id_objeto_temp.graph==obj_canya or id_objeto_temp.graph==obj_mesa
+			 or id_objeto_temp.graph==obj_silla or id_objeto_temp.graph==obj_naranja_dura or id_objeto_temp.graph==obj_pescado)
+				if(dist_x<dist_x_ganador)
+					id_objeto=id_objeto_temp;
+					dist_x_ganador=dist_x;
+				end
+			end
+		end
+	end
+	say(id_objeto);
+	return id_objeto;
+End
+
 Function distancia_jugador(jugador);
 Begin
 	if(jugador!=0)
@@ -1615,6 +1645,24 @@ Begin
 		end
 	else
 		return 1;
+	end
+End
+
+Function esta_en_pantalla(id_prueba);
+Begin
+	if(!exists(id_prueba)) return 0; end
+	if(exists(id_camara))
+		if(id_prueba.x>id_camara.x-(ancho_pantalla/2) and id_prueba.x<id_camara.x+(ancho_pantalla/2))
+			return 1;
+		else
+			return 0;
+		end
+	else
+		if(x>0 and x<640)
+			return 1;
+		else
+			return 0;
+		end
 	end
 End
 
@@ -2593,10 +2641,38 @@ End
 
 Function siguiente_enemigo_libre();
 Begin
-	from i=10 to 99;
+	from i=11 to 99;
 		if(!exists(p[i].identificador))
 			return i;
 		end
 	end
 	exit("Error: Se ha excedido el número máximo de enemigos");
+End
+
+Function pon_emboscada(x_trigger,x_inicio,x_fin);
+Begin
+	father.i++;
+	father.j=0;
+	emboscada[father.i].x_evento=x_trigger;
+	emboscada[father.i].min_x=x_inicio;
+	emboscada[father.i].max_x=x_fin;
+End
+
+Function pon_enemigo(x,y,tipo,flags);
+Begin
+	father.j++;
+	emboscada[father.i].enemigo[father.j].tipo=tipo;
+	emboscada[father.i].enemigo[father.j].pos_x=x;
+	emboscada[father.i].enemigo[father.j].pos_y=y;
+	emboscada[father.i].enemigo[father.j].flags=flags;
+End
+
+Function pon_evento_especial(x_trigger,x_inicio,x_fin,tipo);
+Begin
+	father.i++;
+	father.j=0;
+	emboscada[father.i].x_evento=x_trigger;
+	emboscada[father.i].max_x=x_inicio;
+	emboscada[father.i].min_x=x_fin;
+	emboscada[father.i].evento_especial=tipo;
 End
