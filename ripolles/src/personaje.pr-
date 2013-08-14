@@ -591,7 +591,7 @@ Begin
 								end
 							else
 								si_ataca=0;
-								if(accion==quieto and x_inc==0 and (id_col=collision(type objeto)))
+								if((accion==quieto or accion==camina or accion==corre) and abs(x_inc)<5 and (id_col=collision(type objeto)))
 									repeat
 										//si el objeto está en el suelo y no somos un enemigo cogiendo vida o powerup...
 										if(id_col.y>y+35) 

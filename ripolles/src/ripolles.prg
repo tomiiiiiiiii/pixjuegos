@@ -277,7 +277,7 @@ Begin
 		//ops.sonido=0;
 		ops.ventana=1;
 		full_screen=0;
-		//scale_resolution=06400360;
+		scale_resolution=09600540;
 	#ENDIF
 
 	//temporal
@@ -1591,7 +1591,7 @@ End
 Function objeto_mas_cercano();
 Private
 	dist_x;
-	dist_x_ganador=1000;
+	dist_x_ganador=320;
 	id_objeto_temp;
 	id_objeto;
 Begin
@@ -1599,8 +1599,7 @@ Begin
 	y=father.y;
 	while(id_objeto_temp=get_id(type objeto))
 		if(esta_en_pantalla(id_objeto_temp))
-			dist_x=get_dist(id_objeto_temp);
-			say(dist_x);
+			dist_x=abs(x-id_objeto_temp.x);
 			if(id_objeto_temp.graph==obj_papelera or id_objeto_temp.graph==obj_canya or id_objeto_temp.graph==obj_mesa
 			 or id_objeto_temp.graph==obj_silla or id_objeto_temp.graph==obj_naranja_dura)
 				if(dist_x<dist_x_ganador)
@@ -1610,7 +1609,6 @@ Begin
 			end
 		end
 	end
-	say(id_objeto);
 	return id_objeto;
 End
 

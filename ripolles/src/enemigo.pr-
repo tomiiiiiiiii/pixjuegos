@@ -108,24 +108,37 @@ Begin
 		end
 		
 		if(a_por_objeto)
-			if(!e.lleva_objeto and e.herida==0 and esta_en_pantalla(id_objeto))
-				if(get_dist(id_objeto)>10)
-					if(abs(x-id_objeto.x)>5)
+			if(objetivo!=0 and exists(p[objetivo].identificador))
+				if(get_dist(id_objeto)>get_dist(p[objetivo].identificador))
+					a_por_objeto=0;
+					id_objeto=0;
+				end
+			end
+			if(e.lleva_objeto==0 and e.herida==0 and esta_en_pantalla(id_objeto))
+				if(abs(x-id_objeto.x)+abs(y-(id_objeto.y-49))>10)
+					if(abs(x-id_objeto.x)>3)
 						if(id_objeto.x<e.x)
 							p[jugador].botones[b_izquierda]=1;
 						elseif(id_objeto.x>e.x)
 							p[jugador].botones[b_derecha]=1;
 						end
 					end
-					if(abs(y-(id_objeto.y-53))>5)
-						if(id_objeto.y-53<e.y)
+					if(abs(y-(id_objeto.y-49))>3)
+						if(id_objeto.y-49<e.y)
 							p[jugador].botones[b_arriba]=1;
-						elseif(id_objeto.y-53>e.y)
+						elseif(id_objeto.y-49>e.y)
 							p[jugador].botones[b_abajo]=1;
 						end				
 					end
 				else
+					e.x_inc=0;
+					e.y_inc=0;
 					p[jugador].botones[b_1]=1;
+					frame(200);
+					e.x_inc=0;
+					e.y_inc=0;
+					p[jugador].botones[b_1]=0;
+					frame(1000);
 					a_por_objeto=0;
 					id_objeto=0;
 				end
@@ -134,13 +147,13 @@ Begin
 				id_objeto=0;
 			end
 		else
-			if(e.lleva_objeto==0 and rand(0,1)==0)
+			//aleatoria para ir a por un objeto
+			if(e.lleva_objeto==0 and rand(0,100)==0)
 				id_objeto=objeto_mas_cercano();
 				if(id_objeto!=0)
 					a_por_objeto=1;
 				end
 			end
-
 		end
 		
 		if(objetivo>0 and !a_por_objeto)
