@@ -108,19 +108,26 @@ Begin
 		end
 		
 		if(a_por_objeto)
-			if(exists(id_objeto) and !e.lleva_objeto and e.herida==0)
-				if(id_objeto.x<e.x)
-					p[jugador].botones[b_izquierda]=1;
-				elseif(id_objeto.x>e.x)
-					p[jugador].botones[b_derecha]=1;
-				end
-				if(id_objeto.y<e.y)
-					p[jugador].botones[b_arriba]=1;
-				elseif(id_objeto.y>e.y)
-					p[jugador].botones[b_abajo]=1;
-				end
-				if(get_dist(id_objeto)<50)
+			if(!e.lleva_objeto and e.herida==0 and esta_en_pantalla(id_objeto))
+				if(get_dist(id_objeto)>10)
+					if(abs(x-id_objeto.x)>5)
+						if(id_objeto.x<e.x)
+							p[jugador].botones[b_izquierda]=1;
+						elseif(id_objeto.x>e.x)
+							p[jugador].botones[b_derecha]=1;
+						end
+					end
+					if(abs(y-(id_objeto.y-53))>5)
+						if(id_objeto.y-53<e.y)
+							p[jugador].botones[b_arriba]=1;
+						elseif(id_objeto.y-53>e.y)
+							p[jugador].botones[b_abajo]=1;
+						end				
+					end
+				else
 					p[jugador].botones[b_1]=1;
+					a_por_objeto=0;
+					id_objeto=0;
 				end
 			else
 				a_por_objeto=0;

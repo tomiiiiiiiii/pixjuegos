@@ -277,7 +277,7 @@ Begin
 		//ops.sonido=0;
 		ops.ventana=1;
 		full_screen=0;
-		scale_resolution=06400360;
+		//scale_resolution=06400360;
 	#ENDIF
 
 	//temporal
@@ -430,7 +430,7 @@ Begin
 	modo_juego=modo_historia;
 	p[1].juega=1;
 	p[1].vidas=5;
-	nivel=2;
+	nivel=1;
 	jugar();
 	return;
 	
@@ -1600,8 +1600,9 @@ Begin
 	while(id_objeto_temp=get_id(type objeto))
 		if(esta_en_pantalla(id_objeto_temp))
 			dist_x=get_dist(id_objeto_temp);
+			say(dist_x);
 			if(id_objeto_temp.graph==obj_papelera or id_objeto_temp.graph==obj_canya or id_objeto_temp.graph==obj_mesa
-			 or id_objeto_temp.graph==obj_silla or id_objeto_temp.graph==obj_naranja_dura or id_objeto_temp.graph==obj_pescado)
+			 or id_objeto_temp.graph==obj_silla or id_objeto_temp.graph==obj_naranja_dura)
 				if(dist_x<dist_x_ganador)
 					id_objeto=id_objeto_temp;
 					dist_x_ganador=dist_x;
