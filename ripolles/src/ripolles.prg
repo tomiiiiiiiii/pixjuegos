@@ -430,7 +430,7 @@ Begin
 	modo_juego=modo_historia;
 	p[1].juega=1;
 	p[1].vidas=5;
-	nivel=1;
+	nivel=3;
 	jugar();
 	return;
 	
@@ -1262,6 +1262,7 @@ Begin
 	size=father.size;
 	x=father.x;
 	y=father.y-20+(size-100);
+	y_base=father.y_base;
 	z=father.z-1;
 	rango=(father.rango*size)/100;
 	
@@ -1276,7 +1277,21 @@ Begin
 		y-=40;
 	end
 	
-//	if((father.tipo==0 and father.accion!=herido_leve and father.accion!=herido_grave and father.accion!=ataca_area and father.accion!=muere) or (father.tipo!=0 and father.accion!=muere))
+	if(id_col=collision(type obstaculo))
+		if(en_rango(z,id_col.z,id_col.rango))
+			if(id_col.x>x)
+				father.x_inc-=3;
+			elseif(id_col.x<x)
+				father.x_inc+=3;
+			end
+			if(id_col.y_base>y_base)
+				father.y_inc-=2;
+			elseif(id_col.y_base<y_base)
+				father.y_inc+=2;
+			end
+		end
+	end
+
 	if(father.accion!=herido_leve and father.accion!=herido_grave and father.accion!=ataca_area and father.accion!=muere)
 		//colisión contra zanja
 		if(en_moto and father.altura==0)
@@ -1291,7 +1306,7 @@ Begin
 					end
 				end
 			end
-			if(id_col=collision(type rampa))
+			if(father.altura==0 and (id_col=collision(type rampa)))
 				if(en_rango(z,id_col.z,id_col.rango))
 					father.gravedad=-25;
 					father.altura=-1;
@@ -2674,4 +2689,18 @@ Begin
 	emboscada[father.i].max_x=x_inicio;
 	emboscada[father.i].min_x=x_fin;
 	emboscada[father.i].evento_especial=tipo;
+End
+
+Process obstaculo(x,y_base,rango,file,graph);
+Begin
+	resolution=global_resolution;
+	ctype=coordenadas;
+	if(global_resolution!=0) j=114; else j=57; end
+	set_center(file,graph,graphic_info(file,graph,G_WIDTH)/2,graphic_info(file,graph,G_HEIGHT)-j);
+	//y=y_base-53;
+	//z=-y_base;
+	mueveme(sin_encerrarme);
+	loop
+		frame;
+	end
 End

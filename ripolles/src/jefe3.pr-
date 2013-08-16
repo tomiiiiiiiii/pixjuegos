@@ -28,10 +28,13 @@ Begin
 		while(!ready) frame; end
 		switch(accion)
 			case quieto:
+				y+=(y+140)/10;
 			end
 			case ataca_aire:
+				y+=(y+500)/10;
 			end
 			case ataca_suelo:
+				y+=(y+140)/10;
 				if(i<jugadores)
 					if(rand(0,60)==0)
 						i++;

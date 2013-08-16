@@ -148,7 +148,7 @@ Begin
 			end
 		else
 			//aleatoria para ir a por un objeto
-			if(e.lleva_objeto==0 and rand(0,100)==0)
+			if(e.lleva_objeto==0 and rand(0,100)==0 and tipo<100)
 				id_objeto=objeto_mas_cercano();
 				if(id_objeto!=0)
 					a_por_objeto=1;

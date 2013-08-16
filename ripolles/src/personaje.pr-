@@ -24,6 +24,7 @@ Private
 	sabe_combo=0;
 	sabe_moverse=1; //solo el jefe 4 no se mueve
 	sabe_herida_grave=1;
+	sabe_coger_objeto=1;
 	
 	retraso_movimiento_defensa;
 	si_ataca;
@@ -184,6 +185,7 @@ Begin
 				file=fpg_enemigo6;
 				p[jugador].vida=110;
 				sabe_ataque_especial=1;
+				sabe_coger_objeto=0;
 			end
 			case 7: //pez
 				inercia_max_x=4;
@@ -202,6 +204,7 @@ Begin
 				p[jugador].vida=1000*((jugadores/2)+0.5);
 				sabe_ataque_especial=1;
 				alpha=0;
+				sabe_coger_objeto=0;
 			end
 			case 104: //JEFE 4
 				inercia_max_x=20;
@@ -215,6 +218,7 @@ Begin
 				sabe_moverse=0;
 				sabe_herida_grave=0;
 				alpha=0;
+				sabe_coger_objeto=0;
 			end
 		end
 		if(jugadores>1)
@@ -245,7 +249,10 @@ Begin
 	alto=graphic_info(file,1,G_HEIGHT);
 	frame;
 	
-	if(tipo==102) from alpha=0 to 255 step 25; frame; end end
+	if(tipo==102) 
+		animame();
+		from alpha=0 to 255 step 10; frame; end 
+	end
 	
 	loop
 		if(evento_hamburguesa==12) //everyone is super
@@ -495,7 +502,11 @@ Begin
 		end
 		
 		if(herida==0 and (accion==herido_leve or accion==herido_grave))
-			accion=quieto;
+			if(tipo==102 and accion==herido_grave)
+				accion=ataca_area;
+			else
+				accion=quieto;
+			end
 		end
 		
 		if(accion==defiende and !p[jugador].botones[b_3])
@@ -591,10 +602,10 @@ Begin
 								end
 							else
 								si_ataca=0;
-								if((accion==quieto or accion==camina or accion==corre) and abs(x_inc)<5 and (id_col=collision(type objeto)))
+								if((accion==quieto or accion==camina or accion==corre) and abs(x_inc)<5 and (id_col=collision(type objeto)) and sabe_coger_objeto)
 									repeat
 										//si el objeto está en el suelo y no somos un enemigo cogiendo vida o powerup...
-										if(id_col.y>y+35) 
+										if(id_col.y>y+35)
 											lleva_objeto=id_col.graph;
 											accion=coge_objeto;
 											signal(id_col,s_kill);

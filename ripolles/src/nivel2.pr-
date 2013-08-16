@@ -4,6 +4,9 @@
 			i=0;
 			j=0;
 
+			//estatua na violan
+			obstaculo(2130,220,30,fpg_nivel,11);
+			
 			//pon_emboscada(x_trigger,x_inicio,x_fin)
 			//pon_enemigo(x,y,tipo,flags);
 			//EMBOSCADAS
