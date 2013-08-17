@@ -1855,7 +1855,7 @@ Begin
 	graph=26;
 	x=160;
 	y=340;
-	z=-10;
+	z=-510;
 	while(p[100].vida>0)
 		i=(p[100].vida*100)/max_vida;
 		vida(x,y,i,27);
@@ -1868,7 +1868,7 @@ Process vida(x,y,size_x,graph);
 Begin
 	resolution=global_resolution;
 	file=fpg_general;
-	z=-11;
+	z=-511;
 	frame;
 End
 

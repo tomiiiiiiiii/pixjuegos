@@ -40,7 +40,7 @@ Begin
 		end
 		if(ganando_moto)
 			frame;
-/*			timer[5]=0;
+			timer[5]=0;
 			while(timer[5]<300) 
 				mov_camara_moto++;
 				frame; 
@@ -49,7 +49,7 @@ Begin
 				frame;
 			end
 			fade(0,0,0,16);
-			while(fading) frame; end*/
+			while(fading) frame; end
 			delete_text(all_text);
 			put_screen(fpg_nivel,6);
 			ganando_moto=0;

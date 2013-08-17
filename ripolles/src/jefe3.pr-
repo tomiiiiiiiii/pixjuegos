@@ -6,8 +6,8 @@ Begin
 	while(!exists(id_camara)) frame; end
 	priority=1;
 	ctype=coordenadas;
-	y_base=240;
-	y=140;
+	y_base=-240;
+	y=-300;
 	z=-240;
 	x=530; //x fija para este 
 	fpg_jefe=load_fpg("jefe3.fpg");
@@ -15,26 +15,113 @@ Begin
 	graph=1;
 	enemigos++;
 	jugador=100;
-	p[jugador].vida=1600*((jugadores/2)+0.5);
-	//mis_pies=jefe5_pies();
-	enemigo(11,1,x-ancho_pantalla,y,0,0);
-	enemigo(12,2,x+ancho_pantalla,y,0,1);
-	enemigo(13,3,x-ancho_pantalla,y,0,0);
-	enemigo(14,4,x+ancho_pantalla,y,0,1);
-	from alpha=0 to 255 step 10; frame; end
+	p[jugador].vida=1000*((jugadores/2)+0.5);
 	marcador_jefe();
+	accion=quieto;
+	rango=60;
 
 	while(p[jugador].vida>0)
 		while(!ready) frame; end
+		anim++;
+		if(accion!=quieto)
+			altura=100;
+			herida=0;
+		end
+		if(accion!=ataca_aire)
+			if(id_col=collision(type ataque))
+				if(id_col.jugador!=jugador)
+					if(en_rango(id_col.z,z,30))
+						efecto_golpe(id_col);
+						herida=id_col.herida;
+						sonido(5,0);
+					end
+				end
+			end
+
+			if(herida>0)
+				p[jugador].vida-=herida;
+				graph=11;
+				while(herida>0)
+					herida--;
+					anim++;
+					if(anim<3)
+						x++;
+						y--;
+					elseif(anim<6) 
+						x+=2;
+						y-=2;
+					elseif(anim<9)
+						x--;
+						y++;
+					else
+						anim=0;
+					end
+					frame;
+				end
+				accion=ataca_aire;
+			end
+		end
 		switch(accion)
 			case quieto:
-				y+=(y+140)/10;
+				if(anim<12) 
+					graph=1; 
+				elseif(anim<24) 
+					graph=2; 
+				else
+					anim=1; graph=1; 
+				end
+				
+				if(y<140)
+					gravedad++;
+					y+=gravedad;
+					if(y>140) y=140; end
+				else
+					gravedad=0;
+				end		
+			
+				if(i<200)
+					i++;
+					say(i);
+				else
+					i=0;
+					if(rand(0,1))
+						accion=ataca_suelo;
+					else
+						accion=ataca_aire;
+					end
+				end
+				
+				if(enemigos==1)
+					enemigo(11,1,x-ancho_pantalla,y,0,0);
+					enemigo(12,1,x+ancho_pantalla,y,0,1);
+					enemigo(13,1,x-ancho_pantalla,y,0,0);
+					enemigo(14,1,x+ancho_pantalla,y,0,1);
+				end
 			end
 			case ataca_aire:
-				y+=(y+500)/10;
+				if(y>-500)
+					gravedad-=3;
+					y+=gravedad;
+				else
+					gravedad=0;
+				end
+
+				if(i<200)
+					i++;
+				else
+					i=0;
+					accion=quieto;
+				end
 			end
 			case ataca_suelo:
-				y+=(y+140)/10;
+				if(y<140)
+					gravedad++;
+					y+=gravedad;
+					if(y>140) y=140; end
+				else
+					gravedad=0;
+				end		
+
 				if(i<jugadores)
 					if(rand(0,60)==0)
 						i++;
@@ -46,10 +133,6 @@ Begin
 					end
 				end
 			end
-		end
-		if(key(_j))
-			while(key(_j)) frame; end
-			accion=ataca_suelo;
 		end
 		frame;
 	end
@@ -156,9 +239,22 @@ Begin
 	ctype=coordenadas;
 	graph=91;
 	size_y=50;
+	y=father.y+30;
 	while(exists(father))
 		x=father.x;
-		y=father.y+30;
+		if(anim==4)
+			j++;
+			if(j==4) j=0; end
+			anim=0;
+			switch(j)
+				case 0: y++; end
+				case 1: y--; end
+				case 2: y--; end
+				case 3: y++; end
+			end
+		else
+			anim++;
+		end
 		z=200;
 		frame;
 	end
