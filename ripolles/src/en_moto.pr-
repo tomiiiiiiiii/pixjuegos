@@ -29,7 +29,7 @@ Begin
 	end
 	
 	timer[5]=0;
-	ganando_moto=1;
+	//ganando_moto=1;
 	loop
 		if(!ready and !ganando_moto and jugadores>0)
 			if(ops.musica) pause_song(); end
@@ -43,7 +43,7 @@ Begin
 			timer[5]=0;
 			while(timer[5]<300) 
 				mov_camara_moto++;
-				frame; 
+				frame;
 			end
 			while(exists(type personaje) and timer[5]<600)
 				frame;
@@ -254,7 +254,8 @@ Begin
 			x_inc=-8-inercia_max_x;
 			ataque(x-20,y,fpg_general,1,fuerza_ataque,20,jugador);
 		else
-			x_inc=-3-((200-size)/30);
+			//x_inc=-3-((200-size)/30);
+			x_inc=-3;
 			z-=50;
 		end
 		flags=1;
@@ -400,7 +401,7 @@ Begin
 	while(x>id_camara.x-ancho_pantalla)
 		while(!ready) frame; end
 		x-=20;
-		ataque(x,y+65,file,112,30,500,-1);
+		ataque(x,y+65,file,112,20,500,-1);
 		frame;
 	end
 	enemigos--;

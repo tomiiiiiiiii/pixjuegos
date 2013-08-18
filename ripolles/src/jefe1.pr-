@@ -175,7 +175,7 @@ Begin
 			end
 			switch(animacion)
 				case quieto:
-					ataque(x,y,file,graph,1,30,jugador);
+					//ataque(x,y,file,graph,1,30,jugador);
 					if(graph<14 and graph=>11)
 						graph++;
 					else

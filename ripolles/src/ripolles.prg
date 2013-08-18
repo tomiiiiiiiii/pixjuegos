@@ -273,11 +273,11 @@ Begin
 	
 	carga_opciones();
 	#IFDEF DEBUG	
-		//ops.musica=0;
-		//ops.sonido=0;
+		ops.musica=1;
+		ops.sonido=1;
 		ops.ventana=1;
 		full_screen=0;
-		scale_resolution=09600540;
+		//scale_resolution=09600540;
 	#ENDIF
 
 	//temporal
@@ -427,13 +427,13 @@ Begin
 	#ENDIF
 	
 	//test
-	modo_juego=modo_historia;
+/*	modo_juego=modo_historia;
 	p[1].juega=1;
 	p[1].vidas=5;
-	nivel=3;
+	nivel=1;
 	jugar();
 	return;
-	
+	*/
 	//iniciamos el menú
 	menu(-1);
 
@@ -498,6 +498,7 @@ Process jugar();
 Private
 	txt_pausa[2];
 Begin
+	evento_hamburguesa=0;
 	resolution=global_resolution;
 	let_me_alone();
 	if(pocos_recursos)
@@ -1316,9 +1317,11 @@ Begin
 	
 		//ataque
 		while(id_col=collision(type ataque))
-			if(id_col.jugador!=jugador and (fuego_amigo or 
-			(jugador=>1 and jugador<=9 and (id_col.jugador>9 or id_col.jugador==-1))	or
-			(jugador=>10 and id_col.jugador<10))) //ataque jugador->enemigo, ataque total
+			if(id_col.jugador!=jugador and 													//si no es el mismo jugador
+			(!(father.tipo==0 and id_col.jugador==0)) and 									//para evitar los golpes que sólo deben golpear a los enemigos
+			(fuego_amigo or 																//si hay fuego amigo, recibimos golpes de todos
+			(jugador=>1 and jugador<=9 and (id_col.jugador>9 or id_col.jugador==-1)) or		//ataque enemigo a jugador
+			(jugador=>10 and id_col.jugador<10))) 											//ataque jugador->enemigo, ataque total
 				if(en_rango(z,id_col.z,id_col.rango))
 					//if(father.accion==defiende and ((father.flags==0 and x<id_col.x) or (father.flags==1 and x>id_col.x)))
 					if(father.accion==defiende)
@@ -1404,11 +1407,12 @@ Begin
 	else
 		//SI ESTÁS CAYENDO HERIDO, GOLPEAS A LOS DE TU ALREDEDOR (SOLO ENEMIGOS)
 		if(father.accion==herido_grave and father.x_inc!=0 and father.gravedad>0 and father.tipo!=0)
-			if(father.jugador<10)
+			/*if(father.jugador<10)
 				ataque(father.x,father.y,file,graph,abs(father.x_inc),40,father.jugador);
 			else
 				ataque(father.x,father.y,file,graph,abs(father.x_inc),40,0);
-			end
+			end*/
+			ataque(father.x,father.y,file,graph,abs(father.x_inc),40,0);
 		end
 	end
 	frame;
@@ -2023,6 +2027,9 @@ Begin
 	fuego_amigo=0;
 	ganando=0;
 	good_vs_evil=0;
+	evento_hamburguesa=0;
+	enemigos=0;
+	
 	from i=1 to 10;
 		p[i].vidas=5;
 	end
@@ -2072,21 +2079,23 @@ Begin
 	timer[2]=0;
 	while(timer[2]<300) frame; end
 	
-	/*
-	id_jefe=jefe3(id_camara.x);
+	
+	id_jefe=jefe3(ancho_pantalla/2);
 	while(!ganando) frame; end
 	from alpha=255 to 0 step -15; id_jefe.alpha=alpha; frame; end
+	signal(id_jefe,s_kill_tree);
+	ganando=0;
 	timer[2]=0;
 	while(timer[2]<300) frame; end
 
-	*/
-
-	/*id_jefe=jefe4(ancho_pantalla/2);
+	id_jefe=jefe4(id_camara.x);
 	while(!ganando) frame; end
-	from alpha=255 to 0 step -15; id_jefe.alpha=alpha; frame; end
+	//from alpha=255 to 0 step -15; id_jefe.alpha=alpha; frame; end
+	from alpha=255 to 0 step -15; p[100].identificador.alpha=alpha; frame; end
+	signal(p[100].identificador,s_kill_tree);
+	ganando=0;
 	timer[2]=0;
-	while(timer[2]<300) frame; end*/
-
+	while(timer[2]<300) frame; end
 	
 	id_jefe=jefe5(id_camara.x);
 	while(!ganando) frame; end
@@ -2697,10 +2706,20 @@ Begin
 	ctype=coordenadas;
 	if(global_resolution!=0) j=114; else j=57; end
 	set_center(file,graph,graphic_info(file,graph,G_WIDTH)/2,graphic_info(file,graph,G_HEIGHT)-j);
-	//y=y_base-53;
-	//z=-y_base;
 	mueveme(sin_encerrarme);
 	loop
+		frame;
+	end
+End
+
+Function jugador_aleatorio();
+Begin
+	while(j<5)
+		i=rand(1,posibles_jugadores);
+		if(p[i].identificador!=0 and exists(p[i].identificador))
+			return i;
+		end
+		j++;
 		frame;
 	end
 End

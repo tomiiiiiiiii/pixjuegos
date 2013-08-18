@@ -9,7 +9,7 @@ private
 	num_opciones;
 	pulsando;
 	volver_a_menu;
-	distancia_opciones=50;
+	distancia_opciones=43;
 	contador_sonido=0;
 begin
 	resolution=global_resolution;
@@ -441,6 +441,7 @@ Begin
 	z=-512;
 	graph=write_in_map(fpg_texto,mitexto,3);
 	angle=-50000;
+	size=80;
 	while(mata_textos_menu==0)
 		x+=((60-x)/5);
 		//angle+=((0-angle)/5);

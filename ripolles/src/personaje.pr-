@@ -249,8 +249,9 @@ Begin
 	alto=graphic_info(file,1,G_HEIGHT);
 	frame;
 	
-	if(tipo==102) 
+	if(tipo>100)
 		animame();
+		mueveme(sin_encerrarme);
 		from alpha=0 to 255 step 10; frame; end 
 	end
 	
