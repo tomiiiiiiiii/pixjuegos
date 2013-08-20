@@ -36,7 +36,7 @@ copy recursos\android\xhdpi.png export\res\drawable-xhdpi\icon.png /y
 copy recursos\android\ouya_icon.png export\res\drawable-xhdpi\ouya_icon.png /y
 
 copy recursos\android\strings.xml export\res\values\strings.xml /y
-copy recursos\android\AndroidManifest.ouya.xml export\AndroidManifest.xml /y
+copy recursos\android\AndroidManifest.xml export\AndroidManifest.xml /y
 copy recursos\android\build.xml export\ /y
 
 mkdir export\src\com

@@ -74,11 +74,12 @@ Global
 	contador;
 	num_zona;
 	cajas_colision;
+	
+	con_puntos;
 
 	objetos_aleatorios[4]=obj_rollo,obj_naranja_dura,obj_naranja,obj_naranja_dura,obj_hamburguesa;
 
 	evento_hamburguesa;
-	hamburguesas_random=1;
 
 	mov_camara_moto=0;
 
@@ -99,8 +100,6 @@ Global
 
 	en_moto=0;
 	
-	puntos;
-
 	arcade_mode;
 	
 	string savegamedir;
@@ -125,6 +124,9 @@ Global
 		control;
 		juega;
 		identificador;
+		velocidad_extra;
+		fuerza_extra;
+		combo;
 	end
 	
 	Struct ops;
@@ -137,6 +139,7 @@ Global
 		truco_matajefes=0;
 		truco_fuego_amigo=-5;
 		//truco_sin_bandos=-1;
+		hamburguesas=1;
 	End	
 	
 	fpg_pato;
@@ -168,6 +171,7 @@ Global
 	fpg_texto_rojo;
 	fpg_texto_gris;
 	fpg_tiempo;
+	fpg_puntos[4];
 	wavs[50];
 	
 	enemigos;
@@ -240,6 +244,8 @@ Local
 	y_base;
 	i; j;
 	tipo;
+	atacante;
+	combo;
 End
 
 include "../../common-src/controles.pr-";
@@ -273,7 +279,7 @@ Begin
 	
 	carga_opciones();
 	#IFDEF DEBUG	
-		ops.musica=1;
+		ops.musica=0;
 		ops.sonido=1;
 		ops.ventana=1;
 		full_screen=0;
@@ -312,16 +318,13 @@ Begin
 		scale_resolution=06400480;
 		bpp=16;	
 	elseif(os_id==1003 or os_id==1002) //móviles
-		#IFDEF OUYA
-			
-		#ELSE
+		#IFNDEF OUYA
 		if(graphic_info(0,0,g_width)==1024 and graphic_info(0,0,g_height)==552)
 			ancho_pantalla=665; //archos gamepad
 			alto_pantalla=360;
 		else
 			scale_resolution=graphic_info(0,0,g_width)*10000+graphic_info(0,0,g_height);
 		end
-		say("ESTO NO DEBERÍA ESTAR OCURRIENDO EN OUYA");
 		#ENDIF
 		bpp=16;	
 	elseif(os_id==1010) //pandora
@@ -334,9 +337,10 @@ Begin
 		pocos_recursos=1;
 		bpp=16;
 	else
-		if(mode_is_ok(1280,720,bpp,MODE_FULLSCREEN) and global_resolution==0)
+/*		if(mode_is_ok(1280,720,bpp,MODE_FULLSCREEN) and global_resolution==0)
 			scale_resolution=12800720;
 		end
+*/
 	end
 	
 	if(ops.ventana==0)
@@ -451,6 +455,7 @@ Begin
 	fpg_ripolles1=load_fpg("fpg/ripolles1.fpg");
 	fpg_ripolles1bici=load_fpg("fpg/ripolles1bici.fpg");
 	fpg_pato=load_fpg("fpg/pato.fpg");
+	fpg_puntos[1]=load_fpg("fpg/puntos1.fpg");
 	if(posibles_jugadores>1) //ahorro de recursos!
 		fpg_ripolles2=load_fpg("fpg/ripolles2.fpg");
 		fpg_ripolles3=load_fpg("fpg/ripolles3.fpg");
@@ -458,6 +463,9 @@ Begin
 		fpg_ripolles2bici=load_fpg("fpg/ripolles2bici.fpg");
 		fpg_ripolles3bici=load_fpg("fpg/ripolles3bici.fpg");
 		fpg_ripolles4bici=load_fpg("fpg/ripolles4bici.fpg");
+		fpg_puntos[2]=load_fpg("fpg/puntos2.fpg");
+		fpg_puntos[3]=load_fpg("fpg/puntos3.fpg");
+		fpg_puntos[4]=load_fpg("fpg/puntos4.fpg");
 	end
 	fpg_enemigo1=load_fpg("fpg/enemigo1.fpg");
 	fpg_enemigo2=load_fpg("fpg/enemigo2.fpg");
@@ -524,8 +532,15 @@ Begin
 	if(ops.truco_fuego_amigo==1) fuego_amigo=1; else fuego_amigo=0; end
 	//if(ops.truco_sin_bandos==1) sin_bandos=1; else sin_bandos=0; end
 	
+	if(fuego_amigo or ops.truco_pato==1 or ops.hamburguesas==1)
+		con_puntos=0;
+	else
+		con_puntos=1;
+	end
+	
 	switch(modo_juego)
 		case modo_historia:
+
 			carga_nivel(nivel);
 			muestra_nivel();
 		end
@@ -1333,8 +1348,15 @@ Begin
 						end
 					else
 						father.herida=id_col.herida;
+						#IFDEF DEBUG
+						muestra_golpe(father.herida);
+						#ENDIF
 						id_col.herida=id_col.herida/2;
+						if(id_col.jugador>0 and id_col.jugador<4)
+							id_col.combo++;
+						end
 						efecto_golpe(id_col);
+						father.atacante=id_col.jugador;
 						if(id_col.flags==0)
 							father.flags=1;
 						else
@@ -1426,7 +1448,13 @@ Begin
 	priority=-1;
 	ctype=coordenadas;
 	if(!cajas_colision) alpha=0; end
+	if(jugador>0 and jugador<5)
+		if(p[jugador].combo>2)
+			herida+=p[jugador].combo*3;
+		end
+	end
 	frame;
+	if(combo!=0 and exists(father)) father.combo+=combo; end
 End
 
 Process objeto_portado(x,y,graph);
@@ -1464,12 +1492,15 @@ Begin
 	if(graph==100) x_inc*=1.3; end
 	loop
 		while(!ready) frame; end
-
+		if(combo!=0)
+			p[jugador].combo+=combo;
+			combo=0;
+		end
 		//al poco de lanzarlo dejará de estar asociado al jugador y podrá dañar al mismo y a los compañeros
-		if(jugador>0)
+		/*if(jugador>0)
 			j++;
 			if(j>10) jugador=0; end
-		end
+		end*/
 		
 		aplica_gravedad();
 		if(altura>0) altura=0; end
@@ -1827,7 +1858,11 @@ End
 
 Process marcador(jugador);
 Private
-	txt_marcador;
+	txt_vidas;
+	txt_puntos;
+	puntos;
+	vida_anterior;
+	id_vida;
 Begin
 	resolution=global_resolution;
 	file=fpg_general;
@@ -1840,18 +1875,37 @@ Begin
 	x=90+((jugador-1)*150);
 	y=30;
 	z=-10;
-	txt_marcador=write_int(fpg_texto,x-70,y,4,&p[jugador].vidas);
+	txt_vidas=write_int(fpg_texto,x-70,y,4,&p[jugador].vidas);
+	if(con_puntos) txt_puntos=write_int(fpg_puntos[jugador],x-30,y-25,0,&puntos); end
+	id_vida=vida(x-29,y+2,p[jugador].vida-1,25);
 	while(p[jugador].juega)
-		vida(x-29,y+2,p[jugador].vida-1,25);
+		if(con_puntos)
+			txt_puntos.y=y-25;
+			if(puntos!=p[jugador].puntos)
+				puntos+=((p[jugador].puntos-puntos)/10)+2;
+				if(puntos>p[jugador].puntos)
+					puntos=p[jugador].puntos;
+				end
+				txt_puntos.y+=rand(-3,3);
+			end
+		end
+		if(vida_anterior!=p[jugador].vida-1)
+			vida_anterior=p[jugador].vida-1;
+			if(exists(id_vida))
+				id_vida.size_x=p[jugador].vida-1;
+			end
+		end
 		frame;
 	end
-	delete_text(txt_marcador);
+	delete_text(txt_vidas);
+	delete_text(txt_puntos);
 	from alpha=255 to 0 step -25; y-=2; frame; end
 End
 
 Process marcador_jefe();
 Private
 	max_vida;
+	id_vida;
 Begin
 	resolution=global_resolution;
 	max_vida=p[100].vida;
@@ -1860,9 +1914,13 @@ Begin
 	x=160;
 	y=340;
 	z=-510;
+	id_vida=vida(x,y,i,27);
 	while(p[100].vida>0)
 		i=(p[100].vida*100)/max_vida;
-		vida(x,y,i,27);
+		if(i!=j)
+			j=i;
+			if(exists(id_vida)) id_vida.size_x=i; end
+		end
 		frame;
 	end
 	from alpha=255 to 0 step -25; y-=2; frame; end
@@ -1873,7 +1931,9 @@ Begin
 	resolution=global_resolution;
 	file=fpg_general;
 	z=-511;
-	frame;
+	while(accion!=muere and exists(father))
+		frame;
+	end
 End
 
 Process efecto_golpe(id_col);
@@ -1972,7 +2032,7 @@ Private
 Begin
 	resolution=global_resolution;
 	x=320;
-	y=330;
+	y=315;
 	z=-512;
 	loop
 		while(!ready) frame; end
@@ -2013,7 +2073,7 @@ Begin
 	return j;
 End
 
-Function reinicio_variables();
+Function reinicio_variables(); //siempre lo buscas como S REINICIA_VARIABLES :D
 Begin
 	clear_screen();
 	stop_scroll(0);
@@ -2037,6 +2097,9 @@ Begin
 		p[i].juega=0;
 		p[i].vida=0;
 		p[i].identificador=0;
+		p[i].velocidad_extra=0;
+		p[i].fuerza_extra=0;
+		p[i].puntos=0;
 	end
 	delete_text(all_text);
 End
@@ -2058,7 +2121,7 @@ Begin
 	fpg_nivel=load_fpg("nivel_matajefes1.fpg");
 	timer[0]=0;
 	pon_tiempo();
-	from i=1 to jugadores; p[i].vidas=0; end
+	from i=1 to jugadores; p[i].vidas=1; end
 	pon_musica(12);
 	
 	while(timer[0]<300) frame; end
@@ -2131,7 +2194,7 @@ Process battleroyale();
 Begin
 	resolution=global_resolution;
 	fpg_nivel=load_fpg("nivel_battleroyale1.fpg");
-	from i=1 to jugadores; p[i].vidas=0; end
+	from i=1 to jugadores; p[i].vidas=2; end
 	fuego_amigo=1;
 End
 
@@ -2722,4 +2785,106 @@ Begin
 		j++;
 		frame;
 	end
+End
+
+Process suma_puntos(jugador,puntos);
+Private
+	x_objetivo;
+	y_objetivo;
+	retraso;
+Begin
+	if(!con_puntos) return; end
+	resolution=global_resolution;
+	ctype=coordenadas;
+	x=father.x;
+	y=father.y;
+	z=-512;
+
+	if(jugador==0)
+		from i=1 to 4;
+			if(p[i].juega and p[i].vida>0 and exists(p[i].identificador))
+				suma_puntos(i,puntos);
+			end
+		end
+	elseif(jugador>0 and jugador<5)
+		graph=write_in_map(fpg_puntos[jugador],puntos,4);
+		alpha=50;
+		if(puntos>9999) 
+			retraso=60;
+			size_y=200;
+			size_x=190;
+		else 
+			retraso=20;
+		end
+		from i=1 to retraso; 
+			y-=2;
+			if(exists(father))
+				x=father.x;
+			end
+			alpha+=10; 
+			frame;
+		end
+		if(coordenadas==c_scroll)
+			x-=id_camara.x-(ancho_pantalla/2);
+			ctype=c_screen;
+		end
+		x_objetivo=90+((jugador-1)*150);
+		y_objetivo=30;
+
+		while(alpha>0)
+			x+=((x_objetivo-x)/6);
+			y+=((y_objetivo-y)/6);
+			size-=4;
+			if(y<50)
+				alpha-=20;
+			end
+			frame;
+		end	
+		if(puntos>0)
+			p[jugador].puntos+=puntos;
+			puntos=0;
+		end
+	end
+	if(graph>0) unload_map(0,graph); end
+End
+
+Process combo_player();
+Begin
+	resolution=global_resolution;
+	ctype=coordenadas;
+	jugador=father.jugador;
+	z=-512;
+	size=40;
+	combo=2;
+	while(exists(father) and accion!=muere)
+		if(combo!=p[jugador].combo)
+			combo=p[jugador].combo;
+			if(graph>0) unload_map(0,graph); end
+			if(combo>9)
+				graph=write_in_map(fpg_texto,"XXX",4);
+			elseif(combo=>6)
+				graph=write_in_map(fpg_texto_rojo,combo+"X",4);
+			else
+				graph=write_in_map(fpg_texto_azul,combo+"X",4);
+			end
+			size=(combo*7)+40;
+		end
+		x=father.x+rand(-combo/2,combo/2);
+		y=father.y+20+rand(-combo/2,combo/2);
+		frame;
+	end
+	from alpha=255 to 0 step -10; frame; end
+End
+
+Process muestra_golpe(herida);
+Begin
+	resolution=global_resolution;
+	ctype=coordenadas;
+	x=father.x;
+	y=father.y;
+	z=-512;
+	graph=write_in_map(fpg_puntos[1],herida,4);
+	frame(2000);
+	from alpha=255 to 0 step -10; frame; end
+	unload_map(0,graph);
 End

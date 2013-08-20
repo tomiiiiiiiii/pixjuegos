@@ -10,6 +10,16 @@ type Ripolles.svg | ..\..\..\utils\sed "s/ff7f2a/8d368f/g" > ripolles4.svg
 type Ripolles1bici.svg | ..\..\..\utils\sed "s/ff7f2a/8d368f/g" > ripolles4bici.svg
 cd ..\..
 
+echo Creando fuentes de puntos de los jugadores
+cd recursos\interfaz
+type sistema.svg | ..\..\..\utils\sed "s/ffffff/ff7f2a/g" | ..\..\..\utils\sed "s/000000/ffffff/g" > puntos1.svg
+type sistema.svg | ..\..\..\utils\sed "s/ffffff/00af00/g" | ..\..\..\utils\sed "s/000000/ffffff/g" > puntos2.svg
+type sistema.svg | ..\..\..\utils\sed "s/ffffff/00afff/g" | ..\..\..\utils\sed "s/000000/ffffff/g" > puntos3.svg
+type sistema.svg | ..\..\..\utils\sed "s/ffffff/8d368f/g" | ..\..\..\utils\sed "s/000000/ffffff/g" > puntos4.svg
+cd ..\..
+
+pause
+
 echo Eliminando fpg-sources
 rd /s /q fpg-sources
 mkdir fpg-sources
@@ -49,6 +59,10 @@ mkdir fpg-sources\nivel5
 mkdir fpg-sources\nivel_survival1 
 mkdir fpg-sources\nivel_battleroyale1 
 mkdir fpg-sources\nivel_matajefes1
+mkdir fpg-sources\puntos1
+mkdir fpg-sources\puntos2
+mkdir fpg-sources\puntos3
+mkdir fpg-sources\puntos4
 
 echo Copiando bitmaps 720p...
 xcopy /r/e/y recursos\bitmaps-720p fpg-sources

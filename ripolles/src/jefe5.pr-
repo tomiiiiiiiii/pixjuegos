@@ -91,6 +91,7 @@ Begin
 	timer[9]=0;
 	while(timer[9]<150) frame; end
 	ganando=1;
+	suma_puntos(0,50000);
 	loop
 		frame;
 	end

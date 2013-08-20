@@ -168,13 +168,16 @@ Begin
 	sonido(6,0);
 	ganando=1;
 	graph=11;
+
+	suma_puntos(0,30000);
+
 	while(y<130)
 		if(gravedad<0) gravedad=0; end
 		gravedad++;
 		y+=gravedad;
 		if(y>130) y=130; end
 		frame;
-	end
+	end	
 	jefe3_bien();
 	while(graph!=21)
 		frame;

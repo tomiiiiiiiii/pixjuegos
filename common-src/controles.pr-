@@ -109,48 +109,6 @@ Begin
 			end
 		end		
 		if(p[jugador].control==-1) return; end
-	#IFDEF OUYA
-		If(p[jugador].control==1)  // jugador 1
-			If(key(_q)) p[jugador].botones[0]=1; End
-			If(key(_w)) p[jugador].botones[1]=1; End
-			If(key(_e)) p[jugador].botones[2]=1; End
-			If(key(_r)) p[jugador].botones[3]=1; End
-			If(key(_t)) p[jugador].botones[4]=1; End
-			If(key(_y)) p[jugador].botones[5]=1; End
-			If(key(_u)) p[jugador].botones[6]=1; End
-			if(key(_i)) p[jugador].botones[7]=1; end
-		End
-		If(p[jugador].control==2)  // jugador 2
-			If(key(_a)) p[jugador].botones[0]=1; End
-			If(key(_s)) p[jugador].botones[1]=1; End
-			If(key(_d)) p[jugador].botones[2]=1; End
-			If(key(_f)) p[jugador].botones[3]=1; End
-			If(key(_g)) p[jugador].botones[4]=1; End
-			If(key(_h)) p[jugador].botones[5]=1; End
-			If(key(_j)) p[jugador].botones[6]=1; End
-			if(key(_k)) p[jugador].botones[7]=1; end
-		End
-		If(p[jugador].control==3)  // jugador 3
-			If(key(_z)) p[jugador].botones[0]=1; End
-			If(key(_x)) p[jugador].botones[1]=1; End
-			If(key(_c)) p[jugador].botones[2]=1; End
-			If(key(_v)) p[jugador].botones[3]=1; End
-			If(key(_b)) p[jugador].botones[4]=1; End
-			If(key(_n)) p[jugador].botones[5]=1; End
-			If(key(_m)) p[jugador].botones[6]=1; End
-			if(key(_l)) p[jugador].botones[7]=1; end
-		End
-		If(p[jugador].control==4)  // jugador 4
-			If(key(_f1)) p[jugador].botones[0]=1; End
-			If(key(_f2)) p[jugador].botones[1]=1; End
-			If(key(_f3)) p[jugador].botones[2]=1; End
-			If(key(_f4)) p[jugador].botones[3]=1; End
-			If(key(_f5)) p[jugador].botones[4]=1; End
-			If(key(_f6)) p[jugador].botones[5]=1; End
-			If(key(_f7)) p[jugador].botones[6]=1; End
-			if(key(_f8)) p[jugador].botones[7]=1; end
-		End
-	#ELSE
 		If(p[jugador].control==0)  // teclado
 			If(key(key_b_izquierda)) p[jugador].botones[0]=1; End
 			If(key(key_b_derecha)) p[jugador].botones[1]=1; End
@@ -230,8 +188,6 @@ Begin
 				If(get_joy_button(joysticks[p[jugador].control],joy_profiles[joysticks[p[jugador].control]]._b_salir)) p[jugador].botones[7]=1; End
 			end
 		End
-	#ENDIF
-	//endif de ouya
 		Frame;
 	End
 End
@@ -240,7 +196,7 @@ Function configurar_controles();
 Private
 	archos_basura;
 Begin
-	#IFDEF OUYA
+	/*#IFDEF OUYA
 	//FUCK THE POLICE
 	posibles_jugadores=4;
 	p[0].control=-2;
@@ -249,15 +205,11 @@ Begin
 	p[3].control=3;
 	p[4].control=4;
 	return;
-	#ENDIF
+	#ENDIF*/
+
 	//1. Averiguamos cuantos joysticks tenemos
 	njoys=number_joy();
 	
-	//1.1 En Android, descontamos el último joystick ya que se trata de un sensor
-	if(os_id==1003)
-		njoys=njoys-1;
-	end
-
 	//2. ¿Cuántos de ellos son utilizables/tienen al menos dos ejes y dos botones?
 	from i=0 to (njoys-1);
 		if(joy_numbuttons(i)=>2)
@@ -350,6 +302,9 @@ Begin
 		else
 			p[1].control=0;
 		end
+		#IFDEF OUYA
+			posibles_jugadores=4;
+		#ENDIF
 	end
 	
 	//Y creo que ya estamos :)

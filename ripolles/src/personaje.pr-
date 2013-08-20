@@ -12,6 +12,7 @@ Private
 	pulsando_abajo;
 	pulsando_arriba;
 	no_pulsando_lado;
+	max_vida;
 	
 	sabe_defenderse=0;
 	sabe_evadir=0;
@@ -25,7 +26,10 @@ Private
 	sabe_moverse=1; //solo el jefe 4 no se mueve
 	sabe_herida_grave=1;
 	sabe_coger_objeto=1;
-	
+
+	retraso_combo;
+	combo_actual;
+	id_combo;
 	retraso_movimiento_defensa;
 	si_ataca;
 	id_enemigo_cogido;
@@ -229,7 +233,7 @@ Begin
 			p[jugador].vida=p[jugador].vida*0.7;
 		end
 	end
-
+	
 	if(en_moto)
 		sabe_correr=0;
 		if(tipo!=0) sabe_defenderse=0; end
@@ -254,8 +258,42 @@ Begin
 		mueveme(sin_encerrarme);
 		from alpha=0 to 255 step 10; frame; end 
 	end
+
+	max_vida=p[jugador].vida;
+	
+	if(!en_moto)
+		fuerza_ataque+=p[jugador].fuerza_extra;
+		inercia_max_x+=p[jugador].velocidad_extra;
+		inercia_max_y+=p[jugador].velocidad_extra;
+	end
 	
 	loop
+		if(combo>0)
+			p[jugador].combo+=combo;
+			combo=0;
+		end
+		if(retraso_combo==0 and p[jugador].combo>1)
+			retraso_combo=50;
+			combo_actual=p[jugador].combo;
+			id_combo=combo_player();
+		elseif(retraso_combo==1 or herida>0)
+			p[jugador].combo=0;
+			combo_actual=0;
+			retraso_combo=0;
+			if(exists(id_combo))
+				id_combo.accion=muere;
+			end
+		elseif(retraso_combo>0)
+			if(p[jugador].combo>combo_actual)
+				if(p[jugador].combo>10)
+					p[jugador].combo=10;
+				end
+				combo_actual=p[jugador].combo;
+				retraso_combo+=30;
+			end
+			retraso_combo--;
+		end
+		
 		if(evento_hamburguesa==12) //everyone is super
 			inercia_max_x=9;
 			inercia_max_y=6;
@@ -427,29 +465,32 @@ Begin
 			if(lleva_objeto==obj_rosquilleta or lleva_objeto==obj_rollo or lleva_objeto==obj_naranja or lleva_objeto==obj_pescado) //comida
 				if(lleva_objeto==obj_rollo)
 					p[jugador].vida=100;
+					mensaje_player(textos[65]);
 				elseif(lleva_objeto==obj_naranja or lleva_objeto==obj_pescado)
 					switch(rand(1,2))
 						case 1: 
 							mensaje_player(textos[33]);
-							inercia_max_x++; inercia_max_y++; 
+							inercia_max_x++; inercia_max_y++;
+							p[jugador].velocidad_extra++;
 						end
 						case 2: 
 							mensaje_player(textos[34]);
 							fuerza_ataque+=5;
+							p[jugador].fuerza_extra++;
 						end
 					end
-				else
+				elseif(lleva_objeto==obj_rosquilleta)
 					p[jugador].vida+=50;
 					if(p[jugador].vida>100) p[jugador].vida=100; end
+					mensaje_player(textos[65]);
 				end
 				lleva_objeto=0;
-			end
-			if(lleva_objeto==obj_casco) //casco de Jaume I
+				sonido(7,0);
+			elseif(lleva_objeto==obj_casco) //casco de Jaume I
 				invencibilidad=900;
 				p[jugador].vida=100;
 				lleva_objeto=0;
-			end
-			if(lleva_objeto==obj_hamburguesa)
+			elseif(lleva_objeto==obj_hamburguesa)
 				efecto_hamburguesa();
 				lleva_objeto=0;
 			end
@@ -1199,6 +1240,19 @@ Begin
 					explosion(x,y_base,altura,size);
 				end
 
+				if(atacante>=0 and atacante<5) //este probablemente nos haya matado
+					if(p[atacante].juega and p[atacante].vida>0)
+						if(tipo<100)
+							i=(((inercia_max_x)/2)+1)*(fuerza_ataque/2)*max_vida;
+							suma_puntos(atacante,i);
+						else
+							i=(tipo-100)*10000;
+							suma_puntos(0,i);
+						end				
+					end
+				end
+
+				
 				if(tipo>100) break; end
 				from alpha=255 to 0 step -15; frame; end
 				if(jugador=>10)
@@ -1236,7 +1290,7 @@ Begin
 		if(tipo==5) estela(); end
 		frame;
 	end
-	
+		
 	if(tipo>100)
 		if(tipo==102) //jefe2
 			graph=151;

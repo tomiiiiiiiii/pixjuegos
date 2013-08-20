@@ -38,7 +38,7 @@ copy recursos\android\ouya_icon_ca.png export\res\drawable-ca\ouya_icon.png /y
 copy recursos\android\strings.xml export\res\values\strings.xml /y
 mkdir export\res\values-es
 copy recursos\android\strings-es.xml export\res\values-es\strings.xml /y
-copy recursos\android\AndroidManifest.ouya.xml export\AndroidManifest.xml /y
+copy recursos\android\AndroidManifest.xml export\AndroidManifest.xml /y
 
 copy recursos\android\build.xml export\ /y
 

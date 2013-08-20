@@ -96,7 +96,7 @@ Begin
 			textos[62]="Have fun!";
 			textos[63]="Tutorial";
 			textos[64]="Hold "+botones[b_3]+" to skip";
-			textos[65]="";
+			textos[65]="Life up!";
 			textos[71]="Explossive enemies!";
 			textos[72]="Sudden death!";
 			textos[73]="Everybody dies!";
@@ -179,7 +179,7 @@ Begin
 			textos[62]="¡Pásalo bien!";
 			textos[63]="Tutorial";
 			textos[64]="Pulsa "+botones[b_3]+" para saltar la intro	";
-			textos[65]="";
+			textos[65]="¡Vida recuperada!";
 			
 			textos[71]="¡Enemigos explosivos!";
 			textos[72]="¡Muerte súbita!";
@@ -267,7 +267,7 @@ Begin
 			textos[62]="Passa-ho bé!";
 			textos[63]="Tutorial";
 			textos[64]="prem " + botones[b_3] + " per saltar la intro";
-			textos[65]="";
+			textos[65]="Vida recuperada!";
 			
 			textos[71]="Enemics explosius!";
 			textos[72]="Mort sobtada!";

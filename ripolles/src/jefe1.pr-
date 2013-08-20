@@ -61,6 +61,7 @@ Begin
 		frame;
 	end
 	ganando=1;
+	suma_puntos(0,10000);
 	loop frame; end
 	//fade_off();
 End
