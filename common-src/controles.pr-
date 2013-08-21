@@ -196,17 +196,6 @@ Function configurar_controles();
 Private
 	archos_basura;
 Begin
-	/*#IFDEF OUYA
-	//FUCK THE POLICE
-	posibles_jugadores=4;
-	p[0].control=-2;
-	p[1].control=1;
-	p[2].control=2;
-	p[3].control=3;
-	p[4].control=4;
-	return;
-	#ENDIF*/
-
 	//1. Averiguamos cuantos joysticks tenemos
 	njoys=number_joy();
 	
