@@ -266,6 +266,8 @@ Begin
 		inercia_max_x+=p[jugador].velocidad_extra;
 		inercia_max_y+=p[jugador].velocidad_extra;
 	end
+
+	sombra();
 	
 	loop
 		if(combo>0)
@@ -457,6 +459,7 @@ Begin
 					if(flags==1) x_inc=7; else x_inc=-7; end
 				end
 				if(tipo==0) sonido(31,0); end
+				if(tipo>100) sonido(6,0); end
 			end
 			accion=muere; herida+=100; 
 		end
@@ -524,7 +527,6 @@ Begin
 					y+=gravedad;
 					gravedad++;
 				end
-				sombra();
 				frame; 
 			end
 		end
@@ -1069,7 +1071,6 @@ Begin
 		end
 		animame();
 		cuerpo();
-		sombra();
 		
 		//gestion del objeto portado o siendo cogido
 		if(lleva_objeto!=0 or accion==lanza_objeto)

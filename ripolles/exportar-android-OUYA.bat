@@ -9,8 +9,8 @@ move ripolles.dcb ..\main.dcb
 cd ..
 pause
 
-call compilarfpgs 16
-call ..\scripts\descomprimefpgs.bat
+rem call compilarfpgs 16
+rem call ..\scripts\descomprimefpgs.bat
 
 echo Exportando...
 mkdir export

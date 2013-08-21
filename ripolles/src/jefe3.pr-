@@ -7,7 +7,7 @@ Begin
 	while(!exists(id_camara)) frame; end
 	priority=1;
 	ctype=coordenadas;
-	y_base=-240;
+	y_base=240;
 	y=-300;
 	z=-240;
 	x=530; //x fija para este 
@@ -27,12 +27,12 @@ Begin
 	end
 	
 	i=0; j=0;
-	write_int(fpg_texto,0,0,0,&j);
+	jefe3_sombra();
 	while(p[jugador].vida>0)
 		while(!ready) frame; end
 		anim++;
+		altura=y-y_base;
 		if(accion!=quieto)
-			altura=100;
 			herida=0;
 		end
 		retraso++;
@@ -413,8 +413,8 @@ Begin
 		frame;
 	end
 	while(altura<300)
-		if(accion==muere)
-			altura+=15;
+		altura+=15;
+/*		if(accion==muere)
 		else
 			if(id_col=collision_box(type ataque))
 				if(id_col.jugador!=jugador)
@@ -427,7 +427,7 @@ Begin
 				end
 			end
 			altura+=5;
-		end
+		end*/
 		y=y_base-altura;
 		frame;
 	end
@@ -464,4 +464,22 @@ Begin
 		frame;
 	end
 	from alpha=255 to 0 step -20; frame; end
+End
+
+Process jefe3_sombra();
+Begin
+	resolution=global_resolution;
+	i=53;
+	ctype=coordenadas;
+	file=fpg_general;
+	graph=3;
+	while(exists(father))
+		y=father.y_base+i;
+		z=200;
+		x=father.x;
+		altura=father.altura;
+		alpha=father.alpha+altura-50;
+		size=100+(-altura/3);
+		frame;
+	end
 End

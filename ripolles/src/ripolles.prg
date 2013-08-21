@@ -139,7 +139,7 @@ Global
 		truco_matajefes=0;
 		truco_fuego_amigo=-5;
 		//truco_sin_bandos=-1;
-		hamburguesas=1;
+		hamburguesas=-1;
 	End	
 	
 	fpg_pato;
@@ -267,6 +267,8 @@ include "en_moto.pr-";
 
 Begin
 	if(argc>0) if(argv[1]=="arcade") arcade_mode=1; end end
+	sound_freq=44100;
+	sound_mode=mode_stereo;
 
 	rand_seed(time());
 	
@@ -431,13 +433,14 @@ Begin
 	#ENDIF
 	
 	//test
-/*	modo_juego=modo_historia;
+	modo_matajefes=10;
+	modo_juego=modo_matajefes;
 	p[1].juega=1;
 	p[1].vidas=5;
-	nivel=1;
+	//nivel=1;
 	jugar();
 	return;
-	*/
+	
 	//iniciamos el menú
 	menu(-1);
 
@@ -1564,17 +1567,18 @@ Process sombra();
 Begin
 	resolution=global_resolution;
 	i=53;
-	y=father.y_base+i;
-	z=father.z+10;
-	x=father.x;
-	altura=father.altura;
 	ctype=coordenadas;
 	file=fpg_general;
 	graph=3;
-	alpha=father.alpha+altura-50;
-	size=100+(altura/3);
-	frame;
-	while(!ready and !ganando) frame; end
+	while(exists(father))
+		y=father.y_base+i;
+		z=200;
+		x=father.x;
+		altura=father.altura;
+		alpha=father.alpha+altura-50;
+		size=100+(altura/3);
+		frame;
+	end
 End
 
 Process sombra_definida(file,graph);
@@ -1798,9 +1802,11 @@ Begin
 	x=id_camara.x+ancho_pantalla;
 	y=160+(rand(0,1)*70);
 	z=-y;
+	y_base=160+(rand(0,1)*70);
 	graph=13;
 	flags=1;
 	alpha=255;
+	sombra();
 	while(x>id_camara.x-ancho_pantalla)
 		while(!ready) frame; end
 		x-=20;
@@ -2123,7 +2129,7 @@ Begin
 	pon_tiempo();
 	from i=1 to jugadores; p[i].vidas=1; end
 	pon_musica(12);
-	
+	/*
 	while(timer[0]<300) frame; end
 	id_jefe=jefe1(ancho_pantalla/2);
 	while(!ganando) frame; end
@@ -2141,7 +2147,7 @@ Begin
 	ganando=0;
 	timer[2]=0;
 	while(timer[2]<300) frame; end
-	
+	*/
 	
 	id_jefe=jefe3(ancho_pantalla/2);
 	while(!ganando) frame; end

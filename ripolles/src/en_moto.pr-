@@ -245,6 +245,7 @@ Begin
 	else
 		inercia_max_y=0;
 	end
+	sombra();
 	loop
 		while(!ready and !ganando_moto) frame; end
 		y_inc=inercia_max_y;
@@ -316,7 +317,6 @@ Begin
 			end
 			break;
 		end
-		sombra();
 		y-=10; //alineacion skate
 		frame;
 	end
