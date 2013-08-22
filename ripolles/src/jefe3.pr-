@@ -2,6 +2,7 @@ Process jefe3(x);
 Private
 	objetivo;
 	retraso;
+	ataque_anterior;
 Begin
 	resolution=global_resolution;
 	while(!exists(id_camara)) frame; end
@@ -51,6 +52,7 @@ Begin
 				p[jugador].vida-=herida;
 				graph=11;
 				while(herida>0)
+					while(!ready) frame; end
 					herida--;
 					anim++;
 					if(anim<3)
@@ -94,9 +96,11 @@ Begin
 					i++;
 				else
 					i=0;
-					if(rand(0,1))
+					if(ataque_anterior!=ataca_suelo)
+						ataque_anterior=ataca_suelo;
 						accion=ataca_suelo;
 					else
+						ataque_anterior=ataca_aire;
 						accion=ataca_aire;
 					end
 				end
@@ -172,6 +176,7 @@ Begin
 	suma_puntos(0,30000);
 
 	while(y<130)
+		while(!ready) frame; end
 		if(gravedad<0) gravedad=0; end
 		gravedad++;
 		y+=gravedad;
@@ -246,6 +251,18 @@ Begin
 			anim++;
 		end
 		i++;
+
+		if(id_col=collision_box(type ataque))
+			if(id_col.jugador<10 and id_col.jugador>=0)
+				if(en_rango(z,id_col.z,id_col.rango))
+					p[100].vida-=id_col.herida;
+					sonido(5,0);
+					accion=muere;
+				end
+			end
+		end
+
+		
 		if(accion==quieto)
 			if(ha_atacado)
 				if(x>-300)
@@ -266,15 +283,6 @@ Begin
 						accion=ataca_aire;
 					end			
 				end
-				if(id_col=collision_box(type ataque))
-					if(id_col.jugador<10 and id_col.jugador>=0)
-						if(en_rango(z,id_col.z,id_col.rango))
-							p[100].vida-=id_col.herida;
-							sonido(5,0);
-							accion=muere;
-						end
-					end
-				end
 			end
 		else //atacando
 			ha_atacado=1;
@@ -290,7 +298,21 @@ Begin
 		frame;	
 	end
 	while(x>-300)
-		x-=10;
+		while(!ready) frame; end
+		if(accion!=muere)
+			x-=10;
+			if(id_col=collision_box(type ataque))
+				if(id_col.jugador<10 and id_col.jugador>=0)
+					if(en_rango(z,id_col.z,id_col.rango))
+						p[100].vida-=id_col.herida;
+						sonido(5,0);
+						accion=muere;
+					end
+				end
+			end
+		else
+			x-=20;
+		end
 		frame;
 	end
 	if(exists(father)) father.j--; end
@@ -305,6 +327,7 @@ Begin
 	size_y=50;
 	y=father.y+30;
 	while(exists(father))
+		while(!ready) frame; end
 		x=father.x;
 		if(anim==4)
 			j++;
@@ -340,6 +363,7 @@ Begin
 	sombra_mano_lateral();
 	graph=71;
 	while(x<120)
+		while(!ready) frame; end
 		x+=x_inc;
 		if(x_inc>0) x_inc++; end
 		if(x<-120) 
@@ -373,8 +397,18 @@ Begin
 	file=fpg_jefe;
 	size_x=50;
 	sombra_mano_vertical();
-	while(son.alpha<255) frame; end
+	while(son.alpha<255) 
+		while(!ready) frame; end
+		frame; 
+	end
 	while(altura>0)
+		while(!ready) frame; end
+		if(exists(father))
+			if(father.accion!=ataca_aire) break; end
+		else
+			break;
+		end
+
 		if(altura<200)
 			graph=61;
 		elseif(altura<100)
@@ -398,6 +432,13 @@ Begin
 	frame;
 	i=0;
 	while(i<50)
+		while(!ready) frame; end
+		if(exists(father))
+			if(father.accion!=ataca_aire) break; end
+		else
+			break;
+		end
+
 		i++;
 		if(id_col=collision_box(type ataque))
 			if(id_col.jugador!=jugador)
@@ -413,8 +454,9 @@ Begin
 		frame;
 	end
 	while(altura<300)
-		altura+=15;
-/*		if(accion==muere)
+		while(!ready) frame; end
+		if(accion==muere)
+			altura+=15;
 		else
 			if(id_col=collision_box(type ataque))
 				if(id_col.jugador!=jugador)
@@ -427,7 +469,7 @@ Begin
 				end
 			end
 			altura+=5;
-		end*/
+		end
 		y=y_base-altura;
 		frame;
 	end
@@ -447,6 +489,7 @@ Begin
 	z=200;
 	i=father.i;
 	while(exists(father))
+		while(!ready) frame; end
 		x=father.x;
 		if(alpha<255)
 			if(exists(p[i].identificador))
@@ -474,6 +517,7 @@ Begin
 	file=fpg_general;
 	graph=3;
 	while(exists(father))
+		while(!ready) frame; end
 		y=father.y_base+i;
 		z=200;
 		x=father.x;

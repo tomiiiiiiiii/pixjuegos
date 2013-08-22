@@ -75,7 +75,7 @@ Global
 	num_zona;
 	cajas_colision;
 	
-	con_puntos;
+	con_puntos=1;
 
 	objetos_aleatorios[4]=obj_rollo,obj_naranja_dura,obj_naranja,obj_naranja_dura,obj_hamburguesa;
 
@@ -138,7 +138,6 @@ Global
 		truco_pato=-1;
 		truco_matajefes=0;
 		truco_fuego_amigo=-5;
-		//truco_sin_bandos=-1;
 		hamburguesas=-1;
 	End	
 	
@@ -194,7 +193,6 @@ Global
 
 	enemigos_matados;
 	fuego_amigo=0;
-	sin_bandos=0;
 	renacimiento;
 	mata_enemigos;
 	ganando;
@@ -236,7 +234,7 @@ Local
 	anim; //contador
 	animacion_anterior;
 	gravedad;
-	jugador; //tema de ataques: øcÛmo va? xD
+	jugador; //tema de ataques: ¬øc√≥mo va? xD
 	y_inc;
 	x_inc;
 	z_juego;
@@ -309,7 +307,7 @@ Begin
 	
 	carga_textos();
 
-	//La resoluciÛn del monitor ser· esta:
+	//La resoluci√≥n del monitor ser√° esta:
 	if(os_id==os_caanoo or os_id==10 or os_id==os_gp2x or os_id==os_gp2x_wiz or os_id==os_gp32 or os_id==os_dc)
 		panoramico=0;
 		//scale_resolution=03200240;
@@ -319,7 +317,7 @@ Begin
 	elseif(os_id==os_wii)
 		scale_resolution=06400480;
 		bpp=16;	
-	elseif(os_id==1003 or os_id==1002) //mÛviles
+	elseif(os_id==1003 or os_id==1002) //m√≥viles
 		#IFNDEF OUYA
 		if(graphic_info(0,0,g_width)==1024 and graphic_info(0,0,g_height)==552)
 			ancho_pantalla=665; //archos gamepad
@@ -366,7 +364,7 @@ Begin
 		set_mode(ancho_pantalla,alto_pantalla,bpp);
 	end
 	
-	//gr·fico para mientras se carga
+	//gr√°fico para mientras se carga
 	graph=load_png("loading.png");
 	x=ancho_pantalla/2;
 	y=alto_pantalla/2;
@@ -411,7 +409,7 @@ Begin
 	//recolocamos el centro de los objetos
 	recoloca_centros();
 	
-	//A 30 im·genes por segundo
+	//A 30 im√°genes por segundo
 	set_fps(30,0);
 	
 	#IFNDEF DEBUG
@@ -432,16 +430,16 @@ Begin
 	end
 	#ENDIF
 	
-	//test
+	/*//test
 	modo_matajefes=10;
 	modo_juego=modo_matajefes;
 	p[1].juega=1;
 	p[1].vidas=5;
 	//nivel=1;
 	jugar();
-	return;
+	return;*/
 	
-	//iniciamos el men˙
+	//iniciamos el men√∫
 	menu(-1);
 
 End
@@ -533,7 +531,6 @@ Begin
 	if(mapa_nivel>0) unload_map(0,mapa_nivel); end
 
 	if(ops.truco_fuego_amigo==1) fuego_amigo=1; else fuego_amigo=0; end
-	//if(ops.truco_sin_bandos==1) sin_bandos=1; else sin_bandos=0; end
 	
 	if(fuego_amigo or ops.truco_pato==1 or ops.hamburguesas==1)
 		con_puntos=0;
@@ -569,7 +566,7 @@ Begin
 	if(!en_moto)
 		start_scroll(0,fpg_nivel,1,0,0,0);
 		id_camara=scroll[0].camera=camara();
-	else //nivel especial con scroll cÌclico
+	else //nivel especial con scroll c√≠clico
 		camara_en_moto();
 	end
 	
@@ -703,14 +700,14 @@ Begin
 	z=-256;
 	i=0;
 
-/*	if(modo_juego==modo_supervivencia and ops.truco_sin_bandos<0)
-		if(timer[0]>60*5) //si ha aguantado m·s de 5 minutos, le damos el cheto "sin bandos"
-			ops.truco_sin_bandos=0; //modo matajefes disponible
+	if(modo_juego==modo_supervivencia and ops.hamburguesas<0)
+		if(timer[0]>60*3*100) //si ha aguantado m√°s de 3 minutos, le damos el cheto hamburguesa
+			ops.hamburguesas=0; //modo matajefes disponible
 			guarda_opciones();
 			truco_descubierto(textos[3]);
 			while(exists(type truco_descubierto)) frame; end
 		end
-	end*/
+	end
 	
 	if(modo_juego==modo_battleroyale)
 		if(ops.truco_fuego_amigo<0)
@@ -873,10 +870,10 @@ Begin
 						case 103: //3er jefe
 							jefe3(emboscada[en_emboscada].x_evento);
 						end
-						case 104: //4∫ jefe
+						case 104: //4¬∫ jefe
 							jefe4(emboscada[en_emboscada].x_evento);
 						end
-						case 105: //5∫ jefe
+						case 105: //5¬∫ jefe
 							jefe5(emboscada[en_emboscada].x_evento);
 						end
 						case 111: //evil ripolles
@@ -1312,7 +1309,7 @@ Begin
 	end
 
 	if(father.accion!=herido_leve and father.accion!=herido_grave and father.accion!=ataca_area and father.accion!=muere)
-		//colisiÛn contra zanja
+		//colisi√≥n contra zanja
 		if(en_moto and father.altura==0)
 			if(id_col=collision(type zanja))
 				if(en_rango(z,id_col.z,id_col.rango))
@@ -1336,7 +1333,7 @@ Begin
 		//ataque
 		while(id_col=collision(type ataque))
 			if(id_col.jugador!=jugador and 													//si no es el mismo jugador
-			(!(father.tipo==0 and id_col.jugador==0)) and 									//para evitar los golpes que sÛlo deben golpear a los enemigos
+			(!(father.tipo==0 and id_col.jugador==0)) and 									//para evitar los golpes que s√≥lo deben golpear a los enemigos
 			(fuego_amigo or 																//si hay fuego amigo, recibimos golpes de todos
 			(jugador=>1 and jugador<=9 and (id_col.jugador>9 or id_col.jugador==-1)) or		//ataque enemigo a jugador
 			(jugador=>10 and id_col.jugador<10))) 											//ataque jugador->enemigo, ataque total
@@ -1372,13 +1369,13 @@ Begin
 		
 		//collision entre cuerpos
 		if(father.accion==defiende and father.altura!=0)
-			//si se defiende y est· en el aire, no choca
+			//si se defiende y est√° en el aire, no choca
 		else
 			if(id_col=collision(type cuerpo))
 				if(en_rango(z,id_col.z,rango))
 					if(id_col<id) //manda este
 						if(evento_hamburguesa==1 and !collision_box(type explosion))
-							//explosiÛn
+							//explosi√≥n
 							explosion(father.x,father.y_base,altura,size);
 						end
 
@@ -1430,7 +1427,7 @@ Begin
 		end
 		
 	else
-		//SI EST¡S CAYENDO HERIDO, GOLPEAS A LOS DE TU ALREDEDOR (SOLO ENEMIGOS)
+		//SI EST√ÅS CAYENDO HERIDO, GOLPEAS A LOS DE TU ALREDEDOR (SOLO ENEMIGOS)
 		if(father.accion==herido_grave and father.x_inc!=0 and father.gravedad>0 and father.tipo!=0)
 			/*if(father.jugador<10)
 				ataque(father.x,father.y,file,graph,abs(father.x_inc),40,father.jugador);
@@ -1499,7 +1496,7 @@ Begin
 			p[jugador].combo+=combo;
 			combo=0;
 		end
-		//al poco de lanzarlo dejar· de estar asociado al jugador y podr· daÒar al mismo y a los compaÒeros
+		//al poco de lanzarlo dejar√° de estar asociado al jugador y podr√° da√±ar al mismo y a los compa√±eros
 		/*if(jugador>0)
 			j++;
 			if(j>10) jugador=0; end
@@ -1618,7 +1615,7 @@ Private
 	dist_x_ganador=1000;
 	hasta;
 Begin
-	if(sin_bandos) hasta=99; else hasta=4; end
+	hasta=4;
 	from i=1 to hasta;
 		if(p[i].juega and i!=father.jugador)
 			if(p[i].identificador.accion!=muere and p[i].identificador.accion!=herido_leve and p[i].identificador.accion!=herido_grave)
@@ -1855,9 +1852,20 @@ Begin
 End
 
 Function sonido(i,veces);
+Private
+	id_sonido;
 Begin
 	if(ops.sonido)
-		return play_wav(wavs[i],veces);
+		id_sonido=play_wav(wavs[i],veces);
+		if(!exists(type menu))
+			if(coordenadas==c_scroll and exists(id_camara))
+				j=(((father.x-(id_camara.x-(ancho_pantalla/2)))*255))/ancho_pantalla;
+			else
+				j=(father.x*255)/ancho_pantalla;
+			end
+			set_panning(id_sonido,255-j,j);
+		end
+		return id_sonido;
 	end
 	return 0;
 End
@@ -2089,12 +2097,12 @@ Begin
 	en_moto=0;
 	nivel=1;
 	anterior_emboscada=0;
-	sin_bandos=0;
 	fuego_amigo=0;
 	ganando=0;
 	good_vs_evil=0;
 	evento_hamburguesa=0;
 	enemigos=0;
+	con_puntos=1;
 	
 	from i=1 to 10;
 		p[i].vidas=5;
@@ -2398,28 +2406,28 @@ Begin
 
 	//TEMPORAL
 	if(pagina<10)
-		pon_texto_ayuda(fpg_texto,textos[35],320,20,100,30,1); //tÌtulo ayuda
+		pon_texto_ayuda(fpg_texto,textos[35],320,20,100,30,1); //t√≠tulo ayuda
 		pon_texto_ayuda(fpg_texto,pagina+"/"+num_paginas_total,600,350,70,30,4); //num pagina
 	end
 	
 	switch(pagina)
 		case 1: //ayuda 1
-			pon_texto_ayuda(fpg_texto_gris,textos[36],50,60,85,30,0); //sub-tÌtulo controles
+			pon_texto_ayuda(fpg_texto_gris,textos[36],50,60,85,30,0); //sub-t√≠tulo controles
 			pon_texto_ayuda(fpg_texto_azul,textos[37],20,90,70,22,0); //texto en azul
 			pon_texto_ayuda(fpg_texto,textos[38],120,90,70,22,0); //texto en blanco
-			//pon_texto_ayuda(fpg_texto_gris,textos[39],50,255,85,30,0); //sub-tÌtulo objetos			
+			//pon_texto_ayuda(fpg_texto_gris,textos[39],50,255,85,30,0); //sub-t√≠tulo objetos			
 		end
 		case 2: //ayuda 2
-			pon_texto_ayuda(fpg_texto_gris,textos[40],50,60,85,30,0); //sub-tÌtulo multijugador
+			pon_texto_ayuda(fpg_texto_gris,textos[40],50,60,85,30,0); //sub-t√≠tulo multijugador
 			pon_texto_ayuda(fpg_texto,textos[41],20,90,70,22,0); //texto en blanco
 		end
 		case 3: //ayuda 3
-			pon_texto_ayuda(fpg_texto_gris,textos[42],50,60,85,30,0); //sub-tÌtulo modos de juego
+			pon_texto_ayuda(fpg_texto_gris,textos[42],50,60,85,30,0); //sub-t√≠tulo modos de juego
 			pon_texto_ayuda(fpg_texto_azul,textos[43],20,90,70,22,0); //texto en azul
 			pon_texto_ayuda(fpg_texto,textos[44],20,90,70,22,0); //texto en blanco
 		end
 		case 10: //creditos
-			pon_texto_ayuda(fpg_texto,textos[18],450,10,100,30,1); //tÌtulo crÈditos
+			pon_texto_ayuda(fpg_texto,textos[18],450,10,100,30,1); //t√≠tulo cr√©ditos
 			pon_texto_ayuda(fpg_texto_azul,textos[45],60,40,80,25,0); //texto azul
 			pon_texto_ayuda(fpg_texto,textos[48],320,80,80,25,4); //nombres
 			pon_texto_ayuda(fpg_texto_gris,textos[47],340,320,100,30,4); //gracias por jugar
@@ -2476,6 +2484,7 @@ Private
 Begin
 	resolution=global_resolution;
 	evento_hamburguesa=rand(1,13);
+	if(ops.truco_fuego_amigo==1 and evento_hamburguesa==10) evento_hamburguesa=1; end
 	mi_evento_hamburguesa=evento_hamburguesa;
 	x=ancho_pantalla/2;
 	y=100;
@@ -2535,6 +2544,7 @@ Begin
 		end
 		case 10: //activar fuego amigo
 			fuego_amigo=1;
+			i=30*30; //30 segundos
 		end
 		case 11: //todos con objetos
 			from i=1 to 100;
@@ -2545,7 +2555,7 @@ Begin
 		case 12: //everyone is super
 			frame(500);
 		end
-		case 13: //sin fricciÛn
+		case 13: //sin fricci√≥n
 			i=30*30;
 		end
 	end
@@ -2562,6 +2572,9 @@ Begin
 			unload_map(0,graph);
 			graph=0;
 		end
+	end
+	if(evento_hamburguesa==10) //
+		fuego_amigo=0;
 	end
 	evento_hamburguesa=0;
 End
@@ -2738,7 +2751,7 @@ Begin
 			return i;
 		end
 	end
-	exit("Error: Se ha excedido el n˙mero m·ximo de enemigos");
+	exit("Error: Se ha excedido el n√∫mero m√°ximo de enemigos");
 End
 
 Function pon_emboscada(x_trigger,x_inicio,x_fin);
@@ -2867,7 +2880,7 @@ Begin
 			combo=p[jugador].combo;
 			if(graph>0) unload_map(0,graph); end
 			if(combo>9)
-				graph=write_in_map(fpg_texto,"XXX",4);
+				graph=write_in_map(fpg_texto,"XX",4);
 			elseif(combo=>6)
 				graph=write_in_map(fpg_texto_rojo,combo+"X",4);
 			else

@@ -107,7 +107,7 @@ begin
 			texto_menu(y+=distancia_opciones,textos[24]); estado_opcion(y,3);
 			if(ops.truco_pato=>0) texto_menu(y+=distancia_opciones,textos[25]); estado_opcion(y,4); num_opciones++; end
 			if(ops.truco_fuego_amigo=>0) texto_menu(y+=distancia_opciones,textos[26]); estado_opcion(y,5); num_opciones++; end
-			//if(ops.truco_sin_bandos=>0) texto_menu(y+=distancia_opciones,textos[27]); estado_opcion(y,6); num_opciones++; end
+			if(ops.hamburguesas=>0) texto_menu(y+=distancia_opciones,textos[27]); estado_opcion(y,6); num_opciones++; end
 
 			volver_a_menu=0;
 		end
@@ -209,7 +209,7 @@ begin
 								sonido(22,0); 
 								ops.truco_matajefes=1;
 								ops.truco_pato=0;
-								//ops.truco_sin_bandos=0;
+								ops.hamburguesas=0;
 								ops.truco_fuego_amigo=0;
 								guarda_opciones();
 							else
@@ -228,20 +228,20 @@ begin
 								if(ops.truco_pato) ops.truco_pato=0; else ops.truco_pato=1; end
 							elseif(ops.truco_pato<0 and ops.truco_fuego_amigo=>0)
 								if(ops.truco_fuego_amigo) ops.truco_fuego_amigo=0; else ops.truco_fuego_amigo=1; end
-							/*elseif(ops.truco_pato<0 and ops.truco_fuego_amigo<0 and ops.truco_sin_bandos=>0)
-								if(ops.truco_sin_bandos) ops.truco_sin_bandos=0; else ops.truco_sin_bandos=1; end*/
+							elseif(ops.truco_pato<0 and ops.truco_fuego_amigo<0 and ops.hamburguesas=>0)
+								if(ops.hamburguesas) ops.hamburguesas=0; else ops.hamburguesas=1; end
 							end
 						end
 						case 5:
 							if(ops.truco_pato=>0 and ops.truco_fuego_amigo=>0)
 								if(ops.truco_fuego_amigo) ops.truco_fuego_amigo=0; else ops.truco_fuego_amigo=1; end
-							/*elseif((ops.truco_pato=>0 and ops.truco_fuego_amigo<0 and ops.truco_sin_bandos=>0)
-							  or (ops.truco_pato<0 and ops.truco_fuego_amigo=>0 and ops.truco_sin_bandos=>0))
-								if(ops.truco_sin_bandos) ops.truco_sin_bandos=0; else ops.truco_sin_bandos=1; end*/
+							elseif((ops.truco_pato=>0 and ops.truco_fuego_amigo<0 and ops.hamburguesas=>0)
+							  or (ops.truco_pato<0 and ops.truco_fuego_amigo=>0 and ops.hamburguesas=>0))
+								if(ops.hamburguesas) ops.hamburguesas=0; else ops.hamburguesas=1; end
 							end
 						end
 						case 6:
-							//if(ops.truco_sin_bandos) ops.truco_sin_bandos=0; else ops.truco_sin_bandos=1; end
+							if(ops.hamburguesas) ops.hamburguesas=0; else ops.hamburguesas=1; end
 						end
 					end
 					if(os_id==1003) opcion_actual--; end
@@ -416,7 +416,7 @@ Begin
 		case 3: graph=42-ops.musica; end
 		case 4: graph=42-ops.truco_pato; end
 		case 5: graph=42-ops.truco_fuego_amigo; end
-		//case 6: graph=42-ops.truco_sin_bandos; end
+		case 6: graph=42-ops.hamburguesas; end
 	end
 
 	from alpha=0 to 255 step 30; x-=2; frame; end
@@ -427,7 +427,7 @@ Begin
 			case 3: graph=42-ops.musica; end
 			case 4: graph=42-ops.truco_pato; end
 			case 5: graph=42-ops.truco_fuego_amigo; end
-			//case 6: graph=42-ops.truco_sin_bandos; end
+			case 6: graph=42-ops.hamburguesas; end
 		end
 		frame;
 	end

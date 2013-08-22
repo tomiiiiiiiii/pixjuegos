@@ -33,7 +33,7 @@ Begin
 			textos[0]="PAUSE";
 			textos[1]="Press "+botones[b_3]+" to exit";
 			textos[2]="Friendly fire unlocked!";
-			textos[3]="No bands unlocked!";
+			textos[3]="Random burgers unlocked!";
 			textos[4]="Boss rush unlocked!";
 			textos[5]="Boss rush completed!";
 			textos[6]="Character PATO unlocked!";
@@ -59,7 +59,7 @@ Begin
 			textos[24]="Music";
 			textos[25]="Play as Pato";
 			textos[26]="Friendly fire";
-			textos[27]="No bands";
+			textos[27]="Random burgers";
 			textos[28]="Story mode";
 			textos[29]="Survival mode";
 			textos[30]="Boss rush mode";
@@ -116,7 +116,7 @@ Begin
 			textos[0]="PAUSA";
 			textos[1]="Pulsa "+botones[b_3]+" para salir";
 			textos[2]="¡Fuego amigo desbloqueado!";
-			textos[3]="¡Sin bandas desbloqueado!";
+			textos[3]="¡Hamburguesas desbloqueadas!";
 			textos[4]="¡Modo matajefes desbloqueado!";
 			textos[5]="¡Modo matajefes completado!";
 			textos[6]="¡Pato desbloqueado!";
@@ -142,7 +142,7 @@ Begin
 			textos[24]="Música";
 			textos[25]="Jugar con Pato";
 			textos[26]="Fuego amigo";
-			textos[27]="Sin bandas";
+			textos[27]="Hamburguesas RANDOM";
 			textos[28]="Modo historia";
 			textos[29]="Modo supervivencia";
 			textos[30]="Modo matajefes";
