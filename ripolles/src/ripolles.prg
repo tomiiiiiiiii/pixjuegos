@@ -592,6 +592,8 @@ Begin
 	ready=1;
 	
 	controlador(0);
+
+	write_int_size(fpg_texto_azul,0,0,0,&fps,50);
 	
 	loop
 		if(modo_juego!=modo_historia) jukebox(); end
@@ -1894,13 +1896,13 @@ Begin
 	id_vida=vida(x-29,y+2,p[jugador].vida-1,25);
 	while(p[jugador].juega)
 		if(con_puntos)
-			txt_puntos.y=y-25;
 			if(puntos!=p[jugador].puntos)
 				puntos+=((p[jugador].puntos-puntos)/10)+2;
-				if(puntos>p[jugador].puntos)
+				txt_puntos.rand_y=4;
+				if(puntos=>p[jugador].puntos)
 					puntos=p[jugador].puntos;
+					txt_puntos.rand_y=0;
 				end
-				txt_puntos.y+=rand(-3,3);
 			end
 		end
 		if(vida_anterior!=p[jugador].vida-1)

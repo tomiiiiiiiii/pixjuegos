@@ -167,6 +167,17 @@ Begin
 	return graph;
 End
 
+Function write_in_map_rand_y(fpg_fuente,string texto,int centrado,int rand_y);
+Begin
+	//1. pintamos texto en un mapa de bits
+	graph=dibujame_el_texto(fpg_fuente,texto,ops_fuentes[fpg_fuente].margen,rand_y,rand_angle,0);
+	
+	//2. centramos
+	centrame(fpg_fuente,graph,centrado);
+	
+	return graph;
+End
+
 Process write_int(fpg_fuente,x,y,centrado,*numero);
 Private
 	mi_ancho;
