@@ -24,25 +24,46 @@ import "mod_wm";
 Begin
 	set_mode(100,100,argv[1]);
 	frame;
-	from x=2 to argc;
+	from x=2 to argc-1;
+		say("Compilando "+argv[x]+".fpg...");
 		procesa(argv[x]);
-		say(argv[x]);
 	end
 End
 
 Function procesa(string fpgname);
+Private
+	i;
+	j;
+	temp;
+	string nombre;
 Begin
+	if(fpgname=="") return; end
 	chdir(fpgname);
 	file=fpg_new();
 	from x=0 to 999;
+		nombre="";
 		If(file_exists(itoa(x)+".png"))
-			fpg_add(file,x,0,load_png(itoa(x)+".png"));
+			nombre=itoa(x)+".png";
 		elseIf(file_exists("0"+itoa(x)+".png"))
-			fpg_add(file,x,0,load_png("0"+itoa(x)+".png"));
+			nombre="0"+itoa(x)+".png";
 		elseIf(file_exists("00"+itoa(x)+".png"))
-			fpg_add(file,x,0,load_png("00"+itoa(x)+".png"));
+			nombre="00"+itoa(x)+".png";
+		end
+		if(nombre!="")
+			temp=load_png(nombre);
+			if(temp>0)
+				fpg_add(file,x,0,temp);
+				unload_map(0,temp);
+			else
+				say("Error cargando "+fpgname+":"+nombre);
+			end
 		end
 	End
-	save_fpg(file,"../../fpg/"+fpgname+".fpg");
+	if(!save_fpg(file,"../../fpg/"+fpgname+".fpg"))
+		say("Error guardando "+fpgname+".fpg");
+	else
+		say(fpgname+".fpg");
+		unload_fpg(file);
+	end
 	chdir("..");
 End

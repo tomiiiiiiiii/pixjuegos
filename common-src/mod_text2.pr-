@@ -331,6 +331,10 @@ Private
 	caracter_anterior;
 	mi_bpp;
 Begin
+	if(fpg_fuente<0) return 0; end
+	if(!map_exists(fpg_fuente,97) and !map_exists(fpg_fuente,65) and !map_exists(fpg_fuente,48))
+		return 0;
+	end
 	file=fpg_fuente;
 	if(!map_exists(fpg_fuente,97)) //si no hay minúsculas, uppercase-amos
 		texto=ucase(texto);
