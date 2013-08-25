@@ -97,6 +97,8 @@ Begin
 			textos[63]="Tutorial";
 			textos[64]="Hold "+botones[b_3]+" to skip";
 			textos[65]="Life up!";
+			textos[66]="Cheats";
+			textos[67]="Scoring is disabled when cheats are enabled";
 			textos[71]="Explossive enemies!";
 			textos[72]="Sudden death!";
 			textos[73]="Everybody dies!";
@@ -110,6 +112,7 @@ Begin
 			textos[81]="Free stuff!";
 			textos[82]="Everyone is super!";
 			textos[83]="No friction!";
+			
 		end
 		case 1: //español
 			//general
@@ -180,6 +183,8 @@ Begin
 			textos[63]="Tutorial";
 			textos[64]="Pulsa "+botones[b_3]+" para saltar la intro	";
 			textos[65]="¡Vida recuperada!";
+			textos[66]="Trucos";
+			textos[67]="Si hay trucos activados, no habrá puntuaciones";
 			
 			textos[71]="¡Enemigos explosivos!";
 			textos[72]="¡Muerte súbita!";
@@ -268,6 +273,8 @@ Begin
 			textos[63]="Tutorial";
 			textos[64]="prem " + botones[b_3] + " per saltar la intro";
 			textos[65]="Vida recuperada!";
+			textos[66]="Trucs";
+			textos[67]="Si hi ha trucs activats, no hi hauràn puntuacions.";
 			
 			textos[71]="Enemics explosius!";
 			textos[72]="Mort sobtada!";

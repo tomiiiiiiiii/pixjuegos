@@ -4,8 +4,9 @@ if not exist fpg-sources\cutscenes\84.png goto :nopngs
 
 set bits=%1
 if "%bits%"==""; set bits=32
-call ..\scripts\compilarfpgs.bat %bits% enemigo1 enemigo2 enemigo3 enemigo4 enemigo5 enemigo6 enemigo7 general objetos menu
-call ..\scripts\compilarfpgs.bat %bits% ripolles1 ripolles2 ripolles3 ripolles4 pato fnt1 fnt1azul fnt1rojo fnt1gris tiempo puntos1 puntos2 puntos3 puntos4 cat es en
+call ..\scripts\compilarfpgs.bat %bits% enemigo1 enemigo2 enemigo3 enemigo4 enemigo5 enemigo6 enemigo7 vaca 
+call ..\scripts\compilarfpgs.bat %bits% general objetos menu fnt1 fnt1azul fnt1rojo fnt1gris puntos1 puntos2 puntos3 puntos4
+call ..\scripts\compilarfpgs.bat %bits% ripolles1 ripolles2 ripolles3 ripolles4 pato tiempo cat es en
 call ..\scripts\compilarfpgs.bat %bits% ripolles1bici ripolles2bici ripolles3bici ripolles4bici 
 
 set bits=16

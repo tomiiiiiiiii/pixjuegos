@@ -263,8 +263,8 @@ Begin
 		frame;
 	end
 	//desbloqueamos el modo matajefes si no está desbloqueado
-	if(ops.truco_matajefes==0)
-		ops.truco_matajefes=1; //modo matajefes disponible
+	if(ops.matajefes==0)
+		ops.matajefes=1; //modo matajefes disponible
 		guarda_opciones();
 		truco_descubierto(textos[4]);
 		while(exists(type truco_descubierto)) frame; end

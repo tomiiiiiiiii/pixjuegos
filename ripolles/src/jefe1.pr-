@@ -11,7 +11,7 @@ Begin
 	graph=1;
 	enemigos++;
 	jugador=100;
-	p[jugador].vida=300*jugadores;
+	p[jugador].vida=300*((jugadores/2)+0.5);
 	from alpha=0 to 255 step 10; frame; end
 	marcador_jefe();
 	mano(x-180,y-15,1);
@@ -190,7 +190,6 @@ Begin
 			end
 			switch(animacion)
 				case quieto:
-					//ataque(x,y,file,graph,1,30,jugador);
 					if(graph<14 and graph=>11)
 						graph++;
 					else
@@ -204,35 +203,33 @@ Begin
 						graph=21;
 					end			
 					if(graph==22) 
-						ataque(x+(-15*hacia_que_lado),y+50,fpg_general,1,20,30,jugador); 
-						ataque(x+(+15*hacia_que_lado),y+50,fpg_general,1,20,30,jugador); 
+						ataque(x+(-15*hacia_que_lado),y+50,fpg_general,1,20,30,jugador,0); 
+						ataque(x+(+15*hacia_que_lado),y+50,fpg_general,1,20,30,jugador,0); 
 					end
 					if(graph==23) 
-						ataque(x+(-50*hacia_que_lado),y+50,fpg_general,1,20,30,jugador); 
-						ataque(x+(-90*hacia_que_lado),y+50,fpg_general,1,20,30,jugador); 
+						ataque(x+(-50*hacia_que_lado),y+50,fpg_general,1,20,30,jugador,0); 
+						ataque(x+(-90*hacia_que_lado),y+50,fpg_general,1,20,30,jugador,0); 
 					end
 				end
 				case ataca_aire:
-					//ataque(x,y,file,graph,20,30,jugador);
 					if(graph<34 and graph=>31)
 						graph++;
 					else
 						graph=31;
 					end
 					if(graph==31)
-						ataque(x+(-100*hacia_que_lado),y+40,fpg_general,1,20,30,jugador); 
+						ataque(x+(-100*hacia_que_lado),y+40,fpg_general,1,20,30,jugador,1); 
 					end
 					if(graph==32) 
-						ataque(x+(-50*hacia_que_lado),y+80,fpg_general,1,20,30,jugador); 
+						ataque(x+(-50*hacia_que_lado),y+80,fpg_general,1,20,30,jugador,1); 
 					end
 					if(graph==33) 
-						ataque(x+(35*hacia_que_lado),y+70,fpg_general,1,20,30,jugador);
-						ataque(x,y+85,fpg_general,1,20,30,jugador);
-						ataque(x+(-20*hacia_que_lado),y+100,fpg_general,1,20,30,jugador);
+						ataque(x+(35*hacia_que_lado),y+70,fpg_general,1,20,30,jugador,1);
+						ataque(x,y+85,fpg_general,1,20,30,jugador,1);
+						ataque(x+(-20*hacia_que_lado),y+100,fpg_general,1,20,30,jugador,1);
 					end
 				end
 				case defiende:
-					//ataque(x,y,file,graph,1,30,jugador);
 					if(graph<42 and graph=>41)
 						graph++;
 					else

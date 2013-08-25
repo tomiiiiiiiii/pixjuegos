@@ -11,6 +11,18 @@ private
 	volver_a_menu;
 	distancia_opciones=43;
 	contador_sonido=0;
+	
+	//opciones que pueden cambiar de sitio
+	//menu principal:
+	opcion_salir=-1;
+	opcion_trucos=-1;
+	
+	opcion_truco_pato;
+	opcion_truco_fuego_amigo;
+	opcion_truco_hamburguesas;
+	opcion_truco_good_vs_evil;
+	
+	id_txt;
 begin
 	resolution=global_resolution;
 	if(fpg_menu<1)
@@ -19,6 +31,12 @@ begin
 	file=fpg_menu;
 	delete_text(all_text);
 	mata_textos_menu=1;
+	if(ops.trucos==0)
+		if(ops.truco_hamburguesas=>0 or ops.truco_fuego_amigo=>0 or ops.truco_pato=>0 or ops.truco_good_vs_evil=>0)
+			ops.trucos=1;
+		end
+	end
+	
 	if(num_menu==-1)
 		jukeboxing=0;
 		let_me_alone();
@@ -72,17 +90,21 @@ begin
 
 	frame(200);
 	mata_textos_menu=0;
-
 	
 	//ponemos el menú actual
 	switch(num_menu)
 		case 0: //general
 			//menu_torcio=5000;
 			titulo();
-			from i=15 to 19;
+			from i=15 to 18;
 				texto_menu(y+=distancia_opciones,textos[i]);
 			end
 			num_opciones=5;
+			if(ops.trucos)
+				texto_menu(y+=distancia_opciones,textos[66]);
+				num_opciones++;
+			end
+			texto_menu(y+=distancia_opciones,textos[19]);
 			volver_a_menu=0;
 		end
 		case 1: //jugar
@@ -105,10 +127,6 @@ begin
 			end
 			texto_menu(y+=distancia_opciones,textos[23]); estado_opcion(y,2);
 			texto_menu(y+=distancia_opciones,textos[24]); estado_opcion(y,3);
-			if(ops.truco_pato=>0) texto_menu(y+=distancia_opciones,textos[25]); estado_opcion(y,4); num_opciones++; end
-			if(ops.truco_fuego_amigo=>0) texto_menu(y+=distancia_opciones,textos[26]); estado_opcion(y,5); num_opciones++; end
-			if(ops.hamburguesas=>0) texto_menu(y+=distancia_opciones,textos[27]); estado_opcion(y,6); num_opciones++; end
-
 			volver_a_menu=0;
 		end
 		case 3: //modos de juego
@@ -117,11 +135,10 @@ begin
 			
 			modo_matajefes=-1;
 			modo_battleroyale=-1;
-			modo_good_vs_evil=-1;
 
 			texto_menu(y+=distancia_opciones,textos[28]);
 			texto_menu(y+=distancia_opciones,textos[29]);
-			if(ops.truco_matajefes)
+			if(ops.matajefes)
 				modo_matajefes=++num_opciones;
 				texto_menu(y+=distancia_opciones,textos[30]);
 			end
@@ -129,13 +146,17 @@ begin
 				modo_battleroyale=++num_opciones;
 				texto_menu(y+=distancia_opciones,textos[31]);
 			end
-			#IFDEF DEBUG
-			if(jugadores==4) //no está listo aún
-				modo_good_vs_evil=++num_opciones;
-				texto_menu(y+=distancia_opciones,textos[32]);
-			end
-			#ENDIF
 			volver_a_menu=0;
+		end
+		case 4: //trucos!
+			menu_torcio=0;
+			if(ops.truco_pato=>0) texto_menu(y+=distancia_opciones,textos[25]); estado_opcion(y,4); num_opciones++; end
+			if(ops.truco_fuego_amigo=>0) texto_menu(y+=distancia_opciones,textos[26]); estado_opcion(y,5); num_opciones++; end
+			if(ops.truco_hamburguesas=>0) texto_menu(y+=distancia_opciones,textos[27]); estado_opcion(y,6); num_opciones++; end
+
+			volver_a_menu=0;
+			
+			id_txt=write_size(fpg_texto_rojo,ancho_pantalla/2,alto_pantalla-40,4,textos[67],60);
 		end
 	end
 	
@@ -167,13 +188,20 @@ begin
 			end
 			switch(num_menu)
 				case 0: //general
+					if(ops.trucos)
+						opcion_trucos=5;
+						opcion_salir=6;
+					else
+						opcion_salir=5;
+					end
 					delete_text(all_text);
 					switch(opcion_actual)
 						case 1: menu(1); end
 						case 2: menu(2); end
 						case 3: muestra_hasta_volver(1); end
 						case 4: muestra_hasta_volver(10); end
-						case 5: salir(); end
+						case opcion_trucos: menu(4); end
+						case opcion_salir: salir(); end
 					end
 					return;
 				end
@@ -196,20 +224,16 @@ begin
 									ops.ventana=1; 
 									full_screen=0;
 								end
-								if(global_resolution!=0)
-									set_mode(ancho_pantalla*2,alto_pantalla*2,bpp);
-								else
-									set_mode(ancho_pantalla,alto_pantalla,bpp);
-								end
+								set_mode(ancho_pantalla*abs(global_resolution),alto_pantalla*abs(global_resolution),bpp);
 							end
 						end
 						case 2: 
 							if(ops.sonido) ops.sonido=0; else ops.sonido=1; end 
 							if(contador_sonido==10) 
 								sonido(22,0); 
-								ops.truco_matajefes=1;
+								ops.matajefes=1;
 								ops.truco_pato=0;
-								ops.hamburguesas=0;
+								ops.truco_hamburguesas=0;
 								ops.truco_fuego_amigo=0;
 								guarda_opciones();
 							else
@@ -228,30 +252,26 @@ begin
 								if(ops.truco_pato) ops.truco_pato=0; else ops.truco_pato=1; end
 							elseif(ops.truco_pato<0 and ops.truco_fuego_amigo=>0)
 								if(ops.truco_fuego_amigo) ops.truco_fuego_amigo=0; else ops.truco_fuego_amigo=1; end
-							elseif(ops.truco_pato<0 and ops.truco_fuego_amigo<0 and ops.hamburguesas=>0)
-								if(ops.hamburguesas) ops.hamburguesas=0; else ops.hamburguesas=1; end
+							elseif(ops.truco_pato<0 and ops.truco_fuego_amigo<0 and ops.truco_hamburguesas=>0)
+								if(ops.truco_hamburguesas) ops.truco_hamburguesas=0; else ops.truco_hamburguesas=1; end
 							end
 						end
 						case 5:
 							if(ops.truco_pato=>0 and ops.truco_fuego_amigo=>0)
 								if(ops.truco_fuego_amigo) ops.truco_fuego_amigo=0; else ops.truco_fuego_amigo=1; end
-							elseif((ops.truco_pato=>0 and ops.truco_fuego_amigo<0 and ops.hamburguesas=>0)
-							  or (ops.truco_pato<0 and ops.truco_fuego_amigo=>0 and ops.hamburguesas=>0))
-								if(ops.hamburguesas) ops.hamburguesas=0; else ops.hamburguesas=1; end
+							elseif((ops.truco_pato=>0 and ops.truco_fuego_amigo<0 and ops.truco_hamburguesas=>0)
+							  or (ops.truco_pato<0 and ops.truco_fuego_amigo=>0 and ops.truco_hamburguesas=>0))
+								if(ops.truco_hamburguesas) ops.truco_hamburguesas=0; else ops.truco_hamburguesas=1; end
 							end
 						end
 						case 6:
-							if(ops.hamburguesas) ops.hamburguesas=0; else ops.hamburguesas=1; end
+							if(ops.truco_hamburguesas) ops.truco_hamburguesas=0; else ops.truco_hamburguesas=1; end
 						end
 					end
 					if(os_id==1003) opcion_actual--; end
 				end
 				case 3: //modo de juego
 					modo_juego=opcion_actual;
-					if(modo_juego==modo_good_vs_evil)
-						modo_juego=modo_historia;
-						good_vs_evil=1;
-					end
 					fade_off();
 					while(fading) frame; end
 					delete_text(all_text);
@@ -262,6 +282,31 @@ begin
 					end
 					return;
 				end
+				case 4: //trucos
+					switch(opcion_actual)
+						case 1:
+							//condiciones de caca. entregamos mañana, es aceptable xD
+							if(ops.truco_pato=>0)
+								if(ops.truco_pato) ops.truco_pato=0; else ops.truco_pato=1; end
+							elseif(ops.truco_pato<0 and ops.truco_fuego_amigo=>0)
+								if(ops.truco_fuego_amigo) ops.truco_fuego_amigo=0; else ops.truco_fuego_amigo=1; end
+							elseif(ops.truco_pato<0 and ops.truco_fuego_amigo<0 and ops.truco_hamburguesas=>0)
+								if(ops.truco_hamburguesas) ops.truco_hamburguesas=0; else ops.truco_hamburguesas=1; end
+							end
+						end
+						case 2:
+							if(ops.truco_pato=>0 and ops.truco_fuego_amigo=>0)
+								if(ops.truco_fuego_amigo) ops.truco_fuego_amigo=0; else ops.truco_fuego_amigo=1; end
+							elseif((ops.truco_pato=>0 and ops.truco_fuego_amigo<0 and ops.truco_hamburguesas=>0)
+							  or (ops.truco_pato<0 and ops.truco_fuego_amigo=>0 and ops.truco_hamburguesas=>0))
+								if(ops.truco_hamburguesas) ops.truco_hamburguesas=0; else ops.truco_hamburguesas=1; end
+							end
+						end
+						case 3:
+							if(ops.truco_hamburguesas) ops.truco_hamburguesas=0; else ops.truco_hamburguesas=1; end
+						end
+					end
+				end
 			end
 		end
 		if((p[0].botones[b_cancelar] or key(_esc)) and volver_a_menu!=num_menu)
@@ -270,6 +315,7 @@ begin
 				sonido(11,0);
 			end
 			while(p[0].botones[b_cancelar] or key(_esc)) frame; end
+			if(id_txt!=0) id_txt.accion=-1; end
 			menu(volver_a_menu);
 			return;
 		end
@@ -416,7 +462,7 @@ Begin
 		case 3: graph=42-ops.musica; end
 		case 4: graph=42-ops.truco_pato; end
 		case 5: graph=42-ops.truco_fuego_amigo; end
-		case 6: graph=42-ops.hamburguesas; end
+		case 6: graph=42-ops.truco_hamburguesas; end
 	end
 
 	from alpha=0 to 255 step 30; x-=2; frame; end
@@ -427,7 +473,7 @@ Begin
 			case 3: graph=42-ops.musica; end
 			case 4: graph=42-ops.truco_pato; end
 			case 5: graph=42-ops.truco_fuego_amigo; end
-			case 6: graph=42-ops.hamburguesas; end
+			case 6: graph=42-ops.truco_hamburguesas; end
 		end
 		frame;
 	end

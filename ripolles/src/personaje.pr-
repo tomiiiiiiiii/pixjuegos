@@ -38,6 +38,7 @@ Private
 	ultimo_ataque=10;
 	ataca_fuerte_sin_retraso=0;	
 	tipo_original;
+	ataques_recibidos;
 Begin
 	resolution=global_resolution;
 	ctype=coordenadas;
@@ -205,7 +206,7 @@ Begin
 				fuerza_ataque=20;
 				fpg_jefe=load_fpg("fpg/jefe2.fpg");
 				file=fpg_jefe;
-				p[jugador].vida=1000*((jugadores/2)+0.5);
+				p[jugador].vida=300*((jugadores/2)+0.5);
 				sabe_ataque_especial=1;
 				alpha=0;
 				sabe_coger_objeto=0;
@@ -216,7 +217,7 @@ Begin
 				fuerza_ataque=30;
 				fpg_jefe=load_fpg("fpg/jefe4.fpg");
 				file=fpg_jefe;
-				p[jugador].vida=1400*((jugadores/2)+0.5);
+				p[jugador].vida=500*((jugadores/2)+0.5);
 				sabe_ataque_especial=1;
 				sabe_saltar=1;
 				sabe_moverse=0;
@@ -228,7 +229,7 @@ Begin
 		if(jugadores>1)
 			p[jugador].vida+=p[jugador].vida*(jugadores*0.2);
 		end
-		if(good_vs_evil)
+		if(ops.truco_good_vs_evil==1)
 			fuerza_ataque=fuerza_ataque/3;
 			p[jugador].vida=p[jugador].vida*0.7;
 		end
@@ -246,8 +247,9 @@ Begin
 	end
 	
 	if(jugador==100) marcador_jefe(); end
-	
-	recoloca_centros_personaje(file);
+
+	//hay que recolocar centros de los jefes
+	if(tipo>100) recoloca_centros_personaje(file); end
 	
 	accion=quieto;
 	alto=graphic_info(file,1,G_HEIGHT);
@@ -268,14 +270,16 @@ Begin
 	end
 
 	sombra();
+	if(en_moto) son.size_x=200; end
+	cuerpo();
 	
 	loop
-		if(combo>0)
+		if(combo>0 and !en_moto)
 			p[jugador].combo+=combo;
 			combo=0;
 		end
 		if(retraso_combo==0 and p[jugador].combo>1)
-			retraso_combo=50;
+			retraso_combo=150;
 			combo_actual=p[jugador].combo;
 			id_combo=combo_player();
 		elseif(retraso_combo==1 or herida>0)
@@ -291,7 +295,7 @@ Begin
 					p[jugador].combo=10;
 				end
 				combo_actual=p[jugador].combo;
-				retraso_combo+=30;
+				retraso_combo=150;
 			end
 			retraso_combo--;
 		end
@@ -426,6 +430,13 @@ Begin
 			nube_humo(x+50,y+35,z,-10,0,rand(70,100));
 			nube_humo(x-10,y+50,z,-10,0,rand(70,100));
 			x_inc-=2;
+		end
+		
+		//SI VAS EN MOTO Y ROTAS MUCHO LA BICI, ATACAS PILA
+		if(altura!=0 and angle_inc!=0)
+			if(jugador<10)
+				ataque(x,y,file,11,abs(x_inc)+20,40,jugador,1);
+			end
 		end
 		
 		rotura_cogido=0;
@@ -594,6 +605,27 @@ Begin
 		
 		if(herida==0)
 			if(altura==0) //EN EL SUELO
+				if(en_moto)
+					//colisión contra zanja
+					if(id_col=collision(type zanja))
+						if(id_col.y>y)
+							x_inc=20;
+							herida=15;
+							switch(id_col.y)
+								case 207: y_inc=10; end
+								case 271: y_inc=-10; end
+								case 330: y_inc=-10; end
+							end
+						end
+					end
+					if(id_col=collision(type rampa))
+						if(id_col.y>y)
+							gravedad=-25;
+							altura=-1;
+						end
+					end
+				end
+			
 				if(accion==defiende and sabe_evadir==1) //ESQUIVAR
 					if(retraso_movimiento_defensa==0)
 						//movimiento
@@ -834,8 +866,9 @@ Begin
 				altura+=gravedad;
 				if(altura>1)
 					if(en_moto)
-						if(angle>360000) angle-=360000; end
-						if(angle<0) angle+=360000; end
+						/*if(angle>360000) angle-=360000; end
+						if(angle<0)	angle+=360000; end*/
+						if(angle>360000 or angle<0) angle=0; angle_inc=0; end
 						if(angle>315000 or angle<45000)
 							altura=0;
 							gravedad=0;
@@ -845,10 +878,10 @@ Begin
 						else
 							nube_humo(x,y+50,z,0,0,100);
 							if(angle==180000)
-								angle_inc=18;
+								//angle_inc=18;
 							else
-								angle_inc=(angle-180000)/10000;
-								x_inc+=angle_inc/2;
+								//angle_inc=(angle-180000)/10000;
+								//x_inc+=angle_inc/2;
 							end
 							gravedad=-20;
 							altura=-1;
@@ -905,19 +938,23 @@ Begin
 					end
 				end
 				p[jugador].vida-=herida;
-				if(herida<20 and altura==0)
+				//if(((herida<40 or tipo>100) and (!(ataques_recibidos=>3 and tipo!=0))) and altura==0)
+				if(ataques_recibidos<3 and altura==0)
+					ataques_recibidos++;
 					sonido(1,0);
 					accion=herido_leve;
 					herida=7; //más retraso
 				else
+					ataques_recibidos=0;
 					sonido(2,0);
 					if(sabe_herida_grave)
 						accion=herido_grave;
 					else
 						accion=herido_leve;
 					end
-					if(herida>15)
-						gravedad=-herida;
+					if(herida>30)
+						gravedad=-herida/2;
+						if(gravedad<-50) gravedad=-50; end
 					else
 						gravedad=-15;
 					end
@@ -956,6 +993,11 @@ Begin
 				herida=0;
 			end
 
+			//SI ESTÁS CAYENDO HERIDO, GOLPEAS A LOS DE TU ALREDEDOR (SOLO ENEMIGOS)
+			if(accion==herido_grave and x_inc!=0 and gravedad>0 and tipo!=0)
+				ataque(father.x,father.y,father.file,father.graph,abs(father.x_inc),40,atacante,1);
+			end
+			
 			altura+=gravedad;
 
 			if(altura>1)
@@ -1000,8 +1042,9 @@ Begin
 					herida--;
 				end
 				if(altura>1)
-					if(angle>360000) angle-=360000; end
-					if(angle<0) angle+=360000; end
+					/*if(angle>360000) angle-=360000; end
+					if(angle<0)	angle+=360000; end*/
+					if(angle>360000 or angle<0) angle=0; angle_inc=0; end
 					if(angle>315000 or angle<45000)
 						altura=0;
 						gravedad=0;
@@ -1009,12 +1052,12 @@ Begin
 						angle_inc=0;
 						angle=0;
 					else
-						if(angle==180000)
-							angle_inc=18;
+						/*if(angle==180000)
+							//angle_inc=18;
 						else
 							angle_inc=(angle-180000)/10000;
 							x_inc+=angle_inc/2;
-						end
+						end*/
 						gravedad=-20;
 						altura=-1;
 						if(angle>135000 and angle<225000)
@@ -1070,7 +1113,6 @@ Begin
 			end
 		end
 		animame();
-		cuerpo();
 		
 		//gestion del objeto portado o siendo cogido
 		if(lleva_objeto!=0 or accion==lanza_objeto)
@@ -1173,12 +1215,12 @@ Begin
 		//GESTIÓN DE LOS ATAQUES (puntos de colisión de los ataques)
 		if(accion==ataca_suelo)
 			if(anim<4)
-				if(tipo==0) ataque(x+(15*hacia_que_lado),y-15,fpg_general,1,fuerza_ataque,20,jugador); end
+				if(tipo==0) ataque(x+(15*hacia_que_lado),y-15,fpg_general,1,fuerza_ataque,20,jugador,0); end
 			else
 				if(en_moto)
-					ataque(x+(70*hacia_que_lado),y-15,fpg_general,1,fuerza_ataque*1.5,20,jugador);
+					ataque(x+(70*hacia_que_lado),y-15,fpg_general,1,fuerza_ataque*1.5,20,jugador,0);
 				else
-					ataque(x+(45*hacia_que_lado),y-15,fpg_general,1,fuerza_ataque*1.5,20,jugador);
+					ataque(x+(45*hacia_que_lado),y-15,fpg_general,1,fuerza_ataque*1.5,20,jugador,0);
 				end
 			end
 			if(anim==7)
@@ -1188,7 +1230,7 @@ Begin
 		if(accion==ataca_fuerte)
 			if(ataca_fuerte_sin_retraso and anim<8) anim=8; end
 			if(graph==142 or graph==143)
-				ataque(x+(40*hacia_que_lado),y,fpg_general,3,fuerza_ataque*2.5,20,jugador);
+				ataque(x+(40*hacia_que_lado),y,fpg_general,3,fuerza_ataque*2.5,20,jugador,1);
 			end
 			if(anim==15)
 				ataca_fuerte_sin_retraso=0;
@@ -1199,25 +1241,25 @@ Begin
 			y_inc=0;
 			if(flags) x_inc-=2; else x_inc+=2; end
 			if(gravedad<0)
-				ataque(x+(40*hacia_que_lado),y,fpg_general,3,fuerza_ataque*1.7,20,jugador);
+				ataque(x+(40*hacia_que_lado),y,fpg_general,3,fuerza_ataque*2,20,jugador,1);
 			else
 				accion=quieto;
 			end
 		end
 		if(accion==ataca_aire)
-			ataque(x+(40*hacia_que_lado),y,fpg_general,1,fuerza_ataque*2,15,jugador);
+			ataque(x+(40*hacia_que_lado),y,fpg_general,1,fuerza_ataque*2,15,jugador,1);
 		end
 		if(accion==ataca_area)
 			if(tipo==0)
-				ataque(x,y,file,graph,fuerza_ataque*4,20,jugador);
+				ataque(x,y,file,graph,fuerza_ataque*4,20,jugador,1);
 				if(altura!=0) gravedad--; end
 				if(anim==23)
 					accion=quieto;
 				end
 			else //jefe2
-			if(anim>30 and anim<175)
+				if(anim>30 and anim<175)
 					estela();
-					ataque(x,y,file,graph,fuerza_ataque,20,jugador);
+					ataque(x,y,file,graph,fuerza_ataque,20,jugador,1);
 					if(x_inc==0 or y_inc==0)
 						if(rand(0,1)==0) x_inc=rand(-5,-2); else x_inc=rand(2,5); end
 						if(rand(0,1)==0) y_inc=rand(-5,-2); else y_inc=rand(2,5); end
@@ -1280,6 +1322,7 @@ Begin
 					p[jugador].vida=100;
 					frame;
 					renacimiento=0;
+					cuerpo();
 				else
 					enemigos_matados++;
 					p[jugador].juega=0;
@@ -1326,3 +1369,4 @@ Begin
 		end
 	end
 End
+

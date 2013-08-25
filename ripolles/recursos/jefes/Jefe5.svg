@@ -15,7 +15,7 @@
    id="svg5230"
    version="1.1"
    inkscape:version="0.48.2 r9819"
-   sodipodi:docname="Jefe4.svg">
+   sodipodi:docname="Jefe5.svg">
   <defs
      id="defs5232">
     <linearGradient
@@ -5281,18 +5281,18 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.44743993"
-     inkscape:cx="1066.593"
-     inkscape:cy="302.57931"
+     inkscape:zoom="3.5795194"
+     inkscape:cx="1058.4867"
+     inkscape:cy="544.20283"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      showguides="true"
      inkscape:guide-bbox="true"
      inkscape:snap-to-guides="false"
-     inkscape:window-width="1366"
-     inkscape:window-height="706"
-     inkscape:window-x="-8"
+     inkscape:window-width="1857"
+     inkscape:window-height="1058"
+     inkscape:window-x="55"
      inkscape:window-y="-8"
      inkscape:window-maximized="1">
     <sodipodi:guide
@@ -11617,37 +11617,38 @@
     </g>
     <g
        id="general-16"
-       inkscape:label="#g6184">
+       inkscape:label="#g6184"
+       style="fill:#666666">
       <path
          sodipodi:nodetypes="ccccc"
          inkscape:connector-curvature="0"
          id="path6748-1-8-3"
          d="m 884.7316,446.38517 17.41531,1.15419 15.22973,12.85228 -22.06441,-0.41971 z"
-         style="fill:#1a1a1a;stroke:none" />
+         style="fill:#666666;stroke:none" />
       <path
          inkscape:connector-curvature="0"
          id="path6740-2-4-2"
          d="m 1173.3401,465.65537 -46.9842,-11.90722 -12.325,-6.24301 -143.68743,-1.10102 -75.45678,13.3435 57.00644,15.8052 143.04217,-0.78447 22.083,-4.05887 z"
-         style="fill:#1a1a1a;stroke:none"
+         style="fill:#666666;stroke:none"
          sodipodi:nodetypes="ccccccccc" />
       <path
          inkscape:connector-curvature="0"
          id="path6746-7-7-1"
          d="m 895.44613,459.92251 -17.24757,14.68128 19.55677,0.94151 17.92252,-11.30427"
-         style="fill:#1a1a1a;stroke:none"
+         style="fill:#666666;stroke:none"
          sodipodi:nodetypes="cccc" />
       <path
          sodipodi:nodetypes="cccccc"
          inkscape:connector-curvature="0"
          id="path6742-4-1-7"
          d="m 987.13871,464.03288 -12.79758,18.5158 -31.46046,22.62982 16.77233,1.93887 61.5069,-17.68388 17.9031,-21.54586"
-         style="fill:#1a1a1a;stroke:none" />
+         style="fill:#666666;stroke:none" />
       <path
          sodipodi:nodetypes="cccccc"
          inkscape:connector-curvature="0"
          id="path6742-4-1-7-4"
          d="m 989.29199,449.00814 3.79597,-12.58953 -4.59469,-22.62982 20.72313,-0.35853 40.9626,20.44947 -6.1971,16.40976"
-         style="fill:#1a1a1a;stroke:none;display:inline" />
+         style="fill:#666666;stroke:none;display:inline" />
     </g>
   </g>
   <g

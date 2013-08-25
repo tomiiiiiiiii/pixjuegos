@@ -74,7 +74,7 @@ Begin
 			e.herida=20;
 		end
 				
-		if(good_vs_evil)
+		if(ops.truco_good_vs_evil==1)
 			if(estoy_en_pantalla())
 				if(controlado==0)
 					from i=3 to 4;
@@ -271,7 +271,7 @@ End
 Process muestra_vida(size_x);
 Begin
 	resolution=global_resolution;
-	ctype=c_scroll;
+	ctype=coordenadas;
 	x=father.x;
 	y=father.y-60;
 	z=-500;
@@ -285,7 +285,7 @@ End
 Process muestra_vida2();
 Begin
 	resolution=global_resolution;
-	ctype=c_scroll;
+	ctype=coordenadas;
 	x=father.x;
 	y=father.y;
 	file=fpg_general;

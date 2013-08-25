@@ -16,7 +16,7 @@ Begin
 	graph=1;
 	enemigos++;
 	jugador=100;
-	p[jugador].vida=1600*((jugadores/2)+0.5);
+	p[jugador].vida=600*((jugadores/2)+0.5);
 	avion_en_cabeza();
 	mis_pies=jefe5_pies();
 	mis_brazos[1]=jefe5_brazo(1);
@@ -249,7 +249,7 @@ Begin
 			animacion=accion=quieto;
 		end
 		if(graph==base_graph+11 or graph==base_graph+21)
-			ataque(x,y,file,graph,10,30,jugador);
+			ataque(x,y,file,graph,10,30,jugador,1);
 		end
 		frame;
 	end
@@ -319,7 +319,7 @@ Begin
 		end
 		if(graph==55 or graph==60)
 			if(anim==0) sonido(4,0); end
-			ataque(x,y,file,graph,5,30,jugador);
+			ataque(x,y,file,graph,5,30,jugador,0);
 		end
 		frame;
 	end
@@ -373,14 +373,14 @@ Begin
 		x=id_camara.x-ancho_pantalla;	
 		while(x<id_camara.x+ancho_pantalla)
 			x+=20;
-			ataque(x,y+65,file,graph,30,38,jugador);
+			ataque(x,y+65,file,graph,30,38,jugador,1);
 			frame;
 		end
 	else
 		x=id_camara.x+ancho_pantalla;
 		while(x>id_camara.x-ancho_pantalla)
 			x-=20;
-			ataque(x,y+65,file,graph,30,60,jugador);
+			ataque(x,y+65,file,graph,30,60,jugador,1);
 			frame;
 		end
 	end
@@ -393,6 +393,11 @@ Begin
 	ctype=coordenadas;
 	graph=201;
 	while(exists(father))
+		if(exists(type lanza_avion))
+			graph=0;
+		else
+			graph=201;
+		end
 		x=father.x;
 		y=father.y-105;
 		z=father.z-1;

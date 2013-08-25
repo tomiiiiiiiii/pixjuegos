@@ -39,9 +39,9 @@ Process nivel1_eventos();
 Begin
 	resolution=global_resolution;
 	while(!exists(id_camara)) frame; end
-	//#IFDEF OUYA
+	if(ops.tutorial)
 		tutorial_ouya();
-	//#ENDIF
+	end
 	loop
 		while(!ready) frame; end
 		if(id_camara.x>1600 and id_camara.x<4200)
@@ -156,7 +156,9 @@ Begin
 			frame;
 		end
 	end
-	mitxtxt.accion=-1;
 	from i=0 to 200; frame; end
-	from alpha=255 to 0 step -15; y++; frame; end
+	from alpha=255 to 0 step -15; mitxtxt.y++; mitxtxt.alpha=alpha; y++; frame; end
+	mitxtxt.accion=-1;
+	ops.tutorial=0;
+	guarda_opciones();
 End
