@@ -70,6 +70,7 @@ Const
 End
 
 Global
+	color_arena;
 	mini_boss;
 	contador;
 	num_zona;
@@ -128,6 +129,7 @@ Global
 		velocidad_extra;
 		fuerza_extra;
 		combo;
+		bonus;
 	end
 	
 	Struct ops;
@@ -331,14 +333,16 @@ Begin
 		scale_resolution=06400480;
 		bpp=16;	
 	elseif(os_id==1003 or os_id==1002) //móviles
-		#IFNDEF OUYA
+/*		
+	el escalado lo hace bennugd automáticamente, esto ya no es necesario
+	#IFNDEF OUYA
 		if(graphic_info(0,0,g_width)==1024 and graphic_info(0,0,g_height)==552)
 			ancho_pantalla=665; //archos gamepad
 			alto_pantalla=360;
 		else
 			scale_resolution=graphic_info(0,0,g_width)*10000+graphic_info(0,0,g_height);
 		end
-		#ENDIF
+		#ENDIF*/
 		bpp=16;	
 	elseif(os_id==1010) //pandora
 		scale_resolution=08000480;
@@ -350,10 +354,7 @@ Begin
 		pocos_recursos=1;
 		bpp=16;
 	else
-/*		if(mode_is_ok(1280,720,bpp,MODE_FULLSCREEN) and global_resolution==0)
-			scale_resolution=12800720;
-		end
-*/
+		//windows?
 	end
 	
 	if(ops.ventana==0)
@@ -366,7 +367,6 @@ Begin
 		scale_resolution=08000600;
 		full_screen=true;
 	end
-	
 
 	//Pero internamente trabajaremos con esto:
 	#IFDEF DEBUG
@@ -376,11 +376,7 @@ Begin
 	resolution=global_resolution;
 	
 	//gráfico para mientras se carga
-	switch(abs(global_resolution))
-		case 0: graph=load_png("loading-360p.png"); end
-		case 2: graph=load_png("loading-720p.png"); end
-		case 3: graph=load_png("loading-1080p.png"); end
-	end
+	graph=load_png("loading-360p.png");
 	x=ancho_pantalla/2;
 	y=alto_pantalla/2;
 	
@@ -944,6 +940,14 @@ Function inercia_maxima(max_x,max_y);
 Private
 	max_angle=20;
 Begin
+	if(nivel==4 and father.altura==0)
+		if(father.x>7064 and father.x<8817)
+			if(map_get_pixel(fpg_nivel,1,father.x*abs(global_resolution),(father.y+53)*abs(global_resolution))==color_arena)
+				max_x=max_x/3;
+				max_y=max_y/3;
+			end
+		end
+	end
 	if(father.x_inc>0)
 		if(father.x_inc>max_x) father.x_inc=max_x; end
 	elseif(father.x_inc<0)
@@ -1283,6 +1287,8 @@ Begin
 	else
 		father.anim=0;
 	end
+	
+	if(!esta_en_pantalla_margen(father)) father.graph=0; end
 End
 
 Function en_rango(z1,z2,rango);
@@ -1344,7 +1350,7 @@ Begin
 			end
 		end
 
-		if(father.accion!=herido_leve and father.accion!=herido_grave and father.accion!=ataca_area and father.accion!=muere)
+		if(father.accion!=herido_leve and father.accion!=herido_grave and father.accion!=ataca_area and father.accion!=muere and father.accion!=cogido)
 			//ataque
 			while(id_col=collision_box(type ataque))
 				if(id_col.jugador!=jugador and 													//si no es el mismo jugador
@@ -1400,7 +1406,7 @@ Begin
 							end
 
 							if(x<id_col.x)
-								if(id_col.father.accion!=herido_leve and id_col.father.accion!=herido_grave and id_col.father.accion!=ataca_area and id_col.father.accion!=muere)
+								if(id_col.father.accion!=herido_leve and id_col.father.accion!=herido_grave and id_col.father.accion!=ataca_area and id_col.father.accion!=muere and id_col.father.accion!=cogido)
 									id_col.father.x_inc+=3;
 									id_col.father.y_inc+=2;
 									if(id_col.father.accion==quieto)
@@ -1413,7 +1419,7 @@ Begin
 									end
 								end
 							else
-								if(id_col.father.accion!=herido_leve and id_col.father.accion!=herido_grave and id_col.father.accion!=ataca_area and id_col.father.accion!=muere)
+								if(id_col.father.accion!=herido_leve and id_col.father.accion!=herido_grave and id_col.father.accion!=ataca_area and id_col.father.accion!=muere and id_col.father.accion!=cogido)
 									id_col.father.x_inc-=3;
 									id_col.father.y_inc-=2;
 									if(id_col.father.accion==quieto)
@@ -1493,6 +1499,12 @@ Begin
 	if(graph==100) x_inc*=1.3; end
 	loop
 		while(!ready) frame; end
+		if(!estoy_en_pantalla_margen() and altura==0 and x_inc==0)
+			i=graph;
+			graph=0;
+			while(!estoy_en_pantalla_margen()) frame; end
+			graph=i;
+		end
 		if(combo!=0)
 			p[jugador].combo+=combo;
 			combo=0;
@@ -1699,11 +1711,42 @@ Begin
 	end
 End
 
+Function estoy_en_pantalla_margen();
+Begin
+	if(exists(id_camara))
+		if(father.x>id_camara.x-(ancho_pantalla/2)-200 and father.x<id_camara.x+(ancho_pantalla/2)+200)
+			return 1;
+		else
+			return 0;
+		end
+	else
+		return 1;
+	end
+End
+
 Function esta_en_pantalla(id_prueba);
 Begin
 	if(!exists(id_prueba)) return 0; end
 	if(exists(id_camara))
 		if(id_prueba.x>id_camara.x-(ancho_pantalla/2) and id_prueba.x<id_camara.x+(ancho_pantalla/2))
+			return 1;
+		else
+			return 0;
+		end
+	else
+		if(x>0 and x<640)
+			return 1;
+		else
+			return 0;
+		end
+	end
+End
+
+Function esta_en_pantalla_margen(id_prueba);
+Begin
+	if(!exists(id_prueba)) return 0; end
+	if(exists(id_camara))
+		if(id_prueba.x>id_camara.x-(ancho_pantalla/2)-200 and id_prueba.x<id_camara.x+(ancho_pantalla/2)+200)
 			return 1;
 		else
 			return 0;
@@ -2101,7 +2144,8 @@ Begin
 		p[i].velocidad_extra=0;
 		p[i].fuerza_extra=0;
 		p[i].puntos=0;
-		p[i].combo=0;	
+		p[i].combo=0;
+		p[i].bonus=0;
 	end
 	delete_text(all_text);
 End
@@ -2635,6 +2679,12 @@ Begin
 	graph=101;
 	estatua_caida2();
 	loop
+		if(!estoy_en_pantalla_margen())
+			i=graph;
+			graph=0;
+			while(!estoy_en_pantalla_margen()) frame; end
+			graph=i;
+		end
 		frame;
 	end
 End
@@ -2651,6 +2701,12 @@ Begin
 	set_center(fpg_nivel,102,(graphic_info(fpg_nivel,102,G_WIDTH)/4),graphic_info(fpg_nivel,102,G_HEIGHT)/2);
 	sombra_estatua1();
 	loop
+		if(!estoy_en_pantalla_margen())
+			i=graph;
+			graph=0;
+			while(!estoy_en_pantalla_margen()) frame; end
+			graph=i;
+		end
 		if(id_col=collision(type ataque))
 			if(en_rango(z,id_col.z,30))
 				break;
@@ -2670,6 +2726,12 @@ Begin
 	end
 	in_memoriam();
 	loop
+		if(!estoy_en_pantalla_margen())
+			i=graph;
+			graph=0;
+			while(!estoy_en_pantalla_margen()) frame; end
+			graph=i;
+		end
 		frame;
 	end
 End
@@ -2685,6 +2747,12 @@ Begin
 
 	graph=103;
 	while(father.angle==0)
+		if(!estoy_en_pantalla_margen())
+			i=graph;
+			graph=0;
+			while(!estoy_en_pantalla_margen()) frame; end
+			graph=i;
+		end
 		frame;
 	end
 	sombra_estatua2();
@@ -2701,7 +2769,15 @@ Begin
 	z=father.z+1;
 	y=250;
 	from alpha=0 to 255 step 10; frame; end
-	loop frame; end
+	loop
+		if(!estoy_en_pantalla_margen())
+			i=graph;
+			graph=0;
+			while(!estoy_en_pantalla_margen()) frame; end
+			graph=i;
+		end
+		frame; 
+	end
 End
 
 
@@ -2764,6 +2840,12 @@ Begin
 	set_center(file,graph,graphic_info(file,graph,G_WIDTH)/2,graphic_info(file,graph,G_HEIGHT)-j);
 	mueveme(sin_encerrarme);
 	loop
+		if(!estoy_en_pantalla_margen())
+			i=graph;
+			graph=0;
+			while(!estoy_en_pantalla_margen()) frame; end
+			graph=i;
+		end
 		frame;
 	end
 End

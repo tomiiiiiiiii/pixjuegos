@@ -36,7 +36,7 @@ begin
 			ops.trucos=1;
 		end
 	end
-	
+	set_fps(30,0);	
 	if(num_menu==-1)
 		jukeboxing=0;
 		let_me_alone();

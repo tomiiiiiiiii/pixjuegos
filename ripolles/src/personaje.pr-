@@ -413,6 +413,11 @@ Begin
 				end
 			end
 			alto=graphic_info(file,1,G_HEIGHT);
+			if(!en_moto)
+				fuerza_ataque+=p[jugador].fuerza_extra;
+				inercia_max_x+=p[jugador].velocidad_extra;
+				inercia_max_y+=p[jugador].velocidad_extra;
+			end
 		end
 		if(tipo==0)
 			//say("ACCION:"+accion+" | ANIMACION:"+animacion+" | GRAPH:"+graph);
@@ -522,6 +527,10 @@ Begin
 		if(ganando and tipo==0 and altura==0)
 			graph=161;
 			accion=quieto;
+			p[jugador].combo=0;
+			if(exists(id_combo))
+				id_combo.accion=muere;
+			end
 			while(ganando==1)
 				if(altura==0 and gravedad==0)
 					if(rand(0,20)==0) 
