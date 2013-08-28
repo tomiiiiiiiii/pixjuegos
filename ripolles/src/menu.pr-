@@ -1,5 +1,7 @@
 Global
 	menu_torcio=0;
+	x_base_menu;
+	y_base_menu;
 End
 
 process menu(num_menu);
@@ -29,15 +31,16 @@ begin
 		fpg_menu=load_fpg("fpg/menu.fpg");
 	end
 	file=fpg_menu;
-	delete_text(all_text);
 	mata_textos_menu=1;
-	if(ops.trucos==0)
-		if(ops.truco_hamburguesas=>0 or ops.truco_fuego_amigo=>0 or ops.truco_pato=>0 or ops.truco_good_vs_evil=>0)
-			ops.trucos=1;
-		end
-	end
-	set_fps(30,0);	
+	
 	if(num_menu==-1)
+		//delete_text(all_text);
+		set_fps(30,0);	
+		if(ops.trucos==0)
+			if(ops.truco_hamburguesas=>0 or ops.truco_fuego_amigo=>0 or ops.truco_pato=>0 or ops.truco_good_vs_evil=>0)
+				ops.trucos=1;
+			end
+		end
 		jukeboxing=0;
 		let_me_alone();
 		reinicio_variables();
@@ -53,7 +56,7 @@ begin
 	
 	fade_on();
 	
-	if(arcade_mode and num_menu<1)
+	if(arcade_mode and num_menu==0)
 		while(p[0].botones[b_salir]) frame; end
 		write(fpg_texto,320,180,4,textos[14]);
 		while(p[0].botones[b_aceptar]) frame; end
@@ -63,7 +66,7 @@ begin
 		end
 		while(p[0].botones[b_aceptar]) frame; end
 		
-		delete_text(all_text);
+		//delete_text(all_text);
 		file=fpg_lang;
 		graph=221;
 		x=320;
@@ -84,8 +87,17 @@ begin
 	//lapiz superchulo
 	z=-20;
 	graph=50;
-	x=60;
-	y=20;
+	
+	if(exists(type jugar))
+		x_base_menu=150;
+		y_base_menu=100;	
+	else
+		x_base_menu=60;
+		y_base_menu=20;
+	end
+	
+	x=x_base_menu;
+	y=y_base_menu;
 	alpha=255;
 
 	frame(200);
@@ -127,7 +139,11 @@ begin
 			end
 			texto_menu(y+=distancia_opciones,textos[23]); estado_opcion(y,2);
 			texto_menu(y+=distancia_opciones,textos[24]); estado_opcion(y,3);
-			volver_a_menu=0;
+			if(exists(type jugar))
+				volver_a_menu=-2;
+			else
+				volver_a_menu=0;
+			end
 		end
 		case 3: //modos de juego
 			//menu_torcio=-5000;
@@ -158,9 +174,17 @@ begin
 			
 			id_txt=write_size(fpg_texto_rojo,ancho_pantalla/2,alto_pantalla-40,4,textos[67],60);
 		end
+		case -2: //menu de pausa
+			texto_menu(y+=distancia_opciones,"Continuar");
+			texto_menu(y+=distancia_opciones,"Opciones");
+			texto_menu(y+=distancia_opciones,"Salir");
+			num_opciones=3;
+			volver_a_menu=-2;
+			ready=0;
+		end
 	end
 	
-	x=40;
+	x=x-20;
 	y=800;
 	
 	loop
@@ -168,7 +192,7 @@ begin
 		if(opcion_actual>num_opciones) opcion_actual=1;	end
 		if(opcion_actual<1)	opcion_actual=num_opciones;	end
 
-		y_objetivo=20+(opcion_actual*distancia_opciones);
+		y_objetivo=y_base_menu+(opcion_actual*distancia_opciones);
 		if(y!=y_objetivo) 
 			y+=(y_objetivo-y)/2;
 			angle=menu_torcio+fget_angle(x,y,x+30,y_objetivo);
@@ -194,7 +218,7 @@ begin
 					else
 						opcion_salir=5;
 					end
-					delete_text(all_text);
+					//delete_text(all_text);
 					switch(opcion_actual)
 						case 1: menu(1); end
 						case 2: menu(2); end
@@ -244,7 +268,11 @@ begin
 						end
 						case 3:
 							if(ops.musica) stop_song(); ops.musica=0; else ops.musica=1; end 
-							pon_musica(14);
+							if(!exists(type jugar))
+								pon_musica(14);
+							else
+								pon_musica(anterior_cancion);
+							end
 						end
 						case 4:
 							//condiciones de caca. entregamos mañana, es aceptable xD
@@ -274,7 +302,7 @@ begin
 					modo_juego=opcion_actual;
 					fade_off();
 					while(fading) frame; end
-					delete_text(all_text);
+					//delete_text(all_text);
 					if(modo_juego==modo_historia)
 						cutscene_principio();
 					else
@@ -307,10 +335,26 @@ begin
 						end
 					end
 				end
+				case -2: //menú de pausa
+					switch(opcion_actual)
+						case 1:
+							mata_textos_menu=1;
+						end
+						case 2:
+							menu(2);
+						end
+						case 3:
+							fade_off();
+							while(fading); frame; end
+							menu(-1);
+						end
+					end
+					return;
+				end
 			end
 		end
 		if((p[0].botones[b_cancelar] or key(_esc)) and volver_a_menu!=num_menu)
-			delete_text(all_text);
+			//delete_text(all_text);
 			if(ops.sonido==1)
 				sonido(11,0);
 			end
@@ -358,7 +402,7 @@ begin
 		frame;
 	end
 end
-
+ 
 Process titulo();
 Begin
 	resolution=global_resolution;
@@ -451,9 +495,9 @@ Begin
 	resolution=global_resolution;
 	file=fpg_general;
 	if(panoramico)
-		x=616;
+		x=500;
 	else
-		x=456;
+		x=400;
 	end
 	z=-512;
 	switch(tipo) //con lo fácil que hubiera sido utilizar punteros...
@@ -489,7 +533,7 @@ Begin
 	angle=-50000;
 	size=80;
 	while(mata_textos_menu==0)
-		x+=((60-x)/5);
+		x+=((x_base_menu-x)/5);
 		//angle+=((0-angle)/5);
 		angle+=((menu_torcio-angle)/5);
 		frame;

@@ -109,6 +109,7 @@ Global
 	string lang_suffix="";
 	
 	anterior_cancion;
+	id_cancion;
 
 	panoramico=1;
 	
@@ -148,6 +149,7 @@ Global
 	End	
 	
 	fpg_pato;
+	fpg_pato1bici;
 	fpg_ripolles1;
 	fpg_ripolles2;
 	fpg_ripolles3;
@@ -439,7 +441,7 @@ Begin
 	p[2].juega=0;
 	p[2].vidas=5;
 
-	nivel=1;
+	nivel=3;
 	jugar();
 	return;
 	#ENDIF
@@ -461,6 +463,7 @@ Begin
 	fpg_ripolles1=load_fpg("fpg/ripolles1.fpg");
 	fpg_ripolles1bici=load_fpg("fpg/ripolles1bici.fpg");
 	fpg_pato=load_fpg("fpg/pato.fpg");
+	fpg_pato1bici=load_fpg("fpg/pato1bici.fpg");
 	fpg_puntos[1]=load_fpg("fpg/puntos1.fpg");
 	if(posibles_jugadores>1) //ahorro de recursos!
 		fpg_ripolles2=load_fpg("fpg/ripolles2.fpg");
@@ -491,6 +494,7 @@ Begin
 	recoloca_centros_personaje(fpg_ripolles3bici);
 	recoloca_centros_personaje(fpg_ripolles4bici);
 	recoloca_centros_personaje(fpg_pato);
+	recoloca_centros_personaje(fpg_pato1bici);
 	
 	recoloca_centros_personaje(fpg_enemigo1);
 	recoloca_centros_personaje(fpg_enemigo2);
@@ -629,7 +633,7 @@ Begin
       	if(p[0].botones[b_salir] and ready)
 			while(p[0].botones[b_salir]) frame; end
 
-			txt_pausa[1]=write(fpg_texto,ancho_pantalla/2,(alto_pantalla/2)-30,4,textos[0]);
+			/*txt_pausa[1]=write(fpg_texto,ancho_pantalla/2,(alto_pantalla/2)-30,4,textos[0]);
 			txt_pausa[2]=write(fpg_texto,ancho_pantalla/2,alto_pantalla/2,4,textos[1]);
 		
 			sonido(1,0);
@@ -643,6 +647,16 @@ Begin
 			delete_text(txt_pausa[1]);
 			delete_text(txt_pausa[2]);
 			sonido(2,0);
+			ready=1;*/
+			
+			ready=0;
+			txt_pausa[1]=write_size(fpg_texto_azul,ancho_pantalla/2,60,4,"PAUSA",160);
+			txt_pausa[1].alpha=0;
+			menu(-2);
+			from i=0 to 255 step 20; txt_pausa[1].alpha=i; frame; end
+			while(exists(type menu)) frame; end
+			from i=255 to 0 step -20; txt_pausa[1].alpha=i; frame; end
+			delete_text(txt_pausa[1]);
 			ready=1;
 		end
 
@@ -1868,16 +1882,18 @@ Begin
 		//formato="mp3"; 
 	end
 	if(ops.musica)
-		if(i!=anterior_cancion)
+		if(i!=anterior_cancion or !is_playing_song())
 			if(is_playing_song()) fade_music_off(400); end
 			stop_song();
+			if(id_cancion>0) unload_song(id_cancion); end
 			timer[1]=0;
 			while(timer[1]<40) frame; end
 			anterior_cancion=i;
+			id_cancion=load_song("ogg/"+i+"."+formato);
 			if(exists(type menu))
-				play_song(load_song("ogg/"+i+"."+formato),0);
+				play_song(id_cancion,0);
 			else
-				play_song(load_song("ogg/"+i+"."+formato),-1);
+				play_song(id_cancion,-1);
 			end
 		end
 	else
@@ -2963,4 +2979,29 @@ Begin
 	frame(2000);
 	from alpha=255 to 0 step -10; frame; end
 	unload_map(0,graph);
+End
+
+Process faro();
+Begin
+	resolution=global_resolution;
+	file=fpg_nivel;
+	graph=11;
+	flags=16;
+	x=3124;
+	y=34;
+	z=200;
+	ctype=coordenadas;
+	loop
+		i++;
+		if(i==300)
+			i=0;
+		else
+			if(i<90 or (i>120 and i<210) or (i>240 and i<270))
+				if(alpha<255) alpha+=40; end
+			else
+				if(alpha>0) alpha-=40; end
+			end
+		end
+		frame;
+	end
 End

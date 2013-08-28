@@ -19,7 +19,7 @@ Begin
 
 	fondo(num_zona,0);
 	//música
-	if(ops.musica) 
+	if(ops.musica)
 		fade_music_off(400);
 		while(is_playing_song()) frame; end
 		timer[1]=0;
@@ -39,6 +39,15 @@ Begin
 		if(key(_z))
 			while(key(_z)) frame; end
 			zanja();
+		end
+		if(ops.musica)
+			if(!is_playing_song())
+				if(id_cancion>0) unload_song(id_cancion); end
+				anterior_cancion=3;
+				id_cancion=load_song("ogg/3.ogg");
+				play_song(id_cancion,0);
+				set_music_position((float) timer[5]/100);
+			end
 		end
 		#ENDIF
 		if(!ready and !ganando_moto and jugadores>0)
@@ -278,7 +287,7 @@ Begin
 		mueveme(sin_encerrarme);
 		if(size==100)
 			x_inc=-8-inercia_max_x;
-			ataque(x-20,y,fpg_general,1,fuerza_ataque,20,jugador,0);
+			if(altura==0) ataque(x-20,y,fpg_general,1,fuerza_ataque,20,jugador,0); end
 		else
 			//x_inc=-3-((200-size)/30);
 			x_inc=-3;
@@ -458,9 +467,8 @@ Begin
 	z=512;
 	y=alto_pantalla/2;
 	file=fpg_nivel;
-	ancho=graphic_info(file,graph,G_WIDTH)/2;
+	ancho=graphic_info(file,graph,G_WIDTH)/abs(global_resolution);
 	if(x==0)
-		//x=ancho_pantalla-ancho/2;
 		x=ancho/2;
 	end
 	while(x>-ancho/2)
@@ -472,7 +480,7 @@ Begin
 				case 3: num_zona=5; end
 				case 5: num_zona=2; end
 			end
-			if(son==0) fondo(num_zona,x+(ancho/2)+(graphic_info(file,num_zona,G_WIDTH)/4)); end
+			if(son==0) fondo(num_zona,x+(ancho/2)+(graphic_info(file,num_zona,G_WIDTH)/2/abs(global_resolution))); end
 		end
 		x-=mov_camara_moto/2;
 		frame;

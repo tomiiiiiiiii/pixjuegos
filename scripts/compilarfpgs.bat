@@ -1,7 +1,8 @@
 @echo off
 ECHO CREANDO FPGS...
 cd fpg-sources
-copy ..\..\utils\pxlfpg.dcb . /y
-..\..\bennu-win\bgdi pxlfpg %*
-del /f pxlfpg.dcb
+rem copy ..\..\utils\pxlfpg.dcb . /y
+rem ..\..\bennu-win\bgdi pxlfpg %*
+rem del /f pxlfpg.dcb
+..\..\bennu-win\bgdi ..\..\utils\pxlfpg.dcb %*
 cd ..

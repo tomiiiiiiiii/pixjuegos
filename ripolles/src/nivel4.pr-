@@ -1,6 +1,7 @@
 	fpg_nivel=load_fpg("fpg\nivel4.fpg");
 	color_arena=map_get_pixel(fpg_nivel,1,8500*abs(global_resolution),194*abs(global_resolution));
 	pon_musica(4);
+	faro();
 		
 	/*//OBJETOS
 	objeto(1700,300,0,1,0,0); //coca tras las dos primeras emboscadas

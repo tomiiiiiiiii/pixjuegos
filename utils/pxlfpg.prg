@@ -21,12 +21,27 @@ import "mod_timers";
 import "mod_video";
 import "mod_wm";
 
+Private
+	string nombre;
+	folder;
 Begin
 	set_mode(100,100,argv[1]);
 	frame;
-	from x=2 to argc-1;
-		say("Compilando "+argv[x]+".fpg...");
-		procesa(argv[x]);
+	if(argv[2]=="")
+		folder=diropen("*.");
+		loop
+			nombre=dirread(folder);
+			if(nombre=="") break; end
+			if(nombre!=".." and nombre!=".")
+				say(nombre);
+				procesa(nombre);
+			end
+		end
+	else
+		from x=2 to argc-1;
+			say("Compilando "+argv[x]+".fpg...");
+			procesa(argv[x]);
+		end
 	end
 End
 
@@ -61,9 +76,7 @@ Begin
 	End
 	if(!save_fpg(file,"../../fpg/"+fpgname+".fpg"))
 		say("Error guardando "+fpgname+".fpg");
-	else
-		say(fpgname+".fpg");
-		unload_fpg(file);
 	end
+	unload_fpg(file);
 	chdir("..");
 End

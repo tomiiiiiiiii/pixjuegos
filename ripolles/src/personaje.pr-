@@ -86,7 +86,11 @@ Begin
 		switch(jugador)
 			case 1: 
 				if(ops.truco_pato==1)
-					file=fpg_pato;
+					if(en_moto)
+						file=fpg_pato1bici;
+					else
+						file=fpg_pato;
+					end
 				else
 					if(en_moto)
 						file=fpg_ripolles1bici;
