@@ -100,24 +100,48 @@ Begin
 				end
 			end
 			case 2: 
-				if(en_moto)
-					file=fpg_ripolles2bici;
+				if(ops.truco_pato==1)
+					if(en_moto)
+						file=fpg_pato2bici;
+					else
+						file=fpg_pato2;
+					end
 				else
-					file=fpg_ripolles2;
+					if(en_moto)
+						file=fpg_ripolles2bici;
+					else
+						file=fpg_ripolles2;
+					end
 				end
 			end
 			case 3: 
-				if(en_moto)
-					file=fpg_ripolles3bici;
+				if(ops.truco_pato==1)
+					if(en_moto)
+						file=fpg_pato3bici;
+					else
+						file=fpg_pato3;
+					end
 				else
-					file=fpg_ripolles3;
+					if(en_moto)
+						file=fpg_ripolles3bici;
+					else
+						file=fpg_ripolles3;
+					end
 				end
 			end
 			case 4: 
-				if(en_moto)
-					file=fpg_ripolles4bici;
+				if(ops.truco_pato==1)
+					if(en_moto)
+						file=fpg_pato4bici;
+					else
+						file=fpg_pato4;
+					end
 				else
-					file=fpg_ripolles4;
+					if(en_moto)
+						file=fpg_ripolles4bici;
+					else
+						file=fpg_ripolles4;
+					end
 				end
 			end
 		end
@@ -210,7 +234,7 @@ Begin
 				fuerza_ataque=20;
 				fpg_jefe=load_fpg("fpg/jefe2.fpg");
 				file=fpg_jefe;
-				p[jugador].vida=300*((jugadores/2)+0.5);
+				p[jugador].vida=300+(100*(jugadores));
 				sabe_ataque_especial=1;
 				alpha=0;
 				sabe_coger_objeto=0;
@@ -221,7 +245,7 @@ Begin
 				fuerza_ataque=30;
 				fpg_jefe=load_fpg("fpg/jefe4.fpg");
 				file=fpg_jefe;
-				p[jugador].vida=500*((jugadores/2)+0.5);
+				p[jugador].vida=300+(100*(jugadores));
 				sabe_ataque_especial=1;
 				sabe_saltar=1;
 				sabe_moverse=0;
@@ -1302,7 +1326,7 @@ Begin
 							i=(((inercia_max_x)/2)+1)*(fuerza_ataque/2)*max_vida;
 							suma_puntos(atacante,i);
 						else
-							i=(tipo-100)*10000;
+							i=20000;
 							suma_puntos(0,i);
 						end				
 					end

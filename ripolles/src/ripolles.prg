@@ -4,6 +4,9 @@ import "mod_blendop";
 #IFDEF DEBUG
 	import "mod_debug";
 #ENDIF
+#IFDEF OUYA
+	import "mod_iap";
+#ENDIF
 import "mod_dir";
 import "mod_draw";
 import "mod_file";
@@ -27,6 +30,9 @@ import "mod_time";
 import "mod_timers";
 import "mod_video";
 import "mod_wm";
+#IFDEF OUYA
+	import "mod_iap";
+#ENDIF
 
 Const
 	//animaciones y acciones
@@ -140,6 +146,7 @@ Global
 		ventana=1;
 		dificultad=1; //0,1,2
 		matajefes=0;
+		donacion=0;
 		tutorial=1;
 		trucos=0;
 		truco_pato=-1;
@@ -150,6 +157,12 @@ Global
 	
 	fpg_pato;
 	fpg_pato1bici;
+	fpg_pato2;
+	fpg_pato2bici;
+	fpg_pato3;
+	fpg_pato3bici;
+	fpg_pato4;
+	fpg_pato4bici;
 	fpg_ripolles1;
 	fpg_ripolles2;
 	fpg_ripolles3;
@@ -378,7 +391,7 @@ Begin
 	resolution=global_resolution;
 	
 	//gráfico para mientras se carga
-	graph=load_png("loading-360p.png");
+	graph=load_png("loading.png");
 	x=ancho_pantalla/2;
 	y=alto_pantalla/2;
 	
@@ -442,7 +455,8 @@ Begin
 	p[2].vidas=5;
 
 	nivel=3;
-	jugar();
+	cutscene_principio();
+	//jugar();
 	return;
 	#ENDIF
 	
@@ -472,6 +486,14 @@ Begin
 		fpg_ripolles2bici=load_fpg("fpg/ripolles2bici.fpg");
 		fpg_ripolles3bici=load_fpg("fpg/ripolles3bici.fpg");
 		fpg_ripolles4bici=load_fpg("fpg/ripolles4bici.fpg");
+
+		fpg_pato2=load_fpg("fpg/pato2.fpg");
+		fpg_pato3=load_fpg("fpg/pato3.fpg");
+		fpg_pato4=load_fpg("fpg/pato4.fpg");
+		fpg_pato2bici=load_fpg("fpg/pato2bici.fpg");
+		fpg_pato3bici=load_fpg("fpg/pato3bici.fpg");
+		fpg_pato4bici=load_fpg("fpg/pato4bici.fpg");
+
 		fpg_puntos[2]=load_fpg("fpg/puntos2.fpg");
 		fpg_puntos[3]=load_fpg("fpg/puntos3.fpg");
 		fpg_puntos[4]=load_fpg("fpg/puntos4.fpg");
@@ -494,7 +516,13 @@ Begin
 	recoloca_centros_personaje(fpg_ripolles3bici);
 	recoloca_centros_personaje(fpg_ripolles4bici);
 	recoloca_centros_personaje(fpg_pato);
+	recoloca_centros_personaje(fpg_pato2);
+	recoloca_centros_personaje(fpg_pato3);
+	recoloca_centros_personaje(fpg_pato4);
 	recoloca_centros_personaje(fpg_pato1bici);
+	recoloca_centros_personaje(fpg_pato2bici);
+	recoloca_centros_personaje(fpg_pato3bici);
+	recoloca_centros_personaje(fpg_pato4bici);
 	
 	recoloca_centros_personaje(fpg_enemigo1);
 	recoloca_centros_personaje(fpg_enemigo2);
@@ -621,7 +649,7 @@ Begin
 	
 	controlador(0);
 
-	write_int_size(fpg_texto_azul,0,0,0,&fps,50);
+	//write_int_size(fpg_texto_azul,0,0,0,&fps,50);
 	
 	loop
 		if(modo_juego!=modo_historia) jukebox(); end
@@ -790,6 +818,11 @@ Begin
 		end
 	end
 	
+	//bloqueadores centro en base:
+	from i=101 to 106;
+		set_center(fpg_general,i,graphic_info(fpg_objetos,i,G_WIDTH)/2,graphic_info(fpg_objetos,i,G_HEIGHT)-x);
+	end
+	
 	//las barras de vida deben tener su centro en la izquierda
 	set_center(fpg_general,25,0,graphic_info(fpg_general,25,G_HEIGHT)/2);
 	set_center(fpg_general,26,0,graphic_info(fpg_general,26,G_HEIGHT)/2);
@@ -956,7 +989,7 @@ Private
 Begin
 	if(nivel==4 and father.altura==0)
 		if(father.x>7064 and father.x<8817)
-			if(map_get_pixel(fpg_nivel,1,father.x*abs(global_resolution),(father.y+53)*abs(global_resolution))==color_arena)
+			if(map_get_pixel(fpg_nivel,2,(father.x-7064)*abs(global_resolution),(father.y-180+53)*abs(global_resolution))==color_arena)
 				max_x=max_x/3;
 				max_y=max_y/3;
 			end
@@ -1498,6 +1531,7 @@ Process objeto(x,y_base,altura,graph,x_inc,flags);
 Private
 	retraso_colision;
 Begin
+	if(ops.truco_hamburguesas!=1 and graph==obj_hamburguesa) return; end
 	resolution=global_resolution;
 	y=y_base+altura+40;
 	z=y_base-1;
@@ -2992,6 +3026,12 @@ Begin
 	z=200;
 	ctype=coordenadas;
 	loop
+		if(!estoy_en_pantalla_margen())
+			j=graph;
+			graph=0;
+			while(!estoy_en_pantalla_margen()) frame; end
+			graph=j;
+		end
 		i++;
 		if(i==300)
 			i=0;

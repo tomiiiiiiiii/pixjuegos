@@ -29,6 +29,8 @@ Global
 		_b_salir=8;
 	end
 
+	fpg_gamepad;
+	
 	graph_dedo;
 	graph_boton_1;
 	graph_boton_2;
@@ -72,8 +74,32 @@ Begin
 			ancho_pantalla=graphic_info(0,0,g_width);
 			alto_pantalla=graphic_info(0,0,g_height);
 		end
+		if(fpg_gamepad==0 and file_exists("fpg/vgamepad.fpg"))
+			fpg_gamepad=load_fpg("fpg/vgamepad.fpg");
+			if(fpg_gamepad>-1)
+				graph_dedo=1;
+				graph_boton_1=2;
+				graph_boton_2=3;
+				graph_boton_3=4;
+				
+				graph_boton_arriba=5;
+				graph_boton_abajo=6;
+				graph_boton_izquierda=7;
+				graph_boton_derecha=8;
+			end
+		end
 		if(graph_dedo<1)
-			pinta_gamepad();			
+			pinta_gamepad();
+			//TEMPORAL
+			/*i=1;
+			save_png(0,graph_dedo,(i++)+".png");
+			save_png(0,graph_boton_1,(i++)+".png");
+			save_png(0,graph_boton_2,(i++)+".png");
+			save_png(0,graph_boton_3,(i++)+".png");
+			save_png(0,graph_boton_arriba,(i++)+".png");
+			save_png(0,graph_boton_abajo,(i++)+".png");
+			save_png(0,graph_boton_izquierda,(i++)+".png");
+			save_png(0,graph_boton_derecha,(i++)+".png");*/
 		end
 		if(!exists(id_gamepad))
 			id_gamepad=gamepad_virtual();
@@ -335,6 +361,7 @@ End
 Process dedo(x,y);
 Begin
 	priority=6;
+	file=fpg_gamepad;
 	graph=graph_dedo;
 	//alpha=0;
 	frame;
@@ -345,6 +372,7 @@ Begin
 	priority=4;
 	z=-512;
 	alpha=128;
+	file=fpg_gamepad;
 	while(exists(father))
 		if(collision_box(type dedo))
 			p[jugador].botones[boton]=1;
@@ -358,7 +386,6 @@ Begin
 	graph_dedo=new_map(gamepad_boton_size*2/3,gamepad_boton_size*2/3,16);
 	drawing_color(rgb(128,128,128));
 	drawing_map(0,graph_dedo);
-//	draw_box(0,0,gamepad_boton_size/2,gamepad_boton_size*2/3);
 	draw_fcircle(gamepad_boton_size/3,gamepad_boton_size/3,gamepad_boton_size/3-1);
 
 	if(os_id!=1003) mouse.graph=graph_dedo; end

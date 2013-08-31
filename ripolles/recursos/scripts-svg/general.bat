@@ -34,6 +34,13 @@ call :a 73 ..\otros\explosion.svg
 call :a 74 ..\otros\explosion.svg
 call :a 75 ..\otros\explosion.svg
 
+call :a 101 ..\otros\bloqueadores.svg
+call :a 102 ..\otros\bloqueadores.svg
+call :a 103 ..\otros\bloqueadores.svg
+call :a 104 ..\otros\bloqueadores.svg
+call :a 105 ..\otros\bloqueadores.svg
+call :a 106 ..\otros\bloqueadores.svg
+
 exit
 goto :eof
 

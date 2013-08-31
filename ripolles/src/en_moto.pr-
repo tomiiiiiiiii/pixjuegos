@@ -206,15 +206,7 @@ Begin
 	ctype=coordenadas;
 	x=700;
 	rango=30;
-	if(size==100)
-		y_base=rand(135,305);
-	else
-		frame;
-		advertencia();
-		y_base=200;
-		mini_boss=1;
-		fue_mini_boss=1;
-	end
+	y_base=rand(135,305);
 	enemigos++;
 	if(tipo==5) tipo=rand(1,4); end
 	switch(tipo)
@@ -273,7 +265,7 @@ Begin
 	mueveme(sin_encerrarme);
 	x_inc=-8-inercia_max_x;
 	skate();
-	if(contador>50 and size==100)
+	if(contador>50)
 		inercia_max_y=rand(-inercia_max_y,inercia_max_y); 
 	else
 		inercia_max_y=0;
@@ -285,42 +277,13 @@ Begin
 		y_inc=inercia_max_y;
 		if(ganando_moto) accion=muere; break; end
 		mueveme(sin_encerrarme);
-		if(size==100)
-			x_inc=-8-inercia_max_x;
-			if(altura==0) ataque(x-20,y,fpg_general,1,fuerza_ataque,20,jugador,0); end
-		else
-			//x_inc=-3-((200-size)/30);
-			x_inc=-3;
-			z-=50;
-		end
+		x_inc=-8-inercia_max_x;
+		if(altura==0) ataque(x-20,y,fpg_general,1,fuerza_ataque,20,jugador,0); end
 		flags=1;
 		friccioname();
 		if(herida>0)
-			if(size>100)
-				sonido(5,0);
-				herida=herida/2;
-				while(herida>0)
-					while(!ready) frame; end
-					y_inc=0;
-					x_inc=3;
-					graph=61;
-					herida-=2;
-					size--;
-					mueveme(sin_encerrarme);
-					frame;
-				end
-				graph=1;
-			end
-			if(size<100)
-				size=100; 
-			end
-			if(size==100)
-				if(fue_mini_boss)
-					sonido(5,0);
-				end
-				accion=muere;
-				break;
-			end
+			accion=muere;
+			break;
 		else
 			if(altura==0)
 				if(id_col=collision(type rampa))
@@ -359,12 +322,8 @@ Begin
 		end
 		
 		if(x<-100)
-			if(size==100)
-				sonido(1,0);
-				quita_punto_de_vida_a_todos();
-			else
-				mata_a_todos();
-			end
+			sonido(1,0);
+			quita_punto_de_vida_a_todos();
 			break;
 		end
 		y-=10; //alineacion skate

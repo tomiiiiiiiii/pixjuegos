@@ -99,6 +99,9 @@ Begin
 			textos[65]="Life up!";
 			textos[66]="Cheats";
 			textos[67]="Scoring is disabled when cheats are enabled";
+			textos[68]="Donate";
+			textos[69]="Continue";
+			textos[70]="Thank you for your support!";
 			textos[71]="Explossive enemies!";
 			textos[72]="Sudden death!";
 			textos[73]="Everybody dies!";
@@ -185,7 +188,9 @@ Begin
 			textos[65]="¡Vida recuperada!";
 			textos[66]="Trucos";
 			textos[67]="Si hay trucos activados, no habrá puntuaciones";
-			
+			textos[68]="Donar";
+			textos[69]="Continuar";			
+			textos[70]="¡Gracias por apoyarnos!";
 			textos[71]="¡Enemigos explosivos!";
 			textos[72]="¡Muerte súbita!";
 			textos[73]="¡HAMLET!";
@@ -275,7 +280,10 @@ Begin
 			textos[65]="Vida recuperada!";
 			textos[66]="Trucs";
 			textos[67]="Si hi ha trucs activats, no hi hauràn puntuacions.";
-			
+			textos[68]="Donar";
+			textos[69]="Continuar";
+			textos[70]="Gràcies per la teva ajuda!";
+
 			textos[71]="Enemics explosius!";
 			textos[72]="Mort sobtada!";
 			textos[73]="HAMLET!";

@@ -1,5 +1,5 @@
 	fpg_nivel=load_fpg("fpg\nivel4.fpg");
-	color_arena=map_get_pixel(fpg_nivel,1,8500*abs(global_resolution),194*abs(global_resolution));
+	color_arena=map_get_pixel(fpg_nivel,2,200*abs(global_resolution),10*abs(global_resolution));
 	pon_musica(4);
 	faro();
 		
@@ -74,6 +74,7 @@
 	pon_enemigo(9000,110,7,0);
 	pon_enemigo(9000,300,6,1);
 
-	pon_evento_especial(8974,8974,8974,104);
+	//pon_evento_especial(8974,8974,8974,104);
+	pon_evento_especial(9194,9194,9194,104);
 	
 	//nivel4_eventos();

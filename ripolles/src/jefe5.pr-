@@ -16,7 +16,7 @@ Begin
 	graph=1;
 	enemigos++;
 	jugador=100;
-	p[jugador].vida=600*((jugadores/2)+0.5);
+	p[jugador].vida=2000+(300*(jugadores));
 	avion_en_cabeza();
 	mis_pies=jefe5_pies();
 	mis_brazos[1]=jefe5_brazo(1);
@@ -91,7 +91,7 @@ Begin
 	timer[9]=0;
 	while(timer[9]<150) frame; end
 	ganando=1;
-	suma_puntos(0,50000);
+	suma_puntos(0,20000);
 	loop
 		frame;
 	end

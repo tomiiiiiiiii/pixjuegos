@@ -25,6 +25,9 @@ mkdir export\assets\fnt
 mkdir export\assets\wav
 mkdir export\res\drawable-es
 mkdir export\res\drawable-ca
+mkdir export\res\raw\
+mkdir export\src\org\bennugd\
+mkdir export\src\org\bennugd\iap
 
 echo Copiando recursos de android...
 copy recursos\android\hdpi.png export\res\drawable-hdpi\icon.png /y
@@ -34,6 +37,8 @@ copy recursos\android\xhdpi.png export\res\drawable-xhdpi\icon.png /y
 copy recursos\android\ouya_icon.png export\res\drawable-xhdpi\ouya_icon.png /y
 copy recursos\android\ouya_icon_es.png export\res\drawable-es\ouya_icon.png /y
 copy recursos\android\ouya_icon_ca.png export\res\drawable-ca\ouya_icon.png /y
+copy ..\claves-iap-ouya\ripolles.der export\res\raw\key.der /y
+copy recursos\android\iap.java export\src\org\bennugd\iap\iap.java /y
 
 copy recursos\android\strings.xml export\res\values\strings.xml /y
 mkdir export\res\values-es
@@ -53,7 +58,6 @@ copy fnt\*.fnt export\assets\fnt /y
 copy main.dcb export\assets /y
 copy loading.png export\assets /y
 echo Exportado correctamente. Ahora se instalará en el móvil...
-
 
 cd export
 ..\..\scripts\genera-apk.bat

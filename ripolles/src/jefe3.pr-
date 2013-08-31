@@ -17,7 +17,7 @@ Begin
 	graph=1;
 	enemigos++;
 	jugador=100;
-	p[jugador].vida=400*((jugadores/2)+0.5);
+	p[jugador].vida=1200+(300*(jugadores));
 	marcador_jefe();
 	accion=quieto;
 	rango=60;
@@ -173,7 +173,7 @@ Begin
 	ganando=1;
 	graph=11;
 
-	suma_puntos(0,30000);
+	suma_puntos(0,20000);
 
 	while(y<130)
 		while(!ready) frame; end
@@ -255,7 +255,7 @@ Begin
 		if(id_col=collision_box(type ataque))
 			if(id_col.jugador<10 and id_col.jugador>=0)
 				if(en_rango(z,id_col.z,id_col.rango))
-					p[100].vida-=id_col.herida;
+					p[100].vida-=id_col.herida/2;
 					sonido(5,0);
 					accion=muere;
 				end
@@ -304,7 +304,7 @@ Begin
 			if(id_col=collision_box(type ataque))
 				if(id_col.jugador<10 and id_col.jugador>=0)
 					if(en_rango(z,id_col.z,id_col.rango))
-						p[100].vida-=id_col.herida;
+						p[100].vida-=id_col.herida/2;
 						sonido(5,0);
 						accion=muere;
 					end
@@ -444,7 +444,7 @@ Begin
 			if(id_col.jugador!=jugador)
 				if(en_rango(id_col.z,z,30))
 					efecto_golpe(id_col);
-					p[jugador].vida-=id_col.herida;
+					p[jugador].vida-=id_col.herida/2;
 					sonido(5,0);
 					accion=muere;
 					break;
@@ -462,7 +462,7 @@ Begin
 				if(id_col.jugador!=jugador)
 					if(en_rango(id_col.z,z,30))
 						efecto_golpe(id_col);
-						herida=id_col.herida;
+						herida=id_col.herida/2;
 						sonido(5,0);
 						accion=muere;
 					end

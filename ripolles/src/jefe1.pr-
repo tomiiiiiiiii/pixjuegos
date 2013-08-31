@@ -11,7 +11,7 @@ Begin
 	graph=1;
 	enemigos++;
 	jugador=100;
-	p[jugador].vida=300*((jugadores/2)+0.5);
+	p[jugador].vida=500+(300*(jugadores));
 	from alpha=0 to 255 step 10; frame; end
 	marcador_jefe();
 	mano(x-180,y-15,1);
@@ -66,7 +66,7 @@ Begin
 		frame;
 	end
 	ganando=1;
-	suma_puntos(0,10000);
+	suma_puntos(0,20000);
 	loop frame; end
 	//fade_off();
 End

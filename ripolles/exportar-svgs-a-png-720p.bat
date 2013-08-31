@@ -13,7 +13,7 @@ copy loading-720p.png loading.png /y
 
 :goon
 
-echo Creando ripolleses alternativos...
+echo Creando ripolleses y patos alternativos...
 cd recursos\personajes
 type Ripolles.svg | ..\..\..\utils\sed "s/ff7f2a/00af00/g" > ripolles2.svg
 type Ripolles1bici.svg | ..\..\..\utils\sed "s/ff7f2a/00af00/g" > ripolles2bici.svg
@@ -21,6 +21,14 @@ type Ripolles.svg | ..\..\..\utils\sed "s/ff7f2a/00afff/g" > ripolles3.svg
 type Ripolles1bici.svg | ..\..\..\utils\sed "s/ff7f2a/00afff/g" > ripolles3bici.svg
 type Ripolles.svg | ..\..\..\utils\sed "s/ff7f2a/8d368f/g" > ripolles4.svg
 type Ripolles1bici.svg | ..\..\..\utils\sed "s/ff7f2a/8d368f/g" > ripolles4bici.svg
+
+type Pato.svg | ..\..\..\utils\sed "s/2c5aa0/ffcc00/g" | ..\..\..\utils\sed "s/00aa44/2c5aa0/g" > Pato2.svg
+type Pato1bici.svg | ..\..\..\utils\sed "s/2c5aa0/ffcc00/g" | ..\..\..\utils\sed "s/00aa44/2c5aa0/g" > Pato2bici.svg
+type Pato.svg | ..\..\..\utils\sed "s/2c5aa0/800000/g" | ..\..\..\utils\sed "s/00aa44/ffcc00/g" > Pato3.svg
+type Pato1bici.svg | ..\..\..\utils\sed "s/2c5aa0/800000/g" | ..\..\..\utils\sed "s/00aa44/ffcc00/g" > Pato3bici.svg
+type Pato.svg | ..\..\..\utils\sed "s/00aa44/800000/g" | ..\..\..\utils\sed "s/2c5aa0/00aa44/g" > Pato4.svg
+type Pato1bici.svg | ..\..\..\utils\sed "s/00aa44/800000/g" | ..\..\..\utils\sed "s/2c5aa0/00aa44/g" > Pato4bici.svg
+
 cd ..\..
 
 echo Creando fuentes de puntos de los jugadores
@@ -43,7 +51,13 @@ mkdir fpg-sources\ripolles2bici
 mkdir fpg-sources\ripolles3bici
 mkdir fpg-sources\ripolles4bici
 mkdir fpg-sources\pato
-mkdir fpg-sources\patobici
+mkdir fpg-sources\pato2
+mkdir fpg-sources\pato3
+mkdir fpg-sources\pato4
+mkdir fpg-sources\pato1bici
+mkdir fpg-sources\pato2bici
+mkdir fpg-sources\pato3bici
+mkdir fpg-sources\pato4bici
 mkdir fpg-sources\enemigo1
 mkdir fpg-sources\enemigo2
 mkdir fpg-sources\enemigo3

@@ -18,6 +18,7 @@ private
 	//menu principal:
 	opcion_salir=-1;
 	opcion_trucos=-1;
+	opcion_donaciones=-1;
 	
 	opcion_truco_pato;
 	opcion_truco_fuego_amigo;
@@ -48,7 +49,11 @@ begin
 		controlador(0);
 		pon_musica(14);
 		num_menu=0;
-		logo(2);
+		if(ops.donacion==0)
+			logo(2);
+		else
+			donante();
+		end
 		scroll[0].camera=mueve_fondo();
 	end
 	
@@ -113,9 +118,18 @@ begin
 			end
 			num_opciones=5;
 			if(ops.trucos)
+				opcion_trucos=num_opciones;
 				texto_menu(y+=distancia_opciones,textos[66]);
 				num_opciones++;
 			end
+			#IFDEF OUYA
+				if(ops.donacion==0)
+					opcion_donaciones=num_opciones;
+					texto_menu(y+=distancia_opciones,textos[68]);
+					num_opciones++;
+				end
+			#ENDIF
+			opcion_salir=num_opciones;
 			texto_menu(y+=distancia_opciones,textos[19]);
 			volver_a_menu=0;
 		end
@@ -174,10 +188,19 @@ begin
 			
 			id_txt=write_size(fpg_texto_rojo,ancho_pantalla/2,alto_pantalla-40,4,textos[67],60);
 		end
+		case 5: //donaciones! :D
+			menu_torcio=0;
+			num_opciones=4;
+			texto_menu(y+=distancia_opciones,textos[68]+" 0.99$");
+			texto_menu(y+=distancia_opciones,textos[68]+" 2.99$");
+			texto_menu(y+=distancia_opciones,textos[68]+" 4.99$");
+			texto_menu(y+=distancia_opciones,textos[68]+" 9.99$");
+			volver_a_menu=0;
+		end
 		case -2: //menu de pausa
-			texto_menu(y+=distancia_opciones,"Continuar");
-			texto_menu(y+=distancia_opciones,"Opciones");
-			texto_menu(y+=distancia_opciones,"Salir");
+			texto_menu(y+=distancia_opciones,textos[69]);
+			texto_menu(y+=distancia_opciones,textos[16]);
+			texto_menu(y+=distancia_opciones,textos[19]);
 			num_opciones=3;
 			volver_a_menu=-2;
 			ready=0;
@@ -212,18 +235,13 @@ begin
 			end
 			switch(num_menu)
 				case 0: //general
-					if(ops.trucos)
-						opcion_trucos=5;
-						opcion_salir=6;
-					else
-						opcion_salir=5;
-					end
 					//delete_text(all_text);
 					switch(opcion_actual)
 						case 1: menu(1); end
 						case 2: menu(2); end
 						case 3: muestra_hasta_volver(1); end
 						case 4: muestra_hasta_volver(10); end
+						case opcion_donaciones: menu(5); end
 						case opcion_trucos: menu(4); end
 						case opcion_salir: salir(); end
 					end
@@ -334,6 +352,9 @@ begin
 							if(ops.truco_hamburguesas) ops.truco_hamburguesas=0; else ops.truco_hamburguesas=1; end
 						end
 					end
+				end
+				case 5: //donaciones
+					donacion(opcion_actual);
 				end
 				case -2: //menú de pausa
 					switch(opcion_actual)
@@ -545,4 +566,71 @@ Begin
 	end
 OnExit
 	unload_map(0,graph);
+End
+
+Process donacion(tipo);
+Private
+	string product_id;
+	int failure;
+	estado=-2;
+Begin
+	signal(father,s_freeze);
+	switch(tipo)
+		case 1: product_id="ripo1d"; end
+		case 2: product_id="ripo3d"; end
+		case 3: product_id="ripo5d"; end
+		case 4: product_id="ripo10d"; end
+	end
+	#IFDEF OUYA
+	if(!iap_isouya())
+		failure=1; 
+	else
+		if(iap_init("e24c5d56-7f89-47bc-b446-b88a8b46d440")<0)
+			failure=1; 
+		else
+			timer[0]=0;
+			while(iap_receipts_ready()==0)
+				if(timer[0]>3000)
+					failure=1; break;
+				end
+				frame;
+			end
+			if(!iap_purchased(product_id) and !failure)
+				iap_purchase(product_id,&estado);
+				timer[0]=0;
+				loop
+					if(estado==-1 or estado==0) failure=1; break; end
+					if(estado==1) break; end
+				end
+			end
+		end
+		iap_shutdown();
+	end
+	#ENDIF
+	if(!failure) ops.donacion=1; end
+	menu(-1);
+End
+
+Process donante();
+Begin
+	resolution=global_resolution;
+	write_size(fpg_texto_azul,450,alto_pantalla-100,4,textos[70],40);
+	x=450;
+	y_base=200;
+	flags=1;
+	file=fpg_ripolles1;
+	graph=161;
+	size=250;
+	altura=-400;
+	loop
+		while(altura<0)
+			gravedad--;
+			altura-=gravedad;
+			y=y_base+altura;
+			frame;
+		end
+		frame(3000);
+		altura=-1;
+		gravedad=15;
+	end
 End
