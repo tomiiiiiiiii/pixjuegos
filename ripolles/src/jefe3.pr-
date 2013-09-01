@@ -219,7 +219,6 @@ Begin
 	z=-y_base;
 	y=y_base;
 	x=-300;
-	size_y=50;
 	x_inc=30;
 	sombra_mano_lateral();
 	loop
@@ -324,7 +323,6 @@ Begin
 	file=father.file;
 	ctype=coordenadas;
 	graph=91;
-	size_y=50;
 	y=father.y+30;
 	while(exists(father))
 		while(!ready) frame; end
@@ -358,7 +356,6 @@ Begin
 	z=-y_base;
 	y=y_base;
 	x=-300;
-	size_y=50;
 	x_inc=30;
 	sombra_mano_lateral();
 	graph=71;
@@ -395,7 +392,6 @@ Begin
 	altura=300;
 	jugador=100;
 	file=fpg_jefe;
-	size_x=50;
 	sombra_mano_vertical();
 	while(son.alpha<255) 
 		while(!ready) frame; end
