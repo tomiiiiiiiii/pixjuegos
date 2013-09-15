@@ -346,13 +346,14 @@ Begin
 			no_vgamepad=1;
 			return;
 		end
-		if(mouse.left) dedo(mouse.x,mouse.y); end
 #IFDEF TACTIL
 		for(i=0; i<10; i++)
 			if(multi_info(i, "ACTIVE") > 0)
 				dedo(multi_info(i, "X"),multi_info(i, "Y"));
 			end
 		end
+#ELSE
+		if(mouse.left) dedo(mouse.x,mouse.y); end
 #ENDIF
 		frame;
 	end
