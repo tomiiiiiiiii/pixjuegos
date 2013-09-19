@@ -1,0 +1,19 @@
+La pesadilla de Pato (Demo1)
+
+==== Descripción ====
+Beat'em up multijugador de corte clásico.
+Las estatuas del artista Pato han cobrado vida y 
+están destruyendo la ciudad de Castellón.
+
+Ganador del I Concurso de Desarrollo de Videojuegos de Castellón
+
+==== Características ==== 
+* 4 jugadores al mismo tiempo, en el mismo ordenador/consola
+* 4 modos de juego
+* 2 personajes
+* 6 enemigos
+* 3 jefes
+* Música de Tom Bombadil
+
+=== Autor ===
+PiX Juegos - http://www.pixjuegos.com

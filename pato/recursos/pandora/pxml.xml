@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+  <PXML xmlns="http://openpandora.org/namespaces/PXML">
+  <application id="pato" appdata="pato">
+  <title lang="en_US">La pesadilla de Pato</title> 
+  <description lang="en_US">1.0</description> 
+  <version major="4" minor="1" release="1" build="1" /> 
+  <exec command="./pato.sh" background="true" standalone="true" /> 
+  <author name="(c) 2013 - PiX Juegos" website="www.pixjuegos.com" email="contacto@pixjuegos.com" /> 
+  <icon src="pato.png" />
+  <info name="La pesadilla de Pato" type="text" src="pato_pandora.txt" />
+  <categories>
+  <category name="Game">
+  <subcategory name="ActionGame" /> 
+  </category>
+  </categories>
+  </application>
+  </PXML>

@@ -1,0 +1,302 @@
+Function carga_textos();
+Private
+	string botones[7];
+Begin
+	//lineas comunes
+	textos[48]="Pablo Navarro|Carles Vicent Ginés|Laura Pérez|||Tom Bombadil|Nerea Molina|Vicent Ginés";
+	
+	#IFDEF OUYA
+		botones[0]=chr(5);
+		botones[b_salir]=chr(4);
+		botones[b_1]=chr(2);
+		botones[b_2]=chr(1);
+		botones[b_3]=chr(4);
+	#ELSE
+		if(os_id==os_win32)
+			botones[0]="FLECHAS";
+			botones[b_salir]="ESC";
+			botones[b_1]="A";
+			botones[b_2]="S";
+			botones[b_3]="D";
+		else
+			botones[0]="D-PAD";
+			botones[b_salir]="START";
+			botones[b_1]="B1";
+			botones[b_2]="B2";
+			botones[b_3]="B3";
+		end
+	#ENDIF
+	
+	switch(ops.lenguaje)
+		case 0: //inglés
+			//general
+			textos[0]="PAUSE";
+			textos[1]="Press "+botones[b_3]+" to exit";
+			textos[2]="Friendly fire unlocked!";
+			textos[3]="Random burgers unlocked!";
+			textos[4]="Boss rush unlocked!";
+			textos[5]="Boss rush completed!";
+			textos[6]="Character RUZAFA unlocked!";
+			textos[7]="Level ";
+			textos[8]="Downtown";
+			textos[9]="2";
+			textos[10]="3";
+			textos[11]="4";
+			textos[12]="Airport";
+			textos[13]=" completed";
+			
+			//menús
+			textos[14]="Pulsa el boton 2 para jugar";
+			textos[15]="Play";
+			textos[16]="Options";
+			textos[17]="Help";
+			textos[18]="Credits";
+			textos[19]="Exit";
+			textos[20]=" player";
+			textos[21]=" players";
+			textos[22]="Full screen";
+			textos[23]="Sound";
+			textos[24]="Music";
+			textos[25]="Play as Ruzafa";
+			textos[26]="Friendly fire";
+			textos[27]="Random burgers";
+			textos[28]="Story mode";
+			textos[29]="Survival mode";
+			textos[30]="Boss rush mode";
+			textos[31]="Battle Royale mode";
+			textos[32]="Good VS Evil mode";
+			textos[33]="Speed up!";
+			textos[34]="Attack up!";
+			textos[35]="Help";
+			textos[36]="Controls";
+			textos[37]="Move:|Attack:|Jump:|Defend:|Pick/throw object:|Strong attack:|Special attack:";
+			textos[38]=botones[0]+"|"+botones[b_1]+"|"+botones[b_2]+"|"+botones[b_3]+"|         "+botones[b_1]+"|         Down + "+botones[b_1]+"|         "+botones[b_1]+"+"+botones[b_3];
+			textos[39]="Objects";
+			textos[40]="Multiplayer";
+ 			textos[41]="All game modes may be played with up to|4 players at the same time.||For this purpose, at least one gamepad must|be connected before launching the game.||The controllers are auto configured.";
+			textos[42]="Game modes";
+			textos[43]="Story:|||Survival:||Battle royale:|||Boss rush:";
+			textos[44]="     Ripollés sculptures have become alive|and are destroying the city of Castellón.|Help him to save Castellón!|       How much time will you survive|while facing an infinite number of enemies?|           Face off other players and|find out who's the best fighter.|For two or more players|         Defeat all bosses from story|mode with just only one life";
+			textos[45]="Created by:|||||Thanks to:";
+			textos[46]="";
+			textos[47]="And thank you for playing!";
+			textos[49]="Player ";
+			textos[50]=" wins!";
+			textos[51]="Game over";
+			textos[52]="Press "+botones[0]+"  to move";
+			textos[53]="Double tap "+botones[0]+"  to run";
+			textos[54]="Press "+botones[b_1]+" to attack";
+			textos[55]="Press "+botones[b_2]+" to jump";
+			textos[56]="Press "+botones[b_3]+" to defend";
+			textos[57]="Press "+botones[0]+"+"+botones[b_3]+" and move to evade";
+			textos[58]="Press Down+"+botones[b_1]+" to do a strong attack";
+			textos[59]="Press Up+"+botones[b_1]+" to do an uppercut attack";
+			textos[60]="Press "+botones[b_1]+"+"+botones[b_3]+" to do an escape attack";
+			textos[61]="Press "+botones[b_1]+" to pick/throw objects & enemies";
+			textos[62]="Have fun!";
+			textos[63]="Tutorial";
+			textos[64]="Hold "+botones[b_3]+" to skip";
+			textos[65]="Life up!";
+			textos[66]="Cheats";
+			textos[67]="Scoring is disabled when cheats are enabled";
+			textos[68]="Donate";
+			textos[69]="Continue";
+			textos[70]="Thank you for your support!";
+			textos[71]="Explossive enemies!";
+			textos[72]="Sudden death!";
+			textos[73]="Everybody dies!";
+			textos[74]="TRAM!";
+			textos[75]="Plane!";
+			textos[76]="Team change!";
+			textos[77]="Moon gravity!";
+			textos[78]="Orange rain!";
+			textos[79]="Random object shot!";
+			textos[80]="Activated friendly fire!";
+			textos[81]="Free stuff!";
+			textos[82]="Everyone is super!";
+			textos[83]="No friction!";
+			
+		end
+		case 1: //español
+			//general
+			textos[0]="PAUSA";
+			textos[1]="Pulsa "+botones[b_3]+" para salir";
+			textos[2]="¡Fuego amigo desbloqueado!";
+			textos[3]="¡Hamburguesas desbloqueadas!";
+			textos[4]="¡Modo matajefes desbloqueado!";
+			textos[5]="¡Modo matajefes completado!";
+			textos[6]="¡Ruzafa desbloqueado!";
+			textos[7]="Nivel ";
+			textos[8]="Centro";
+			textos[9]="2";
+			textos[10]="3";
+			textos[11]="4";
+			textos[12]="Aeropuerto";
+			textos[13]=" completado";
+			
+			//menús
+			textos[14]="Pulsa el boton 2 para jugar";
+			textos[15]="Jugar";
+			textos[16]="Opciones";
+			textos[17]="Ayuda";
+			textos[18]="Créditos";
+			textos[19]="Salir";
+			textos[20]=" jugador";
+			textos[21]=" jugadores";
+			textos[22]="Pantalla completa";
+			textos[23]="Sonido";
+			textos[24]="Música";
+			textos[25]="Jugar con Ruzafa";
+			textos[26]="Fuego amigo";
+			textos[27]="Hamburguesas RANDOM";
+			textos[28]="Modo historia";
+			textos[29]="Modo supervivencia";
+			textos[30]="Modo matajefes";
+			textos[31]="Modo Battle Royale";
+			textos[32]="Modo Bien VS Mal";
+			textos[33]="¡Más velocidad!";
+			textos[34]="¡Más ataque!";
+			textos[35]="Ayuda";
+			textos[36]="Controles";
+			textos[37]="Mover:|Atacar:|Saltar:|Defenderse:|Coger/lanzar objeto:|Ataque fuerte:|Ataque especial:";
+			textos[38]=botones[0]+"|"+botones[b_1]+"|"+botones[b_2]+"|   "+botones[b_3]+"|           "+botones[b_1]+"|      Abajo + "+botones[b_1]+"|       "+botones[b_1]+"+"+botones[b_3];
+			textos[39]="Objetos";
+			textos[40]="Multijugador";
+ 			textos[41]="Todos los modos de juego pueden ser|jugados hasta por 4 jugadores a la vez.||Para ello debe estar conectado al menos un|gamepad antes de iniciar el juego.||Los gamepads son configurados|de forma automática.";
+			textos[42]="Modos de juego";
+			textos[43]="Historia:|||Supervivencia:||Battle royale:|||Matajefes:";
+			textos[44]="        Las esculturas han cobrado vida|y están destruyendo la ciudad de Castellón.|¡Ayúdale a salvar la ciudad!|           ¿Cuánto tiempo aguantarás|la lucha contra infinitos enemigos?|           Enfréntate a tus amigos y|que gane el mejor luchador.|Para dos o más jugadores.|         Acaba con los jefes del modo|historia con sólo una vida.";
+			textos[45]="Creado por:|||||Gracias a:";
+			textos[46]="";
+			textos[47]="¡Y gracias a ti por jugar!";
+			textos[49]="¡Jugador ";
+			textos[50]=" gana!";
+			textos[51]="Has perdido";
+			textos[52]="Pulsa "+botones[0]+" para andar";
+			textos[53]="Pulsa dos veces "+botones[0]+" para correr";
+			textos[54]="Pulsa "+botones[b_1]+" para atacar";
+			textos[55]="Pulsa "+botones[b_2]+" para saltar";
+			textos[56]="Pulsa "+botones[b_3]+" para defenderte";
+			textos[57]="Pulsa "+botones[0]+"+"+botones[b_3]+" para evadir";
+			textos[58]="Pulsa Abajo+"+botones[b_1]+" para hacer un ataque fuerte";
+			textos[59]="Pulsa Arriba+"+botones[b_1]+" para hacer un uppercut";
+			textos[60]="Pulsa "+botones[b_1]+"+"+botones[b_3]+" para hacer un ataque de huída";
+			textos[61]="Pulsa "+botones[b_1]+" para coger o lanzar objetos";
+			textos[62]="¡Pásalo bien!";
+			textos[63]="Tutorial";
+			textos[64]="Pulsa "+botones[b_3]+" para saltar la intro	";
+			textos[65]="¡Vida recuperada!";
+			textos[66]="Trucos";
+			textos[67]="Si hay trucos activados, no habrá puntuaciones";
+			textos[68]="Donar";
+			textos[69]="Continuar";			
+			textos[70]="¡Gracias por apoyarnos!";
+			textos[71]="¡Enemigos explosivos!";
+			textos[72]="¡Muerte súbita!";
+			textos[73]="¡HAMLET!";
+			textos[74]="¡TRAM!";
+			textos[75]="¡Avión!";
+			textos[76]="¡Cambio de equipos!";
+			textos[77]="¡Gravedad lunar!";
+			textos[78]="¡Lluvia de naranjas!";
+			textos[79]="¡Objeto disparado!";
+			textos[80]="¡Fuego amigo activado!";
+			textos[81]="¡Objetos gratis!";
+			textos[82]="¡Todo el mundo es super!";
+			textos[83]="¡Sin fricción!";
+		end
+		case 2: //catalán
+			// General
+			textos[0]="PAUSA";
+			textos[1]="prem " + botones[b_3] + " per sortir";
+			textos[2]="Foc amic desbloquejat!";
+			textos[3]="Sense bandes desbloquejat!";
+			textos[4]="Mode matajefes desbloquejat!";
+			textos[5]="Mode matajefes completat!";
+			textos[6]="Ruzafa desbloquejat!";
+			textos[7]="Nivell ";
+			textos[8]="Centre";
+			textos[9]="2";
+			textos[10]="3";
+			textos[11]="4";
+			textos[12]="Aeroport";
+			textos[13]=" completat";
+
+			// Menús
+			textos[14]="prem el botó 2 per a jugar";
+			textos[15]="Jugar";
+			textos[16]="Opcions";
+			textos[17]="Ajuda";
+			textos[18]="Crèdits";
+			if(rand(0,1))
+				textos[19]="Sortir";
+			else
+				textos[19]="Eixir";
+			end
+			textos[20]=" jugador";
+			textos[21]=" jugadors";
+			textos[22]="Pantalla completa";
+			textos[23]="So";
+			textos[24]="Música";
+			textos[25]="Jugar amb Ruzafa";
+			textos[26]="Foc amic";
+			textos[27]="Sense bandes";
+			textos[28]="Mode història";
+			textos[29]="Mode supervivència";
+			textos[30]="Mode matajefes";
+			textos[31]="Mode Battle Royale";
+			textos[32]="Mode Bé VS Mal";
+			textos[33]="Més velocitat!";
+			textos[34]="Més atac!";
+			textos[35]="Ajuda";
+			textos[36]="Controls";
+			textos[37]="Moure: |Atacar: |Saltar: |Defensar: |Agafar/llançar objecte: |Atac fort: |Atac especial:";
+			textos[38]=botones[0]+"|  "+botones[b_1]+"|  "+botones[b_2]+"|  "+botones[b_3]+"|             "+botones[b_1] + "|             baix + "+ botones[b_1] +" |             "+ botones[b_1] +" + "+ botones[b_3];
+			textos[39]="Objectes";
+			textos[40]="Multijugador";
+			textos[41]="Tots els modes de joc poden ser|jugats fins a 4 jugadors alhora.||Per això ha d'estar connectat com a mínim|un gamepad abans d'iniciar el joc.||Els gamepads són configurats |de forma automàtica.";
+			textos[42]="Modes de joc";
+			textos[43]="Història:|||Supervivència:||Battle royale:|||Matacaps:";
+			textos[44]="       Les escultures han cobrat vida|i estan destruint la ciutat de Castelló.|Ajuda'l a salvar la ciutat!|            Quant de temps aguantaràs|la lluita contra infinits enemics?|            Enfronta't amb els teus|amics i que guanyi el millor lluitador.|Per a dos o més jugadors.|        Acaba amb els caps del mode|història amb només una vida.";
+			textos[45]="Creat per: | | | | | Gràcies a:";
+			textos[46]="";
+			textos[47]="I gràcies a tu per jugar!";
+			textos[49]="El jugador ";
+			textos[50]=" ha guanyat!";
+			textos[51]="Has perdut";
+			textos[52]="prem " + botones[0] + " per caminar";
+			textos[53]="Prem dues vegades " + botones[0] + " per córrer";
+			textos[54]="prem " + botones[b_1] + " per atacar";
+			textos[55]="prem " + botones[b_2] + " per saltar";
+			textos[56]="prem " + botones[b_3] + " per defensar";
+			textos[57]="prem "+botones[0]+"+" + botones[b_3] + " per evadir";
+			textos[58]="prem baix +" + botones[b_1] + " per fer un atac fort";
+			textos[59]="prem dalt +" + botones[b_1] + " per fer un uppercut";
+			textos[60]="prem " + botones[b_1] + "+" + botones[b_3] + " per fer un atac de fugida";
+			textos[61]="prem " + botones[b_1] + " per agafar o llançar objectes";
+			textos[62]="Passa-ho bé!";
+			textos[63]="Tutorial";
+			textos[64]="prem " + botones[b_3] + " per saltar la intro";
+			textos[65]="Vida recuperada!";
+			textos[66]="Trucs";
+			textos[67]="Si hi ha trucs activats, no hi hauràn puntuacions.";
+			textos[68]="Donar";
+			textos[69]="Continuar";
+			textos[70]="Gràcies per la teva ajuda!";
+
+			textos[71]="Enemics explosius!";
+			textos[72]="Mort sobtada!";
+			textos[73]="HAMLET!";
+			textos[74]="TRAM!";
+			textos[75]="Avió!";
+			textos[76]="Canvi d'equips!";
+			textos[77]="Gravetat lunar!";
+			textos[78]="Pluja de taronges!";
+			textos[79]="Objecte disparat!";
+			textos[80]="Foc amic activat!";
+			textos[81]="Objectes gratis!";
+			textos[82]="Tothom és super!";
+			textos[83]="Sense fricció!";
+		end
+	end
+End

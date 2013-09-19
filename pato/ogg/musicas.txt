@@ -1,0 +1,18 @@
+1-5 niveles
+12 - jefes
+13 - historia (prologo)
+14 - menu
+15 - créditos (tras el final del juego)
+
+
+
+Nombres:
+1 - Hay un tio en mi calle
+2 - Acampada sexual
+3 - La bicicleta
+4 - L'illa
+5 - Antonio González
+12 - L'edifici
+13 - Whisky en el bar
+14 - El señor de las bolsas
+15 - Castelló

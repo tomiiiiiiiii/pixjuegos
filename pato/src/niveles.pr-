@@ -1,0 +1,164 @@
+Process carga_nivel(num_nivel);
+Begin
+	//reseteamos los datos anteriores
+	from i=0 to 20;
+		emboscada[i].x_evento=0;
+		emboscada[i].evento_especial=0;
+		emboscada[i].max_x=0;
+		emboscada[i].min_x=0;
+		from j=0 to 30;
+			emboscada[i].enemigo[j].pos_x=0;
+			emboscada[i].enemigo[j].pos_y=0;
+			emboscada[i].enemigo[j].tipo=0;
+			emboscada[i].enemigo[j].flags=0;
+		end
+	end
+	coordenadas=c_scroll;
+
+	en_moto=0;
+	switch(num_nivel)
+		case 1: //NIVEL 1
+			include "nivel1.pr-";
+		end
+		case 2:	//NIVEL 2:
+			include "nivel2.pr-";
+		end
+		case 3:	//NIVEL 3:
+			include "nivel3.pr-";
+		end
+		case 4: //NIVEL 4
+			include "nivel4.pr-";
+		end
+		case 5: //NIVEL 5
+			include "nivel5.pr-";
+		end
+	end
+End
+
+Process nivel1_eventos();
+Begin
+	resolution=global_resolution;
+	while(!exists(id_camara)) frame; end
+	if(ops.tutorial)
+		tutorial_ouya();
+	end
+	loop
+		while(!ready) frame; end
+		if(id_camara.x>1600 and id_camara.x<4200)
+			if(i==0)
+				tram();
+				i=750;
+			else
+				i--;
+			end
+		end
+		frame;
+	end
+End
+
+Process nivel2_eventos();
+Begin
+	resolution=global_resolution;
+	while(!exists(id_camara)) frame; end
+	loop
+		while(!ready) frame; end
+		if(id_camara.x>7000 and id_camara.x<15000)
+			if(i==0)
+				tram();
+				i=750;
+			else
+				i--;
+			end
+		end
+		frame;
+	end
+End
+
+Process nivel5_eventos();
+Begin
+	resolution=global_resolution;
+	while(!exists(id_camara)) frame; end
+	loop
+		while(!ready) frame; end
+		if(exists(type jefe4)) return; end
+		if(id_camara.x>6000 and id_camara.x<9270)
+			if(i==0)
+				avioncete();
+				i=750;
+			else
+				i--;
+			end
+		end
+		frame;
+	end
+End
+
+Process tutorial_ouya();
+Private
+	go_on=0;
+	mitxtxt;
+Begin
+	ctype=c_screen;
+	resolution=global_resolution;
+	z=-512;
+	x=320;
+	alpha=0;
+	mitxtxt=write(fpg_texto_azul,x,290,4,textos[63]);
+	mitxtxt.size=80;
+	size=70;
+	from i=0 to 255 step 20; mitxtxt.alpha=i; frame; end
+	i=0;
+	loop
+		if(go_on==1) sonido(13,0); end
+		go_on=0;
+		i++;
+		graph=write_in_map(fpg_texto,textos[51+i],4);
+		y=300;
+		from alpha=0 to 255 step 15; y++; frame; end
+		if(i==11) break; end
+		while(!go_on)
+			from j=1 to posibles_jugadores;
+				if(exists(p[j].identificador))
+					switch(i)
+						case 1: //Moverse
+							if(p[j].identificador.animacion==camina) go_on=1; end
+						end
+						case 2: //Correr
+							if(p[j].identificador.animacion==corre) go_on=1; end
+						end
+						case 3: //Atacar
+							if(p[j].identificador.accion==ataca_suelo) go_on=1; end
+						end
+						case 4: //Saltar
+							if(p[j].identificador.animacion==salta or p[j].identificador.animacion==salta_objeto) go_on=1; end
+						end
+						case 5: //Defenderse
+							if(p[j].identificador.accion==defiende) go_on=1; end
+						end
+						case 6: //Evadir
+							if(p[j].identificador.graph==181) go_on=1; end
+						end
+						case 7: //Ataque fuerte
+							if(p[j].identificador.accion==ataca_fuerte) go_on=1; end
+						end
+						case 8: //Ataque alto
+							if(p[j].identificador.accion==ataca_uppercut) go_on=1; end
+						end
+						case 9: //Ataque area
+							if(p[j].identificador.accion==ataca_area) go_on=1; end
+						end
+						case 10: //Coger/lanzar objeto/enemigo
+							if(p[j].identificador.lleva_objeto!=0) go_on=1; end
+						end
+					end
+				end
+			end
+			frame;
+		end
+	end
+	from i=0 to 200; frame; end
+	from alpha=255 to 0 step -15; mitxtxt.y++; mitxtxt.alpha=alpha; y++; frame; end
+	mitxtxt.accion=-1;
+	ops.tutorial=0;
+	guarda_opciones();
+End

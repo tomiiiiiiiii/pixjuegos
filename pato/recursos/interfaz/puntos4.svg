@@ -1,0 +1,922 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="100"
+   height="100"
+   id="svg23841"
+   version="1.1"
+   inkscape:version="0.48.2 r9819"
+   sodipodi:docname="sistema.svg">
+  <defs
+     id="defs23843">
+    <linearGradient
+       id="linearGradient24718">
+      <stop
+         style="stop-color:#fffffd;stop-opacity:0;"
+         offset="0"
+         id="stop24720" />
+      <stop
+         id="stop24726"
+         offset="0.5"
+         style="stop-color:#ffff00;stop-opacity:1;" />
+      <stop
+         style="stop-color:#ff8f00;stop-opacity:1;"
+         offset="1"
+         id="stop24722" />
+    </linearGradient>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient24718-0"
+       id="radialGradient24724-3"
+       cx="25"
+       cy="55.176472"
+       fx="25"
+       fy="55.176472"
+       r="20"
+       gradientTransform="matrix(0.75,-7.4707089e-8,7.4707095e-8,0.75000005,-0.750004,960.97975)"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       id="linearGradient24718-0">
+      <stop
+         style="stop-color:#fffffd;stop-opacity:0;"
+         offset="0"
+         id="stop24720-3" />
+      <stop
+         id="stop24726-8"
+         offset="0.5"
+         style="stop-color:#ffff00;stop-opacity:1;" />
+      <stop
+         style="stop-color:#ff8f00;stop-opacity:1;"
+         offset="1"
+         id="stop24722-2" />
+    </linearGradient>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#8d368f"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4"
+     inkscape:cx="67.609416"
+     inkscape:cy="27.903386"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:snap-grids="true"
+     inkscape:window-width="1366"
+     inkscape:window-height="706"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid23849"
+       empspacing="5"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="100,170"
+       id="guide25023" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata23846">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-952.3621)">
+    <path
+       style="fill:#8d368f;stroke:none;stroke-width:0.68000013ffffff004px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;opacity:0"
+       d="m 314.32,950.3621 17.68,0 0,34 -17.68,0 z"
+       id="path25195-2"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fnt-sources\tiempo\58.png"
+       inkscape:export-xdpi="132.35294"
+       inkscape:export-ydpi="132.35294" />
+    <path
+       style="fill:#8d368f;stroke:none;stroke-width:0.68000013ffffff004px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;opacity:0"
+       d="m 294.32,950.3621 17.68,0 0,34 -17.68,0 z"
+       id="path25195-04"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fnt-sources\tiempo\57.png"
+       inkscape:export-xdpi="132.35294"
+       inkscape:export-ydpi="132.35294" />
+    <path
+       style="fill:#8d368f;stroke:none;stroke-width:0.68000013ffffff004px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;opacity:0"
+       d="m 274.32,950.3621 17.68,0 0,34 -17.68,0 z"
+       id="path25195-19"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fnt-sources\tiempo\56.png"
+       inkscape:export-xdpi="132.35294"
+       inkscape:export-ydpi="132.35294" />
+    <path
+       style="fill:#8d368f;stroke:none;stroke-width:0.68000013ffffff004px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;opacity:0"
+       d="m 254.32,950.3621 17.68,0 0,34 -17.68,0 z"
+       id="path25195-1"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fnt-sources\tiempo\55.png"
+       inkscape:export-xdpi="132.35294"
+       inkscape:export-ydpi="132.35294" />
+    <path
+       style="fill:#8d368f;stroke:none;stroke-width:0.68000013ffffff004px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;opacity:0"
+       d="m 234.32,950.3621 17.68,0 0,34 -17.68,0 z"
+       id="path25195-06"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fnt-sources\tiempo\54.png"
+       inkscape:export-xdpi="132.35294"
+       inkscape:export-ydpi="132.35294" />
+    <path
+       style="fill:#8d368f;stroke:none;stroke-width:0.68000013ffffff004px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;opacity:0"
+       d="m 214.32,950.3621 17.68,0 0,34 -17.68,0 z"
+       id="path25195-49"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fnt-sources\tiempo\53.png"
+       inkscape:export-xdpi="132.35294"
+       inkscape:export-ydpi="132.35294" />
+    <path
+       style="fill:#8d368f;stroke:none;stroke-width:0.68000013ffffff004px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;opacity:0"
+       d="m 194.32,950.3621 17.68,0 0,34 -17.68,0 z"
+       id="path25195-4"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fnt-sources\tiempo\52.png"
+       inkscape:export-xdpi="132.35294"
+       inkscape:export-ydpi="132.35294" />
+    <path
+       style="fill:#8d368f;stroke:none;stroke-width:0.68000013ffffff004px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;opacity:0"
+       d="m 174.32,950.3621 17.68,0 0,34 -17.68,0 z"
+       id="path25195-7"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fnt-sources\tiempo\51.png"
+       inkscape:export-xdpi="132.35294"
+       inkscape:export-ydpi="132.35294" />
+    <path
+       style="fill:#8d368f;stroke:none;stroke-width:0.68000013ffffff004px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;opacity:0"
+       d="m 154.32,950.3621 17.68,0 0,34 -17.68,0 z"
+       id="path25195-5"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fnt-sources\tiempo\50.png"
+       inkscape:export-xdpi="132.35294"
+       inkscape:export-ydpi="132.35294" />
+    <path
+       style="fill:#8d368f;stroke:none;stroke-width:0.68000013ffffff004px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;opacity:0"
+       d="m 134.32,950.3621 17.68,0 0,34 -17.68,0 z"
+       id="path25195-0"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fnt-sources\tiempo\49.png"
+       inkscape:export-xdpi="132.35294"
+       inkscape:export-ydpi="132.35294" />
+    <rect
+       style="opacity:0.95999995;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       id="rect25025-3"
+       width="302.00006"
+       height="14.999965"
+       x="-1"
+       y="1082.3621"
+       ry="5"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\general\26.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#8d368f;stroke:#ffffff;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m -26.517967,1022.8865 c 10.249363,6.8325 12.730261,10.2453 7.589286,22.9465 -2.774812,0.4695 -4.614812,1.5538 -10.982143,-0.4465 l 0.535715,-6.9643 c 0.17944,-2.531 -5.643749,-4.3617 -7.500001,-6.2499 0,0 -0.892857,-11.4286 -0.178571,-11.4286 0.714286,0 10.535714,2.1428 10.535714,2.1428 z"
+       id="path3022"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccccsc" />
+    <path
+       style="fill:#8d368f;stroke:#ffffff;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m -36.070076,1022.4916 -15.561733,0.2742 c -2.239941,6.1404 0.369033,10.0026 4.071248,12.479 -3.001427,3.1092 -6.523479,5.8466 -7.963925,10.0708 2.321868,2.8919 7.188662,2.8753 10.994382,4.0713 11.201548,-11.0376 11.492314,-7.4531 8.838835,-20.8344"
+       id="path3012"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccccc" />
+    <path
+       style="fill:#8d368f;stroke:#ffffff;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m -25.701464,995.88766 c 0.24198,0.35579 0.877157,-0.0198 1.102884,0.30263 5.546394,7.92211 6.421133,6.14381 16.433968,6.22451 l -1.163342,7.7495 c -9.571841,2.8161 -11.584526,3.1902 -17.210122,-2.9927 z"
+       id="path3008"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cscccc" />
+    <path
+       style="fill:#8d368f;stroke:#ffffff;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m -25.491979,1004.831 c -0.226936,2.2471 -0.842723,2.2329 -0.886016,2.961 l 1.04079,14.3208 c -8.168705,1.5356 -18.104518,1.9241 -27.692537,0.148 l 2.73459,-17.8257 -2.668059,-9.62708 6.917879,-1.98966 16.16244,0 4.468348,2.47761 0.741725,0.84608"
+       id="path3010"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccccccccc" />
+    <path
+       style="fill:#ffccaa;stroke:#ffffff;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m -31.650659,970.46873 c 1.515229,2.52538 3.548225,12.94924 3.548225,12.94924 -6.877012,6.0494 -12.138448,13.20047 -17.58707,9.25113 l -4.901515,-15.00303 c 3.529927,-5.38883 9.005148,-8.68826 18.94036,-7.19734 z"
+       id="path2998"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       style="fill:#8d368f;stroke:#ffffff;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m -52.430125,994.58481 c -14.682576,3.97261 -12.940244,19.63659 -5.92892,18.55809 1.827019,-0.2811 2.839097,-2.6126 5.242645,-5.792 -5.531686,-4.0278 -4.620572,0.7019 3.267677,-3.2423"
+       id="path3006"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cscc" />
+    <path
+       style="fill:#333333;stroke:#ffffff;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m -55.521858,1045.7034 c -3.410687,2.8179 -3.132964,5.2507 -1.839105,8.0506 3.02027,1.2596 14.164063,1.6592 17.828231,1.2168 1.538645,-3.7292 -0.491199,-5.3386 -3.400742,-7.4869 -4.0197,0.057 -7.198557,0.9028 -12.588384,-1.7805 z"
+       id="path3014"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       style="fill:#333333;stroke:#ffffff;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m -29.941539,1045.405 c -1.741248,1.8462 -3.293833,4.3228 -1.93102,7.0684 2.434972,3.2649 13.922616,2.4576 18.009431,1.8723 0.884053,-3.5854 -0.57768,-6.6877 -4.946608,-8.4664 -4.383552,1.0546 -6.900742,0.9701 -11.131803,-0.4743 z"
+       id="path3016"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       style="fill:none;stroke:#ffffff;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m -42.608058,978.87147 c 1.838533,-0.69505 3.170619,-0.3772 4.517677,-0.0893"
+       id="path3018"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;stroke:#ffffff;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m -33.603342,978.51432 c 1.074829,-0.66225 2.353434,-0.91695 4.099258,-0.23721"
+       id="path3020"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:#cccccc;stroke:#ffffff;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m -49.968647,979.09464 1.393238,-1.22913 8.150909,8.03606 5.422178,-2.19734 5.119652,1.88718 1.009931,-5.05179 c 4.355784,11.09081 -2.96136,15.1965 -8.095532,14.59114 -2.330518,-0.27478 -5.147137,-0.92243 -6.751639,-4.01032 z"
+       id="path3000"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccccssc" />
+    <path
+       style="fill:#ff7f2a;stroke:none"
+       d="m -56.867807,1010.2629 c 0.250471,1.3382 -0.3125,2.8571 -3.080357,2.3214 -2.767857,-0.5357 -3.750001,-6.0267 -2.633929,-6.6071 1.116072,-0.5805 2.857143,-0.625 4.107143,0.8036 1.25,1.4285 1.356672,2.1439 1.607143,3.4821 z"
+       id="path4219-2"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="zzzzz" />
+    <path
+       style="fill:#ffccaa;stroke:#ffffff;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m -15,1007.3621 c 0.956282,5.9719 11.622196,6.0266 10.23414,-1.6785 -1.388056,-7.70506 -11.190422,-4.2934 -10.23414,1.6785 z"
+       id="path3004"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="zzz" />
+    <path
+       style="fill:#b3b3b3;stroke:#ffffff;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m -32.292518,969.69131 2.399113,2.90419 -5.492705,-1.76777 1.010153,2.27284 -4.861359,-2.08343 c 0,0 -2.399113,2.39911 -3.409266,3.72493 -0.189403,-0.82075 -0.947017,-2.33597 -0.947017,-2.33597 l -2.525382,4.48255 -1.073287,-1.8309 c 0,0 -2.272843,6.50285 -3.030458,7.57614 0,-1.70463 -0.505076,-5.61897 -0.505076,-5.61897 l 7.386741,-6.7554 z"
+       id="path3423"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccccccccccc" />
+    <path
+       style="fill:#8d368f;stroke:#ffffff;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m -32.155735,969.58485 c -8.823394,0.69713 -15.358202,4.51138 -18.435284,7.95495 -2.003494,-5.9538 -1.053237,-5.80163 0.568211,-8.46003 7.035355,-4.96585 16.853999,-2.40904 17.867073,0.50508 z"
+       id="path2996"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccc" />
+    <path
+       style="fill:none;stroke:#ffffff;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m -38.214396,987.48475 c 2.322065,0.98769 4.040232,0.80498 6.071429,-0.17857"
+       id="path3425"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:#8d368f;stroke:#ffffff;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m -40.892967,968.51154 c 2.193285,-0.28074 2.869166,2.2986 0.982142,2.54464 -1.887024,0.24604 -3.175427,-2.26391 -0.982142,-2.54464 z"
+       id="path3431"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="zzz" />
+    <path
+       style="fill:#8d368f;stroke:#ffffff;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m -37.252123,968.04498 c 2.193285,-0.28074 2.869166,2.2986 0.982142,2.54464 -1.887024,0.24604 -3.175427,-2.26391 -0.982142,-2.54464 z"
+       id="path3431-1"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="zzz" />
+    <path
+       style="fill:none;stroke:#00c800;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m -40.441444,969.52841 -0.696169,-6.10496"
+       id="path3427"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#00c800;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m -36.707828,969.16423 0.384054,-5.8402"
+       id="path3429"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:#ff7f2a;stroke:none"
+       d="m -42.857253,997.88654 c 0.250471,1.3382 0.267857,4.37496 -2.5,3.83926 -2.767857,-0.5357 -5.535715,-4.1964 -3.75,-5.26783 1.785715,-1.07143 3.392857,-3.48214 4.642857,-2.05357 1.25,1.42857 1.356672,2.14394 1.607143,3.48214 z"
+       id="path4219"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="zzzzz" />
+    <path
+       style="fill:#ff7f2a;stroke:none"
+       d="m -25.930306,998.70048 c 0.250471,1.33822 -1.25,-0.0893 -4.017857,-0.62501 -2.767857,-0.53571 -4.017858,-1.33927 -2.232143,-2.4107 1.785715,-1.07143 3.392857,-1.875 4.642857,-0.44643 1.25,1.42857 1.356672,2.14394 1.607143,3.48214 z"
+       id="path4219-7"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="zzzzz" />
+    <path
+       style="fill:#ff7f2a;stroke:none"
+       d="m -32.983877,1002.1827 c 0.250471,1.3381 -3.260037,-2.27798 -2.857143,2.7678 0.402894,5.0458 -5.535715,-4.1965 -3.75,-5.26788 1.785715,-1.0714 -0.892105,-3.09255 4.642857,-2.05359 5.534962,1.03896 1.713815,3.21547 1.964286,4.55367 z"
+       id="path4219-4"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="zzzzz" />
+    <path
+       style="fill:#ff7f2a;stroke:none"
+       d="m -40.21602,1006.7362 c -4.448238,-2.1479 -0.478613,1.8374 -2.5,3.8393 -2.021387,2.0019 -7.210189,-7.5467 -3.75,-5.2679 3.460189,2.2788 2.522866,-3.1452 3.660714,-2.1428 1.137848,1.0025 7.037524,5.7193 2.589286,3.5714 z"
+       id="path4219-0"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="zzzzz" />
+    <path
+       style="fill:#ff7f2a;stroke:none"
+       d="m -51.823164,998.47726 c 0.250243,1.3357 -1.723416,1.08708 -4.375,1.83034 -2.651583,0.7433 -3.75,-0.4464 -2.321428,-1.74105 1.428572,-1.29464 4.0625,-3.16964 4.955357,-2.5 0.892857,0.66964 1.490828,1.07502 1.741071,2.41071 z"
+       id="path4219-9"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="zzzzz" />
+    <path
+       style="fill:#ff7f2a;stroke:none"
+       d="m -18.65352,1002.8969 c 1.366543,0.3113 1.741071,2.8125 -1.026786,2.2768 -2.767857,-0.5357 -4.285715,-2.0982 -4.285714,-3.7947 1e-6,-1.69639 -0.357143,-2.90174 0.357143,-2.2321 0.714286,0.66964 3.588815,3.4386 4.955357,3.75 z"
+       id="path4219-48"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="zzzzz" />
+    <path
+       style="fill:#ff7f2a;stroke:none"
+       d="m -19.010662,1011.5131 c -1.026786,-0.089 -3.705358,-1.0269 -2.321429,-1.7412 1.383929,-0.7142 2.901786,-2.3213 4.151786,-0.8928 2.548416,2.9396 -0.175379,2.8851 -1.830357,2.634 z"
+       id="path4219-8"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="czcc" />
+    <path
+       style="fill:#ff7f2a;stroke:none"
+       d="m -48.519592,1017.8076 c 0.250471,1.3382 2.410714,4.1071 -0.357143,3.5714 -2.767857,-0.5357 -2.857144,-6.0714 -1.071429,-7.1429 1.785715,-1.0714 1.607143,-2.2321 2.857143,-0.8035 1.25,1.4285 -1.679042,3.0368 -1.428571,4.375 z"
+       id="path4219-45"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="zzzzz" />
+    <path
+       style="fill:#ff7f2a;stroke:none"
+       d="m -36.644592,1016.647 c 0.250471,1.3382 0.968008,4.0666 -2.767857,4.8215 -3.735865,0.7548 -6.839101,-3.917 -4.642857,-5.5358 2.196244,-1.6188 2.053571,0.7143 3.303571,2.1428 1.25,1.4286 3.856672,-2.7667 4.107143,-1.4285 z"
+       id="path4219-5"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="zzzzz" />
+    <path
+       style="fill:#ff7f2a;stroke:none"
+       d="m -26.108877,1017.9862 c 0.250471,1.3382 -0.446429,4.375 -3.214286,3.8393 -2.767857,-0.5357 -7.52217,-0.3061 -4.732143,-0.8036 2.790027,-0.4975 6.106732,-7.8213 7.053572,-7.2321 0.94684,0.5892 0.642386,2.8582 0.892857,4.1964 z"
+       id="path4219-1"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="zzzzz" />
+    <path
+       style="fill:#ff7f2a;stroke:none"
+       d="m -48.251735,1027.004 c 0.250471,1.3382 0.982143,5 -1.785714,4.4643 -2.767857,-0.5357 -1.428572,-7.9463 -0.982143,-7.9464 0.44643,0 9.737061,0.6101 8.482143,0.5357 -1.254918,-0.074 -5.964757,1.6082 -5.714286,2.9464 z"
+       id="path4219-71"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="zzzzz" />
+    <path
+       style="fill:#ff7f2a;stroke:none"
+       d="m -35.483878,1034.2362 c 0.372566,1.2161 0.267857,1.25 -2.5,0.7143 -2.767857,-0.5357 -9.030115,-6.6924 -3.75,-5.2679 5.280115,1.4245 4.171781,-3.3681 5.089286,-1.6071 0.917505,1.761 0.788148,4.9446 1.160714,6.1607 z"
+       id="path4219-15"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="zzzzz" />
+    <path
+       style="fill:#ff7f2a;stroke:none"
+       d="m -47.001734,1040.1291 c 0.250471,1.3382 0.982142,4.1071 -1.785715,3.5714 -2.767857,-0.5358 -5.267858,0.089 -4.017857,-1.6071 1.250001,-1.6964 5,-6.875 6.25,-5.4465 1.25,1.4286 -0.696899,2.144 -0.446428,3.4822 z"
+       id="path4219-27"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="zzzzz" />
+    <path
+       style="fill:#ff7f2a;stroke:none"
+       d="m -23.96602,1026.6469 c -4.457717,-1.323 -0.624046,3.471 -3.214285,3.0357 -2.59024,-0.4353 -8.125001,-3.8392 -6.339286,-4.9107 1.785715,-1.0714 6.25,-2.0535 7.5,-0.6249 1.25,1.4285 6.511289,3.8228 2.053571,2.4999 z"
+       id="path4219-6"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="zzzzz" />
+    <path
+       style="fill:#ff7f2a;stroke:none"
+       d="m -17.180306,1034.0576 c 0.250471,1.3382 0.446428,3.3036 -2.321429,2.7679 -2.767857,-0.5357 -7.589286,-4.5535 -5.803571,-5.6249 1.785715,-1.0715 4.196428,-3.2144 5.446428,-1.7858 1.25,1.4286 2.428101,3.3046 2.678572,4.6428 z"
+       id="path4219-14"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="zzzzz" />
+    <path
+       style="fill:#ff7f2a;stroke:none"
+       d="m -24.858878,1040.9326 c 0.250471,1.3382 3.839286,4.9107 1.071429,4.375 -2.767857,-0.5357 -4.835764,0.014 -5.178572,-0.8929 -0.342807,-0.9072 0.178571,-5.8927 0.625,-6.8749 0.446429,-0.9822 3.231672,2.0546 3.482143,3.3928 z"
+       id="path4219-23"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="zzzzz" />
+    <path
+       style="fill:#ff7f2a;stroke:none"
+       d="m -36.198163,1040.3076 c -0.288256,0.6798 -4.271004,4.0557 -5.535715,5.3572 -1.26471,1.3014 -2.5,-3.3928 -0.714285,-4.4643 1.785715,-1.0715 3.303571,-4.0179 4.553571,-2.5893 1.25,1.4286 1.984684,1.0166 1.696429,1.6964 z"
+       id="path4219-22"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="zzzzz" />
+    <path
+       style="fill:#ff7f2a;stroke:none"
+       d="m -39.022901,1010.1455 c 0.321692,-1.9038 3.433726,2.8145 6.126746,-3.215 2.69302,-6.0295 3.519347,8.9162 0.596211,5.1785 -2.923134,-3.7377 0.346482,5.5475 -2.563129,3.2826 -2.909612,-2.2649 -4.48152,-3.3423 -4.159828,-5.2461 z"
+       id="path4219-16"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="zzzzz" />
+    <g
+       id="g4358"
+       transform="matrix(0.90005089,-0.43578481,0.43578481,0.90005089,-425.38266,90.372348)">
+      <g
+         id="g4363"
+         transform="translate(-39.572175,-20.021661)">
+        <path
+           style="fill:#aa4400;stroke:#ffffff;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+           d="m -21.067656,999.02062 c -5.268706,6.27138 -10.655603,12.54268 -14.457808,18.81408 6.17137,-5.0267 11.800754,-10.6729 16.793786,-17.0463 z"
+           id="path3417"
+           inkscape:connector-curvature="0"
+           sodipodi:nodetypes="cccc" />
+        <path
+           style="fill:#b3b3b3;stroke:#ffffff;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+           d="m -21.004522,998.89435 3.788072,-3.91435 1.26269,1.51523 -2.65165,4.41937 z"
+           id="path3419"
+           inkscape:connector-curvature="0" />
+        <path
+           style="fill:#ffffff;stroke:#ffffff;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+           d="m -16.553537,995.29568 c -2.114269,-1.88364 1.275549,-5.91574 4.514118,-7.35517 -2.616878,4.63189 -1.293605,10.01204 -4.514118,7.35517 z"
+           id="path3421"
+           inkscape:connector-curvature="0"
+           sodipodi:nodetypes="ccc" />
+      </g>
+    </g>
+    <path
+       style="fill:#ffccaa;stroke:#ffffff;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m -59.682392,1010.496 c 2.643814,7.4551 13.67169,2.0391 10.732872,-4.5457 -2.938819,-6.58469 -13.376686,-2.9093 -10.732872,4.5457 z"
+       id="path3002"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="zzz" />
+    <path
+       style="fill:#aaccff;fill-opacity:1;stroke:#ffffff;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m 2,1005.3621 8,-3 -1,-9 7,6 6,-9 -1,11 11,4 -10,4 5,11 -11,-8 -9,8 5,-12 z"
+       id="general-6"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccccccccccc"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\general\6.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       inkscape:label="#path24716-5" />
+    <path
+       style="fill:#ccffaa;fill-opacity:1;stroke:#ffffff;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m 66,987.3621 -3,-8 -9,1 6,-7 -9,-6 11,1 4,-11 4,10 11,-5 -8,11 8,9 -12,-5 z"
+       id="general-5"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccccccccccc"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\general\5.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       inkscape:label="#path24716-5-2" />
+    <path
+       style="fill:#ffeeaa;fill-opacity:1;stroke:#ffffff;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m 34,970.3621 -8,-3 1,-9 -7,6 -6,-9 1,11 -11,4 10,4 -5,11 11,-8 9,8 -5,-12 z"
+       id="general-4"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccccccccccc"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\general\4.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       inkscape:label="#path24716-5-0" />
+    <path
+       style="fill:#ffaaaa;fill-opacity:1;stroke:#ffffff;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m 78,1009.3621 -8,3 1,9 -7,-6 -6,9 1,-11 -11,-4 10,-4 -5,-11 11,8 9,-8 -5,12 z"
+       id="general-7"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccccccccccc"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\general\7.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       inkscape:label="#path24716-5-3" />
+    <g
+       id="tiempo-49"
+       inkscape:label="#g3098">
+      <path
+         inkscape:export-ydpi="132.35294"
+         inkscape:export-xdpi="132.35294"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fnt-sources\tiempo\49.png"
+         sodipodi:nodetypes="ccccccccc"
+         inkscape:connector-curvature="0"
+         id="path24828-4"
+         d="m 142,964.3621 0,5 5,0 0,15 5,0 0,-25 -5,0 0,5 z"
+         style="fill:#ffffff;stroke:none;fill-opacity:1;opacity:0.5" />
+      <path
+         inkscape:label="#path24828"
+         inkscape:export-ydpi="132.35294"
+         inkscape:export-xdpi="132.35294"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fnt-sources\tiempo\49.png"
+         sodipodi:nodetypes="ccccccccc"
+         inkscape:connector-curvature="0"
+         id="tiempo-49eger"
+         d="m 140,962.3621 0,5 5,0 0,15 5,0 0,-25 -5,0 0,5 z"
+         style="fill:#8d368f;stroke:#ffffff;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+    </g>
+    <g
+       id="tiempo-50"
+       inkscape:label="#g3102">
+      <path
+         inkscape:export-ydpi="132.35294"
+         inkscape:export-xdpi="132.35294"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fnt-sources\tiempo\50.png"
+         inkscape:connector-curvature="0"
+         id="path24830-0"
+         d="m 157,959.3621 0,5 10,0 0,5 -10,0 0,15 15,0 0,-5 -10,0 0,-5 10,0 0,-15 z"
+         style="fill:#ffffff;stroke:none;fill-opacity:1;opacity:0.5" />
+      <path
+         inkscape:label="#path24830"
+         inkscape:export-ydpi="132.35294"
+         inkscape:export-xdpi="132.35294"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fnt-sources\tiempo\50.png"
+         inkscape:connector-curvature="0"
+         id="egreger"
+         d="m 155,957.3621 0,5 10,0 0,5 -10,0 0,15 15,0 0,-5 -10,0 0,-5 10,0 0,-15 z"
+         style="fill:#8d368f;stroke:#ffffff;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+    </g>
+    <g
+       id="tiempo-51"
+       inkscape:label="#g3106">
+      <path
+         inkscape:export-ydpi="132.35294"
+         inkscape:export-xdpi="132.35294"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fnt-sources\tiempo\51.png"
+         inkscape:connector-curvature="0"
+         id="path24832-6"
+         d="m 177,959.3621 0,5 10,0 0,5 -5,0 0,5 5,0 0,5 -10,0 0,5 15,0 0,-25 z"
+         style="fill:#ffffff;stroke:none;fill-opacity:1;opacity:0.5" />
+      <path
+         inkscape:label="#path24832"
+         inkscape:export-ydpi="132.35294"
+         inkscape:export-xdpi="132.35294"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fnt-sources\tiempo\51.png"
+         inkscape:connector-curvature="0"
+         id="tytrytr"
+         d="m 175,957.3621 0,5 10,0 0,5 -5,0 0,5 5,0 0,5 -10,0 0,5 15,0 0,-25 z"
+         style="fill:#8d368f;stroke:#ffffff;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+    </g>
+    <g
+       id="tiempo-52"
+       inkscape:label="#g3110">
+      <path
+         inkscape:export-ydpi="132.35294"
+         inkscape:export-xdpi="132.35294"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fnt-sources\tiempo\52.png"
+         inkscape:connector-curvature="0"
+         id="path24834-1"
+         d="m 197,959.3621 5,0 0,10 5,0 0,-5 5,0 0,20 -5,0 0,-10 -10,0 z"
+         style="fill:#ffffff;stroke:none;fill-opacity:1;opacity:0.5" />
+      <path
+         inkscape:label="#path24834"
+         inkscape:export-ydpi="132.35294"
+         inkscape:export-xdpi="132.35294"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fnt-sources\tiempo\52.png"
+         inkscape:connector-curvature="0"
+         id="utyytuty"
+         d="m 195,957.3621 5,0 0,10 5,0 0,-5 5,0 0,20 -5,0 0,-10 -10,0 z"
+         style="fill:#8d368f;stroke:#ffffff;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+    </g>
+    <g
+       id="tiempo-53"
+       inkscape:label="#g3114">
+      <path
+         inkscape:export-ydpi="132.35294"
+         inkscape:export-xdpi="132.35294"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fnt-sources\tiempo\53.png"
+         inkscape:connector-curvature="0"
+         id="path24836-2"
+         d="m 232,959.3621 -15,0 0,15 10,0 0,5 -10,0 0,5 15,0 0,-15 -10,0 0,-5 10,0 z"
+         style="fill:#ffffff;stroke:none;fill-opacity:1;opacity:0.5" />
+      <path
+         inkscape:label="#path24836"
+         inkscape:export-ydpi="132.35294"
+         inkscape:export-xdpi="132.35294"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fnt-sources\tiempo\53.png"
+         inkscape:connector-curvature="0"
+         id="yuiuyiuyiyu"
+         d="m 230,957.3621 -15,0 0,15 10,0 0,5 -10,0 0,5 15,0 0,-15 -10,0 0,-5 10,0 z"
+         style="fill:#8d368f;stroke:#ffffff;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+    </g>
+    <g
+       id="tiempo-54"
+       inkscape:label="#g3118">
+      <path
+         inkscape:export-ydpi="132.35294"
+         inkscape:export-xdpi="132.35294"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fnt-sources\tiempo\54.png"
+         id="path24838-1"
+         d="m 237,959.3621 0,25 15,0 0,-15 -10,0 0,-5 10,0 0,-5 -15,0 z m 5,15 5,0 0,5 -5,0 0,-5 z"
+         style="fill:#ffffff;stroke:none;fill-opacity:1;opacity:0.5"
+         inkscape:connector-curvature="0" />
+      <path
+         inkscape:label="#path24838"
+         inkscape:export-ydpi="132.35294"
+         inkscape:export-xdpi="132.35294"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fnt-sources\tiempo\54.png"
+         id="uioiuoiuo"
+         transform="translate(0,952.3621)"
+         d="M 235 5 L 235 30 L 250 30 L 250 15 L 240 15 L 240 10 L 250 10 L 250 5 L 235 5 z M 240 20 L 245 20 L 245 25 L 240 25 L 240 20 z "
+         style="fill:#8d368f;stroke:#ffffff;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+    </g>
+    <g
+       id="tiempo-55"
+       inkscape:label="#g3122">
+      <path
+         inkscape:export-ydpi="132.35294"
+         inkscape:export-xdpi="132.35294"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fnt-sources\tiempo\55.png"
+         sodipodi:nodetypes="ccccccc"
+         inkscape:connector-curvature="0"
+         id="path24862-4"
+         d="m 257,959.3621 0,5 10,0 0,20 5,0 0,-25 z"
+         style="fill:#ffffff;stroke:none;fill-opacity:1;opacity:0.5" />
+      <path
+         inkscape:label="#path24862"
+         inkscape:export-ydpi="132.35294"
+         inkscape:export-xdpi="132.35294"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fnt-sources\tiempo\55.png"
+         sodipodi:nodetypes="ccccccc"
+         inkscape:connector-curvature="0"
+         id="asdasdas"
+         d="m 255,957.3621 0,5 10,0 0,20 5,0 0,-25 z"
+         style="fill:#8d368f;stroke:#ffffff;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+    </g>
+    <g
+       id="tiempo-56"
+       inkscape:label="#g3126">
+      <path
+         inkscape:export-ydpi="132.35294"
+         inkscape:export-xdpi="132.35294"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fnt-sources\tiempo\56.png"
+         id="path24866-9"
+         d="m 277,959.3621 0,25 15,0 0,-25 -15,0 z m 5,5 5,0 0,5 -5,0 0,-5 z m 0,10 5,0 0,5 -5,0 0,-5 z"
+         style="fill:#ffffff;stroke:none;fill-opacity:1;opacity:0.5"
+         inkscape:connector-curvature="0" />
+      <path
+         inkscape:label="#path24866"
+         inkscape:export-ydpi="132.35294"
+         inkscape:export-xdpi="132.35294"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fnt-sources\tiempo\56.png"
+         id="sdfsdfds"
+         transform="translate(0,952.3621)"
+         d="M 275 5 L 275 30 L 290 30 L 290 5 L 275 5 z M 280 10 L 285 10 L 285 15 L 280 15 L 280 10 z M 280 20 L 285 20 L 285 25 L 280 25 L 280 20 z "
+         style="fill:#8d368f;stroke:#ffffff;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+    </g>
+    <g
+       id="tiempo-57"
+       inkscape:label="#g3130">
+      <path
+         inkscape:export-ydpi="132.35294"
+         inkscape:export-xdpi="132.35294"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fnt-sources\tiempo\57.png"
+         id="path24874-5"
+         d="m 297,959.3621 0,15 10,0 0,10 5,0 0,-25 -15,0 z m 5,5 5,0 0,5 -5,0 0,-5 z"
+         style="fill:#ffffff;stroke:none;fill-opacity:1;opacity:0.5"
+         inkscape:connector-curvature="0" />
+      <path
+         inkscape:label="#path24874"
+         inkscape:export-ydpi="132.35294"
+         inkscape:export-xdpi="132.35294"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fnt-sources\tiempo\57.png"
+         id="dfgdfgdf"
+         transform="translate(0,952.3621)"
+         d="M 295 5 L 295 20 L 305 20 L 305 30 L 310 30 L 310 5 L 295 5 z M 300 10 L 305 10 L 305 15 L 300 15 L 300 10 z "
+         style="fill:#8d368f;stroke:#ffffff;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+    </g>
+    <path
+       style="opacity:0;fill:#8d368f;stroke:none"
+       d="m 114.32,950.3621 17.68,0 0,34 -17.68,0 z"
+       id="path25195"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fnt-sources\tiempo\48.png"
+       inkscape:export-xdpi="132.35294"
+       inkscape:export-ydpi="132.35294" />
+    <g
+       id="tiempo-48"
+       inkscape:label="#g3137">
+      <path
+         inkscape:export-ydpi="132.35294"
+         inkscape:export-xdpi="132.35294"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fnt-sources\tiempo\48.png"
+         id="path24878-2"
+         d="m 117,959.3621 0,25 15,0 0,-25 -15,0 z m 5,5 5,0 0,15 -5,0 0,-15 z"
+         style="opacity:0.5;fill:#ffffff;fill-opacity:1;stroke:none"
+         inkscape:connector-curvature="0" />
+      <path
+         inkscape:label="#path24878"
+         inkscape:export-ydpi="132.35294"
+         inkscape:export-xdpi="132.35294"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fnt-sources\tiempo\48.png"
+         id="sdge"
+         d="m 115,957.3621 0,25 15,0 0,-25 -15,0 z m 5,5 5,0 0,15 -5,0 0,-15 z"
+         style="fill:#8d368f;stroke:#ffffff;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+         inkscape:connector-curvature="0" />
+    </g>
+    <rect
+       style="opacity:0.95999995;fill:#ff0000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       id="rect25025"
+       width="300.00006"
+       height="13.000029"
+       x="0"
+       y="131"
+       ry="4"
+       transform="translate(0,952.3621)"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\general\26.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="opacity:0.95999995;fill:#ffff00;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       id="rect25025-8"
+       width="300.00006"
+       height="13.000029"
+       x="0"
+       y="1112.3621"
+       ry="4"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\general\27.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <g
+       id="menu-50"
+       inkscape:label="#g3086">
+      <path
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\menu\50.png"
+         sodipodi:nodetypes="cccc"
+         inkscape:connector-curvature="0"
+         id="path3417-1"
+         d="m 205.00002,1037.3621 c -10.58811,-0.245 -21.18248,0.1943 -30.58479,1.4289 10.06214,2.1623 20.11662,2.6867 30.58476,2.5711 1.29457,-1.3333 1.08245,-2.6667 3e-5,-4 z"
+         style="fill:#aa4400;stroke:#ffffff;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\menu\50.png"
+         sodipodi:nodetypes="ccc"
+         inkscape:connector-curvature="0"
+         id="path3421-2"
+         d="m 212.40863,1038.9048 c -0.40863,-7.5427 12.59134,-2.5427 17.59134,0.4573 -7,-1 -17.99997,9 -17.59134,-0.4573 z"
+         style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\menu\50.png"
+         style="fill:#b3b3b3;fill-opacity:1;stroke:none"
+         d="m 212.91071,1038.9938 c -0.29402,-4.6237 5.12042,-3.9094 9.64881,-2.4164 -1.14175,-0.2878 -3.32276,0.094 -4.52232,0.3845 1.71578,0.1148 3.11641,-0.08 4,0.5107 -1.39251,0.037 -3.4292,0.1374 -4.64713,1.0473 1.44332,-0.1429 3.53739,-0.5904 4.59977,0.3845 -1.49275,-0.083 -2.72672,0.6158 -3.98421,1.2525 1.07895,0.023 3.29941,-0.594 4.32296,0.2044 -5.28914,1.9634 -9.5792,4.5131 -9.41788,-1.3675 z"
+         id="path3421-2-0"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="ccccccccc" />
+      <path
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\menu\50.png"
+         inkscape:connector-curvature="0"
+         id="path3419-5"
+         d="m 205.17848,1037.3237 7.37565,0.6728 c 0.58657,0.9453 0.46512,2.1657 -0.1606,2.4519 l -7.31353,0.9296 c 0.81598,-1.3514 0.70815,-2.7029 0.0985,-4.0543 z"
+         style="fill:#b3b3b3;stroke:#ffffff;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         sodipodi:nodetypes="ccccc" />
+      <path
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\menu\50.png"
+         transform="translate(0,952.3621)"
+         sodipodi:nodetypes="cccsc"
+         inkscape:connector-curvature="0"
+         id="path25117"
+         d="m 177.59744,86.804882 c 11.5387,0.10469 22.59015,1.792828 35.37112,0.189403 l -0.52085,0.947019 c 0,0 -7.20841,0.95761 -7.38674,1.136422 -0.303,0.303815 -27.57668,-1.591613 -27.46353,-2.272844 z"
+         style="fill:#ffffff;fill-opacity:0.43902438;stroke:none" />
+    </g>
+    <g
+       id="tiempo-58"
+       inkscape:label="#g3093">
+      <path
+         inkscape:export-ydpi="132.35294"
+         inkscape:export-xdpi="132.35294"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fnt-sources\tiempo\58.png"
+         inkscape:connector-curvature="0"
+         id="path25127-2"
+         d="m 327,969.3621 -5,0 0,5 5,0 z"
+         style="fill:#ffffff;fill-opacity:1;stroke:none;opacity:0.5" />
+      <path
+         inkscape:export-ydpi="132.35294"
+         inkscape:export-xdpi="132.35294"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fnt-sources\tiempo\58.png"
+         inkscape:connector-curvature="0"
+         id="path25127-3-6"
+         d="m 327,979.3621 -5,0 0,5 5,0 z"
+         style="fill:#ffffff;fill-opacity:1;stroke:none;opacity:0.5" />
+      <path
+         inkscape:label="#path25127"
+         inkscape:export-ydpi="132.35294"
+         inkscape:export-xdpi="132.35294"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fnt-sources\tiempo\58.png"
+         inkscape:connector-curvature="0"
+         id="ghjg"
+         d="m 325,967.3621 -5,0 0,5 5,0 z"
+         style="fill:#8d368f;stroke:#ffffff;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         inkscape:export-ydpi="132.35294"
+         inkscape:export-xdpi="132.35294"
+         inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fnt-sources\tiempo\58.png"
+         inkscape:connector-curvature="0"
+         id="path25127-3"
+         d="m 325,977.3621 -5,0 0,5 5,0 z"
+         style="fill:#8d368f;stroke:#ffffff;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+    </g>
+    <path
+       style="fill:#ff0000;stroke:none;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m 130,872.3621 30,30 60,0 15,15 30,-30 -90,-30 15,15 z"
+       id="general-8"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccccccc"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\general\8.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       inkscape:label="#path30891" />
+    <path
+       style="fill:#ffff00;stroke:none;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+       d="m 145,877.3621 20,20 55,0 15,15 25,-25 -75,-25 15,15 z"
+       id="path30891-4"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccccccc"
+       inkscape:export-filename="D:\Dropbox\PiX Juegos\ripolles\fpg-sources\general\8.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <g
+       id="general-17"
+       inkscape:label="#g3900">
+      <path
+         sodipodi:nodetypes="cccccc"
+         inkscape:connector-curvature="0"
+         id="path3009-5"
+         d="m 16.697898,1039.5353 c -2.173231,-4.9856 6.178791,-6.6049 8.607696,-4.7299 0.852249,-2.642 11.334884,-5.497 10.653089,1.6618 4.897541,-0.1294 5.162069,10.6422 -2.982863,8.693 -0.486013,4.5134 -8.699646,5.7762 -11.505339,0.9374 -5.8805,4.176 -7.925893,-4.4316 -4.772583,-6.5623 z"
+         style="fill:#cccccc;stroke:#ffffff;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="path3011-2"
+         d="m 25.303006,1034.8127 c -0.267168,0.7617 -0.571674,1.5273 -0.30301,2.5494"
+         style="fill:none;stroke:#ffffff;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="path3013-3"
+         d="m 16.612678,1039.5353 c 0.965879,-0.6563 1.931758,-0.9865 2.897636,-0.5113"
+         style="fill:none;stroke:#ffffff;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="path3015-6"
+         d="m 33.029078,1045.1708 c -1.40958,-0.2795 -2.794828,-0.577 -3.675307,-1.2464"
+         style="fill:none;stroke:#ffffff;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="cccc"
+         inkscape:connector-curvature="0"
+         id="path3785-9"
+         d="m 20.937162,1034.3954 c 2.239568,0.4197 2.895273,1.5879 3.869781,3.1567 l 0.600913,-2.871 c -1.495391,-0.6461 -2.944538,-1.0812 -4.470694,-0.2857 z"
+         style="opacity:0.5ffffffffffff0000;fill:#ffffff;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="ccc"
+         inkscape:connector-curvature="0"
+         id="path3787-5"
+         d="m 15.500873,1044.0452 c 0.573177,3.3141 4.372582,3.7958 5.967656,1.686 -2.587559,0.1573 -4.2039,0.6822 -5.967656,-1.686 z"
+         style="opacity:0.5ffffffffffff0000;fill:#ffffff;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="ccc"
+         inkscape:connector-curvature="0"
+         id="path3789-1"
+         d="m 30.799306,1044.5251 c 3.732956,0.9765 8.102861,3.9006 8.396187,-5.237 -1.95823,4.5455 -4.581668,4.8259 -8.396187,5.237 z"
+         style="opacity:0.5ffffffffffff0000;fill:#ffffff;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="ccsc"
+         inkscape:connector-curvature="0"
+         id="path3791-7"
+         d="m 31.093335,1044.8997 c -1.058344,2.1535 -4.972672,3.0607 -8.790205,1.9666 2.798597,3.8282 9.907739,1.9684 10.68292,-1.4689 0.04405,-0.1954 -1.892715,-0.4977 -1.892715,-0.4977 z"
+         style="opacity:0.5ffffffffffff0000;fill:#ffffff;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="cccc"
+         inkscape:connector-curvature="0"
+         id="path3789-5-0"
+         d="m 35.832364,1036.6401 c 0.230585,-3.0357 -1.096161,-4.2992 -3.740299,-4.6974 2.299266,1.2949 3.102721,3.4246 1.588867,5.3057 0.620124,0.1226 1.884937,0.079 2.151432,-0.6083 z"
+         style="opacity:0.5ffffffffffff0000;fill:#ffffff;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none" />
+    </g>
+  </g>
+</svg>

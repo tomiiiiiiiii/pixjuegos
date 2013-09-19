@@ -1,0 +1,254 @@
+Process jefe1(x);
+Begin
+	resolution=global_resolution;
+	while(!exists(id_camara)) frame; end
+	ctype=coordenadas;
+	y_base=170;
+	y=150;
+	z=-224;
+	fpg_jefe=load_fpg("jefe1.fpg");
+	file=fpg_jefe;
+	graph=1;
+	enemigos++;
+	jugador=100;
+	p[jugador].vida=500+(300*(jugadores));
+	from alpha=0 to 255 step 10; frame; end
+	marcador_jefe();
+	mano(x-180,y-15,1);
+	mano(x-120,y+5,1);
+	mano(x+180,y-15,0);
+	mano(x+120,y+5,0);
+	while(p[jugador].vida>0)
+		while(!ready) frame; end
+		if(enemigos<3 and rand(0,300)==1)
+			if(rand(0,1))
+				enemigo(11,rand(1,3),x+ancho_pantalla,y,0,1);
+			else
+				enemigo(12,rand(1,3),x-ancho_pantalla,y,0,0);
+			end
+		end
+		if(herida==0)
+			graph=1;
+			alpha=255;
+			if(id_col=collision(type ataque))
+				if(id_col.jugador!=jugador)
+					if(en_rango(id_col.z,z,30))
+						efecto_golpe(id_col);
+						herida=id_col.herida;
+						p[jugador].vida-=herida;
+						sonido(5,0);
+					end
+				end
+			end
+		else
+			accion=herido_leve;
+			herida--;		
+			graph=61;
+			if(anim<4) 
+				anim++;
+			else
+				anim=0;
+				if(graph==61) graph=1; else graph=61; end
+				alpha=200;
+			end
+		end
+		frame;
+	end
+	sonido(6,0);
+	alpha=255;
+	jefe_bien();
+	while(graph!=75)
+		if(graph<74 and graph=>71) graph++; else graph=71; end
+		frame(400);
+	end
+	timer[3]=0;
+	while(timer[3]<1000)
+		frame;
+	end
+	ganando=1;
+	suma_puntos(0,20000);
+	loop frame; end
+	//fade_off();
+End
+
+Process jefe_bien();
+Begin
+	resolution=global_resolution;
+	x=father.x;
+	y=father.y;
+	z=father.z-1;
+	ctype=coordenadas;
+	file=fpg_jefe;
+	graph=75;
+	alpha=0;
+	loop
+		while(!ready) frame; end
+		if(alpha<255) 
+			alpha+=2; 
+		else
+			father.graph=graph;
+			return;
+		end
+		frame;
+	end
+end
+
+Process mano(x,y,flags);
+Private
+	hacia_que_lado;
+Begin
+	resolution=global_resolution;
+	jugador=father.jugador;
+	ctype=coordenadas;
+	file=fpg_jefe;
+	graph=11;
+	z=father.z-1;
+	accion=quieto;
+	jugador=100;
+	from alpha=0 to 255 step 10; frame; end
+	while(exists(father))
+		while(!ready) frame; end
+		animacion=accion;
+		if(p[jugador].vida=<0)
+			graph=51;
+			while(father.graph!=75 and father.alpha==255)
+				from alpha=255 to 0 step -10; frame; end
+				from alpha=0 to 255 step 10; frame; end
+			end
+			frame;
+			from alpha=255 to 0 step -10; frame; end
+			graph=81;
+			from alpha=0 to 255 step 10; frame; end
+			from graph=81 to 83; frame(2000); end
+			graph=83;
+			frame(3000);
+			graph=91;
+			while(exists(father))
+				alpha=father.alpha;
+				frame; 
+			end
+		end
+		if(renacimiento)
+			herida=80;
+		end
+		if(id_col=collision(type ataque))
+			if(id_col.jugador!=jugador)
+				if(en_rango(id_col.z,z,30))
+					if(accion!=defiende)
+						herida=id_col.herida*4;
+						sonido(2,0);
+						p[jugador].vida-=3;
+					end
+				end
+			end
+		end
+		if(herida>0)
+			//accion=herido_leve;
+			alpha=200;
+			from graph=81 to 83-1; frame(400); end
+			while(herida>0 and p[jugador].vida>0) herida--; frame; end
+			from graph=83 to 81 step -1; frame(400); end
+			alpha=255;
+			graph=51;
+		else
+			alpha=255;
+			if(accion==herido_leve)
+				accion=quieto;
+			end
+			if(i>0) 
+				i--; 
+			else 
+				if(accion==defiende)
+					accion=quieto;
+				end
+			end
+			if(accion==quieto and i==0)
+				if(distancia_jugador(jugador_mas_cercano())<130)
+					switch(rand(0,2))
+						case 0: accion=ataca_aire; end
+						case 1: accion=defiende; i=100; end
+						case 2: accion=ataca_suelo; end
+					end
+				end
+			end
+		end
+
+		if(flags==0)
+			hacia_que_lado=1;
+		else
+			hacia_que_lado=-1;
+		end
+
+		
+		if(anim<7 and animacion==animacion_anterior)
+			anim++;
+		else
+			animacion_anterior=animacion;
+			anim=0;
+			if(graph==14 or graph==24 or graph==34 or graph==42)
+				accion=animacion=quieto;
+			end
+			switch(animacion)
+				case quieto:
+					if(graph<14 and graph=>11)
+						graph++;
+					else
+						graph=11;
+					end
+				end
+				case ataca_suelo:									
+					if(graph<24 and graph=>21)
+						graph++;
+					else
+						graph=21;
+					end			
+					if(graph==22) 
+						ataque(x+(-15*hacia_que_lado),y+50,fpg_general,1,20,30,jugador,0); 
+						ataque(x+(+15*hacia_que_lado),y+50,fpg_general,1,20,30,jugador,0); 
+					end
+					if(graph==23) 
+						ataque(x+(-50*hacia_que_lado),y+50,fpg_general,1,20,30,jugador,0); 
+						ataque(x+(-90*hacia_que_lado),y+50,fpg_general,1,20,30,jugador,0); 
+					end
+				end
+				case ataca_aire:
+					if(graph<34 and graph=>31)
+						graph++;
+					else
+						graph=31;
+					end
+					if(graph==31)
+						ataque(x+(-100*hacia_que_lado),y+40,fpg_general,1,20,30,jugador,1); 
+					end
+					if(graph==32) 
+						ataque(x+(-50*hacia_que_lado),y+80,fpg_general,1,20,30,jugador,1); 
+					end
+					if(graph==33) 
+						ataque(x+(35*hacia_que_lado),y+70,fpg_general,1,20,30,jugador,1);
+						ataque(x,y+85,fpg_general,1,20,30,jugador,1);
+						ataque(x+(-20*hacia_que_lado),y+100,fpg_general,1,20,30,jugador,1);
+					end
+				end
+				case defiende:
+					if(graph<42 and graph=>41)
+						graph++;
+					else
+						graph=41;
+					end
+				end
+				case herido_leve:
+					if((graph<81 or graph>83) and graph!=51)
+						graph=81;
+					else
+						if(graph<83 and graph!=51)
+							graph++;
+						else
+							graph=51;
+						end
+					end
+				end
+			end
+		end
+		frame;
+	end
+End

@@ -1,0 +1,655 @@
+Process camara_en_moto();
+Private
+	suma_x;
+	retraso;
+	salta_contador;
+	id_enemigo_next;
+	bpm=117;
+	inicio=785;
+	max_x_scroll;
+	guarda_timer;
+	retraso_zanja=200;
+Begin
+	ganando_moto=0;
+	contador=-1;
+	num_zona=2;
+	resolution=global_resolution;
+	x=320;
+	id_camara=id;
+
+	fondo(num_zona,0);
+	//música
+	if(ops.musica)
+		fade_music_off(400);
+		while(is_playing_song()) frame; end
+		timer[1]=0;
+		while(timer[1]<40) frame; end
+		anterior_cancion=3;
+		play_song(load_song("ogg/3.ogg"),0);
+	end
+	
+	timer[5]=0;
+	//ganando_moto=1;
+	loop
+		#IFDEF DEBUG
+		if(key(_r))
+			while(key(_r)) frame; end
+			rampa();
+		end
+		if(key(_z))
+			while(key(_z)) frame; end
+			zanja();
+		end
+		if(ops.musica)
+			if(!is_playing_song())
+				if(id_cancion>0) unload_song(id_cancion); end
+				anterior_cancion=3;
+				id_cancion=load_song("ogg/3.ogg");
+				play_song(id_cancion,0);
+				set_music_position((float) timer[5]/100);
+			end
+		end
+		#ENDIF
+		if(!ready and !ganando_moto and jugadores>0)
+			if(ops.musica) pause_song(); end
+			guarda_timer=timer[5];
+			while(!ready) frame; end
+			timer[5]=guarda_timer;
+			if(ops.musica) resume_song(); end
+		end
+		if(ganando_moto)
+			frame;
+			timer[5]=0;
+			while(timer[5]<300) 
+				mov_camara_moto++;
+				frame;
+			end
+			while(exists(type personaje) and timer[5]<600)
+				frame;
+			end
+			
+			fade(0,0,0,16);
+			while(fading) frame; end
+			from i=1 to 4;
+				if(exists(p[i].identificador))
+					signal(p[i].identificador,s_kill);
+				end
+			end
+			frame;
+			delete_text(all_text);
+			put_screen(fpg_nivel,6);
+			ganando_moto=0;
+			en_moto=0;
+			from i=1 to posibles_jugadores;
+				if(p[i].juega==1)
+					personaje(i,0);
+				end
+			end
+			fade_on();
+			while(fading); frame; end
+			pon_musica(12);
+			ready=1;
+			jefe3(ancho_pantalla/2);
+			x=ancho_pantalla/2;
+			loop
+				frame;
+			end
+		end
+		if(timer[5]>inicio)
+			if(((timer[5]-inicio)/bpm)>contador)
+				//graph=1;
+				contador++;
+				if(salta_contador>0)
+					salta_contador--;
+				else
+					switch(contador)
+						case 16:
+							salta_contador=3;
+							camion();
+						end
+						case 32:
+							salta_contador=3;
+							tram();
+						end
+						case 34:
+							num_zona=1;
+						end
+						case 48:
+							salta_contador=3;
+							camion();
+						end
+						case 54:
+							num_zona=5;
+							camion();
+						end
+						case 87: //enemigo grande
+							from id_enemigo_next=10 to 99;
+								if(!exists(p[id_enemigo_next].identificador))
+									//p[id_enemigo_next].identificador=enemigo_skate(id_enemigo_next,2,200); 
+									p[id_enemigo_next].identificador=vaca(id_enemigo_next);
+									break;
+								end
+							end
+						end
+						case 140:
+							ganando_moto=1;
+						end
+						default:
+							if(!mini_boss)
+								from j=1 to jugadores;
+									from id_enemigo_next=10 to 99;
+										if(!exists(p[id_enemigo_next].identificador))
+											p[id_enemigo_next].identificador=enemigo_skate(id_enemigo_next,rand(1,7),100); 
+											break;
+										end
+									end
+								end
+							end
+						end
+					end
+				end
+			end
+		end
+
+		if(retraso_zanja==0)
+			retraso_zanja=rand(200,400);
+			if(rand(0,1))
+				zanja();
+			else
+				rampa();
+			end
+			if(contador>30)
+				zanja();
+			end
+		else
+			retraso_zanja--;
+		end
+
+		if(en_emboscada==0)
+			if(retraso<200)
+				if(enemigos==0)
+					retraso++;
+				end
+			else
+				en_emboscada=anterior_emboscada+1;
+				anterior_emboscada=en_emboscada;
+				retraso=0;
+			end
+		else
+			if(enemigos==0)
+				from i=1 to 30;
+					if(emboscada[en_emboscada+1].enemigo[i].tipo!=0)
+						enemigo(10+i,emboscada[en_emboscada+1].enemigo[i].tipo,emboscada[en_emboscada+1].enemigo[i].pos_x,emboscada[en_emboscada+1].enemigo[i].pos_y,0,emboscada[en_emboscada+1].enemigo[i].flags);
+					end
+				end
+				anterior_emboscada=en_emboscada;
+				en_emboscada=0;
+			end
+		end
+		while(!ready) frame; end
+		if(mov_camara_moto<14) mov_camara_moto++; end
+		frame;
+	end
+	return;
+End
+
+Process enemigo_skate(jugador,tipo,size);
+Private
+	fuerza_ataque;
+	inercia_max_x;
+	inercia_max_y;
+	fue_mini_boss;
+	unsalto;
+	max_vida;
+Begin
+	resolution=global_resolution;
+	ctype=coordenadas;
+	x=700;
+	rango=30;
+	y_base=rand(135,305);
+	enemigos++;
+	if(tipo==5) tipo=rand(1,4); end
+	file=fpg_enemigo[tipo];
+	switch(tipo)
+		case 1:
+			inercia_max_x=3;
+			inercia_max_y=1;
+			fuerza_ataque=6;
+		end
+		case 2:
+			inercia_max_x=4;
+			inercia_max_y=2;
+			fuerza_ataque=10;
+		end
+		case 3:
+			inercia_max_x=2;
+			inercia_max_y=2;
+			fuerza_ataque=15;
+		end
+		case 4:
+			inercia_max_x=5;
+			inercia_max_y=3;
+			fuerza_ataque=20;
+		end
+		case 5: //EVIL ruzafa
+			inercia_max_x=7;
+			inercia_max_y=4;
+			fuerza_ataque=10;
+		end
+		case 6: //bailarina
+			inercia_max_x=4;
+			inercia_max_y=4;
+			fuerza_ataque=10;
+		end
+		case 7: //pez
+			inercia_max_x=4;
+			inercia_max_y=4;
+			fuerza_ataque=20;
+		end
+	end
+	recoloca_centros_personaje(file);
+	
+	//tienen mucha fuerza, vamos a frenarlos un poquito
+	fuerza_ataque=fuerza_ataque/2;
+	
+	graph=1;
+	flags=1;
+	alto=graphic_info(file,1,G_HEIGHT);
+	while(!exists(id_camara)) frame; end
+	mueveme(sin_encerrarme);
+	x_inc=-8-inercia_max_x;
+	skate();
+	if(contador>50)
+		inercia_max_y=rand(-inercia_max_y,inercia_max_y); 
+	else
+		inercia_max_y=0;
+	end
+	sombra();
+	cuerpo();
+	loop
+		while(!ready and !ganando_moto) frame; end
+		y_inc=inercia_max_y;
+		if(ganando_moto) accion=muere; break; end
+		mueveme(sin_encerrarme);
+		x_inc=-8-inercia_max_x;
+		if(altura==0) ataque(x-20,y,fpg_general,1,fuerza_ataque,20,jugador,0); end
+		flags=1;
+		friccioname();
+		if(herida>0)
+			accion=muere;
+			break;
+		else
+			if(altura==0)
+				if(id_col=collision(type rampa))
+					if(id_col.y>y)
+						gravedad=-25;
+						altura=-1;
+					end
+				end
+				if(id_col=collision(type zanja))
+					if(id_col.y>y)
+						accion=muere;
+						break;
+					end
+				end
+
+			end
+
+			if(altura!=0)
+				graph=73;
+			else
+				graph=1;
+			end
+		end
+
+		if(collision(type rampa) and altura==0)
+			gravedad=-12;
+			altura=-1;
+		end
+
+		if(altura<0)
+			altura+=gravedad/2;
+			gravedad++;
+		else
+			if(gravedad>0) gravedad=0; sonido(4,0); end
+			altura=0;
+		end
+		
+		if(x<-100)
+			sonido(1,0);
+			quita_punto_de_vida_a_todos();
+			break;
+		end
+		y-=10; //alineacion skate
+		frame;
+	end
+	frame;
+	gravedad-=rand(10,15);
+	altura=-1;
+	
+	if(accion==muere)
+		frame;
+		y_inc=0;
+		sonido(rand(1,2),0);
+		pon_animacion();
+		x_inc=rand(3,7);
+		i=inercia_max_x*fuerza_ataque*50;
+		suma_puntos(atacante,i);
+		while(alpha>0)
+			while(!ready) frame; end
+			if(altura<0)
+				altura+=gravedad;
+				gravedad++;
+			else
+				if(gravedad>0) gravedad=0; sonido(4,0); end
+				altura=0;
+				if(x_inc>-mov_camara_moto/2) x_inc--; end
+				alpha-=15;
+			end
+			y=y_base+altura+20;
+			//x+=x_inc;
+			mueveme(sin_encerrarme);
+			animame();
+			frame;
+		end
+	end
+	if(fue_mini_boss==1)
+		mini_boss=0;
+	end
+	enemigos--;
+End
+
+Process skate();
+Private
+	orig_x_inc;
+Begin
+	resolution=global_resolution;
+	priority=-1;
+	ctype=coordenadas;
+	ctype=c_screen;
+	file=fpg_nivel;
+	graph=10;
+	x_inc=father.x_inc;
+	while(x>-100)
+		while(!ready) frame; end
+		if(exists(father))
+			size=father.size*0.7;
+			x=father.x;
+			y=father.y+(62*father.size/100);
+			z=father.z+1;
+			if(father.accion==muere)
+				father=0;
+			end
+		else
+			x+=x_inc--;
+		end
+		frame;
+	end
+End
+
+Process camion();
+Begin
+	if(mini_boss) return; end
+	resolution=global_resolution;
+	enemigos++;
+	frame;
+	advertencia();
+
+	ctype=coordenadas;
+	x=id_camara.x+(ancho_pantalla*1.5);
+	y=195;
+	z=-512;
+	file=fpg_nivel;
+	graph=12;
+	flags=0;
+	alpha=255;
+	alto=graphic_info(file,1,G_HEIGHT);
+	while(x>id_camara.x-ancho_pantalla)
+		while(!ready) frame; end
+		x-=20;
+		ataque(x,y+65,file,112,20,500,-1,1);
+		frame;
+	end
+	enemigos--;
+End
+
+Process fondo(graph,x);
+Begin
+	resolution=global_resolution;
+	ctype=c_screen;
+	z=512;
+	y=alto_pantalla/2;
+	file=fpg_nivel;
+	ancho=graphic_info(file,graph,G_WIDTH)/abs(global_resolution);
+	if(x==0)
+		x=ancho/2;
+	end
+	while(x>-ancho/2)
+		if(!en_moto) return; end
+		while(!ready and !ganando_moto) frame; end
+		if(x<0 and son==0)
+			switch(graph)
+				case 1: num_zona=4; end
+				case 3: num_zona=5; end
+				case 5: num_zona=2; end
+			end
+			if(son==0) fondo(num_zona,x+(ancho/2)+(graphic_info(file,num_zona,G_WIDTH)/2/abs(global_resolution))); end
+		end
+		x-=mov_camara_moto/2;
+		frame;
+	end
+End
+
+Function quita_punto_de_vida_a_todos();
+Begin
+	from i=1 to posibles_jugadores;
+		if(p[i].juega and p[i].vida>0)
+			p[i].vida-=1;
+		end
+	end
+End
+
+Function mata_a_todos();
+Begin
+	from i=1 to posibles_jugadores;
+		if(p[i].juega and p[i].vida>0)
+			p[i].vida=0;
+		end
+	end
+End
+
+Process zanja();
+Begin
+	if(mini_boss) return; end
+	resolution=global_resolution;
+	ctype=c_screen;
+	x=ancho_pantalla+100;
+	switch(rand(0,2))
+		case 0: y_base=207; end
+		case 1: y_base=271; end
+		case 2: y_base=330; end
+	end
+	file=fpg_nivel;
+	graph=11;
+	size=80;
+	rango=20;
+	y=y_base;
+	z=200;
+	if(collision(type rampa) or collision(type zanja)) return; end
+	while(x>-200)
+		if(!en_moto) return; end
+		while(!ready and !ganando_moto) frame; end
+		x-=mov_camara_moto/2;
+		frame;
+	end
+End
+
+Process rampa();
+Begin
+	if(mini_boss) return; end
+	resolution=global_resolution;
+	ctype=c_screen;
+	x=ancho_pantalla+100;
+	switch(rand(0,2))
+		case 0: y_base=197; end
+		case 1: y_base=261; end
+		case 2: y_base=320; end
+	end
+	file=fpg_nivel;
+	graph=13;
+	size=80;
+	mueveme(sin_encerrarme);
+	rango=20;
+	z=200;
+	if(collision(type rampa) or collision(type zanja)) return; end
+	while(x>-200)
+		if(!en_moto) return; end
+		while(!ready and !ganando_moto) frame; end
+		x-=mov_camara_moto/2;
+		frame;
+	end
+End
+
+Process vaca(jugador);
+Private
+	fuerza_ataque;
+	inercia_max_x;
+	inercia_max_y;
+	fue_mini_boss;
+	unsalto;
+	max_vida;
+Begin
+	resolution=global_resolution;
+	ctype=coordenadas;
+	x=id_camara.x+(ancho_pantalla/4*3);
+	rango=40;
+	y_base=rand(135,305);
+	mini_boss=1;
+	fue_mini_boss=1;
+	enemigos++;
+	file=fpg_vaca;
+	recoloca_centros_personaje(file);	
+	graph=1;
+	flags=1;
+	alto=graphic_info(file,1,G_HEIGHT);
+	p[jugador].vida=200;
+	max_vida=p[jugador].vida;
+	while(!exists(id_camara)) frame; end
+	mueveme(sin_encerrarme);
+	x_inc=-8-inercia_max_x;
+	if(contador>50 and size==100)
+		inercia_max_y=rand(-inercia_max_y,inercia_max_y); 
+	else
+		inercia_max_y=0;
+	end
+	sombra();
+	son.size_x=200;
+	cuerpo();
+	son.size_x=200;
+	loop
+		while(!ready and !ganando_moto) frame; end
+		y_inc=0;
+		if(anim>4)
+			anim=0;
+			if(herida>0)
+				graph++;
+				if(graph<11 or graph>14)
+					graph=11;
+				end
+			else
+				graph++;
+				if(graph>4)
+					graph=1;
+				end
+			end
+		else
+			anim++;
+		end
+		if(herida>0)
+			if(accion!=defiende) 
+				sonido(5,0);
+				anim=4; 
+				graph=11;
+				p[jugador].vida-=herida;
+				//j=rand(0,1);
+				if(y<250)
+					j=1;
+				else
+					j=0;
+				end
+			end
+			accion=defiende;
+			herida--;
+			if(herida<0) herida=0; end
+			x_inc=10;
+			if(j)
+				y_inc=2;
+			else
+				y_inc=-2;
+			end
+			muestra_vida_vaca((p[jugador].vida*100)/max_vida);
+		else
+			accion=quieto;
+			x_inc=-3-((max_vida-p[jugador].vida)/40);
+		end
+		mueveme(sin_encerrarme);
+		flags=1;
+		friccioname();
+		if(p[jugador].vida=<0)
+			accion=muere;
+			break;
+		end
+		if(accion==muere) break; end
+		if(x<-100)
+			mata_a_todos();
+			break;
+		end
+		frame;
+	end
+	frame;
+	gravedad-=rand(10,15);
+	altura=-1;
+	
+	if(accion==muere)
+		graph=21;
+		sonido(6,0);
+		frame;
+		y_inc=0;
+		sonido(rand(1,2),0);
+		x_inc=rand(3,7);
+		suma_puntos(atacante,5000);
+		while(alpha>0)
+			while(!ready) frame; end
+			if(altura<0)
+				altura+=gravedad;
+				gravedad++;
+			else
+				if(gravedad>0) gravedad=0; sonido(4,0); end
+				altura=0;
+				if(x_inc>-mov_camara_moto/2) x_inc--; end
+				alpha-=15;
+			end
+			y=y_base+altura+20;
+			//x+=x_inc;
+			mueveme(sin_encerrarme);
+			animame();
+			frame;
+		end
+	end
+	mini_boss=0;
+	enemigos--;
+End
+
+Process muestra_vida_vaca(size_x);
+Begin
+	resolution=global_resolution;
+	ctype=coordenadas;
+	x=father.x-70;
+	y=father.y-60;
+	z=-500;
+	file=fpg_general;
+	graph=52;
+	size_y=150;
+	muestra_vida2();
+	frame;
+End

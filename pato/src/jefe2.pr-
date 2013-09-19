@@ -1,0 +1,4 @@
+Process jefe2(x);
+Begin
+	enemigo(100,102,x,170,x,0);
+End

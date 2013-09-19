@@ -1,0 +1,73 @@
+			fpg_nivel=load_fpg("fpg\nivel1.fpg");
+			pon_musica(1);
+			
+			//OBJETOS
+			objeto(1700,300,0,1,0,0); //coca tras las dos primeras emboscadas
+			objeto(5800,280,0,1,0,0); //tras la 5ª
+			objeto(8500,280,0,4,0,0); //antes del jefe
+			
+			from i=1 to 7;
+				objeto(((i+1)*1000),145,0,2,0,0); //papeleras en 1000,2000,3000,4000,5000,6000,7000 y 8000
+			end
+			
+			//TERRAZA
+			objeto(200,145,0,7,0,0); //papeleras en 1000,2000,3000,4000,5000,6000,7000 y 8000
+			objeto(300,145,0,6,0,0); //papeleras en 1000,2000,3000,4000,5000,6000,7000 y 8000
+			objeto(400,145,0,7,0,1); //papeleras en 1000,2000,3000,4000,5000,6000,7000 y 8000
+			
+			objeto(3000,280,0,5,0,0); //casco en la 4ª
+
+			//pon_emboscada(x_trigger,x_inicio,x_fin)
+			//pon_enemigo(x,y,tipo,flags);
+			//EMBOSCADAS
+						
+			i=0; j=0;
+			pon_emboscada(700,700,700);
+			pon_enemigo(740,250,3,0);
+
+			pon_emboscada(1360,1360,1360);
+			pon_enemigo(1400,250,3,0);
+			pon_enemigo(1480,250,1,1);
+			
+			pon_emboscada(2100,2100,2100);
+			pon_enemigo(2000,200,1,0);
+			pon_enemigo(2000,220,1,0);
+			pon_enemigo(2300,300,3,1);
+						
+			pon_emboscada(2900,2100,4600);
+			pon_enemigo(2500,200,1,0);
+			pon_enemigo(2800,200,1,0);
+			pon_enemigo(3000,300,3,0);
+			pon_enemigo(2500,200,1,0);
+			pon_enemigo(2800,220,1,0);
+			pon_enemigo(3000,300,4,0);
+			
+			pon_emboscada(5300,5300,5300);
+			pon_enemigo(0,200,4,0);
+			pon_enemigo(5520,200,4,1);
+
+			pon_emboscada(6000,6000,6000);
+			pon_enemigo(6400,200,2,0);
+			pon_enemigo(5800,290,1,0);
+			pon_enemigo(6100,170,3,1);
+			pon_enemigo(6120,220,1,0);
+			pon_enemigo(0,220,2,0);
+			pon_enemigo(0,300,4,1);
+			
+			pon_emboscada(7300,7300,7300);
+			pon_enemigo(7400,300,1,0);
+			pon_enemigo(0,150,1,0);
+			pon_enemigo(7500,320,3,1);
+			pon_enemigo(7100,0,1,0);
+			pon_enemigo(0,110,1,0);
+			pon_enemigo(0,300,4,1);
+
+			pon_emboscada(8000,8000,8000);
+			pon_enemigo(8100,300,3,0);
+			pon_enemigo(0,150,3,0);
+			pon_enemigo(8200,320,1,1);
+			pon_enemigo(7900,0,2,0);
+			
+			pon_evento_especial(8974,8974,8974,101);
+			
+			nivel1_eventos();

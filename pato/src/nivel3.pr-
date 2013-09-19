@@ -1,0 +1,6 @@
+	en_moto=1;
+	coordenadas=c_screen;
+	
+	fpg_nivel=load_fpg("fpg\nivel3.fpg");
+	
+	//mira en_moto.pr- :)
