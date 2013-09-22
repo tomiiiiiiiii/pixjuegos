@@ -29,6 +29,13 @@ type Pato1bici.svg | ..\..\..\utils\sed "s/2c5aa0/800000/g" | ..\..\..\utils\sed
 type Pato.svg | ..\..\..\utils\sed "s/00aa44/800000/g" | ..\..\..\utils\sed "s/2c5aa0/00aa44/g" > Pato4.svg
 type Pato1bici.svg | ..\..\..\utils\sed "s/00aa44/800000/g" | ..\..\..\utils\sed "s/2c5aa0/00aa44/g" > Pato4bici.svg
 
+type Pato.svg | ..\..\..\utils\sed "s/2c5aa0/E3E300/g" | ..\..\..\utils\sed "s/00aa44/E3E300/g" > "..\enemigos\Enemigo 1.svg"
+type Pato.svg | ..\..\..\utils\sed "s/2c5aa0/000EAB/g" | ..\..\..\utils\sed "s/00aa44/00AB8E/g" > "..\enemigos\Enemigo 2.svg"
+type Pato.svg | ..\..\..\utils\sed "s/2c5aa0/AB0000/g" | ..\..\..\utils\sed "s/00aa44/008BC7/g" > "..\enemigos\Enemigo 3.svg"
+type Pato.svg | ..\..\..\utils\sed "s/2c5aa0/D47100/g" | ..\..\..\utils\sed "s/00aa44/A15600/g" > "..\enemigos\Enemigo 4.svg"
+type Pato.svg | ..\..\..\utils\sed "s/2c5aa0/00BFB2/g" | ..\..\..\utils\sed "s/00aa44/D10000/g" > "..\enemigos\Enemigo 6.svg"
+type Pato.svg | ..\..\..\utils\sed "s/2c5aa0/EDC200/g" | ..\..\..\utils\sed "s/00aa44/DE6400/g" > "..\enemigos\Enemigo 7.svg"
+
 cd ..\..
 
 echo Creando fuentes de puntos de los jugadores

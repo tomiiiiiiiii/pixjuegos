@@ -412,13 +412,13 @@ begin
 	resolution=global_resolution;
 	file=fpg_menu;
 	x=600;
-	y=132;
+	y=199;
 	z=-10;
 	loop
-		if(x>ancho_pantalla-260)
-			x+=(x-(ancho_pantalla-260))/-10;
+		if(x>ancho_pantalla-182)
+			x+=(x-(ancho_pantalla-182))/-10;
 		else
-			x=ancho_pantalla-260;
+			x=ancho_pantalla-182;
 		end
 		frame;
 	end
@@ -432,15 +432,15 @@ Begin
 	else
 		x=ancho_pantalla-180;
 	end
-	y=324;
+	y=-16;
 	z=-100;
 	file=fpg_lang;
 	graph=1;
-	from alpha=0 to 255 step 40; y-=4; frame; end
+	from alpha=0 to 255 step 40; y+=16; frame; end
 	while(exists(father))
 		frame;
 	end
-	from alpha=255 to 0 step -40; y-=4; frame; end
+	from alpha=255 to 0 step -40; y+=4; frame; end
 End
 
 process muestra_hasta_volver(tipo);

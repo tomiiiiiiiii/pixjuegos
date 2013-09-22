@@ -2,7 +2,7 @@
 IF "%DPI1%."=="." set DPI1=180
 set OUTDIR=..\..\fpg-sources\menu\
 echo Exportando fpg menu
-call :a 50 ..\interfaz\sistema.svg
+rem call :a 50 ..\interfaz\sistema.svg
 exit
 goto :eof
 
