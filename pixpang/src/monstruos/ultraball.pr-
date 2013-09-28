@@ -29,7 +29,7 @@ Begin
 	vidajefefuera=0;
 	vidajefe();
 	While(toques>20)
-		If(ops.op_sombras==1 AND grav_org>0) sombra(graph,x,y,flags,1); End
+		If(ops.sombras==1 AND grav_org>0) sombra(graph,x,y,flags,1); End
 		While(ready==0)
 			frame(100/base_velocidad);
 		End

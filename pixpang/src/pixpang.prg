@@ -25,31 +25,37 @@ import "mod_sound";
 import "mod_string";
 import "mod_say";
 import "mod_sys";
-import "mod_text";
+//import "mod_text";
 import "mod_time";
 import "mod_timers";
 import "mod_video";
 import "mod_wm";
 
 Global
+	string textos[100];
 	base_velocidad=1;
 	arcade_mode=0;
 
 	cancionsonando;
+	anterior_cancion;
 
 	max_grav=-250;
 	turbo;
 	salto;
 	fondotemporal;
 	
+	global_Resolution=1;
+	
 	string fichero_lng[30];
 	Struct ops;
 		lenguaje; 	// 0 = castellano, 1 = inglés
-		op_music=1;
-		op_sombras=1;
-		op_sonido=1;
+		musica=1;
+		sombras=1;
+		sonido=1;
 		ventana=0;
 		dificultad=1; //la normal
+		trucos=-1;
+		donacion=0;
 	End
 	Struct pantalla;
 		bx[200];
@@ -68,6 +74,7 @@ Global
 	posibles_jugadores;
 	debuj;
 	struct p[5];
+		juega;
 		botones[7];
 		vidas=10;
 		arma;
@@ -85,7 +92,7 @@ Global
 	end
 	joysticks[10];
 	
-	players;
+	jugadores;
 	ganando;
 	animglobal;
 	ready;
@@ -147,6 +154,11 @@ Global
 	fpg_menu;
 	fpg_menu2;
 	fpg_bloquesmask;
+	
+	fpg_texto;
+	fpg_texto_rojo;
+	fpg_texto_azul;
+	fpg_texto_gris;
 	img_pixpang;
 	txt_fondos[1];
 	filerecs;
@@ -171,12 +183,16 @@ Local
 	alto;
 	jugador;
 	accion;
+	gravedad;
+	y_base;
 End
 
 include "../../common-src/lenguaje.pr-";
 include "../../common-src/savepath.pr-";
 include "../../common-src/controles.pr-";
 include "../../common-src/explosion.pr-";
+include "../../common-src/mod_text2.pr-";
+include "traducciones.pr-";
 	
 Private
     lee_archivo;
@@ -209,17 +225,18 @@ Begin
 		case "es": ops.lenguaje=0; end
 		default: ops.lenguaje=1; end
 	end
+	carga_textos();
 	
 	if(ops.ventana==0 or arcade_mode==1) Full_screen=true; else full_screen=false; end
 	
 	if(os_id==9) //caanoo
-		ops.op_sombras=0;
+		ops.sombras=0;
 		scale_resolution=03200240; 
 		bpp=16;
 	elseif(os_id==1003) //android
 		bpp=16;
 		ops.lenguaje=1;
-		ops.op_sombras=0;
+		ops.sombras=0;
 		scale_resolution=graphic_info(0,0,g_width)*10000+graphic_info(0,0,g_height);
 		if(ops.ventana==1)
 			scale_resolution_aspectratio=SRA_STRETCH;
@@ -231,6 +248,11 @@ Begin
 			panoramico=0;
 		end
 	end
+
+	//	TEMPORAL
+	alto_pantalla=518;
+	panoramico=1;
+
 	
 	set_mode(ancho_pantalla,alto_pantalla,bpp);
 	
@@ -259,9 +281,13 @@ Begin
 
 
 	img_pixpang=950;
-	fnt1=load_fnt("fnt/textos.fnt");
-	fnt2=load_fnt("fnt/conta.fnt");
-	fnt3=load_fnt("fnt/textos2.fnt");
+	fnt1=_load_fnt("fnt/textos.fnt");
+	fnt2=_load_fnt("fnt/conta.fnt");
+	fnt3=fnt1; //temporal?
+	fpg_texto=_load_fnt("fnt/textoazul.fnt");
+	fpg_texto_rojo=fnt2;
+	fpg_texto_gris=fnt3;
+	
 
 // joysticks
 	configurar_controles();
@@ -291,7 +317,7 @@ Begin
 		load(savegamedir+"turbo.dat",mundo);
 		fremove(savegamedir+"turbo.dat");
 		modo_juego=2;
-		players=1; 
+		jugadores=1; 
 		inicio();
 		return;
 	end
@@ -311,11 +337,11 @@ Begin
 			muestra_nivel_panoramico();
 		End
 		vidas();
-		If(players==1 or players==3)
+		If(jugadores==1 or jugadores==3)
 			If(modo_juego==2) armap1(); End
 			write_int(fnt1,45,35,0,&p[1].puntos); 
 		end
-		If(players==2 or players==3)
+		If(jugadores==2 or jugadores==3)
 			If(modo_juego==2) armap2(); End
 			write_int(fnt1,755,35,2,&p[2].puntos);
 		End
@@ -325,17 +351,17 @@ Begin
 			write(fnt1,400,560,1,"Level    "+itoa(mundo+1));
 		End
 		vidas();
-		If(players==1)
+		If(jugadores==1)
 			If(modo_juego==2) armap1(); grafico(234,560,402,-1,0,0); End
 			If(modo_juego==2) grafico(666,560,404,-1,1,fpg_lang); End 
 			write_int(fnt1,190,540,5,&p[1].puntos); 
 		end
-		If(players==2)
+		If(jugadores==2)
 			If(modo_juego==2) armap2(); grafico(566,560,402,-1,0,0); End
 			grafico(134,560,404,-1,1,fpg_lang); 
 			write_int(fnt1,615,540,3,&p[2].puntos);
 		End
-		If(players==3)
+		If(jugadores==3)
 			If(modo_juego==2) armap1(); armap2(); grafico(234,560,402,-1,0,0); grafico(566,560,402,-1,0,0); End
 			write_int(fnt1,190,540,5,&p[1].puntos); 
 			write_int(fnt1,615,540,3,&p[2].puntos);
@@ -350,7 +376,7 @@ Private
 Begin
 	exgraph=graph;
 	Loop
-		if(ops.op_sombras==0)
+		if(ops.sombras==0)
 			If(intparpadeo==1) If(graph==exgraph) graph=borrar; Else graph=exgraph; End End
 		else
 			if(intparpadeo==1) 
@@ -369,7 +395,7 @@ Private
 Begin
 	exgraph=graph;
 	Loop
-		if(ops.op_sombras==0)
+		if(ops.sombras==0)
 			If(intparpadeo==1) If(graph==exgraph) graph=borrar; Else graph=exgraph; End End
 		else
 			if(intparpadeo==1) 
@@ -467,7 +493,7 @@ Begin
 	
 	cancion_cargada=load_song("ogg/"+cancion+"."+formato);
 	
-	If(ops.op_music==1)
+	If(ops.musica==1)
 		If(cancion!=20 AND cancion!=18)
 			play_song(cancion_cargada,-1);
 		Else
@@ -481,29 +507,29 @@ End
 Process vidas();
 Begin
 	if(panoramico)
-		if(players==1 or players==3)
+		if(jugadores==1 or jugadores==3)
 			write(fnt1,50,60,0,"x");
 			write_int(fnt1,70,60,0,&p[1].vidas);
 		end
-		if(players==2 or players==3)
+		if(jugadores==2 or jugadores==3)
 			write(fnt1,50,60,2,"x");
 			write_int(fnt1,70,60,2,&p[2].vidas);
 		end
 	else
-		if(players==1 or players==3)
+		if(jugadores==1 or jugadores==3)
 			write(fnt2,106,548,0,"x"); 
 			write_int(fnt2,136,548,0,&p[1].vidas); 
 		end
-		if(players==2 or players==3)
+		if(jugadores==2 or jugadores==3)
 			write(fnt2,694,548,2,"x");
 			write_int(fnt2,664,548,2,&p[2].vidas); 
 		end
 	end
 	
-	if(players==1 or players==3)
+	if(jugadores==1 or jugadores==3)
 		caravida(1);
 	end
-	if(players==2 or players==3)
+	if(jugadores==2 or jugadores==3)
 		caravida(2);
 	end
 	
@@ -630,7 +656,7 @@ Private
 	l;
 	id_sonido;
 Begin
-    If(ops.op_sonido==1)
+    If(ops.sonido==1)
 	l=(father.x*255)/800;
 	id_sonido=play_wav(s[sonido],0); 
 	set_panning(id_sonido,255-l,l);
@@ -802,7 +828,7 @@ Begin
 	tenia_protec[1]=p[2].proteccion;
 	p[1].proteccion=0;
 	p[2].proteccion=0;
-	switch(players)
+	switch(jugadores)
 		case 1:
 			sub_estrella(1);
 		end
@@ -867,8 +893,8 @@ Begin
 	ganando=1;
 	ready=0;
 	If(modo_juego==2)
-		If(players==1 OR players==3) cuadro_ganar(1); End
-		If(players==2 OR players==3) cuadro_ganar(2); End
+		If(jugadores==1 OR jugadores==3) cuadro_ganar(1); End
+		If(jugadores==2 OR jugadores==3) cuadro_ganar(2); End
 		mundo++;
 	End
 	musica(20);
@@ -881,9 +907,9 @@ Begin
 		let_me_alone();
 	End
 	If(modo_juego==2) 
-		If(mundo==tour_levels+1) menu(); else inicio(); End 
+		If(mundo==tour_levels+1) menu(-1); else inicio(); End 
 	end
-	if(modo_juego==1) menu(); end
+	if(modo_juego==1) menu(-1); end
 End
 
 Process cuadro_ganar(num);
@@ -928,7 +954,7 @@ Begin
 	x=400;
 	file=fpg_lang;
 	graph=414;
-	if(ops.op_sombras)
+	if(ops.sombras)
 		from alpha=0 to 255 step 5; frame(100/base_velocidad); end
 	end
 	While(ganando==1)
@@ -1005,10 +1031,10 @@ Begin
 		end
 		If(cambiado==0) 
 			If(exists(id_fondo)) signal(id_fondo,s_kill); End
-			If(ops.op_sombras==1) alpha=0; End
+			If(ops.sombras==1) alpha=0; End
 			graph=png_fondo;
-			If(ops.op_sombras==1) dump_type=1; restore_type=1; End
-			While(alpha<255	AND ops.op_sombras==1)
+			If(ops.sombras==1) dump_type=1; restore_type=1; End
+			While(alpha<255	AND ops.sombras==1)
 				alpha+=15;
 				frame(100/base_velocidad);
 			End
@@ -1105,7 +1131,7 @@ Begin
 	raton=0;
 	matabolas=0;
 	if(posibles_jugadores==1)
-		players=1;
+		jugadores=1;
 	end
 	if(modo_juego==2)
 		guardar_partida();
@@ -1120,9 +1146,9 @@ Begin
 	bolas=0; // indica q no hay bolas en pantalla
 	If(modo_juego==2) musica(-1); end
 	
-	If(p[1].vidas=>0 AND p[2].vidas<0 AND players==3) players=1; End
-	If(p[2].vidas=>0 AND p[1].vidas<0 AND players==3) players=2; End
-	switch(players)
+	If(p[1].vidas=>0 AND p[2].vidas<0 AND jugadores==3) jugadores=1; End
+	If(p[2].vidas=>0 AND p[1].vidas<0 AND jugadores==3) jugadores=2; End
+	switch(jugadores)
 		case 1:	p[1].id=muneco(1); end
 		case 2:	p[2].id=muneco(2); end
 		case 3:	p[1].id=muneco(1); p[2].id=muneco(2); end
@@ -1188,17 +1214,17 @@ Begin
 	timer[9]=0;
 	While(timer[9]<500 AND !p[0].botones[4]) frame(100/base_velocidad); end
 	modo_juego=0;
-	menu();
+	menu(-1);
 End
 
 Process grafico_alpha(x,y,graph,flags);
 Begin
-	If(ops.op_sombras==1) alpha=0; End
+	If(ops.sombras==1) alpha=0; End
 	While(!key(_enter))
-		If(alpha<250 AND ops.op_sombras==1) alpha+=5; End
+		If(alpha<250 AND ops.sombras==1) alpha+=5; End
 		frame(100/base_velocidad);
 	End
-	While(alpha>10 AND ops.op_sombras==1)
+	While(alpha>10 AND ops.sombras==1)
 		alpha-=5;
 		frame(100/base_velocidad);
 	End
@@ -1211,7 +1237,7 @@ Begin
 	y=250;
 	z=-256;
 	timer[9]=0;
-	if(ops.op_sombras==0) 
+	if(ops.sombras==0) 
 		While(timer[9]<300)
 		    file=fpg_lang;
 		    graph=415;
@@ -1264,7 +1290,7 @@ Begin
 	If(item==10) bola(x,y,19,rand(0,1)); bolas--; return; End // bola!!
 	While(tuerestonto<(5*60))
 	        If(item==7) 
-			switch(players)
+			switch(jugadores)
 				case 3:
 					If(animglobal<30) 
 						file=p[1].fpg; 
@@ -1519,7 +1545,7 @@ Begin
 	End
 	grav=rand(100,200);
 	While(y<480)
-		If(ops.op_sombras==1) sombra(graph,x,y,flags,1); End
+		If(ops.sombras==1) sombra(graph,x,y,flags,1); End
 		If(flags==0) x+=12; angle+=60000; End
 		If(flags==1) x-=12; angle+=60000; End
 		If(x=>755) flags=1; End
@@ -1632,7 +1658,7 @@ Private
 	nosubida;
 	grav;
 Begin
-	if(ops.op_sombras==0) return; end
+	if(ops.sombras==0) return; end
 	x=400;
 	y=alto_pantalla/2;
 	z=-512;
@@ -1642,7 +1668,7 @@ Begin
 		if(graphh!=-1 and graph!=2) transicion=1; else graph=screenshot; nosubida=1; end
 	end
 
-	If(ops.op_sombras==1) alpha=0; End
+	If(ops.sombras==1) alpha=0; End
 	While(alpha<255 and transicion==1 and nosubida==0)
 		alpha+=15;
 		frame(100/base_velocidad);
@@ -1650,7 +1676,7 @@ Begin
 	alpha=255;
 	While(transicion==1) frame(100/base_velocidad); End
 	if(rand(0,1)==0)
-		While(alpha>15 AND ops.op_sombras==1)
+		While(alpha>15 AND ops.sombras==1)
 			alpha-=15;
 			frame(100/base_velocidad);
 		End
@@ -1694,7 +1720,7 @@ Begin
 	if(cheto_borracho==0) y=rand(50,200); velosidad=rand(3,8); else y=rand(300,500); velosidad=rand(8,20); end
 	graph=660;
 	size_inicio=rand(70,100);
-	If(ops.op_sombras==1) alpha=128; End
+	If(ops.sombras==1) alpha=128; End
 	While(flags==1 AND x>0)
 		size_x=size_inicio+(rolling/6);
 		size_y=size_inicio-(rolling/5);
@@ -1734,12 +1760,14 @@ begin
 		frame(100/base_velocidad); 
 	end
 	timer[0]=0;
-	while(timer[0]<300) if(scan_code!=0) break; end frame(100/base_velocidad); end
-	while(scan_code!=0) frame(100/base_velocidad); end
-	menu();
+	while(timer[0]<300)
+		if(scan_code!=0) break; end frame(100/base_velocidad); 
+		frame;
+	end
 	from alpha=alpha to 0 step -10;
 		frame(100/base_velocidad); 
 	end
+	menu(-1);
 end
 
 Function guardar_partida();
@@ -1753,7 +1781,7 @@ Begin
 	load(savegamedir+"partida.dat",mundo);
 	modo_juego=2;
 	if(posibles_jugadores==1)
-		players=1; inicio();
+		jugadores=1; inicio();
 	else
 		menu_jugadores_continuar();
 	end
@@ -1816,7 +1844,6 @@ End
 
 Function revive_muertos();
 Begin
-
 End
 
 Process jugar();
@@ -1838,6 +1865,7 @@ Begin
 	cocos=0;
 	controlador(0);
 	margen_novato=(5-ops.dificultad)*2;
+	set_fps(60,9);
 	Loop
 		If(pixel_mola==1 and ready==1)
 			If(key(_m) AND raton==0) coloca_raton(); End
@@ -1872,17 +1900,17 @@ Begin
 				If(kindabolas==3) bola(rand(60,740),150,16,rand(0,1)); end 
 				If(kindabolas==4) bola(-100,150,19,rand(0,1)); bola(900,150,rand(19,22),rand(0,1)); end
 			End
-			If(players==3)
+			If(jugadores==3)
 				If(p[1].muere==2 AND p[2].muere==0) p[1].muere=0; If(p[1].vidas<0) inicio(); Else p[1].id=muneco(1); End End
 				If(p[2].muere==2 AND p[1].muere==0) p[2].muere=0; If(p[2].vidas<0) inicio(); Else p[2].id=muneco(2); End End
 				If(p[1].muere==2 AND p[2].muere==2 AND (p[1].vidas=>0 OR p[2].vidas=>0)) inicio(); End
 				If(p[1].muere==2 AND p[1].vidas<0 AND p[2].muere==2 AND p[2].vidas<0) gameover(); End
 			End
-			If(players==2)
+			If(jugadores==2)
 				If(p[2].muere==2 AND p[2].vidas=>0 AND iniciando==0) inicio(); End
 				If(p[2].muere==2 AND p[2].vidas<0) gameover(); End
 			End
-			If(players==1)
+			If(jugadores==1)
 				If(p[1].muere==2 AND p[1].vidas=>0 AND iniciando==0) inicio(); End
 				If(p[1].muere==2 AND p[1].vidas<0) gameover(); End
 			End           
@@ -1904,19 +1932,19 @@ Begin
 			End
 		else //tour mode
 			if(cheto_avaricioso) if(avaricioso<20) avaricioso++; else cocodrilo(rand(0,1)); avaricioso=0; end end
-			If(players==1 AND p[2].botones[4]) players=3; suena(6); p[2].vidas=10; faderaro(-2); frame(100/base_velocidad); inicio(); End
-			If(players==2 AND p[1].botones[4]) players=3; suena(6); p[1].vidas=10; faderaro(-2); frame(100/base_velocidad); inicio(); End
+			If(jugadores==1 AND p[2].botones[4]) jugadores=3; suena(6); p[2].vidas=10; faderaro(-2); frame(100/base_velocidad); inicio(); End
+			If(jugadores==2 AND p[1].botones[4]) jugadores=3; suena(6); p[1].vidas=10; faderaro(-2); frame(100/base_velocidad); inicio(); End
 			If(bolas==0 AND ready==1 and jefe==0) ganar(); Break; End
 			If(cocos<3 and rand(0,2000)==0 and jefe==0) If(rand(0,1)==0) cocodrilo(rand(0,1)); Else volador(); End End
-			If(players==3)
+			If(jugadores==3)
 				If(p[1].muere==2 AND p[2].muere==2 AND (p[1].vidas=>0 OR p[2].vidas=>0) AND iniciando==0) musica(-1); faderaro(-2); frame(100/base_velocidad); inicio(); End
 				If(p[1].muere==2 AND p[1].vidas<0 AND p[2].muere==2 AND p[2].vidas<0) gameover(); End
 			End
-			If(players==2)
+			If(jugadores==2)
 				If(p[2].muere==2 AND p[2].vidas=>0 AND iniciando==0) musica(-1); faderaro(-2); frame(100/base_velocidad); inicio(); End
 				If(p[2].muere==2 AND p[2].vidas<0) gameover(); End
 			End
-			If(players==1)
+			If(jugadores==1)
 				If(p[1].muere==2 AND p[1].vidas=>0 AND iniciando==0) musica(-1); faderaro(-2); frame(100/base_velocidad); inicio(); End
 				If(p[1].muere==2 AND p[1].vidas<0) gameover(); End
 			End
@@ -1943,7 +1971,7 @@ Begin
 
 		end
 		If(key(_d) AND key(_b) AND key(_g)) pixel_mola=1; End
-//		If(p[0].botones[7]) while(p[0].botones[7]) frame(100/base_velocidad); end menu(); end
+//		If(p[0].botones[7]) while(p[0].botones[7]) frame(100/base_velocidad); end menu(-1); end
 		If(p[0].botones[7] and ready==1)
 			while(p[0].botones[7]) frame(100/base_velocidad); end
 			#IFDEF OUYA
@@ -1967,7 +1995,7 @@ Begin
 			ready=0;
 			frame(3000);
 			while(!p[0].botones[b_salir])
-				if(p[0].botones[b_3])	while(p[0].botones[3]) frame(100/base_velocidad); end menu(); end
+				if(p[0].botones[b_3])	while(p[0].botones[3]) frame(100/base_velocidad); end menu(-1); end
 				frame(100/base_velocidad); 
 			end
 			while(p[0].botones[7]) frame(100/base_velocidad); end
@@ -2009,4 +2037,13 @@ Begin
 	from alpha=0 to 255 step 10; frame(100/base_velocidad); end
 	frame(15000);
 	from alpha=255 to 0 step -10; frame(100/base_velocidad); end
+End
+
+Function reinicio_variables();
+Begin
+End
+
+Function salir();
+Begin
+	exit();
 End

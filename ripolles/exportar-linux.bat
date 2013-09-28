@@ -1,4 +1,5 @@
 @echo off
+rd /s /q export
 cd src
 echo Compilando...
 ..\..\bennu-win\bgdc ripolles.prg

@@ -115,6 +115,7 @@ Begin
 			textos[81]="Free stuff!";
 			textos[82]="Everyone is super!";
 			textos[83]="No friction!";
+			textos[84]="2D battle mo";
 			
 		end
 		case 1: //español
@@ -204,6 +205,7 @@ Begin
 			textos[81]="¡Objetos gratis!";
 			textos[82]="¡Todo el mundo es super!";
 			textos[83]="¡Sin fricción!";
+			textos[84]="Modo pelea 2D";
 		end
 		case 2: //catalán
 			// General
@@ -297,6 +299,7 @@ Begin
 			textos[81]="Objectes gratis!";
 			textos[82]="Tothom és super!";
 			textos[83]="Sense fricció!";
+			textos[84]="Mode baralla 2D";
 		end
 	end
 End

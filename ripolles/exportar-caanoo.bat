@@ -2,7 +2,7 @@
 
 cd src
 echo Compilando...
-..\..\bennu-win\bgdc ripolles.prg
+..\..\bennu-win\bgdc -D GLOBAL_RESOLUTION=1 ripolles.prg
 move ripolles.dcb ..
 pause
 cd ..
@@ -30,7 +30,6 @@ cd ..
 
 copy ogg\*.ogg export-caanoo\ripolles\ogg
 copy fpg\*.fpg export-caanoo\ripolles\fpg
-copy fnt\*.fnt export-caanoo\ripolles\fnt
 copy recursos\caanoo\ripolles.png export-caanoo\ripolles
 copy recursos\caanoo\ripolles.gpe export-caanoo\ripolles
 copy recursos\caanoo\ripolles.ini export-caanoo\

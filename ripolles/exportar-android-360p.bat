@@ -23,6 +23,9 @@ mkdir export\assets\fpg
 mkdir export\assets\ogg
 mkdir export\assets\fnt
 mkdir export\assets\wav
+mkdir export\src\org\bennugd\iap
+mkdir export\res
+mkdir export\res\raw
 
 echo Copiando recursos de android...
 copy recursos\android\hdpi.png export\res\drawable-hdpi\icon.png /y
@@ -30,6 +33,8 @@ copy recursos\android\ldpi.png export\res\drawable-ldpi\icon.png /y
 copy recursos\android\mdpi.png export\res\drawable-mdpi\icon.png /y
 copy recursos\android\xhdpi.png export\res\drawable-xhdpi\icon.png /y
 copy recursos\android\ouya_icon.png export\res\drawable-xhdpi\ouya_icon.png /y
+copy ..\claves-iap-ouya\ripolles.der export\res\raw\key.der /y
+copy recursos\android\iap.java export\src\org\bennugd\iap\iap.java /y
 
 copy recursos\android\strings.xml export\res\values\strings.xml /y
 mkdir export\res\values-es

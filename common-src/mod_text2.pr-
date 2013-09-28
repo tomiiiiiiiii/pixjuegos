@@ -1,16 +1,20 @@
 Const
 	all_text=-1;
 End
+
 Global
 	matatextos=0;
+	fading_text=0;
 	struct ops_fuentes[20];
 		margen;
 		espacio;
 	end
 End
+
 Local
 	rand_y;
 	rand_angle;
+	soy_un_texto;
 End
 
 /*Process test_text();
@@ -56,6 +60,7 @@ Private
 Begin
 	resolution=global_resolution;
 	z=-512;
+	soy_un_texto=1;
 	
 	//1. pintamos texto en un mapa de bits
 	graph=dibujame_el_texto(fpg_fuente,texto,ops_fuentes[fpg_fuente].margen,rand_y,rand_angle,0);
@@ -88,6 +93,7 @@ Private
 Begin
 	resolution=global_resolution;
 	z=-512;
+	soy_un_texto=1;
 	
 	//1. pintamos texto en un mapa de bits
 	graph=dibujame_el_texto(fpg_fuente,texto,ops_fuentes[fpg_fuente].margen,rand_y,rand_angle,0);
@@ -120,6 +126,7 @@ Private
 Begin
 	resolution=global_resolution;
 	z=-512;
+	soy_un_texto=1;
 	
 	//1. pintamos texto en un mapa de bits
 	graph=dibujame_el_texto(fpg_fuente,texto,ops_fuentes[fpg_fuente].margen,rand_y,rand_angle,fixed_width);
@@ -186,6 +193,7 @@ Private
 Begin
 	resolution=global_resolution;
 	z=-512;
+	soy_un_texto=1;
 	
 	//1. pintamos texto en un mapa de bits
 	graph=dibujame_el_texto(fpg_fuente,*numero,ops_fuentes[fpg_fuente].margen,rand_y,rand_angle,0);
@@ -220,6 +228,7 @@ Private
 Begin
 	resolution=global_resolution;
 	z=-512;
+	soy_un_texto=1;
 	
 	//1. pintamos texto en un mapa de bits
 	graph=dibujame_el_texto(fpg_fuente,*numero,ops_fuentes[fpg_fuente].margen,rand_y,rand_angle,0);
@@ -254,6 +263,7 @@ Private
 Begin
 	resolution=global_resolution;
 	z=-512;
+	soy_un_texto=1;
 	
 	//1. pintamos texto en un mapa de bits
 	graph=dibujame_el_texto(fpg_fuente,*variable,ops_fuentes[fpg_fuente].margen,rand_y,rand_angle,0);
@@ -285,21 +295,49 @@ Private
 	mi_id_texto;
 Begin
 	if(cual==-1)
-		while(mi_id_texto=get_id(type write))
+		while(mi_id_texto=get_id(0))
 			if(exists(mi_id_texto))
-				mi_id_texto.accion=-1;
-			end
-		end
-		while(mi_id_texto=get_id(type write_int))
-			if(exists(mi_id_texto))
-				mi_id_texto.accion=-1;
+				if(mi_id_texto.soy_un_texto==1)
+					mi_id_texto.accion=-1;
+				end
 			end
 		end
 	else
 		if(exists(cual))
-			cual.accion=-1;
+			if(mi_id_texto.soy_un_texto==1)
+				cual.accion=-1;
+			end
 		end
 	end
+End
+
+Process fade_off_text(cual,steps);
+Private
+	mi_id_texto;
+Begin
+	if(fading_text) return; end
+	fading_text=1;
+	while(alpha>0)
+		alpha-=steps;
+		if(cual==-1)
+			while(mi_id_texto=get_id(0))
+				if(exists(mi_id_texto))
+					if(mi_id_texto.soy_un_texto==1)
+						mi_id_texto.alpha=alpha;
+					end
+				end
+			end
+		else
+			if(exists(cual))
+				if(mi_id_texto.soy_un_texto==1)
+					mi_id_texto.alpha=alpha;
+				end
+			end
+		end
+		frame;
+	end
+	fading_text=0;
+	delete_text(cual);
 End
 
 Function centrame(file,graph,centrado);
@@ -330,6 +368,7 @@ Private
 	caracter;
 	caracter_anterior;
 	mi_bpp;
+	foo;
 Begin
 	if(fpg_fuente<0) return 0; end
 	if(!map_exists(fpg_fuente,97) and !map_exists(fpg_fuente,65) and !map_exists(fpg_fuente,48))
@@ -342,21 +381,21 @@ Begin
 	
 	//1. contar el espacio horizontal y vertical
 	if(len(texto)>1)
-		from i=0 to len(texto)-1;
+		from foo=0 to len(texto)-1;
 			caracter_anterior=caracter;
-			caracter=asc(texto[i]);
+			caracter=asc(texto[foo]);
 			if(caracter==32)
 				x+=ops_fuentes[fpg_fuente].espacio+margen;
 			else
-				if(i==0)
+				if(foo==0)
 					x=(graphic_info(file,caracter,G_WIDTH)/2);
-				elseif(i==len(texto)-1)
+				elseif(foo==len(texto)-1)
 					x+=(graphic_info(file,caracter_anterior,G_WIDTH)/2)+margen+(graphic_info(file,caracter,G_WIDTH));
 				else
 					x+=(graphic_info(file,caracter_anterior,G_WIDTH)/2)+margen+(graphic_info(file,caracter,G_WIDTH)/2);
 				end
-				if(graphic_info(file,asc(texto[i]),G_HEIGHT)>mi_alto_max)
-					mi_alto_max=graphic_info(file,asc(texto[i]),G_HEIGHT)+(rand_y_max*2);
+				if(graphic_info(file,asc(texto[foo]),G_HEIGHT)>mi_alto_max)
+					mi_alto_max=graphic_info(file,asc(texto[foo]),G_HEIGHT)+(rand_y_max*2);
 				end
 			end	
 		end
@@ -381,21 +420,21 @@ Begin
 	draw_box(0,0,mi_ancho_total,mi_alto_max);*/
 	
 	//3. ponemos todas las letracas
-	from i=0 to len(texto)-1;
+	from foo=0 to len(texto)-1;
 		caracter_anterior=caracter;
-		caracter=asc(texto[i]);
+		caracter=asc(texto[foo]);
 		if(graphic_info(file,caracter,G_HEIGHT)>0 or caracter==32)
 			if(rand_y_max>0) rand_y=rand(-rand_y_max*2,0); end
 			if(rand_angle_max>0) rand_angle=rand(-rand_angle_max,rand_angle_max); end
 			if(fixed_width)
-				x=fixed_width+(fixed_width*(i));
+				x=fixed_width+(fixed_width*(foo));
 				y=mi_alto_max-(graphic_info(file,caracter,G_HEIGHT)/2)+rand_y;
 				map_xputnp(0,graph,file,caracter,x,y,rand_angle,100,100,0);
 			else
 				if(caracter==32)
 					x+=ops_fuentes[fpg_fuente].espacio+margen;
 				else
-					if(i==0)
+					if(foo==0)
 						x=(graphic_info(file,caracter,G_WIDTH)/2);
 					else
 						x+=(graphic_info(file,caracter_anterior,G_WIDTH)/2)+margen+(graphic_info(file,caracter,G_WIDTH)/2);
@@ -405,7 +444,7 @@ Begin
 				end
 			end
 		else
-			say("No se ha encontrado la letra "+chr(texto[i])+" en el FPG "+file);
+			say("No se ha encontrado la letra "+chr(texto[foo])+" en el FPG "+file);
 		end
 	end
 	

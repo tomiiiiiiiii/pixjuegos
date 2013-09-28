@@ -65,7 +65,7 @@ Begin
 		If(p[jugador].muere==1)
 			grav=rand(50,250);
 			While(y<464)
-				If(ops.op_sombras==1) sombra(graph,x,y,flags,1); End
+				If(ops.sombras==1) sombra(graph,x,y,flags,1); End
 				If(flags==0) x+=12; End
 				If(flags==1) x-=12; End
 				If(x=>755) flags=1; End

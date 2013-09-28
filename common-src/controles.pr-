@@ -66,6 +66,8 @@ Private
 	povx;
 	axis_x;
 	axis_y;
+	foo;
+	foo2;
 Begin
 	priority=10;
 	#IFDEF TACTIL
@@ -116,19 +118,19 @@ Begin
 		end
 		
 		if(!exists(father)) return; end
-		from i=0 to 7; p[jugador].botones[i]=0;	end		
+		from foo=0 to 7; p[jugador].botones[foo]=0; end		
 		if(p[jugador].control==-2) //GLOBAL: Para menús y tal
 			priority=1;
-			from i=1 to posibles_jugadores;
-				controlador(i);
+			from foo=1 to posibles_jugadores;
+				controlador(foo);
 			end
 			loop
-				from j=0 to 7;
-					p[0].botones[j]=0;
+				from foo2=0 to 7;
+					p[0].botones[foo2]=0;
 				end
-				from i=1 to posibles_jugadores;
-					from j=0 to 7;
-						if(p[i].botones[j]) p[0].botones[j]=1; end
+				from foo=1 to posibles_jugadores;
+					from foo2=0 to 7;
+						if(p[foo].botones[foo2]) p[0].botones[foo2]=1; end
 					end
 				end
 				frame;
@@ -221,30 +223,32 @@ End
 Function configurar_controles();
 Private
 	archos_basura;
+	foo;
+	njoys;
 Begin
 	//1. Averiguamos cuantos joysticks tenemos
 	njoys=number_joy();
 	
 	//2. ¿Cuántos de ellos son utilizables/tienen al menos dos ejes y dos botones?
-	from i=0 to (njoys-1);
-		if(joy_numbuttons(i)=>2)
-			if(lcase(JOY_NAME(i))=="joystick" and lcase(JOY_NAME(i+1))=="joy_key")
-				i++;
+	from foo=0 to (njoys-1);
+		if(joy_numbuttons(foo)=>2)
+			if(lcase(JOY_NAME(foo))=="joystick" and lcase(JOY_NAME(foo+1))=="joy_key")
+				foo++;
 			end
 			posibles_jugadores++;
-			joysticks[posibles_jugadores]=i;
-			joy_profiles[i].name=lcase(JOY_NAME(i));
-			if(find(joy_profiles[i].name,"xbox")=>0)
-				joy_profiles[i]._b_1=2;
-				joy_profiles[i]._b_2=0;
-				joy_profiles[i]._b_3=1;
-				joy_profiles[i]._b_salir=6;
+			joysticks[posibles_jugadores]=foo;
+			joy_profiles[foo].name=lcase(JOY_NAME(foo));
+			if(find(joy_profiles[foo].name,"xbox")=>0)
+				joy_profiles[foo]._b_1=2;
+				joy_profiles[foo]._b_2=0;
+				joy_profiles[foo]._b_3=1;
+				joy_profiles[foo]._b_salir=6;
 			end
-			if(find(joy_profiles[i].name,"psp")=>0)
-				joy_profiles[i]._b_1=3;
-				joy_profiles[i]._b_2=2;
-				joy_profiles[i]._b_3=1;
-				joy_profiles[i]._b_salir=6;
+			if(find(joy_profiles[foo].name,"psp")=>0)
+				joy_profiles[foo]._b_1=3;
+				joy_profiles[foo]._b_2=2;
+				joy_profiles[foo]._b_3=1;
+				joy_profiles[foo]._b_salir=6;
 			end
 		end
 	end
@@ -253,7 +257,7 @@ Begin
 	//3. Si tenemos X joysticks, X jugadores jugarán con joystick y el siguiente jugará con teclado
 	
 	//por defecto no tendrán ningún control asignado
-	from i=1 to 5; p[i].control=-1; end
+	from foo=1 to 5; p[foo].control=-1; end
 	
 	if(posibles_jugadores==1) //no hay joysticks
 		p[1].control=0;
@@ -326,6 +330,8 @@ Begin
 End
 
 Process gamepad_virtual();
+Private
+	foo;
 Begin
 	if(no_vgamepad==0)
 		boton_tactil(gamepad_boton_separacion*2,alto_pantalla-(gamepad_boton_separacion*3),graph_boton_arriba,1,b_arriba);
@@ -347,9 +353,9 @@ Begin
 			return;
 		end
 #IFDEF TACTIL
-		for(i=0; i<10; i++)
-			if(multi_info(i, "ACTIVE") > 0)
-				dedo(multi_info(i, "X"),multi_info(i, "Y"));
+		for(foo=0; foo<10; foo++)
+			if(multi_info(foo, "ACTIVE") > 0)
+				dedo(multi_info(foo, "X"),multi_info(foo, "Y"));
 			end
 		end
 #ELSE
@@ -383,6 +389,9 @@ Begin
 End
 
 Function pinta_gamepad();
+Private
+	foo;
+	foo2;
 Begin
 	graph_dedo=new_map(gamepad_boton_size*2/3,gamepad_boton_size*2/3,16);
 	drawing_color(rgb(128,128,128));
@@ -415,14 +424,14 @@ Begin
 	graph_boton_arriba=new_map(2*gamepad_boton_size,gamepad_boton_size,16);
 	drawing_map(0,graph_boton_arriba);
 	drawing_color(rgb(128,128,128));
-	i=0;
-	from j=0 to gamepad_boton_size/2;
-		draw_line(gamepad_boton_size-i,j,gamepad_boton_size+i,j);
-		i+=2;
+	foo=0;
+	from foo2=0 to gamepad_boton_size/2;
+		draw_line(gamepad_boton_size-foo,foo2,gamepad_boton_size+foo,foo2);
+		foo+=2;
 	end
-	from j=gamepad_boton_size/2 to gamepad_boton_size;
-		draw_line(gamepad_boton_size-i,j,gamepad_boton_size+i,j);
-		i-=1;
+	from foo2=gamepad_boton_size/2 to gamepad_boton_size;
+		draw_line(gamepad_boton_size-foo,foo2,gamepad_boton_size+foo,foo2);
+		foo-=1;
 	end
 	drawing_color(rgb(255,255,255));
 	draw_line(0,gamepad_boton_size/2,gamepad_boton_size,0);
@@ -434,14 +443,14 @@ Begin
 	graph_boton_abajo=new_map(2*gamepad_boton_size,gamepad_boton_size,16);
 	drawing_map(0,graph_boton_abajo);
 	drawing_color(rgb(128,128,128));
-	i=0;
-	from j=0 to gamepad_boton_size/2;
-		draw_line(gamepad_boton_size-i,gamepad_boton_size-j,gamepad_boton_size+i,gamepad_boton_size-j);
-		i+=2;
+	foo=0;
+	from foo2=0 to gamepad_boton_size/2;
+		draw_line(gamepad_boton_size-foo,gamepad_boton_size-foo2,gamepad_boton_size+foo,gamepad_boton_size-foo2);
+		foo+=2;
 	end
-	from j=gamepad_boton_size/2 to gamepad_boton_size;
-		draw_line(gamepad_boton_size-i,gamepad_boton_size-j,gamepad_boton_size+i,gamepad_boton_size-j);
-		i-=1;
+	from foo2=gamepad_boton_size/2 to gamepad_boton_size;
+		draw_line(gamepad_boton_size-foo,gamepad_boton_size-foo2,gamepad_boton_size+foo,gamepad_boton_size-foo2);
+		foo-=1;
 	end
 	drawing_color(rgb(255,255,255));
 	draw_line(0,gamepad_boton_size/2,gamepad_boton_size,gamepad_boton_size);
@@ -453,14 +462,14 @@ Begin
 	graph_boton_izquierda=new_map(gamepad_boton_size,2*gamepad_boton_size,16);
 	drawing_map(0,graph_boton_izquierda);
 	drawing_color(rgb(128,128,128));
-	i=0;
-	from j=0 to gamepad_boton_size/2;
-		draw_line(j,gamepad_boton_size-i,j,gamepad_boton_size+i);
-		i+=2;
+	foo=0;
+	from foo2=0 to gamepad_boton_size/2;
+		draw_line(foo2,gamepad_boton_size-foo,foo2,gamepad_boton_size+foo);
+		foo+=2;
 	end
-	from j=gamepad_boton_size/2 to gamepad_boton_size;
-		draw_line(j,gamepad_boton_size-i,j,gamepad_boton_size+i);
-		i-=1;
+	from foo2=gamepad_boton_size/2 to gamepad_boton_size;
+		draw_line(foo2,gamepad_boton_size-foo,foo2,gamepad_boton_size+foo);
+		foo-=1;
 	end
 	drawing_color(rgb(255,255,255));
 	draw_line(gamepad_boton_size/2,0,0,gamepad_boton_size);
@@ -472,14 +481,14 @@ Begin
 	graph_boton_derecha=new_map(gamepad_boton_size,2*gamepad_boton_size,16);
 	drawing_map(0,graph_boton_derecha);
 	drawing_color(rgb(128,128,128));
-	i=0;
-	from j=0 to gamepad_boton_size/2;
-		draw_line(gamepad_boton_size-j,gamepad_boton_size-i,gamepad_boton_size-j,gamepad_boton_size+i);
-		i+=2;
+	foo=0;
+	from foo2=0 to gamepad_boton_size/2;
+		draw_line(gamepad_boton_size-foo2,gamepad_boton_size-foo,gamepad_boton_size-foo2,gamepad_boton_size+foo);
+		foo+=2;
 	end
-	from j=gamepad_boton_size/2 to gamepad_boton_size;
-		draw_line(gamepad_boton_size-j,gamepad_boton_size-i,gamepad_boton_size-j,gamepad_boton_size+i);
-		i-=1;
+	from foo2=gamepad_boton_size/2 to gamepad_boton_size;
+		draw_line(gamepad_boton_size-foo2,gamepad_boton_size-foo,gamepad_boton_size-foo2,gamepad_boton_size+foo);
+		foo-=1;
 	end
 	drawing_color(rgb(255,255,255));
 	draw_line(gamepad_boton_size/2,0,gamepad_boton_size,gamepad_boton_size);

@@ -48,7 +48,7 @@ private
 	int id_disp;
 	int vez;
 	id_col;
-	y_base;
+	//y_base;
 begin
 	file=father.file;
 	bolas++;

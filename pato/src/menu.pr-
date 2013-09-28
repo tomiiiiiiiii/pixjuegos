@@ -23,7 +23,6 @@ private
 	opcion_truco_pato;
 	opcion_truco_fuego_amigo;
 	opcion_truco_hamburguesas;
-	opcion_truco_good_vs_evil;
 	
 	id_txt;
 begin
@@ -38,7 +37,7 @@ begin
 		//delete_text(all_text);
 		set_fps(30,0);	
 		if(ops.trucos==0)
-			if(ops.truco_hamburguesas=>0 or ops.truco_fuego_amigo=>0 or ops.truco_ruzafa=>0 or ops.truco_good_vs_evil=>0)
+			if(ops.truco_hamburguesas=>0 or ops.truco_fuego_amigo=>0 or ops.truco_ruzafa=>0)
 				ops.trucos=1;
 			end
 		end
@@ -175,6 +174,12 @@ begin
 			if(jugadores>1)
 				modo_battleroyale=++num_opciones;
 				texto_menu(y+=distancia_opciones,textos[31]);
+				modo_2dfighter=++num_opciones;
+				texto_menu(y+=distancia_opciones,textos[84]);
+			end
+			if(jugadores==4)
+				modo_goodvsevil=++num_opciones;
+				texto_menu(y+=distancia_opciones,textos[32]);
 			end
 			volver_a_menu=0;
 		end

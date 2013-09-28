@@ -72,6 +72,9 @@ Begin
 					x=ancho_pantalla-50;
 				end
 			end
+			case modo_2dfighter:
+				x=rand(0,640);
+			end
 		end
 		if(modo_juego==modo_historia)
 			y_base=130+40*jugador;

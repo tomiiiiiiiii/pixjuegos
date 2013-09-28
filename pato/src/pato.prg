@@ -222,6 +222,8 @@ Global
 	modo_supervivencia=2;
 	modo_matajefes=-1;
 	modo_battleroyale=-1;
+	modo_2dfighter=-1;
+	modo_goodvsevil=-1;
 End
 
 Local
@@ -290,7 +292,7 @@ Begin
 	end
 	
 	carga_opciones();
-	#IFDEF DEBUG	
+	#IFDEF DEBUG
 		ops.musica=0;
 		ops.sonido=1;
 		ops.ventana=1;
@@ -561,6 +563,11 @@ Begin
 		case modo_battleroyale:
 			battleroyale();
 		end
+		case modo_2dfighter:
+			battleroyale();
+		end
+		case modo_goodvsevil:
+		end
 		case modo_matajefes:
 			matajefes();
 		end
@@ -607,7 +614,7 @@ Begin
 	loop
 		if(modo_juego!=modo_historia) jukebox(); end
 		averigua_jugadores();
-		if(jugadores==0 or (modo_juego==modo_battleroyale and jugadores==1) or (ganando==1 and modo_juego==modo_historia))
+		if(jugadores==0 or ((modo_juego==modo_battleroyale or modo_juego==modo_2dfighter) and jugadores==1) or (ganando==1 and modo_juego==modo_historia))
 			break;
 		end
 		
@@ -1039,6 +1046,11 @@ End
 Function mueveme(forma);
 Begin
 	father.y_base+=father.y_inc;
+
+	if(modo_juego==modo_2dfighter)
+		father.y_base=220;
+	end
+
 	father.y=father.y_base+father.altura;
 	father.z=-father.y_base;
 	father.z_juego=father.z;
@@ -2215,7 +2227,7 @@ Begin
 	timer[2]=0;
 	while(timer[2]<300) frame; end
 	
-	//EVIL RIPO
+	//EVIL PATO
 	ganando=0;
 	enemigos=0;
 	enemigo(11,5,-100,150,0,1);

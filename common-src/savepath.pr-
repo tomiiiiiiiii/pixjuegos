@@ -23,6 +23,7 @@ Private
 	string directorio_actual="";
 	string rutas_parciales[10];     // Sólo acepta la creación de un máximo de 10 directorios
 	int i_max=0;
+	foo;
 Begin
     directorio_actual = cd();                        // Recuperamos el directorio actual de trabajo, para volver luego a él
     if(chdir(nuevo_directorio) == 0)    // El directorio ya existe!
@@ -31,21 +32,21 @@ Begin
     end
     i_max = split("[\\/]", nuevo_directorio, &rutas_parciales, 10);
     chdir("/");
-    while (i<i_max)
-        while(rutas_parciales[i] == "")         // Se salta partes en blanco
-                if(i++ >=i_max)
+    while (foo<i_max)
+        while(rutas_parciales[foo] == "")         // Se salta partes en blanco
+                if(foo++ >=i_max)
                        chdir(directorio_actual);
                        return 0;
                 end
         end
-        if(chdir(rutas_parciales[i]) == -1)
-                if(mkdir(rutas_parciales[i]) == -1)        // Error al intentar crear el directorio
+        if(chdir(rutas_parciales[foo]) == -1)
+                if(mkdir(rutas_parciales[foo]) == -1)        // Error al intentar crear el directorio
                         chdir(directorio_actual);
                         return -1;
                 end
-                chdir(rutas_parciales[i]);
+                chdir(rutas_parciales[foo]);
         end;
-        i++;
+        foo++;
     end
     chdir(directorio_actual);
     return 0;
