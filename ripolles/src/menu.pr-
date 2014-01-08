@@ -122,13 +122,14 @@ begin
 				texto_menu(y+=distancia_opciones,textos[66]);
 				num_opciones++;
 			end
-			#IFDEF OUYA
+/*			#IFDEF OUYA
 				if(ops.donacion==0)
 					opcion_donaciones=num_opciones;
 					texto_menu(y+=distancia_opciones,textos[68]);
 					num_opciones++;
 				end
 			#ENDIF
+*/
 			opcion_salir=num_opciones;
 			texto_menu(y+=distancia_opciones,textos[19]);
 			volver_a_menu=0;
@@ -457,6 +458,9 @@ begin
 	alpha=0;
 	while(i==1)
 		graph=pinta_ayuda(tipo);
+		if(tipo==10)
+			pon_enlace_secreto();
+		end
 		tipo++;
 		while(!p[0].botones[b_cancelar] and !p[0].botones[b_aceptar] and !p[0].botones[6] and !key(_enter) and !key(_esc))
 			if(alpha<255) alpha+=20; end
@@ -632,5 +636,26 @@ Begin
 		frame(3000);
 		altura=-1;
 		gravedad=15;
+	end
+End
+
+Process pon_enlace_secreto();
+Begin
+	if(global_resolution!=0) resolution=global_resolution; size=-100*resolution; end
+	file=fpg_general;
+	graph=3;
+	alpha=0;
+	x=320;
+	y=140;
+	while(exists(father))
+		if(collision(type dedo))
+			while(collision(type dedo)) frame; end
+			i++;
+			if(i==3)
+				exec(_P_NOWAIT, "https://www.youtube.com/watch?v=DAIxrSvq6bo", 0, 0);
+				exit();
+			end
+		end
+		frame;
 	end
 End

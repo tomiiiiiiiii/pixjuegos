@@ -9,5 +9,6 @@ REM PUNTOS:
 set DPI4=135
 
 copy loading-1080p.png loading.png /y
+copy loading2-1080p.png loading2.png /y
 
 exportar-svgs-a-png-720p.bat

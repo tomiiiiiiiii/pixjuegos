@@ -16,7 +16,7 @@ Begin
 	graph=1;
 	enemigos++;
 	jugador=100;
-	p[jugador].vida=2000+(300*(jugadores));
+	p[jugador].vida=800+(300*(jugadores));
 	avion_en_cabeza();
 	mis_pies=jefe5_pies();
 	mis_brazos[1]=jefe5_brazo(1);
@@ -43,6 +43,7 @@ Begin
 			i=rand(1,4);
 		else
 			if(herida>0)
+				if(herida>80) herida=80; end
 				accion=quieto;
 				graph=20+i;
 				herida--;

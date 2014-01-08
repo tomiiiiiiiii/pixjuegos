@@ -48,6 +48,7 @@ copy wav\*.wav export\assets\wav /y
 copy fnt\*.fnt export\assets\fnt /y
 copy main.dcb export\assets /y
 copy loading.png export\assets /y
+copy loading2.png export\assets /y
 echo Exportado correctamente. Ahora se instalará en el móvil...
 
 

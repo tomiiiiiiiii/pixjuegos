@@ -35,6 +35,7 @@ copy recursos\caanoo\ripolles.gpe export-caanoo\ripolles
 copy recursos\caanoo\ripolles.ini export-caanoo\
 copy ripolles.dcb export-caanoo\ripolles
 copy loading.png export-caanoo\ripolles
+copy loading2.png export-caanoo\ripolles
 
 echo LISTO!!
 pause

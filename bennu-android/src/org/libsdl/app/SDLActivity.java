@@ -80,7 +80,7 @@ public class SDLActivity extends Activity {
 
     // Load the .so
     static {
-        System.loadLibrary("png");
+        //System.loadLibrary("png");
         System.loadLibrary("mikmod");
         System.loadLibrary("SDL2");
         System.loadLibrary("SDL2_mixer");

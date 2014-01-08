@@ -36,6 +36,7 @@ copy recursos\opendingux\ripolles.dpe export-opendingux\ripolles
 copy recursos\opendingux\ripolles export-opendingux\ripo
 copy ripolles.dcb export-opendingux\ripolles
 copy loading.png export-opendingux\ripolles
+copy loading2.png export-opendingux\ripolles
 
 echo LISTO!!
 pause

@@ -36,6 +36,7 @@ copy recursos\dingux\ripolles.dpe export-dingux\ripolles
 copy recursos\dingux\ripolles export-dingux\ripo
 copy ripolles.dcb export-dingux\ripolles
 copy loading.png export-dingux\ripolles
+copy loading2.png export-dingux\ripolles
 
 echo LISTO!!
 pause

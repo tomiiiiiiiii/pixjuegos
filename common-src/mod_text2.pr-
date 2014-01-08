@@ -304,7 +304,7 @@ Begin
 		end
 	else
 		if(exists(cual))
-			if(mi_id_texto.soy_un_texto==1)
+			if(cual.soy_un_texto==1)
 				cual.accion=-1;
 			end
 		end

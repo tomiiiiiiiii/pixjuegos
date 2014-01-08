@@ -153,6 +153,7 @@ Global
 		truco_fuego_amigo=-5;
 		truco_hamburguesas=-1;
 		truco_good_vs_evil=-1;
+		disclaimer=0;
 	End	
 	
 	fpg_pato;
@@ -426,6 +427,16 @@ Begin
 	
 	//A 30 imágenes por segundo
 	set_fps(30,0);
+
+	//disclaimer tocapelotas
+	if(ops.disclaimer==0)
+		graph=load_png("loading2.png");
+		x=ancho_pantalla/2;
+		y=alto_pantalla/2;
+		from i=0 to 400; frame; end
+		ops.disclaimer=1;
+		guarda_opciones();
+	end
 	
 	#IFNDEF DEBUG
 	loop
@@ -2185,7 +2196,7 @@ Begin
 	con_puntos=1;
 	
 	from i=1 to 10;
-		p[i].vidas=5;
+		p[i].vidas=9;
 	end
 	from i=0 to 100;
 		p[i].juega=0;

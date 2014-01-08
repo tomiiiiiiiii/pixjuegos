@@ -367,15 +367,17 @@ End
 
 Process dedo(x,y);
 Begin
+	if(global_resolution!=0) size=-100*global_resolution; end
 	priority=6;
 	file=fpg_gamepad;
 	graph=graph_dedo;
-	//alpha=0;
+	alpha=0;
 	frame;
 End
 
 Process boton_tactil(x,y,graph,jugador,boton);
 Begin
+	if(global_resolution!=0) resolution=global_resolution; size=-100*resolution; end
 	priority=4;
 	z=-512;
 	alpha=128;

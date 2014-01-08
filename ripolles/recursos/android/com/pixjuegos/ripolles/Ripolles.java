@@ -1,7 +1,7 @@
 package com.pixjuegos.ripolles;
 
 import org.libsdl.app.SDLActivity;
-import org.bennugd.iap.iap;
+//import org.bennugd.iap.iap;
 import android.os.Bundle;
 
 /*
@@ -12,7 +12,7 @@ public class Ripolles extends SDLActivity {
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-		iap.onCreate(this);
+		//iap.onCreate(this);
     }
     
 	@Override

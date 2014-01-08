@@ -17,7 +17,7 @@ Begin
 	graph=1;
 	enemigos++;
 	jugador=100;
-	p[jugador].vida=1200+(300*(jugadores));
+	p[jugador].vida=300+(300*(jugadores));
 	marcador_jefe();
 	accion=quieto;
 	rango=60;

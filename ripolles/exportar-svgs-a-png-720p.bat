@@ -10,6 +10,7 @@ REM PUNTOS:
 set DPI4=90
 
 copy loading-720p.png loading.png /y
+copy loading2-720p.png loading2.png /y
 
 :goon
 

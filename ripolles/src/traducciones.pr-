@@ -3,7 +3,7 @@ Private
 	string botones[7];
 Begin
 	//lineas comunes
-	textos[48]="Pablo Navarro|Carles Vicent Ginés|Laura Pérez|||Tom Bombadil|Nerea Molina|Vicent Ginés";
+	textos[48]="Pablo Navarro|Carles Vicent Ginés|...|||Tom Bombadil|Nerea Molina|Vicent Ginés";
 	
 	#IFDEF OUYA
 		botones[0]=chr(5);
@@ -76,7 +76,7 @@ Begin
  			textos[41]="All game modes may be played with up to|4 players at the same time.||For this purpose, at least one gamepad must|be connected before launching the game.||The controllers are auto configured.";
 			textos[42]="Game modes";
 			textos[43]="Story:|||Survival:||Battle royale:|||Boss rush:";
-			textos[44]="     Ripollés sculptures have become alive|and are destroying the city of Castellón.|Help him to save Castellón!|       How much time will you survive|while facing an infinite number of enemies?|           Face off other players and|find out who's the best fighter.|For two or more players|         Defeat all bosses from story|mode with just only one life";
+			textos[44]="     Ruzafa sculptures have become alive|and are destroying the city of Castellón.|Help him to save Castellón!|       How much time will you survive|while facing an infinite number of enemies?|           Face off other players and|find out who's the best fighter.|For two or more players|         Defeat all bosses from story|mode with just only one life";
 			textos[45]="Created by:|||||Thanks to:";
 			textos[46]="";
 			textos[47]="And thank you for playing!";

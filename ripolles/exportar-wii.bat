@@ -23,6 +23,7 @@ copy ..\bennu-wii\bgdi.elf export-wii\boot.elf
 copy recursos\wii\icon.png export-wii\
 copy recursos\wii\meta.xml export-wii\
 copy loading.png export-wii
+copy loading2.png export-wii
 echo LISTO!!
 pause
 

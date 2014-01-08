@@ -15,6 +15,7 @@ mkdir export\ogg
 mkdir export\fnt
 mkdir export\wav
 copy loading.png export\
+copy loading2.png export\
 copy fpg\*.fpg export\fpg
 copy ogg\*.ogg export\ogg
 copy wav\*.wav export\wav
