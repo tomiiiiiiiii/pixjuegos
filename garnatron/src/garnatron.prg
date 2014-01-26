@@ -154,6 +154,8 @@ Global
 	ancho_pantalla;	//1024, 1280, 1920
 	alto_pantalla;		//768, 720, 1080
 	bpp=32;
+	
+	global_resolution;
 End
 
 Local

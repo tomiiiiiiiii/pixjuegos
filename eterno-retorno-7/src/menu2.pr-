@@ -1,0 +1,113 @@
+Global
+	x_base_menu=300;
+	y_base_menu=300;
+	menu_torcio=0;
+end
+
+Function menu(string options,int escapable);
+Private
+	id_texto[15];
+	string textos[15];
+	distancia_opciones=72;
+	num_opciones;
+	opcion_actual;
+	y_objetivo;
+	b_suelto;
+Begin
+	from i=0 to len(options);
+		if(options[i]!="#")
+			textos[j]+=""+options[i];
+		else
+			j++;
+		end
+	end
+	num_opciones=j;
+
+	x_base_menu=200;
+	x=x_base_menu-40;
+	y=y_base_menu=200;
+	
+	from i=0 to num_opciones;
+		if(textos[i]!="")
+			id_texto[i]=texto_menu(y+=distancia_opciones,textos[i]);
+		end
+	end
+	
+	z=-20;
+	//file=fpg_general;
+	//graph=50;
+
+	file=p[1].fpg;
+	graph=4;
+	alpha=0;
+	
+	j=0;
+	//controlador(0);
+	while(p[0].botones[b_2]==0)
+		if(alpha<255) alpha+=10; end
+		if(escapable AND p[0].botones[b_3]) while(p[0].botones[b_3]) frame; end opcion_actual=-1; break; end
+		y_objetivo=y_base_menu+((opcion_actual+1)*distancia_opciones)+20;
+		if(y!=y_objetivo)
+			y+=(y_objetivo-y)/2;
+			if(y_objetivo>y) y++; elseif(y_objetivo<y) y--; end
+			angle=menu_torcio+fget_angle(x,y,x+30,y_objetivo);
+		else
+			angle=menu_torcio;
+		end
+
+		if(b_suelto)
+			if(p[0].botones[b_arriba]) b_suelto=0; opcion_actual--; end
+			if(p[0].botones[b_abajo]) b_suelto=0; opcion_actual++; end
+		else
+			if(p[0].botones[b_arriba]==0 and p[0].botones[b_abajo]==0)
+				b_suelto=1;
+			end
+		end
+		if(opcion_actual<0) opcion_actual=num_opciones; end
+		if(opcion_actual>num_opciones) opcion_actual=0; end
+		frame;
+	end
+	if(opcion_actual!=-1)
+		id_texto[opcion_actual].accion=1;
+	else
+		accion=-1;
+		from alpha=255 to 0 step -20; frame; end
+		return opcion_actual;
+	end
+	accion=-1;
+	i=10;
+	while(x>-100)
+		x-=i++;
+		frame;
+	end
+	return opcion_actual;
+End
+
+Process texto_menu(y,string mitexto);
+Begin
+	if(global_resolution!=0) resolution=global_resolution; end
+	x=800;
+	z=-512;
+	graph=write_in_map(fnt_texto,mitexto,3);
+	angle=-50000;
+	size=80;
+	while(father.accion==0)
+		x+=((x_base_menu-x)/5);
+		angle+=((menu_torcio-angle)/5);
+		frame;
+	end
+	if(accion==0)
+		from alpha=255 to 0 step -10; frame; end
+	else
+		from i=1 to 3;
+			alpha=0; frame(200); alpha=255; frame(200);
+		end
+
+		while(x<1300)
+			x+=((1400-x)/10);
+			frame;
+		end
+	end
+OnExit
+	unload_map(0,graph);
+End
