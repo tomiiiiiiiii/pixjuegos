@@ -116,6 +116,7 @@ Global
 	ancho_pantalla=1280;
 	alto_pantalla=720;
 	bpp=32;
+	global_resolution=1;
 
 	min_nivel_x;
 	borde_nivel_x;

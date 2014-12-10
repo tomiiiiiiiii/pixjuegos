@@ -12,7 +12,7 @@
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    id="svg2"
    sodipodi:version="0.32"
-   inkscape:version="0.48.0 r9654"
+   inkscape:version="0.48.2 r9819"
    width="665.90979"
    height="620.79877"
    version="1.0"
@@ -30,7 +30,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -139,11 +139,11 @@
     </clipPath>
   </defs>
   <sodipodi:namedview
-     inkscape:cy="301.2627"
-     inkscape:cx="206.86732"
+     inkscape:cy="442.08661"
+     inkscape:cx="447.04083"
      inkscape:zoom="0.852128"
-     inkscape:window-height="738"
-     inkscape:window-width="1280"
+     inkscape:window-height="706"
+     inkscape:window-width="1366"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0.0"
      guidetolerance="10.0"
@@ -167,10 +167,11 @@
        id="guide6317" />
   </sodipodi:namedview>
   <g
-     id="g4434"
+     id="pix-1"
      inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\pixdash\fpg-sources\pix\1.png"
      inkscape:export-xdpi="70"
-     inkscape:export-ydpi="70">
+     inkscape:export-ydpi="70"
+     inkscape:label="pix-1">
     <path
        style="opacity:1;fill:#ffe5b9;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        d="M 197.50246,96.517976 C 196.77818,101.58794 190.98393,103.03651 190.98393,103.03651 L 190.25965,98.328679 L 197.50246,96.517976 z"
@@ -362,10 +363,11 @@
        style="fill:#b94a00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000012;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
   </g>
   <g
-     id="g4588"
+     id="pix-11"
      inkscape:export-filename="C:\Users\Propietario\Desktop\svn\pixjuegos\pixdash\fpg-sources\pix\11.png"
      inkscape:export-xdpi="70"
-     inkscape:export-ydpi="70">
+     inkscape:export-ydpi="70"
+     inkscape:label="#g4588">
     <path
        inkscape:export-ydpi="37.000000"
        inkscape:export-xdpi="37.000000"

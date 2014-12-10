@@ -6,8 +6,7 @@
 	controlador(0);
 	while(fading) frame; end
 	//frame(10000);
-	i=write(fpg_texto,630,350,8,textos[64]);
-	i.size=50;
+	write_size(fpg_texto,610,330,8,textos[64],50);
 	fade_on();
 	while(fading) frame; end
 

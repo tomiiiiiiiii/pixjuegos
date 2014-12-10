@@ -1,6 +1,8 @@
 @echo off
 call ..\utils\entorno.bat eterno-retorno-3
 
+set run=com.pixjuegos.eternoretorno3/.EternoRetorno3
+
 rd /s /q export
 echo Compilando...
 cd src
@@ -50,6 +52,5 @@ echo Exportado correctamente. Ahora se instalará en el móvil...
 
 
 cd export
-cmd /c if exist c:\pixjuegos.keystore ant release install
-cmd /c if not exist c:\pixjuegos.keystore ant debug install
+call ..\..\scripts\genera-apk.bat
 pause

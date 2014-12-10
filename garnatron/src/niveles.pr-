@@ -59,6 +59,9 @@ Begin
 	fade_off();
 	delete_text(all_text);
 	let_me_alone();
+	write_int(fuente[0],0,0,0,&fps);
+	write_int(fuente[0],0,50,0,&scroll[0].x0);
+	write_int(fuente[0],0,100,0,&scroll[0].y0);
 	controlador(0);
 	from jugador=1 to posibles_jugadores;
 		controlador(jugador);
@@ -182,6 +185,7 @@ Begin
 	end
 	pausa=0;
 	LOOP
+		if(scroll.y0<-768) scroll.y0+=768; end
 		from jugador=1 to posibles_jugadores;
 			if(jugador == jugadores+1 and p[jugador].botones[4] and p[jugador].botones[5])
 				id_nave[jugador]=nave01(ancho_pantalla/2,alto_pantalla+100,jugador);

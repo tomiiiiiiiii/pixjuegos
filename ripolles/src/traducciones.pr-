@@ -38,10 +38,10 @@ Begin
 			textos[5]="Boss rush completed!";
 			textos[6]="Character PATO unlocked!";
 			textos[7]="Level ";
-			textos[8]="Downtown";
-			textos[9]="2";
-			textos[10]="3";
-			textos[11]="4";
+			textos[8]="Colón St.";
+			textos[9]="Downtown";
+			textos[10]="Del mar Avenue";
+			textos[11]="Grao";
 			textos[12]="Airport";
 			textos[13]=" completed";
 			
@@ -127,10 +127,10 @@ Begin
 			textos[5]="¡Modo matajefes completado!";
 			textos[6]="¡Pato desbloqueado!";
 			textos[7]="Nivel ";
-			textos[8]="Centro";
-			textos[9]="2";
-			textos[10]="3";
-			textos[11]="4";
+			textos[8]="Calle de Colón";
+			textos[9]="Centro";
+			textos[10]="Av. del mar";
+			textos[11]="Grao";
 			textos[12]="Aeropuerto";
 			textos[13]=" completado";
 			
@@ -215,10 +215,10 @@ Begin
 			textos[5]="Mode matajefes completat!";
 			textos[6]="Pato desbloquejat!";
 			textos[7]="Nivell ";
-			textos[8]="Centre";
-			textos[9]="2";
-			textos[10]="3";
-			textos[11]="4";
+			textos[8]="Carrer de Colom";
+			textos[9]="Centre";
+			textos[10]="Av. del mar";
+			textos[11]="Grau";
 			textos[12]="Aeroport";
 			textos[13]=" completat";
 

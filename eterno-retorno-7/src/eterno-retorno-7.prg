@@ -1,5 +1,7 @@
 import "mod_blendop";
+#IFDEF DEBUG
 import "mod_debug";
+#ENDIF
 import "mod_dir";
 import "mod_draw";
 import "mod_file";
@@ -119,7 +121,7 @@ Global
 
 	ancho_pantalla=1280;
 	alto_pantalla=720;
-	bpp=16;
+	bpp=32;
 
 	min_nivel_x;
 	borde_nivel_x;
@@ -225,20 +227,20 @@ Begin
 	if(argc>0) if(argv[1]=="arcade") arcade_mode=1; end end
 	cancion=load_song("isaac.ogg");
 	play_song(cancion,-1);
-	full_screen=true;
-	if(arcade_mode) 
+	//full_screen=true;
+	/*if(arcade_mode) 
 		full_screen=true; 
 		scale_resolution=08000600; 
 	else
 		resolucioname(1280,720,1);
-	end
+	end*/
 
 	gamepad_boton_separacion=80;
 	gamepad_boton_size=80;
 	gamepad_botones=2;
 
 	//full_screen=0; //DEBUG
-	set_mode(1280,720,bpp);
+	set_mode(1920,1080,bpp);
 	
 	configurar_controles();
 	rand_seed(time());
@@ -251,9 +253,9 @@ Begin
 	fnt_texto=load_fnt("menu.fnt");
 	fnt_stats=load_fnt("stats.fnt");
 	fnt_criticos=load_fnt("criticos.fnt");
-	from i=1 to 4;
+	/*from i=1 to 4;
 		scroll_jugador[i]=new_map(960,540,bpp);
-	end
+	end*/
 	pon_menu();
 End
 
@@ -448,7 +450,7 @@ Private
 	distancia_jefe;
 	txt_distancia_jefe;
 Begin
-	set_fps(60,3);
+	set_fps(60,0);
 
 	play_song(cancion,-1);
 	
@@ -586,10 +588,14 @@ Begin
 	//scroll[0].camera=camara();
 	//scroll[0].camera=id_jefe;
 	
-	from i=1 to 4;
+	/*from i=1 to 4;
 		//p[i].juega=1;
 		define_region(i,0,0,960,540);
-	end
+	end*/
+	define_region(1,0,0,960,540);
+	define_region(2,960,0,960,540);
+	define_region(3,0,540,960,540);
+	define_region(4,960,540,960,540);
 
 	//scrolles normales
 	/*define_region(1,0,0,640,360);
@@ -599,8 +605,9 @@ Begin
 
 	from i=1 to 8;
 		if(p[i].juega)
-			start_scroll(i,fpg_mapa,1,0,i,15,0,scroll_jugador[i]);
-			vista_jugador(i);
+			//start_scroll(i,fpg_mapa,1,0,i,15,0,scroll_jugador[i]);
+			start_scroll(i,fpg_mapa,1,0,i,15);
+			//vista_jugador(i);
 			camara_personaje(i);
 			
 			//start_scroll(i,fpg_mapa,1,0,i,15);
@@ -2685,8 +2692,9 @@ Begin
 	from i=1 to 8;
 		if(p[i].juega==0 and (p[i].botones[4] or p[i].botones[5] or p[i].botones[6]))
 			p[i].juega=1;
-			start_scroll(i,fpg_mapa,1,0,i,15,0,scroll_jugador[i]);
-			vista_jugador(i);
+			//start_scroll(i,fpg_mapa,1,0,i,15,0,scroll_jugador[i]);
+			start_scroll(i,fpg_mapa,1,0,i,15);
+			//vista_jugador(i);
 			camara_personaje(i);
 		end
 	end

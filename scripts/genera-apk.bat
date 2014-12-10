@@ -1,3 +1,4 @@
+adb connect 192.168.1.7
 if exist c:\pixjuegos.build.properties copy c:\pixjuegos.build.properties build.properties /y
 cmd /c if exist c:\pixjuegos.keystore ant release install
 cmd /c if not exist c:\pixjuegos.keystore ant debug install

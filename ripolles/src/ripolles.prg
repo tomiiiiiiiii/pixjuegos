@@ -76,6 +76,8 @@ Const
 End
 
 Global
+	game_fps=40;
+
 	color_arena;
 	mini_boss;
 	contador;
@@ -359,7 +361,7 @@ Begin
 			scale_resolution=graphic_info(0,0,g_width)*10000+graphic_info(0,0,g_height);
 		end
 		#ENDIF*/
-		bpp=16;	
+		//bpp=16;	
 	elseif(os_id==1010) //pandora
 		scale_resolution=08000480;
 		bpp=16;
@@ -426,9 +428,10 @@ Begin
 	recoloca_centros();
 	
 	//A 30 imágenes por segundo
-	set_fps(30,0);
+	set_fps(game_fps,0);
 
 	//disclaimer tocapelotas
+	#IFNDEF OUYA
 	if(ops.disclaimer==0)
 		graph=load_png("loading2.png");
 		x=ancho_pantalla/2;
@@ -437,6 +440,7 @@ Begin
 		ops.disclaimer=1;
 		guarda_opciones();
 	end
+	#ENDIF
 	
 	#IFNDEF DEBUG
 	loop
@@ -455,6 +459,10 @@ Begin
 		return;
 	end
 	#ENDIF
+	
+	if(atoi(ftime("%d",time()))==14 and atoi(ftime("%m",time()))==2)
+		ops.truco_pato=1;
+	end
 	
 	//test
 	#IFDEF DEBUG
@@ -582,7 +590,7 @@ Begin
 	if(pocos_recursos)
 		unload_fpg(fpg_menu);
 	end
-	set_fps(30,0);
+	set_fps(game_fps,0);
 	clear_screen();
 	delete_text(all_text);
 	ganando=0;
@@ -1928,11 +1936,14 @@ Begin
 	end
 	if(ops.musica)
 		if(i!=anterior_cancion or !is_playing_song())
-			if(is_playing_song()) fade_music_off(400); end
+			//if(is_playing_song()) fade_music_off(400); end
 			stop_song();
-			if(id_cancion>0) unload_song(id_cancion); end
-			timer[1]=0;
-			while(timer[1]<40) frame; end
+			if(id_cancion>0) 
+				unload_song(id_cancion); 
+				id_cancion=0; 
+			end
+			//timer[1]=0;
+			//while(timer[1]<40) frame; end
 			anterior_cancion=i;
 			id_cancion=load_song("ogg/"+i+"."+formato);
 			if(exists(type menu))
@@ -1981,12 +1992,14 @@ Begin
 		graph=20+jugador;
 	end
 	
-	x=90+((jugador-1)*150);
-	y=30;
+	x=20+90+((jugador-1)*150);
+	y=40;
 	z=-509;
-	txt_vidas=write_int(fpg_texto,x-70,y,4,&p[jugador].vidas);
+	size=80;
+	txt_vidas=write_int_size(fpg_texto,x-50,y,4,&p[jugador].vidas,80);
 	if(con_puntos) txt_puntos=write_int(fpg_puntos[jugador],x-30,y-25,0,&puntos); end
-	id_vida=vida(x-29,y+2,p[jugador].vida-1,25);
+	id_vida=vida(x-23,y+1,p[jugador].vida-1,25);
+	id_vida.size_y=80;
 	while(p[jugador].juega)
 		if(!exists(p[jugador].identificador)) break; end
 		if(con_puntos)
@@ -2002,7 +2015,7 @@ Begin
 		if(vida_anterior!=p[jugador].vida-1)
 			vida_anterior=p[jugador].vida-1;
 			if(exists(id_vida))
-				id_vida.size_x=p[jugador].vida-1;
+				id_vida.size_x=(p[jugador].vida-1)*0.8;
 			end
 		end
 		frame;
@@ -2022,9 +2035,10 @@ Begin
 	file=fpg_general;
 	graph=26;
 	x=160;
-	y=340;
+	y=320;
 	z=-510;
 	id_vida=vida(x,y,i,27);
+	size_y=80;
 	while(p[100].vida>0)
 		i=(p[100].vida*100)/max_vida;
 		if(i!=j)
@@ -2041,6 +2055,7 @@ Begin
 	resolution=global_resolution;
 	file=fpg_general;
 	z=-511;
+	size_y=80;
 	while(accion!=muere and exists(father))
 		frame;
 	end
@@ -2142,7 +2157,7 @@ Private
 Begin
 	resolution=global_resolution;
 	x=320;
-	y=315;
+	y=300;
 	z=-512;
 	loop
 		while(!ready) frame; end
@@ -2370,6 +2385,7 @@ Begin
 	x=ancho_pantalla/2;
 	y=(alto_pantalla/2)-34;
 	z=-512;
+	size=80;
 	from alpha=0 to 255 step 15; y++; frame; end
 	frame(15000);
 	from alpha=255 to 0 step -24; y+=2; frame; end

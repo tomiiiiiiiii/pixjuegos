@@ -144,7 +144,7 @@ begin
 	if(os_id==1003)
 		explosiones=0;
 		tactil=1;
-		bpp=16;
+		bpp=32;
 		if(free_version)
 			savegamedir="/data/data/com.pixjuegos.pixfrogger.free/files/";
 		else
@@ -205,7 +205,8 @@ begin
 	end
 		
 	set_mode(ancho_pantalla,alto_pantalla,bpp);
-	set_fps(25,frameskip);
+	//set_fps(25,frameskip);
+	set_fps(0,0);
 	set_title("PiX Frogger");
 	
 	if(portrait) portrait_txt="-portrait"; end

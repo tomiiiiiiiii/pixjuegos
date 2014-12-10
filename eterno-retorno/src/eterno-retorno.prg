@@ -86,6 +86,8 @@ Global
 	alto_pantalla;
 	ancho_pantalla;
 	bpp=32;
+	
+	global_resolution=1;
 
 	struct p[8];
 		botones[7];

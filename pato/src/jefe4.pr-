@@ -1,4 +1,0 @@
-Process jefe4(x);
-Begin
-	enemigo(100,104,x,270,x,0);
-End

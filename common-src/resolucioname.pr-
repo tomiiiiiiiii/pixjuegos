@@ -46,7 +46,7 @@ begin
 	
 	if(os_id==1003 or os_id==1002) //móviles
 		//ESTO YA NO HACE FALTA :D
-		bpp=16;
+		//bpp=16;
 		return;
 		//frame;
 		//scale_resolution=graphic_info(0,0,g_width)*10000+graphic_info(0,0,g_height);

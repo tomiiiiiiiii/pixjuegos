@@ -12,8 +12,8 @@ import "mod_debug";
 #ENDIF
 //import "mod_mem";
 import "mod_effects";
-import "mod_flic";
-import "mod_m7";
+//import "mod_flic";
+//import "mod_m7";
 import "mod_path";
 import "mod_grproc";
 import "mod_dir";
@@ -31,12 +31,12 @@ import "mod_regex";
 import "mod_say";
 import "mod_screen";
 import "mod_scroll";
-import "mod_sort";
+//import "mod_sort";
 import "mod_sound";
 import "mod_string";
 import "mod_sys";
 import "mod_text";
-import "mod_time";
+//import "mod_time";
 import "mod_timers";
 import "mod_video";
 import "mod_wm";
@@ -183,7 +183,7 @@ include "traducciones.pr-";
 BEGIN
 	if(argc>0) if(argv[1]=="arcade") arcade_mode=1; end end
 	
-	set_fps(40,10);
+	set_fps(0,0);
 	set_title("Garnatron");
 	//--------------------------------------------------Cargando opciones
 	
@@ -276,8 +276,10 @@ BEGIN
 		//android
 		bpp=16;
 		#IFDEF OUYA
+			bpp=32;
 			ancho_pantalla=1280;
 			alto_pantalla=720;
+			ops.particulas=0;
 		#ELSE
 			//si tiene un tamaño suficiente, lo ejecutamos con su resolución nativa
 			if(graphic_info(0,0,g_width)>800 and graphic_info(0,0,g_height)>550)
@@ -332,6 +334,8 @@ BEGIN
 	fuente[0]=load_fnt("fnt/fuente.fnt"); frame;
 
 	write(fuente[0],ancho_pantalla/2,alto_pantalla/2,4,textos[0]);
+	
+	write(fuente[0],ancho_pantalla/2,(alto_pantalla/2)+100,4,"Garnatron on GPU - ALPHA version");
 
 	frame;
 	//--------------------------------------------------------Cargando archivos
@@ -873,10 +877,12 @@ begin
 							menu(6);
 						end
 						case 4:	//particulas
-							if(ops.particulas==0)
-								ops.particulas=1;
-							else
-								ops.particulas=0;
+							if(os_id!=1003)
+								if(ops.particulas==0)
+									ops.particulas=1;
+								else
+									ops.particulas=0;
+								end
 							end
 							menu(1);
 						end
@@ -1465,7 +1471,7 @@ Begin
 		end
 	end
 	a=c;
-	graph=new_map(ancho*2,alto*2,32);
+	graph=new_map(ancho*2,alto*2,bpp);
 	drawing_map(file,graph);
 	while(tiempo<frames)
 		map_clear(file,graph,0);
